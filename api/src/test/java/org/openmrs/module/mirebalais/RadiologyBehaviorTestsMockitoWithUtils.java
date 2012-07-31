@@ -30,6 +30,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.openmrs.Concept;
 import org.openmrs.ConceptName;
+import org.openmrs.GlobalProperty;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
@@ -48,44 +49,28 @@ import org.springframework.validation.Validator;
 
 
 /**
- * For BDD of the radiology integration
+ *
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
-public class RadiologyBehaviorTests {
+@SuppressWarnings("deprecation")
+public class RadiologyBehaviorTestsMockitoWithUtils {
 	
 	MirebalaisHospitalService service;
 	private OrderService mockOrderService;
 	
-	@SuppressWarnings("deprecation")
     @Before
 	public void beforeEachTest() {
-		Concept cxr = new Concept();
-		cxr.setConceptId(1);
-		cxr.addName(new ConceptName("Chest Xray", Locale.ENGLISH));
+    	ConceptService mockConceptService = mockConceptService();
+		addMockConcept(mockConceptService, 1, "cxr-uuid", "Chest Xray");
+		addMockConcept(mockConceptService, 2, "ct-scan-uuid", "CT Scan");
+    	
+		AdministrationService mockAdminService = mockAdministrationService();
+		addMockGlobalProperty(mockAdminService, MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP, "cxr-uuid,ct-scan-uuid");
+		addMockGlobalProperty(mockAdminService, MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "radiology-order-type-uuid");
 		
-		Concept ctScan = new Concept();
-		cxr.setConceptId(2);
-		ctScan.addName(new ConceptName("CT Scan", Locale.ENGLISH));
-
-		ConceptService mockConceptService = mock(ConceptService.class);
-		when(mockConceptService.getConceptByUuid("cxr-uuid")).thenReturn(cxr);
-		when(mockConceptService.getConceptByUuid("ct-scan-uuid")).thenReturn(cxr);
-		
-		AdministrationService mockAdminService = mock(AdministrationService.class);
-		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP)).thenReturn("cxr-uuid,ct-scan-uuid");
-		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP)).thenReturn("radiology-order-type-uuid");
-		
-		mockOrderService = mock(OrderService.class);
-		when(mockOrderService.getOrderTypeByUuid("radiology-order-type-uuid")).thenReturn(new OrderType());
-		when(mockOrderService.saveOrder(Mockito.any(Order.class))).thenAnswer(new Answer<Order>() {
-			@Override
-            public Order answer(InvocationOnMock invocation) throws Throwable {
-	            Order toSave = (Order) invocation.getArguments()[0];
-	            validate(toSave, new OrderValidator());
-	            return toSave;
-            }
-		});
+		mockOrderService = mockOrderService();
+		addMockOrderType(mockOrderService, 1, "radiology-order-type-uuid", "Radiology Order");
 		
 		mockStatic(Context.class);
 		when(Context.getConceptService()).thenReturn(mockConceptService);
@@ -109,7 +94,7 @@ public class RadiologyBehaviorTests {
 		Assert.assertNotNull(cxr);
 		
 		Patient p = new Patient();
-		Order created = service.placeRadiologyOrder(p, cxr);
+		service.placeRadiologyOrder(p, cxr);
 		
 		verify(mockOrderService).saveOrder((Order) Mockito.any());
 	}
@@ -128,5 +113,64 @@ public class RadiologyBehaviorTests {
 	    	throw new RuntimeException("Validation errors: " + errors.toString());
 	    }
     }
+    
+    // EVERYTHING BELOW HERE GOES INTO VARIOUS TESTUTIL CLASSES //////////////////
+    
+    private ConceptService mockConceptService() {
+    	return mock(ConceptService.class);
+    }
 	
+    /**
+     * TODO: move to TestUtil class
+     * Modifies mockConceptService by adding another concept, as specified 
+     * 
+     * @param mockConceptService
+     * @param conceptId
+     * @param uuid
+     * @param name
+     */
+    private void addMockConcept(ConceptService mockConceptService, int conceptId, String uuid, String name) {
+	    Concept c = new Concept();
+	    c.setConceptId(conceptId);
+	    c.setUuid(uuid);
+	    c.addName(new ConceptName(name, Locale.ENGLISH));
+	    
+	    when(mockConceptService.getConcept(conceptId)).thenReturn(c);
+	    when(mockConceptService.getConceptByUuid(uuid)).thenReturn(c);
+    }
+    
+    private AdministrationService mockAdministrationService() {
+    	return mock(AdministrationService.class);
+    }
+
+    private void addMockGlobalProperty(AdministrationService mockAdministrationService, String propertyName, String propertyValue) {
+	    GlobalProperty gp = new GlobalProperty(propertyName, propertyValue);
+	    when(mockAdministrationService.getGlobalProperty(propertyName)).thenReturn(propertyValue);
+	    when(mockAdministrationService.getGlobalPropertyObject(propertyName)).thenReturn(gp);
+    }
+    
+    private OrderService mockOrderService() {
+    	OrderService ret = mock(OrderService.class);
+    	
+    	when(ret.saveOrder(Mockito.any(Order.class))).thenAnswer(new Answer<Order>() {
+			@Override
+            public Order answer(InvocationOnMock invocation) throws Throwable {
+	            Order toSave = (Order) invocation.getArguments()[0];
+	            validate(toSave, new OrderValidator());
+	            return toSave;
+            }
+		});
+    	
+    	return ret;
+    }
+
+    private void addMockOrderType(OrderService mockOrderService, int orderTypeId, String uuid, String name) {
+    	OrderType ot = new OrderType();
+    	ot.setOrderTypeId(orderTypeId);
+    	ot.setUuid(uuid);
+    	ot.setName(name);
+	    when(mockOrderService.getOrderType(orderTypeId)).thenReturn(ot);
+	    when(mockOrderService.getOrderTypeByUuid(uuid)).thenReturn(ot);
+    }
+    
 }
