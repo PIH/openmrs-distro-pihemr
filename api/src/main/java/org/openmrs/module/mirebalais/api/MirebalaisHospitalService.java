@@ -13,6 +13,11 @@
  */
 package org.openmrs.module.mirebalais.api;
 
+import java.util.List;
+
+import org.openmrs.Concept;
+import org.openmrs.Order;
+import org.openmrs.Patient;
 import org.openmrs.api.OpenmrsService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,5 +33,19 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface MirebalaisHospitalService extends OpenmrsService {
+
+	/**
+     * @return list of orderable radiology tests, as defined by a global property
+     */
+    List<Concept> getRadiologyOrderables();
+
+	/**
+     * Creates an order for the given patient and radiology orderable
+     * 
+     * @param p
+     * @param cxr
+     * @return the created order
+     */
+    Order placeRadiologyOrder(Patient p, Concept cxr);
 
 }
