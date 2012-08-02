@@ -35,6 +35,7 @@
 	<properties>
 		<openMRSVersion>1.9.0</openMRSVersion>
 		<uiframeworkVersion>1.7</uiframeworkVersion>
+		<metadatasharingVersion>1.0.8</metadatasharingVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -75,9 +76,14 @@
 			<version>${uiframeworkVersion}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>metadatasharing-api</artifactId>
+			<version>${metadatasharingVersion}</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- End OpenMRS modules -->
-
-
 
 		<dependency>
 			<groupId>org.powermock</groupId>
