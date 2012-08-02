@@ -12,12 +12,12 @@
 	
 	<developers>
 		<developer>
-			<name>PIH</name>
+			<name>Partners In Health</name>
 		</developer>
 	</developers>
 	
 	<organization>
-		<name>PIH</name>
+		<name>Partners In Health</name>
 		<url>http://pih.org</url>
 	</organization>
 
@@ -26,6 +26,14 @@
 		<developerConnection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</developerConnection> 
 		<url>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</url>
 	</scm>
+
+    <distributionManagement>
+        <repository>
+            <id>openmrs-repo-modules</id>
+            <name>Modules</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+        </repository>
+    </distributionManagement>
 
 	<modules>
 		<module>api</module>
@@ -113,6 +121,14 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.4</version>
 				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3.2</version>
+                    <configuration>
+                        <pushChanges>false</pushChanges>
+                    </configuration>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
