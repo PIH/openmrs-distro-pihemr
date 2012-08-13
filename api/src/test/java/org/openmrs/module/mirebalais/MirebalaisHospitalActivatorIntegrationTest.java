@@ -14,15 +14,25 @@
 package org.openmrs.module.mirebalais;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.SkipBaseSetup;
 
 
 /**
  *
  */
+@SkipBaseSetup
 public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContextSensitiveTest {
+	
+	@Before
+	public void beforeEachTest() throws Exception {
+		initializeInMemoryDatabase();
+		executeDataSet("requiredDataTestDataset.xml");
+		authenticate();
+	}
 	
 	@Test
 	public void testMirebalaisHospitalActivatorStarted() throws Exception {
