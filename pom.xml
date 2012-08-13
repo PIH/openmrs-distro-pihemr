@@ -43,7 +43,7 @@
 	<properties>
 		<openMRSVersion>1.9.0</openMRSVersion>
 		<uiframeworkVersion>1.7</uiframeworkVersion>
-		<metadatasharingVersion>1.1-SNAPSHOT</metadatasharingVersion>
+		<metadatasharingVersion>1.1-SNAPSHOT</metadatasharingVersion> <!-- SNAPSHOT required by META-248 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
