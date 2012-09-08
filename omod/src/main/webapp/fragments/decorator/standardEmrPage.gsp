@@ -9,7 +9,7 @@
 	ui.includeJavascript("mirebalais", "emr.js");	
 %>
 
-${ ui.includeFragment("standardIncludes") }
+${ ui.includeFragment("uilibrary", "standardIncludes") }
 
 <div id="application-header">PIH EMR</div>
 
