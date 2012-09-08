@@ -42,7 +42,8 @@
 	
 	<properties>
 		<openMRSVersion>1.9.0</openMRSVersion>
-		<uiframeworkVersion>1.7</uiframeworkVersion>
+		<uiframeworkVersion>1.9-SNAPSHOT</uiframeworkVersion>
+		<uilibraryVersion>1.5-SNAPSHOT</uilibraryVersion>
 		<metadatasharingVersion>1.0.9</metadatasharingVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -82,6 +83,13 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
 			<version>${uiframeworkVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>uilibrary-api</artifactId>
+			<version>${uilibraryVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 		
