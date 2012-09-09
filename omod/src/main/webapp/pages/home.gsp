@@ -6,4 +6,16 @@ Welcome to the Mirebalais EMR.
 
 <br/><br/>
 
-<a href="/${ contextPath }/admin">OpenMRS Admin</a>
+Your Apps:
+<ul>
+	<% apps.each { app -> %>
+		<li>
+			<a href="/${ contextPath }/${ app.homepageUrl }">
+				<% if (app.iconUrl) { %>
+					<img src="/${ contextPath }/${ app.iconUrl }"/>
+				<% } %>
+				${ app.label }
+			</a>
+		</li>
+	<% } %>
+</ul>

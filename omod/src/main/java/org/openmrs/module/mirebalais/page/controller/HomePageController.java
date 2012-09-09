@@ -13,7 +13,12 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import java.util.List;
+
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.AppDescriptor;
+import org.openmrs.module.appframework.api.AppFrameworkService;
+import org.openmrs.ui.framework.page.PageModel;
 
 
 /**
@@ -22,10 +27,15 @@ import org.openmrs.api.context.Context;
  */
 public class HomePageController {
 	
-	public String controller() {
+	public String controller(PageModel model) {
+		// you need to be authenticated or else we show you the login view instead
 		if (!Context.isAuthenticated()) {
 			return "login";
 		}
+		
+		AppFrameworkService appService = Context.getService(AppFrameworkService.class);
+		List<AppDescriptor> apps = appService.getAppsForUser(Context.getAuthenticatedUser());
+		model.addAttribute("apps", apps);
 		return null;
 	}
 	
