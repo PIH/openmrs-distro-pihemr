@@ -9,11 +9,20 @@
 	ui.includeJavascript("mirebalais", "emr.js");	
 %>
 
-${ ui.includeFragment("standardIncludes") }
+${ ui.includeFragment("uilibrary", "standardIncludes") }
 
-<div id="application-header">PIH EMR</div>
+<div id="application-header">
+	Mirebalais EMR
+	<% if (context.authenticated) { %>
+		<span style="float: right">
+			${ context.authenticatedUser.personName }
+			|
+			<a href="/${ contextPath }/logout">Log Out</a>
+		</span>
+	<% } %>
+</div>
 
-${ ui.includeFragment("flashMessage") }
+${ ui.includeFragment("uilibrary", "flashMessage") }
 
 <div id="content">
 	<%= config.content %>
