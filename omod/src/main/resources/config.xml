@@ -18,8 +18,32 @@
 	<require_version>${openMRSVersion}</require_version>
 
 	<require_modules>
-		<require_module version="1.7">
+		<require_module version="${uiframeworkVersion}">
 			org.openmrs.module.uiframework
+		</require_module>
+		<require_module version="${appframeworkVersion}">
+			org.openmrs.module.appframework
+		</require_module>
+		<require_module version="${metadatasharingVersion}">
+			org.openmrs.module.metadatasharing
+		</require_module>
+		<require_module version="${htmlformentryVersion}">
+			org.openmrs.module.htmlformentry
+		</require_module>
+		<require_module version="${htmlformentry19extVersion}">
+			org.openmrs.module.htmlformentry19ext
+		</require_module>
+		<require_module version="${uilibraryVersion}">
+			org.openmrs.module.uilibrary
+		</require_module>
+		<require_module version="${calculationVersion}">
+			org.openmrs.module.calculation
+		</require_module>
+		<require_module version="${reportingVersion}">
+			org.openmrs.module.reporting
+		</require_module>
+		<require_module version="${idgenVersion}">
+			org.openmrs.module.idgen
 		</require_module>
 	</require_modules>
 
