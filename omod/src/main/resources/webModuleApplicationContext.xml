@@ -30,7 +30,6 @@
 		<property name="id" value="legacy.admin"/>
 		<property name="label" value="(Legacy) OpenMRS Administration"/>
 		<property name="homepageUrl" value="admin/index.htm"/>
-		<property name="iconUrl" value="moduleResources/uilibrary/images/info_button_32.png"/>
 	</bean>
 
 </beans>

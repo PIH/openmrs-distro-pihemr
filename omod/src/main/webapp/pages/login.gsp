@@ -1,7 +1,5 @@
 <!-- This is the login page -->
 
-${ ui.includeFragment("uilibrary", "flashMessage") }
-
 <form method="post" action="/${ contextPath }/loginServlet" autocomplete="off">
 	<table>
 		<tr>
