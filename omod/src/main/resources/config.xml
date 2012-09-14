@@ -37,7 +37,7 @@
 			org.openmrs.module.uilibrary
 		</require_module>
 		<require_module version="${calculationVersion}">
-			org.openmrs.module.calculation
+			org.openmrs.calculation
 		</require_module>
 		<require_module version="${reportingVersion}">
 			org.openmrs.module.reporting
