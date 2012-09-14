@@ -40,10 +40,8 @@
 								<configuration>
 									<target>
 										<get dest="target/distro" verbose="true" usetimestamp="true">
-										<!--
 											<url
 												url="https://modules.openmrs.org/modules/download/uilibrary/uilibrary-${uilibraryVersion}.omod" />
-										 -->
 											<url
 												url="https://modules.openmrs.org/modules/download/uiframework/uiframework-${uiframeworkVersion}.omod" />
 											<url
