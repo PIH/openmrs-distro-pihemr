@@ -31,5 +31,12 @@
 		<property name="label" value="(Legacy) OpenMRS Administration"/>
 		<property name="homepageUrl" value="admin/index.htm"/>
 	</bean>
+	
+	<!-- This should probably move to the patientregistration module -->
+	<bean id="mirebalaisPatientRegistrationApp" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+		<property name="id" value="patientregistration.main"/>
+		<property name="label" value="Patient Registration"/>
+		<property name="homepageUrl" value="module/patientregistration/workflow/selectLocationAndService.form"/>
+	</bean>
 
 </beans>

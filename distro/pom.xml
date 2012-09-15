@@ -40,6 +40,7 @@
 								<configuration>
 									<target>
 										<get dest="target/distro" verbose="true" usetimestamp="true">
+											<!-- Not included because we depend on snapshot versions: patientregistration, emr -->
 											<url
 												url="https://modules.openmrs.org/modules/download/uiframework/uiframework-${uiframeworkVersion}.omod" />
 											<url

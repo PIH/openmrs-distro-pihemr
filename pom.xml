@@ -54,6 +54,7 @@
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<idgenVersion>2.1</idgenVersion>
+		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

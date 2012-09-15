@@ -42,6 +42,9 @@
 		<require_module version="${idgenVersion}">
 			org.openmrs.module.idgen
 		</require_module>
+		<require_module version="${patientregistrationVersion}">
+			org.openmrs.module.patientregistration
+		</require_module>
 	</require_modules>
 
 	<activator>
