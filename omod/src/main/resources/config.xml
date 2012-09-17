@@ -64,5 +64,46 @@
 		<file>messages_fr.properties</file>
 	</messages>
 
+    <!-- Global Properties -->
+    <globalProperty>
+        <property>mirebalais.mirthAddress</property>
+        <defaultValue>127.0.0.1</defaultValue>
+        <description>
+            IP address of the Mirth server to communication with
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.mirthAdminPort</property>
+        <defaultValue>8443</defaultValue>
+        <description>
+            Port the Mirth server uses for administrative communications
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.mirthUsername</property>
+        <defaultValue>mirth</defaultValue>
+        <description>
+            Username to use when connecting to Mirth server
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.mirthPassword</property>
+        <defaultValue>Mirth123</defaultValue>
+        <description>
+            Password to use when connecting to Mirth server
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.mirthDirectory</property>
+        <defaultValue>/opt/mirthconnect</defaultValue>
+        <description>
+            Directory where the Mirth client resides on the server
+        </description>
+    </globalProperty>
+
 </module>
 

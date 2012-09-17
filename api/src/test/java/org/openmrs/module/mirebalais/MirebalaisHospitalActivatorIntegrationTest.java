@@ -13,12 +13,16 @@
  */
 package org.openmrs.module.mirebalais;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+
+import java.io.InputStream;
+import java.io.OutputStream;
 
 
 /**
@@ -36,10 +40,37 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 	
 	@Test
 	public void testMirebalaisHospitalActivatorStarted() throws Exception {
+
 		int numConcepts = Context.getConceptService().getAllConcepts().size();
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
 		activator.started();
+
+        // confirm that new concepts have been added
 		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
+
+        /** commented out until we install Mirth on the CI server
+
+        // give Mirth channels a second to start
+        Thread.sleep(1000);
+
+        // confirm that appropriate Mirth channels have been deployed
+        String[] commands = new String[] {"java", "-classpath", MirebalaisGlobalProperties.MIRTH_DIRECTORY()+ "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/cli-lib/*",
+                "com.mirth.connect.cli.launcher.CommandLineLauncher",
+                "-a", "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":" + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(),
+                "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0"};
+        Process mirthShell = Runtime.getRuntime().exec(commands);
+
+        OutputStream out = mirthShell.getOutputStream();
+        InputStream in = mirthShell.getInputStream();
+
+        out.write("status\n".getBytes());
+        out.close();
+
+        String mirthStatus = IOUtils.toString(in);
+        TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
+
+        **/
+
 	}
 	
 }
