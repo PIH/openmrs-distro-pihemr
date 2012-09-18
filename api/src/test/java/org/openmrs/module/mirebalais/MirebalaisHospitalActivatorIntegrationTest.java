@@ -46,8 +46,8 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
         // confirm that new concepts have been added
 		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
 
-        // give Mirth channels a second to start
-        Thread.sleep(1000);
+        // give Mirth channels a couple seconds to start
+        Thread.sleep(2000);
 
         // confirm that appropriate Mirth channels have been deployed
         String[] commands = new String[] {"java", "-classpath", MirebalaisGlobalProperties.MIRTH_DIRECTORY()+ "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/cli-lib/*",
