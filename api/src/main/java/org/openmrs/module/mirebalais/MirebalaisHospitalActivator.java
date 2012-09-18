@@ -78,7 +78,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 */
 	public void started() {
 		installMetadataPackages();
-        //installMirthChannels();
+        installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
 	

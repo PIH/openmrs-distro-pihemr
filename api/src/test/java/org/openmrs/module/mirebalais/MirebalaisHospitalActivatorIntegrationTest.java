@@ -46,7 +46,6 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
         // confirm that new concepts have been added
 		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
 
-        /**
         // give Mirth channels a second to start
         Thread.sleep(1000);
 
@@ -65,7 +64,6 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 
         String mirthStatus = IOUtils.toString(in);
         TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
-         **/
 
 	}
 	
