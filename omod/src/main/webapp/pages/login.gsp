@@ -1,4 +1,7 @@
 <!-- This is the login page -->
+<%
+	ui.decorateWith("emr", "standardEmrPage")
+%>
 
 <form method="post" action="/${ contextPath }/loginServlet" autocomplete="off">
 	<table>
