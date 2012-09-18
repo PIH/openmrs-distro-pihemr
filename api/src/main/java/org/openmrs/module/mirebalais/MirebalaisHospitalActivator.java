@@ -161,6 +161,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0"};
             Process mirthShell = Runtime.getRuntime().exec(commands);
 
+            // TODO: figure out what to do to verify that this succeeds
+
             // deploy the channels
             for (Map.Entry channel : channels.entrySet()) {
                 OutputStream out = mirthShell.getOutputStream();

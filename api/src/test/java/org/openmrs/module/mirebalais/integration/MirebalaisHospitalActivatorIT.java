@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.mirebalais;
+package org.openmrs.module.mirebalais.integration;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
+import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
+import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 
@@ -27,7 +29,7 @@ import java.io.OutputStream;
 
 
 @SkipBaseSetup
-public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContextSensitiveTest {
+public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 	
 	@Before
 	public void beforeEachTest() throws Exception {
@@ -37,14 +39,10 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 	}
 	
 	@Test
-	public void testMirebalaisHospitalActivatorStarted() throws Exception {
+	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
 
-		int numConcepts = Context.getConceptService().getAllConcepts().size();
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
 		activator.started();
-
-        // confirm that new concepts have been added
-		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
 
         // give Mirth channels a few seconds to start
         Thread.sleep(5000);
