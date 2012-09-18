@@ -14,12 +14,8 @@
 package org.openmrs.module.mirebalais;
 
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
@@ -30,6 +26,18 @@ import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
+import org.openmrs.util.OpenmrsClassLoader;
+import org.openmrs.util.OpenmrsUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -70,6 +78,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 */
 	public void started() {
 		installMetadataPackages();
+        //installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
 	
@@ -127,6 +136,46 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     		log.error("Failed to install metadata package " + filename, ex);
     		return false;
     	}
+    }
+
+    private boolean installMirthChannels() {
+
+        try {
+            // first copy the channel files to a tmp directory
+            File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("mirth/tmp");
+
+            Map<String,String> channels = new HashMap<String,String>();
+            channels.put("OpenMRS To Pacs", "openMRSToPacsChannel");
+
+            for (String channel : channels.values()) {
+                InputStream channelStream= OpenmrsClassLoader.getInstance().getResourceAsStream("org/openmrs/module/mirebalais/mirth/" + channel + ".xml");
+                File channelFile = new File(dir, channel + ".xml");
+                FileUtils.writeStringToFile(channelFile, IOUtils.toString(channelStream));
+                IOUtils.closeQuietly(channelStream);
+            }
+
+            // now call up the Mirth shell
+            String[] commands = new String[] {"java", "-classpath", MirebalaisGlobalProperties.MIRTH_DIRECTORY()+ "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/cli-lib/*",
+                    "com.mirth.connect.cli.launcher.CommandLineLauncher",
+                    "-a", "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":" + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(),
+                    "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0"};
+            Process mirthShell = Runtime.getRuntime().exec(commands);
+
+            // deploy the channels
+            for (Map.Entry channel : channels.entrySet()) {
+                OutputStream out = mirthShell.getOutputStream();
+                out.write(("import \"" +  dir.getAbsolutePath() + "/" + channel.getValue() + ".xml\" force\n").getBytes());
+                out.write(("channel deploy \"" + channel.getKey()  + "\"\n").getBytes());
+                out.close();
+            }
+
+            return true;
+        }
+        catch (Exception ex) {
+            log.error("Failed to install Mirth channels", ex);
+            return false;
+        }
+
     }
     
 }

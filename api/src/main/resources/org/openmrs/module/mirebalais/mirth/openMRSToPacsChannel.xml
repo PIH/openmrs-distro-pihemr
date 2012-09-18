@@ -1,0 +1,458 @@
+<channel>
+    <id>9f5751cd-3418-4262-b4d3-2c87814225e9</id>
+    <name>OpenMRS to PACS</name>
+    <description></description>
+    <enabled>true</enabled>
+    <version>2.2.1.5861</version>
+    <lastModified>
+        <time>1347547646000</time>
+        <timezone>America/New_York</timezone>
+    </lastModified>
+    <revision>8</revision>
+    <sourceConnector>
+        <name>sourceConnector</name>
+        <properties>
+            <property name="DataType">TCP Listener</property>
+            <property name="ackIP"></property>
+            <property name="ackOnNewConnection">0</property>
+            <property name="ackPort"></property>
+            <property name="binary">0</property>
+            <property name="bufferSize">65536</property>
+            <property name="charsetEncoding">DEFAULT_ENCODING</property>
+            <property name="host">127.0.0.1</property>
+            <property name="keepSendSocketOpen">0</property>
+            <property name="port">6661</property>
+            <property name="receiveTimeout">5000</property>
+            <property name="responseValue">None</property>
+        </properties>
+        <transformer>
+            <steps>
+                <step>
+                    <sequenceNumber>0</sequenceNumber>
+                    <name>Message Header - Sending Facility - Value (MSH.4.1) (out) &lt;-- sendingFacility (in)</name>
+                    <script>tmp[&apos;MSH&apos;][&apos;MSH.4&apos;][&apos;MSH.4.1&apos;] = validate(msg[&apos;sendingFacility&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;MSH&apos;][&apos;MSH.4&apos;][&apos;MSH.4.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;sendingFacility&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>1</sequenceNumber>
+                    <name>Patient Identification - Patient ID (Internal ID) - ID Number (PID.3.1) (out) &lt;-- patientId (in)</name>
+                    <script>tmp[&apos;PID&apos;][&apos;PID.3&apos;][&apos;PID.3.1&apos;] = validate(msg[&apos;patientId&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;PID&apos;][&apos;PID.3&apos;][&apos;PID.3.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;patientId&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>2</sequenceNumber>
+                    <name>Patient Identification - Patient Name - Family Name (PID.5.1) (out) &lt;-- familyName (in)</name>
+                    <script>tmp[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;] = validate(msg[&apos;familyName&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;familyName&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>3</sequenceNumber>
+                    <name>Patient Identification - Patient Name - Given Name (PID.5.2) (out) &lt;-- givenName (in)</name>
+                    <script>tmp[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;] = validate(msg[&apos;givenName&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;PID&apos;][&apos;PID.5&apos;][&apos;PID.5.2&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;givenName&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>4</sequenceNumber>
+                    <name>Patient Identification - Date of Birth - Value (PID.7.1) (out) &lt;-- dateOfBirth (in)</name>
+                    <script>tmp[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;] = validate(msg[&apos;dateOfBirth&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;PID&apos;][&apos;PID.7&apos;][&apos;PID.7.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;dateOfBirth&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>5</sequenceNumber>
+                    <name>Patient Identification - Sex - Value (PID.8.1) (out) &lt;-- patientSex (in)</name>
+                    <script>tmp[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;] = validate(msg[&apos;patientSex&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;PID&apos;][&apos;PID.8&apos;][&apos;PID.8.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;patientSex&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>6</sequenceNumber>
+                    <name>Common Order - Order Control - Value (ORC.1.1) (out) &lt;-- orderControl (in)</name>
+                    <script>tmp[&apos;ORC&apos;][&apos;ORC.1&apos;][&apos;ORC.1.1&apos;] = validate(msg[&apos;orderControl&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;ORC&apos;][&apos;ORC.1&apos;][&apos;ORC.1.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;orderControl&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>7</sequenceNumber>
+                    <name>Observation Request - Fillers Order # - Field1 (OBR.3.1) (out) &lt;-- accessionNumber (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;] = validate(msg[&apos;accessionNumber&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.3&apos;][&apos;OBR.3.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;accessionNumber&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>8</sequenceNumber>
+                    <name>Observation Request - Universal Service ID - Identifier (OBR.4.1) (out) &lt;-- universalServiceID (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;] = validate(msg[&apos;universalServiceID&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;universalServiceID&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>9</sequenceNumber>
+                    <name>Observation Request - Universal Service ID - Text (OBR.4.2) (out) &lt;-- universalServiceIDText (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;] = validate(msg[&apos;universalServiceIDText&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.4&apos;][&apos;OBR.4.2&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;universalServiceIDText&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>10</sequenceNumber>
+                    <name>Observation Request - Placers Field #2 - Value (OBR.19.1) (out) &lt;-- deviceLocation (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.19&apos;][&apos;OBR.19.1&apos;] = validate(msg[&apos;deviceLocation&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.19&apos;][&apos;OBR.19.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;deviceLocation&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>11</sequenceNumber>
+                    <name>Observation Request - Placers Field #2 - OBR.19.2 (out) &lt;-- modality (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.19&apos;][&apos;OBR.19.2&apos;] = validate(msg[&apos;modality&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.19&apos;][&apos;OBR.19.2&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;modality&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+                <step>
+                    <sequenceNumber>12</sequenceNumber>
+                    <name>Observation Request - Scheduled Date/Time - Value (OBR.36.1) (out) &lt;-- scheduledExamDatetime (in)</name>
+                    <script>tmp[&apos;OBR&apos;][&apos;OBR.36&apos;][&apos;OBR.36.1&apos;] = validate(msg[&apos;scheduledExamDatetime&apos;].toString(), &apos;&apos;, new Array());</script>
+                    <type>Message Builder</type>
+                    <data class="map">
+                        <entry>
+                            <string>Variable</string>
+                            <string>tmp[&apos;OBR&apos;][&apos;OBR.36&apos;][&apos;OBR.36.1&apos;]</string>
+                        </entry>
+                        <entry>
+                            <string>DefaultValue</string>
+                            <string></string>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;scheduledExamDatetime&apos;].toString()</string>
+                        </entry>
+                        <entry>
+                            <string>RegularExpressions</string>
+                            <list/>
+                        </entry>
+                    </data>
+                </step>
+            </steps>
+            <inboundTemplate encoding="base64">PE9STU1lc3NhZ2U+CiAgIDxzZW5kaW5nRmFjaWxpdHk+QTwvc2VuZGluZ0ZhY2lsaXR5PgogICA8
+                cGF0aWVudElkPjZUUy00PC9wYXRpZW50SWQ+CiAgIDxmYW1pbHlOYW1lPkNoZWJhc2t3b255PC9m
+                YW1pbHlOYW1lPgogICA8Z2l2ZW5OYW1lPkNvbGxldDwvZ2l2ZW5OYW1lPgogICA8ZGF0ZU9mQmly
+                dGg+MTk3NjA4MjUwMDAwPC9kYXRlT2ZCaXJ0aD4KICAgPHBhdGllbnRTZXg+RjwvcGF0aWVudFNl
+                eD4KICAgPG9yZGVyQ29udHJvbD5TQzwvb3JkZXJDb250cm9sPgogICA8YWNjZXNzaW9uTnVtYmVy
+                PjU0MzIxPC9hY2Nlc3Npb25OdW1iZXI+CiAgIDx1bml2ZXJzYWxTZXJ2aWNlSUQ+QjwvdW5pdmVy
+                c2FsU2VydmljZUlEPgogICA8dW5pdmVyc2FsU2VydmljZUlEVGV4dD5DPC91bml2ZXJzYWxTZXJ2
+                aWNlSURUZXh0PgogICA8ZGV2aWNlTG9jYXRpb24+RTwvZGV2aWNlTG9jYXRpb24+CiAgIDxtb2Rh
+                bGl0eT5EPC9tb2RhbGl0eT4KICAgPHNjaGVkdWxlZEV4YW1EYXRldGltZT4yMDA4MDgwODAwMDA8
+                L3NjaGVkdWxlZEV4YW1EYXRldGltZT4KPC9PUk1NZXNzYWdlPgo=</inboundTemplate>
+            <outboundTemplate encoding="base64">TVNIfF5+XCZ8fHx8fHx8T1JNXk8wMXx8UHwyLjJ8fHx8fApQSUR8fHw2NjUxMDU2MDl8fEtPTkde
+                S0lOR3x8MTkyNjA0MjUxMzQ2MzF8TXx8fHx8fHx8fHx8fHx8fHx8fHwKUFYxfHx8fHx8fHx8fHx8
+                fHx8fHx8Ck9SQ3xOV3x8fHx8fHx8fHx8fHx8fHx8fApPQlJ8fHwxMTU0NjE0MTgwQXw3NTUzNl5V
+                U0xJVkVSfHx8fHx8fHx8fHx8fHx8Uk0zNDVeVVN8fHx8fHx8fHx8fHx8fHx8fDIwMDAxMjI1</outboundTemplate>
+            <inboundProtocol>XML</inboundProtocol>
+            <outboundProtocol>HL7V2</outboundProtocol>
+            <inboundProperties>
+                <property name="stripNamespaces">true</property>
+            </inboundProperties>
+            <outboundProperties>
+                <property name="convertLFtoCR">true</property>
+                <property name="handleRepetitions">false</property>
+                <property name="handleSubcomponents">false</property>
+                <property name="stripNamespaces">true</property>
+                <property name="useStrictParser">false</property>
+                <property name="useStrictValidation">false</property>
+            </outboundProperties>
+        </transformer>
+        <filter>
+            <rules/>
+        </filter>
+        <transportName>TCP Listener</transportName>
+        <mode>SOURCE</mode>
+        <enabled>true</enabled>
+        <version>2.2.1.5861</version>
+    </sourceConnector>
+    <destinationConnectors>
+        <connector>
+            <name>Destination 1</name>
+            <properties>
+                <property name="DataType">LLP Sender</property>
+                <property name="ackTimeout">0</property>
+                <property name="bufferSize">65536</property>
+                <property name="charEncoding">hex</property>
+                <property name="charsetEncoding">DEFAULT_ENCODING</property>
+                <property name="host">127.0.0.1</property>
+                <property name="keepSendSocketOpen">0</property>
+                <property name="maxRetryCount">2</property>
+                <property name="messageEnd">0x1C</property>
+                <property name="messageStart">0x0B</property>
+                <property name="port">6660</property>
+                <property name="processHl7AckResponse">1</property>
+                <property name="queueAckTimeout">1</property>
+                <property name="queuePollInterval">200</property>
+                <property name="reconnectMillisecs">10000</property>
+                <property name="recordSeparator">0x0D</property>
+                <property name="replyChannelId">sink</property>
+                <property name="rotateQueue">0</property>
+                <property name="segmentEnd">0x0D</property>
+                <property name="sendTimeout">5000</property>
+                <property name="tcpProtocolClassName">org.mule.providers.tcp.protocols.TcpProtocol</property>
+                <property name="template">${message.encodedData}</property>
+                <property name="usePersistentQueues">1</property>
+            </properties>
+            <transformer>
+                <steps/>
+                <inboundProtocol>HL7V2</inboundProtocol>
+                <outboundProtocol>HL7V2</outboundProtocol>
+                <inboundProperties>
+                    <property name="convertLFtoCR">true</property>
+                    <property name="handleRepetitions">false</property>
+                    <property name="handleSubcomponents">false</property>
+                    <property name="stripNamespaces">true</property>
+                    <property name="useStrictParser">false</property>
+                    <property name="useStrictValidation">false</property>
+                </inboundProperties>
+                <outboundProperties>
+                    <property name="convertLFtoCR">true</property>
+                    <property name="handleRepetitions">false</property>
+                    <property name="handleSubcomponents">false</property>
+                    <property name="stripNamespaces">true</property>
+                    <property name="useStrictParser">false</property>
+                    <property name="useStrictValidation">false</property>
+                </outboundProperties>
+            </transformer>
+            <filter>
+                <rules/>
+            </filter>
+            <transportName>LLP Sender</transportName>
+            <mode>DESTINATION</mode>
+            <enabled>true</enabled>
+            <version>2.2.1.5861</version>
+        </connector>
+    </destinationConnectors>
+    <properties>
+        <property name="clearGlobalChannelMap">true</property>
+        <property name="dont_store_filtered">false</property>
+        <property name="encryptData">false</property>
+        <property name="error_messages_only">false</property>
+        <property name="initialState">started</property>
+        <property name="max_message_age">-1</property>
+        <property name="store_messages">true</property>
+        <property name="synchronous">true</property>
+        <property name="transactional">false</property>
+    </properties>
+    <preprocessingScript>// Modify the message variable below to pre process data
+        return message;</preprocessingScript>
+    <postprocessingScript>// This script executes once after a message has been processed
+        return;</postprocessingScript>
+    <deployScript>// This script executes once when the channel is deployed
+        // You only have access to the globalMap and globalChannelMap here to persist data
+        return;</deployScript>
+    <shutdownScript>// This script executes once when the channel is undeployed
+        // You only have access to the globalMap and globalChannelMap here to persist data
+        return;</shutdownScript>
+</channel>
