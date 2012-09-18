@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emr.TestUtils;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 
@@ -25,9 +26,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 
-/**
- *
- */
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContextSensitiveTest {
 	
@@ -48,8 +46,7 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
         // confirm that new concepts have been added
 		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
 
-        /** commented out until we install Mirth on the CI server
-
+        /**
         // give Mirth channels a second to start
         Thread.sleep(1000);
 
@@ -68,8 +65,7 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 
         String mirthStatus = IOUtils.toString(in);
         TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
-
-        **/
+         **/
 
 	}
 	
