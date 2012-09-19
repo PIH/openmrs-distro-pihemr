@@ -14,17 +14,20 @@
 
 package org.openmrs.module.mirebalais;
 
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.metadatasharing.ImportedPackage;
+import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.validator.ConceptValidator;
 import org.openmrs.validator.ValidateUtil;
-import org.springframework.validation.ValidationUtils;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveTest {
@@ -39,12 +42,18 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
     @Test
     public void testMirebalaisHospitalActivatorStarted() throws Exception {
 
-        int numConcepts = Context.getConceptService().getAllConcepts().size();
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
         activator.started();
-
-        // confirm that new concepts have been added
-        Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
+        
+        for (Map.Entry<String, String> ver : activator.getCurrentMetadataVersions().entrySet()) {
+        	String groupUuid = ver.getKey();
+        	String filename = ver.getValue();
+        	Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(filename);
+        	matcher.matches();
+			Integer version = Integer.valueOf(matcher.group(1));
+			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(groupUuid);
+			Assert.assertTrue("Failed to install " + filename, installed != null && installed.getVersion() == version);
+        }
 
         for (Concept concept : Context.getConceptService().getAllConcepts()) {
             ValidateUtil.validate(concept);

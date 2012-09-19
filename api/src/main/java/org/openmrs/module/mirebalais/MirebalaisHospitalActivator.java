@@ -50,6 +50,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	public MirebalaisHospitalActivator() {
 		currentMetadataVersions.put("93fb4477-843f-4184-9486-1cb879a302da", "Mirebalais_Core_Metadata-1.zip");
+		currentMetadataVersions.put("3fa49824-cf28-4f2a-bc06-1a26ae6abeca", "PIH_Haiti_Patient_Registration-1.zip");
 	}
 		
 	/**
@@ -96,6 +97,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		log.info("Mirebalais Hospital Module stopped");
 	}
 	
+    /**
+     * @return the currentMetadataVersions
+     */
+    public Map<String, String> getCurrentMetadataVersions() {
+	    return currentMetadataVersions;
+    }
+    
     private void installMetadataPackages() {
     	for (Map.Entry<String, String> e : currentMetadataVersions.entrySet()) {
     		installMetadataPackageIfNecessary(e.getKey(), e.getValue());
