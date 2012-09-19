@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("mirebalais", "standardEmrPage")
+	ui.decorateWith("emr", "standardEmrPage")
 %>
 
 Welcome to the Mirebalais EMR.

@@ -14,16 +14,10 @@
 package org.openmrs.module.mirebalais;
 
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.GlobalProperty;
-import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.metadatasharing.ImportConfig;
@@ -32,7 +26,18 @@ import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
-import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.util.OpenmrsClassLoader;
+import org.openmrs.util.OpenmrsUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -45,7 +50,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	public MirebalaisHospitalActivator() {
 		currentMetadataVersions.put("93fb4477-843f-4184-9486-1cb879a302da", "Mirebalais_Core_Metadata-1.zip");
-		currentMetadataVersions.put("3fa49824-cf28-4f2a-bc06-1a26ae6abeca", "PIH_Haiti_Patient_Registration-1.zip");		
 	}
 		
 	/**
@@ -74,7 +78,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 */
 	public void started() {
 		installMetadataPackages();
-		setupPatientRegistrationGlobalProperties();
+        installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
 	
@@ -97,47 +101,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     		installMetadataPackageIfNecessary(e.getKey(), e.getValue());
     	}
     }
-    /**
-     * Sets global property value or throws an exception if that global property does not already exist
-     * @param propertyName
-     * @param propertyValue 
-     */
-    private void setExistingGlobalProperty(String propertyName, String propertyValue){
-    	AdministrationService administrationService = Context.getAdministrationService();
-    	GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
-    	if(gp==null){
-    		throw new RuntimeException("global property " + propertyName + " does not exist");
-    	}
-    	gp.setPropertyValue(propertyValue);
-    	administrationService.saveGlobalProperty(gp);
-    	
-    }
-    
-    public void setupPatientRegistrationGlobalProperties(){
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS, "patientRegistration|primaryCareReception|primaryCareVisit|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS, "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");    	
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_ROLES, "LacollineProvider");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_IDENTIFIER_PERSON_ATTRIBUTE_TYPE, "Provider Identifier");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");    	
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.URGENT_DIAGNOSIS_CONCEPT, "PIH: Haiti nationally urgent diseases");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NOTIFY_DIAGNOSIS_CONCEPT, "PIH: Haiti nationally notifiable diseases");    
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NON_CODED_DIAGNOSIS_CONCEPT, "PIH: ZL Primary care diagnosis non-coded");      	
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NEONATAL_DISEASES_CONCEPT, "PIH: Haiti neonatal diseases");    	
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_VISIT_ENCOUNTER_TYPE, "Primary care visit");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.CODED_DIAGNOSIS_CONCEPT, "PIH: ZL Primary care diagnosis");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.AGE_RESTRICTED_CONCEPT, "PIH: Haiti age restricted diseases");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT, "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_CONCEPT, "PIH: Patient payment status|en:Payment type|ht:Fason pou peye");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE, "Primary Care Reception");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE, "Patient Registration");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_PERSON_ATTRIBUTE_TYPE, "Telephone Number");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
-    	
-    }
     
     /**
      * Checks whether the given version of the MDS package has been installed yet, and if not, install it
@@ -151,7 +114,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     	try {
 			Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(filename);
 			if (!matcher.matches())
-				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-1.zip");
+				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-v1.zip");
 			Integer version = Integer.valueOf(matcher.group(1));
 			
 			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(groupUuid);
@@ -173,6 +136,48 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     		log.error("Failed to install metadata package " + filename, ex);
     		return false;
     	}
+    }
+
+    private boolean installMirthChannels() {
+
+        try {
+            // first copy the channel files to a tmp directory
+            File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("mirth/tmp");
+
+            Map<String,String> channels = new HashMap<String,String>();
+            channels.put("OpenMRS To Pacs", "openMRSToPacsChannel");
+
+            for (String channel : channels.values()) {
+                InputStream channelStream= OpenmrsClassLoader.getInstance().getResourceAsStream("org/openmrs/module/mirebalais/mirth/" + channel + ".xml");
+                File channelFile = new File(dir, channel + ".xml");
+                FileUtils.writeStringToFile(channelFile, IOUtils.toString(channelStream));
+                IOUtils.closeQuietly(channelStream);
+            }
+
+            // now call up the Mirth shell
+            String[] commands = new String[] {"java", "-classpath", MirebalaisGlobalProperties.MIRTH_DIRECTORY()+ "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/cli-lib/*",
+                    "com.mirth.connect.cli.launcher.CommandLineLauncher",
+                    "-a", "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":" + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(),
+                    "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0"};
+            Process mirthShell = Runtime.getRuntime().exec(commands);
+
+            // TODO: figure out what to do to verify that this succeeds
+
+            // deploy the channels
+            for (Map.Entry channel : channels.entrySet()) {
+                OutputStream out = mirthShell.getOutputStream();
+                out.write(("import \"" +  dir.getAbsolutePath() + "/" + channel.getValue() + ".xml\" force\n").getBytes());
+                out.write(("channel deploy \"" + channel.getKey()  + "\"\n").getBytes());
+                out.close();
+            }
+
+            return true;
+        }
+        catch (Exception ex) {
+            log.error("Failed to install Mirth channels", ex);
+            return false;
+        }
+
     }
     
 }
