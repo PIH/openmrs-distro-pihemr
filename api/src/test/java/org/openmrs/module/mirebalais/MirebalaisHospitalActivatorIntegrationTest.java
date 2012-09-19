@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 
@@ -31,6 +32,7 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 	public void beforeEachTest() throws Exception {
 		initializeInMemoryDatabase();
 		executeDataSet("requiredDataTestDataset.xml");
+		//executeDataSet("org/openmrs/module/patientregistration/include/globalproperty.xml");
 		authenticate();
 	}
 	
@@ -38,6 +40,7 @@ public class MirebalaisHospitalActivatorIntegrationTest extends BaseModuleContex
 	public void testMirebalaisHospitalActivatorStarted() throws Exception {
 		int numConcepts = Context.getConceptService().getAllConcepts().size();
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+		//Assert.assertEquals("Patient Registration",  Context.getAdministrationService().getGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE) );
 		activator.started();
 		Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
 	}

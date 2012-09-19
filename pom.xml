@@ -109,6 +109,14 @@
 			<version>${metadatasharingVersion}</version>
 			<scope>provided</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>patientregistration-api</artifactId>
+			<version>${patientregistrationVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- End OpenMRS modules -->
 		
 		<dependency>
