@@ -56,6 +56,7 @@
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<idgenVersion>2.1</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
+        <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -118,6 +119,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pacsintegration-api</artifactId>
+            <version>${pacsintegrationVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emr-api</artifactId>
