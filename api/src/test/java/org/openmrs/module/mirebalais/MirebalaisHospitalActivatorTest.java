@@ -21,10 +21,7 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.validator.ConceptValidator;
 import org.openmrs.validator.ValidateUtil;
-import org.springframework.validation.ValidationUtils;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveTest {
@@ -33,7 +30,7 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
-        executeDataSet("globalproperty.xml");
+        executeDataSet("globalPropertiesTestDataset.xml");
         executeDataSet("mirthGlobalPropertiesTestDataset.xml");
         authenticate();
     }
