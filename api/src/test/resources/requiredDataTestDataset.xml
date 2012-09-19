@@ -12,10 +12,4 @@
   <concept_datatype concept_datatype_id="11" name="Rule" hl7_abbreviation="ZZ" description="Value derived from other data" creator="1" date_created="2006-09-11 13:22:00.0" retired="false" uuid="8d4a5e96-c2cc-11de-8d13-0010c6dffd0f"/>
   <concept_datatype concept_datatype_id="12" name="Structured Numeric" hl7_abbreviation="SN" description="Complex numeric values possible (ie, &lt;5, 1-10, etc.)" creator="1" date_created="2005-08-06 00:00:00.0" retired="false" uuid="8d4a606c-c2cc-11de-8d13-0010c6dffd0f"/>
   <concept_datatype concept_datatype_id="13" name="Complex" hl7_abbreviation="ED" description="Complex value.  Analogous to HL7 Embedded Datatype" creator="1" date_created="2008-06-11 13:22:00.0" retired="false" uuid="8d4a6242-c2cc-11de-8d13-0010c6dffd0f"/>
-
-  <global_property property="mirebalais.mirthIpAddress" property_value="127.0.0.1" uuid="6ed7aeb4-0663-23e1-8c99-2b4f0c4f671a"/>
-  <global_property property="mirebalais.mirthAdminPort" property_value="8443" uuid="7abcc444-0663-45e1-8c99-2b4f0c4f671a"/>
-  <global_property property="mirebalais.mirthUsername" property_value="mirth" uuid="6ed7ae444-0663-23e1-8c99-2b4f0c4f671a"/>
-  <global_property property="mirebalais.mirthPassword" property_value="Mirth123" uuid="7abcc666-0663-45e1-8c99-2b4f0c4f671a"/>
-  <global_property property="mirebalais.mirthDirectory" property_value="/opt/mirthconnect" uuid="7abcc666-0663-45e1-8c99-2b4f0c4f888a"/>
 </dataset>

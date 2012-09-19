@@ -34,6 +34,7 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         executeDataSet("globalproperty.xml");
+        executeDataSet("mirthGlobalPropertiesTestDataset.xml");
         authenticate();
     }
 

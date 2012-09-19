@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <patient patient_id="7" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
+    <patient_identifier patient_identifier_id="4" patient_id="7" identifier="6TS-4" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" void_reason="" uuid="489edb7f-0786-4726-88a3-f0fcd2505d1a"/>
+    <patient_identifier_type patient_identifier_type_id="1" name="OpenMRS Identification Number" description="Unique number used in OpenMRS" format="" check_digit="true" creator="1" date_created="2005-09-22 00:00:00.0" required="false" validator="org.openmrs.patient.impl.LuhnIdentifierValidator" retired="false" uuid="1a339fe9-38bc-4ab3-b180-320988c0b968"/>
+    <person person_id="7" gender="F" birthdate="1976-08-25 00:00:00.0" birthdate_estimated="1" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="5946f880-b197-400b-9caa-a3c661d23041"/>
+    <person_address person_address_id="7" person_id="7" preferred="false" address1="" address2="" city_village="Kapina" state_province="" postal_code="" country="" latitude="" longitude="" start_date="2005-01-01 00:00:00.0" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" void_reason="" uuid="921c0e23-d941-4bac-8ce4-ab0d0f7d8a91"/>
+    <person_name person_name_id="7" preferred="false" person_id="7" given_name="Collet" middle_name="Test" family_name="Chebaskwony" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" void_reason="" uuid="a65c347e-1384-493a-a55b-d325924acd94"/>
+
+    <order_type order_type_id="1001" name="Radiology Order" description="Ordering a radiology exam" creator="1" date_created="2008-08-15 13:49:47.0" retired="false" uuid="84ce45a8-5e7c-48f7-a581-bb1d17d63a62"/>
+    <orders order_id="1001" order_type_id="1001" concept_id="88" orderer="1" accession_number="54321" start_date="2008-08-08 00:00:00.0" creator="1" discontinued="false" date_created="2008-08-19 12:20:22.0" voided="false" patient_id="7" uuid="921de0bb-05c4-444a-be03-e01b4c4b9142"/>
+
+</dataset>
