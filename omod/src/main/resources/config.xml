@@ -69,7 +69,7 @@
 
     <!-- Global Properties -->
     <globalProperty>
-        <property>mirebalais.mirthAddress</property>
+        <property>mirebalais.mirthIpAddress</property>
         <defaultValue>127.0.0.1</defaultValue>
         <description>
             IP address of the Mirth server to communication with
