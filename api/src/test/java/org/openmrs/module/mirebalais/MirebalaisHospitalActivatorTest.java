@@ -19,6 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
@@ -31,7 +32,6 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         executeDataSet("globalPropertiesTestDataset.xml");
-        executeDataSet("mirthGlobalPropertiesTestDataset.xml");
         authenticate();
     }
 
@@ -48,6 +48,29 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
             ValidateUtil.validate(concept);
         }
 
+    }
+
+    @Test
+    public void testMirebalaisGlobalPropertiesSetOnStartup() throws Exception {
+        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+        activator.started();
+
+        Assert.assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
+        Assert.assertEquals(new Integer(6661), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
+        Assert.assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
+        Assert.assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
+        Assert.assertEquals("mirth",MirebalaisGlobalProperties.MIRTH_USERNAME() );
+        Assert.assertEquals("Mirth123",MirebalaisGlobalProperties.MIRTH_PASSWORD());
+    }
+
+    @Test
+    public void testPacsIntegrationGlobalPropertiesSetOnStartup() throws Exception {
+        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+        activator.started();
+
+        Assert.assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
+        Assert.assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
+        Assert.assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
     }
 
 }
