@@ -49,7 +49,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         executeDataSet("globalPropertiesTestDataset.xml");
-        executeDataSet("mirthGlobalPropertiesTestDataset.xml");
         executeDataSet("mirthIntegrationTestDataset.xml");
         authenticate();
 
