@@ -40,11 +40,10 @@ public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveT
 
         int numConcepts = Context.getConceptService().getAllConcepts().size();
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();
-
-        // confirm that new concepts have been added
-        Assert.assertTrue(Context.getConceptService().getAllConcepts().size() > numConcepts);
-
+        activator.started();        
+        // confirm that new concept sources have been added
+        Assert.assertTrue(Context.getConceptService().getAllConceptSources().size() > numConcepts);
+        
         for (Concept concept : Context.getConceptService().getAllConcepts()) {
             ValidateUtil.validate(concept);
         }

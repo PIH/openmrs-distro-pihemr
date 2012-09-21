@@ -54,9 +54,10 @@
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.1</idgenVersion>
+		<idgenVersion>2.3</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
+        <eventVersion>1.1</eventVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -118,7 +119,22 @@
 			<version>${patientregistrationVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pacsintegration-api</artifactId>
+            <version>${pacsintegrationVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emr-api</artifactId>
@@ -127,12 +143,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>pacsintegration-api</artifactId>
-            <version>${pacsintegrationVersion}</version>
-            <scope>test</scope>
-        </dependency>
 
 
         <!-- End OpenMRS modules -->
