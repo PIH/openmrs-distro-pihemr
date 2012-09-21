@@ -52,7 +52,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
 	public MirebalaisHospitalActivator() {
-		currentMetadataVersions.put("93fb4477-843f-4184-9486-1cb879a302da", "Mirebalais_Core_Metadata-1.zip");
+		//currentMetadataVersions.put("93fb4477-843f-4184-9486-1cb879a302da", "Mirebalais_Core_Metadata-1.zip");
+		currentMetadataVersions.put("5fa4a52a-00ab-44ed-9a28-6c444305f9d4", "PIH_Haiti_Patient_Registration-1.zip");
 	}
 		
 	/**

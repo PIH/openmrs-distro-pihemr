@@ -54,7 +54,7 @@
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.1</idgenVersion>
+		<idgenVersion>2.3</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
