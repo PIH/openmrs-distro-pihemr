@@ -119,7 +119,22 @@
 			<version>${patientregistrationVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pacsintegration-api</artifactId>
+            <version>${pacsintegrationVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emr-api</artifactId>
@@ -128,19 +143,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>pacsintegration-api</artifactId>
-            <version>${pacsintegrationVersion}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs</groupId>
-            <artifactId>event-api</artifactId>
-            <version>${eventVersion}</version>
-            <scope>test</scope>
-        </dependency>
 
 
         <!-- End OpenMRS modules -->
