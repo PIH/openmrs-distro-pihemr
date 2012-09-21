@@ -51,9 +51,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
-	public MirebalaisHospitalActivator() {
-		//currentMetadataVersions.put("93fb4477-843f-4184-9486-1cb879a302da", "Mirebalais_Core_Metadata-1.zip");
-		currentMetadataVersions.put("5fa4a52a-00ab-44ed-9a28-6c444305f9d4", "PIH_Haiti_Patient_Registration-1.zip");
+	public MirebalaisHospitalActivator() {		
+		currentMetadataVersions.put("70b33d08-3e9f-4988-9923-f42f7f24e9a5", "PIH_Haiti_Patient_Registration-1.zip");
 	}
 		
 	/**
@@ -83,6 +82,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	public void started() {
 		installMetadataPackages();
 		setupPatientRegistrationGlobalProperties();
+        setupMirebalaisGlobalProperties();
+        setupPacsIntegrationGlobalProperties();
         installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
@@ -192,14 +193,30 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setExistingGlobalProperty(String propertyName, String propertyValue){
     	AdministrationService administrationService = Context.getAdministrationService();
     	GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
-    	if(gp==null){
+    	if(gp == null){
     		throw new RuntimeException("global property " + propertyName + " does not exist");
     	}
     	gp.setPropertyValue(propertyValue);
     	administrationService.saveGlobalProperty(gp);
     	
     }
-    public void setupPatientRegistrationGlobalProperties(){
+
+    private void setupMirebalaisGlobalProperties() {
+        setExistingGlobalProperty("mirebalais.mirthUsername", "mirth");
+        setExistingGlobalProperty("mirebalais.mirthPassword", "Mirth123");
+        setExistingGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");
+        setExistingGlobalProperty("mirebalais.mirthIpAddress", "127.0.0.1");
+        setExistingGlobalProperty("mirebalais.mirthAdminPort", "8443");
+        setExistingGlobalProperty("mirebalais.mirthInputPort", "6661");
+    }
+
+    private void setupPacsIntegrationGlobalProperties() {
+        setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
+        setExistingGlobalProperty("pacsintegration.listenerPassword", "test");
+        setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "7abcc666-7777-45e1-8c99-2b4f0c4f888a");
+    }
+
+    private void setupPatientRegistrationGlobalProperties(){
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS, "patientRegistration|primaryCareReception|primaryCareVisit|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS, "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");    	
