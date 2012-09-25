@@ -13,21 +13,26 @@
  */
 package org.openmrs.module.mirebalais.api.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.Order;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.idgen.IdentifierPool;
+import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Default implementation of {@link MirebalaisHospitalService}.
@@ -37,8 +42,8 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
     protected final Log log = LogFactory.getLog(this.getClass());
 	
 	private MirebalaisHospitalDAO dao;
-	
-	/**
+
+    /**
      * @param dao the dao to set
      */
     public void setDao(MirebalaisHospitalDAO dao) {
@@ -95,7 +100,48 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
         return Context.getOrderService().saveOrder(order);
     }
 
-	/**
+    /**
+     * @see org.openmrs.module.mirebalais.api.MirebalaisHospitalService#configureZlIdentifierSources()
+     *
+     */
+    @Override
+    @Transactional
+    public void configureZlIdentifierSources() {
+
+    }
+
+    /**
+     * @see org.openmrs.module.mirebalais.api.MirebalaisHospitalService#getLocalZlIdentifierPool()
+     *
+     */
+    @Override
+    public IdentifierPool getLocalZlIdentifierPool() {
+        IdentifierPool zlIdentifierPool = (IdentifierPool) Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+        if (zlIdentifierPool == null) {
+            throw new IllegalStateException("Local ZL Identifier Source has not been configured");
+        }
+        return zlIdentifierPool;
+    }
+
+    @Override
+    public RemoteIdentifierSource getRemoteZlIdentifierSource() {
+        RemoteIdentifierSource remoteIdentifierSource = (RemoteIdentifierSource) Context.getService(IdentifierSourceService.class).getIdentifierSourceByUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+        if (remoteIdentifierSource == null) {
+            throw new IllegalStateException("Remote ZL Identifier Source has not been configured");
+        }
+        return remoteIdentifierSource;
+    }
+
+    @Override
+    public PatientIdentifierType getZlIdentifierType() {
+        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
+        if (zlIdentifierType == null) {
+            throw new IllegalStateException("ZL Identifier Type has not been configured");
+        }
+        return zlIdentifierType;
+    }
+
+    /**
      * @return the type we use for radiology orders
      */
     @SuppressWarnings("deprecation")

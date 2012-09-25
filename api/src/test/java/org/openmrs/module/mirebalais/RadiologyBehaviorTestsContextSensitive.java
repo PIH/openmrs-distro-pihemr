@@ -13,8 +13,6 @@
  */
 package org.openmrs.module.mirebalais;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +23,8 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+
+import java.util.List;
 
 
 /**

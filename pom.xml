@@ -54,7 +54,7 @@
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.3</idgenVersion>
+		<idgenVersion>2.4-SNAPSHOT</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <eventVersion>1.1</eventVersion>
@@ -131,6 +131,13 @@
             <groupId>org.openmrs</groupId>
             <artifactId>event-api</artifactId>
             <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>idgen-api</artifactId>
+            <version>${idgenVersion}</version>
             <scope>provided</scope>
         </dependency>
 

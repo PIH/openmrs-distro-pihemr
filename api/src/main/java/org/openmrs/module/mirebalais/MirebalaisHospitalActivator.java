@@ -19,15 +19,21 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.idgen.AutoGenerationOption;
+import org.openmrs.module.idgen.IdentifierPool;
+import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatasharing.ImportConfig;
 import org.openmrs.module.metadatasharing.ImportMode;
 import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
+import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
@@ -46,12 +52,13 @@ import java.util.regex.Pattern;
  * This class contains the logic that is run every time this module is either started or stopped.
  */
 public class MirebalaisHospitalActivator implements ModuleActivator {
-	
-	protected Log log = LogFactory.getLog(getClass());
+
+    protected Log log = LogFactory.getLog(getClass());
 	
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
-	
-	public MirebalaisHospitalActivator() {				
+    private IdentifierSourceService service;
+
+    public MirebalaisHospitalActivator() {
 		currentMetadataVersions.put("01282000-d9d8-45d1-ab76-c361f79cf06e", "PIH_Haiti_ZL_Locations-1.zip");
 		currentMetadataVersions.put("70b33d08-3e9f-4988-9923-f42f7f24e9a5", "PIH_Haiti_Patient_Registration-1.zip");
 	}
@@ -81,15 +88,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		installMetadataPackages();
+        service = Context.getService(IdentifierSourceService.class);
+
+        installMetadataPackages();
 		setupPatientRegistrationGlobalProperties();
         setupMirebalaisGlobalProperties();
         setupPacsIntegrationGlobalProperties();
+        setupIdentifierGeneratorsIfNecessary();
         installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
-	
-	/**
+
+    /**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
@@ -143,6 +153,76 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     		log.error("Failed to install metadata package " + filename, ex);
     		return false;
     	}
+    }
+
+    private void setupIdentifierGeneratorsIfNecessary() {
+        MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+
+        PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
+        RemoteIdentifierSource remoteZlIdentifierSource = getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType);
+        IdentifierPool localZlIdentifierPool = getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource);
+
+        getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
+    }
+
+    void getOrCreateZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType, IdentifierPool localZlIdentifierPool) {
+        AutoGenerationOption autoGen = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(zlIdentifierType);
+        if (autoGen == null) {
+            autoGen = buildZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
+            Context.getService(IdentifierSourceService.class).saveAutoGenerationOption(autoGen);
+        }
+    }
+
+    IdentifierPool getOrCreateLocalZlIdentifierPool(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource) {
+        IdentifierPool localZlIdentifierPool;
+        try {
+            localZlIdentifierPool = service.getLocalZlIdentifierPool();
+        } catch (IllegalStateException ex) {
+            localZlIdentifierPool = buildLocalZlIdentifierPool(zlIdentifierType, remoteZlIdentifierSource);
+            Context.getService(IdentifierSourceService.class).saveIdentifierSource(localZlIdentifierPool);
+        }
+        return localZlIdentifierPool;
+    }
+
+     RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType) {
+        RemoteIdentifierSource remoteZlIdentifierSource;
+        try {
+            remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
+        } catch (IllegalStateException ex) {
+            remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlIdentifierType);
+            Context.getService(IdentifierSourceService.class).saveIdentifierSource(remoteZlIdentifierSource);
+        }
+        return remoteZlIdentifierSource;
+    }
+
+    private AutoGenerationOption buildZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType, IdentifierPool localZlIdentifierPool) {
+        AutoGenerationOption autoGen = new AutoGenerationOption();
+        autoGen.setIdentifierType(zlIdentifierType);
+        autoGen.setSource(localZlIdentifierPool);
+        autoGen.setManualEntryEnabled(false);
+        autoGen.setAutomaticGenerationEnabled(true);
+        return autoGen;
+    }
+
+    private IdentifierPool buildLocalZlIdentifierPool(PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource) {
+        IdentifierPool localPool = new IdentifierPool();
+        localPool.setName("Local Pool of ZL Identifiers");
+        localPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+        localPool.setSource(remoteZlIdentifierSource);
+        localPool.setIdentifierType(zlIdentifierType);
+        localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
+        localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
+        localPool.setSequential(true);
+        return localPool;
+    }
+
+    private RemoteIdentifierSource buildRemoteZlIdentifierSource(PatientIdentifierType zlIdentifierType) {
+        RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
+        remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
+        remoteZlIdentifierSource.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+        remoteZlIdentifierSource.setUrl(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+        remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
+        return remoteZlIdentifierSource;
     }
 
     private boolean installMirthChannels() {
