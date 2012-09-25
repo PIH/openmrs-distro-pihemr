@@ -57,10 +57,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
-	public MirebalaisHospitalActivator() {				
-		currentMetadataVersions.put("0bd0e6ae-ec06-40b1-ba8b-e0bed0c97e91", "HUM_Locations-1.zip");
-		currentMetadataVersions.put("6fac924f-6a49-4470-99cb-e5a6f5ae0c44", "HUM_Privileges-1.zip");		
-		currentMetadataVersions.put("70b33d08-3e9f-4988-9923-f42f7f24e9a5", "PIH_Haiti_Patient_Registration-1.zip");
+	public MirebalaisHospitalActivator() {
+        // Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
+        // get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
+        // package on the server you generated it on.
+        // The value should be the filename as you downloaded it from the server you created it on.
+        // In particular, you should keep the "-(versionNum)" in the filename, and update the string here
+        // to match the downloaded version.
+		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
+		currentMetadataVersions.put("f2247475-fb67-443b-913a-d304d3684ab4", "HUM_Privileges-1.zip");
+		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
 	}
 		
 	/**
@@ -320,5 +326,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
     	
     }
-    
+
+    public Map<String, String> getCurrentMetadataVersions() {
+        return currentMetadataVersions;
+    }
 }

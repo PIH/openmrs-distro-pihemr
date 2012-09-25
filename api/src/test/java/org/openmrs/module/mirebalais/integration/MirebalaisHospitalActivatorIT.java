@@ -24,6 +24,8 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.metadatasharing.ImportedPackage;
+import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
@@ -32,6 +34,10 @@ import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
+
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
@@ -49,20 +55,36 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
         activator.started();
 
-        verifyMetadataPackagesConfigured();
+        verifyMetadataPackagesConfigured(activator);
         verifyGlobalPropertiesConfigured();
         verifyPacsIntegrationGlobalPropertiesConfigured();
         verifyIdentifierSourcesConfigured();
     }
 
-    private void verifyMetadataPackagesConfigured() throws Exception {
+    private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
 
-        // TODO rewrite this
+        for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
+            String metadataPackageGroupUuid = e.getKey();
+            String metadataPackageFilename = e.getValue();
+            Integer expectedVersion = getMetadataPackageVersionFrom(metadataPackageFilename);
+            ImportedPackage installedPackage = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(metadataPackageGroupUuid);
+            Integer actualVersion = installedPackage == null ? null : installedPackage.getVersion();
+            Assert.assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion + " Actual version: " + actualVersion, expectedVersion, actualVersion);
+        }
+
+        // Verify a few pieces of sentinel data that should have been in the packages
+        Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
 
         // this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
         for (Concept concept : Context.getConceptService().getAllConcepts()) {
             ValidateUtil.validate(concept);
         }
+    }
+
+    private Integer getMetadataPackageVersionFrom(String metadataPackageFilename) {
+        Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(metadataPackageFilename);
+        matcher.matches();
+        return Integer.valueOf(matcher.group(1));
     }
 
     private void verifyGlobalPropertiesConfigured() throws Exception {
