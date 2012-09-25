@@ -14,3 +14,5 @@ omod/.classpath
 omod/.settings/
 omod/target/
 
+activemq-data
+
