@@ -52,14 +52,14 @@ import java.util.regex.Pattern;
  * This class contains the logic that is run every time this module is either started or stopped.
  */
 public class MirebalaisHospitalActivator implements ModuleActivator {
-
-    protected Log log = LogFactory.getLog(getClass());
+	
+	protected Log log = LogFactory.getLog(getClass());
 	
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
-    private IdentifierSourceService service;
-
-    public MirebalaisHospitalActivator() {
-		currentMetadataVersions.put("01282000-d9d8-45d1-ab76-c361f79cf06e", "PIH_Haiti_ZL_Locations-1.zip");
+	
+	public MirebalaisHospitalActivator() {				
+		currentMetadataVersions.put("0bd0e6ae-ec06-40b1-ba8b-e0bed0c97e91", "HUM_Locations-1.zip");
+		currentMetadataVersions.put("6fac924f-6a49-4470-99cb-e5a6f5ae0c44", "HUM_Privileges-1.zip");		
 		currentMetadataVersions.put("70b33d08-3e9f-4988-9923-f42f7f24e9a5", "PIH_Haiti_Patient_Registration-1.zip");
 	}
 		
@@ -88,9 +88,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-        service = Context.getService(IdentifierSourceService.class);
-
-        installMetadataPackages();
+		installMetadataPackages();
 		setupPatientRegistrationGlobalProperties();
         setupMirebalaisGlobalProperties();
         setupPacsIntegrationGlobalProperties();
@@ -98,8 +96,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
-
-    /**
+	
+	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
