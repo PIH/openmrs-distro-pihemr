@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 
+    <concept_name concept_id="18" name="FOOD ASSISTANCE" locale="en" creator="1" date_created="2008-08-18 12:31:52.0" concept_name_id="2467" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="7c9da21c-dbcd-4f9c-862c-5a33123bac4f"/>
+    <concept concept_id="18" retired="false" datatype_id="10" class_id="7" is_set="false" creator="1" date_created="2008-08-18 12:31:52.0" version="" uuid="0dde1358-7fcf-4341-a330-f119241a46e8"/>
+
     <patient patient_id="7" creator="1" date_created="2006-01-18 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:25:57.0" voided="false" void_reason=""/>
     <patient_identifier patient_identifier_id="4" patient_id="7" identifier="6TS-4" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" void_reason="" uuid="489edb7f-0786-4726-88a3-f0fcd2505d1a"/>
     <patient_identifier_type patient_identifier_type_id="1" name="OpenMRS Identification Number" description="Unique number used in OpenMRS" format="" check_digit="true" creator="1" date_created="2005-09-22 00:00:00.0" required="false" validator="org.openmrs.patient.impl.LuhnIdentifierValidator" retired="false" uuid="1a339fe9-38bc-4ab3-b180-320988c0b968"/>

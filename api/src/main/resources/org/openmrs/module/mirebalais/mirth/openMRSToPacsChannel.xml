@@ -1,29 +1,35 @@
 <channel>
-    <id>9f5751cd-3418-4262-b4d3-2c87814225e9</id>
+    <id>dbbc28f9-5dd8-4431-9677-dbbe5e8db9cf</id>
     <name>OpenMRS to PACS</name>
     <description></description>
     <enabled>true</enabled>
     <version>2.2.1.5861</version>
     <lastModified>
-        <time>1347547646000</time>
+        <time>1348521021000</time>
         <timezone>America/New_York</timezone>
     </lastModified>
-    <revision>8</revision>
+    <revision>10</revision>
     <sourceConnector>
         <name>sourceConnector</name>
         <properties>
-            <property name="DataType">TCP Listener</property>
-            <property name="ackIP"></property>
-            <property name="ackOnNewConnection">0</property>
-            <property name="ackPort"></property>
-            <property name="binary">0</property>
-            <property name="bufferSize">65536</property>
-            <property name="charsetEncoding">DEFAULT_ENCODING</property>
-            <property name="host">127.0.0.1</property>
-            <property name="keepSendSocketOpen">0</property>
-            <property name="port">6661</property>
-            <property name="receiveTimeout">5000</property>
-            <property name="responseValue">None</property>
+            <property name="DataType">Database Reader</property>
+            <property name="URL">jdbc:mysql://localhost:3306/openmrs_1_9</property>
+            <property name="ack"></property>
+            <property name="ackScript"></property>
+            <property name="driver">com.mysql.jdbc.Driver</property>
+            <property name="host">query</property>
+            <property name="password">morrison</property>
+            <property name="pollingFrequency">5000</property>
+            <property name="pollingType">interval</property>
+            <property name="processResultsInOrder">1</property>
+            <property name="query">SELECT outbound_queue_id, message FROM pacsintegration_outbound_queue
+                WHERE processed=false ORDER BY date_created ASC;
+
+            </property>
+            <property name="script"></property>
+            <property name="useAck">0</property>
+            <property name="useScript">0</property>
+            <property name="username">root</property>
         </properties>
         <transformer>
             <steps>
@@ -42,12 +48,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;sendingFacility&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;sendingFacility&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -66,12 +72,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;patientId&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;patientId&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -90,12 +96,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;familyName&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;familyName&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -114,12 +120,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;givenName&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;givenName&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -138,12 +144,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;dateOfBirth&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;dateOfBirth&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -162,12 +168,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;patientSex&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;patientSex&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -186,12 +192,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;orderControl&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;orderControl&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -210,12 +216,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;accessionNumber&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;accessionNumber&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -234,12 +240,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;universalServiceID&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;universalServiceID&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -258,12 +264,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;universalServiceIDText&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;universalServiceIDText&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -282,12 +288,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;deviceLocation&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;deviceLocation&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -306,12 +312,12 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;modality&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;modality&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
@@ -330,26 +336,19 @@
                             <string></string>
                         </entry>
                         <entry>
-                            <string>Mapping</string>
-                            <string>msg[&apos;scheduledExamDatetime&apos;].toString()</string>
-                        </entry>
-                        <entry>
                             <string>RegularExpressions</string>
                             <list/>
+                        </entry>
+                        <entry>
+                            <string>Mapping</string>
+                            <string>msg[&apos;scheduledExamDatetime&apos;].toString()</string>
                         </entry>
                     </data>
                 </step>
             </steps>
-            <inboundTemplate encoding="base64">PE9STU1lc3NhZ2U+CiAgIDxzZW5kaW5nRmFjaWxpdHk+QTwvc2VuZGluZ0ZhY2lsaXR5PgogICA8
-                cGF0aWVudElkPjZUUy00PC9wYXRpZW50SWQ+CiAgIDxmYW1pbHlOYW1lPkNoZWJhc2t3b255PC9m
-                YW1pbHlOYW1lPgogICA8Z2l2ZW5OYW1lPkNvbGxldDwvZ2l2ZW5OYW1lPgogICA8ZGF0ZU9mQmly
-                dGg+MTk3NjA4MjUwMDAwPC9kYXRlT2ZCaXJ0aD4KICAgPHBhdGllbnRTZXg+RjwvcGF0aWVudFNl
-                eD4KICAgPG9yZGVyQ29udHJvbD5TQzwvb3JkZXJDb250cm9sPgogICA8YWNjZXNzaW9uTnVtYmVy
-                PjU0MzIxPC9hY2Nlc3Npb25OdW1iZXI+CiAgIDx1bml2ZXJzYWxTZXJ2aWNlSUQ+QjwvdW5pdmVy
-                c2FsU2VydmljZUlEPgogICA8dW5pdmVyc2FsU2VydmljZUlEVGV4dD5DPC91bml2ZXJzYWxTZXJ2
-                aWNlSURUZXh0PgogICA8ZGV2aWNlTG9jYXRpb24+RTwvZGV2aWNlTG9jYXRpb24+CiAgIDxtb2Rh
-                bGl0eT5EPC9tb2RhbGl0eT4KICAgPHNjaGVkdWxlZEV4YW1EYXRldGltZT4yMDA4MDgwODAwMDA8
-                L3NjaGVkdWxlZEV4YW1EYXRldGltZT4KPC9PUk1NZXNzYWdlPgo=</inboundTemplate>
+            <inboundTemplate encoding="base64">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxy
+                ZXN1bHQ+CiAgICA8b3V0Ym91bmRfcXVldWVfaWQ+dmFsdWU8L291dGJvdW5kX3F1ZXVlX2lkPgog
+                ICAgPG1lc3NhZ2U+dmFsdWU8L21lc3NhZ2U+CjwvcmVzdWx0Pgo=</inboundTemplate>
             <outboundTemplate encoding="base64">TVNIfF5+XCZ8fHx8fHx8T1JNXk8wMXx8UHwyLjJ8fHx8fApQSUR8fHw2NjUxMDU2MDl8fEtPTkde
                 S0lOR3x8MTkyNjA0MjUxMzQ2MzF8TXx8fHx8fHx8fHx8fHx8fHx8fHwKUFYxfHx8fHx8fHx8fHx8
                 fHx8fHx8Ck9SQ3xOV3x8fHx8fHx8fHx8fHx8fHx8fApPQlJ8fHwxMTU0NjE0MTgwQXw3NTUzNl5V
@@ -371,7 +370,7 @@
         <filter>
             <rules/>
         </filter>
-        <transportName>TCP Listener</transportName>
+        <transportName>Database Reader</transportName>
         <mode>SOURCE</mode>
         <enabled>true</enabled>
         <version>2.2.1.5861</version>
