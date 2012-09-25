@@ -7,10 +7,10 @@ api/.project
 api/.classpath
 api/.settings/
 api/target/
+api/activemq-data
 
 omod/.project
 omod/.classpath
 omod/.settings/
 omod/target/
 
-activemq-data
