@@ -11,66 +11,167 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-
 package org.openmrs.module.mirebalais;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.Concept;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.validator.ValidateUtil;
+import org.openmrs.module.idgen.AutoGenerationOption;
+import org.openmrs.module.idgen.IdentifierPool;
+import org.openmrs.module.idgen.IdentifierSource;
+import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-@SkipBaseSetup
-public class MirebalaisHospitalActivatorTest extends BaseModuleContextSensitiveTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Context.class)
+public class MirebalaisHospitalActivatorTest {
+
+    private MirebalaisHospitalActivator mirebalaisHospitalActivator;
 
     @Before
-    public void beforeEachTest() throws Exception {
-        initializeInMemoryDatabase();
-        executeDataSet("requiredDataTestDataset.xml");
-        executeDataSet("globalPropertiesTestDataset.xml");
-        authenticate();
+    public void setUp() throws Exception {
+        mirebalaisHospitalActivator = new MirebalaisHospitalActivator();
     }
 
     @Test
-    public void testMirebalaisHospitalActivatorStarted() throws Exception {
+    public void shouldReturnRemoteZlIdentifierSourceWhenItExistsOnDb(){
+        RemoteIdentifierSource remoteIdentifierSource = new RemoteIdentifierSource();
+        remoteIdentifierSource.setName("test from db");
 
-        int numConcepts = Context.getConceptService().getAllConcepts().size();
-        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();        
-        // confirm that new concept sources have been added
-        Assert.assertTrue(Context.getConceptService().getAllConceptSources().size() > numConcepts);
-        
-        for (Concept concept : Context.getConceptService().getAllConcepts()) {
-            ValidateUtil.validate(concept);
-        }
+        MirebalaisHospitalService service = Mockito.mock(MirebalaisHospitalService.class);
+        when(service.getRemoteZlIdentifierSource()).thenReturn(remoteIdentifierSource);
 
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+
+        mockStatic(Context.class);
+        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
+
+        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service,new PatientIdentifierType());
+        verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
+
+        assertSame(remoteIdentifierSource, remoteZlIdentifierSource);
     }
 
     @Test
-    public void testMirebalaisGlobalPropertiesSetOnStartup() throws Exception {
-        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();
+    public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDb(){
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
 
-        Assert.assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
-        Assert.assertEquals(new Integer(6661), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
-        Assert.assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
-        Assert.assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
-        Assert.assertEquals("mirth",MirebalaisGlobalProperties.MIRTH_USERNAME() );
-        Assert.assertEquals("Mirth123",MirebalaisGlobalProperties.MIRTH_PASSWORD());
+        MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
+        when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
+
+        mockStatic(Context.class);
+        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
+
+        PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
+
+        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType);
+        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpected(zlIdentifierType);
+
+        verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
+        assertEquals(remoteZlIdentifierSourceExpected,remoteZlIdentifierSource);
     }
 
     @Test
-    public void testPacsIntegrationGlobalPropertiesSetOnStartup() throws Exception {
-        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();
+    public void shouldReturnLocalZlIdentifierPoolWhenItExistsOnDb(){
+        IdentifierPool identifierPool = new IdentifierPool();
+        identifierPool.setName("test from db");
 
-        Assert.assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
-        Assert.assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-        Assert.assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
+        MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
+        when(service.getLocalZlIdentifierPool()).thenReturn(identifierPool);
+
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+
+        mockStatic(Context.class);
+        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
+
+        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, new PatientIdentifierType(), new RemoteIdentifierSource());
+        verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
+
+        assertSame(identifierPool,remoteZlIdentifierPool);
     }
 
+    @Test
+    public void shouldCreateLocalZlIdentifierPoolWhenItDoesNotExistOnDb(){
+        MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
+        when(service.getLocalZlIdentifierPool()).thenThrow(new IllegalStateException());
+
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+        mockStatic(Context.class);
+        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
+
+        PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
+        RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
+
+        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource);
+
+        IdentifierPool localPool = buildLocalPoolAsExpected(zlIdentifierType, remoteZlIdentifierSource);
+        verify(identifierSourceService).saveIdentifierSource(eq(localPool));
+
+        assertEquals(localPool, remoteZlIdentifierPool);
+    }
+
+    @Test
+    public void shouldCreateZlIdentifierAutoGenerationOptionsWhenItDoesNotExistOnDb(){
+        PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
+        IdentifierPool localZlIdentifierPool = new IdentifierPool();
+
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+        when(identifierSourceService.getAutoGenerationOption(zlIdentifierType)).thenReturn(null);
+
+        mockStatic(Context.class);
+        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
+
+        mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
+        AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(zlIdentifierType, localZlIdentifierPool);
+
+        verify(identifierSourceService).saveAutoGenerationOption(any(AutoGenerationOption.class));
+
+    }
+
+    private AutoGenerationOption buildAutoGenerationOptionsAsExpected(PatientIdentifierType zlIdentifierType, IdentifierPool localZlIdentifierPool) {
+        AutoGenerationOption autoGen = new AutoGenerationOption();
+        autoGen.setIdentifierType(zlIdentifierType);
+        autoGen.setSource(localZlIdentifierPool);
+        autoGen.setManualEntryEnabled(false);
+        autoGen.setAutomaticGenerationEnabled(true);
+        return autoGen;
+    }
+
+    private IdentifierPool buildLocalPoolAsExpected(PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource) {
+        IdentifierPool localPool = new IdentifierPool();
+        localPool.setName("Local Pool of ZL Identifiers");
+        localPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+        localPool.setSource(remoteZlIdentifierSource);
+        localPool.setIdentifierType(zlIdentifierType);
+        localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
+        localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
+        localPool.setSequential(true);
+        return localPool;
+    }
+
+    private RemoteIdentifierSource buildRemoteIdentifierExpected(PatientIdentifierType zlIdentifierType) {
+        RemoteIdentifierSource remoteZlIdentifierSourceExpected = new RemoteIdentifierSource();
+        remoteZlIdentifierSourceExpected.setName("Remote Source for ZL Identifiers");
+        remoteZlIdentifierSourceExpected.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+        remoteZlIdentifierSourceExpected.setUrl(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+        remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
+        return remoteZlIdentifierSourceExpected;
+    }
 }
