@@ -1,6 +1,7 @@
 .project
 .classpath
 .settings/
+activemq-data
 target/
 mirebalais.iml
 
@@ -8,6 +9,7 @@ api/.project
 api/.classpath
 api/.settings/
 api/target/
+api/activemq-data
 api/mirebalais-api.iml
 
 omod/.project
