@@ -103,7 +103,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setupPacsIntegrationGlobalProperties();
         setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
         installMirthChannels();
-		log.info("Mirebalais Hospital Module started");
+		log.info("Mirebalais Hospital Module started");  asdasd
 	}
 	
 	/**
