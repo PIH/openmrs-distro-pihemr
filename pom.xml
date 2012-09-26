@@ -57,7 +57,7 @@
 		<idgenVersion>2.4-SNAPSHOT</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
-        <addresshierarchyVersion>2.2.4-SNAPSHOT</addresshierarchyVersion>
+        <addresshierarchyVersion>2.2.4</addresshierarchyVersion>
         <eventVersion>1.1</eventVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
