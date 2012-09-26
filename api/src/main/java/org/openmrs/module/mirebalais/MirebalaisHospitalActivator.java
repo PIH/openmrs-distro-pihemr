@@ -23,6 +23,10 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -44,6 +48,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,10 +57,12 @@ import java.util.regex.Pattern;
  * This class contains the logic that is run every time this module is either started or stopped.
  */
 public class MirebalaisHospitalActivator implements ModuleActivator {
-	
+
 	protected Log log = LogFactory.getLog(getClass());
-	
+
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
+
+    private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
 
 	public MirebalaisHospitalActivator() {
         // Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
@@ -68,28 +75,28 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("f2247475-fb67-443b-913a-d304d3684ab4", "HUM_Privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
 	}
-		
+
 	/**
 	 * @see ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
 		log.info("Refreshing Mirebalais Hospital Module");
 	}
-	
+
 	/**
 	 * @see ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
 		log.info("Mirebalais Hospital Module refreshed");
 	}
-	
+
 	/**
 	 * @see ModuleActivator#willStart()
 	 */
 	public void willStart() {
 		log.info("Starting Mirebalais Hospital Module");
 	}
-	
+
 	/**
 	 * @see ModuleActivator#started()
 	 */
@@ -103,36 +110,37 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setupPacsIntegrationGlobalProperties();
         setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
         installMirthChannels();
+        setupAddressHierarchy();
 		log.info("Mirebalais Hospital Module started");
 	}
-	
-	/**
+
+    /**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
 		log.info("Stopping Mirebalais Hospital Module");
 	}
-	
+
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
 		log.info("Mirebalais Hospital Module stopped");
 	}
-	
+
     private void installMetadataPackages() {
     	for (Map.Entry<String, String> e : currentMetadataVersions.entrySet()) {
     		installMetadataPackageIfNecessary(e.getKey(), e.getValue());
     	}
     }
-    
+
     /**
      * Checks whether the given version of the MDS package has been installed yet, and if not, install it
-     * 
+     *
      * @param groupUuid
      * @param filename should end in "-${versionNumber}.zip"
      * @return whether any changes were made to the db
-     * @throws IOException 
+     * @throws IOException
      */
     private boolean installMetadataPackageIfNecessary(String groupUuid, String filename) {
     	try {
@@ -140,17 +148,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			if (!matcher.matches())
 				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-v1.zip");
 			Integer version = Integer.valueOf(matcher.group(1));
-			
+
 			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(groupUuid);
 			if (installed != null && installed.getVersion() >= version) {
 				log.info("Metadata package " + filename + " is already installed with version " + installed.getVersion());
 				return false;
 			}
-			
+
 			if (getClass().getClassLoader().getResource(filename) == null) {
 				throw new RuntimeException("Cannot find " + filename + " for group " + groupUuid + ". Make sure it's in api/src/main/resources");
 			}
-			
+
 			PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
 			metadataImporter.setImportConfig(ImportConfig.valueOf(ImportMode.PARENT_AND_CHILD));
 			metadataImporter.loadSerializedPackageStream(getClass().getClassLoader().getResourceAsStream(filename));
@@ -275,7 +283,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     /**
      * Sets global property value or throws an exception if that global property does not already exist
      * @param propertyName
-     * @param propertyValue 
+     * @param propertyValue
      */
     private void setExistingGlobalProperty(String propertyName, String propertyValue){
     	AdministrationService administrationService = Context.getAdministrationService();
@@ -285,7 +293,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     	}
     	gp.setPropertyValue(propertyValue);
     	administrationService.saveGlobalProperty(gp);
-    	
+
     }
 
     private void setupMirebalaisGlobalProperties() {
@@ -306,14 +314,14 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setupPatientRegistrationGlobalProperties(){
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS, "patientRegistration|primaryCareReception|primaryCareVisit|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS, "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");    	
+    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_ROLES, "LacollineProvider");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_IDENTIFIER_PERSON_ATTRIBUTE_TYPE, "Provider Identifier");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");    	
+    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.URGENT_DIAGNOSIS_CONCEPT, "PIH: Haiti nationally urgent diseases");
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NOTIFY_DIAGNOSIS_CONCEPT, "PIH: Haiti nationally notifiable diseases");    
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NON_CODED_DIAGNOSIS_CONCEPT, "PIH: ZL Primary care diagnosis non-coded");      	
-    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NEONATAL_DISEASES_CONCEPT, "PIH: Haiti neonatal diseases");    	
+    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NOTIFY_DIAGNOSIS_CONCEPT, "PIH: Haiti nationally notifiable diseases");
+    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NON_CODED_DIAGNOSIS_CONCEPT, "PIH: ZL Primary care diagnosis non-coded");
+    	setExistingGlobalProperty(PatientRegistrationGlobalProperties.NEONATAL_DISEASES_CONCEPT, "PIH: Haiti neonatal diseases");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_VISIT_ENCOUNTER_TYPE, "Primary care visit");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.CODED_DIAGNOSIS_CONCEPT, "PIH: ZL Primary care diagnosis");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.AGE_RESTRICTED_CONCEPT, "PIH: Haiti age restricted diseases");
@@ -326,8 +334,71 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
     	setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
-    	
+
     }
+
+    private void setupAddressHierarchy() {
+        AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
+
+        // first check to see if we need to configure the address hierarchy levels
+        int numberOfLevels = ahService.getAddressHierarchyLevelsCount();
+
+        // if not 0 or 6 levels, we are in a weird state we can't recover from
+        if (numberOfLevels != 0 && numberOfLevels != 6) {
+            throw new RuntimeException("Unable to configure address hierarchy as it is currently misconfigured with " + numberOfLevels + "levels");
+        }
+
+        // add the address hierarchy levels if they don't exist, otherwise verify that they are correct
+        if (numberOfLevels == 0) {
+            AddressHierarchyLevel country = new AddressHierarchyLevel();
+            country.setAddressField(AddressField.COUNTRY);
+            ahService.saveAddressHierarchyLevel(country);
+
+            AddressHierarchyLevel stateProvince = new AddressHierarchyLevel();
+            stateProvince.setAddressField(AddressField.STATE_PROVINCE);
+            stateProvince.setParent(country);
+            ahService.saveAddressHierarchyLevel(stateProvince);
+
+            AddressHierarchyLevel cityVillage = new AddressHierarchyLevel();
+            cityVillage.setAddressField(AddressField.CITY_VILLAGE);
+            cityVillage.setParent(stateProvince);
+            ahService.saveAddressHierarchyLevel(cityVillage);
+
+            AddressHierarchyLevel address3 = new AddressHierarchyLevel();
+            address3.setAddressField(AddressField.ADDRESS_3);
+            address3.setParent(cityVillage);
+            ahService.saveAddressHierarchyLevel(address3);
+
+            AddressHierarchyLevel address1 = new AddressHierarchyLevel();
+            address1.setAddressField(AddressField.ADDRESS_1);
+            address1.setParent(address3);
+            ahService.saveAddressHierarchyLevel(address1);
+
+            AddressHierarchyLevel address2 = new AddressHierarchyLevel();
+            address2.setAddressField(AddressField.ADDRESS_2);
+            address2.setParent(address1);
+            ahService.saveAddressHierarchyLevel(address2);
+
+            // load in the csv file
+            InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE);
+            AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|");
+        }
+        // at least verify that the other levels exist
+        else {
+            AddressField[] fields = { AddressField.COUNTRY, AddressField.STATE_PROVINCE, AddressField.CITY_VILLAGE,
+                                      AddressField.ADDRESS_3, AddressField.ADDRESS_1, AddressField.ADDRESS_2 };
+            int i = 0;
+
+            for (AddressHierarchyLevel level : ahService.getOrderedAddressHierarchyLevels(true)) {
+                if (level.getAddressField() != fields[i]) {
+                    throw new RuntimeException("Address field " + i + " improperly configured: is " + level.getAddressField() + " but should be " + fields[i]);
+                }
+
+            }
+        }
+    }
+
+
 
     public Map<String, String> getCurrentMetadataVersions() {
         return currentMetadataVersions;

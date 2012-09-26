@@ -20,6 +20,9 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -35,6 +38,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,23 +46,27 @@ import java.util.regex.Pattern;
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 
+    MirebalaisHospitalActivator activator;
+
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         executeDataSet("globalPropertiesTestDataset.xml");
         authenticate();
+        activator = new MirebalaisHospitalActivator();
+        activator.started();
+
     }
 
     @Test
     public void testThatActivatorDoesAllSetup() throws Exception {
-        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();
-
         verifyMetadataPackagesConfigured(activator);
         verifyGlobalPropertiesConfigured();
         verifyPacsIntegrationGlobalPropertiesConfigured();
         verifyIdentifierSourcesConfigured();
+        verifyAddressHierarchyLevelsCreated();
+        verifyAddressHierarchyLoaded();
     }
 
     private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
@@ -120,6 +128,31 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 
         Assert.assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
         Assert.assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL, remoteZlIdentifierSource.getUrl());
+    }
+
+    private void verifyAddressHierarchyLevelsCreated() throws Exception {
+        AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
+
+        // assert that we now have six address hierarchy levels
+        Assert.assertEquals(new Integer(6), ahService.getAddressHierarchyLevelsCount());
+
+        // make sure they are mapped correctly
+        List<AddressHierarchyLevel> levels = ahService.getOrderedAddressHierarchyLevels(true);
+        Assert.assertEquals(AddressField.COUNTRY, levels.get(0).getAddressField());
+        Assert.assertEquals(AddressField.STATE_PROVINCE, levels.get(1).getAddressField());
+        Assert.assertEquals(AddressField.CITY_VILLAGE, levels.get(2).getAddressField());
+        Assert.assertEquals(AddressField.ADDRESS_3, levels.get(3).getAddressField());
+        Assert.assertEquals(AddressField.ADDRESS_1, levels.get(4).getAddressField());
+        Assert.assertEquals(AddressField.ADDRESS_2, levels.get(5).getAddressField());
+
+    }
+
+    private void verifyAddressHierarchyLoaded() throws Exception {
+        AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
+        Assert.assertTrue(ahService.getAddressHierarchyEntryCount() > 0);
+
+        Assert.assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
+        Assert.assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
     }
 
 }

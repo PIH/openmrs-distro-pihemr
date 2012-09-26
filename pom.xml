@@ -57,6 +57,7 @@
 		<idgenVersion>2.4-SNAPSHOT</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
+        <addresshierarchyVersion>2.2.4-SNAPSHOT</addresshierarchyVersion>
         <eventVersion>1.1</eventVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -141,6 +142,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>addresshierarchy-api</artifactId>
+            <version>${addresshierarchyVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
