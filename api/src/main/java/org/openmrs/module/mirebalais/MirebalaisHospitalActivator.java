@@ -56,7 +56,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	protected Log log = LogFactory.getLog(getClass());
 	
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
-	
+
 	public MirebalaisHospitalActivator() {
         // Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
         // get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
@@ -94,11 +94,14 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		installMetadataPackages();
-		setupPatientRegistrationGlobalProperties();
+        MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        installMetadataPackages();
+        setupPatientRegistrationGlobalProperties();
         setupMirebalaisGlobalProperties();
         setupPacsIntegrationGlobalProperties();
-        setupIdentifierGeneratorsIfNecessary();
+        setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
         installMirthChannels();
 		log.info("Mirebalais Hospital Module started");
 	}
@@ -159,42 +162,41 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     	}
     }
 
-    private void setupIdentifierGeneratorsIfNecessary() {
-        MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+    private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service, IdentifierSourceService identifierSourceService) {
 
         PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
-        RemoteIdentifierSource remoteZlIdentifierSource = getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType);
-        IdentifierPool localZlIdentifierPool = getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource);
+        RemoteIdentifierSource remoteZlIdentifierSource = getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType, identifierSourceService);
+        IdentifierPool localZlIdentifierPool = getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource, identifierSourceService);
 
-        getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
+        getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool, identifierSourceService);
     }
 
-    void getOrCreateZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType, IdentifierPool localZlIdentifierPool) {
-        AutoGenerationOption autoGen = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(zlIdentifierType);
+    void getOrCreateZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType, IdentifierPool localZlIdentifierPool, IdentifierSourceService identifierSourceService) {
+        AutoGenerationOption autoGen = identifierSourceService.getAutoGenerationOption(zlIdentifierType);
         if (autoGen == null) {
             autoGen = buildZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
-            Context.getService(IdentifierSourceService.class).saveAutoGenerationOption(autoGen);
+            identifierSourceService.saveAutoGenerationOption(autoGen);
         }
     }
 
-    IdentifierPool getOrCreateLocalZlIdentifierPool(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource) {
+    IdentifierPool getOrCreateLocalZlIdentifierPool(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource, IdentifierSourceService identifierSourceService) {
         IdentifierPool localZlIdentifierPool;
         try {
             localZlIdentifierPool = service.getLocalZlIdentifierPool();
         } catch (IllegalStateException ex) {
             localZlIdentifierPool = buildLocalZlIdentifierPool(zlIdentifierType, remoteZlIdentifierSource);
-            Context.getService(IdentifierSourceService.class).saveIdentifierSource(localZlIdentifierPool);
+            identifierSourceService.saveIdentifierSource(localZlIdentifierPool);
         }
         return localZlIdentifierPool;
     }
 
-     RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType) {
+     RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service, PatientIdentifierType zlIdentifierType, IdentifierSourceService identifierSourceService) {
         RemoteIdentifierSource remoteZlIdentifierSource;
         try {
             remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
         } catch (IllegalStateException ex) {
             remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlIdentifierType);
-            Context.getService(IdentifierSourceService.class).saveIdentifierSource(remoteZlIdentifierSource);
+            identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
         }
         return remoteZlIdentifierSource;
     }

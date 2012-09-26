@@ -53,17 +53,13 @@ public class MirebalaisHospitalActivatorTest {
     @Test
     public void shouldReturnRemoteZlIdentifierSourceWhenItExistsOnDb(){
         RemoteIdentifierSource remoteIdentifierSource = new RemoteIdentifierSource();
-        remoteIdentifierSource.setName("test from db");
 
         MirebalaisHospitalService service = Mockito.mock(MirebalaisHospitalService.class);
         when(service.getRemoteZlIdentifierSource()).thenReturn(remoteIdentifierSource);
 
         IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
 
-        mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
-
-        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service,new PatientIdentifierType());
+        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service,new PatientIdentifierType(), identifierSourceService);
         verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
 
         assertSame(remoteIdentifierSource, remoteZlIdentifierSource);
@@ -76,12 +72,9 @@ public class MirebalaisHospitalActivatorTest {
         MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
         when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
 
-        mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
-
         PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
 
-        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType);
+        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType, identifierSourceService);
         RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpected(zlIdentifierType);
 
         verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
@@ -98,10 +91,7 @@ public class MirebalaisHospitalActivatorTest {
 
         IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
 
-        mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
-
-        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, new PatientIdentifierType(), new RemoteIdentifierSource());
+        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, new PatientIdentifierType(), new RemoteIdentifierSource(), identifierSourceService);
         verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
 
         assertSame(identifierPool,remoteZlIdentifierPool);
@@ -113,13 +103,11 @@ public class MirebalaisHospitalActivatorTest {
         when(service.getLocalZlIdentifierPool()).thenThrow(new IllegalStateException());
 
         IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
-        mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
 
         PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
         RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 
-        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource);
+        IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service, zlIdentifierType, remoteZlIdentifierSource, identifierSourceService);
 
         IdentifierPool localPool = buildLocalPoolAsExpected(zlIdentifierType, remoteZlIdentifierSource);
         verify(identifierSourceService).saveIdentifierSource(eq(localPool));
@@ -135,10 +123,7 @@ public class MirebalaisHospitalActivatorTest {
         IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
         when(identifierSourceService.getAutoGenerationOption(zlIdentifierType)).thenReturn(null);
 
-        mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceService);
-
-        mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
+        mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool, identifierSourceService);
         AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(zlIdentifierType, localZlIdentifierPool);
 
         verify(identifierSourceService).saveAutoGenerationOption(any(AutoGenerationOption.class));
