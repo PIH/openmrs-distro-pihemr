@@ -1,14 +1,23 @@
 .project
 .classpath
 .settings/
+activemq-data
 target/
+mirebalais.iml
 
 api/.project
 api/.classpath
 api/.settings/
 api/target/
+api/activemq-data
+api/mirebalais-api.iml
 
 omod/.project
 omod/.classpath
 omod/.settings/
 omod/target/
+omod/mirebalais-omod.iml
+
+ci/mirebalais-ci.iml
+
+distro/mirebalais-distribution.iml

@@ -37,7 +37,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
@@ -85,19 +84,19 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
     @Test
     public void shouldSendMessageToMirth() throws Exception {
 
-        // TODO: eventually we should make sure all the necessary fields are concluded here
+        Order order = Context.getOrderService().getOrder(1001);
+        OrmMessage ormMessage = ConversionUtils.createORMMessage(order, "SC");
 
-        Order order = new Order();
-        order.setOrderType(Context.getOrderService().getOrderType(1001));
-        order.setPatient(Context.getPatientService().getPatient(7));
-        order.setConcept(Context.getConceptService().getConcept(18));
-        order.setStartDate(new Date());
-        Context.getOrderService().saveOrder(order);
+        // TODO: these are to mock the fields we aren't current handling--these should eventually be removed so that we properly test these fields once we handle them
+        ormMessage.setDeviceLocation("E");
+        ormMessage.setSendingFacility("A");
+        ormMessage.setUniversalServiceID("B");
+        ormMessage.setUniversalServiceIDText("C");
+        ormMessage.setModality("D");
+
+        sendMessage(ormMessage);
 
         String result = listenForResults();
-
-
-        System.out.println(result);
 
         TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);
         TestUtils.assertContains("PID|||6TS-4||Chebaskwony^Collet||197608250000|F||||||||||||||||||", result);
@@ -119,7 +118,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
     private String listenForResults() throws IOException {
 
         ServerSocket listener = new ServerSocket(6660);       // TODO: store this port in a global poroperty?
-        listener.setSoTimeout(10000);  // don't wait more than 10 seconds for an incoming connection
+        listener.setSoTimeout(5000);  // don't wait more than 5 seconds for an incoming connection
 
         Socket mirthConnection = listener.accept();
 

@@ -16,14 +16,13 @@ package org.openmrs.module.mirebalais;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 /**
  * Spring MVC controller that takes over /index.htm and /login.htm so users don't see the
  * legacy OpenMRS UI
  */
 @Controller
 public class HomepageOverrideController {
-
+	
 	@RequestMapping("/index.htm")
 	public String showOurHomepage() {
 		return "forward:/pages/mirebalais/home.page";
@@ -33,5 +32,5 @@ public class HomepageOverrideController {
 	public String showLoginHomepage() {
 		return showOurHomepage();
 	}
-
+	
 }

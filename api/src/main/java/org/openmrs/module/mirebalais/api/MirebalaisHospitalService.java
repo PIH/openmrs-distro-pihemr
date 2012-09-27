@@ -13,13 +13,16 @@
  */
 package org.openmrs.module.mirebalais.api;
 
-import java.util.List;
-
 import org.openmrs.Concept;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.idgen.IdentifierPool;
+import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * This service exposes module's core functionality. It is a Spring managed bean which is configured in moduleApplicationContext.xml.
@@ -33,19 +36,26 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface MirebalaisHospitalService extends OpenmrsService {
-
+	
 	/**
-     * @return list of orderable radiology tests, as defined by a global property
-     */
-    List<Concept> getRadiologyOrderables();
-
+	 * @return list of orderable radiology tests, as defined by a global property
+	 */
+	List<Concept> getRadiologyOrderables();
+	
 	/**
-     * Creates an order for the given patient and radiology orderable
-     * 
-     * @param p
-     * @param cxr
-     * @return the created order
-     */
-    Order placeRadiologyOrder(Patient p, Concept cxr);
-
+	 * Creates an order for the given patient and radiology orderable
+	 * 
+	 * @param p
+	 * @param cxr
+	 * @return the created order
+	 */
+	Order placeRadiologyOrder(Patient p, Concept cxr);
+	
+	void configureZlIdentifierSources();
+	
+	IdentifierPool getLocalZlIdentifierPool();
+	
+	RemoteIdentifierSource getRemoteZlIdentifierSource();
+	
+	PatientIdentifierType getZlIdentifierType();
 }

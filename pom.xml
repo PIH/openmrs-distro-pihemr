@@ -54,9 +54,10 @@
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.3</idgenVersion>
+		<idgenVersion>2.4-SNAPSHOT</idgenVersion>
 		<patientregistrationVersion>1.2.4-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
+        <addresshierarchyVersion>2.2.4</addresshierarchyVersion>
         <eventVersion>1.1</eventVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -134,6 +135,19 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>idgen-api</artifactId>
+            <version>${idgenVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>addresshierarchy-api</artifactId>
+            <version>${addresshierarchyVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
@@ -176,6 +190,7 @@
 					<configuration>
 						<target>1.6</target>
 						<source>1.6</source>
+                        <encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -198,6 +213,36 @@
                 </plugin>
 			</plugins>
 		</pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+                <artifactId>maven-java-formatter-plugin</artifactId>
+                <version>0.3.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <compilerSource>1.6</compilerSource>
+                    <compilerCompliance>1.6</compilerCompliance>
+                    <compilerTargetPlatform>1.6</compilerTargetPlatform>
+                    <configFile>eclipse/OpenMRSFormatter.xml</configFile>
+                    <overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
+                    <lineEnding>KEEP</lineEnding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openmrs.tools</groupId>
+                        <artifactId>openmrs-tools</artifactId>
+                        <version>${openMRSVersion}</version>
+                    </dependency>
+                </dependencies>
+             </plugin>
+        </plugins>
 	</build>
 
 	<repositories>
