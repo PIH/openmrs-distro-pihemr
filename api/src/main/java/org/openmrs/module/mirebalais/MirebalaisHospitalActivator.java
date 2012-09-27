@@ -315,7 +315,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		}
 		gp.setPropertyValue(propertyValue);
 		administrationService.saveGlobalProperty(gp);
-		
 	}
 	
 	private void setupMirebalaisGlobalProperties() {
@@ -324,13 +323,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");
 		setExistingGlobalProperty("mirebalais.mirthIpAddress", "127.0.0.1");
 		setExistingGlobalProperty("mirebalais.mirthAdminPort", "8443");
-		setExistingGlobalProperty("mirebalais.mirthInputPort", "6661");
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {
 		setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
 		setExistingGlobalProperty("pacsintegration.listenerPassword", "test");
-		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "7abcc666-7777-45e1-8c99-2b4f0c4f888a");
+		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "84ce45a8-5e7c-48f7-a581-bb1d17d63a62");
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {

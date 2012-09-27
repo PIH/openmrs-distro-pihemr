@@ -99,7 +99,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	
 	private void verifyGlobalPropertiesConfigured() throws Exception {
 		Assert.assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
-		Assert.assertEquals(new Integer(6661), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
 		Assert.assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
 		Assert.assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
 		Assert.assertEquals("mirth", MirebalaisGlobalProperties.MIRTH_USERNAME());
@@ -109,7 +108,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		Assert.assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
 		Assert.assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-		Assert.assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties
+		Assert.assertEquals("84ce45a8-5e7c-48f7-a581-bb1d17d63a62", PacsIntegrationGlobalProperties
 		        .RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
