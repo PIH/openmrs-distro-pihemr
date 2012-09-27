@@ -21,3 +21,4 @@ omod/mirebalais-omod.iml
 ci/mirebalais-ci.iml
 
 distro/mirebalais-distribution.iml
+*.DS_Store
