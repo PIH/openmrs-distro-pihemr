@@ -15,18 +15,14 @@ package org.openmrs.module.mirebalais;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -37,10 +33,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Context.class)
 public class MirebalaisHospitalActivatorTest {
 
     private MirebalaisHospitalActivator mirebalaisHospitalActivator;
@@ -66,25 +61,69 @@ public class MirebalaisHospitalActivatorTest {
     }
 
     @Test
-    public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDb(){
-        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+    public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndThereIsNoPropertiesFileConfiguration(){
 
         MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
         when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
 
+        MirebalaisCustomProperties customProperties = mockingPropertiesServiceWhenFileIsNotLoaded();
+        mirebalaisHospitalActivator.setCustomProperties(customProperties);
+
         PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
 
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
         RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType, identifierSourceService);
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpected(zlIdentifierType);
 
+        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpected(zlIdentifierType);
         verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
+
         assertEquals(remoteZlIdentifierSourceExpected,remoteZlIdentifierSource);
+        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
+        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
+        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
+    }
+
+    private MirebalaisCustomProperties mockingPropertiesServiceWhenFileIsNotLoaded() {
+        MirebalaisCustomProperties customProperties = mock(MirebalaisCustomProperties.class);
+        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+        return customProperties;
+    }
+
+    private MirebalaisCustomProperties mockingPropertiesServiceWhenFileIsLoaded() {
+        MirebalaisCustomProperties customProperties = mock(MirebalaisCustomProperties.class);
+        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
+        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
+        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
+        return customProperties;
+    }
+
+    @Test
+    public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndThereIsAPropertiesFileConfiguration(){
+        MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
+        when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
+
+        MirebalaisCustomProperties customProperties = mockingPropertiesServiceWhenFileIsLoaded();
+        mirebalaisHospitalActivator.setCustomProperties(customProperties);
+
+        PatientIdentifierType zlIdentifierType = new PatientIdentifierType();
+
+        IdentifierSourceService identifierSourceService = mock(IdentifierSourceService.class);
+        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType, identifierSourceService);
+
+        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedUsingPropertiesFile(zlIdentifierType);
+        verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
+
+        assertEquals(remoteZlIdentifierSourceExpected,remoteZlIdentifierSource);
+        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
+        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
+        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
     }
 
     @Test
     public void shouldReturnLocalZlIdentifierPoolWhenItExistsOnDb(){
         IdentifierPool identifierPool = new IdentifierPool();
-        identifierPool.setName("test from db");
 
         MirebalaisHospitalService service = mock(MirebalaisHospitalService.class);
         when(service.getLocalZlIdentifierPool()).thenReturn(identifierPool);
@@ -157,6 +196,19 @@ public class MirebalaisHospitalActivatorTest {
         remoteZlIdentifierSourceExpected.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
         remoteZlIdentifierSourceExpected.setUrl(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
         remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
+        remoteZlIdentifierSourceExpected.setUser(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+        remoteZlIdentifierSourceExpected.setPassword(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+        return remoteZlIdentifierSourceExpected;
+    }
+
+    private RemoteIdentifierSource buildRemoteIdentifierExpectedUsingPropertiesFile(PatientIdentifierType zlIdentifierType) {
+        RemoteIdentifierSource remoteZlIdentifierSourceExpected = new RemoteIdentifierSource();
+        remoteZlIdentifierSourceExpected.setName("Remote Source for ZL Identifiers");
+        remoteZlIdentifierSourceExpected.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+        remoteZlIdentifierSourceExpected.setUrl("http://localhost");
+        remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
+        remoteZlIdentifierSourceExpected.setUser("user_test");
+        remoteZlIdentifierSourceExpected.setPassword("abc123");
         return remoteZlIdentifierSourceExpected;
     }
 }

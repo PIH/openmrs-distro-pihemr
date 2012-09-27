@@ -34,4 +34,8 @@ public class MirebalaisConstants {
     public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 500;
 
     public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 1000;
+
+    public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "admin";
+
+    public static final String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "test";
 }

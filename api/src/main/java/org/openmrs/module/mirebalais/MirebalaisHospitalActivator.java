@@ -48,23 +48,29 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
 public class MirebalaisHospitalActivator implements ModuleActivator {
 
-	protected Log log = LogFactory.getLog(getClass());
+    protected Log log = LogFactory.getLog(getClass());
 
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 
     private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
 
-	public MirebalaisHospitalActivator() {
+    private MirebalaisCustomProperties customProperties = new MirebalaisCustomProperties();
+
+    public MirebalaisHospitalActivator() {
         // Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
         // get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
         // package on the server you generated it on.
@@ -221,11 +227,11 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private IdentifierPool buildLocalZlIdentifierPool(PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource) {
         IdentifierPool localPool = new IdentifierPool();
         localPool.setName("Local Pool of ZL Identifiers");
-        localPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+        localPool.setUuid(LOCAL_ZL_IDENTIFIER_POOL_UUID);
         localPool.setSource(remoteZlIdentifierSource);
         localPool.setIdentifierType(zlIdentifierType);
-        localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
-        localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
+        localPool.setMinPoolSize(LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
+        localPool.setBatchSize(LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
         localPool.setSequential(true);
         return localPool;
     }
@@ -233,9 +239,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private RemoteIdentifierSource buildRemoteZlIdentifierSource(PatientIdentifierType zlIdentifierType) {
         RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
         remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
-        remoteZlIdentifierSource.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-        remoteZlIdentifierSource.setUrl(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+        remoteZlIdentifierSource.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
         remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
+
+        remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
+        remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
+        remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
+
         return remoteZlIdentifierSource;
     }
 
@@ -306,7 +316,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     }
 
     private void setupPacsIntegrationGlobalProperties() {
-        setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
+        setExistingGlobalProperty("pacsintegration.listenerUsername", MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
         setExistingGlobalProperty("pacsintegration.listenerPassword", "test");
         setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "7abcc666-7777-45e1-8c99-2b4f0c4f888a");
     }
@@ -402,5 +412,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     public Map<String, String> getCurrentMetadataVersions() {
         return currentMetadataVersions;
+    }
+
+    public void setCustomProperties(MirebalaisCustomProperties customProperties) {
+        this.customProperties = customProperties;
     }
 }
