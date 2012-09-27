@@ -155,9 +155,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	private void verifyAddressHierarchyLoaded() throws Exception {
 		AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
 		
-		System.out.println("count = " + ahService.getAddressHierarchyEntryCount());
-		
-		Assert.assertTrue(ahService.getAddressHierarchyEntryCount() > 3000);
+		// we should now have 26000+ address hierarchy entries
+		Assert.assertTrue(ahService.getAddressHierarchyEntryCount() > 26000);
 		
 		Assert.assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
 		Assert.assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());

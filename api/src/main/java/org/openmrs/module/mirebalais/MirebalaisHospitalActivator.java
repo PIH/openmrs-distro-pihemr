@@ -71,7 +71,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// In particular, you should keep the "-(versionNum)" in the filename, and update the string here
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
-		currentMetadataVersions.put("f2247475-fb67-443b-913a-d304d3684ab4", "HUM_Privileges-1.zip");
+		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
 	}
 	
