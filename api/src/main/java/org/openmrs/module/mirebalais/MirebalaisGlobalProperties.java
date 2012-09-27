@@ -16,29 +16,29 @@ package org.openmrs.module.mirebalais;
 import org.openmrs.api.context.Context;
 
 public class MirebalaisGlobalProperties {
-
-    public static final String MIRTH_IP_ADDRESS() {
-        return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthIpAddress");
-    }
-
-    public static final Integer MIRTH_ADMIN_PORT() {
-        return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthAdminPort"));
-    }
-
-    public static final Integer MIRTH_INPUT_PORT() {
-        return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthInputPort"));
-    }
-
-    public static final String MIRTH_USERNAME() {
-        return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthUsername");
-    }
-
-    public static final String MIRTH_PASSWORD() {
-        return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthPassword");
-    }
-
-    public static final String MIRTH_DIRECTORY() {
-        return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthDirectory");
-    }
-
+	
+	public static final String MIRTH_IP_ADDRESS() {
+		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthIpAddress");
+	}
+	
+	public static final Integer MIRTH_ADMIN_PORT() {
+		return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthAdminPort"));
+	}
+	
+	public static final Integer MIRTH_INPUT_PORT() {
+		return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthInputPort"));
+	}
+	
+	public static final String MIRTH_USERNAME() {
+		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthUsername");
+	}
+	
+	public static final String MIRTH_PASSWORD() {
+		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthPassword");
+	}
+	
+	public static final String MIRTH_DIRECTORY() {
+		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthDirectory");
+	}
+	
 }

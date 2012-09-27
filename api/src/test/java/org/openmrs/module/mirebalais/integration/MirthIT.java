@@ -40,102 +40,111 @@ import java.net.Socket;
 
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
-
-    protected final Log log = LogFactory.getLog(getClass());
-
-    @Before
-    public void setupDatabaseAndInstallMirthChannels() throws Exception {
-
-        initializeInMemoryDatabase();
-        executeDataSet("requiredDataTestDataset.xml");
-        executeDataSet("globalPropertiesTestDataset.xml");
-        executeDataSet("mirthIntegrationTestDataset.xml");
-        authenticate();
-
-        // run the module activator so that the Mirth channels are configured
-        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
-        activator.started();
-    }
-
-
-    @Test
-    public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
-
-        // give Mirth channels a few seconds to start
-        Thread.sleep(5000);
-
-        // confirm that appropriate Mirth channels have been deployed
-        String[] commands = new String[] {"java", "-classpath", MirebalaisGlobalProperties.MIRTH_DIRECTORY()+ "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/cli-lib/*",
-                "com.mirth.connect.cli.launcher.CommandLineLauncher",
-                "-a", "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":" + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(),
-                "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0"};
-        Process mirthShell = Runtime.getRuntime().exec(commands);
-
-        OutputStream out = mirthShell.getOutputStream();
-        InputStream in = mirthShell.getInputStream();
-
-        out.write("status\n".getBytes());
-        out.close();
-
-        String mirthStatus = IOUtils.toString(in);
-        TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
-    }
-
-    @Test
-    public void shouldSendMessageToMirth() throws Exception {
-
-        Order order = Context.getOrderService().getOrder(1001);
-        OrmMessage ormMessage = ConversionUtils.createORMMessage(order, "SC");
-
-        // TODO: these are to mock the fields we aren't current handling--these should eventually be removed so that we properly test these fields once we handle them
-        ormMessage.setDeviceLocation("E");
-        ormMessage.setSendingFacility("A");
-        ormMessage.setUniversalServiceID("B");
-        ormMessage.setUniversalServiceIDText("C");
-        ormMessage.setModality("D");
-
-        sendMessage(ormMessage);
-
-        String result = listenForResults();
-
-        TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);
-        TestUtils.assertContains("PID|||6TS-4||Chebaskwony^Collet||197608250000|F||||||||||||||||||", result);
-        TestUtils.assertContains("PV1||||||||||||||||||", result);
-        TestUtils.assertContains("ORC|SC||||||||||||||||||", result);
-        TestUtils.assertContains("OBR|||54321|B^C|||||||||||||||E^D|||||||||||||||||200808080000", result);
-
-        // TODO: do we want we tear down the Mirth channel after this?
-
-    }
-
-
-    private void sendMessage(Message message) throws IOException {
-        Socket socket = new Socket(MirebalaisGlobalProperties.MIRTH_IP_ADDRESS(), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
-        IOUtils.write(ConversionUtils.serialize(message), socket.getOutputStream());
-        socket.close();
-    }
-
-    private String listenForResults() throws IOException {
-
-        ServerSocket listener = new ServerSocket(6660);       // TODO: store this port in a global poroperty?
-        listener.setSoTimeout(5000);  // don't wait more than 5 seconds for an incoming connection
-
-        Socket mirthConnection = listener.accept();
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(mirthConnection.getInputStream()));
-
-        StringBuilder sb = new StringBuilder();
-        String line;
-
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-
-        // TODO: need an acknowledgement?
-
-        mirthConnection.close();
-
-        return sb.toString();
-    }
-
+	
+	protected final Log log = LogFactory.getLog(getClass());
+	
+	@Before
+	public void setupDatabaseAndInstallMirthChannels() throws Exception {
+		
+		initializeInMemoryDatabase();
+		executeDataSet("requiredDataTestDataset.xml");
+		executeDataSet("globalPropertiesTestDataset.xml");
+		executeDataSet("mirthIntegrationTestDataset.xml");
+		authenticate();
+		
+		// run the module activator so that the Mirth channels are configured
+		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+		activator.started();
+	}
+	
+	@Test
+	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
+		
+		// give Mirth channels a few seconds to start
+		Thread.sleep(10000);
+		
+		// confirm that appropriate Mirth channels have been deployed
+		String[] commands = new String[] {
+		        "java",
+		        "-classpath",
+		        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
+		                + "/cli-lib/*",
+		        "com.mirth.connect.cli.launcher.CommandLineLauncher",
+		        "-a",
+		        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
+		                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
+		        "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
+		Process mirthShell = Runtime.getRuntime().exec(commands);
+		
+		OutputStream out = mirthShell.getOutputStream();
+		InputStream in = mirthShell.getInputStream();
+		
+		out.write("status\n".getBytes());
+		
+		// add a delay here (not sure if this is necessary)
+		Thread.sleep(2000);
+		
+		out.close();
+		
+		String mirthStatus = IOUtils.toString(in);
+		TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
+	}
+	
+	@Test
+	public void shouldSendMessageToMirth() throws Exception {
+		
+		Order order = Context.getOrderService().getOrder(1001);
+		OrmMessage ormMessage = ConversionUtils.createORMMessage(order, "SC");
+		
+		// TODO: these are to mock the fields we aren't current handling--these should eventually be removed so that we properly test these fields once we handle them
+		ormMessage.setDeviceLocation("E");
+		ormMessage.setSendingFacility("A");
+		ormMessage.setUniversalServiceID("B");
+		ormMessage.setUniversalServiceIDText("C");
+		ormMessage.setModality("D");
+		
+		sendMessage(ormMessage);
+		
+		String result = listenForResults();
+		
+		TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);
+		TestUtils.assertContains("PID|||6TS-4||Chebaskwony^Collet||197608250000|F||||||||||||||||||", result);
+		TestUtils.assertContains("PV1||||||||||||||||||", result);
+		TestUtils.assertContains("ORC|SC||||||||||||||||||", result);
+		TestUtils.assertContains("OBR|||54321|B^C|||||||||||||||E^D|||||||||||||||||200808080000", result);
+		
+		// TODO: do we want we tear down the Mirth channel after this?
+		
+	}
+	
+	private void sendMessage(Message message) throws IOException {
+		Socket socket = new Socket(MirebalaisGlobalProperties.MIRTH_IP_ADDRESS(), MirebalaisGlobalProperties
+		        .MIRTH_INPUT_PORT());
+		IOUtils.write(ConversionUtils.serialize(message), socket.getOutputStream());
+		socket.close();
+	}
+	
+	private String listenForResults() throws IOException {
+		
+		ServerSocket listener = new ServerSocket(6660); // TODO: store this port in a global poroperty?
+		listener.setSoTimeout(5000); // don't wait more than 5 seconds for an incoming connection
+		
+		Socket mirthConnection = listener.accept();
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(mirthConnection.getInputStream()));
+		
+		StringBuilder sb = new StringBuilder();
+		String line;
+		
+		while ((line = reader.readLine()) != null) {
+			sb.append(line);
+		}
+		
+		// TODO: need an acknowledgement?
+		
+		mirthConnection.close();
+		
+		return sb.toString();
+	}
+	
 }

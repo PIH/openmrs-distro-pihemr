@@ -36,26 +36,26 @@ import java.util.List;
  */
 @Transactional
 public interface MirebalaisHospitalService extends OpenmrsService {
-
+	
 	/**
-     * @return list of orderable radiology tests, as defined by a global property
-     */
-    List<Concept> getRadiologyOrderables();
-
+	 * @return list of orderable radiology tests, as defined by a global property
+	 */
+	List<Concept> getRadiologyOrderables();
+	
 	/**
-     * Creates an order for the given patient and radiology orderable
-     * 
-     * @param p
-     * @param cxr
-     * @return the created order
-     */
-    Order placeRadiologyOrder(Patient p, Concept cxr);
-
-    void configureZlIdentifierSources();
-
-    IdentifierPool getLocalZlIdentifierPool();
-
-    RemoteIdentifierSource getRemoteZlIdentifierSource();
-
-    PatientIdentifierType getZlIdentifierType();
+	 * Creates an order for the given patient and radiology orderable
+	 * 
+	 * @param p
+	 * @param cxr
+	 * @return the created order
+	 */
+	Order placeRadiologyOrder(Patient p, Concept cxr);
+	
+	void configureZlIdentifierSources();
+	
+	IdentifierPool getLocalZlIdentifierPool();
+	
+	RemoteIdentifierSource getRemoteZlIdentifierSource();
+	
+	PatientIdentifierType getZlIdentifierType();
 }
