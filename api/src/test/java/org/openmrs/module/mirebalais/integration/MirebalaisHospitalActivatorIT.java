@@ -38,8 +38,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,13 +71,26 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	}
 	
 	private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
-		
-		for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
+
+        MetadataSharingService metadataSharingService = Context.getService(MetadataSharingService.class);
+
+        // To catch the (common) case where someone gets the groupUuid wrong, we look for any installed packages that
+        // we are not expecting
+        Map<String, String> importedGroupUuids = new HashMap<String, String>();
+        for (ImportedPackage importedPackage : metadataSharingService.getAllImportedPackages()) {
+            importedGroupUuids.put(importedPackage.getGroupUuid(), importedPackage.getName());
+        }
+        for (Map.Entry<String, String> entry : importedGroupUuids.entrySet()) {
+            if (!activator.getCurrentMetadataVersions().containsKey(entry.getKey())) {
+                Assert.fail("Found a package with an unexpected groupUuid. Name: " + entry.getValue() + " , groupUuid: " + entry.getKey());
+            }
+        }
+
+        for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
 			String metadataPackageGroupUuid = e.getKey();
 			String metadataPackageFilename = e.getValue();
 			Integer expectedVersion = getMetadataPackageVersionFrom(metadataPackageFilename);
-			ImportedPackage installedPackage = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
-			    metadataPackageGroupUuid);
+            ImportedPackage installedPackage = metadataSharingService.getImportedPackageByGroup(metadataPackageGroupUuid);
 			Integer actualVersion = installedPackage == null ? null : installedPackage.getVersion();
 			assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion
                     + " Actual version: " + actualVersion, expectedVersion, actualVersion);
