@@ -61,7 +61,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
 		
 		// give Mirth channels a few seconds to start
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		
 		// confirm that appropriate Mirth channels have been deployed
 		String[] commands = new String[] {
@@ -80,8 +80,12 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		InputStream in = mirthShell.getInputStream();
 		
 		out.write("status\n".getBytes());
-		out.close();
-		
+
+        // add a delay here (not sure if this is necessary)
+        Thread.sleep(2000);
+
+        out.close();
+
 		String mirthStatus = IOUtils.toString(in);
 		TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
 	}
