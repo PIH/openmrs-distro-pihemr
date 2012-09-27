@@ -45,7 +45,6 @@ import java.util.Map;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-
 /**
  * For BDD of the radiology integration (proof of concept using Mock Service)
  */
@@ -54,16 +53,20 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 public class RadiologyBehaviorTestsMockServices {
 	
 	MirebalaisHospitalService service;
+	
 	private MockOrderService mockOrderService;
+	
 	private MockConceptService mockConceptService;
+	
 	private MockAdministrationService mockAdministrationService;
 	
-    @Before
+	@Before
 	public void beforeEachTest() {
 		mockConceptService = new MockConceptService();
 		mockOrderService = new MockOrderService();
-		mockAdministrationService = new MockAdministrationService();;
-
+		mockAdministrationService = new MockAdministrationService();
+		;
+		
 		mockStatic(Context.class);
 		when(Context.getConceptService()).thenReturn(mockConceptService);
 		when(Context.getAdministrationService()).thenReturn(mockAdministrationService);
@@ -91,103 +94,101 @@ public class RadiologyBehaviorTestsMockServices {
 		Assert.assertEquals(1, mockOrderService.savedOrders.size());
 		Assert.assertTrue(mockOrderService.savedOrders.contains(created));
 	}
-
-	/**
-     * @param target
-     * @param validator
-     */
-    private void validate(Object target, Validator validator) {
-    	if (target == null) {
-    		throw new NullPointerException("Cannot validate null object");
-    	}
-    	Errors errors = new BeanPropertyBindingResult(target, "target");
-	    validator.validate(target, errors);
-	    if (errors.hasErrors()) {
-	    	throw new RuntimeException("Validation errors: " + errors.toString());
-	    }
-    }
 	
-    /**
-     * Mock of OrderService for radiology integration tests 
-     */
-    @SuppressWarnings("deprecation")
-    class MockOrderService extends OrderServiceImpl {
-    	
-    	public List<Order> savedOrders = new ArrayList<Order>();
-    	
-    	/**
-    	 * @see org.openmrs.api.impl.OrderServiceImpl#getOrderTypeByUuid(java.lang.String)
-    	 */
-        @Override
-    	public OrderType getOrderTypeByUuid(String uuid) throws APIException {
-    		if ("radiology-order-type-uuid".equals(uuid)) {
-    			return new OrderType();
-    		} else {
-    			return null;
-    		}
-    	}
-    	
-    	/**
-    	 * @see org.openmrs.api.impl.OrderServiceImpl#saveOrder(org.openmrs.Order)
-    	 */
-    	@Override
-    	public Order saveOrder(Order order) throws APIException {
-    		validate(order, new OrderValidator());
-    		savedOrders.add(order);
-    		return order;
-    	}
-    }
-    
-    /**
-     * Mock of ConceptService for Radiology integration tests
-     */
-    class MockConceptService extends ConceptServiceImpl {
-    	Map<String, Concept> db;
-    	
-    	String[] contents = {
-				"1,cxr-uuid,Chest Xray",
-				"2,ct-scan-uuid,CT Scan"
-		};
-    	
-    	public MockConceptService() {
-    		db = new HashMap<String, Concept>();
-    		// TODO: move this to a generic utility class
-    		for (String s : contents) {
-    			String[] strings = s.split(",");
-    			Concept c = new Concept();
-    			c.setConceptId(Integer.valueOf(strings[0]));
-    			c.setUuid(strings[1]);
-    			c.addName(new ConceptName(strings[2], Locale.ENGLISH));
-    			db.put(strings[1], c);
-    		}
-    	}
-    	
-    	/**
-    	 * @see org.openmrs.api.impl.ConceptServiceImpl#getConceptByUuid(java.lang.String)
-    	 */
-    	@Override
-    	public Concept getConceptByUuid(String uuid) {
-    		return db.get(uuid);
-    	}
-    }
-    
-    class MockAdministrationService extends AdministrationServiceImpl {
-
-    	Map<String, String> db;
-    	
-    	public MockAdministrationService() {
-    		db = new HashMap<String, String>();
-    		db.put(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP, "cxr-uuid,ct-scan-uuid");
-    		db.put(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "radiology-order-type-uuid");
-    	}
-    	
-    	/**
-    	 * @see org.openmrs.api.impl.AdministrationServiceImpl#getGlobalProperty(java.lang.String)
-    	 */
-    	@Override
-    	public String getGlobalProperty(String propertyName) throws APIException {
-    	    return db.get(propertyName);
-    	}
-    	
-    }
+	/**
+	 * @param target
+	 * @param validator
+	 */
+	private void validate(Object target, Validator validator) {
+		if (target == null) {
+			throw new NullPointerException("Cannot validate null object");
+		}
+		Errors errors = new BeanPropertyBindingResult(target, "target");
+		validator.validate(target, errors);
+		if (errors.hasErrors()) {
+			throw new RuntimeException("Validation errors: " + errors.toString());
+		}
+	}
+	
+	/**
+	 * Mock of OrderService for radiology integration tests 
+	 */
+	@SuppressWarnings("deprecation")
+	class MockOrderService extends OrderServiceImpl {
+		
+		public List<Order> savedOrders = new ArrayList<Order>();
+		
+		/**
+		 * @see org.openmrs.api.impl.OrderServiceImpl#getOrderTypeByUuid(java.lang.String)
+		 */
+		@Override
+		public OrderType getOrderTypeByUuid(String uuid) throws APIException {
+			if ("radiology-order-type-uuid".equals(uuid)) {
+				return new OrderType();
+			} else {
+				return null;
+			}
+		}
+		
+		/**
+		 * @see org.openmrs.api.impl.OrderServiceImpl#saveOrder(org.openmrs.Order)
+		 */
+		@Override
+		public Order saveOrder(Order order) throws APIException {
+			validate(order, new OrderValidator());
+			savedOrders.add(order);
+			return order;
+		}
+	}
+	
+	/**
+	 * Mock of ConceptService for Radiology integration tests
+	 */
+	class MockConceptService extends ConceptServiceImpl {
+		
+		Map<String, Concept> db;
+		
+		String[] contents = { "1,cxr-uuid,Chest Xray", "2,ct-scan-uuid,CT Scan" };
+		
+		public MockConceptService() {
+			db = new HashMap<String, Concept>();
+			// TODO: move this to a generic utility class
+			for (String s : contents) {
+				String[] strings = s.split(",");
+				Concept c = new Concept();
+				c.setConceptId(Integer.valueOf(strings[0]));
+				c.setUuid(strings[1]);
+				c.addName(new ConceptName(strings[2], Locale.ENGLISH));
+				db.put(strings[1], c);
+			}
+		}
+		
+		/**
+		 * @see org.openmrs.api.impl.ConceptServiceImpl#getConceptByUuid(java.lang.String)
+		 */
+		@Override
+		public Concept getConceptByUuid(String uuid) {
+			return db.get(uuid);
+		}
+	}
+	
+	class MockAdministrationService extends AdministrationServiceImpl {
+		
+		Map<String, String> db;
+		
+		public MockAdministrationService() {
+			db = new HashMap<String, String>();
+			db.put(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP, "cxr-uuid,ct-scan-uuid");
+			db.put(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "radiology-order-type-uuid");
+		}
+		
+		/**
+		 * @see org.openmrs.api.impl.AdministrationServiceImpl#getGlobalProperty(java.lang.String)
+		 */
+		@Override
+		public String getGlobalProperty(String propertyName) throws APIException {
+			return db.get(propertyName);
+		}
+		
+	}
 }

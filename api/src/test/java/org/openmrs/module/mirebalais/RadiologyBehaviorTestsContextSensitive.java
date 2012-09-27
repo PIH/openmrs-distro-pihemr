@@ -26,7 +26,6 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.util.List;
 
-
 /**
  * For BDD of the radiology integration (proof of concept the old way)
  */
@@ -35,21 +34,24 @@ public class RadiologyBehaviorTestsContextSensitive extends BaseModuleContextSen
 	
 	MirebalaisHospitalService service;
 	
-    @Before
+	@Before
 	public void beforeEachTest() {
 		service = Context.getService(MirebalaisHospitalService.class);
-		Context.getAdministrationService().saveGlobalProperty(new GlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP, "c607c80f-1ea9-4da3-bb88-6276ce8868dd,a09ab2c5-878e-4905-b25d-5784167d0216"));
-		Context.getAdministrationService().saveGlobalProperty(new GlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "e23733ab-787e-4096-8ba2-577a902d2c2b"));
+		Context.getAdministrationService().saveGlobalProperty(
+		    new GlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP,
+		            "c607c80f-1ea9-4da3-bb88-6276ce8868dd,a09ab2c5-878e-4905-b25d-5784167d0216"));
+		Context.getAdministrationService().saveGlobalProperty(
+		    new GlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "e23733ab-787e-4096-8ba2-577a902d2c2b"));
 	}
-    
-    @Test
+	
+	@Test
 	public void shouldListOrderableRadiologyTests() {
 		List<Concept> radiologyTests = service.getRadiologyOrderables();
 		Assert.assertNotNull(radiologyTests);
 		Assert.assertEquals(2, radiologyTests.size());
 	}
 	
-    @Test
+	@Test
 	public void shouldPlaceOrderForRadiologyTest() {
 		Concept cxr = Context.getConceptService().getConcept(5089);
 		Assert.assertNotNull(cxr);

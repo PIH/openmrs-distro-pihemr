@@ -47,7 +47,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-
 /**
  *
  */
@@ -57,14 +56,15 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 public class RadiologyBehaviorTestsMockitoWithUtils {
 	
 	MirebalaisHospitalService service;
+	
 	private OrderService mockOrderService;
 	
-    @Before
+	@Before
 	public void beforeEachTest() {
-    	ConceptService mockConceptService = mockConceptService();
+		ConceptService mockConceptService = mockConceptService();
 		addMockConcept(mockConceptService, 1, "cxr-uuid", "Chest Xray");
 		addMockConcept(mockConceptService, 2, "ct-scan-uuid", "CT Scan");
-    	
+		
 		AdministrationService mockAdminService = mockAdministrationService();
 		addMockGlobalProperty(mockAdminService, MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP, "cxr-uuid,ct-scan-uuid");
 		addMockGlobalProperty(mockAdminService, MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP, "radiology-order-type-uuid");
@@ -98,79 +98,81 @@ public class RadiologyBehaviorTestsMockitoWithUtils {
 		
 		verify(mockOrderService).saveOrder((Order) Mockito.any());
 	}
-
-	/**
-     * @param target
-     * @param validator
-     */
-    private void validate(Object target, Validator validator) {
-    	if (target == null) {
-    		throw new NullPointerException("Cannot validate null object");
-    	}
-    	Errors errors = new BeanPropertyBindingResult(target, "target");
-	    validator.validate(target, errors);
-	    if (errors.hasErrors()) {
-	    	throw new RuntimeException("Validation errors: " + errors.toString());
-	    }
-    }
-    
-    // EVERYTHING BELOW HERE GOES INTO VARIOUS TESTUTIL CLASSES //////////////////
-    
-    private ConceptService mockConceptService() {
-    	return mock(ConceptService.class);
-    }
 	
-    /**
-     * TODO: move to TestUtil class
-     * Modifies mockConceptService by adding another concept, as specified 
-     * 
-     * @param mockConceptService
-     * @param conceptId
-     * @param uuid
-     * @param name
-     */
-    private void addMockConcept(ConceptService mockConceptService, int conceptId, String uuid, String name) {
-	    Concept c = new Concept();
-	    c.setConceptId(conceptId);
-	    c.setUuid(uuid);
-	    c.addName(new ConceptName(name, Locale.ENGLISH));
-	    
-	    when(mockConceptService.getConcept(conceptId)).thenReturn(c);
-	    when(mockConceptService.getConceptByUuid(uuid)).thenReturn(c);
-    }
-    
-    private AdministrationService mockAdministrationService() {
-    	return mock(AdministrationService.class);
-    }
-
-    private void addMockGlobalProperty(AdministrationService mockAdministrationService, String propertyName, String propertyValue) {
-	    GlobalProperty gp = new GlobalProperty(propertyName, propertyValue);
-	    when(mockAdministrationService.getGlobalProperty(propertyName)).thenReturn(propertyValue);
-	    when(mockAdministrationService.getGlobalPropertyObject(propertyName)).thenReturn(gp);
-    }
-    
-    private OrderService mockOrderService() {
-    	OrderService ret = mock(OrderService.class);
-    	
-    	when(ret.saveOrder(Mockito.any(Order.class))).thenAnswer(new Answer<Order>() {
+	/**
+	 * @param target
+	 * @param validator
+	 */
+	private void validate(Object target, Validator validator) {
+		if (target == null) {
+			throw new NullPointerException("Cannot validate null object");
+		}
+		Errors errors = new BeanPropertyBindingResult(target, "target");
+		validator.validate(target, errors);
+		if (errors.hasErrors()) {
+			throw new RuntimeException("Validation errors: " + errors.toString());
+		}
+	}
+	
+	// EVERYTHING BELOW HERE GOES INTO VARIOUS TESTUTIL CLASSES //////////////////
+	
+	private ConceptService mockConceptService() {
+		return mock(ConceptService.class);
+	}
+	
+	/**
+	 * TODO: move to TestUtil class
+	 * Modifies mockConceptService by adding another concept, as specified 
+	 * 
+	 * @param mockConceptService
+	 * @param conceptId
+	 * @param uuid
+	 * @param name
+	 */
+	private void addMockConcept(ConceptService mockConceptService, int conceptId, String uuid, String name) {
+		Concept c = new Concept();
+		c.setConceptId(conceptId);
+		c.setUuid(uuid);
+		c.addName(new ConceptName(name, Locale.ENGLISH));
+		
+		when(mockConceptService.getConcept(conceptId)).thenReturn(c);
+		when(mockConceptService.getConceptByUuid(uuid)).thenReturn(c);
+	}
+	
+	private AdministrationService mockAdministrationService() {
+		return mock(AdministrationService.class);
+	}
+	
+	private void addMockGlobalProperty(AdministrationService mockAdministrationService, String propertyName,
+	        String propertyValue) {
+		GlobalProperty gp = new GlobalProperty(propertyName, propertyValue);
+		when(mockAdministrationService.getGlobalProperty(propertyName)).thenReturn(propertyValue);
+		when(mockAdministrationService.getGlobalPropertyObject(propertyName)).thenReturn(gp);
+	}
+	
+	private OrderService mockOrderService() {
+		OrderService ret = mock(OrderService.class);
+		
+		when(ret.saveOrder(Mockito.any(Order.class))).thenAnswer(new Answer<Order>() {
+			
 			@Override
-            public Order answer(InvocationOnMock invocation) throws Throwable {
-	            Order toSave = (Order) invocation.getArguments()[0];
-	            validate(toSave, new OrderValidator());
-	            return toSave;
-            }
+			public Order answer(InvocationOnMock invocation) throws Throwable {
+				Order toSave = (Order) invocation.getArguments()[0];
+				validate(toSave, new OrderValidator());
+				return toSave;
+			}
 		});
-    	
-    	return ret;
-    }
-
-    private void addMockOrderType(OrderService mockOrderService, int orderTypeId, String uuid, String name) {
-    	OrderType ot = new OrderType();
-    	ot.setOrderTypeId(orderTypeId);
-    	ot.setUuid(uuid);
-    	ot.setName(name);
-	    when(mockOrderService.getOrderType(orderTypeId)).thenReturn(ot);
-	    when(mockOrderService.getOrderTypeByUuid(uuid)).thenReturn(ot);
-    }
-    
+		
+		return ret;
+	}
+	
+	private void addMockOrderType(OrderService mockOrderService, int orderTypeId, String uuid, String name) {
+		OrderType ot = new OrderType();
+		ot.setOrderTypeId(orderTypeId);
+		ot.setUuid(uuid);
+		ot.setName(name);
+		when(mockOrderService.getOrderType(orderTypeId)).thenReturn(ot);
+		when(mockOrderService.getOrderTypeByUuid(uuid)).thenReturn(ot);
+	}
+	
 }

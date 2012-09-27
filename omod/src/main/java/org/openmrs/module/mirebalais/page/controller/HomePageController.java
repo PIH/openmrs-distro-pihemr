@@ -20,7 +20,6 @@ import org.openmrs.module.appframework.AppDescriptor;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.ui.framework.page.PageModel;
 
-
 /**
  * Home page for Mirebalais EMR (shows list of apps)
  * Shows the login view instead if you are not authenticated.

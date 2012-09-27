@@ -46,7 +46,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-
 /**
  * For BDD of the radiology integration (proof of concept using Mockito)
  */
@@ -56,9 +55,10 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 public class RadiologyBehaviorTestsMockito {
 	
 	MirebalaisHospitalService service;
+	
 	private OrderService mockOrderService;
 	
-    @Before
+	@Before
 	public void beforeEachTest() {
 		Concept cxr = new Concept();
 		cxr.setConceptId(1);
@@ -67,24 +67,27 @@ public class RadiologyBehaviorTestsMockito {
 		Concept ctScan = new Concept();
 		ctScan.setConceptId(2);
 		ctScan.addName(new ConceptName("CT Scan", Locale.ENGLISH));
-
+		
 		ConceptService mockConceptService = mock(ConceptService.class);
 		when(mockConceptService.getConceptByUuid("cxr-uuid")).thenReturn(cxr);
 		when(mockConceptService.getConceptByUuid("ct-scan-uuid")).thenReturn(cxr);
 		
 		AdministrationService mockAdminService = mock(AdministrationService.class);
-		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP)).thenReturn("cxr-uuid,ct-scan-uuid");
-		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP)).thenReturn("radiology-order-type-uuid");
+		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERABLE_CONCEPTS_GP)).thenReturn(
+		    "cxr-uuid,ct-scan-uuid");
+		when(mockAdminService.getGlobalProperty(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP)).thenReturn(
+		    "radiology-order-type-uuid");
 		
 		mockOrderService = mock(OrderService.class);
 		when(mockOrderService.getOrderTypeByUuid("radiology-order-type-uuid")).thenReturn(new OrderType());
 		when(mockOrderService.saveOrder(Mockito.any(Order.class))).thenAnswer(new Answer<Order>() {
+			
 			@Override
-            public Order answer(InvocationOnMock invocation) throws Throwable {
-	            Order toSave = (Order) invocation.getArguments()[0];
-	            validate(toSave, new OrderValidator());
-	            return toSave;
-            }
+			public Order answer(InvocationOnMock invocation) throws Throwable {
+				Order toSave = (Order) invocation.getArguments()[0];
+				validate(toSave, new OrderValidator());
+				return toSave;
+			}
 		});
 		
 		mockStatic(Context.class);
@@ -113,20 +116,20 @@ public class RadiologyBehaviorTestsMockito {
 		
 		verify(mockOrderService).saveOrder((Order) Mockito.any());
 	}
-
+	
 	/**
-     * @param target
-     * @param validator
-     */
-    private void validate(Object target, Validator validator) {
-    	if (target == null) {
-    		throw new NullPointerException("Cannot validate null object");
-    	}
-    	Errors errors = new BeanPropertyBindingResult(target, "target");
-	    validator.validate(target, errors);
-	    if (errors.hasErrors()) {
-	    	throw new RuntimeException("Validation errors: " + errors.toString());
-	    }
-    }
+	 * @param target
+	 * @param validator
+	 */
+	private void validate(Object target, Validator validator) {
+		if (target == null) {
+			throw new NullPointerException("Cannot validate null object");
+		}
+		Errors errors = new BeanPropertyBindingResult(target, "target");
+		validator.validate(target, errors);
+		if (errors.hasErrors()) {
+			throw new RuntimeException("Validation errors: " + errors.toString());
+		}
+	}
 	
 }

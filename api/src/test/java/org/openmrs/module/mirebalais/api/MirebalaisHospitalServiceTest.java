@@ -39,67 +39,71 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.ZL_IDENTIFIER_TY
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
-public class  MirebalaisHospitalServiceTest {
-
-    private MirebalaisHospitalService service;
-
-    @Before
-    public void setUp() throws Exception {
-        service = new MirebalaisHospitalServiceImpl();
-    }
-
-    @Test
-    public void shouldGetZlIdentifierType() {
-        PatientIdentifierType zlIdentifierTypeMock = new PatientIdentifierType();
-        zlIdentifierTypeMock.setUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
-
-        PatientService patientServiceMock = mock(PatientService.class);
-        when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID)).thenReturn(zlIdentifierTypeMock);
-
-        PowerMockito.mockStatic(Context.class);
-        when(Context.getPatientService()).thenReturn(patientServiceMock);
-
-        PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
-        assertNotNull(zlIdentifierType);
-        assertEquals(ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void getZlIdentifierType_shouldFailIfTypeIsNotInDatabase() {
-        PatientService patientServiceMock = mock(PatientService.class);
-        when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID)).thenReturn(null);
-
-        PowerMockito.mockStatic(Context.class);
-        when(Context.getPatientService()).thenReturn(patientServiceMock);
-
-        PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
-    }
-
-    @Test
-    public void shouldGetLocalZlIdentifierSource() {
-        IdentifierPool zlIdentifierPoolMock = new IdentifierPool();
-        zlIdentifierPoolMock.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-
-        IdentifierSourceService identifierSourceServiceMock = mock(IdentifierSourceService.class);
-        when(identifierSourceServiceMock.getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID)).thenReturn(zlIdentifierPoolMock);
-
-        PowerMockito.mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceServiceMock);
-
-        IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
-        assertNotNull(zlIdentifierPool);
-        assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, zlIdentifierPool.getUuid());
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void getLocalZlIdentifierSource_shouldFailIfSourceIsNotInDatabase() {
-        IdentifierSourceService identifierSourceServiceMock = mock(IdentifierSourceService.class);
-        when(identifierSourceServiceMock.getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID)).thenReturn(null);
-
-        PowerMockito.mockStatic(Context.class);
-        when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceServiceMock);
-
-        IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
-    }
-
+public class MirebalaisHospitalServiceTest {
+	
+	private MirebalaisHospitalService service;
+	
+	@Before
+	public void setUp() throws Exception {
+		service = new MirebalaisHospitalServiceImpl();
+	}
+	
+	@Test
+	public void shouldGetZlIdentifierType() {
+		PatientIdentifierType zlIdentifierTypeMock = new PatientIdentifierType();
+		zlIdentifierTypeMock.setUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
+		
+		PatientService patientServiceMock = mock(PatientService.class);
+		when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID)).thenReturn(
+		    zlIdentifierTypeMock);
+		
+		PowerMockito.mockStatic(Context.class);
+		when(Context.getPatientService()).thenReturn(patientServiceMock);
+		
+		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
+		assertNotNull(zlIdentifierType);
+		assertEquals(ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void getZlIdentifierType_shouldFailIfTypeIsNotInDatabase() {
+		PatientService patientServiceMock = mock(PatientService.class);
+		when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID))
+		        .thenReturn(null);
+		
+		PowerMockito.mockStatic(Context.class);
+		when(Context.getPatientService()).thenReturn(patientServiceMock);
+		
+		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
+	}
+	
+	@Test
+	public void shouldGetLocalZlIdentifierSource() {
+		IdentifierPool zlIdentifierPoolMock = new IdentifierPool();
+		zlIdentifierPoolMock.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+		
+		IdentifierSourceService identifierSourceServiceMock = mock(IdentifierSourceService.class);
+		when(identifierSourceServiceMock.getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID))
+		        .thenReturn(zlIdentifierPoolMock);
+		
+		PowerMockito.mockStatic(Context.class);
+		when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceServiceMock);
+		
+		IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
+		assertNotNull(zlIdentifierPool);
+		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, zlIdentifierPool.getUuid());
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void getLocalZlIdentifierSource_shouldFailIfSourceIsNotInDatabase() {
+		IdentifierSourceService identifierSourceServiceMock = mock(IdentifierSourceService.class);
+		when(identifierSourceServiceMock.getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID))
+		        .thenReturn(null);
+		
+		PowerMockito.mockStatic(Context.class);
+		when(Context.getService(IdentifierSourceService.class)).thenReturn(identifierSourceServiceMock);
+		
+		IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
+	}
+	
 }
