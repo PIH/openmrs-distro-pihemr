@@ -214,14 +214,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service,
 	        PatientIdentifierType zlIdentifierType, IdentifierSourceService identifierSourceService) {
 		RemoteIdentifierSource remoteZlIdentifierSource;
-		try {
+
+        try {
 			remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
+            updateInformationFromPropertiesFile(remoteZlIdentifierSource);
 		}
 		catch (IllegalStateException ex) {
 			remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlIdentifierType);
-			identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
 		}
-		return remoteZlIdentifierSource;
+
+        identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
+        return remoteZlIdentifierSource;
 	}
 	
 	private AutoGenerationOption buildZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType,
@@ -252,13 +255,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
 		remoteZlIdentifierSource.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
 		remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
+        updateInformationFromPropertiesFile(remoteZlIdentifierSource);
+        return remoteZlIdentifierSource;
+	}
+
+    private void updateInformationFromPropertiesFile(RemoteIdentifierSource remoteZlIdentifierSource) {
         remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
         remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
         remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
-        return remoteZlIdentifierSource;
-	}
-	
-	private boolean installMirthChannels() {
+    }
+
+    private boolean installMirthChannels() {
 		
 		try {
 			// first copy the channel files to a tmp directory
