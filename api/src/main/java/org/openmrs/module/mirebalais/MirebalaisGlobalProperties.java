@@ -24,11 +24,7 @@ public class MirebalaisGlobalProperties {
 	public static final Integer MIRTH_ADMIN_PORT() {
 		return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthAdminPort"));
 	}
-	
-	public static final Integer MIRTH_INPUT_PORT() {
-		return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthInputPort"));
-	}
-	
+
 	public static final String MIRTH_USERNAME() {
 		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthUsername");
 	}
