@@ -348,7 +348,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             throw new RuntimeException("Unable to configure address hierarchy as it is currently misconfigured with " + numberOfLevels + "levels");
         }
 
-        // add the address hierarchy levels if they don't exist, otherwise verify that they are correct
+        // add the address hierarchy levels & entries if they don't exist, otherwise verify that they are correct
         if (numberOfLevels == 0) {
             AddressHierarchyLevel country = new AddressHierarchyLevel();
             country.setAddressField(AddressField.COUNTRY);
@@ -383,7 +383,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE);
             AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|");
         }
-        // at least verify that the other levels exist
+        // at least verify that the right levels exist
+        // TODO: perhaps do more validation here?
         else {
             AddressField[] fields = { AddressField.COUNTRY, AddressField.STATE_PROVINCE, AddressField.CITY_VILLAGE,
                                       AddressField.ADDRESS_3, AddressField.ADDRESS_1, AddressField.ADDRESS_2 };
