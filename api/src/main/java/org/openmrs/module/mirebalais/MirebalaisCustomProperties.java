@@ -13,6 +13,9 @@
  */
 package org.openmrs.module.mirebalais;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -23,6 +26,16 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTI
 
 public class MirebalaisCustomProperties {
 
+    public static final String MIREBALAIS_CUSTOM_PROPERTIES_FILE = "mirebalais_custom_properties_file";
+
+    public static final String REMOTE_ZLIDENTIFIER_URL = "remote_zlidentifier_url";
+
+    public static final String REMOTE_ZLIDENTIFIER_PASSWORD = "remote_zlidentifier_password";
+
+    public static final String REMOTE_ZLIDENTIFIER_USERNAME = "remote_zlidentifier_username";
+
+    private Log log = LogFactory.getLog(getClass());
+
     private Properties properties;
 
     public MirebalaisCustomProperties() {
@@ -31,25 +44,27 @@ public class MirebalaisCustomProperties {
     }
 
     public String getRemoteZlIdentifierSourceUsername() {
-        return properties.getProperty("remote_zlidentifier_username", REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+        return properties.getProperty(REMOTE_ZLIDENTIFIER_USERNAME, REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
     }
 
     public String getRemoteZlIdentifierSourcePassword() {
-        return properties.getProperty("remote_zlidentifier_password", REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+        return properties.getProperty(REMOTE_ZLIDENTIFIER_PASSWORD, REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
     }
 
 
     public String getRemoteZlIdentifierSourceUrl() {
-        return properties.getProperty("remote_zlidentifier_url", REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+        return properties.getProperty(REMOTE_ZLIDENTIFIER_URL, REMOTE_ZL_IDENTIFIER_SOURCE_URL);
     }
 
     private Properties createFile() {
-        String propertiesFile = System.getenv("mirebalais_custom_properties_file");
+        String propertiesFile = System.getenv(MIREBALAIS_CUSTOM_PROPERTIES_FILE);
 
         try {
-            properties.load(new FileInputStream(propertiesFile));
+            if (propertiesFile != null) {
+                properties.load(new FileInputStream(propertiesFile));
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("File mirebalais_custom_properties_file not found. Error: ", e);
         }
         return properties;
     }

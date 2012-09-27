@@ -47,10 +47,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -62,8 +63,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
 	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
-	
-	public MirebalaisHospitalActivator() {
+
+    private MirebalaisCustomProperties customProperties;
+
+    public MirebalaisHospitalActivator() {
 		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
@@ -73,8 +76,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
 		currentMetadataVersions.put("f2247475-fb67-443b-913a-d304d3684ab4", "HUM_Privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
+        customProperties = new MirebalaisCustomProperties();
 	}
-	
+
 	/**
 	 * @see ModuleActivator#willRefreshContext()
 	 */
@@ -246,10 +250,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private RemoteIdentifierSource buildRemoteZlIdentifierSource(PatientIdentifierType zlIdentifierType) {
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 		remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
-		remoteZlIdentifierSource.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-		remoteZlIdentifierSource.setUrl(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+		remoteZlIdentifierSource.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
 		remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
-		return remoteZlIdentifierSource;
+        remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
+        remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
+        remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
+        return remoteZlIdentifierSource;
 	}
 	
 	private boolean installMirthChannels() {
@@ -440,4 +446,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	public Map<String, String> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
 	}
+
+     void setCustomProperties(MirebalaisCustomProperties customProperties) {
+        this.customProperties = customProperties;
+    }
 }

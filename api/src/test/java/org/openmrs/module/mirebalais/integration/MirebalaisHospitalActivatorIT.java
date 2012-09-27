@@ -43,6 +43,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.Assert.assertEquals;
+
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 	
@@ -78,8 +80,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 			ImportedPackage installedPackage = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
 			    metadataPackageGroupUuid);
 			Integer actualVersion = installedPackage == null ? null : installedPackage.getVersion();
-			Assert.assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion
-			        + " Actual version: " + actualVersion, expectedVersion, actualVersion);
+			assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion
+                    + " Actual version: " + actualVersion, expectedVersion, actualVersion);
 		}
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
@@ -98,19 +100,19 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	}
 	
 	private void verifyGlobalPropertiesConfigured() throws Exception {
-		Assert.assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
-		Assert.assertEquals(new Integer(6661), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
-		Assert.assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
-		Assert.assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
-		Assert.assertEquals("mirth", MirebalaisGlobalProperties.MIRTH_USERNAME());
-		Assert.assertEquals("Mirth123", MirebalaisGlobalProperties.MIRTH_PASSWORD());
+		assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
+		assertEquals(new Integer(6661), MirebalaisGlobalProperties.MIRTH_INPUT_PORT());
+		assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
+		assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
+		assertEquals("mirth", MirebalaisGlobalProperties.MIRTH_USERNAME());
+		assertEquals("Mirth123", MirebalaisGlobalProperties.MIRTH_PASSWORD());
 	}
 	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-		Assert.assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
-		Assert.assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-		Assert.assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties
-		        .RADIOLOGY_ORDER_TYPE_UUID());
+		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
+		assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
+		assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties
+                .RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
 	private void verifyIdentifierSourcesConfigured() throws Exception {
@@ -123,33 +125,36 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class)
 		        .getAutoGenerationOption(zlIdentifierType);
 		
-		Assert.assertEquals(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
-		Assert.assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
-		Assert.assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
+		assertEquals(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
+		assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
+		assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
 		
-		Assert.assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
-		Assert.assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
-		Assert.assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool
-		        .getMinPoolSize());
+		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
+		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
+		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool
+                .getMinPoolSize());
 		
-		Assert.assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
-		Assert.assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL, remoteZlIdentifierSource.getUrl());
+		assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
+		assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL, remoteZlIdentifierSource.getUrl());
+        assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME, remoteZlIdentifierSource.getUser());
+        assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD, remoteZlIdentifierSource.getPassword());
+
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
 		AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
 		
 		// assert that we now have six address hierarchy levels
-		Assert.assertEquals(new Integer(6), ahService.getAddressHierarchyLevelsCount());
+		assertEquals(new Integer(6), ahService.getAddressHierarchyLevelsCount());
 		
 		// make sure they are mapped correctly
 		List<AddressHierarchyLevel> levels = ahService.getOrderedAddressHierarchyLevels(true);
-		Assert.assertEquals(AddressField.COUNTRY, levels.get(0).getAddressField());
-		Assert.assertEquals(AddressField.STATE_PROVINCE, levels.get(1).getAddressField());
-		Assert.assertEquals(AddressField.CITY_VILLAGE, levels.get(2).getAddressField());
-		Assert.assertEquals(AddressField.ADDRESS_3, levels.get(3).getAddressField());
-		Assert.assertEquals(AddressField.ADDRESS_1, levels.get(4).getAddressField());
-		Assert.assertEquals(AddressField.ADDRESS_2, levels.get(5).getAddressField());
+		assertEquals(AddressField.COUNTRY, levels.get(0).getAddressField());
+		assertEquals(AddressField.STATE_PROVINCE, levels.get(1).getAddressField());
+		assertEquals(AddressField.CITY_VILLAGE, levels.get(2).getAddressField());
+		assertEquals(AddressField.ADDRESS_3, levels.get(3).getAddressField());
+		assertEquals(AddressField.ADDRESS_1, levels.get(4).getAddressField());
+		assertEquals(AddressField.ADDRESS_2, levels.get(5).getAddressField());
 		
 	}
 	
@@ -159,8 +164,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		// we should now have 26000+ address hierarchy entries
 		Assert.assertTrue(ahService.getAddressHierarchyEntryCount() > 26000);
 		
-		Assert.assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
-		Assert.assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
+		assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
+		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
 	}
 	
 }
