@@ -80,12 +80,12 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		InputStream in = mirthShell.getInputStream();
 		
 		out.write("status\n".getBytes());
-
-        // add a delay here (not sure if this is necessary)
-        Thread.sleep(2000);
-
-        out.close();
-
+		
+		// add a delay here (not sure if this is necessary)
+		Thread.sleep(2000);
+		
+		out.close();
+		
 		String mirthStatus = IOUtils.toString(in);
 		TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
 	}
