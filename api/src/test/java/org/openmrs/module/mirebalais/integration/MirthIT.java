@@ -17,7 +17,9 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.api.context.Context;
@@ -35,6 +37,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Properties;
 
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
@@ -44,11 +47,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	@Override
 	public Boolean useInMemoryDatabase() {
 		return false;
-	}
-	
-	@Override
-	public String getWebappName() {
-		return "openmrs_test";
 	}
 	
 	@Before
@@ -61,7 +59,37 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		Context.flushSession();
 	}
-	
+
+    @Test
+    public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
+
+        // give Mirth channels a few seconds to start
+        Thread.sleep(5000);
+
+        // confirm that appropriate Mirth channels have been deployed
+        String[] commands = new String[] {
+                "java",
+                "-classpath",
+                MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
+                        + "/cli-lib/*",
+                "com.mirth.connect.cli.launcher.CommandLineLauncher",
+                "-a",
+                "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
+                        + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
+                "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
+        Process mirthShell = Runtime.getRuntime().exec(commands);
+
+        OutputStream out = mirthShell.getOutputStream();
+        InputStream in = mirthShell.getInputStream();
+
+        out.write("status\n".getBytes());
+        out.close();
+
+        String mirthStatus = IOUtils.toString(in);
+        TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
+    }
+
+
 	@Test
 	public void shouldSendMessageToMirth() throws Exception {
 		
@@ -86,7 +114,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// TODO: do we want we tear down the Mirth channel after this?
 		
 	}
-	
+
 	private String listenForResults() throws IOException {
 		
 		ServerSocket listener = new ServerSocket(6660); // TODO: store this port in a global poroperty?

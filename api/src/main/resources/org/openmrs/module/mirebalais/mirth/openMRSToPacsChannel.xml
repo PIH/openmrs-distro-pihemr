@@ -8,12 +8,12 @@
     <time>1348777975000</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>9</revision>
+  <revision>10</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
       <property name="DataType">Database Reader</property>
-      <property name="URL">jdbc:mysql://localhost:3306/openmrs_test</property>
+      <property name="URL">jdbc:mysql://localhost:3306/openmrs</property>
       <property name="ack"></property>
       <property name="ackScript"></property>
       <property name="driver">com.mysql.jdbc.Driver</property>
