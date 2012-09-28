@@ -122,7 +122,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		Assert.assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
-		Assert.assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
+		Assert.assertEquals("Admin123", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
 		Assert.assertEquals("84ce45a8-5e7c-48f7-a581-bb1d17d63a62", PacsIntegrationGlobalProperties
 		        .RADIOLOGY_ORDER_TYPE_UUID());
 	}

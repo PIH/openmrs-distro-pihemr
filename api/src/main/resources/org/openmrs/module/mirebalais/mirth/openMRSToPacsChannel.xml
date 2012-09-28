@@ -2,32 +2,34 @@
   <id>9f5751cd-3418-4262-b4d3-2c87814225e9</id>
   <name>OpenMRS to PACS</name>
   <description></description>
-  <enabled>true</enabled>
+  <enabled>false</enabled>
   <version>2.2.1.5861</version>
   <lastModified>
-    <time>1348777975000</time>
+    <time>1348863078000</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>10</revision>
+  <revision>24</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
       <property name="DataType">Database Reader</property>
-      <property name="URL">jdbc:mysql://localhost:3306/openmrs</property>
-      <property name="ack"></property>
+      <property name="URL">jdbc:mysql://localhost:3306/openmrs?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+      <property name="ack">UPDATE pacsintegration_outbound_queue SET processed=1
+			WHERE outbound_queue_id=${outbound_queue_id};</property>
       <property name="ackScript"></property>
       <property name="driver">com.mysql.jdbc.Driver</property>
       <property name="host">query</property>
       <property name="password">morrison</property>
       <property name="pollingFrequency">5000</property>
+      <property name="pollingTime">12:00 AM</property>
       <property name="pollingType">interval</property>
       <property name="processResultsInOrder">1</property>
       <property name="query">SELECT outbound_queue_id, message FROM pacsintegration_outbound_queue
-                WHERE processed=false ORDER BY date_created ASC;
+                WHERE processed=0 ORDER BY date_created ASC;
 
             </property>
       <property name="script"></property>
-      <property name="useAck">0</property>
+      <property name="useAck">1</property>
       <property name="useScript">0</property>
       <property name="username">root</property>
     </properties>
@@ -48,12 +50,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;sendingFacility&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -72,12 +74,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;patientId&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -96,12 +98,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;familyName&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -120,12 +122,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;givenName&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -144,12 +146,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;dateOfBirth&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -168,12 +170,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;patientSex&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -192,12 +194,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;orderControl&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -216,12 +218,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;accessionNumber&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -240,12 +242,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;universalServiceID&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -264,12 +266,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;universalServiceIDText&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -288,12 +290,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;deviceLocation&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -312,12 +314,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;modality&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -336,12 +338,12 @@
               <string></string>
             </entry>
             <entry>
-              <string>RegularExpressions</string>
-              <list/>
-            </entry>
-            <entry>
               <string>Mapping</string>
               <string>msg[&apos;scheduledExamDatetime&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
             </entry>
           </data>
         </step>
@@ -444,8 +446,11 @@ U0xJVkVSfHx8fHx8fHx8fHx8fHx8Uk0zNDVeVVN8fHx8fHx8fHx8fHx8fHx8fDIwMDAxMjI1</outbou
     <property name="synchronous">true</property>
     <property name="transactional">false</property>
   </properties>
-  <preprocessingScript>// Modify the message variable below to pre process data
-        return message;</preprocessingScript>
+  <preprocessingScript>
+message = message.replace(&quot;/&amp;lt;/g&quot;,&quot;&lt;&quot;);
+message = message.replace(&quot;/&amp;gt;/g&quot;,&quot;&gt;&quot;);
+
+return message;</preprocessingScript>
   <postprocessingScript>// This script executes once after a message has been processed
         return;</postprocessingScript>
   <deployScript>// This script executes once when the channel is deployed

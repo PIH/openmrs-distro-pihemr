@@ -340,7 +340,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	private void setupPacsIntegrationGlobalProperties() {
 		setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
-		setExistingGlobalProperty("pacsintegration.listenerPassword", "test");
+		setExistingGlobalProperty("pacsintegration.listenerPassword", "Admin123");
 		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "84ce45a8-5e7c-48f7-a581-bb1d17d63a62");
 	}
 	

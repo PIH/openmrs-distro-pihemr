@@ -22,12 +22,17 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
+import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
+import org.openmrs.module.event.advice.GeneralEventAdvice;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
+import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.pacsintegration.api.PacsIntegrationService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -91,18 +96,22 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 
 
 	@Test
+    @NotTransactional
 	public void shouldSendMessageToMirth() throws Exception {
-		
+
+        // we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
+        Context.addAdvice(OrderService.class, new GeneralEventAdvice());
+
 		// TODO: eventually we should make sure all the necessary fields are concluded here
 		
 		Order order = new Order();
-		order.setOrderType(Context.getOrderService().getOrderTypeByUuid("84ce45a8-5e7c-48f7-a581-bb1d17d63a62"));
+		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID()));
 		order.setPatient(Context.getPatientService().getPatient(3));
 		order.setConcept(Context.getConceptService().getConcept(239));
 		order.setStartDate(new Date());
 		Context.getOrderService().saveOrder(order);
 		Context.flushSession();
-		
+
 		String result = listenForResults();
 		
 		TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);

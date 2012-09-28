@@ -13,5 +13,7 @@
         <mapping resource="AddressHierarchyEntry.hbm.xml" />
         <mapping resource="AddressHierarchyLevel.hbm.xml" />
         <mapping resource="AddressToEntryMap.hbm.xml" />
+
+        <mapping resource="OutboundQueue.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
