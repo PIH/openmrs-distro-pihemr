@@ -27,7 +27,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import java.util.List;
 
 /**
- * For BDD of the radiology integration (proof of concept the old way)
+ * For BDD of the radiology component (proof of concept the old way)
  */
 @SuppressWarnings("deprecation")
 public class RadiologyBehaviorTestsContextSensitive extends BaseModuleContextSensitiveTest {
