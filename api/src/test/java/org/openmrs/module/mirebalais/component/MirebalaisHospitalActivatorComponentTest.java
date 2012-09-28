@@ -65,7 +65,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		verifyMetadataPackagesConfigured(activator);
 		verifyGlobalPropertiesConfigured();
 		verifyPacsIntegrationGlobalPropertiesConfigured();
-		verifyIdentifierSourcesConfigured();
 		verifyAddressHierarchyLevelsCreated();
 		verifyAddressHierarchyLoaded();
 	}
@@ -127,31 +126,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
-	private void verifyIdentifierSourcesConfigured() throws Exception {
-		MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
-		IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
-		RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-		
-		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
-		    MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
-		AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class)
-		        .getAutoGenerationOption(zlIdentifierType);
-		
-		assertEquals(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
-		assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
-		assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
-		
-		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
-		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
-		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
-		
-		assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
-		assertEquals("http://localhost", remoteZlIdentifierSource.getUrl());
-		assertEquals("user_test", remoteZlIdentifierSource.getUser());
-		assertEquals("abc123", remoteZlIdentifierSource.getPassword());
-		
-	}
-	
+
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
 		AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
 		
