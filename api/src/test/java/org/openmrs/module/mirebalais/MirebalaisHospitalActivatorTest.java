@@ -40,143 +40,149 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTI
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
 
 public class MirebalaisHospitalActivatorTest {
-
-    private MirebalaisHospitalActivator mirebalaisHospitalActivator;
-    private IdentifierSourceService identifierSourceService;
-    private MirebalaisHospitalService service;
-    private PatientIdentifierType defaultPatientIdentifierType;
-    private MirebalaisCustomProperties customProperties;
-
-    @Before
+	
+	private MirebalaisHospitalActivator mirebalaisHospitalActivator;
+	
+	private IdentifierSourceService identifierSourceService;
+	
+	private MirebalaisHospitalService service;
+	
+	private PatientIdentifierType defaultPatientIdentifierType;
+	
+	private MirebalaisCustomProperties customProperties;
+	
+	@Before
 	public void setUp() throws Exception {
 		mirebalaisHospitalActivator = new MirebalaisHospitalActivator();
-        identifierSourceService = mock(IdentifierSourceService.class);
-        service = mock(MirebalaisHospitalService.class);
-        defaultPatientIdentifierType = new PatientIdentifierType();
-        customProperties = mock(MirebalaisCustomProperties.class);
-        mirebalaisHospitalActivator.setCustomProperties(customProperties);
-    }
-
+		identifierSourceService = mock(IdentifierSourceService.class);
+		service = mock(MirebalaisHospitalService.class);
+		defaultPatientIdentifierType = new PatientIdentifierType();
+		customProperties = mock(MirebalaisCustomProperties.class);
+		mirebalaisHospitalActivator.setCustomProperties(customProperties);
+	}
+	
 	@Test
 	public void shouldUpdateRemoteZlIdentifierSourceWhenItExistsOnDbAndTheCustomPropertiesFileIsNotConfigured() {
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
-        when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
-
-        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
-        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
-        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
-
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected =
-                mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
-
+		when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
+		
+		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+		
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = mirebalaisHospitalActivator
+		        .getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
+		
 		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
-
+		
 		assertSame(remoteZlIdentifierSource, remoteZlIdentifierSourceExpected);
-        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
-        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
-        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
+		assertEquals(remoteZlIdentifierSourceExpected.getUrl(), remoteZlIdentifierSource.getUrl());
+		assertEquals(remoteZlIdentifierSourceExpected.getUser(), remoteZlIdentifierSource.getUser());
+		assertEquals(remoteZlIdentifierSourceExpected.getPassword(), remoteZlIdentifierSource.getPassword());
 	}
-
-    @Test
-    public void shouldUpdateRemoteZlIdentifierSourceWhenItExistsOnDbAndTheCustomPropertiesFileIsConfigured() {
-        RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
-        when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
-
-        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
-        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
-        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
-
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected =
-                mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
-
-        verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
-
-        assertSame(remoteZlIdentifierSource, remoteZlIdentifierSourceExpected);
-        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
-        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
-        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
-    }
-
+	
+	@Test
+	public void shouldUpdateRemoteZlIdentifierSourceWhenItExistsOnDbAndTheCustomPropertiesFileIsConfigured() {
+		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
+		when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
+		
+		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
+		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
+		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
+		
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = mirebalaisHospitalActivator
+		        .getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
+		
+		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
+		
+		assertSame(remoteZlIdentifierSource, remoteZlIdentifierSourceExpected);
+		assertEquals(remoteZlIdentifierSourceExpected.getUrl(), remoteZlIdentifierSource.getUrl());
+		assertEquals(remoteZlIdentifierSourceExpected.getUser(), remoteZlIdentifierSource.getUser());
+		assertEquals(remoteZlIdentifierSourceExpected.getPassword(), remoteZlIdentifierSource.getPassword());
+	}
+	
 	@Test
 	public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsNotConfigured() {
 		when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
-
-        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
-        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
-        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
-
+		
+		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+		
 		RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(
 		    service, defaultPatientIdentifierType, identifierSourceService);
-
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithDefaultValues(defaultPatientIdentifierType);
+		
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithDefaultValues(defaultPatientIdentifierType);
 		verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
-
-        assertEquals(remoteZlIdentifierSourceExpected, remoteZlIdentifierSource);
-        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
-        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
-        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
+		
+		assertEquals(remoteZlIdentifierSourceExpected, remoteZlIdentifierSource);
+		assertEquals(remoteZlIdentifierSourceExpected.getUrl(), remoteZlIdentifierSource.getUrl());
+		assertEquals(remoteZlIdentifierSourceExpected.getUser(), remoteZlIdentifierSource.getUser());
+		assertEquals(remoteZlIdentifierSourceExpected.getPassword(), remoteZlIdentifierSource.getPassword());
 	}
-
-    @Test
-    public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsConfigured() {
-        when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
-
-        when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
-        when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
-        when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
-
-        RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(
-                service, defaultPatientIdentifierType, identifierSourceService);
-
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithCustomValues(defaultPatientIdentifierType, "http://localhost", "user_test", "abc123");
-
-        verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
-        assertEquals(remoteZlIdentifierSourceExpected, remoteZlIdentifierSource);
-        assertEquals(remoteZlIdentifierSourceExpected.getUrl(),remoteZlIdentifierSource.getUrl());
-        assertEquals(remoteZlIdentifierSourceExpected.getUser(),remoteZlIdentifierSource.getUser());
-        assertEquals(remoteZlIdentifierSourceExpected.getPassword(),remoteZlIdentifierSource.getPassword());
-    }
-
+	
+	@Test
+	public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsConfigured() {
+		when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
+		
+		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
+		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
+		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
+		
+		RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(
+		    service, defaultPatientIdentifierType, identifierSourceService);
+		
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithCustomValues(
+		    defaultPatientIdentifierType, "http://localhost", "user_test", "abc123");
+		
+		verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
+		assertEquals(remoteZlIdentifierSourceExpected, remoteZlIdentifierSource);
+		assertEquals(remoteZlIdentifierSourceExpected.getUrl(), remoteZlIdentifierSource.getUrl());
+		assertEquals(remoteZlIdentifierSourceExpected.getUser(), remoteZlIdentifierSource.getUser());
+		assertEquals(remoteZlIdentifierSourceExpected.getPassword(), remoteZlIdentifierSource.getPassword());
+	}
+	
 	@Test
 	public void shouldReturnLocalZlIdentifierPoolWhenItExistsOnDb() {
 		IdentifierPool identifierPool = new IdentifierPool();
 		when(service.getLocalZlIdentifierPool()).thenReturn(identifierPool);
-
+		
 		IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service,
-                defaultPatientIdentifierType, new RemoteIdentifierSource(), identifierSourceService);
+		    defaultPatientIdentifierType, new RemoteIdentifierSource(), identifierSourceService);
 		verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
-
+		
 		assertSame(identifierPool, remoteZlIdentifierPool);
 	}
-
+	
 	@Test
 	public void shouldCreateLocalZlIdentifierPoolWhenItDoesNotExistOnDb() {
 		when(service.getLocalZlIdentifierPool()).thenThrow(new IllegalStateException());
-
+		
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
-
+		
 		IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service,
 		    defaultPatientIdentifierType, remoteZlIdentifierSource, identifierSourceService);
-
+		
 		IdentifierPool localPool = buildLocalPoolAsExpected(defaultPatientIdentifierType, remoteZlIdentifierSource);
 		verify(identifierSourceService).saveIdentifierSource(eq(localPool));
-
+		
 		assertEquals(localPool, remoteZlIdentifierPool);
 	}
-
+	
 	@Test
 	public void shouldCreateZlIdentifierAutoGenerationOptionsWhenItDoesNotExistOnDb() {
 		when(identifierSourceService.getAutoGenerationOption(defaultPatientIdentifierType)).thenReturn(null);
-
-        IdentifierPool localZlIdentifierPool = new IdentifierPool();
-        mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(defaultPatientIdentifierType, localZlIdentifierPool,
-		    identifierSourceService);
-		AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(defaultPatientIdentifierType, localZlIdentifierPool);
-
+		
+		IdentifierPool localZlIdentifierPool = new IdentifierPool();
+		mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(defaultPatientIdentifierType,
+		    localZlIdentifierPool, identifierSourceService);
+		AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(defaultPatientIdentifierType,
+		    localZlIdentifierPool);
+		
 		verify(identifierSourceService).saveAutoGenerationOption(any(AutoGenerationOption.class));
-
+		
 	}
-
+	
 	private AutoGenerationOption buildAutoGenerationOptionsAsExpected(PatientIdentifierType zlIdentifierType,
 	        IdentifierPool localZlIdentifierPool) {
 		AutoGenerationOption autoGen = new AutoGenerationOption();
@@ -186,7 +192,7 @@ public class MirebalaisHospitalActivatorTest {
 		autoGen.setAutomaticGenerationEnabled(true);
 		return autoGen;
 	}
-
+	
 	private IdentifierPool buildLocalPoolAsExpected(PatientIdentifierType zlIdentifierType,
 	        RemoteIdentifierSource remoteZlIdentifierSource) {
 		IdentifierPool localPool = new IdentifierPool();
@@ -199,26 +205,27 @@ public class MirebalaisHospitalActivatorTest {
 		localPool.setSequential(true);
 		return localPool;
 	}
-
+	
 	private RemoteIdentifierSource buildRemoteIdentifierExpectedWithDefaultValues(PatientIdentifierType zlIdentifierType) {
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = new RemoteIdentifierSource();
 		remoteZlIdentifierSourceExpected.setName("Remote Source for ZL Identifiers");
 		remoteZlIdentifierSourceExpected.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
 		remoteZlIdentifierSourceExpected.setUrl(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
-        remoteZlIdentifierSourceExpected.setUser(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
-        remoteZlIdentifierSourceExpected.setPassword(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+		remoteZlIdentifierSourceExpected.setUser(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+		remoteZlIdentifierSourceExpected.setPassword(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
 		remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
 		return remoteZlIdentifierSourceExpected;
 	}
-
-    private RemoteIdentifierSource buildRemoteIdentifierExpectedWithCustomValues(PatientIdentifierType zlIdentifierType, String url, String user, String password) {
-        RemoteIdentifierSource remoteZlIdentifierSourceExpected = new RemoteIdentifierSource();
-        remoteZlIdentifierSourceExpected.setName("Remote Source for ZL Identifiers");
-        remoteZlIdentifierSourceExpected.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-        remoteZlIdentifierSourceExpected.setUrl(url);
-        remoteZlIdentifierSourceExpected.setUser(user);
-        remoteZlIdentifierSourceExpected.setPassword(password);
-        remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
-        return remoteZlIdentifierSourceExpected;
-    }
+	
+	private RemoteIdentifierSource buildRemoteIdentifierExpectedWithCustomValues(PatientIdentifierType zlIdentifierType,
+	        String url, String user, String password) {
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = new RemoteIdentifierSource();
+		remoteZlIdentifierSourceExpected.setName("Remote Source for ZL Identifiers");
+		remoteZlIdentifierSourceExpected.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+		remoteZlIdentifierSourceExpected.setUrl(url);
+		remoteZlIdentifierSourceExpected.setUser(user);
+		remoteZlIdentifierSourceExpected.setPassword(password);
+		remoteZlIdentifierSourceExpected.setIdentifierType(zlIdentifierType);
+		return remoteZlIdentifierSourceExpected;
+	}
 }

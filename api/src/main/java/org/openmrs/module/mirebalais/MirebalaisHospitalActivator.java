@@ -63,10 +63,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
 	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
-
-    private MirebalaisCustomProperties customProperties;
-
-    public MirebalaisHospitalActivator() {
+	
+	private MirebalaisCustomProperties customProperties;
+	
+	public MirebalaisHospitalActivator() {
 		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
@@ -76,9 +76,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
-        customProperties = new MirebalaisCustomProperties();
+		customProperties = new MirebalaisCustomProperties();
 	}
-
+	
 	/**
 	 * @see ModuleActivator#willRefreshContext()
 	 */
@@ -214,17 +214,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service,
 	        PatientIdentifierType zlIdentifierType, IdentifierSourceService identifierSourceService) {
 		RemoteIdentifierSource remoteZlIdentifierSource;
-
-        try {
+		
+		try {
 			remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-            updateInformationFromPropertiesFile(remoteZlIdentifierSource);
+			updateInformationFromPropertiesFile(remoteZlIdentifierSource);
 		}
 		catch (IllegalStateException ex) {
 			remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlIdentifierType);
 		}
-
-        identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
-        return remoteZlIdentifierSource;
+		
+		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
+		return remoteZlIdentifierSource;
 	}
 	
 	private AutoGenerationOption buildZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType,
@@ -255,17 +255,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
 		remoteZlIdentifierSource.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
 		remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
-        updateInformationFromPropertiesFile(remoteZlIdentifierSource);
-        return remoteZlIdentifierSource;
+		updateInformationFromPropertiesFile(remoteZlIdentifierSource);
+		return remoteZlIdentifierSource;
 	}
-
-    private void updateInformationFromPropertiesFile(RemoteIdentifierSource remoteZlIdentifierSource) {
-        remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
-        remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
-        remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
-    }
-
-    private boolean installMirthChannels() {
+	
+	private void updateInformationFromPropertiesFile(RemoteIdentifierSource remoteZlIdentifierSource) {
+		remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
+		remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
+		remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
+	}
+	
+	private boolean installMirthChannels() {
 		
 		try {
 			// first copy the channel files to a tmp directory
@@ -445,6 +445,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 					throw new RuntimeException("Address field " + i + " improperly configured: is "
 					        + level.getAddressField() + " but should be " + fields[i]);
 				}
+                i++;
 				
 			}
 		}
@@ -453,8 +454,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	public Map<String, String> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
 	}
-
-     void setCustomProperties(MirebalaisCustomProperties customProperties) {
-        this.customProperties = customProperties;
-    }
+	
+	void setCustomProperties(MirebalaisCustomProperties customProperties) {
+		this.customProperties = customProperties;
+	}
 }
