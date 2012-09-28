@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mirebalais.integration;
+package org.openmrs.module.mirebalais.component;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.assertEquals;
 
 @SkipBaseSetup
-public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
+public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
 	
 	MirebalaisHospitalActivator activator;
 	

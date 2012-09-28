@@ -46,7 +46,7 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
- * For BDD of the radiology integration (proof of concept using Mock Service)
+ * For BDD of the radiology component (proof of concept using Mock Service)
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
@@ -111,7 +111,7 @@ public class RadiologyBehaviorTestsMockServices {
 	}
 	
 	/**
-	 * Mock of OrderService for radiology integration tests 
+	 * Mock of OrderService for radiology component tests
 	 */
 	@SuppressWarnings("deprecation")
 	class MockOrderService extends OrderServiceImpl {
@@ -142,7 +142,7 @@ public class RadiologyBehaviorTestsMockServices {
 	}
 	
 	/**
-	 * Mock of ConceptService for Radiology integration tests
+	 * Mock of ConceptService for Radiology component tests
 	 */
 	class MockConceptService extends ConceptServiceImpl {
 		
