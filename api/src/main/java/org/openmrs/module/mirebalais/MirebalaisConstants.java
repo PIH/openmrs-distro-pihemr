@@ -28,13 +28,13 @@ public class MirebalaisConstants {
 	
 	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_UUID = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
 	
-	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "https://zanmi.pih-emr.org/openmrs/module/idgen/exportIdentifiers.form?source=3&comment=Testing+Mirebalais";
+	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "http://localhost:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=Testing+Mirebalais";
 	
 	public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 500;
 	
 	public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 1000;
 	
-	public static String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "admin";
+	public static String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "testidgen";
 	
-	public static String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "test";
+	public static String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "Testing123";
 }
