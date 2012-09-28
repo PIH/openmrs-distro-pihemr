@@ -47,7 +47,7 @@ import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 /**
- * For BDD of the radiology integration (proof of concept using Mockito)
+ * For BDD of the radiology component (proof of concept using Mockito)
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
