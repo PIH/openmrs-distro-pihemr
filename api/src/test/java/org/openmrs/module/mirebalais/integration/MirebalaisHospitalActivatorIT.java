@@ -71,29 +71,30 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	}
 	
 	private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
-
-        MetadataSharingService metadataSharingService = Context.getService(MetadataSharingService.class);
-
-        // To catch the (common) case where someone gets the groupUuid wrong, we look for any installed packages that
-        // we are not expecting
-        Map<String, String> importedGroupUuids = new HashMap<String, String>();
-        for (ImportedPackage importedPackage : metadataSharingService.getAllImportedPackages()) {
-            importedGroupUuids.put(importedPackage.getGroupUuid(), importedPackage.getName());
-        }
-        for (Map.Entry<String, String> entry : importedGroupUuids.entrySet()) {
-            if (!activator.getCurrentMetadataVersions().containsKey(entry.getKey())) {
-                Assert.fail("Found a package with an unexpected groupUuid. Name: " + entry.getValue() + " , groupUuid: " + entry.getKey());
-            }
-        }
-
-        for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
+		
+		MetadataSharingService metadataSharingService = Context.getService(MetadataSharingService.class);
+		
+		// To catch the (common) case where someone gets the groupUuid wrong, we look for any installed packages that
+		// we are not expecting
+		Map<String, String> importedGroupUuids = new HashMap<String, String>();
+		for (ImportedPackage importedPackage : metadataSharingService.getAllImportedPackages()) {
+			importedGroupUuids.put(importedPackage.getGroupUuid(), importedPackage.getName());
+		}
+		for (Map.Entry<String, String> entry : importedGroupUuids.entrySet()) {
+			if (!activator.getCurrentMetadataVersions().containsKey(entry.getKey())) {
+				Assert.fail("Found a package with an unexpected groupUuid. Name: " + entry.getValue() + " , groupUuid: "
+				        + entry.getKey());
+			}
+		}
+		
+		for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
 			String metadataPackageGroupUuid = e.getKey();
 			String metadataPackageFilename = e.getValue();
 			Integer expectedVersion = getMetadataPackageVersionFrom(metadataPackageFilename);
-            ImportedPackage installedPackage = metadataSharingService.getImportedPackageByGroup(metadataPackageGroupUuid);
+			ImportedPackage installedPackage = metadataSharingService.getImportedPackageByGroup(metadataPackageGroupUuid);
 			Integer actualVersion = installedPackage == null ? null : installedPackage.getVersion();
 			assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion
-                    + " Actual version: " + actualVersion, expectedVersion, actualVersion);
+			        + " Actual version: " + actualVersion, expectedVersion, actualVersion);
 		}
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
@@ -123,8 +124,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
 		assertEquals("test", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-		assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties
-                .RADIOLOGY_ORDER_TYPE_UUID());
+		assertEquals("7abcc666-7777-45e1-8c99-2b4f0c4f888a", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
 	private void verifyIdentifierSourcesConfigured() throws Exception {
@@ -143,14 +143,13 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		
 		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
 		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
-		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool
-                .getMinPoolSize());
+		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
 		
 		assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
 		assertEquals("http://localhost", remoteZlIdentifierSource.getUrl());
-        assertEquals("user_test", remoteZlIdentifierSource.getUser());
-        assertEquals("abc123", remoteZlIdentifierSource.getPassword());
-
+		assertEquals("user_test", remoteZlIdentifierSource.getUser());
+		assertEquals("abc123", remoteZlIdentifierSource.getPassword());
+		
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
