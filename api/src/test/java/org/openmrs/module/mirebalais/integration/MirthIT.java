@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mirebalais.component;
+package org.openmrs.module.mirebalais.integration;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
