@@ -28,7 +28,7 @@ public class MirebalaisConstants {
 	
 	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_UUID = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
 	
-	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "https://zanmi.pih-emr.org/openmrs/module/idgen/exportIdentifiers.form?source=1&comment=Mirebalais";
+	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "https://zanmi.pih-emr.org/openmrs/module/idgen/exportIdentifiers.form?source=3&comment=Testing+Mirebalais";
 	
 	public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 500;
 	
