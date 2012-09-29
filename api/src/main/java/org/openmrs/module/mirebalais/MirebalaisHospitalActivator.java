@@ -443,7 +443,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 					throw new RuntimeException("Address field " + i + " improperly configured: is "
 					        + level.getAddressField() + " but should be " + fields[i]);
 				}
-                i++;
+				i++;
 				
 			}
 		}

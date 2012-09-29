@@ -125,7 +125,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("84ce45a8-5e7c-48f7-a581-bb1d17d63a62", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
-
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
 		AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
 		

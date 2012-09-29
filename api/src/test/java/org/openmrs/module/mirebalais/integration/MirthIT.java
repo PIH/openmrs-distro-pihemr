@@ -22,16 +22,22 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PersonName;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.event.advice.GeneralEventAdvice;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
+import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.pacsintegration.api.PacsIntegrationService;
+import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.openmrs.util.OpenmrsConstants;
 import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
@@ -41,10 +47,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
 @SkipBaseSetup
+@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
@@ -62,68 +70,95 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
 		activator.started();
 		
-		Context.flushSession();
-	}
-
-    @Test
-    public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
-
-        // give Mirth channels a few seconds to start
-        Thread.sleep(5000);
-
-        // confirm that appropriate Mirth channels have been deployed
-        String[] commands = new String[] {
-                "java",
-                "-classpath",
-                MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
-                        + "/cli-lib/*",
-                "com.mirth.connect.cli.launcher.CommandLineLauncher",
-                "-a",
-                "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
-                        + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
-                "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
-        Process mirthShell = Runtime.getRuntime().exec(commands);
-
-        OutputStream out = mirthShell.getOutputStream();
-        InputStream in = mirthShell.getInputStream();
-
-        out.write("status\n".getBytes());
-        out.close();
-
-        String mirthStatus = IOUtils.toString(in);
-        TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
-    }
-
-
-	@Test
-    @NotTransactional
-	public void shouldSendMessageToMirth() throws Exception {
-
-        // we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
-        Context.addAdvice(OrderService.class, new GeneralEventAdvice());
-
-		// TODO: eventually we should make sure all the necessary fields are concluded here
+		// create the test patient, if necessary
+		if (Context.getPatientService().getPatients("2ADMMN").size() == 0) {
+			Patient patient = new Patient();
+			patient.setGender("M");
+			
+			Calendar birthdate = Calendar.getInstance();
+			birthdate.set(2000, 2, 23);
+			patient.setBirthdate(birthdate.getTime());
+			
+			PersonName name = new PersonName();
+			name.setFamilyName("Test Patient");
+			name.setGivenName("Mirth Integration");
+			patient.addName(name);
+			
+			PatientIdentifier identifier = new PatientIdentifier();
+			identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
+			identifier.setIdentifier("2ADMMN");
+			identifier.setPreferred(true);
+			identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+			patient.addIdentifier(identifier);
+			
+			Context.getPatientService().savePatient(patient);
+		}
 		
+	}
+	
+	@Test
+	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
+		
+		// give Mirth channels a few seconds to start
+		Thread.sleep(5000);
+		
+		// confirm that appropriate Mirth channels have been deployed
+		String[] commands = new String[] {
+		        "java",
+		        "-classpath",
+		        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
+		                + "/cli-lib/*",
+		        "com.mirth.connect.cli.launcher.CommandLineLauncher",
+		        "-a",
+		        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
+		                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
+		        "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
+		Process mirthShell = Runtime.getRuntime().exec(commands);
+		
+		OutputStream out = mirthShell.getOutputStream();
+		InputStream in = mirthShell.getInputStream();
+		
+		out.write("status\n".getBytes());
+		out.close();
+		
+		String mirthStatus = IOUtils.toString(in);
+		TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
+	}
+	
+	@Test
+	@NotTransactional
+	public void shouldSendMessageToMirth() throws Exception {
+		
+		// we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
+		Context.addAdvice(OrderService.class, new GeneralEventAdvice());
+		
+		// TODO: eventually we should make sure all the necessary fields are concluded here
+		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
+		
+		// first create the patient that we are going to send the order for
+		Patient patient = Context.getPatientService().getPatients("2ADMMN").get(0);
+		
+		// reate and save the order
 		Order order = new Order();
-		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID()));
-		order.setPatient(Context.getPatientService().getPatient(3));
-		order.setConcept(Context.getConceptService().getConcept(239));
-		order.setStartDate(new Date());
+		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(
+		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID())); // TODO: change this based on how we actually end up doing orders
+		order.setPatient(patient);
+		order.setConcept(Context.getConceptService().getConceptByName("X-RAY CHEST")); // TODO: replace this with an actual radiology concept
+		order.setAccessionNumber("ACCESSION NUMBER");
+		Date radiologyDate = new Date();
+		order.setStartDate(radiologyDate);
 		Context.getOrderService().saveOrder(order);
-		Context.flushSession();
-
+		
 		String result = listenForResults();
 		
-		TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);
-		TestUtils.assertContains("PID|||6TS-4||Chebaskwony^Collet||197608250000|F||||||||||||||||||", result);
+		TestUtils.assertContains("MSH|^~\\&|||||||ORM^O01||P|2.2|||||", result);
+		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M||||||||||||||||||", result);
 		TestUtils.assertContains("PV1||||||||||||||||||", result);
-		TestUtils.assertContains("ORC|SC||||||||||||||||||", result);
-		TestUtils.assertContains("OBR|||54321|B^C|||||||||||||||E^D|||||||||||||||||200808080000", result);
-		
-		// TODO: do we want we tear down the Mirth channel after this?
-		
+		TestUtils.assertContains("ORC|NW||||||||||||||||||", result);
+		TestUtils.assertContains("OBR|||ACCESSION NUMBER|^|||||||||||||||^|||||||||||||||||"
+		        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
 	}
-
+	
 	private String listenForResults() throws IOException {
 		
 		ServerSocket listener = new ServerSocket(6660); // TODO: store this port in a global poroperty?
