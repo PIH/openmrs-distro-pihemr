@@ -25,7 +25,7 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTI
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
 
 public class MirebalaisCustomProperties {
-
+	
 	public static final String MIREBALAIS_CUSTOM_PROPERTIES_FILE = "MIREBALAIS_CUSTOM_PROPERTIES_FILE";
 	
 	public static final String REMOTE_ZLIDENTIFIER_URL = "remote_zlidentifier_url";

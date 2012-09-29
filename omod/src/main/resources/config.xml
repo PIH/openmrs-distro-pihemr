@@ -85,14 +85,6 @@
     </globalProperty>
 
     <globalProperty>
-        <property>mirebalais.mirthInputPort</property>
-        <defaultValue>6661</defaultValue>
-        <description>
-            Port the Mirth server uses receiving incoming communications
-        </description>
-    </globalProperty>
-
-    <globalProperty>
         <property>mirebalais.mirthUsername</property>
         <defaultValue>mirth</defaultValue>
         <description>

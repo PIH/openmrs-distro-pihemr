@@ -12,23 +12,33 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.mirebalais.component;
+package org.openmrs.module.mirebalais.integration;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PersonName;
+import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
+import org.openmrs.module.event.advice.GeneralEventAdvice;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.pacsintegration.ConversionUtils;
-import org.openmrs.module.pacsintegration.Message;
-import org.openmrs.module.pacsintegration.OrmMessage;
+import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
+import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.pacsintegration.api.PacsIntegrationService;
+import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.openmrs.util.OpenmrsConstants;
+import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,31 +47,60 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
 
 @SkipBaseSetup
+@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
+	@Override
+	public Boolean useInMemoryDatabase() {
+		return false;
+	}
+	
 	@Before
-	public void setupDatabaseAndInstallMirthChannels() throws Exception {
-		
-		initializeInMemoryDatabase();
-		executeDataSet("requiredDataTestDataset.xml");
-		executeDataSet("globalPropertiesTestDataset.xml");
-		executeDataSet("mirthIntegrationTestDataset.xml");
+	public void beforeEachTest() throws Exception {
 		authenticate();
 		
 		// run the module activator so that the Mirth channels are configured
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
 		activator.started();
+		
+		// create the test patient, if necessary
+		if (Context.getPatientService().getPatients("2ADMMN").size() == 0) {
+			Patient patient = new Patient();
+			patient.setGender("M");
+			
+			Calendar birthdate = Calendar.getInstance();
+			birthdate.set(2000, 2, 23);
+			patient.setBirthdate(birthdate.getTime());
+			
+			PersonName name = new PersonName();
+			name.setFamilyName("Test Patient");
+			name.setGivenName("Mirth Integration");
+			patient.addName(name);
+			
+			PatientIdentifier identifier = new PatientIdentifier();
+			identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
+			identifier.setIdentifier("2ADMMN");
+			identifier.setPreferred(true);
+			identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+			patient.addIdentifier(identifier);
+			
+			Context.getPatientService().savePatient(patient);
+		}
+		
 	}
 	
 	@Test
 	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
 		
 		// give Mirth channels a few seconds to start
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		
 		// confirm that appropriate Mirth channels have been deployed
 		String[] commands = new String[] {
@@ -80,10 +119,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		InputStream in = mirthShell.getInputStream();
 		
 		out.write("status\n".getBytes());
-		
-		// add a delay here (not sure if this is necessary)
-		Thread.sleep(2000);
-		
 		out.close();
 		
 		String mirthStatus = IOUtils.toString(in);
@@ -91,37 +126,37 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
+	@NotTransactional
 	public void shouldSendMessageToMirth() throws Exception {
 		
-		Order order = Context.getOrderService().getOrder(1001);
-		OrmMessage ormMessage = ConversionUtils.createORMMessage(order, "SC");
+		// we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
+		Context.addAdvice(OrderService.class, new GeneralEventAdvice());
 		
-		// TODO: these are to mock the fields we aren't current handling--these should eventually be removed so that we properly test these fields once we handle them
-		ormMessage.setDeviceLocation("E");
-		ormMessage.setSendingFacility("A");
-		ormMessage.setUniversalServiceID("B");
-		ormMessage.setUniversalServiceIDText("C");
-		ormMessage.setModality("D");
+		// TODO: eventually we should make sure all the necessary fields are concluded here
+		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
 		
-		sendMessage(ormMessage);
+		// first create the patient that we are going to send the order for
+		Patient patient = Context.getPatientService().getPatients("2ADMMN").get(0);
+		
+		// reate and save the order
+		Order order = new Order();
+		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(
+		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID())); // TODO: change this based on how we actually end up doing orders
+		order.setPatient(patient);
+		order.setConcept(Context.getConceptService().getConceptByName("X-RAY CHEST")); // TODO: replace this with an actual radiology concept
+		order.setAccessionNumber("ACCESSION NUMBER");
+		Date radiologyDate = new Date();
+		order.setStartDate(radiologyDate);
+		Context.getOrderService().saveOrder(order);
 		
 		String result = listenForResults();
 		
-		TestUtils.assertContains("MSH|^~\\&||A|||||ORM^O01||P|2.2|||||", result);
-		TestUtils.assertContains("PID|||6TS-4||Chebaskwony^Collet||197608250000|F||||||||||||||||||", result);
+		TestUtils.assertContains("MSH|^~\\&|||||||ORM^O01||P|2.2|||||", result);
+		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M||||||||||||||||||", result);
 		TestUtils.assertContains("PV1||||||||||||||||||", result);
-		TestUtils.assertContains("ORC|SC||||||||||||||||||", result);
-		TestUtils.assertContains("OBR|||54321|B^C|||||||||||||||E^D|||||||||||||||||200808080000", result);
-		
-		// TODO: do we want we tear down the Mirth channel after this?
-		
-	}
-	
-	private void sendMessage(Message message) throws IOException {
-		Socket socket = new Socket(MirebalaisGlobalProperties.MIRTH_IP_ADDRESS(), MirebalaisGlobalProperties
-		        .MIRTH_INPUT_PORT());
-		IOUtils.write(ConversionUtils.serialize(message), socket.getOutputStream());
-		socket.close();
+		TestUtils.assertContains("ORC|NW||||||||||||||||||", result);
+		TestUtils.assertContains("OBR|||ACCESSION NUMBER|^|||||||||||||||^|||||||||||||||||"
+		        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
 	}
 	
 	private String listenForResults() throws IOException {
