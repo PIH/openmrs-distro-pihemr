@@ -13,12 +13,12 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
-import java.util.List;
-
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.AppDescriptor;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.ui.framework.page.PageModel;
+
+import java.util.List;
 
 /**
  * Home page for Mirebalais EMR (shows list of apps)

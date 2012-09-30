@@ -17,7 +17,6 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,11 +32,9 @@ import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
-import org.openmrs.module.pacsintegration.api.PacsIntegrationService;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.util.OpenmrsConstants;
 import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
@@ -49,7 +46,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
 
 @SkipBaseSetup
 @Ignore
