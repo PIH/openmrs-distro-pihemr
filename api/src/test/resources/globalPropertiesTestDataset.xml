@@ -27,13 +27,6 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
 	<global_property property="patientregistration.icd10ConceptSource" property_value="ICD-10" description="Reference to the ICD10 concept source" uuid="71566322-62b1-403b-b901-81938b734bf8"/>
 	<global_property property="patientregistration.birthYearInterval" property_value="1" description="The number of years(n) to be added or subtracted(+/- n) from the DOB year in order to determine if a patient is a duplicate." uuid="d9b3fdf8-2c4f-498e-a468-e35492fab62e"/>
 
-    <global_property property="mirebalais.mirthIpAddress" property_value="" uuid="6ed7aeb4-0663-23e1-8c99-2b4f0c4f671a"/>
-    <global_property property="mirebalais.mirthAdminPort" property_value="" uuid="7abcc444-0663-45e1-8c99-2b4f0c4f671a"/>
-    <global_property property="mirebalais.mirthInputPort" property_value="" uuid="7abcc444-0663-45e1-8999-2b4f0c4f671a"/>
-    <global_property property="mirebalais.mirthUsername" property_value="" uuid="6ed7ae444-0663-23e1-8c99-2b4f0c4f671a"/>
-    <global_property property="mirebalais.mirthPassword" property_value="" uuid="7abcc666-0663-45e1-8c99-2b4f0c4f671a"/>
-    <global_property property="mirebalais.mirthDirectory" property_value="" uuid="7abcc666-0663-45e1-8c99-2b4f0c4f888a"/>
-
     <global_property property="pacsintegration.radiologyOrderTypeUuid" property_value="" uuid="7addd444-0663-45e1-8999-2b4f0c4f671a"/>
     <global_property property="pacsintegration.listenerUsername" property_value="" uuid="6ed7ae555-0663-23e1-8c99-2b4f0c4f671a"/>
     <global_property property="pacsintegration.listenerPassword" property_value="" uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671a"/>

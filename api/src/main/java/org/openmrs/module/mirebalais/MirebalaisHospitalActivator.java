@@ -330,15 +330,32 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		administrationService.saveGlobalProperty(gp);
 	}
 	
+	/**
+	 * Sets global property value or creates global property if needed
+	 * @param propertyName
+	 * @param propertyValue
+	 */
+	private void setOrCreateGlobalProperty(String propertyName, String propertyValue) {
+		AdministrationService administrationService = Context.getAdministrationService();
+		GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
+		if (gp == null) {
+			gp = new GlobalProperty();
+			gp.setProperty(propertyName);
+		}
+		gp.setPropertyValue(propertyValue);
+		administrationService.saveGlobalProperty(gp);
+	}
+	
 	private void setupMirebalaisGlobalProperties() {
 		setExistingGlobalProperty(
 		    "layout.address.format",
 		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"mirebalais.address.country\"/><property name=\"stateProvince\" value=\"mirebalais.address.stateProvince\"/><property name=\"cityVillage\" value=\"mirebalais.address.cityVillage\"/><property name=\"address3\" value=\"mirebalais.address.neighborhoodCell\"/><property name=\"address1\" value=\"mirebalais.address.address1\"/><property name=\"address2\" value=\"mirebalais.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>");
-		setExistingGlobalProperty("mirebalais.mirthUsername", "mirth");
-		setExistingGlobalProperty("mirebalais.mirthPassword", "Mirth123");
-		setExistingGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");
-		setExistingGlobalProperty("mirebalais.mirthIpAddress", "127.0.0.1");
-		setExistingGlobalProperty("mirebalais.mirthAdminPort", "8443");
+		
+		setOrCreateGlobalProperty("mirebalais.mirthUsername", "mirth");
+		setOrCreateGlobalProperty("mirebalais.mirthPassword", "Mirth123");
+		setOrCreateGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");
+		setOrCreateGlobalProperty("mirebalais.mirthIpAddress", "127.0.0.1");
+		setOrCreateGlobalProperty("mirebalais.mirthAdminPort", "8443");
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {

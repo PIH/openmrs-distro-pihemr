@@ -99,7 +99,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 			ValidateUtil.validate(concept);
 		}
 	}
-
+	
 	private Integer getMetadataPackageVersionFrom(String metadataPackageFilename) {
 		Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(metadataPackageFilename);
 		matcher.matches();
@@ -116,7 +116,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("mirth", MirebalaisGlobalProperties.MIRTH_USERNAME());
 		assertEquals("Mirth123", MirebalaisGlobalProperties.MIRTH_PASSWORD());
 	}
-
+	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
 		assertEquals("Admin123", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
