@@ -104,7 +104,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 			ValidateUtil.validate(concept);
 		}
 	}
-	
+
 	private Integer getMetadataPackageVersionFrom(String metadataPackageFilename) {
 		Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(metadataPackageFilename);
 		matcher.matches();
@@ -113,7 +113,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 	
 	private void verifyGlobalPropertiesConfigured() throws Exception {
 		assertEquals(
-		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"pihhaiti.address.country\"/><property name=\"stateProvince\" value=\"pihhaiti.address.stateProvince\"/><property name=\"cityVillage\" value=\"pihhaiti.address.cityVillage\"/><property name=\"address3\" value=\"pihhaiti.address.neighborhoodCell\"/><property name=\"address1\" value=\"pihhaiti.address.address1\"/><property name=\"address2\" value=\"pihhaiti.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>",
+		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"mirebalais.address.country\"/><property name=\"stateProvince\" value=\"mirebalais.address.stateProvince\"/><property name=\"cityVillage\" value=\"mirebalais.address.cityVillage\"/><property name=\"address3\" value=\"mirebalais.address.neighborhoodCell\"/><property name=\"address1\" value=\"mirebalais.address.address1\"/><property name=\"address2\" value=\"mirebalais.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>",
 		    MirebalaisGlobalProperties.ADDRESS_LAYOUT_FORMAT());
 		assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
 		assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
@@ -121,7 +121,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("mirth", MirebalaisGlobalProperties.MIRTH_USERNAME());
 		assertEquals("Mirth123", MirebalaisGlobalProperties.MIRTH_PASSWORD());
 	}
-	
+
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
 		assertEquals("Admin123", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
