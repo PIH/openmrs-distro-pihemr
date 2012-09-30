@@ -331,6 +331,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupMirebalaisGlobalProperties() {
+		setExistingGlobalProperty(
+		    "layout.address.format",
+		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"pihhaiti.address.country\"/><property name=\"stateProvince\" value=\"pihhaiti.address.stateProvince\"/><property name=\"cityVillage\" value=\"pihhaiti.address.cityVillage\"/><property name=\"address3\" value=\"pihhaiti.address.neighborhoodCell\"/><property name=\"address1\" value=\"pihhaiti.address.address1\"/><property name=\"address2\" value=\"pihhaiti.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>");
 		setExistingGlobalProperty("mirebalais.mirthUsername", "mirth");
 		setExistingGlobalProperty("mirebalais.mirthPassword", "Mirth123");
 		setExistingGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");

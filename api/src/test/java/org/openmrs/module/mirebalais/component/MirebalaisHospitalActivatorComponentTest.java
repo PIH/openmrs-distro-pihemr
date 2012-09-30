@@ -112,6 +112,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 	}
 	
 	private void verifyGlobalPropertiesConfigured() throws Exception {
+		assertEquals(
+		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"pihhaiti.address.country\"/><property name=\"stateProvince\" value=\"pihhaiti.address.stateProvince\"/><property name=\"cityVillage\" value=\"pihhaiti.address.cityVillage\"/><property name=\"address3\" value=\"pihhaiti.address.neighborhoodCell\"/><property name=\"address1\" value=\"pihhaiti.address.address1\"/><property name=\"address2\" value=\"pihhaiti.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>",
+		    MirebalaisGlobalProperties.ADDRESS_LAYOUT_FORMAT());
 		assertEquals(new Integer(8443), MirebalaisGlobalProperties.MIRTH_ADMIN_PORT());
 		assertEquals("/opt/mirthconnect", MirebalaisGlobalProperties.MIRTH_DIRECTORY());
 		assertEquals("127.0.0.1", MirebalaisGlobalProperties.MIRTH_IP_ADDRESS());
@@ -150,6 +153,10 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
+	}
+	
+	private void verifyAddressTemplateInstalled() throws Exception {
+		
 	}
 	
 }

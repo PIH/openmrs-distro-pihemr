@@ -17,6 +17,10 @@ import org.openmrs.api.context.Context;
 
 public class MirebalaisGlobalProperties {
 	
+	public static final String ADDRESS_LAYOUT_FORMAT() {
+		return Context.getAdministrationService().getGlobalProperty("layout.address.format");
+	}
+	
 	public static final String MIRTH_IP_ADDRESS() {
 		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthIpAddress");
 	}
