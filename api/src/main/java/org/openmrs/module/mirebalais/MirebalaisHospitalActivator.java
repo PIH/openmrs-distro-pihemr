@@ -76,7 +76,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
-        currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
+		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
 	
@@ -276,10 +276,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			channels.put("OpenMRS To Pacs", "openMRSToPacsChannel");
 			
 			for (String channel : channels.values()) {
+				// load the channel xml file
 				InputStream channelStream = OpenmrsClassLoader.getInstance().getResourceAsStream(
 				    "org/openmrs/module/mirebalais/mirth/" + channel + ".xml");
 				File channelFile = new File(dir, channel + ".xml");
-				FileUtils.writeStringToFile(channelFile, IOUtils.toString(channelStream));
+				String channelString = IOUtils.toString(channelStream);
+				
+				// do a search and replace to add the appropriate the mysql username and password from runtime properties
+				channelString = channelString.replaceAll("\\$\\{mysqlUsername\\}", customProperties.getMirthMysqlUsername());
+				channelString = channelString.replaceAll("\\$\\{mysqlPassword\\}", customProperties.getMirthMysqlPassword());
+				
+				// write the channel out to a tmp file
+				FileUtils.writeStringToFile(channelFile, channelString);
 				IOUtils.closeQuietly(channelStream);
 			}
 			
@@ -310,8 +318,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			return true;
 		}
 		catch (Exception ex) {
-			log.error("Failed to install Mirth channels", ex);
-			return false;
+			throw new RuntimeException("Failed to install Mirth channels", ex);
 		}
 		
 	}

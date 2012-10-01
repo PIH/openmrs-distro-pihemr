@@ -18,7 +18,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.Patient;
@@ -48,7 +47,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @SkipBaseSetup
-@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
@@ -93,6 +91,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
+	@NotTransactional
 	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
 		
 		// give Mirth channels a few seconds to start
@@ -153,6 +152,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		TestUtils.assertContains("ORC|NW||||||||||||||||||", result);
 		TestUtils.assertContains("OBR|||ACCESSION NUMBER|^|||||||||||||||^|||||||||||||||||"
 		        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
+		
+		// TODO: should we tear down this channel after the test is complete?
 	}
 	
 	private String listenForResults() throws IOException {

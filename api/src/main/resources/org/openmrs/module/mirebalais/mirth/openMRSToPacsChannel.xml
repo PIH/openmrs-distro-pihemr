@@ -19,7 +19,7 @@
     <property name="ackScript"></property>
     <property name="driver">com.mysql.jdbc.Driver</property>
     <property name="host">query</property>
-    <property name="password">morrison</property>
+    <property name="password">${mysqlPassword}</property>
     <property name="pollingFrequency">5000</property>
     <property name="pollingType">interval</property>
     <property name="processResultsInOrder">1</property>
@@ -30,7 +30,7 @@
     <property name="script"></property>
     <property name="useAck">1</property>
     <property name="useScript">0</property>
-    <property name="username">root</property>
+    <property name="username">${mysqlUsername}</property>
   </properties>
   <transformer>
     <steps>

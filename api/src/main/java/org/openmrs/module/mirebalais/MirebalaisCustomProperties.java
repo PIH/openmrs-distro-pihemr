@@ -34,6 +34,10 @@ public class MirebalaisCustomProperties {
 	
 	public static final String REMOTE_ZLIDENTIFIER_USERNAME = "remote_zlidentifier_username";
 	
+	public static final String MIRTH_MYSQL_USERNAME = "mirth_mysql_username";
+	
+	public static final String MIRTH_MYSQL_PASSWORD = "mirth_mysql_password";
+	
 	private Log log = LogFactory.getLog(getClass());
 	
 	private Properties properties;
@@ -53,6 +57,14 @@ public class MirebalaisCustomProperties {
 	
 	public String getRemoteZlIdentifierSourceUrl() {
 		return properties.getProperty(REMOTE_ZLIDENTIFIER_URL, REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+	}
+	
+	public String getMirthMysqlUsername() {
+		return properties.getProperty(MIRTH_MYSQL_USERNAME);
+	}
+	
+	public String getMirthMysqlPassword() {
+		return properties.getProperty(MIRTH_MYSQL_PASSWORD);
 	}
 	
 	private Properties createFile() {
