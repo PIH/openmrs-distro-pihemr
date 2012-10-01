@@ -123,6 +123,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		String mirthStatus = IOUtils.toString(in);
 		TestUtils.assertFuzzyContains("STARTED OpenMRS To Pacs", mirthStatus);
+		
 	}
 	
 	@Test
@@ -159,6 +160,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
 		
 		// TODO: should we tear down this channel after the test is complete?
+		
 	}
 	
 	private String listenForResults() throws IOException {
