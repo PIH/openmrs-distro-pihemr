@@ -76,6 +76,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
+        currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
 	
@@ -361,7 +362,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private void setupPacsIntegrationGlobalProperties() {
 		setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
 		setExistingGlobalProperty("pacsintegration.listenerPassword", "Admin123");
-		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "84ce45a8-5e7c-48f7-a581-bb1d17d63a62");
+		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "13116a48-15f5-102d-96e4-000c29c2a5d7");
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {

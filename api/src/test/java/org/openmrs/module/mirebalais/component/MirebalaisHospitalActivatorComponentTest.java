@@ -93,6 +93,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
 		Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
+		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(PacsIntegrationGlobalProperties
+		        .RADIOLOGY_ORDER_TYPE_UUID())));
 		
 		// this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
 		for (Concept concept : Context.getConceptService().getAllConcepts()) {
@@ -120,7 +122,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
 		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
 		assertEquals("Admin123", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-		assertEquals("84ce45a8-5e7c-48f7-a581-bb1d17d63a62", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
+		assertEquals("13116a48-15f5-102d-96e4-000c29c2a5d7", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
