@@ -27,10 +27,13 @@ import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,12 +62,35 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 	public void testThatActivatorDoesAllSetup() throws Exception {
 		verifyMetadataPackagesConfigured(activator);
 		verifyGlobalPropertiesConfigured();
+        verifyPatientRegistrationConfigured();
 		verifyPacsIntegrationGlobalPropertiesConfigured();
 		verifyAddressHierarchyLevelsCreated();
 		verifyAddressHierarchyLoaded();
 	}
-	
-	private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
+
+    private void verifyPatientRegistrationConfigured() {
+        List<Method> failingMethods = new ArrayList<Method>();
+        for (Method method : PatientRegistrationGlobalProperties.class.getMethods()) {
+            if (method.getName().startsWith("GLOBAL_PROPERTY") && method.getParameterTypes().length == 0) {
+                try {
+                    method.invoke(null);
+                }
+                catch (Exception ex) {
+                    failingMethods.add(method);
+                }
+            }
+        }
+
+        if (failingMethods.size() > 0) {
+            String errorMessage = "Some Patient Registration global properties are not configured correctly. See these methods in the PatientRegistrationGlobalProperties class";
+            for (Method method : failingMethods) {
+                errorMessage += "\n" + method.getName();
+            }
+            Assert.fail(errorMessage);
+        }
+    }
+
+    private void verifyMetadataPackagesConfigured(MirebalaisHospitalActivator activator) throws Exception {
 		
 		MetadataSharingService metadataSharingService = Context.getService(MetadataSharingService.class);
 		

@@ -399,9 +399,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
 		    "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_CONCEPT,
-		    "PIH: Patient payment status|en:Payment type|ht:Fason pou peye");
+		    "PIH: Payment status|en:Payment type|ht:Fason pou peye");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE,
-		    "Primary Care Reception");
+		    "Primary care reception");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
 		    "Patient Registration");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
