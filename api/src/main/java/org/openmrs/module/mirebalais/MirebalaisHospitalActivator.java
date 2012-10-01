@@ -391,7 +391,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.NEONATAL_DISEASES_CONCEPT,
 		    "PIH: Haiti neonatal diseases");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_VISIT_ENCOUNTER_TYPE,
-		    "Primary care visit");
+		    "Primary Care Visit");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.CODED_DIAGNOSIS_CONCEPT,
 		    "PIH: ZL Primary care diagnosis");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.AGE_RESTRICTED_CONCEPT,
@@ -405,7 +405,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "PIH: Reason for HUM visit|en:Visit reason|ht:TODO TRANSLATE");
 		// End TODO
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE,
-		    "Primary care reception");
+		    "Primary Care Reception");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
 		    "Patient Registration");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
