@@ -37,4 +37,8 @@ public class MirebalaisConstants {
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "testidgen";
 	
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "Testing123";
+	
+	public static String DEFAULT_MIRTH_MYSQL_USERNAME = "test";
+	
+	public static String DEFAULT_MIRTH_MYSQL_PASSWORD = "test123";
 }

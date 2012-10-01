@@ -20,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import static org.openmrs.module.mirebalais.MirebalaisConstants.DEFAULT_MIRTH_MYSQL_PASSWORD;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.DEFAULT_MIRTH_MYSQL_USERNAME;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
@@ -60,11 +62,11 @@ public class MirebalaisCustomProperties {
 	}
 	
 	public String getMirthMysqlUsername() {
-		return properties.getProperty(MIRTH_MYSQL_USERNAME);
+		return properties.getProperty(MIRTH_MYSQL_USERNAME, DEFAULT_MIRTH_MYSQL_USERNAME);
 	}
 	
 	public String getMirthMysqlPassword() {
-		return properties.getProperty(MIRTH_MYSQL_PASSWORD);
+		return properties.getProperty(MIRTH_MYSQL_PASSWORD, DEFAULT_MIRTH_MYSQL_PASSWORD);
 	}
 	
 	private Properties createFile() {

@@ -178,8 +178,4 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
 	}
 	
-	private void verifyAddressTemplateInstalled() throws Exception {
-		
-	}
-	
 }
