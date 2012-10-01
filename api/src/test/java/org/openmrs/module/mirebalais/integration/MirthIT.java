@@ -56,6 +56,11 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		return false;
 	}
 	
+	@Override
+	public String getWebappName() {
+		return "mirebalais";
+	}
+	
 	@Before
 	public void beforeEachTest() throws Exception {
 		authenticate();
