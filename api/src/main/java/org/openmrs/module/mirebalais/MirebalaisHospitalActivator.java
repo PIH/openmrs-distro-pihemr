@@ -75,7 +75,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-1.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
-		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-2.zip");
+		currentMetadataVersions.put("f704dd02-ed65-46ba-b9b0-a5e728ce716b", "PIH_Haiti_Patient_Registration-4.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
@@ -398,12 +398,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "PIH: Haiti age restricted diseases");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
 		    "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
-		// Begin TODO waiting on package
-		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_AMOUNT_CONCEPT,
-		    "PIH: Payment amount|en:Payment amount|ht:TODO TRANSLATE");
-		setExistingGlobalProperty(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT,
-		    "PIH: Reason for HUM visit|en:Visit reason|ht:TODO TRANSLATE");
-		// End TODO
+		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_CONCEPT,
+		    "PIH: Payment status|en:Payment type|ht:Fason pou peye");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE,
 		    "Primary care reception");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
