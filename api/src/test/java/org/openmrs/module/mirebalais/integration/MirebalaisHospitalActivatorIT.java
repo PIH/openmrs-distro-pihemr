@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.integration;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -14,11 +13,11 @@ import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 
 @SkipBaseSetup
-@Ignore
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 	
 	private MirebalaisHospitalActivator activator;
@@ -34,6 +33,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	}
 	
 	@Test
+	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {
 		MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
 		IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();

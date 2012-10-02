@@ -34,6 +34,7 @@ import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
@@ -127,6 +128,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
+	@DirtiesContext
+	// note that the last test in this class should always be marked as dirtying the context so that it is cleared before the next IT test
 	@NotTransactional
 	public void shouldSendMessageToMirth() throws Exception {
 		
