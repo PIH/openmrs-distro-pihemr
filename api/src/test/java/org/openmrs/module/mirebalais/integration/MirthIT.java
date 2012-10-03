@@ -17,13 +17,13 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PersonName;
 import org.openmrs.api.OrderService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.event.advice.GeneralEventAdvice;
@@ -61,43 +61,23 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		return "mirebalais";
 	}
 	
-	@Before
-	public void beforeEachTest() throws Exception {
+	@Test
+	@DirtiesContext
+	@NotTransactional
+	public void testMirthChannelIntegration() throws Exception {
+		
+		PatientService patientService = Context.getPatientService();
+		OrderService orderService = Context.getOrderService();
+		
 		authenticate();
+		
+		// we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
+		Context.addAdvice(PatientService.class, new GeneralEventAdvice());
+		Context.addAdvice(OrderService.class, new GeneralEventAdvice());
 		
 		// run the module activator so that the Mirth channels are configured
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
 		activator.started();
-		
-		// create the test patient, if necessary
-		if (Context.getPatientService().getPatients("2ADMMN").size() == 0) {
-			Patient patient = new Patient();
-			patient.setGender("M");
-			
-			Calendar birthdate = Calendar.getInstance();
-			birthdate.set(2000, 2, 23);
-			patient.setBirthdate(birthdate.getTime());
-			
-			PersonName name = new PersonName();
-			name.setFamilyName("Test Patient");
-			name.setGivenName("Mirth Integration");
-			patient.addName(name);
-			
-			PatientIdentifier identifier = new PatientIdentifier();
-			identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
-			identifier.setIdentifier("2ADMMN");
-			identifier.setPreferred(true);
-			identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
-			patient.addIdentifier(identifier);
-			
-			Context.getPatientService().savePatient(patient);
-		}
-		
-	}
-	
-	@Test
-	@NotTransactional
-	public void testMirebalaisHospitalActivatorMirthChannelIntegration() throws Exception {
 		
 		// give Mirth channels a few seconds to start
 		Thread.sleep(5000);
@@ -119,7 +99,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		InputStream in = mirthShell.getInputStream();
 		
 		// clear all channels in preparation for other tests
-		// TODO: move this into a before method?
 		out.write("clearallmessages\n".getBytes());
 		
 		// load the status
@@ -131,24 +110,61 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		TestUtils.assertFuzzyContains("STARTED Read HL7 From OpenMRS Database", mirthStatus);
 		TestUtils.assertFuzzyContains("STARTED Send HL7 To Pacs", mirthStatus);
 		
-	}
-	
-	@Test
-	@DirtiesContext
-	// note that the last test in this class should always be marked as dirtying the context so that it is cleared before the next IT test
-	@NotTransactional
-	public void shouldSendOrderMessageToMirth() throws Exception {
+		// now test that when we create a new patient, a new patient message is created
+		// if the test patient already exists, delete it and any existing orders
+		if (patientService.getPatients("2ADMMN").size() > 0) {
+			Patient patient = patientService.getPatients("2ADMMN").get(0);
+			
+			for (Order order : orderService.getOrdersByPatient(patient)) {
+				orderService.purgeOrder(order);
+			}
+			
+			Context.getPatientService().purgePatient(patient);
+		}
 		
-		// we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
-		Context.addAdvice(OrderService.class, new GeneralEventAdvice());
+		// TODO: eventually we should make sure all the necessary fields are included here
+		// first create and save a patient
+		Patient patient = new Patient();
+		patient.setGender("M");
+		
+		Calendar birthdate = Calendar.getInstance();
+		birthdate.set(2000, 2, 23);
+		patient.setBirthdate(birthdate.getTime());
+		
+		PersonName name = new PersonName();
+		name.setFamilyName("Test Patient");
+		name.setGivenName("Mirth Integration");
+		patient.addName(name);
+		
+		PatientIdentifier identifier = new PatientIdentifier();
+		identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
+		identifier.setIdentifier("2ADMMN");
+		identifier.setPreferred(true);
+		identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+		patient.addIdentifier(identifier);
+		
+		// save the patient to trigger an update event
+		patientService.savePatient(patient);
+		
+		String result = listenForResults();
+		
+		// make sure the appropriate message has been delivered
+		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A01||P|2.3", result);
+		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
+		
+		// now resave the patient and verify that a patient updated message is sent
+		// save the patient to trigger an update event
+		patientService.savePatient(patient);
+		
+		result = listenForResults();
+		
+		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A08||P|2.3", result);
+		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
 		
 		// TODO: eventually we should make sure all the necessary fields are concluded here
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
 		
-		// first create the patient that we are going to send the order for
-		Patient patient = Context.getPatientService().getPatients("2ADMMN").get(0);
-		
-		// reate and save the order
+		// now create and save the order for this patient
 		Order order = new Order();
 		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(
 		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID())); // TODO: change this based on how we actually end up doing orders
@@ -159,7 +175,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(radiologyDate);
 		Context.getOrderService().saveOrder(order);
 		
-		String result = listenForResults();
+		result = listenForResults();
 		
 		TestUtils.assertContains("MSH|^~\\&|||||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
@@ -169,9 +185,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// TestUtils.assertContains("ORC|NW||||||||||||||||||", result);
 		// TestUtils.assertContains("OBR|||ACCESSION NUMBER|^|||||||||||||||^|||||||||||||||||"
 		//        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
-		
-		// TODO: should we tear down this channel after the test is complete?
-		
 	}
 	
 	private String listenForResults() throws IOException {
@@ -193,6 +206,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// TODO: need an acknowledgement?
 		
 		mirthConnection.close();
+		listener.close();
 		
 		return sb.toString();
 	}
