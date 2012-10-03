@@ -400,12 +400,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "PIH: Haiti age restricted diseases");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
 		    "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
-		// Begin TODO waiting on package
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_AMOUNT_CONCEPT,
 		    "PIH: Payment amount|en:Payment amount|ht:TODO TRANSLATE");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT,
 		    "PIH: Reason for HUM visit|en:Visit reason|ht:TODO TRANSLATE");
-		// End TODO
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE,
 		    "Primary Care Reception");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
@@ -415,6 +413,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
+		setExistingGlobalProperty(PatientRegistrationGlobalProperties.AUTOMATICALLY_GENERATE_DOSSIER_NUMBER, "true");
 		
 	}
 	
