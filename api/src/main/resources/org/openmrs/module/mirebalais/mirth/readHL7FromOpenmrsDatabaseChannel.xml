@@ -1,0 +1,134 @@
+<channel>
+  <id>9f5751cd-3418-4262-b4d3-2c87814225e9</id>
+  <name>Read HL7 from OpenMRS database</name>
+  <description></description>
+  <enabled>true</enabled>
+  <version>2.2.1.5861</version>
+  <lastModified>
+    <time>1349292358000</time>
+    <timezone>America/New_York</timezone>
+  </lastModified>
+  <revision>2</revision>
+  <sourceConnector>
+    <name>sourceConnector</name>
+    <properties>
+      <property name="DataType">Database Reader</property>
+      <property name="URL">jdbc:mysql://localhost:3306/openmrs?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+      <property name="ack">UPDATE pacsintegration_outbound_queue SET processed=1
+			WHERE outbound_queue_id=${outbound_queue_id};</property>
+      <property name="ackScript"></property>
+      <property name="driver">com.mysql.jdbc.Driver</property>
+      <property name="host">query</property>
+      <property name="password">${mysqlPassword}</property>
+      <property name="pollingFrequency">5000</property>
+      <property name="pollingType">interval</property>
+      <property name="processResultsInOrder">1</property>
+      <property name="query">SELECT outbound_queue_id, message FROM pacsintegration_outbound_queue
+                WHERE processed=0 ORDER BY date_created ASC;
+
+            </property>
+      <property name="script"></property>
+      <property name="useAck">1</property>
+      <property name="useScript">0</property>
+      <property name="username">${mysqlUsername}</property>
+    </properties>
+    <transformer>
+      <steps>
+        <step>
+          <sequenceNumber>0</sequenceNumber>
+          <name>message (out) &lt;-- message (in)</name>
+          <script>tmp[&apos;message&apos;] = validate(msg[&apos;message&apos;].toString(), &apos;&apos;, new Array());</script>
+          <type>Message Builder</type>
+          <data class="map">
+            <entry>
+              <string>Variable</string>
+              <string>tmp[&apos;message&apos;]</string>
+            </entry>
+            <entry>
+              <string>DefaultValue</string>
+              <string></string>
+            </entry>
+            <entry>
+              <string>Mapping</string>
+              <string>msg[&apos;message&apos;].toString()</string>
+            </entry>
+            <entry>
+              <string>RegularExpressions</string>
+              <list/>
+            </entry>
+          </data>
+        </step>
+      </steps>
+      <inboundTemplate encoding="base64">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxy
+ZXN1bHQ+CiAgICA8b3V0Ym91bmRfcXVldWVfaWQ+dmFsdWU8L291dGJvdW5kX3F1ZXVlX2lkPgog
+ICAgPG1lc3NhZ2U+dmFsdWU8L21lc3NhZ2U+CjwvcmVzdWx0Pgo=</inboundTemplate>
+      <outboundTemplate encoding="base64">PHJlc3VsdD48bWVzc2FnZT52YWx1ZTwvbWVzc2FnZT48L3Jlc3VsdD4=</outboundTemplate>
+      <inboundProtocol>XML</inboundProtocol>
+      <outboundProtocol>XML</outboundProtocol>
+      <inboundProperties>
+        <property name="stripNamespaces">true</property>
+      </inboundProperties>
+      <outboundProperties>
+        <property name="stripNamespaces">true</property>
+      </outboundProperties>
+    </transformer>
+    <filter>
+      <rules/>
+    </filter>
+    <transportName>Database Reader</transportName>
+    <mode>SOURCE</mode>
+    <enabled>true</enabled>
+    <version>2.2.1.5861</version>
+  </sourceConnector>
+  <destinationConnectors>
+    <connector>
+      <name>Destination 1</name>
+      <properties>
+        <property name="DataType">Channel Writer</property>
+        <property name="host">bf7004f7-a46f-453d-bc1a-e910dccfe8a3</property>
+        <property name="synchronised">0</property>
+        <property name="template">${message.encodedData}</property>
+      </properties>
+      <transformer>
+        <steps/>
+        <inboundProtocol>XML</inboundProtocol>
+        <outboundProtocol>XML</outboundProtocol>
+        <inboundProperties>
+          <property name="stripNamespaces">true</property>
+        </inboundProperties>
+        <outboundProperties>
+          <property name="stripNamespaces">true</property>
+        </outboundProperties>
+      </transformer>
+      <filter>
+        <rules/>
+      </filter>
+      <transportName>Channel Writer</transportName>
+      <mode>DESTINATION</mode>
+      <enabled>true</enabled>
+      <version>2.2.1.5861</version>
+    </connector>
+  </destinationConnectors>
+  <properties>
+    <property name="clearGlobalChannelMap">true</property>
+    <property name="dont_store_filtered">false</property>
+    <property name="encryptData">false</property>
+    <property name="error_messages_only">false</property>
+    <property name="initialState">started</property>
+    <property name="max_message_age">30</property>
+    <property name="store_messages">true</property>
+    <property name="synchronous">true</property>
+    <property name="transactional">false</property>
+  </properties>
+  <preprocessingScript>
+      return message;
+</preprocessingScript>
+  <postprocessingScript>// This script executes once after a message has been processed
+        return;</postprocessingScript>
+  <deployScript>// This script executes once when the channel is deployed
+        // You only have access to the globalMap and globalChannelMap here to persist data
+        return;</deployScript>
+  <shutdownScript>// This script executes once when the channel is undeployed
+        // You only have access to the globalMap and globalChannelMap here to persist data
+        return;</shutdownScript>
+</channel>

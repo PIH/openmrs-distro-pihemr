@@ -273,7 +273,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("mirth/tmp");
 			
 			Map<String, String> channels = new HashMap<String, String>();
-			channels.put("OpenMRS To Pacs", "openMRSToPacsChannel");
+			channels.put("Read HL7 From OpenMRS Database", "readHL7FromOpenmrsDatabaseChannel");
+			channels.put("Send HL7 To Pacs", "sendHL7ToPacsChannel");
 			
 			for (String channel : channels.values()) {
 				// load the channel xml file
@@ -308,12 +309,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			// TODO: figure out what to do to verify that this succeeds
 			
 			// deploy the channels
+			
+			OutputStream out = mirthShell.getOutputStream();
 			for (Map.Entry channel : channels.entrySet()) {
-				OutputStream out = mirthShell.getOutputStream();
 				out.write(("import \"" + dir.getAbsolutePath() + "/" + channel.getValue() + ".xml\" force\n").getBytes());
 				out.write(("channel deploy \"" + channel.getKey() + "\"\n").getBytes());
-				out.close();
 			}
+			out.close();
 			
 			return true;
 		}
