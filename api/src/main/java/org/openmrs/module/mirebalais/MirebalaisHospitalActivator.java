@@ -26,6 +26,7 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
+import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -110,6 +111,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		installMetadataPackages();
 		setupPatientRegistrationGlobalProperties();
+		setupEmrGlobalProperties();
 		setupMirebalaisGlobalProperties();
 		setupPacsIntegrationGlobalProperties();
 		setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
@@ -372,6 +374,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
 		setExistingGlobalProperty("pacsintegration.listenerPassword", "Admin123");
 		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "13116a48-15f5-102d-96e4-000c29c2a5d7");
+	}
+	
+	private void setupEmrGlobalProperties() {
+		// TODO create an encounter type to represent placing orders in our MDS package
+		setExistingGlobalProperty(EmrConstants.GP_PLACE_ORDERS_ENCOUNTER_TYPE, "1373cf95-06e8-468b-a3da-360ac1cf026d");
+		
+		// TODO make sure we have the order type correct, and created via a MDS package
+		setExistingGlobalProperty(EmrConstants.GP_TEST_ORDER_TYPE, "13116a48-15f5-102d-96e4-000c29c2a5d7");
+		
+		// TODO add a Clinician encounter role to our MDS packages
+		setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "a0b03050-c99b-11e0-9572-0800200c9a66");
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {
