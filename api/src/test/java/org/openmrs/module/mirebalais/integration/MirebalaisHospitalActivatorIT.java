@@ -7,6 +7,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
@@ -36,11 +37,14 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {
 		MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+
 		IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
 		RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-		
-		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
+        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator();
+
+        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
 		    MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
+
 		AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class)
 		        .getAutoGenerationOption(zlIdentifierType);
 		
@@ -56,6 +60,15 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		assertEquals("http://localhost", remoteZlIdentifierSource.getUrl());
 		assertEquals("user_test", remoteZlIdentifierSource.getUser());
 		assertEquals("abc123", remoteZlIdentifierSource.getPassword());
+
+        assertEquals("A",dossierSequenceGenerator.getPrefix());
+        assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
+        assertEquals("0123456789",dossierSequenceGenerator.getBaseCharacterSet());
+        assertEquals("000001",dossierSequenceGenerator.getFirstIdentifierBase());
+        assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID,dossierSequenceGenerator.getUuid());
+        assertEquals(zlIdentifierType, dossierSequenceGenerator.getIdentifierType());
+
+
 		
 	}
 	

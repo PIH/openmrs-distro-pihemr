@@ -18,7 +18,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
-import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
@@ -26,7 +25,6 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
-import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -51,8 +49,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
-
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
@@ -63,10 +59,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
 	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
-	
-	private MirebalaisCustomProperties customProperties;
-	
-	public MirebalaisHospitalActivator() {
+
+    private MirebalaisCustomProperties customProperties;
+
+    private ConfigurePropertiesToGenerateIds configurePropertiesToGenerateIds;
+
+    public MirebalaisHospitalActivator() {
 		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
@@ -77,7 +75,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-3.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
-		customProperties = new MirebalaisCustomProperties();
+        customProperties = new MirebalaisCustomProperties();
 	}
 	
 	/**
@@ -112,13 +110,23 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setupPatientRegistrationGlobalProperties();
 		setupMirebalaisGlobalProperties();
 		setupPacsIntegrationGlobalProperties();
-		setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
+        setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
 		installMirthChannels();
 		setupAddressHierarchy();
 		log.info("Mirebalais Hospital Module started");
 	}
-	
-	/**
+
+    private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service, IdentifierSourceService identifierSourceService) {
+        configurePropertiesToGenerateIds = new ConfigurePropertiesToGenerateIds(customProperties, identifierSourceService, service);
+
+        RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
+        IdentifierPool localZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(remoteZlIdentifierSource);
+
+        configurePropertiesToGenerateIds.autoGenerationOptions(localZlIdentifierPool);
+        configurePropertiesToGenerateIds .sequentialIdentifierGeneratorToDossier();
+    }
+
+    /**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
@@ -175,95 +183,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			log.error("Failed to install metadata package " + filename, ex);
 			return false;
 		}
-	}
-	
-	private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
-	        IdentifierSourceService identifierSourceService) {
-		
-		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
-		RemoteIdentifierSource remoteZlIdentifierSource = getOrCreateRemoteZlIdentifierSource(service, zlIdentifierType,
-		    identifierSourceService);
-		IdentifierPool localZlIdentifierPool = getOrCreateLocalZlIdentifierPool(service, zlIdentifierType,
-		    remoteZlIdentifierSource, identifierSourceService);
-		
-		getOrCreateZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool, identifierSourceService);
-	}
-	
-	void getOrCreateZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType,
-	        IdentifierPool localZlIdentifierPool, IdentifierSourceService identifierSourceService) {
-		AutoGenerationOption autoGen = identifierSourceService.getAutoGenerationOption(zlIdentifierType);
-		if (autoGen == null) {
-			autoGen = buildZlIdentifierAutoGenerationOptions(zlIdentifierType, localZlIdentifierPool);
-			identifierSourceService.saveAutoGenerationOption(autoGen);
-		}
-	}
-	
-	IdentifierPool getOrCreateLocalZlIdentifierPool(MirebalaisHospitalService service,
-	        PatientIdentifierType zlIdentifierType, RemoteIdentifierSource remoteZlIdentifierSource,
-	        IdentifierSourceService identifierSourceService) {
-		IdentifierPool localZlIdentifierPool;
-		try {
-			localZlIdentifierPool = service.getLocalZlIdentifierPool();
-		}
-		catch (IllegalStateException ex) {
-			localZlIdentifierPool = buildLocalZlIdentifierPool(zlIdentifierType, remoteZlIdentifierSource);
-			identifierSourceService.saveIdentifierSource(localZlIdentifierPool);
-		}
-		return localZlIdentifierPool;
-	}
-	
-	RemoteIdentifierSource getOrCreateRemoteZlIdentifierSource(MirebalaisHospitalService service,
-	        PatientIdentifierType zlIdentifierType, IdentifierSourceService identifierSourceService) {
-		RemoteIdentifierSource remoteZlIdentifierSource;
-		
-		try {
-			remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-			updateInformationFromPropertiesFile(remoteZlIdentifierSource);
-		}
-		catch (IllegalStateException ex) {
-			remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlIdentifierType);
-		}
-		
-		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
-		return remoteZlIdentifierSource;
-	}
-	
-	private AutoGenerationOption buildZlIdentifierAutoGenerationOptions(PatientIdentifierType zlIdentifierType,
-	        IdentifierPool localZlIdentifierPool) {
-		AutoGenerationOption autoGen = new AutoGenerationOption();
-		autoGen.setIdentifierType(zlIdentifierType);
-		autoGen.setSource(localZlIdentifierPool);
-		autoGen.setManualEntryEnabled(false);
-		autoGen.setAutomaticGenerationEnabled(true);
-		return autoGen;
-	}
-	
-	private IdentifierPool buildLocalZlIdentifierPool(PatientIdentifierType zlIdentifierType,
-	        RemoteIdentifierSource remoteZlIdentifierSource) {
-		IdentifierPool localPool = new IdentifierPool();
-		localPool.setName("Local Pool of ZL Identifiers");
-		localPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-		localPool.setSource(remoteZlIdentifierSource);
-		localPool.setIdentifierType(zlIdentifierType);
-		localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
-		localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
-		localPool.setSequential(true);
-		return localPool;
-	}
-	
-	private RemoteIdentifierSource buildRemoteZlIdentifierSource(PatientIdentifierType zlIdentifierType) {
-		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
-		remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
-		remoteZlIdentifierSource.setUuid(REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-		remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
-		updateInformationFromPropertiesFile(remoteZlIdentifierSource);
-		return remoteZlIdentifierSource;
-	}
-	
-	private void updateInformationFromPropertiesFile(RemoteIdentifierSource remoteZlIdentifierSource) {
-		remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
-		remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
-		remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
 	}
 	
 	private boolean installMirthChannels() {
@@ -487,6 +406,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	void setCustomProperties(MirebalaisCustomProperties customProperties) {
-		this.customProperties = customProperties;
+        this.customProperties = customProperties;
 	}
 }

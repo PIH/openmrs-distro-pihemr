@@ -24,6 +24,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
@@ -143,8 +144,21 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 		}
 		return zlIdentifierType;
 	}
-	
-	/**
+
+    @Override
+    public SequentialIdentifierGenerator getDossierSequenceGenerator() {
+        SequentialIdentifierGenerator sequentialIdentifierGenerator =
+                (SequentialIdentifierGenerator) Context.getService(IdentifierSourceService.class).
+                        getIdentifierSourceByUuid(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
+
+        if (sequentialIdentifierGenerator==null){
+            throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
+        }
+
+        return sequentialIdentifierGenerator;
+    }
+
+    /**
 	 * @return the type we use for radiology orders
 	 */
 	@SuppressWarnings("deprecation")

@@ -20,6 +20,7 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 
@@ -31,6 +32,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID;
@@ -38,28 +40,27 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTI
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID;
 
-public class MirebalaisHospitalActivatorTest {
+public class ConfigurePropertiesToGenerateIdsTest {
 	
-	private MirebalaisHospitalActivator mirebalaisHospitalActivator;
-	
+	private ConfigurePropertiesToGenerateIds configurePropertiesToGenerateIds;
 	private IdentifierSourceService identifierSourceService;
-	
 	private MirebalaisHospitalService service;
-	
 	private PatientIdentifierType defaultPatientIdentifierType;
-	
 	private MirebalaisCustomProperties customProperties;
 	
 	@Before
 	public void setUp() throws Exception {
-		mirebalaisHospitalActivator = new MirebalaisHospitalActivator();
 		identifierSourceService = mock(IdentifierSourceService.class);
-		service = mock(MirebalaisHospitalService.class);
-		defaultPatientIdentifierType = new PatientIdentifierType();
-		customProperties = mock(MirebalaisCustomProperties.class);
-		mirebalaisHospitalActivator.setCustomProperties(customProperties);
-	}
+        service = mock(MirebalaisHospitalService.class);
+
+        defaultPatientIdentifierType = new PatientIdentifierType();
+        when(service.getZlIdentifierType()).thenReturn(defaultPatientIdentifierType);
+
+        customProperties = mock(MirebalaisCustomProperties.class);
+        configurePropertiesToGenerateIds = new ConfigurePropertiesToGenerateIds(customProperties,identifierSourceService, service);
+    }
 	
 	@Test
 	public void shouldUpdateRemoteZlIdentifierSourceWhenItExistsOnDbAndTheCustomPropertiesFileIsNotConfigured() {
@@ -70,8 +71,8 @@ public class MirebalaisHospitalActivatorTest {
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
 		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
-		RemoteIdentifierSource remoteZlIdentifierSourceExpected = mirebalaisHospitalActivator
-		        .getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configurePropertiesToGenerateIds
+		        .remoteZlIdentifierSource();
 		
 		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
 		
@@ -90,8 +91,8 @@ public class MirebalaisHospitalActivatorTest {
 		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
-		RemoteIdentifierSource remoteZlIdentifierSourceExpected = mirebalaisHospitalActivator
-		        .getOrCreateRemoteZlIdentifierSource(service, defaultPatientIdentifierType, identifierSourceService);
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configurePropertiesToGenerateIds
+		        .remoteZlIdentifierSource();
 		
 		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
 		
@@ -100,8 +101,40 @@ public class MirebalaisHospitalActivatorTest {
 		assertEquals(remoteZlIdentifierSourceExpected.getUser(), remoteZlIdentifierSource.getUser());
 		assertEquals(remoteZlIdentifierSourceExpected.getPassword(), remoteZlIdentifierSource.getPassword());
 	}
-	
-	@Test
+
+    @Test
+    public void shouldConfigureDossierNumberGeneratorWhenThereIsNoConfigurationInDatabase(){
+        when(service.getDossierSequenceGenerator()).thenThrow(IllegalStateException.class);
+
+        configurePropertiesToGenerateIds.sequentialIdentifierGeneratorToDossier();
+
+        SequentialIdentifierGenerator sequentialIdentifierGenerator = buildSequentialIdentifierGeneratorAsExpected();
+
+        verify(identifierSourceService).saveIdentifierSource(eq(sequentialIdentifierGenerator));
+    }
+
+    @Test
+    public void shouldConfigureDossierNumberGeneratorWhenThereOneConfigurationInDatabase(){
+        when(service.getDossierSequenceGenerator()).thenReturn(new SequentialIdentifierGenerator());
+
+        configurePropertiesToGenerateIds.sequentialIdentifierGeneratorToDossier();
+
+        verify(identifierSourceService,never()).saveIdentifierSource(any(SequentialIdentifierGenerator.class));
+    }
+
+    private SequentialIdentifierGenerator buildSequentialIdentifierGeneratorAsExpected() {
+        SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
+        sequentialIdentifierGenerator.setUuid(DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
+        sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
+        sequentialIdentifierGenerator.setLength(7);
+        sequentialIdentifierGenerator.setPrefix("A");
+        sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
+        sequentialIdentifierGenerator.setFirstIdentifierBase("000001");
+        sequentialIdentifierGenerator.setIdentifierType(defaultPatientIdentifierType);
+        return sequentialIdentifierGenerator;
+    }
+
+    @Test
 	public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsNotConfigured() {
 		when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
 		
@@ -109,8 +142,7 @@ public class MirebalaisHospitalActivatorTest {
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
 		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
-		RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(
-		    service, defaultPatientIdentifierType, identifierSourceService);
+		RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithDefaultValues(defaultPatientIdentifierType);
 		verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
@@ -129,8 +161,7 @@ public class MirebalaisHospitalActivatorTest {
 		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
-		RemoteIdentifierSource remoteZlIdentifierSource = mirebalaisHospitalActivator.getOrCreateRemoteZlIdentifierSource(
-		    service, defaultPatientIdentifierType, identifierSourceService);
+		RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithCustomValues(
 		    defaultPatientIdentifierType, "http://localhost", "user_test", "abc123");
@@ -147,8 +178,8 @@ public class MirebalaisHospitalActivatorTest {
 		IdentifierPool identifierPool = new IdentifierPool();
 		when(service.getLocalZlIdentifierPool()).thenReturn(identifierPool);
 		
-		IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service,
-		    defaultPatientIdentifierType, new RemoteIdentifierSource(), identifierSourceService);
+		IdentifierPool remoteZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(
+                new RemoteIdentifierSource());
 		verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
 		
 		assertSame(identifierPool, remoteZlIdentifierPool);
@@ -160,8 +191,8 @@ public class MirebalaisHospitalActivatorTest {
 		
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 		
-		IdentifierPool remoteZlIdentifierPool = mirebalaisHospitalActivator.getOrCreateLocalZlIdentifierPool(service,
-		    defaultPatientIdentifierType, remoteZlIdentifierSource, identifierSourceService);
+		IdentifierPool remoteZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(
+                remoteZlIdentifierSource);
 		
 		IdentifierPool localPool = buildLocalPoolAsExpected(defaultPatientIdentifierType, remoteZlIdentifierSource);
 		verify(identifierSourceService).saveIdentifierSource(eq(localPool));
@@ -174,8 +205,8 @@ public class MirebalaisHospitalActivatorTest {
 		when(identifierSourceService.getAutoGenerationOption(defaultPatientIdentifierType)).thenReturn(null);
 		
 		IdentifierPool localZlIdentifierPool = new IdentifierPool();
-		mirebalaisHospitalActivator.getOrCreateZlIdentifierAutoGenerationOptions(defaultPatientIdentifierType,
-		    localZlIdentifierPool, identifierSourceService);
+		configurePropertiesToGenerateIds.autoGenerationOptions(
+                localZlIdentifierPool);
 		AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(defaultPatientIdentifierType,
 		    localZlIdentifierPool);
 		
