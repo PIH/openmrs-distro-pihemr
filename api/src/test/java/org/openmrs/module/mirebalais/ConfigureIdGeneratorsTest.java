@@ -40,11 +40,10 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTI
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID;
 
-public class ConfigurePropertiesToGenerateIdsTest {
+public class ConfigureIdGeneratorsTest {
 	
-	private ConfigurePropertiesToGenerateIds configurePropertiesToGenerateIds;
+	private ConfigureIdGenerators configureIdGenerators;
 	private IdentifierSourceService identifierSourceService;
 	private MirebalaisHospitalService service;
 	private PatientIdentifierType defaultPatientIdentifierType;
@@ -59,7 +58,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
         when(service.getZlIdentifierType()).thenReturn(defaultPatientIdentifierType);
 
         customProperties = mock(MirebalaisCustomProperties.class);
-        configurePropertiesToGenerateIds = new ConfigurePropertiesToGenerateIds(customProperties,identifierSourceService, service);
+        configureIdGenerators = new ConfigureIdGenerators(customProperties,identifierSourceService, service);
     }
 	
 	@Test
@@ -71,7 +70,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
 		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
-		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configurePropertiesToGenerateIds
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configureIdGenerators
 		        .remoteZlIdentifierSource();
 		
 		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
@@ -91,7 +90,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
-		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configurePropertiesToGenerateIds
+		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configureIdGenerators
 		        .remoteZlIdentifierSource();
 		
 		verify(identifierSourceService).saveIdentifierSource(remoteZlIdentifierSource);
@@ -106,7 +105,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
     public void shouldConfigureDossierNumberGeneratorWhenThereIsNoConfigurationInDatabase(){
         when(service.getDossierSequenceGenerator()).thenThrow(IllegalStateException.class);
 
-        configurePropertiesToGenerateIds.sequentialIdentifierGeneratorToDossier();
+        configureIdGenerators.sequentialIdentifierGeneratorToDossier();
 
         SequentialIdentifierGenerator sequentialIdentifierGenerator = buildSequentialIdentifierGeneratorAsExpected();
 
@@ -117,7 +116,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
     public void shouldConfigureDossierNumberGeneratorWhenThereOneConfigurationInDatabase(){
         when(service.getDossierSequenceGenerator()).thenReturn(new SequentialIdentifierGenerator());
 
-        configurePropertiesToGenerateIds.sequentialIdentifierGeneratorToDossier();
+        configureIdGenerators.sequentialIdentifierGeneratorToDossier();
 
         verify(identifierSourceService,never()).saveIdentifierSource(any(SequentialIdentifierGenerator.class));
     }
@@ -142,7 +141,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
 		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
-		RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
+		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource();
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithDefaultValues(defaultPatientIdentifierType);
 		verify(identifierSourceService).saveIdentifierSource(eq(remoteZlIdentifierSourceExpected));
@@ -161,7 +160,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
 		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
-		RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
+		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource();
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = buildRemoteIdentifierExpectedWithCustomValues(
 		    defaultPatientIdentifierType, "http://localhost", "user_test", "abc123");
@@ -178,7 +177,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		IdentifierPool identifierPool = new IdentifierPool();
 		when(service.getLocalZlIdentifierPool()).thenReturn(identifierPool);
 		
-		IdentifierPool remoteZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(
+		IdentifierPool remoteZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(
                 new RemoteIdentifierSource());
 		verify(identifierSourceService, never()).saveIdentifierSource(any(IdentifierSource.class));
 		
@@ -191,7 +190,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 		
-		IdentifierPool remoteZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(
+		IdentifierPool remoteZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(
                 remoteZlIdentifierSource);
 		
 		IdentifierPool localPool = buildLocalPoolAsExpected(defaultPatientIdentifierType, remoteZlIdentifierSource);
@@ -205,7 +204,7 @@ public class ConfigurePropertiesToGenerateIdsTest {
 		when(identifierSourceService.getAutoGenerationOption(defaultPatientIdentifierType)).thenReturn(null);
 		
 		IdentifierPool localZlIdentifierPool = new IdentifierPool();
-		configurePropertiesToGenerateIds.autoGenerationOptions(
+		configureIdGenerators.autoGenerationOptions(
                 localZlIdentifierPool);
 		AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(defaultPatientIdentifierType,
 		    localZlIdentifierPool);
