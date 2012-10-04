@@ -10,14 +10,14 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 
 import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 
-public class ConfigurePropertiesToGenerateIds {
+public class ConfigureIdGenerators {
     private final MirebalaisCustomProperties customProperties;
     private final IdentifierSourceService identifierSourceService;
     private final MirebalaisHospitalService service;
     private final PatientIdentifierType zlIdentifierType;
 
-    public ConfigurePropertiesToGenerateIds(MirebalaisCustomProperties customProperties, IdentifierSourceService identifierSourceService,
-                                            MirebalaisHospitalService service) {
+    public ConfigureIdGenerators(MirebalaisCustomProperties customProperties, IdentifierSourceService identifierSourceService,
+                                 MirebalaisHospitalService service) {
         this.customProperties = customProperties;
         this.identifierSourceService = identifierSourceService;
         this.service = service;

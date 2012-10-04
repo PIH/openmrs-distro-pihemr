@@ -62,7 +62,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private MirebalaisCustomProperties customProperties;
 
-    private ConfigurePropertiesToGenerateIds configurePropertiesToGenerateIds;
+    private ConfigureIdGenerators configureIdGenerators;
 
     public MirebalaisHospitalActivator() {
 		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
@@ -117,13 +117,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 
     private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service, IdentifierSourceService identifierSourceService) {
-        configurePropertiesToGenerateIds = new ConfigurePropertiesToGenerateIds(customProperties, identifierSourceService, service);
+        configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
 
-        RemoteIdentifierSource remoteZlIdentifierSource = configurePropertiesToGenerateIds.remoteZlIdentifierSource();
-        IdentifierPool localZlIdentifierPool = configurePropertiesToGenerateIds.localZlIdentifierSource(remoteZlIdentifierSource);
+        RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource();
+        IdentifierPool localZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
 
-        configurePropertiesToGenerateIds.autoGenerationOptions(localZlIdentifierPool);
-        configurePropertiesToGenerateIds .sequentialIdentifierGeneratorToDossier();
+        configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
+        configureIdGenerators.sequentialIdentifierGeneratorToDossier();
     }
 
     /**
