@@ -20,6 +20,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -58,4 +59,6 @@ public interface MirebalaisHospitalService extends OpenmrsService {
 	RemoteIdentifierSource getRemoteZlIdentifierSource();
 	
 	PatientIdentifierType getZlIdentifierType();
+
+    SequentialIdentifierGenerator getDossierSequenceGenerator();
 }
