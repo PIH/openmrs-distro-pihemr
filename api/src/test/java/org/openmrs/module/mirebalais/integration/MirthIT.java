@@ -198,7 +198,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	private String listenForResults() throws IOException {
 		
 		ServerSocket listener = new ServerSocket(6660); // TODO: store this port in a global poroperty?
-		listener.setSoTimeout(5000); // don't wait more than 5 seconds for an incoming connection
+		listener.setSoTimeout(20000); // don't wait more than 20 seconds for an incoming connection
 		
 		Socket mirthConnection = listener.accept();
 		
