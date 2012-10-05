@@ -144,21 +144,31 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 		}
 		return zlIdentifierType;
 	}
-
-    @Override
-    public SequentialIdentifierGenerator getDossierSequenceGenerator() {
-        SequentialIdentifierGenerator sequentialIdentifierGenerator =
-                (SequentialIdentifierGenerator) Context.getService(IdentifierSourceService.class).
-                        getIdentifierSourceByUuid(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
-
-        if (sequentialIdentifierGenerator==null){
-            throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
-        }
-
-        return sequentialIdentifierGenerator;
-    }
-
-    /**
+	
+	@Override
+	public SequentialIdentifierGenerator getDossierSequenceGenerator() {
+		SequentialIdentifierGenerator sequentialIdentifierGenerator = (SequentialIdentifierGenerator) Context.getService(
+		    IdentifierSourceService.class).getIdentifierSourceByUuid(
+		    MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
+		
+		if (sequentialIdentifierGenerator == null) {
+			throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
+		}
+		
+		return sequentialIdentifierGenerator;
+	}
+	
+	@Override
+	public PatientIdentifierType getDossierIdentifierType() {
+		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
+		    MirebalaisConstants.DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
+		if (dossierNumberIdentifierType == null) {
+			throw new IllegalStateException("Dossier Number Identifier Type has not been configured");
+		}
+		return dossierNumberIdentifierType;
+	}
+	
+	/**
 	 * @return the type we use for radiology orders
 	 */
 	@SuppressWarnings("deprecation")

@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleActivator;
@@ -27,6 +28,7 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
+import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatasharing.ImportConfig;
 import org.openmrs.module.metadatasharing.ImportMode;
@@ -59,12 +61,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
 	
 	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
-
-    private MirebalaisCustomProperties customProperties;
-
-    private ConfigureIdGenerators configureIdGenerators;
-
-    public MirebalaisHospitalActivator() {
+	
+	private MirebalaisCustomProperties customProperties;
+	
+	private ConfigureIdGenerators configureIdGenerators;
+	
+	public MirebalaisHospitalActivator() {
 		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
@@ -75,7 +77,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
 		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-3.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
-        customProperties = new MirebalaisCustomProperties();
+		customProperties = new MirebalaisCustomProperties();
 	}
 	
 	/**
@@ -110,23 +112,39 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setupPatientRegistrationGlobalProperties();
 		setupMirebalaisGlobalProperties();
 		setupPacsIntegrationGlobalProperties();
-        setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
+		setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
 		installMirthChannels();
 		setupAddressHierarchy();
 		log.info("Mirebalais Hospital Module started");
 	}
-
-    private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service, IdentifierSourceService identifierSourceService) {
-        configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
-
-        RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource();
-        IdentifierPool localZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
-
-        configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
-        configureIdGenerators.sequentialIdentifierGeneratorToDossier();
-    }
-
-    /**
+	
+	private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
+	        IdentifierSourceService identifierSourceService) {
+		
+		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
+		
+		createPatientIdGenerator(service);
+		
+		createDossierNumberGenerator(service);
+	}
+	
+	private void createDossierNumberGenerator(MirebalaisHospitalService service) {
+		PatientIdentifierType dossierIdentifierType = service.getDossierIdentifierType();
+		
+		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
+		        .sequentialIdentifierGeneratorToDossier(dossierIdentifierType);
+		configureIdGenerators.autoGenerationOptions(sequentialIdentifierGenerator);
+	}
+	
+	private void createPatientIdGenerator(MirebalaisHospitalService service) {
+		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
+		
+		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource(zlIdentifierType);
+		IdentifierPool localZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
+		configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
+	}
+	
+	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
@@ -406,6 +424,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	void setCustomProperties(MirebalaisCustomProperties customProperties) {
-        this.customProperties = customProperties;
+		this.customProperties = customProperties;
 	}
 }

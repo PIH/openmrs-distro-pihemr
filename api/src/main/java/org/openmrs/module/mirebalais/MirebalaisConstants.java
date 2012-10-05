@@ -24,11 +24,13 @@ public class MirebalaisConstants {
 	
 	public static final String ZL_IDENTIFIER_TYPE_UUID = "a541af1e-105c-40bf-b345-ba1fd6a59b85";
 	
+	public static final String DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "e66645eb-03a8-4991-b4ce-e87318e37566";
+	
 	public static final String LOCAL_ZL_IDENTIFIER_POOL_UUID = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 	
 	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_UUID = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
-
-    public static final String DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID = "cccccccc-cccc-cccc-cccc-cccccccccccc";
+	
+	public static final String DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID = "cccccccc-cccc-cccc-cccc-cccccccccccc";
 	
 	public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "http://localhost:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=Testing+Mirebalais";
 	
