@@ -314,10 +314,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			
 			OutputStream out = mirthShell.getOutputStream();
 			for (Map.Entry channel : channels.entrySet()) {
-				out.write("stop".getBytes()); // stop all channels
+				out.write("channel stop *\n".getBytes()); // stop all channels
 				out.write(("import \"" + dir.getAbsolutePath() + "/" + channel.getValue() + ".xml\" force\n").getBytes());
 				out.write(("channel deploy \"" + channel.getKey() + "\"\n").getBytes());
-				out.write("start".getBytes()); // restart all channels
+				out.write("channel start *\n".getBytes()); // restart all channels
 			}
 			out.close();
 			
