@@ -37,14 +37,17 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {
 		MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
-
+		
 		IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
 		RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator();
-
-        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
+		SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator();
+		
+		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
 		    MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
-
+		
+		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
+		    MirebalaisConstants.DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
+		
 		AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class)
 		        .getAutoGenerationOption(zlIdentifierType);
 		
@@ -60,15 +63,13 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		assertEquals("http://localhost", remoteZlIdentifierSource.getUrl());
 		assertEquals("user_test", remoteZlIdentifierSource.getUser());
 		assertEquals("abc123", remoteZlIdentifierSource.getPassword());
-
-        assertEquals("A",dossierSequenceGenerator.getPrefix());
-        assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
-        assertEquals("0123456789",dossierSequenceGenerator.getBaseCharacterSet());
-        assertEquals("000001",dossierSequenceGenerator.getFirstIdentifierBase());
-        assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID,dossierSequenceGenerator.getUuid());
-        assertEquals(zlIdentifierType, dossierSequenceGenerator.getIdentifierType());
-
-
+		
+		assertEquals("A", dossierSequenceGenerator.getPrefix());
+		assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
+		assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
+		assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
+		assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
+		assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
 		
 	}
 	
