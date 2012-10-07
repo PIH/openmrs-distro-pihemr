@@ -187,8 +187,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(radiologyDate);
 		Context.getOrderService().saveOrder(order);
 		
-		Thread.sleep(3600000);
-		
 		result = listenForResults();
 		
 		System.out.println(result);
