@@ -179,7 +179,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// now create and save the order for this patient
 		Order order = new Order();
 		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(
-		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID)); // TODO: change this based on how we actually end up doing orders
+		    Context.getAdministrationService().getGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
 		order.setConcept(Context.getConceptService().getConceptByName("X-RAY CHEST")); // TODO: replace this with an actual radiology concept
 		order.setAccessionNumber("ACCESSION NUMBER");
