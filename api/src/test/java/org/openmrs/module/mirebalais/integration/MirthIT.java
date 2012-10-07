@@ -156,6 +156,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		String result = listenForResults();
 		
+		System.out.println(result);
+		
 		// make sure the appropriate message has been delivered
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
@@ -166,6 +168,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		result = listenForResults();
 		
+		System.out.println(result);
+		
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A08||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
 		
@@ -175,7 +179,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// now create and save the order for this patient
 		Order order = new Order();
 		order.setOrderType(Context.getOrderService().getOrderTypeByUuid(
-		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID())); // TODO: change this based on how we actually end up doing orders
+		    PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID)); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
 		order.setConcept(Context.getConceptService().getConceptByName("X-RAY CHEST")); // TODO: replace this with an actual radiology concept
 		order.setAccessionNumber("ACCESSION NUMBER");
@@ -183,7 +187,11 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(radiologyDate);
 		Context.getOrderService().saveOrder(order);
 		
+		Thread.sleep(3600000);
+		
 		result = listenForResults();
+		
+		System.out.println(result);
 		
 		TestUtils.assertContains("MSH|^~\\&|||||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);

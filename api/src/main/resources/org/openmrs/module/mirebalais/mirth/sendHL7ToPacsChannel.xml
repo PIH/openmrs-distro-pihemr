@@ -5,10 +5,10 @@
   <enabled>true</enabled>
   <version>2.2.1.5861</version>
   <lastModified>
-    <time>1349292424000</time>
+    <time>1349450162000</time>
     <timezone>America/New_York</timezone>
   </lastModified>
-  <revision>17</revision>
+  <revision>4</revision>
   <sourceConnector>
     <name>sourceConnector</name>
     <properties>
@@ -57,7 +57,7 @@
         <property name="charsetEncoding">UTF-8</property>
         <property name="host">127.0.0.1</property>
         <property name="keepSendSocketOpen">0</property>
-        <property name="maxRetryCount">999999</property>
+        <property name="maxRetryCount">99</property>
         <property name="messageEnd">0x1C</property>
         <property name="messageStart">0x0B</property>
         <property name="port">6660</property>

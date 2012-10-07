@@ -41,6 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
@@ -119,8 +120,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
 		Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
-		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(PacsIntegrationGlobalProperties
-		        .RADIOLOGY_ORDER_TYPE_UUID())));
+		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
+		        .getGlobalProperty(RADIOLOGY_ORDER_TYPE_UUID))));
 		
 		// this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
 		for (Concept concept : Context.getConceptService().getAllConcepts()) {
@@ -146,9 +147,12 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 	}
 	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-		assertEquals("admin", PacsIntegrationGlobalProperties.LISTENER_USERNAME());
-		assertEquals("Admin123", PacsIntegrationGlobalProperties.LISTENER_PASSWORD());
-		assertEquals("13116a48-15f5-102d-96e4-000c29c2a5d7", PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID());
+		assertEquals("admin", Context.getAdministrationService().getGlobalProperty(
+		    PacsIntegrationGlobalProperties.LISTENER_USERNAME));
+		assertEquals("Admin123", Context.getAdministrationService().getGlobalProperty(
+		    PacsIntegrationGlobalProperties.LISTENER_PASSWORD));
+		assertEquals("13116a48-15f5-102d-96e4-000c29c2a5d7", Context.getAdministrationService().getGlobalProperty(
+		    RADIOLOGY_ORDER_TYPE_UUID));
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
