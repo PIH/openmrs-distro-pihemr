@@ -30,6 +30,7 @@
 		<property name="id" value="legacy.admin"/>
 		<property name="label" value="(Legacy) OpenMRS Administration"/>
 		<property name="homepageUrl" value="admin/index.htm"/>
+        <property name="iconUrl" value="moduleResources/uilibrary/images/settings-32.png"/>
 	</bean>
 	
 	<!-- This should probably move to the patientregistration module -->
@@ -37,6 +38,7 @@
 		<property name="id" value="patientregistration.main"/>
 		<property name="label" value="Patient Registration"/>
 		<property name="homepageUrl" value="module/patientregistration/workflow/selectLocationAndService.form"/>
+        <property name="iconUrl" value="moduleResources/uilibrary/images/users_32.png"/>
 	</bean>
 
 </beans>
