@@ -45,6 +45,9 @@
 		<require_module version="${patientregistrationVersion}">
 			org.openmrs.module.patientregistration
 		</require_module>
+		<require_module version="${namephoneticsVersion}">
+			org.openmrs.module.namephonetics
+		</require_module>
         <require_module version="${pacsintegrationVersion}">
             org.openmrs.module.pacsintegration
         </require_module>

@@ -39,6 +39,7 @@ import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -110,6 +111,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 		
 		installMetadataPackages();
+		setupNamePhoneticsGlobalProperties();
 		setupPatientRegistrationGlobalProperties();
 		setupEmrGlobalProperties();
 		setupMirebalaisGlobalProperties();
@@ -325,6 +327,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		// TODO add a Clinician encounter role to our MDS packages
 		setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "a0b03050-c99b-11e0-9572-0800200c9a66");
+	}
+	
+	private void setupNamePhoneticsGlobalProperties() {
+		setExistingGlobalProperty(NamePhoneticsConstants.GIVEN_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
+		setExistingGlobalProperty(NamePhoneticsConstants.MIDDLE_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
+		setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
+		setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME2_GLOBAL_PROPERTY, "Double Metaphone Alternate");
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {

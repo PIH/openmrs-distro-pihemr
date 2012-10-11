@@ -40,5 +40,15 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="emr.placeOrdersEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.clinicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.testOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
+    
+    <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>
+	<global_property property="namephonetics.familyNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="a36ebd74-0c6b-44c6-ba29-2f9b17360d80"/>
+	<global_property property="namephonetics.givenNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="3f48a795-3c7d-4795-b5d8-7c4bba3875ec"/>
+    <global_property property="namephonetics.middleNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="02c95d0f-f00d-465c-b17e-e9b9882ab03f"/>
+    
 
 </dataset>
