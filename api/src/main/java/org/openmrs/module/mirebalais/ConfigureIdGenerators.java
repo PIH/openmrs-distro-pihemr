@@ -14,7 +14,7 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_Z
 public class ConfigureIdGenerators {
 	
 	private final MirebalaisCustomProperties customProperties;
-
+	
 	private final IdentifierSourceService identifierSourceService;
 	
 	private final MirebalaisHospitalService service;
@@ -30,7 +30,7 @@ public class ConfigureIdGenerators {
 		}
 		
 	}
-
+	
 	public void autoGenerationOptions(IdentifierSource identifierSource) {
 		AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
 		        .getIdentifierType());
