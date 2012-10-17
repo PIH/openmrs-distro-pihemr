@@ -76,7 +76,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// In particular, you should keep the "-(versionNum)" in the filename, and update the string here
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-2.zip");
-		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-1.zip");
+		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-2.zip");
 		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-3.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
@@ -337,8 +337,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {
-		setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS,
-		    "patientRegistration|primaryCareReception|primaryCareVisit|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
+		setExistingGlobalProperty(
+		    PatientRegistrationGlobalProperties.SUPPORTED_TASKS,
+		    "patientRegistration|primaryCareReception|primaryCareVisit|edCheckIn|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS,
 		    "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");
