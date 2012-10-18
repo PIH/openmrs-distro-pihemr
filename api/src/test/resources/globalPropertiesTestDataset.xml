@@ -40,6 +40,7 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="emr.placeOrdersEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.clinicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.testOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.paperRecordIdentifierType" property_value="" uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
     
     <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>
