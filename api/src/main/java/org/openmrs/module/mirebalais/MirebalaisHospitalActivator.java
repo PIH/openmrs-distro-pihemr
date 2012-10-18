@@ -327,6 +327,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		// TODO add a Clinician encounter role to our MDS packages
 		setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "a0b03050-c99b-11e0-9572-0800200c9a66");
+
+        // paper record location = Mirebalais
+        setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "a084f714-a536-473b-94e6-ec317b152b43");
 	}
 	
 	private void setupNamePhoneticsGlobalProperties() {
