@@ -18,10 +18,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.openmrs.Order;
-import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PersonName;
+import org.openmrs.*;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -36,11 +33,7 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
@@ -177,30 +170,31 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
 		
 		// now create and save the order for this patient
-		Order order = new Order();
+		TestOrder order = new TestOrder();
 		order
 		        .setOrderType(Context.getOrderService().getOrderTypeByUuid(
 		            Context.getAdministrationService().getGlobalProperty(
 		                PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
-		order.setConcept(Context.getConceptService().getConceptByName("X-RAY CHEST")); // TODO: replace this with an actual radiology concept
+		order.setConcept(Context.getConceptService().getConceptByUuid("3ccc6186-26fe-102b-80cb-0017a47871b2")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
 		Date radiologyDate = new Date();
 		order.setStartDate(radiologyDate);
+		order.setUrgency(Order.Urgency.STAT);
+		order.setClinicalHistory("Patient fell off horse");
 		Context.getOrderService().saveOrder(order);
 		
 		result = listenForResults();
 		
 		System.out.println(result);
 		
-		TestUtils.assertContains("MSH|^~\\&|||||||ORM^O01||P|2.3", result);
+		TestUtils.assertContains("MSH|^~\\&||Mirebalais|||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
 		
-		// TODO: add all these back in once they are added to pacsintegration...
-		// TestUtils.assertContains("PV1||||||||||||||||||", result);
-		// TestUtils.assertContains("ORC|NW||||||||||||||||||", result);
-		// TestUtils.assertContains("OBR|||ACCESSION NUMBER|^|||||||||||||||^|||||||||||||||||"
-		//        + PacsIntegrationConstants.hl7DateFormat.format(radiologyDate), result);
+		// TODO: add these back in
+		//TestUtils.assertContains("ORC|SC\r", result);
+		//TestUtils.assertContains("OBR|||ACCESSION NUMBER|123ABC^Left-hand x-ray|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse\r", result);
+		
 	}
 	
 	private String listenForResults() throws IOException {

@@ -59,7 +59,7 @@
 		<patientregistrationVersion>1.2.5-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.4</addresshierarchyVersion>
-        <eventVersion>1.1</eventVersion>
+        <eventVersion>1.2</eventVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
