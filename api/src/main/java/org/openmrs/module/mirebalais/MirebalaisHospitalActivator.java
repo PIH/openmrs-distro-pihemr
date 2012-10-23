@@ -76,9 +76,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// The value should be the filename as you downloaded it from the server you created it on.
 		// In particular, you should keep the "-(versionNum)" in the filename, and update the string here
 		// to match the downloaded version.
-		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "HUM_Locations-2.zip");
+		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "Mirebalais_Hospital_locations-3.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-2.zip");
-		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-4.zip");
+		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-7.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
@@ -337,6 +337,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		// paper record location = Mirebalais
 		setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
+		
+		setExistingGlobalProperty(EmrConstants.GP_XRAY_ORDERABLES_CONCEPT, "35c24af8-6d60-4189-95c6-7e91e421d11f");
+		setExistingGlobalProperty(EmrConstants.GP_CT_SCAN_ORDERABLES_CONCEPT, "381d653b-a6b7-438a-b9f0-5034b5272def");
+		setExistingGlobalProperty(EmrConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
 	}
 	
 	private void setupNamePhoneticsGlobalProperties() {
@@ -383,6 +387,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "Patient Registration");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_PERSON_ATTRIBUTE_TYPE, "Telephone Number");
+		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_VIEWING_ATTRIBUTE_TYPES, "Telephone Number");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");

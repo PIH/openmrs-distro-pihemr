@@ -5,6 +5,7 @@ Allowed values are 'patientRegistration', 'primaryCareReception', 'primaryCareVi
 	<global_property property="patientregistration.primaryIdentifierType" property_value="ZL EMR ID" description="Primary identifier type for looking up patients, generating barcodes, etc" uuid="1e284f09-d1e3-4827-b423-1082a1bbccbf"/>
 	<global_property property="patientregistration.patientRegistrationEncounterType" property_value="Patient Registration" description="Name or primary key id of the Encounter Type that should be used when recording Patient Registration encounters" uuid="0ed48ce9-de0d-4406-960d-638a010f5e46"/>
 	<global_property property="patientregistration.idCardPersonAttributeType" property_value="Telephone Number" description="The person attribute type to print on the id card" uuid="d85d2b2b-a13d-4479-949e-e82780d6c6c0"/>
+	<global_property property="patient.viewingAttributeTypes" property_value="Telephone Number" description="Viewable attributes in the UI" uuid="ad07b038-210b-4c47-8e4a-50f34f36fe15"/>
 	<global_property property="patientregistration.searchClass" property_value="org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch" description="Name of the class that provides the search algorithm to use when searching for a patient" uuid="e2bd0fbc-ed63-4b99-a547-c742d45341ed"/>
 	<global_property property="patientregistration.registrationLocations" property_value="7" description="Pipe-separated list of either location names or ids in order to limit the locations
 available for patient registration.  If empty, all locations are supported" uuid="0d76ec8a-c17c-40f7-91f3-8516201ba96c"/>	
@@ -43,7 +44,11 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="emr.placeOrdersEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.clinicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.testOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.unspecifiedVisitType" property_value="" uuid="5ea07166-1c79-11e2-9b1a-423440a3714c"/>
     <global_property property="emr.paperRecordIdentifierType" property_value="" uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
+    <global_property property="emr.xrayOrderablesConcept" property_value="" uuid="6605657e-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.ctScanOrderablesConcept" property_value="" uuid="6a91f378-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.ultrasoundOrderablesConcept" property_value="" uuid="6ec1a132-1c79-11e2-9b1a-423440a3714c"/>
     
     <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>
