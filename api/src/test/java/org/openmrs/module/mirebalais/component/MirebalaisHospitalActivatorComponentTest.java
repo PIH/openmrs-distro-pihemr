@@ -155,6 +155,12 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		    RADIOLOGY_ORDER_TYPE_UUID));
 		assertEquals("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getAdministrationService().getGlobalProperty(
 		    PacsIntegrationGlobalProperties.PATIENT_IDENTIFIER_TYPE_UUID));
+		assertEquals("en", Context.getAdministrationService().getGlobalProperty(
+		    PacsIntegrationGlobalProperties.DEFAULT_LOCALE));
+		assertEquals("Mirebalais", Context.getAdministrationService().getGlobalProperty(
+		    PacsIntegrationGlobalProperties.SENDING_FACILITY));
+		assertEquals("2889f378-f287-40a5-ac9c-ce77ee963ed7", Context.getAdministrationService().getGlobalProperty(
+		    PacsIntegrationGlobalProperties.PROCEDURE_CODE_CONCEPT_SOURCE_UUID));
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {
