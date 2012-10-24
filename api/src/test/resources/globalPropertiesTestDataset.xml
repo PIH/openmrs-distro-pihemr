@@ -35,17 +35,21 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="pacsintegration.listenerUsername" property_value="" uuid="6ed7ae555-0663-23e1-8c99-2b4f0c4f671a"/>
     <global_property property="pacsintegration.listenerPassword" property_value="" uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671a"/>
     <global_property property="pacsintegration.patientIdentifierTypeUuid" property_value="" uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.defaultLocale" property_value="" uuid="7ab77666-0663-4221-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.procedureCodeConceptSourceUuid" property_value="" uuid="7ab77666-0663-46e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.sendingFacility" property_value="" uuid="7ab78666-0663-45e1-8c99-2b4f0c4f671b"/>
 
     <global_property property="layout.address.format" property_value="" uuid="7abc4766-0663-45e1-8c99-2b4f0c4f888a"/>
 
     <global_property property="emr.placeOrdersEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.clinicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.testOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.unspecifiedVisitType" property_value="" uuid="5ea07166-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.atFacilityVisitType" property_value="" uuid="f01c54cb-2225-471a-9cd5-d348552c337c"/>
     <global_property property="emr.paperRecordIdentifierType" property_value="" uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
     <global_property property="emr.xrayOrderablesConcept" property_value="" uuid="6605657e-1c79-11e2-9b1a-423440a3714c"/>
     <global_property property="emr.ctScanOrderablesConcept" property_value="" uuid="6a91f378-1c79-11e2-9b1a-423440a3714c"/>
     <global_property property="emr.ultrasoundOrderablesConcept" property_value="" uuid="6ec1a132-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.checkInEncounterType" property_value="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" uuid="58b07372-3605-44b2-b8ee-c4bb98e4f088"/>
     
     <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>

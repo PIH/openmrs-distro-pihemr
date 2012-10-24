@@ -38,8 +38,9 @@ import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.namephonetics.NamePhoneticsConstants;
+import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -77,7 +78,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "Mirebalais_Hospital_locations-3.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-2.zip");
-		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-7.zip");
+		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-9.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
@@ -312,10 +313,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {
-		setExistingGlobalProperty("pacsintegration.listenerUsername", "admin");
-		setExistingGlobalProperty("pacsintegration.listenerPassword", "Admin123");
-		setExistingGlobalProperty("pacsintegration.radiologyOrderTypeUuid", "13116a48-15f5-102d-96e4-000c29c2a5d7");
-		setExistingGlobalProperty("pacsintegration.patientIdentifierTypeUuid", "a541af1e-105c-40bf-b345-ba1fd6a59b85");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.LISTENER_USERNAME, "admin");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.LISTENER_PASSWORD, "Admin123");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID,
+		    "13116a48-15f5-102d-96e4-000c29c2a5d7");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PATIENT_IDENTIFIER_TYPE_UUID,
+		    "a541af1e-105c-40bf-b345-ba1fd6a59b85");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.DEFAULT_LOCALE, "en");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.SENDING_FACILITY, "Mirebalais");
+		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PROCEDURE_CODE_CONCEPT_SOURCE_UUID,
+		    "2889f378-f287-40a5-ac9c-ce77ee963ed7");
 	}
 	
 	private void setupEmrGlobalProperties() {
@@ -334,6 +341,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(EmrConstants.GP_XRAY_ORDERABLES_CONCEPT, "35c24af8-6d60-4189-95c6-7e91e421d11f");
 		setExistingGlobalProperty(EmrConstants.GP_CT_SCAN_ORDERABLES_CONCEPT, "381d653b-a6b7-438a-b9f0-5034b5272def");
 		setExistingGlobalProperty(EmrConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
+		setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
+		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
+		
 	}
 	
 	private void setupNamePhoneticsGlobalProperties() {
