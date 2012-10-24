@@ -17,7 +17,6 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.*;
 import org.openmrs.api.OrderService;
@@ -41,7 +40,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @SkipBaseSetup
-@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
@@ -178,7 +176,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		            Context.getAdministrationService().getGlobalProperty(
 		                PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
-		order.setConcept(Context.getConceptService().getConceptByUuid("3ccc6186-26fe-102b-80cb-0017a47871b2")); // chest x-ray, one view
+		order.setConcept(Context.getConceptService().getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
 		Date radiologyDate = new Date();
 		order.setStartDate(radiologyDate);
