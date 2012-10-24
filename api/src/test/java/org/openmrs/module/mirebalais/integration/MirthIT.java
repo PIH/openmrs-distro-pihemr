@@ -17,6 +17,7 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.*;
 import org.openmrs.api.OrderService;
@@ -40,6 +41,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @SkipBaseSetup
+@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
