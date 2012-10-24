@@ -77,7 +77,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// In particular, you should keep the "-(versionNum)" in the filename, and update the string here
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "Mirebalais_Hospital_locations-3.zip");
-		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-2.zip");
+		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-3.zip");
 		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-9.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		customProperties = new MirebalaisCustomProperties();
@@ -334,6 +334,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		// TODO add a Clinician encounter role to our MDS packages
 		setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "a0b03050-c99b-11e0-9572-0800200c9a66");
+		
+		// check_in clerk encounter role is set to Oupatient Application User Role
+		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");
 		
 		// paper record location = Mirebalais
 		setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
