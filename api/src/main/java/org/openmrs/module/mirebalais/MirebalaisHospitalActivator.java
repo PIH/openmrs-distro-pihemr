@@ -80,6 +80,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-3.zip");
 		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-9.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
+		currentMetadataVersions.put("e666ee52-c381-461f-b59d-7528da25473c", "AdministrativeEncounterRole-1.zip");
 		customProperties = new MirebalaisCustomProperties();
 	}
 	
