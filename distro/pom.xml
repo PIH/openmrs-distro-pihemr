@@ -123,6 +123,14 @@
                     <version>${htmlwidgetsVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>uilibrary-omod</artifactId>
+                    <version>${uilibraryVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
             </dependencies>
             <build>
                 <plugins>
@@ -146,7 +154,6 @@
                                     <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
                                     <!-- the event module has the non-standard groupId org.openmrs -->
                                     <includeGroupIds>org.openmrs.module,org.openmrs</includeGroupIds>
-                                    <includeScope>provided</includeScope>
                                 </configuration>
                             </execution>
                         </executions>
@@ -190,35 +197,6 @@
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!--
-                    Also get the omod file that we built.
-                    -->
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>2.5</version>
-                        <executions>
-                            <execution>
-                                <id>copy-resources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/distro</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}/../omod/target</directory>
-                                            <filtering>false</filtering>
-                                            <includes>
-                                                <include>mirebalais-${project.parent.version}.omod</include>
-                                            </includes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
