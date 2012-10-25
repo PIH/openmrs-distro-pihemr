@@ -60,6 +60,7 @@
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.4</addresshierarchyVersion>
         <eventVersion>1.2</eventVersion>
+        <uilibraryVersion>1.4</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
