@@ -10,6 +10,7 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -23,6 +24,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 	
 	private MirebalaisHospitalActivator activator;
 	
+	private MirebalaisCustomProperties customProperties;
+	
 	@Before
 	public void beforeEachTest() throws Exception {
 		initializeInMemoryDatabase();
@@ -31,6 +34,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		authenticate();
 		activator = new MirebalaisHospitalActivator();
 		activator.started();
+		customProperties = new MirebalaisCustomProperties();
 	}
 	
 	@Test
@@ -60,9 +64,15 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
 		
 		assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
-		assertEquals("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais", remoteZlIdentifierSource.getUrl());
-		assertEquals("testidgen", remoteZlIdentifierSource.getUser());
-		assertEquals("Testing123", remoteZlIdentifierSource.getPassword());
+		assertEquals(customProperties.getRemoteZlIdentifierSourceUrl(), remoteZlIdentifierSource.getUrl());
+		assertEquals(customProperties.getRemoteZlIdentifierSourceUsername(), remoteZlIdentifierSource.getUser());
+		assertEquals(customProperties.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
+		
+		//assertEquals(
+		// "http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais",
+		//remoteZlIdentifierSource.getUrl());
+		//assertEquals("testidgen", remoteZlIdentifierSource.getUser());
+		//assertEquals("Testing123", remoteZlIdentifierSource.getPassword());
 		
 		assertEquals("A", dossierSequenceGenerator.getPrefix());
 		assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
