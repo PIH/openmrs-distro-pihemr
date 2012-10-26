@@ -23,7 +23,6 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
-import org.openmrs.module.event.advice.GeneralEventAdvice;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -63,10 +62,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		OrderService orderService = Context.getOrderService();
 		
 		authenticate();
-		
-		// we need to manually configure the advice since the @StartModule annotation was causing problems (see tests in PacsIntegration module)
-		Context.addAdvice(PatientService.class, new GeneralEventAdvice());
-		Context.addAdvice(OrderService.class, new GeneralEventAdvice());
 		
 		// run the module activator so that the Mirth channels are configured
 		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
