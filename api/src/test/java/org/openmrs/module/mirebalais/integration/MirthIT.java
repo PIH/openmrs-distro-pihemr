@@ -185,7 +185,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setClinicalHistory("Patient fell off horse");
 		
 		Encounter encounter = new Encounter();
-		encounter.setPatient(Context.getPatientService().getPatient(7));
+		encounter.setPatient(patient);
 		encounter.setEncounterDatetime(new Date());
 		encounter.setLocation(Context.getLocationService().getLocation("Unknown Location"));
 		encounter.setEncounterType(Context.getEncounterService().getEncounterType(1));
