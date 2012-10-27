@@ -18,7 +18,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.openmrs.*;
+import org.openmrs.Encounter;
+import org.openmrs.Order;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PersonName;
+import org.openmrs.TestOrder;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
@@ -33,7 +38,11 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
@@ -112,12 +121,16 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// if the test patient already exists, delete it and any existing orders
 		if (patientService.getPatients("2ADMMN").size() > 0) {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
-			
+
 			for (Order order : orderService.getOrdersByPatient(patient)) {
 				orderService.purgeOrder(order);
 			}
-			
-			Context.getPatientService().purgePatient(patient);
+
+            for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
+                encounterService.purgeEncounter(encounter);
+            }
+
+            Context.getPatientService().purgePatient(patient);
 		}
 		
 		// TODO: eventually we should make sure all the necessary fields are included here
