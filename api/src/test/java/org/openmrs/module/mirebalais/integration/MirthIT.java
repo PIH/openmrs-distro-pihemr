@@ -121,16 +121,16 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// if the test patient already exists, delete it and any existing orders
 		if (patientService.getPatients("2ADMMN").size() > 0) {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
-
+			
 			for (Order order : orderService.getOrdersByPatient(patient)) {
 				orderService.purgeOrder(order);
 			}
-
-            for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
-                encounterService.purgeEncounter(encounter);
-            }
-
-            Context.getPatientService().purgePatient(patient);
+			
+			for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
+				encounterService.purgeEncounter(encounter);
+			}
+			
+			Context.getPatientService().purgePatient(patient);
 		}
 		
 		// TODO: eventually we should make sure all the necessary fields are included here
