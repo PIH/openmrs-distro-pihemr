@@ -75,7 +75,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		authenticate();
 		
 		// run the module activator so that the Mirth channels are configured
-		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+		MirebalaisHospitalActivator activator = new TestMirebalaisHospitalActivator();
 		activator.started();
 		
 		// give Mirth channels a few seconds to start
@@ -239,4 +239,24 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		return sb.toString();
 	}
 	
+	public class TestMirebalaisHospitalActivator extends MirebalaisHospitalActivator {
+		
+		@Override
+		protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
+			try {
+				super.setExistingGlobalProperty(propertyName, propertyValue);
+			}
+			catch (RuntimeException e) {
+				// only log a warning if this is the "global property does not exist" exception
+				if (e.getMessage().contains("global property") && e.getMessage().contains("does not exist")) {
+					log.error(e.getMessage());
+				} else {
+					throw e;
+				}
+				
+			}
+			
+		}
+		
+	}
 }

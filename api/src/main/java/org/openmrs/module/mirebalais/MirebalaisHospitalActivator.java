@@ -43,7 +43,6 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
-import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
