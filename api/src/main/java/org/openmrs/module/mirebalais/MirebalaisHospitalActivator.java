@@ -38,9 +38,9 @@ import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
-import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -272,10 +272,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	/**
 	 * Sets global property value or throws an exception if that global property does not already exist
+	 * (Set as protected so we can override it for testing purposes)
+	 *
 	 * @param propertyName
 	 * @param propertyValue
 	 */
-	private void setExistingGlobalProperty(String propertyName, String propertyValue) {
+	protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
 		AdministrationService administrationService = Context.getAdministrationService();
 		GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
 		if (gp == null) {
