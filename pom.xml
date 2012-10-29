@@ -49,7 +49,7 @@
 		<appframeworkVersion>1.3</appframeworkVersion>
 		<metadatasharingVersion>1.0.10</metadatasharingVersion>
 		<htmlformentryVersion>2.0</htmlformentryVersion>
-		<htmlformentry19extVersion>0.9</htmlformentry19extVersion>
+		<htmlformentry19extVersion>1.0</htmlformentry19extVersion>
 		<calculationVersion>1.0</calculationVersion>
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
@@ -59,7 +59,7 @@
 		<patientregistrationVersion>2.0-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.4</addresshierarchyVersion>
-        <eventVersion>1.2</eventVersion>
+        <eventVersion>2.0.1</eventVersion>
         <uilibraryVersion>1.4</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>

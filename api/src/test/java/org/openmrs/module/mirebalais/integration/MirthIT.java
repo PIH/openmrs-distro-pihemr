@@ -17,9 +17,14 @@ package org.openmrs.module.mirebalais.integration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.openmrs.*;
+import org.openmrs.Encounter;
+import org.openmrs.Order;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PersonName;
+import org.openmrs.TestOrder;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -33,14 +38,17 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.Date;
 
 @SkipBaseSetup
-@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
@@ -61,6 +69,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	public void testMirthChannelIntegration() throws Exception {
 		
 		PatientService patientService = Context.getPatientService();
+		EncounterService encounterService = Context.getEncounterService();
 		OrderService orderService = Context.getOrderService();
 		
 		authenticate();
@@ -117,6 +126,10 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 				orderService.purgeOrder(order);
 			}
 			
+			for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
+				encounterService.purgeEncounter(encounter);
+			}
+			
 			Context.getPatientService().purgePatient(patient);
 		}
 		
@@ -141,9 +154,11 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
 		patient.addIdentifier(identifier);
 		
-		// save the patient to trigger an update event
+		// save the patient
 		patientService.savePatient(patient);
 		
+		/**
+		 *  Commenting this out because we are not currently sending ADT information to APCS
 		String result = listenForResults();
 		
 		System.out.println(result);
@@ -162,6 +177,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A08||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
+
+		 */
 		
 		// TODO: eventually we should make sure all the necessary fields are concluded here
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
@@ -179,19 +196,23 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(radiologyDate);
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
-		Context.getOrderService().saveOrder(order);
 		
-		result = listenForResults();
+		Encounter encounter = new Encounter();
+		encounter.setPatient(patient);
+		encounter.setEncounterDatetime(new Date());
+		encounter.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+		encounter.setEncounterType(Context.getEncounterService().getEncounterType(1));
+		encounter.addOrder(order);
+		encounterService.saveEncounter(encounter);
 		
-		System.out.println(result);
+		String result = listenForResults();
 		
 		TestUtils.assertContains("MSH|^~\\&||Mirebalais|||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
-		
-		// TODO: add these back in
-		//TestUtils.assertContains("ORC|SC\r", result);
-		//TestUtils.assertContains("OBR|||ACCESSION NUMBER|123ABC^Left-hand x-ray|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse\r", result);
-		
+		TestUtils.assertContains("ORC|NW", result);
+		TestUtils.assertContains(
+		    "OBR|||ACCESSION NUMBER|36554-4^Chest 1 view (XRay)|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse",
+		    result);
 	}
 	
 	private String listenForResults() throws IOException {
