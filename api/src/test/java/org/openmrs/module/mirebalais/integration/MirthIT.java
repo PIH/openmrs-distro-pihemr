@@ -18,17 +18,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
-import org.openmrs.Encounter;
-import org.openmrs.Order;
-import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PersonName;
-import org.openmrs.TestOrder;
+import org.openmrs.*;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
+import org.openmrs.module.emr.adt.AdtService;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -38,11 +34,7 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
@@ -182,6 +174,10 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		// TODO: eventually we should make sure all the necessary fields are concluded here
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
+		
+		// ensure that there is a visit for the patient (so that the encounter visit handlers doesn't bomb)
+		Context.getService(AdtService.class).ensureActiveVisit(patient,
+		    Context.getLocationService().getLocation("Mirebalais Hospital"));
 		
 		// now create and save the order for this patient
 		TestOrder order = new TestOrder();
