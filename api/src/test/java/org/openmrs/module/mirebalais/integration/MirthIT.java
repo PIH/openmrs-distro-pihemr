@@ -22,6 +22,7 @@ import org.openmrs.*;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.emr.adt.AdtService;
@@ -63,6 +64,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		PatientService patientService = Context.getPatientService();
 		EncounterService encounterService = Context.getEncounterService();
 		OrderService orderService = Context.getOrderService();
+		VisitService visitService = Context.getVisitService();
 		
 		authenticate();
 		
@@ -120,6 +122,10 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 			
 			for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
 				encounterService.purgeEncounter(encounter);
+			}
+			
+			for (Visit visit : visitService.getVisitsByPatient(patient)) {
+				visitService.purgeVisit(visit);
 			}
 			
 			Context.getPatientService().purgePatient(patient);
