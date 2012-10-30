@@ -47,15 +47,16 @@
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>1.9</uiframeworkVersion>
 		<appframeworkVersion>1.3</appframeworkVersion>
-		<metadatasharingVersion>1.0.10</metadatasharingVersion>
+		<metadatasharingVersion>1.1.1</metadatasharingVersion>
+        <metadatamappingVersion>1.0</metadatamappingVersion>
 		<htmlformentryVersion>2.0</htmlformentryVersion>
-		<htmlformentry19extVersion>0.9</htmlformentry19extVersion>
+		<htmlformentry19extVersion>1.0</htmlformentry19extVersion>
 		<calculationVersion>1.0</calculationVersion>
 		<reportingVersion>0.7.2.1</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<idgenVersion>2.4-SNAPSHOT</idgenVersion>
-		<namephoneticsVersion>1.3.5</namephoneticsVersion>
+		<namephoneticsVersion>1.3.6</namephoneticsVersion>
 		<patientregistrationVersion>2.0-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.4</addresshierarchyVersion>

@@ -21,7 +21,9 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
@@ -38,9 +40,9 @@ import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
-import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -109,18 +111,25 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
-		IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
-		
-		installMetadataPackages();
-		setupNamePhoneticsGlobalProperties();
-		setupPatientRegistrationGlobalProperties();
-		setupEmrGlobalProperties();
-		setupMirebalaisGlobalProperties();
-		setupPacsIntegrationGlobalProperties();
-		setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
-		installMirthChannels();
-		setupAddressHierarchy();
+		try {
+			MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+			IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+			
+			installMetadataPackages();
+			setupNamePhoneticsGlobalProperties();
+			setupPatientRegistrationGlobalProperties();
+			setupEmrGlobalProperties();
+			setupMirebalaisGlobalProperties();
+			setupPacsIntegrationGlobalProperties();
+			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
+			installMirthChannels();
+			setupAddressHierarchy();
+		}
+		catch (Exception e) {
+			Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
+			ModuleFactory.stopModule(mod);
+			throw new RuntimeException("failed to setup the required modules", e);
+		}
 		log.info("Mirebalais Hospital Module started");
 	}
 	
@@ -272,10 +281,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	/**
 	 * Sets global property value or throws an exception if that global property does not already exist
+	 * (Set as protected so we can override it for testing purposes)
+	 *
 	 * @param propertyName
 	 * @param propertyValue
 	 */
-	private void setExistingGlobalProperty(String propertyName, String propertyValue) {
+	protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
 		AdministrationService administrationService = Context.getAdministrationService();
 		GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
 		if (gp == null) {

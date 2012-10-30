@@ -18,6 +18,8 @@ package org.openmrs.module.mirebalais;
  */
 public class MirebalaisConstants {
 	
+	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
+	
 	public static final String RADIOLOGY_ORDERABLE_CONCEPTS_GP = "mirebalais.radiology.orderableConcepts";
 	
 	public static final String RADIOLOGY_ORDERTYPE_GP = "radiology-order-type";

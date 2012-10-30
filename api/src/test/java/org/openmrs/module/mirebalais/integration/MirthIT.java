@@ -19,10 +19,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.openmrs.*;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.TestUtils;
+import org.openmrs.module.emr.adt.AdtService;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -59,12 +62,14 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	public void testMirthChannelIntegration() throws Exception {
 		
 		PatientService patientService = Context.getPatientService();
+		EncounterService encounterService = Context.getEncounterService();
 		OrderService orderService = Context.getOrderService();
+		VisitService visitService = Context.getVisitService();
 		
 		authenticate();
 		
 		// run the module activator so that the Mirth channels are configured
-		MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
+		MirebalaisHospitalActivator activator = new TestMirebalaisHospitalActivator();
 		activator.started();
 		
 		// give Mirth channels a few seconds to start
@@ -115,6 +120,14 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 				orderService.purgeOrder(order);
 			}
 			
+			for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
+				encounterService.purgeEncounter(encounter);
+			}
+			
+			for (Visit visit : visitService.getVisitsByPatient(patient)) {
+				visitService.purgeVisit(visit);
+			}
+			
 			Context.getPatientService().purgePatient(patient);
 		}
 		
@@ -139,9 +152,11 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
 		patient.addIdentifier(identifier);
 		
-		// save the patient to trigger an update event
+		// save the patient
 		patientService.savePatient(patient);
 		
+		/**
+		 *  Commenting this out because we are not currently sending ADT information to APCS
 		String result = listenForResults();
 		
 		System.out.println(result);
@@ -160,9 +175,15 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A08||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
+
+		 */
 		
 		// TODO: eventually we should make sure all the necessary fields are concluded here
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
+		
+		// ensure that there is a visit for the patient (so that the encounter visit handlers doesn't bomb)
+		Context.getService(AdtService.class).ensureActiveVisit(patient,
+		    Context.getLocationService().getLocation("Mirebalais Hospital"));
 		
 		// now create and save the order for this patient
 		TestOrder order = new TestOrder();
@@ -177,19 +198,23 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(radiologyDate);
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
-		Context.getOrderService().saveOrder(order);
 		
-		result = listenForResults();
+		Encounter encounter = new Encounter();
+		encounter.setPatient(patient);
+		encounter.setEncounterDatetime(new Date());
+		encounter.setLocation(Context.getLocationService().getLocation("Mirebalais Hospital"));
+		encounter.setEncounterType(Context.getEncounterService().getEncounterType(1));
+		encounter.addOrder(order);
+		encounterService.saveEncounter(encounter);
 		
-		System.out.println(result);
+		String result = listenForResults();
 		
 		TestUtils.assertContains("MSH|^~\\&||Mirebalais|||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
-		
-		// TODO: add these back in
-		//TestUtils.assertContains("ORC|SC\r", result);
-		//TestUtils.assertContains("OBR|||ACCESSION NUMBER|123ABC^Left-hand x-ray|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse\r", result);
-		
+		TestUtils.assertContains("ORC|NW", result);
+		TestUtils.assertContains(
+		    "OBR|||ACCESSION NUMBER|36554-4^Chest 1 view (XRay)|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse",
+		    result);
 	}
 	
 	private String listenForResults() throws IOException {
@@ -216,4 +241,24 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		return sb.toString();
 	}
 	
+	public class TestMirebalaisHospitalActivator extends MirebalaisHospitalActivator {
+		
+		@Override
+		protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
+			try {
+				super.setExistingGlobalProperty(propertyName, propertyValue);
+			}
+			catch (RuntimeException e) {
+				// only log a warning if this is the "global property does not exist" exception
+				if (e.getMessage().contains("global property") && e.getMessage().contains("does not exist")) {
+					log.error(e.getMessage());
+				} else {
+					throw e;
+				}
+				
+			}
+			
+		}
+		
+	}
 }

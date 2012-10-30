@@ -68,12 +68,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		assertEquals(customProperties.getRemoteZlIdentifierSourceUsername(), remoteZlIdentifierSource.getUser());
 		assertEquals(customProperties.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
 		
-		//assertEquals(
-		// "http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais",
-		//remoteZlIdentifierSource.getUrl());
-		//assertEquals("testidgen", remoteZlIdentifierSource.getUser());
-		//assertEquals("Testing123", remoteZlIdentifierSource.getPassword());
-		
 		assertEquals("A", dossierSequenceGenerator.getPrefix());
 		assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
 		assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
