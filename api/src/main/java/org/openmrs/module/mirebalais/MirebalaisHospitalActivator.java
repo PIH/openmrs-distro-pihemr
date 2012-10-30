@@ -461,7 +461,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			// load in the csv file
 			InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE);
 			AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|");
-			ahService.initializeFullAddressCache();
+			//ahService.initializeFullAddressCache();
 		}
 		// at least verify that the right levels exist
 		// TODO: perhaps do more validation here?
