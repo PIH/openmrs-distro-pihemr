@@ -202,7 +202,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		Encounter encounter = new Encounter();
 		encounter.setPatient(patient);
 		encounter.setEncounterDatetime(new Date());
-		encounter.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+		encounter.setLocation(Context.getLocationService().getLocation("Mirebalais Hospital"));
 		encounter.setEncounterType(Context.getEncounterService().getEncounterType(1));
 		encounter.addOrder(order);
 		encounterService.saveEncounter(encounter);
