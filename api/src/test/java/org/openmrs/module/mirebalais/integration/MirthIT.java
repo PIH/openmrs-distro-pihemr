@@ -19,11 +19,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.openmrs.*;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.OrderService;
-import org.openmrs.api.PatientService;
-import org.openmrs.api.VisitService;
+import org.openmrs.api.*;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emr.EmrProperties;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.emr.adt.AdtService;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
@@ -32,6 +30,8 @@ import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
@@ -56,15 +56,46 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		return "mirebalais";
 	}
 	
+	@Autowired
+	@Qualifier("patientService")
+	private PatientService patientService;
+	
+	@Autowired
+	@Qualifier("encounterService")
+	private EncounterService encounterService;
+	
+	@Autowired
+	@Qualifier("orderService")
+	private OrderService orderService;
+	
+	@Autowired
+	@Qualifier("visitService")
+	private VisitService visitService;
+	
+	@Autowired
+	@Qualifier("adminService")
+	private AdministrationService administrationService;
+	
+	@Autowired
+	@Qualifier("locationService")
+	private LocationService locationService;
+	
+	@Autowired
+	@Qualifier("adtService")
+	private AdtService adtService;
+	
+	@Autowired
+	@Qualifier("conceptService")
+	private ConceptService conceptService;
+	
+	@Autowired
+	@Qualifier("emrProperties")
+	private EmrProperties properties;
+	
 	@Test
 	@DirtiesContext
 	@NotTransactional
 	public void testMirthChannelIntegration() throws Exception {
-		
-		PatientService patientService = Context.getPatientService();
-		EncounterService encounterService = Context.getEncounterService();
-		OrderService orderService = Context.getOrderService();
-		VisitService visitService = Context.getVisitService();
 		
 		authenticate();
 		
@@ -128,7 +159,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 				visitService.purgeVisit(visit);
 			}
 			
-			Context.getPatientService().purgePatient(patient);
+			patientService.purgePatient(patient);
 		}
 		
 		// TODO: eventually we should make sure all the necessary fields are included here
@@ -149,7 +180,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
 		identifier.setIdentifier("2ADMMN");
 		identifier.setPreferred(true);
-		identifier.setLocation(Context.getLocationService().getLocation("Unknown Location"));
+		identifier.setLocation(locationService.getLocation("Unknown Location"));
 		patient.addIdentifier(identifier);
 		
 		// save the patient
@@ -182,17 +213,14 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// TODO: specifically: sending facility, device location, universal service id, universal service id text, and modality
 		
 		// ensure that there is a visit for the patient (so that the encounter visit handlers doesn't bomb)
-		Context.getService(AdtService.class).ensureActiveVisit(patient,
-		    Context.getLocationService().getLocation("Mirebalais Hospital"));
+		adtService.ensureActiveVisit(patient, locationService.getLocation("Mirebalais Hospital"));
 		
 		// now create and save the order for this patient
 		TestOrder order = new TestOrder();
-		order
-		        .setOrderType(Context.getOrderService().getOrderTypeByUuid(
-		            Context.getAdministrationService().getGlobalProperty(
-		                PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
+		order.setOrderType(orderService.getOrderTypeByUuid(administrationService
+		        .getGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
-		order.setConcept(Context.getConceptService().getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
+		order.setConcept(conceptService.getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
 		Date radiologyDate = new Date();
 		order.setStartDate(radiologyDate);
@@ -202,15 +230,17 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		Encounter encounter = new Encounter();
 		encounter.setPatient(patient);
 		encounter.setEncounterDatetime(new Date());
-		encounter.setLocation(Context.getLocationService().getLocation("Mirebalais Hospital"));
-		encounter.setEncounterType(Context.getEncounterService().getEncounterType(1));
+		encounter.setLocation(locationService.getLocation("Mirebalais Hospital"));
+		encounter.setEncounterType(encounterService.getEncounterType(1));
 		encounter.addOrder(order);
+		encounter.addProvider(properties.getClinicianEncounterRole(), Context.getProviderService().getProvider(1));
 		encounterService.saveEncounter(encounter);
 		
 		String result = listenForResults();
 		
 		TestUtils.assertContains("MSH|^~\\&||Mirebalais|||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
+		TestUtils.assertContains("PV1||||||||^User^Super", result);
 		TestUtils.assertContains("ORC|NW", result);
 		TestUtils.assertContains(
 		    "OBR|||ACCESSION NUMBER|36554-4^Chest 1 view (XRay)|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse",
