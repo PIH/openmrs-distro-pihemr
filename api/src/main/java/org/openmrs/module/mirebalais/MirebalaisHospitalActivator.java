@@ -358,6 +358,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(EmrConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
 		setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
 		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
+		setExistingGlobalProperty(EmrConstants.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
 		
 	}
 	
