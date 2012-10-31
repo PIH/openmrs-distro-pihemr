@@ -20,6 +20,8 @@ public class MirebalaisConstants {
 	
 	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
 	
+	public static final String MIREBALAIS_LOCATION_UUID = "a084f714-a536-473b-94e6-ec317b152b43";
+	
 	public static final String RADIOLOGY_ORDERABLE_CONCEPTS_GP = "mirebalais.radiology.orderableConcepts";
 	
 	public static final String RADIOLOGY_ORDERTYPE_GP = "radiology-order-type";
