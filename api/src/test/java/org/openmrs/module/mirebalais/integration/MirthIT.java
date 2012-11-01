@@ -38,6 +38,7 @@ import org.springframework.test.annotation.NotTransactional;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -222,8 +223,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setPatient(patient);
 		order.setConcept(conceptService.getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
-		Date radiologyDate = new Date();
-		order.setStartDate(radiologyDate);
+		order.setStartDate(new SimpleDateFormat("MM-dd-yyyy").parse("09-09-2012"));
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
 		
@@ -242,9 +242,10 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
 		TestUtils.assertContains("PV1||||||||^User^Super", result);
 		TestUtils.assertContains("ORC|NW", result);
-		TestUtils.assertContains(
-		    "OBR|||ACCESSION NUMBER|36554-4^Chest 1 view (XRay)|||||||||||||||||||||||^^^^^STAT||||^Patient fell off horse",
-		    result);
+		TestUtils
+		        .assertContains(
+		            "OBR|||ACCESSION NUMBER|36554-4^Chest 1 view (XRay)|||||||||||||||CR||||||||^^^^^STAT||||^Patient fell off horse|||||201209090000",
+		            result);
 	}
 	
 	private String listenForResults() throws IOException {
