@@ -24,6 +24,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrProperties;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.emr.adt.AdtService;
+import org.openmrs.module.emr.radiology.RadiologyOrder;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -217,7 +218,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		adtService.ensureActiveVisit(patient, locationService.getLocation("Mirebalais Hospital"));
 		
 		// now create and save the order for this patient
-		TestOrder order = new TestOrder();
+		RadiologyOrder order = new RadiologyOrder();
 		order.setOrderType(orderService.getOrderTypeByUuid(administrationService
 		        .getGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
 		order.setPatient(patient);
@@ -226,6 +227,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setStartDate(new SimpleDateFormat("MM-dd-yyyy").parse("09-09-2012"));
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
+		order.setExamLocation(locationService.getLocation("Mirebalais Hospital"));
 		
 		Encounter encounter = new Encounter();
 		encounter.setPatient(patient);
@@ -240,7 +242,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		TestUtils.assertContains("MSH|^~\\&||Mirebalais|||||ORM^O01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
-		TestUtils.assertContains("PV1||||||||^User^Super", result);
+		TestUtils.assertContains("PV1|||Mirebalais Hospital|||||^User^Super", result);
 		TestUtils.assertContains("ORC|NW", result);
 		TestUtils
 		        .assertContains(
