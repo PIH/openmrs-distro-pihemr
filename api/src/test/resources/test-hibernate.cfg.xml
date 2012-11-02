@@ -17,5 +17,7 @@
         <mapping resource="OutboundQueue.hbm.xml" />
 
         <mapping resource="NamePhonetic.hbm.xml" />
+
+        <mapping resource="RadiologyOrder.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
