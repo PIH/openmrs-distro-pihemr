@@ -25,12 +25,12 @@ public class HomepageOverrideController {
 	
 	@RequestMapping("/index.htm")
 	public String showOurHomepage() {
-		return "forward:/pages/mirebalais/home.page";
+		return "forward:/mirebalais/home.page";
 	}
 	
 	@RequestMapping("/login.htm")
 	public String showLoginHomepage() {
-		return showOurHomepage();
+		return "forward:/mirebalais/login.page";
 	}
 	
 }

@@ -13,14 +13,10 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
-import org.openmrs.Location;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.AppDescriptor;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
 import java.util.List;
@@ -31,24 +27,13 @@ import java.util.List;
  */
 public class HomePageController {
 	
-	public String controller(PageModel model, EmrContext context,
-	        @SpringBean("locationService") LocationService locationService) {
+	public void controller(PageModel model, EmrContext emrContext) {
 		
-		// you need to be authenticated or else we show you the login view instead
-		if (!Context.isAuthenticated()) {
-			return "login";
-		}
-		
-		// Replace this when we play a story about letting the user choose their session location.
-		if (context.getSessionLocation() == null) {
-			Location mirebalaisHospital = locationService.getLocationByUuid(MirebalaisConstants.MIREBALAIS_LOCATION_UUID);
-			context.setSessionLocation(mirebalaisHospital);
-		}
+		emrContext.requireAuthentication();
 		
 		AppFrameworkService appService = Context.getService(AppFrameworkService.class);
 		List<AppDescriptor> apps = appService.getAppsForUser(Context.getAuthenticatedUser());
 		model.addAttribute("apps", apps);
-		return null;
 	}
 	
 }
