@@ -37,7 +37,7 @@ Your Apps:
 <div id="apps">
 	<% apps.each { app -> %>
 		<div class="app">
-			<a href="/${ contextPath }/${ app.homepageUrl }">
+			<a href="/${ contextPath }/${ app.homepageUrl }?appId=${ app.id }">
                 <span class="app-icon">
                     <% if (app.iconUrl) { %>
                         <img width="64" height="64" src="/${ contextPath }/${ app.iconUrl }"/>
