@@ -1,0 +1,36 @@
+/* line 3, ../../../sass-css/sass/login.scss */
+h1, h2 {
+  color: #621b4b;
+}
+
+/* line 7, ../../../sass-css/sass/login.scss */
+#pih-logo {
+  width: 470px;
+}
+
+/* line 11, ../../../sass-css/sass/login.scss */
+#welcome-description {
+  font-size: 1.2em;
+  color: #9fa615;
+  margin-bottom: 1em;
+}
+
+/* line 17, ../../../sass-css/sass/login.scss */
+#login-button {
+  background: #9fa615;
+  padding: 4px 20px;
+  border: 0;
+  border-radius: 3px;
+  font-weight: bold;
+  float: right;
+}
+
+/* line 26, ../../../sass-css/sass/login.scss */
+#cannot-login {
+  clear: both;
+}
+/* line 29, ../../../sass-css/sass/login.scss */
+#cannot-login a {
+  text-decoration: none;
+  color: #9fa615;
+}
