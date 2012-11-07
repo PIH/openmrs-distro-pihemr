@@ -37,16 +37,17 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginPageController {
 	
-	public String get(PageModel pageModel, @SpringBean EmrService emrService, @SpringBean("locationService") LocationService locationService,
-                      EmrContext context, UiUtils ui, PageRequest request) {
+	public String get(PageModel pageModel, @SpringBean EmrService emrService,
+	        @SpringBean("locationService") LocationService locationService, EmrContext context, UiUtils ui,
+	        PageRequest request) {
 		
 		if (context.isAuthenticated()) {
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
-
-        String lastSessionLocationId = getCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION);
-
-        // Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
+		
+		String lastSessionLocationId = getCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION);
+		
+		// Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges
 		try {
 			Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
@@ -57,8 +58,8 @@ public class LoginPageController {
 				lastSessionLocation = locationService.getLocation(Integer.valueOf(lastSessionLocationId));
 			}
 			catch (Exception ex) {
-                // pass
-            }
+				// pass
+			}
 			pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
 			return null;
 		}
@@ -66,61 +67,63 @@ public class LoginPageController {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
 		}
 	}
-
-    public String post(@RequestParam(value = "username", required = false) String username,
-                       @RequestParam(value = "password", required = false) String password,
-                       @RequestParam(value = "sessionLocation", required = false) Integer sessionLocationId,
-                       @SpringBean ContextDAO contextDao,
-                       @SpringBean("locationService") LocationService locationService,
-                       UiUtils ui, EmrContext context, PageRequest request) {
-
+	
+	public String post(@RequestParam(value = "username", required = false) String username,
+	        @RequestParam(value = "password", required = false) String password,
+	        @RequestParam(value = "sessionLocation", required = false) Integer sessionLocationId,
+	        @SpringBean ContextDAO contextDao, @SpringBean("locationService") LocationService locationService, UiUtils ui,
+	        EmrContext context, PageRequest request) {
+		
 		HttpSession httpSession = request.getRequest().getSession();
 		Location sessionLocation = null;
 		try {
-            // TODO as above, grant this privilege to Anonymous instead of using a proxy privilege
+			// TODO as above, grant this privilege to Anonymous instead of using a proxy privilege
 			Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
-
+			
 			if (sessionLocationId != null) {
 				sessionLocation = locationService.getLocation(sessionLocationId);
 				if (!sessionLocation.hasTag(EmrConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
-                    // the UI shouldn't allow this, but protect against it just in case
-					httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui.message("mirebalais.login.error.invalidLocation"));
+					// the UI shouldn't allow this, but protect against it just in case
+					httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+					        .message("mirebalais.login.error.invalidLocation"));
 					return "redirect:" + ui.pageLink("mirebalais", "login");
 				}
 			}
 			if (sessionLocation == null) {
-				httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui.message("mirebalais.login.error.locationRequired"));
+				httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+				        .message("mirebalais.login.error.locationRequired"));
 				return "redirect:" + ui.pageLink("mirebalais", "login");
 			}
 			// Set a cookie, so next time someone logs in on this machine, we can default to that same location
-            setCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
+			setCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
 		}
-
+		
 		try {
 			context.getUserContext().authenticate(username, password, contextDao);
 			context.setSessionLocation(sessionLocation);
-            return "redirect:" + ui.pageLink("mirebalais", "home");
+			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
 		catch (ContextAuthenticationException ex) {
-			httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui.message("mirebalais.login.error.authentication"));
+			httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+			        .message("mirebalais.login.error.authentication"));
 			return "redirect:" + ui.pageLink("mirebalais", "login");
 		}
 	}
-
-    private String getCookieValue(PageRequest request, String cookieName) {
-        for (Cookie cookie : request.getRequest().getCookies()) {
-            if (cookie.getName().equals(cookieName)) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
-
-    private void setCookieValue(PageRequest request, String cookieName, String cookieValue) {
-        request.getResponse().addCookie(new Cookie(cookieName, cookieValue));
-    }
-
+	
+	private String getCookieValue(PageRequest request, String cookieName) {
+		for (Cookie cookie : request.getRequest().getCookies()) {
+			if (cookie.getName().equals(cookieName)) {
+				return cookie.getValue();
+			}
+		}
+		return null;
+	}
+	
+	private void setCookieValue(PageRequest request, String cookieName, String cookieValue) {
+		request.getResponse().addCookie(new Cookie(cookieName, cookieValue));
+	}
+	
 }
