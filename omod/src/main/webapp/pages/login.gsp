@@ -3,45 +3,20 @@
     ui.includeFragment("emr", "standardEmrIncludes")
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
+
+    ui.includeCss("mirebalais", "mirebalais.css")
+    ui.includeCss("mirebalais", "login.css")
 %>
-
-<style type="text/css">
-    #login-form input, #login-form select {
-        display: block;
-        margin-bottom: 2em;
-    }
-
-    #login-form label {
-        display: block;
-        color: #621B4B;
-    }
-
-    #login-form {
-        border: 1px #B9B299 solid;
-        border-radius: 5px;
-        background-color: #e0e0e0;
-        padding: 1em;
-    }
-
-    #cannot-login {
-        position: relative;
-        bottom: 0;
-        left: 0;
-    }
-
-    h2 {
-        margin-top: 0px;
-    }
-
-</style>
 
 <div id="content" class="container">
 
-    <img src="${ ui.resourceLink("mirebalais", "images/PIH_ZL_plum_940.jpg") }"/>
+    <img id="pih-logo" src="${ ui.resourceLink("mirebalais", "images/PIH_ZL_plum_940.jpg") }"/>
 
     <h1>${ ui.message("mirebalais.login.welcomeHeading") }</h1>
 
-    <form id="login-form" method="post" autocomplete="off">
+    <p id="welcome-description">${ ui.message("mirebalais.login.welcomeDescription") }</p>
+
+    <form id="login-form" class="standard-vertical-form" method="post" autocomplete="off">
         <h2>${ ui.message("mirebalais.login.loginHeading") }</h2>
 
         ${ ui.includeFragment("emr", "infoAndErrorMessage") }
