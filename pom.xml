@@ -228,6 +228,17 @@
                         <pushChanges>false</pushChanges>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.jasig.maven</groupId>
+                    <artifactId>sass-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
+                        <outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
+                        <baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
+                        <skin>scss</skin>
+                    </configuration>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 

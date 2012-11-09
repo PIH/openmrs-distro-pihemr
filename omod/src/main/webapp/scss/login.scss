@@ -1,5 +1,7 @@
+@import "colors";
+
 h1, h2 {
-  color: #621b4b;
+  color: $pihPrimaryPurple;
 }
 
 #pih-logo {
@@ -8,12 +10,12 @@ h1, h2 {
 
 #welcome-description {
   font-size: 1.2em;
-  color: #9fa615;
+  color: $pihSecondaryGreen;
   margin-bottom: 1em;
 }
 
 #login-button {
-  background: #9fa615;
+  background: $pihSecondaryGreen;
   padding: 4px 20px;
   border: 0;
   border-radius: 3px;
@@ -23,10 +25,11 @@ h1, h2 {
 
 #cannot-login {
   clear: both;
-}
-#cannot-login a {
-  text-decoration: none;
-  color: #9fa615;
+
+  a {
+    text-decoration: none;
+    color: $pihSecondaryGreen;
+  }
 }
 
 #this-is-a-test {
