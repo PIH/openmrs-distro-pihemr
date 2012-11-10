@@ -1,64 +1,112 @@
-/*
-Syntax error: File to import not found or unreadable: compass/reset.
-              Load path: /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss
-        on line 1 of /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/base.scss
-        from line 1 of /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/mirebalais.scss
+/* line 17, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
-1: @import "base";
-2: @import "mixins";
-3: 
-4: .standard-vertical-form {
-5:   @include bordered-and-shaded;
-6:   @include vertical-form-fields;
+/* line 20, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+body {
+  line-height: 1;
+}
 
-Backtrace:
-/Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/base.scss:1
-/Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/mirebalais.scss:1
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/import_node.rb:64:in `import'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/import_node.rb:25:in `imported_file'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:149:in `visit_import'
-org/jruby/RubyKernel.java:2080:in `send'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:37:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:18:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:146:in `visit_import'
-org/jruby/RubyArray.java:2331:in `collect'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:146:in `visit_import'
-org/jruby/RubyKernel.java:2080:in `send'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:37:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:18:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-org/jruby/RubyArray.java:2331:in `collect'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:53:in `visit_children'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:27:in `visit_children'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:39:in `with_environment'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:26:in `visit_children'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:37:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:47:in `visit_root'
-org/jruby/RubyKernel.java:2080:in `send'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/base.rb:37:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:18:in `visit'
-org/jruby/RubyKernel.java:2080:in `send'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/visitors/perform.rb:7:in `visit'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/tree/root_node.rb:20:in `render'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/engine.rb:299:in `_render'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/engine.rb:246:in `render'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/plugin/compiler.rb:340:in `update_stylesheet'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/plugin/compiler.rb:202:in `update_stylesheets'
-org/jruby/RubyArray.java:1615:in `each'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/plugin/compiler.rb:200:in `update_stylesheets'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/sass-3.1.17/lib/sass/plugin/compiler.rb:298:in `watch'
-org/jruby/RubyProc.java:270:in `call'
-org/jruby/RubyProc.java:220:in `call'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/listen-0.4.2/lib/listen/multi_listener.rb:86:in `on_change'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/listen-0.4.2/lib/listen/multi_listener.rb:95:in `initialize_adapter'
-org/jruby/RubyProc.java:270:in `call'
-org/jruby/RubyProc.java:220:in `call'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/listen-0.4.2/lib/listen/adapters/polling.rb:55:in `poll'
-file:/Users/djazayeri/.m2/repository/org/jasig/maven/sass-maven-plugin/1.0.0/sass-maven-plugin-1.0.0.jar!/gems/listen-0.4.2/lib/listen/adapters/polling.rb:31:in `start'
-org/jruby/RubyProc.java:270:in `call'
-org/jruby/RubyProc.java:224:in `call'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: compass/reset.\A               Load path: /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss\A         on line 1 of /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/base.scss\A         from line 1 of /Users/djazayeri/Documents/git-repositories/openmrs-module-mirebalais/omod/src/main/webapp/scss/mirebalais.scss\A \A 1: @import \"base\";\A 2: @import \"mixins\";\A 3: \A 4: .standard-vertical-form {\A 5:   @include bordered-and-shaded;\A 6:   @include vertical-form-fields;"; }
+/* line 22, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 24, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 26, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 28, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 101, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 30, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 114, ../../../../../target/rubygems/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 3, ../../../compass/sass/base.scss */
+h1 {
+  margin: 40px 0px 20px 0px;
+  font-size: 2em;
+}
+
+/* line 8, ../../../compass/sass/base.scss */
+h2 {
+  font-size: 1.5em;
+}
+
+/* line 12, ../../../compass/sass/base.scss */
+h3 {
+  font-size: 1.2em;
+}
+
+/* line 4, ../../../compass/sass/mirebalais.scss */
+.standard-vertical-form {
+  border: 1px #b9b299 solid;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+  padding: 1em;
+  display: table;
+}
+/* line 11, ../../../compass/sass/mixins.scss */
+.standard-vertical-form label {
+  display: block;
+  margin: 1.5em 0 0.5em 0;
+  color: #621b4b;
+}
+/* line 19, ../../../compass/sass/mixins.scss */
+.standard-vertical-form label {
+  font-size: 1.2em;
+}
+/* line 23, ../../../compass/sass/mixins.scss */
+.standard-vertical-form input[type=text], .standard-vertical-form input[type=password] {
+  font-size: 1.2em;
+  height: 1.4em;
+  width: 250px;
+  border: 1px solid #b9b299;
+  display: block;
+}
+/* line 31, ../../../compass/sass/mixins.scss */
+.standard-vertical-form select {
+  font-size: 1.2em;
+  display: block;
+}

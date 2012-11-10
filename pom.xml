@@ -239,7 +239,12 @@
                         <skin>scss</skin>
                     </configuration>
                 </plugin>
-			</plugins>
+                <plugin>
+                    <groupId>de.saumya.mojo</groupId>
+                    <artifactId>gem-maven-plugin</artifactId>
+                    <version>0.28.6</version>
+                </plugin>
+            </plugins>
 		</pluginManagement>
 
         <plugins>
@@ -279,6 +284,10 @@
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
 		</repository>
+        <repository>
+            <id>rubygems-releases</id>
+            <url>http://rubygems-proxy.torquebox.org/releases</url>
+        </repository>
 	</repositories>
 
 	<pluginRepositories>

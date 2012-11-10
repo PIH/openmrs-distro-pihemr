@@ -35,7 +35,12 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-				
+        <dependency>
+            <groupId>rubygems</groupId>
+            <artifactId>compass</artifactId>
+            <version>0.11.7</version>
+            <type>gem</type>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -165,17 +170,21 @@
 			</plugin>
 
             <plugin>
-                <groupId>org.jasig.maven</groupId>
-                <artifactId>sass-maven-plugin</artifactId>
+                <groupId>de.saumya.mojo</groupId>
+                <artifactId>gem-maven-plugin</artifactId>
+                <extensions>true</extensions>
                 <executions>
                     <execution>
-                        <id>Compile sass scss files into css</id>
-                        <phase>process-resources</phase>
                         <goals>
-                            <goal>update-stylesheets</goal>
+                            <goal>exec</goal>
                         </goals>
+                        <phase>process-resources</phase>
                     </execution>
                 </executions>
+                <configuration>
+                    <!--jrubyVersion>1.6.4</jrubyVersion-->
+                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs>
+                </configuration>
             </plugin>
         </plugins>
 	</build>
@@ -186,17 +195,21 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.jasig.maven</groupId>
-                        <artifactId>sass-maven-plugin</artifactId>
+                        <groupId>de.saumya.mojo</groupId>
+                        <artifactId>gem-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <executions>
                             <execution>
-                                <id>Compile sass into css</id>
-                                <phase>process-resources</phase>
                                 <goals>
-                                    <goal>watch</goal>
+                                    <goal>exec</goal>
                                 </goals>
+                                <phase>process-resources</phase>
                             </execution>
                         </executions>
+                        <configuration>
+                            <!--jrubyVersion>1.6.4</jrubyVersion-->
+                            <execArgs>${project.build.directory}/rubygems/bin/compass watch ${basedir}/src/main/compass</execArgs>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
