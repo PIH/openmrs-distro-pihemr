@@ -45,7 +45,7 @@
 	<properties>
 		<openMRSVersion>1.9.2-SNAPSHOT</openMRSVersion>
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
-        <uiframeworkVersion>1.10</uiframeworkVersion>
+        <uiframeworkVersion>2.1</uiframeworkVersion>
 		<appframeworkVersion>1.3</appframeworkVersion>
 		<metadatasharingVersion>1.1.1</metadatasharingVersion>
         <metadatamappingVersion>1.0</metadatamappingVersion>
@@ -228,7 +228,23 @@
                         <pushChanges>false</pushChanges>
                     </configuration>
                 </plugin>
-			</plugins>
+                <plugin>
+                    <groupId>org.jasig.maven</groupId>
+                    <artifactId>sass-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
+                        <outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
+                        <baseOutputDirectory>${basedir}/src/main/webapp/resources/styles</baseOutputDirectory>
+                        <skin>scss</skin>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>de.saumya.mojo</groupId>
+                    <artifactId>gem-maven-plugin</artifactId>
+                    <version>0.28.6</version>
+                </plugin>
+            </plugins>
 		</pluginManagement>
 
         <plugins>
@@ -268,6 +284,10 @@
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
 		</repository>
+        <repository>
+            <id>rubygems-releases</id>
+            <url>http://rubygems-proxy.torquebox.org/releases</url>
+        </repository>
 	</repositories>
 
 	<pluginRepositories>

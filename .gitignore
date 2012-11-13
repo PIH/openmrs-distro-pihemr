@@ -20,3 +20,4 @@ omod/target/
 *.DS_Store
 /.idea
 *.iml
+*.sass-cache

@@ -4,7 +4,6 @@
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
 
-    ui.includeCss("mirebalais", "mirebalais.css")
     ui.includeCss("mirebalais", "login.css")
 %>
 
