@@ -1,9 +1,0 @@
-@import "base";
-@import "mixins";
-
-.standard-vertical-form {
-  @include bordered-and-shaded;
-  @include vertical-form-fields;
-  @include big-form;
-  display: table;
-}
