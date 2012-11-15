@@ -7,3 +7,79 @@
   @include big-form;
   display: table;
 }
+
+body {
+  max-width: 1000px;
+  margin: 10px auto;
+}
+
+#body-wrapper {
+  padding: 10px;
+  background-color: $backgroundColor;
+  border: 1px solid #D0D0D0;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+a, a:visited {
+  color: $pihSecondaryBlue;
+  text-decoration: none;
+}
+
+#header {
+  margin-bottom: 20px;
+}
+
+#user-info {
+  color: $pihPrimaryPurple;
+  float:right;
+  a {
+    margin-left: 30px;
+  }
+}
+
+hr.separator {
+  width: 60%;
+}
+
+#apps {
+  text-align: center;
+
+  .app:hover {
+    background-color: $lighterGrey;
+    border-radius: 5px;
+    a {
+      font-weight: bold;
+    }
+  }
+
+  .app {
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    width: 200px;
+
+    img {
+      display: block;
+      margin: auto;
+    }
+
+    a {
+      color: #606060;
+    }
+  }
+}
+
+#search-field {
+  display: block;
+  margin: 75px auto;
+  font-size: 20px;
+  width: 400px;
+  padding: 5px 20px;
+  border-radius: 7px;
+  background: url(../images/scan_barcode.png) no-repeat right center;
+  background-size: 30px;
+  background-origin: content-box;
+  background-color: white;
+}

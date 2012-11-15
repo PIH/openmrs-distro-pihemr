@@ -69,64 +69,59 @@ body {
 }
 
 /* line 7, ../../../compass/sass/base.scss */
-#content.container {
-  padding: 3em;
-}
-
-/* line 11, ../../../compass/sass/base.scss */
 h1, h2, h3, h4, h5, h6, b, strong {
   font-weight: bold;
 }
 
-/* line 15, ../../../compass/sass/base.scss */
+/* line 11, ../../../compass/sass/base.scss */
 em, i {
   font-style: italic;
 }
 
-/* line 19, ../../../compass/sass/base.scss */
+/* line 15, ../../../compass/sass/base.scss */
 h1 {
   margin: 40px 0px 20px 0px;
   font-size: 1.7em;
 }
 
-/* line 24, ../../../compass/sass/base.scss */
+/* line 20, ../../../compass/sass/base.scss */
 h2 {
   font-size: 1.5em;
 }
 
-/* line 28, ../../../compass/sass/base.scss */
+/* line 24, ../../../compass/sass/base.scss */
 h3 {
   font-size: 1.2em;
 }
 
-/* line 32, ../../../compass/sass/base.scss */
+/* line 28, ../../../compass/sass/base.scss */
 li ul, li ol {
   margin: 0 1.5em;
 }
 
-/* line 36, ../../../compass/sass/base.scss */
+/* line 32, ../../../compass/sass/base.scss */
 ul, ol {
   margin: 0 1.5em 1.5em 1.5em;
 }
 
-/* line 40, ../../../compass/sass/base.scss */
+/* line 36, ../../../compass/sass/base.scss */
 ul {
   list-style-type: disc;
 }
 
-/* line 44, ../../../compass/sass/base.scss */
+/* line 40, ../../../compass/sass/base.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 46, ../../../compass/sass/base.scss */
+/* line 42, ../../../compass/sass/base.scss */
 ol ol {
   list-style: upper-alpha;
 }
-/* line 48, ../../../compass/sass/base.scss */
+/* line 44, ../../../compass/sass/base.scss */
 ol ol ol {
   list-style: lower-roman;
 }
-/* line 50, ../../../compass/sass/base.scss */
+/* line 46, ../../../compass/sass/base.scss */
 ol ol ol ol {
   list-style: lower-alpha;
 }
