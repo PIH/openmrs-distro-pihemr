@@ -95,33 +95,44 @@ h3 {
 }
 
 /* line 28, ../../../compass/sass/base.scss */
+table.bordered {
+  margin: 1em;
+  border-collapse: collapse;
+}
+/* line 32, ../../../compass/sass/base.scss */
+table.bordered td, table.bordered th {
+  padding: 0.4em;
+  border: 1px black solid;
+}
+
+/* line 38, ../../../compass/sass/base.scss */
 li ul, li ol {
   margin: 0 1.5em;
 }
 
-/* line 32, ../../../compass/sass/base.scss */
+/* line 42, ../../../compass/sass/base.scss */
 ul, ol {
   margin: 0 1.5em 1.5em 1.5em;
 }
 
-/* line 36, ../../../compass/sass/base.scss */
+/* line 46, ../../../compass/sass/base.scss */
 ul {
   list-style-type: disc;
 }
 
-/* line 40, ../../../compass/sass/base.scss */
+/* line 50, ../../../compass/sass/base.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 42, ../../../compass/sass/base.scss */
+/* line 52, ../../../compass/sass/base.scss */
 ol ol {
   list-style: upper-alpha;
 }
-/* line 44, ../../../compass/sass/base.scss */
+/* line 54, ../../../compass/sass/base.scss */
 ol ol ol {
   list-style: lower-roman;
 }
-/* line 46, ../../../compass/sass/base.scss */
+/* line 56, ../../../compass/sass/base.scss */
 ol ol ol ol {
   list-style: lower-alpha;
 }

@@ -25,6 +25,16 @@ h3 {
   font-size: 1.2em;
 }
 
+table.bordered {
+  margin: 1em;
+  border-collapse: collapse;
+
+  td, th {
+    padding: 0.4em; border: 1px black solid;
+  }
+}
+
+
 li ul, li ol {
   margin:0 1.5em;
 }
