@@ -64,90 +64,99 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 3, ../../../compass/sass/base.scss */
+body {
+  font-family: "helvetica";
+}
+
+/* line 7, ../../../compass/sass/base.scss */
+#content.container {
+  padding: 3em;
+}
+
+/* line 11, ../../../compass/sass/base.scss */
 h1, h2, h3, h4, h5, h6, b, strong {
   font-weight: bold;
 }
 
-/* line 7, ../../../compass/sass/base.scss */
+/* line 15, ../../../compass/sass/base.scss */
 em, i {
   font-style: italic;
 }
 
-/* line 11, ../../../compass/sass/base.scss */
+/* line 19, ../../../compass/sass/base.scss */
 h1 {
   margin: 40px 0px 20px 0px;
-  font-size: 2em;
+  font-size: 1.7em;
 }
 
-/* line 16, ../../../compass/sass/base.scss */
+/* line 24, ../../../compass/sass/base.scss */
 h2 {
   font-size: 1.5em;
 }
 
-/* line 20, ../../../compass/sass/base.scss */
+/* line 28, ../../../compass/sass/base.scss */
 h3 {
   font-size: 1.2em;
 }
 
-/* line 24, ../../../compass/sass/base.scss */
+/* line 32, ../../../compass/sass/base.scss */
 li ul, li ol {
   margin: 0 1.5em;
 }
 
-/* line 28, ../../../compass/sass/base.scss */
+/* line 36, ../../../compass/sass/base.scss */
 ul, ol {
   margin: 0 1.5em 1.5em 1.5em;
 }
 
-/* line 32, ../../../compass/sass/base.scss */
+/* line 40, ../../../compass/sass/base.scss */
 ul {
   list-style-type: disc;
 }
 
-/* line 36, ../../../compass/sass/base.scss */
+/* line 44, ../../../compass/sass/base.scss */
 ol {
   list-style-type: decimal;
 }
-/* line 38, ../../../compass/sass/base.scss */
+/* line 46, ../../../compass/sass/base.scss */
 ol ol {
   list-style: upper-alpha;
 }
-/* line 40, ../../../compass/sass/base.scss */
+/* line 48, ../../../compass/sass/base.scss */
 ol ol ol {
   list-style: lower-roman;
 }
-/* line 42, ../../../compass/sass/base.scss */
+/* line 50, ../../../compass/sass/base.scss */
 ol ol ol ol {
   list-style: lower-alpha;
 }
 
 /* line 4, ../../../compass/sass/mirebalais.scss */
 .standard-vertical-form {
-  border: 1px #b9b299 solid;
   border-radius: 5px;
-  background-color: #e0e0e0;
+  background-color: #eaebf0;
   padding: 1em;
   display: table;
 }
-/* line 11, ../../../compass/sass/mixins.scss */
+/* line 10, ../../../compass/sass/mixins.scss */
 .standard-vertical-form label {
   display: block;
   margin: 1.5em 0 0.5em 0;
   color: #621b4b;
 }
-/* line 19, ../../../compass/sass/mixins.scss */
+/* line 18, ../../../compass/sass/mixins.scss */
 .standard-vertical-form label {
   font-size: 1.2em;
 }
-/* line 23, ../../../compass/sass/mixins.scss */
+/* line 22, ../../../compass/sass/mixins.scss */
 .standard-vertical-form input[type=text], .standard-vertical-form input[type=password] {
   font-size: 1.2em;
   height: 1.4em;
   width: 250px;
-  border: 1px solid #b9b299;
+  border: 2px solid #b9b299;
   display: block;
 }
-/* line 31, ../../../compass/sass/mixins.scss */
+/* line 30, ../../../compass/sass/mixins.scss */
 .standard-vertical-form select {
   font-size: 1.2em;
   display: block;

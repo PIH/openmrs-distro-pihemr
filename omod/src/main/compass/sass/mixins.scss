@@ -1,7 +1,6 @@
 @import "colors";
 
 @mixin bordered-and-shaded {
-  border: 1px $pihSecondaryGrey solid;
   border-radius: 5px;
   background-color: $lighterGrey;
   padding: 1em;
@@ -24,7 +23,7 @@
     font-size: 1.2em;
     height: 1.4em;
     width: 250px;
-    border: 1px solid $pihSecondaryGrey;
+    border: 2px solid $pihSecondaryGrey;
     display: block;
   }
 

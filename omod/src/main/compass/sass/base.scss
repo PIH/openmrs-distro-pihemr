@@ -1,5 +1,13 @@
 @import "compass/reset";
 
+body {
+  font-family: "helvetica";
+}
+
+#content.container {
+  padding: 3em;
+}
+
 h1, h2, h3, h4, h5, h6, b, strong {
   font-weight: bold;
 }
@@ -10,7 +18,7 @@ em, i {
 
 h1 {
   margin: 40px 0px 20px 0px;
-  font-size: 2em;
+  font-size: 1.7em;
 }
 
 h2 {
