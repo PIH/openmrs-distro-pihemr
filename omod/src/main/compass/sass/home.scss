@@ -1,0 +1,47 @@
+@import "colors";
+
+hr.separator {
+  width: 60%;
+}
+
+#apps {
+  text-align: center;
+
+  .app:hover {
+    background-color: $lighterGrey;
+    border-radius: 5px;
+    a {
+      font-weight: bold;
+    }
+  }
+
+  .app {
+    display: inline-block;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+    width: 200px;
+
+    img {
+      display: block;
+      margin: auto;
+    }
+
+    a {
+      color: #606060;
+    }
+  }
+}
+
+#search-field {
+  display: block;
+  margin: 75px auto;
+  font-size: 20px;
+  width: 400px;
+  padding: 5px 20px;
+  border-radius: 7px;
+  background: url(../images/scan_barcode.png) no-repeat right center;
+  background-size: 30px;
+  background-origin: content-box;
+  background-color: white;
+}
