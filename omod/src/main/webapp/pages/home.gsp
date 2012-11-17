@@ -4,7 +4,7 @@
     ui.includeCss("mirebalais", "home.css")
 %>
 
-<input id="search-field" type="text" placeholder=" ${ ui.message("emr", "searchByNameOrIdOrScan") }">
+<input id="search-field" type="text" placeholder=" ${ ui.message("emr.searchByNameOrIdOrScan") }">
 
 <hr class="separator"/>
 
