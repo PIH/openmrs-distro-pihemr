@@ -37,3 +37,34 @@ a, a:visited {
     margin-left: 30px;
   }
 }
+
+.button {
+  min-width: 100px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: 1px solid $darkerGrey;
+  background-color: $lighterGrey;
+  color: black;
+  font-size: 1em;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.panel {
+  min-width: 100px;
+  padding: 5px;
+  display: inline-block;
+  border: 1px solid $darkerGrey;
+  background-color: $lighterGrey;
+  color: black;
+}
+
+.primary {
+  background-color: $pihSecondaryBlue;
+  color: white;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}

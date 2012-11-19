@@ -27,9 +27,9 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.openmrs.util.PrivilegeConstants;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -37,15 +37,16 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginPageController {
 	
-	public String get(PageModel pageModel, @SpringBean EmrService emrService,
+	public String get(
+	        PageModel pageModel,
+	        @SpringBean EmrService emrService,
+	        @CookieValue(value = EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, required = false) String lastSessionLocationId,
 	        @SpringBean("locationService") LocationService locationService, EmrContext context, UiUtils ui,
 	        PageRequest request) {
 		
 		if (context.isAuthenticated()) {
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
-		
-		String lastSessionLocationId = getCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION);
 		
 		// Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges
@@ -95,7 +96,7 @@ public class LoginPageController {
 				return "redirect:" + ui.pageLink("mirebalais", "login");
 			}
 			// Set a cookie, so next time someone logs in on this machine, we can default to that same location
-			setCookieValue(request, EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
+			request.setCookieValue(EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
@@ -111,19 +112,6 @@ public class LoginPageController {
 			        .message("mirebalais.login.error.authentication"));
 			return "redirect:" + ui.pageLink("mirebalais", "login");
 		}
-	}
-	
-	private String getCookieValue(PageRequest request, String cookieName) {
-		for (Cookie cookie : request.getRequest().getCookies()) {
-			if (cookie.getName().equals(cookieName)) {
-				return cookie.getValue();
-			}
-		}
-		return null;
-	}
-	
-	private void setCookieValue(PageRequest request, String cookieName, String cookieValue) {
-		request.getResponse().addCookie(new Cookie(cookieName, cookieValue));
 	}
 	
 }

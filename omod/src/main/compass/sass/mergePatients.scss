@@ -1,0 +1,25 @@
+@import "colors";
+
+.first-patient {
+  background-color: lighten($green, 30);
+}
+
+.second-patient {
+  background-color: lighten($pihSecondaryBlue, 40);
+}
+
+.section-heading {
+  color: darkgray;
+  font-style: italic;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+.section-content {
+  padding-left: 1em;
+  padding-bottom: 0.7em;
+}
+
+.spacer {
+  width: 20px;
+}
