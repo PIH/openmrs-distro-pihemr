@@ -30,6 +30,7 @@ import org.openmrs.util.PrivilegeConstants;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -96,7 +97,8 @@ public class LoginPageController {
 				return "redirect:" + ui.pageLink("mirebalais", "login");
 			}
 			// Set a cookie, so next time someone logs in on this machine, we can default to that same location
-			request.setCookieValue(EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
+			request.getResponse().addCookie(
+			    new Cookie(EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString()));
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
