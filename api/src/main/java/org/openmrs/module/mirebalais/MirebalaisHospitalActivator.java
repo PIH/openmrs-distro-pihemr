@@ -28,6 +28,8 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
+import org.openmrs.module.appframework.AppDescriptor;
+import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -52,6 +54,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -124,6 +127,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
 			installMirthChannels();
 			setupAddressHierarchy();
+			sortApps();
 		}
 		catch (Exception e) {
 			Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
@@ -133,7 +137,28 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		log.info("Mirebalais Hospital Module started");
 	}
 	
-	private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
+	private void sortApps() {
+        AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
+        Map<String, Integer> appsOrdering = getAppsOrderingMap();
+
+		List<AppDescriptor> allApps = appFrameworkService.getAllApps();
+        for(AppDescriptor app : allApps) {
+			app.setOrder(appsOrdering.get(app.getHomepageUrl()));
+		}
+		appFrameworkService.setAllApps(allApps);
+	}
+
+    private Map<String, Integer> getAppsOrderingMap() {
+        Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
+        appsOrdering.put("emr/archivesRoom.page", 1);
+        appsOrdering.put("module/patientregistration/workflow/selectLocationAndService.form", 2);
+        appsOrdering.put("emr/findPatient.page", 3);
+        appsOrdering.put("emr/systemAdministration.page", 4);
+        appsOrdering.put("emr/activeVisits.page", 5);
+        return appsOrdering;
+    }
+
+    private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
 	        IdentifierSourceService identifierSourceService) {
 		
 		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
