@@ -33,7 +33,7 @@
         <label for="sessionLocation">
             ${ ui.message("mirebalais.login.sessionLocation") }
         </label>
-        <select id="sessionLocation" name="sessionLocation" size="${ locations.size() }">
+        <select id="sessionLocation" name="sessionLocation" size="${ locations.size() < 8 ? locations.size() : 8 }">
             <% locations.each { %>
                 <option <% if (it == lastSessionLocation) { %> selected="true" <% } %> value="${ it.id }">${ ui.format(it) }</option>
             <% } %>
