@@ -33,11 +33,13 @@
         <label for="sessionLocation">
             ${ ui.message("mirebalais.login.sessionLocation") }
         </label>
-        <select id="sessionLocation" name="sessionLocation" size="${ locations.size() < 8 ? locations.size() : 8 }">
+        <div id="sessionLocation">
             <% locations.each { %>
-                <option <% if (it == lastSessionLocation) { %> selected="true" <% } %> value="${ it.id }">${ ui.format(it) }</option>
+                <span class="locationOption" value="${it.id}">${ui.format(it)}</span>
             <% } %>
-        </select>
+        </div>
+        <input type="hidden" id="sessionLocationInput" name="sessionLocation"
+               <% if (lastSessionLocation != null) { %> value="${lastSessionLocation.id}" <% } %> />
 
         <input id="login-button" type="submit" value="${ ui.message("mirebalais.login.button") }"/>
 
@@ -54,8 +56,19 @@
 
 <script type="text/javascript">
 	document.getElementById('username').focus();
+    updateSelectedOption = function() {
+        \$('#sessionLocation .locationOption').removeClass('selected');
+        \$('#sessionLocation .locationOption[value|=' + \$('#sessionLocationInput').val() + ']').addClass('selected');
+    };
 
     \$(function() {
+        updateSelectedOption();
+
+        \$('#sessionLocation .locationOption').click( function() {
+            \$('#sessionLocationInput').val(\$(this).attr("value"));
+            updateSelectedOption();
+        });
+
         \$('#cannot-login-popup').dialog({
             autoOpen: false,
             modal: true,

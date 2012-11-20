@@ -10,7 +10,7 @@ h1, h2 {
 }
 
 #login-form {
-  width: 70%;
+  width: 90%;
 }
 
 #welcome-description {
@@ -18,6 +18,29 @@ h1, h2 {
   color: $pihSecondaryGreen;
   margin-bottom: 1.3em;
   width: 900px;
+}
+
+#sessionLocation {
+  background-color: white;
+  border: 2px solid $pihSecondaryGrey;
+  padding: 5px;
+  margin-bottom: 20px;
+
+  .selected {
+    background-color: $lighterGray;
+  }
+}
+
+.locationOption {
+  font-size: 1.0em;
+  display: inline-block;
+  padding: 3px 15px;
+  width: 250px;
+}
+
+.locationOption:hover, .locationOption:focus {
+  background-color: $blue;
+  color: white;
 }
 
 #login-button {
