@@ -1,17 +1,20 @@
 @import "colors";
 
 .first-patient {
-  background-color: lighten($green, 30);
+  background-color: lighten($pihSecondaryGreen, 30);
+  padding: 0.5em;
+  vertical-align: top;
 }
 
 .second-patient {
   background-color: lighten($pihSecondaryBlue, 40);
+  padding: 0.5em;
+  vertical-align: top;
 }
 
 .section-heading {
-  color: darkgray;
+  color: $darkerGrey;
   font-style: italic;
-  padding-top: 0.3em;
   padding-bottom: 0.3em;
 }
 
@@ -22,4 +25,9 @@
 
 .spacer {
   width: 20px;
+}
+
+.person-address {
+  display: inline-block;
+  border-bottom: 1px $darkerGrey solid;
 }

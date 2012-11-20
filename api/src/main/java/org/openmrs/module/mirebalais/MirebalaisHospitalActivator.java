@@ -138,27 +138,27 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void sortApps() {
-        AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
-        Map<String, Integer> appsOrdering = getAppsOrderingMap();
-
+		AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
+		Map<String, Integer> appsOrdering = getAppsOrderingMap();
+		
 		List<AppDescriptor> allApps = appFrameworkService.getAllApps();
-        for(AppDescriptor app : allApps) {
+		for (AppDescriptor app : allApps) {
 			app.setOrder(appsOrdering.get(app.getHomepageUrl()));
 		}
 		appFrameworkService.setAllApps(allApps);
 	}
-
-    private Map<String, Integer> getAppsOrderingMap() {
-        Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
-        appsOrdering.put("emr/archivesRoom.page", 1);
-        appsOrdering.put("module/patientregistration/workflow/selectLocationAndService.form", 2);
-        appsOrdering.put("emr/findPatient.page", 3);
-        appsOrdering.put("emr/systemAdministration.page", 4);
-        appsOrdering.put("emr/activeVisits.page", 5);
-        return appsOrdering;
-    }
-
-    private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
+	
+	private Map<String, Integer> getAppsOrderingMap() {
+		Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
+		appsOrdering.put("emr/archivesRoom.page", 1);
+		appsOrdering.put("module/patientregistration/workflow/selectLocationAndService.form", 2);
+		appsOrdering.put("emr/findPatient.page", 3);
+		appsOrdering.put("emr/systemAdministration.page", 4);
+		appsOrdering.put("emr/activeVisits.page", 5);
+		return appsOrdering;
+	}
+	
+	private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
 	        IdentifierSourceService identifierSourceService) {
 		
 		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
