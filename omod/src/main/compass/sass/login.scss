@@ -27,7 +27,8 @@ h1, h2 {
   margin-bottom: 20px;
 
   .selected {
-    background-color: $lighterGray;
+    background-color: $darkerGrey;
+    font-weight: bold;
   }
 }
 
