@@ -2,6 +2,10 @@
 	ui.decorateWith("emr", "standardEmrPage")
 
     ui.includeCss("mirebalais", "home.css")
+
+    def htmlSafeId = { app ->
+        "${ app.id.replace(".", "-") }-app"
+    }
 %>
 
 <input id="search-field" type="text" placeholder=" ${ ui.message("emr.searchByNameOrIdOrScan") }">
@@ -10,7 +14,7 @@
 
 <div id="apps">
     <% apps.each { app -> %>
-    <div class="app">
+    <div class="app" id="${ htmlSafeId(app) }">
         <a href="/${ contextPath }/${ app.homepageUrl }">
             <% if (app.iconUrl) { %>
                 <img src="/${ contextPath }/${ app.iconUrl }"/>
