@@ -1,7 +1,7 @@
 package org.openmrs.module.mirebalais.integration;
 
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -20,7 +20,6 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 
-@Ignore
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 	
@@ -38,6 +37,11 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		activator.started();
 		customProperties = new MirebalaisCustomProperties();
 	}
+
+    @AfterClass
+    public static void tearDown() {
+        runtimeProperties = null;
+    }
 
 	@Test
 	@DirtiesContext

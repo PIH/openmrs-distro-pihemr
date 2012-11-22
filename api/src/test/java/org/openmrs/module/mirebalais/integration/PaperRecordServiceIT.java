@@ -15,6 +15,7 @@
 package org.openmrs.module.mirebalais.integration;
 
 import org.hamcrest.Matchers;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
@@ -59,8 +60,13 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 	}
-	
-	@Override
+
+    @AfterClass
+    public static void tearDown() {
+        runtimeProperties = null;
+    }
+
+    @Override
 	public Boolean useInMemoryDatabase() {
 		return false;
 	}

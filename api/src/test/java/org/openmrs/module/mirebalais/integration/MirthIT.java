@@ -28,7 +28,7 @@ import java.util.Date;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -59,13 +59,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
-@Ignore
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
-	
-	@Override
+
+    @AfterClass
+    public static void tearDown() {
+        runtimeProperties = null;
+    }
+
+    @Override
 	public Boolean useInMemoryDatabase() {
 		return false;
 	}
