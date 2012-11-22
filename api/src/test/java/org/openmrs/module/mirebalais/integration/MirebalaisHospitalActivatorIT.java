@@ -20,6 +20,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 	
@@ -38,7 +39,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		customProperties = new MirebalaisCustomProperties();
 	}
 
-    @Ignore
 	@Test
 	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {

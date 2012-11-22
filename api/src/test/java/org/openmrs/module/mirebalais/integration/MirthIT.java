@@ -59,6 +59,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
+@Ignore
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
@@ -110,7 +111,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	@Qualifier("emrProperties")
 	private EmrProperties properties;
 
-    @Ignore
 	@Test
 	@DirtiesContext
 	@NotTransactional
