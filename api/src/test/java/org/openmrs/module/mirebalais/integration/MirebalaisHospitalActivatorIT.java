@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.integration;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -36,7 +37,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		activator.started();
 		customProperties = new MirebalaisCustomProperties();
 	}
-	
+
+    @Ignore
 	@Test
 	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {
