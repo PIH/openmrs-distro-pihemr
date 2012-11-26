@@ -88,11 +88,9 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		when(patientService.getPatientIdentifierTypeByUuid("e66645eb-03a8-4991-b4ce-e87318e37566")).thenReturn(
 		    patientIdentifierType);
 		
-		String paperMedicalRecordNumber = (PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(), new Location(
-		        15));
+		String paperMedicalRecordNumber = (PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(), new Location(15));
 		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
-		assertThat((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(), new Location(15)), Matchers
-		        .not(eq(paperMedicalRecordNumber)));
+		assertThat((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(), new Location(15)), Matcher.not(eq(paperMedicalRecordNumber)));
 	}
-	
+
 }
