@@ -37,12 +37,12 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		activator.started();
 		customProperties = new MirebalaisCustomProperties();
 	}
-
-    @AfterClass
-    public static void tearDown() {
-        runtimeProperties = null;
-    }
-
+	
+	@AfterClass
+	public static void tearDown() {
+		runtimeProperties = null;
+	}
+	
 	@Test
 	@DirtiesContext
 	public void testThatActivatorDoesAllSetup() throws Exception {

@@ -60,13 +60,13 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 	}
-
-    @AfterClass
-    public static void tearDown() {
-        runtimeProperties = null;
-    }
-
-    @Override
+	
+	@AfterClass
+	public static void tearDown() {
+		runtimeProperties = null;
+	}
+	
+	@Override
 	public Boolean useInMemoryDatabase() {
 		return false;
 	}

@@ -63,13 +63,13 @@ import org.springframework.test.annotation.NotTransactional;
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
-
-    @AfterClass
-    public static void tearDown() {
-        runtimeProperties = null;
-    }
-
-    @Override
+	
+	@AfterClass
+	public static void tearDown() {
+		runtimeProperties = null;
+	}
+	
+	@Override
 	public Boolean useInMemoryDatabase() {
 		return false;
 	}
@@ -114,7 +114,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	@Autowired
 	@Qualifier("emrProperties")
 	private EmrProperties properties;
-
+	
 	@Test
 	@DirtiesContext
 	@NotTransactional
