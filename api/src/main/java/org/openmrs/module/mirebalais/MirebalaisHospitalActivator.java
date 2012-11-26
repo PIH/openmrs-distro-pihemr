@@ -435,7 +435,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
-		setExistingGlobalProperty(PatientRegistrationGlobalProperties.AUTOMATICALLY_GENERATE_DOSSIER_NUMBER, "true");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.MEDICAL_RECORD_LOCATION,
 		    "71c99f93-bc0c-4a44-b573-a7ac096ff636");
 		
