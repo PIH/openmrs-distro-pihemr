@@ -35,7 +35,6 @@ import org.springframework.test.annotation.NotTransactional;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -60,13 +59,13 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 	}
-	
-	@AfterClass
-	public static void tearDown() {
-		runtimeProperties = null;
-	}
-	
-	@Override
+
+    @AfterClass
+    public static void tearDown() {
+        runtimeProperties = null;
+    }
+
+    @Override
 	public Boolean useInMemoryDatabase() {
 		return false;
 	}
@@ -89,10 +88,10 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		when(patientService.getPatientIdentifierTypeByUuid("e66645eb-03a8-4991-b4ce-e87318e37566")).thenReturn(
 		    patientIdentifierType);
 		
-		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(
-		    new Patient(), new Location(15));
+		String paperMedicalRecordNumber = (PaperRecordServiceImpl) paperRecordService.createPaperMedicalRecordNumberFor(new Patient(), new Location(
+		        15));
 		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
-		assertThat((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(), new Location(15)), Matchers
+		assertThat((PaperRecordServiceImpl) paperRecordService.createPaperMedicalRecordNumberFor(new Patient(), new Location(15)), Matchers
 		        .not(eq(paperMedicalRecordNumber)));
 	}
 	
