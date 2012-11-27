@@ -83,7 +83,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// to match the downloaded version.
 		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "Mirebalais_Hospital_locations-6.zip");
 		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-7.zip");
-		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-12.zip");
+		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-13.zip");
 		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
 		currentMetadataVersions.put("e666ee52-c381-461f-b59d-7528da25473c", "AdministrativeEncounterRole-1.zip");
 		customProperties = new MirebalaisCustomProperties();
@@ -425,8 +425,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "PIH: Payment amount|en:Payment amount|ht:TODO TRANSLATE");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT,
 		    "PIH: Reason for HUM visit|en:Visit reason|ht:TODO TRANSLATE");
-		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE,
-		    "Primary Care Reception");
+		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE, "Check-in");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
 		    "Patient Registration");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
