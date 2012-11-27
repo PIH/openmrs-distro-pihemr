@@ -143,18 +143,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		List<AppDescriptor> allApps = appFrameworkService.getAllApps();
 		for (AppDescriptor app : allApps) {
-			app.setOrder(appsOrdering.get(app.getHomepageUrl()));
+			app.setOrder(appsOrdering.get(app.getId()));
 		}
 		appFrameworkService.setAllApps(allApps);
 	}
 	
 	private Map<String, Integer> getAppsOrderingMap() {
 		Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
-		appsOrdering.put("emr/archivesRoom.page", 1);
-		appsOrdering.put("module/patientregistration/workflow/selectLocationAndService.form", 2);
-		appsOrdering.put("emr/findPatient.page", 3);
-		appsOrdering.put("emr/systemAdministration.page", 4);
-		appsOrdering.put("emr/activeVisits.page", 5);
+		appsOrdering.put("emr.archivesRoom", 1);
+		appsOrdering.put("patientregistration.main", 2);
+		appsOrdering.put("emr.findPatient", 3);
+		appsOrdering.put("emr.systemAdministration", 4);
+		appsOrdering.put("emr.activeVisits", 5);
 		return appsOrdering;
 	}
 	
