@@ -7,8 +7,30 @@
         "${ app.id.replace(".", "-") }-app"
     }
 %>
+<script type="text/javascript">
+    jq(function() {
+        jq('#search-field-search').first().focus();
+    });
 
-<input id="search-field" type="text" placeholder=" ${ ui.message("emr.searchByNameOrIdOrScan") }">
+    function labelFunction(item) {
+        var id = item.patientId;
+        if (item.primaryIdentifiers[0]) {
+            id = item.primaryIdentifiers[0].identifier;
+        }
+        return id + ' - ' + item.preferredName.fullName;
+    }
+</script>
+
+    ${ ui.includeFragment("emr", "field/autocomplete", [
+            id: "search-field",
+            label: "",
+            placeholder: ui.message("emr.searchByNameOrIdOrScan"),
+            formFieldName: "patient1",
+            fragment: "findPatient",
+            action: "search",
+            itemValueProperty: "patientId",
+            itemLabelFunction: "labelFunction"
+    ])}
 
 <hr class="separator"/>
 
