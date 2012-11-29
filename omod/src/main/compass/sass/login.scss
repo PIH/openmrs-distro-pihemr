@@ -20,30 +20,6 @@ h1, h2 {
   width: 900px;
 }
 
-#sessionLocation {
-  background-color: white;
-  border: 2px solid $pihSecondaryGrey;
-  padding: 5px;
-  margin-bottom: 20px;
-
-  .selected {
-    background-color: $darkerGrey;
-    font-weight: bold;
-  }
-}
-
-.locationOption {
-  font-size: 1.0em;
-  display: inline-block;
-  padding: 3px 15px;
-  width: 250px;
-}
-
-.locationOption:hover, .locationOption:focus {
-  background-color: $blue;
-  color: white;
-}
-
 #login-button {
   background: $green;
   padding: 4px 20px;

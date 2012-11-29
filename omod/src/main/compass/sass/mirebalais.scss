@@ -18,7 +18,30 @@ body {
   background-color: $backgroundColor;
   border: 1px solid #D0D0D0;
   border-radius: 5px;
-  overflow: auto;
+}
+
+#sessionLocation {
+  background-color: $white;
+  border: 2px solid $pihSecondaryGrey;
+  padding: 5px;
+  margin-bottom: 20px;
+
+  .selected {
+    background-color: $darkerGrey;
+    font-weight: bold;
+  }
+
+  .locationOption {
+    font-size: 1.0em;
+    display: inline-block;
+    padding: 3px 15px;
+    width: 250px;
+  }
+
+  .locationOption:hover, .locationOption:focus {
+    background-color: $blue;
+    color: $white;
+  }
 }
 
 a, a:visited {
@@ -28,15 +51,38 @@ a, a:visited {
 
 #header {
   margin-bottom: 20px;
-}
+  position: relative;
 
-#user-info {
-  color: $pihPrimaryPurple;
-  float:right;
-  a {
-    margin-left: 30px;
+  #sessionLocation {
+    position: absolute;
+    top: 25px;
+  }
+
+  #user-info {
+    color: $pihPrimaryPurple;
+    float: right;
+  }
+
+  .header-menu {
+    margin-right: 10px;
+  }
+
+  .header-menu.location {
+    color: $pihSecondaryBlue;
+    text-decoration: none;
+    padding: 7px 10px 10px 10px;
+    position: relative;
+    border: 2px solid transparent;
+  }
+
+  .header-menu.location.focus, .header-menu.location:hover {
+    border: 2px solid $pihSecondaryGrey;
+    border-bottom: 0;
+    z-index: 2;
+    background-color: $white;
   }
 }
+
 
 .button {
   min-width: 100px;
