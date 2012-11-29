@@ -8,8 +8,23 @@
     }
 %>
 <script type="text/javascript">
-    jq(function() {
+    jq(function(event) {
         jq('#search-field-search').first().focus();
+
+        jq('#search-field-search').keydown( function(event){
+            if(event.keyCode ==13){
+                var ptId = jq('#search-field-value').val();
+                if(ptId.length>0){
+                    emr.navigateTo({
+                        provider: 'emr',
+                        page: 'patient',
+                        query: { patientId: ptId }
+                    });
+                }
+            }else{
+                jq('#search-field-value').val("");
+            }
+        });
     });
 
     function labelFunction(item) {
@@ -21,16 +36,17 @@
     }
 </script>
 
-    ${ ui.includeFragment("emr", "field/autocomplete", [
-            id: "search-field",
-            label: "",
-            placeholder: ui.message("emr.searchByNameOrIdOrScan"),
-            formFieldName: "patient1",
-            fragment: "findPatient",
-            action: "search",
-            itemValueProperty: "patientId",
-            itemLabelFunction: "labelFunction"
-    ])}
+${ ui.includeFragment("emr", "field/autocomplete", [
+        id: "search-field",
+        label: "",
+        placeholder: ui.message("emr.searchByNameOrIdOrScan"),
+        formFieldName: "patient1",
+        fragment: "findPatient",
+        action: "search",
+        itemValueProperty: "patientId",
+        itemLabelFunction: "labelFunction"
+])}
+
 
 <hr class="separator"/>
 
