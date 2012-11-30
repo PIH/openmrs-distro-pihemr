@@ -25,6 +25,7 @@ body {
   border: 2px solid $pihSecondaryGrey;
   padding: 5px;
   margin-bottom: 20px;
+  z-index:1;
 
   .selected {
     background-color: $darkerGrey;
