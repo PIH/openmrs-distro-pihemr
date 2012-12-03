@@ -86,7 +86,7 @@ a, a:visited {
     border: 2px solid transparent;
   }
 
-  .header-menu.location.focus, .header-menu.location:hover {
+  .header-menu.location.focus {
     border: 2px solid $pihSecondaryGrey;
     border-bottom: 0;
     z-index: 2;
