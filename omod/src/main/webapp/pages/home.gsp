@@ -11,10 +11,10 @@
     jq(function(event) {
         jq('#search-field-search').first().focus();
 
-        jq('#search-field-search').keydown( function(event){
+        jq('#search-field-search').keypress( function(event){
             if(event.keyCode ==13){
                 var ptId = jq('#search-field-value').val();
-                if(ptId.length>0){
+                if(ptId.length>0 && (parseInt(ptId, 10)>0)){
                     emr.navigateTo({
                         provider: 'emr',
                         page: 'patient',
@@ -29,10 +29,28 @@
 
     function labelFunction(item) {
         var id = item.patientId;
-        if (item.primaryIdentifiers[0]) {
-            id = item.primaryIdentifiers[0].identifier;
+        if(id>0){
+            if (item.primaryIdentifiers[0]) {
+                id = item.primaryIdentifiers[0].identifier;
+            }
+            return id + ' - ' + item.preferredName.fullName
+                    + ' - ' + item.gender
+                    + ' - ' + item.age;
         }
-        return id + ' - ' + item.preferredName.fullName;
+    }
+
+    function navigateFunction(item) {
+       if(item !== null && item.patientId>0){
+            var ptId = item.patientId;
+            if(ptId.length>0 && (parseInt(ptId, 10)>0)){
+                emr.navigateTo({
+                    provider: 'emr',
+                    page: 'patient',
+                    query: { patientId: ptId }
+                });
+            }
+       }
+        return true;
     }
 </script>
 
@@ -44,7 +62,8 @@ ${ ui.includeFragment("emr", "field/autocomplete", [
         fragment: "findPatient",
         action: "search",
         itemValueProperty: "patientId",
-        itemLabelFunction: "labelFunction"
+        itemLabelFunction: "labelFunction",
+        onExactMatchFunction:"navigateFunction"
 ])}
 
 
