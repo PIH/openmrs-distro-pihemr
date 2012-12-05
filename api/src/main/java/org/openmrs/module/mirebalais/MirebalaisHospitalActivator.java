@@ -151,10 +151,11 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private Map<String, Integer> getAppsOrderingMap() {
 		Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
 		appsOrdering.put("emr.archivesRoom", 1);
-		appsOrdering.put("patientregistration.main", 2);
-		appsOrdering.put("emr.findPatient", 3);
-		appsOrdering.put("emr.systemAdministration", 4);
-		appsOrdering.put("emr.activeVisits", 5);
+		appsOrdering.put("emr.retrospectiveCheckin", 2);
+		appsOrdering.put("patientregistration.main", 3);
+		appsOrdering.put("emr.findPatient", 4);
+		appsOrdering.put("emr.systemAdministration", 5);
+		appsOrdering.put("emr.activeVisits", 6);
 		return appsOrdering;
 	}
 	
