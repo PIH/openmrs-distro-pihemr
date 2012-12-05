@@ -61,6 +61,7 @@ ${ ui.includeFragment("emr", "field/autocomplete", [
         formFieldName: "patient1",
         fragment: "findPatient",
         action: "search",
+        maxResults: 10,
         itemValueProperty: "patientId",
         itemLabelFunction: "labelFunction",
         onExactMatchFunction:"navigateFunction"
