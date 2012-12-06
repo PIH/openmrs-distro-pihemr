@@ -1,22 +1,33 @@
 @import "colors";
 
 .first-patient {
-  background-color: lighten($pihSecondaryGreen, 30);
+  background-color: $lighterGrey;
   padding: 0.5em;
   vertical-align: top;
+
+  .section-heading {
+    color: #6B6B6B;
+    font-weight: bold;
+    padding-bottom: 0.3em;
+  }
+
 }
 
 .second-patient {
-  background-color: lighten($pihSecondaryBlue, 40);
+  background-color: lighten($pihSecondaryDarkBlue, 40);
   padding: 0.5em;
   vertical-align: top;
+  border-width: 2px;
+  border-color: $black;
+  border-style:solid;
+
+  .section-heading {
+    color: $white;
+    font-weight: bold;
+    padding-bottom: 0.3em;
+  }
 }
 
-.section-heading {
-  color: $darkerGrey;
-  font-style: italic;
-  padding-bottom: 0.3em;
-}
 
 .section-content {
   padding-left: 1em;
@@ -31,3 +42,26 @@
   display: inline-block;
   border-bottom: 1px $darkerGrey solid;
 }
+
+.messages-container {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 750px;
+
+  .message{
+    display: inline-block;
+  }
+
+  .message-bold{
+    display: inline-block;
+    padding-bottom: 4px;
+    font-weight: bold;
+  }
+  .message-title{
+    font-size: 22px;
+    display: inline-block;
+    padding-bottom: 6px;
+    font-weight: bold;
+  }
+}
+
