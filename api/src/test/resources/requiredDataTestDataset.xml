@@ -12,4 +12,8 @@
   <concept_datatype concept_datatype_id="11" name="Rule" hl7_abbreviation="ZZ" description="Value derived from other data" creator="1" date_created="2006-09-11 13:22:00.0" retired="false" uuid="8d4a5e96-c2cc-11de-8d13-0010c6dffd0f"/>
   <concept_datatype concept_datatype_id="12" name="Structured Numeric" hl7_abbreviation="SN" description="Complex numeric values possible (ie, &lt;5, 1-10, etc.)" creator="1" date_created="2005-08-06 00:00:00.0" retired="false" uuid="8d4a606c-c2cc-11de-8d13-0010c6dffd0f"/>
   <concept_datatype concept_datatype_id="13" name="Complex" hl7_abbreviation="ED" description="Complex value.  Analogous to HL7 Embedded Datatype" creator="1" date_created="2008-06-11 13:22:00.0" retired="false" uuid="8d4a6242-c2cc-11de-8d13-0010c6dffd0f"/>
+
+  <location_attribute_type location_attribute_type_id="1005" max_occurs="1" min_occurs="0" name="Name to print on ID card" description="Name to print on ID card" datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype" retired="0" creator="1" date_created="2006-01-18 00:00:00.0" uuid="a5fb5770-409a-11e2-a25f-0800200c9a66" />
+
+
 </dataset>
