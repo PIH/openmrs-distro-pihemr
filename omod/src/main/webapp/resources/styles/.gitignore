@@ -1,11 +1,1 @@
-base.css
-colors.css
-common.css
-home.css
-includes.css
-login.css
-mergePatients.css
-mirebalais.css
-mixins.css
-systemAdministration.css
-normalize.css
+*.css
