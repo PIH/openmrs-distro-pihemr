@@ -1,53 +1,10 @@
 @import "base";
-@import "mixins";
-
-.standard-vertical-form {
-  @include bordered-and-shaded;
-  @include vertical-form-fields;
-  @include big-form;
-  display: table;
-}
-
-body {
-  max-width: 1000px;
-  margin: 10px auto;
-}
-
-#body-wrapper {
-  padding: 10px;
-  background-color: $backgroundColor;
-  border: 1px solid #D0D0D0;
-  border-radius: 5px;
-}
 
 #sessionLocation {
-  background-color: $white;
-  border: 2px solid $pihSecondaryGrey;
-  padding: 5px;
-  margin-bottom: 20px;
-  z-index:1;
-
-  .selected {
-    background-color: $darkerGrey;
-    font-weight: bold;
-  }
-
-  .locationOption {
-    font-size: 1.0em;
+  li {
     display: inline-block;
-    padding: 3px 15px;
     width: 250px;
   }
-
-  .locationOption:hover, .locationOption:focus {
-    background-color: $blue;
-    color: $white;
-  }
-}
-
-a, a:visited {
-  color: $pihSecondaryBlue;
-  text-decoration: none;
 }
 
 #header {
@@ -67,7 +24,6 @@ a, a:visited {
       display: none;
     }
   }
-
 
   #user-info {
     color: $pihPrimaryPurple;
@@ -92,34 +48,6 @@ a, a:visited {
     z-index: 2;
     background-color: $white;
   }
-}
-
-
-.button {
-  min-width: 100px;
-  padding: 5px 20px;
-  border-radius: 5px;
-  display: inline-block;
-  border: 1px solid $darkerGrey;
-  background-color: $lighterGrey;
-  color: black;
-  font-size: 1em;
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.panel {
-  min-width: 100px;
-  padding: 5px;
-  display: inline-block;
-  border: 1px solid $darkerGrey;
-  background-color: $lighterGrey;
-  color: black;
-}
-
-.primary {
-  background-color: $pihSecondaryBlue;
-  color: white;
-  font-weight: bold;
 }
 
 .hidden {

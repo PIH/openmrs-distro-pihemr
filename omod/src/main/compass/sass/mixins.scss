@@ -1,34 +1,38 @@
 @import "colors";
 
-@mixin bordered-and-shaded {
-  border-radius: 5px;
-  background-color: $lighterGrey;
-  padding: 1em;
-}
-
-@mixin vertical-form-fields {
-  label {
-    display: block;
-    margin: 1.5em 0 0.5em 0;
-    color: $pihPrimaryPurple;
+@mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
+  @include border-radius(3px);
+  background-color: $bcolor;
+  @include background(linear-gradient(top, $tcolor, $bcolor));
+  border: $bcolor 1px solid;
+  padding: 8px 20px;
+  display: inline-block;
+  line-height: 1em;
+  color: $font;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    background: lighten($bcolor, 2%);
+    border-color: darken($bcolor, 5%);
   }
-}
-
-@mixin big-form {
-  label {
+  i {
     font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+    line-height: .5em;
   }
-
-  input[type=text], input[type=password] {
-    font-size: 1.2em;
-    height: 1.4em;
-    width: 250px;
-    border: 2px solid $pihSecondaryGrey;
-    display: block;
+  &.big {
+    i {
+      display: block;
+      font-size: 50px;
+      margin: 0 auto;
+      padding: 10px;
+    }
   }
-
-  select {
-    font-size: 1.2em;
-    display: block;
+  &.disabled {
+    background: #EEE;
+    border: #CCC 1px solid;
+    color: #CCC;
+    cursor: default;
   }
 }

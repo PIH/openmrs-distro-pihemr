@@ -1,63 +1,218 @@
-@import "compass/reset";
+@import "normalize";
+@import "compass/css3";
+@import "font-awesome";
+@import "main-font";
+@import "mixins";
+@import "login";
 
 body {
-  font-family: "helvetica";
+  font-family: "OpenSans", Arial, sans-serif;
+  max-width: 1000px;
+  margin: 20px auto;
+  background: $bodyBackground;
+  color: $text;
 }
 
-h1, h2, h3, h4, h5, h6, b, strong {
-  font-weight: bold;
+#body-wrapper {
+  padding: 20px;
+  @include border-radius(5px);
+  background-color: $contentBackground;
 }
 
-em, i {
-  font-style: italic;
+table {
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 1.7em;
-  margin: 0.7em 0 0.5em 0;
-}
-
-h2 {
-  font-size: 1.5em;
-  padding: 0.5em 0;
-}
-
-h3 {
-  font-size: 1.2em;
-  padding: 0.5em 0;
-}
-
-table.bordered {
-  margin: 1em;
-  border-collapse: collapse;
-
-  td, th {
-    padding: 0.4em; border: 1px black solid;
+i {
+  font-size: 4em;
+  padding: 0.2em;
+  &.link {
+    font-size: 0.7em;
+  }
+  &.small {
+    font-size: 1.2em;
   }
 }
 
-
-li ul, li ol {
-  margin:0 1.5em;
-}
-
-ul, ol {
-  margin:0 1.5em 1.5em 1.5em;
-}
-
-ul {
-  list-style-type:disc;
+ul, ol, li {
+  margin: 0;
+  padding: 0;
 }
 
 ol {
-  list-style-type:decimal;
-  ol {
-    list-style: upper-alpha;
-    ol {
-      list-style: lower-roman;
-      ol {
-        list-style: lower-alpha;
-      }
+  display: inline-block;
+}
+
+ul {
+  list-style: none;
+}
+
+hr {
+  border: 0;
+  border-bottom: 1px solid $white;
+}
+
+a {
+  color: $link;
+  text-decoration: none;
+  &:hover {
+    color: lighten($link, 10%);
+    text-decoration: underline;
+  }
+  &:visited, &.visited {
+    color: darken($link, 10%);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $highlight;
+  clear: both;
+  margin: 10px 0;
+}
+h1 {
+  font-size: 2em;
+  margin: 10px 0 20px 0;
+}
+h2 {
+  font-size: 1.67em;
+  color: lighten($highlight, 15%);
+  em {
+    font-size: 0.7em;
+    color: lighten($highlight, 30%);
+    display: block;
+  }
+}
+h3 {
+  font-size: 1.5em;
+
+}
+
+h4 {
+  font-size: 1.33em;
+  color: lighten($highlight, 15%);
+}
+h5 {
+  font-size: 1.17em;
+}
+h6 {
+  font-size: 1.13em;
+  color: lighten($highlight, 15%);
+}
+
+p {
+  margin: 0 0 10px 0;
+}
+
+.title {
+  font-weight: 700;
+  font-family: "OpenSansBold"
+}
+
+.body {
+  font-weight: 400;
+}
+
+.small {
+  font-weight: 300;
+  font-family: "OpenSansLight"
+}
+
+form {
+  overflow: hidden;
+  input, select, textarea, ul.select {
+    min-width: 80%;
+    color: $text;
+    display: block;
+    padding: 5px 10px;
+    margin: 0;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+  }
+
+  fieldset {
+    border: 1px solid #EEE;
+    display: inline-block;
+    padding: 20px;
+
+    legend {
+      text-align: left;
+      padding: 0 10px;
+      font-weight: 300;
+      text-transform: uppercase;
     }
+  }
+
+  label {
+    display: block;
+    text-align: left
+  }
+
+  p {
+    text-align: right;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+    padding: 0;
+    margin: 5px;
+  }
+  input[type="submit"], input[type="button"] {
+    @include button;
+    margin-top: 30px;
+    display: inline-block;
+    min-width: 0;
+    &.confirm {
+      @include button($success, darken($success, 8%), white);
+    }
+    &.cancel {
+      @include button($error, darken($error, 8%), white);
+    }
+  }
+}
+
+ul.select {
+  padding: 0;
+  li {
+    text-align: left;
+    padding: 5px 10px;
+    color: $link;
+    border: 2px solid transparent;
+    &:nth-child(even) {
+      background-color: #F1F1F1;
+    }
+    &:hover {
+      background-color: $link;
+      color: white;
+      cursor: pointer;
+    }
+    &.selected {
+      background-color: $link;
+      color: white;
+      border-color: transparent;
+    }
+  }
+}
+
+.button, button, input[type="submit"], input[type="button"] {
+  @include button;
+}
+
+table {
+  display: inline-block;
+  th, td {
+    padding: 10px 20px;
+    border: 1px solid #DDD;
+  }
+  tr {
+    border: 1px solid $bodyBackground;
+  }
+  tr:nth-child(even) {
+    background: #EFF6FA
+  }
+  tr:nth-child(odd) {
+    background: #F9F9F9
+  }
+  thead th {
+    border-bottom: 2px solid #DDD;
+    background: $bodyBackground;
   }
 }

@@ -2,7 +2,6 @@
 
 .task {
   border: 1px $darkerGrey solid;
-  border-radius: 5px;
   display: block;
   width: 200px;
   text-align: center;
@@ -11,7 +10,6 @@
 
   img {
     margin: auto;
-    height: 32px;
     vertical-align: middle;
   }
 }

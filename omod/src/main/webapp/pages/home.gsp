@@ -54,19 +54,21 @@
     }
 </script>
 
-${ ui.includeFragment("emr", "field/autocomplete", [
-        id: "search-field",
-        label: "",
-        placeholder: ui.message("emr.searchByNameOrIdOrScan"),
-        formFieldName: "patient1",
-        fragment: "findPatient",
-        action: "search",
-        maxResults: 10,
-        itemValueProperty: "patientId",
-        itemLabelFunction: "labelFunction",
-        onExactMatchFunction:"navigateFunction"
-])}
 
+<form>
+    ${ ui.includeFragment("emr", "field/autocomplete", [
+            id: "search-field",
+            label: "",
+            placeholder: ui.message("emr.searchByNameOrIdOrScan"),
+            formFieldName: "patient1",
+            fragment: "findPatient",
+            action: "search",
+            maxResults: 10,
+            itemValueProperty: "patientId",
+            itemLabelFunction: "labelFunction",
+            onExactMatchFunction:"navigateFunction"
+    ])}
+</form>
 
 <hr class="separator"/>
 
