@@ -280,7 +280,8 @@
                     <dependency>
                         <groupId>org.openmrs.tools</groupId>
                         <artifactId>openmrs-tools</artifactId>
-                        <version>${openMRSVersion}</version>
+                        <!-- TODO: replace below with openMRSVersion once we figure out why it can't find tools-1.9.3-SNAPSHOT -->
+                        <version>1.9.2</version>
                     </dependency>
                 </dependencies>
              </plugin>
