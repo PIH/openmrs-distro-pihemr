@@ -122,6 +122,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
 		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
 		        .getGlobalProperty(RADIOLOGY_ORDER_TYPE_UUID))));
+		Assert.assertNotNull((Context.getConceptService().getConceptByMapping("TEMPERATURE (C)", "PIH")));
 		
 		// this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
 		for (Concept concept : Context.getConceptService().getAllConcepts()) {
