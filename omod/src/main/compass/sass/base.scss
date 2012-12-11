@@ -196,6 +196,46 @@ ul.select {
   @include button;
 }
 
+.note {
+  padding: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+  clear: both;
+  position: relative;
+
+  .icon {
+    position: absolute;
+    i {
+      padding: 0;
+      padding-right: 20px;
+    }
+  }
+  .text {
+    display: inline-block;
+    padding-left: 35px;
+    p {
+      margin: 5px;
+      text-align: left;
+    }
+  }
+  &.warning, &.success, &.error {
+    border: 1px solid transparent;
+  }
+  &.warning {
+    background: lighten($alert, 10%);
+    border-color: $alert;
+  }
+  &.success {
+    background: lighten($success, 10%);
+    border-color: $success
+  }
+  &.error {
+    background: lighten($error, 10%);
+    border-color: $error;
+    color: white;
+  }
+}
+
 table {
   display: inline-block;
   th, td {
