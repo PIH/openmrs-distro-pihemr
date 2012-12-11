@@ -43,7 +43,7 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.2-SNAPSHOT</openMRSVersion>
+		<openMRSVersion>1.9.3-SNAPSHOT</openMRSVersion>
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.3.1</uiframeworkVersion>
 		<appframeworkVersion>1.4-SNAPSHOT</appframeworkVersion>
