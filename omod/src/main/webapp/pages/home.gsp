@@ -8,28 +8,18 @@
     }
 %>
 <script type="text/javascript">
-    jq(function(event) {
+    jq(function() {
         jq('#search-field-search').first().focus();
 
-        jq('#search-field-search').keypress( function(event){
-            if(event.keyCode ==13){
-                var ptId = jq('#search-field-value').val();
-                if(ptId.length>0 && (parseInt(ptId, 10)>0)){
-                    emr.navigateTo({
-                        provider: 'emr',
-                        page: 'patient',
-                        query: { patientId: ptId }
-                    });
-                }
-            }else{
-                jq('#search-field-value').val("");
-            }
+        jq('#search-form').submit( function() {
+            navigateToPatient(jq('#search-field-value').val());
+            return false;
         });
     });
 
     function labelFunction(item) {
         var id = item.patientId;
-        if(id>0){
+        if(id > 0){
             if (item.primaryIdentifiers[0]) {
                 id = item.primaryIdentifiers[0].identifier;
             }
@@ -40,22 +30,25 @@
     }
 
     function navigateFunction(item) {
-       if(item !== null && item.patientId>0){
-            var ptId = item.patientId;
-            if(ptId.length>0 && (parseInt(ptId, 10)>0)){
-                emr.navigateTo({
-                    provider: 'emr',
-                    page: 'patient',
-                    query: { patientId: ptId }
-                });
-            }
-       }
+        if(item !== null && item.patientId > 0){
+            navigateToPatient(item.patientId);
+        }
         return true;
+    }
+
+    function navigateToPatient(patientId) {
+        if(patientId.length > 0 && (parseInt(patientId, 10) > 0)) {
+            emr.navigateTo({
+                provider: 'emr',
+                page: 'patient',
+                query: { patientId: patientId }
+            });
+        }
     }
 </script>
 
 
-<form>
+<form id="search-form">
     ${ ui.includeFragment("emr", "field/autocomplete", [
             id: "search-field",
             label: "",
