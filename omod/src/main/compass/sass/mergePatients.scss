@@ -1,6 +1,7 @@
 @import "colors";
+@import "base";
 
-.non-preferred-patient {
+/*.non-preferred-patient {
   background-color: $lighterGrey;
   padding: 0.5em;
   vertical-align: top;
@@ -32,6 +33,39 @@
     padding-bottom: 0.3em;
   }
 
+}*/
+
+.patient {
+  background: #F9F9F9;
+  border: 2px solid #CCC;
+  width: 320px;
+  float: left;
+  @include border-radius(4px);
+  .row {
+    padding: 10px;
+    background: #EAEAEA;
+    margin: 1px;
+    div {
+      span { display: block }
+    }
+  }
+  h3 {
+    font-size: 1.2em;
+    margin: 0
+  }
+  &.selected {
+    background: lighten($link, 20%);
+    border-color: $link;
+    .row {
+      background: $link;
+      h3 {
+        color: #003F5E;
+      }
+      div {
+        color: #FFF;
+      }
+    }
+  }
 }
 
 .address{
@@ -64,8 +98,8 @@ h2{
 .separator{
   display:block;
   float:left;
-  margin: 26% 0;
-  width:32px;
+  margin: 30% 0;
+  width:73px;
 }
 
 .person-address {
