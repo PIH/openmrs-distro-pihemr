@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("emr", "standardEmrPage")
 
-    ui.includeCss("home.css")
+    ui.includeCss("mirebalais", "home.css")
 
     def htmlSafeId = { app ->
         "${ app.id.replace(".", "-") }-app"

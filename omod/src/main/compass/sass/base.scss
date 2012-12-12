@@ -32,6 +32,9 @@ i {
   &.small {
     font-size: 1.2em;
   }
+  &.medium {
+    font-size: 2em;
+  }
 }
 
 ul, ol, li {
@@ -168,11 +171,18 @@ form {
 
   p {
     text-align: right;
+
+    strong {
+      display: block;
+      text-align: left;
+      clear: both;
+    }
   }
 
   input[type="checkbox"], input[type="radio"] {
     padding: 0;
     margin: 5px;
+    float: left;
   }
   input[type="submit"], input[type="button"] {
     @include button;
@@ -220,13 +230,12 @@ ul.select {
 
 .note {
   padding: 10px;
-  margin-top: 20px;
+  margin: 20px 0;
   overflow: hidden;
   clear: both;
-  position: relative;
 
   .icon {
-    position: absolute;
+    float: left;
     i {
       padding: 0;
       padding-right: 20px;
@@ -234,6 +243,7 @@ ul.select {
   }
   .text {
     display: inline-block;
+    width: 90%;
     padding-left: 35px;
     p {
       margin: 5px;
