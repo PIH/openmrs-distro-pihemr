@@ -3,7 +3,6 @@
 @import "font-awesome";
 @import "main-font";
 @import "mixins";
-@import "login";
 
 body {
   font-family: "OpenSans", Arial, sans-serif;
@@ -117,6 +116,16 @@ p {
   font-family: "OpenSansLight"
 }
 
+.clear {
+  clear: both;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+
 form {
   overflow: hidden;
   input, select, textarea, ul.select {
@@ -125,8 +134,13 @@ form {
     display: block;
     padding: 5px 10px;
     margin: 0;
+    margin-top: 3%;
     background-color: #FFF;
     border: 1px solid #DDD;
+  }
+
+  ul.select {
+    margin-top: 0;
   }
 
   fieldset {
@@ -170,15 +184,18 @@ form {
 }
 
 ul.select {
+  text-align: left;
+  margin: 0 20px;
   padding: 0;
   li {
     text-align: left;
-    padding: 5px 10px;
+    display: inline-block;
+    width: 228px;
+    padding: 5px;
     color: $link;
-    border: 2px solid transparent;
-    &:nth-child(even) {
-      background-color: #F1F1F1;
-    }
+    background-color: #FFF;
+    border-bottom: 1px solid #EFEFEF;
+    margin: 0 10px;
     &:hover {
       background-color: $link;
       color: white;

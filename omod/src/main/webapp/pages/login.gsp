@@ -4,11 +4,11 @@
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
 
-    ui.includeCss("mirebalais")
+    ui.includeCss("mirebalais", "login.css")
 %>
 
-<div id="body-wrapper">
-    <div id="content" class="container">
+<div id="body-wrapper" class="container">
+    <div id="content">
 
         <img id="pih-logo" src="${ ui.resourceLink("mirebalais", "images/PIH_ZL_plum_940.jpg") }"/>
 
@@ -17,27 +17,30 @@
         <form id="login-form" method="post" autocomplete="off">
             <fieldset>
 
-                <legend>${ ui.message("mirebalais.login.loginHeading") }</legend>
+                <legend>
+                    <i class="icon-lock small"></i>
+                    ${ ui.message("mirebalais.login.loginHeading") }
+                </legend>
 
                 ${ ui.includeFragment("emr", "infoAndErrorMessage") }
 
-                <p>
+                <p class="left">
                     <label for="username">
-                        ${ ui.message("mirebalais.login.username") }
+                        ${ ui.message("mirebalais.login.username") }:
                     </label>
-                    <input id="username" type="text" name="username"/>
+                    <input id="username" type="text" name="username" placeholder="Enter your username"/>
                 </p>
 
-                <p>
+                <p class="left">
                     <label for="password">
-                        ${ ui.message("mirebalais.login.password") }
+                        ${ ui.message("mirebalais.login.password") }:
                     </label>
-                    <input id="password" type="password" name="password"/>
+                    <input id="password" type="password" name="password" placeholder="Enter your password"/>
                 </p>
 
-                <p>
+                <p class="clear">
                     <label for="sessionLocation">
-                        ${ ui.message("mirebalais.login.sessionLocation") }
+                        ${ ui.message("mirebalais.login.sessionLocation") }:
                     </label>
                     <ul id="sessionLocation" class="select">
                         <% locations.each { %>
@@ -53,7 +56,10 @@
                     <input id="login-button" class="confirm" type="submit" value="${ ui.message("mirebalais.login.button") }"/>
                 </p>
                 <p>
-                    <a id="cant-login" href="javascript:void(0)">${ ui.message("mirebalais.login.cannotLogin") }</a>
+                    <a id="cant-login" href="javascript:void(0)">
+                        <i class="icon-question-sign small"></i>
+                        ${ ui.message("mirebalais.login.cannotLogin") }
+                    </a>
                 </p>
 
             </fieldset>

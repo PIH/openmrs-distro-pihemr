@@ -2,3 +2,22 @@
   width: 200px;
   padding-bottom: 1.7em;
 }
+
+
+
+#login-form {
+  ul.select {
+    width: 850px;
+  }
+
+  p {
+    margin-right: 20px;
+    input[type=text], input[type=password] {
+      width: 405px;
+      margin-bottom: 20px;
+    }
+    input[type=submit] {
+      padding: 8px 40px;
+    }
+  }
+}
