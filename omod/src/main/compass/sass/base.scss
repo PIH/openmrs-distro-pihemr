@@ -214,7 +214,7 @@ ul.select {
   }
 }
 
-.button, button, input[type="submit"], input[type="button"] {
+.button, button, input[type="submit"], input[type="button"], a.button {
   @include button;
 }
 

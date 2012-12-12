@@ -67,13 +67,13 @@
 
 <div id="apps">
     <% apps.each { app -> %>
-    <div class="app" id="${ htmlSafeId(app) }">
-        <a href="/${ contextPath }/${ app.homepageUrl }">
+
+        <a id="${ htmlSafeId(app) }" href="/${ contextPath }/${ app.homepageUrl }" class="button big">
             <% if (app.iconUrl) { %>
-                <img src="/${ contextPath }/${ app.iconUrl }"/>
+                <i class="${ app.iconUrl }"></i>
             <% } %>
             ${ app.label }
         </a>
-    </div>
+
     <% } %>
 </div>

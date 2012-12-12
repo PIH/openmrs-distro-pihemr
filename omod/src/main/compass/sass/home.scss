@@ -5,31 +5,17 @@ hr.separator {
 }
 
 #apps {
-  text-align: center;
+  width: 83%;
+  margin: 0 auto;
 
-  .app:hover {
-    background-color: $lighterGrey;
-    border-radius: 5px;
-    a {
-      font-weight: bold;
-    }
-  }
-
-  .app {
-    display: inline-block;
+  .button {
+    padding: 20px 10px;
+    width: 150px;
+    height: 70px;
+    vertical-align: top;
+    line-height: 1.4em;
+    margin: 10px;
     text-align: center;
-    margin: 20px;
-    padding: 20px;
-    width: 200px;
-
-    img {
-      display: block;
-      margin: auto;
-    }
-
-    a {
-      color: #606060;
-    }
   }
 }
 
