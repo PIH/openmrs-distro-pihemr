@@ -36,8 +36,11 @@ hr.separator {
 #search-field-search {
   margin: 75px auto;
   font-size: 20px;
-  background: url(../images/scan_barcode.png) no-repeat right center;
-  background-size: 30px;
-  background-origin: content-box;
-  background-color: white;
+  background: {
+    image: url(../images/scan_barcode.png);
+    repeat: no-repeat;
+    position: right center;
+    size: 30px;
+    origin: content-box;
+  }
 }

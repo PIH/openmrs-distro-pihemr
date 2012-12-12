@@ -137,6 +137,10 @@ form {
     margin-top: 3%;
     background-color: #FFF;
     border: 1px solid #DDD;
+    &:focus {
+      outline: none;
+      background: $focus;
+    }
   }
 
   ul.select {
