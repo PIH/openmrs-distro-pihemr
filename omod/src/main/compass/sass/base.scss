@@ -13,6 +13,7 @@ body {
 }
 
 #body-wrapper {
+  margin-top: 20px;
   padding: 20px;
   @include border-radius(5px);
   background-color: $contentBackground;
@@ -194,7 +195,7 @@ ul.select {
   li {
     text-align: left;
     display: inline-block;
-    width: 228px;
+    width: 250px;
     padding: 5px;
     color: $link;
     background-color: #FFF;
@@ -267,10 +268,10 @@ table {
     border: 1px solid $bodyBackground;
   }
   tr:nth-child(even) {
-    background: #EFF6FA
+    background: $focus;
   }
   tr:nth-child(odd) {
-    background: #F9F9F9
+    background: white;
   }
   thead th {
     border-bottom: 2px solid #DDD;

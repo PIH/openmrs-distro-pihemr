@@ -7,10 +7,10 @@
     ui.includeCss("mirebalais", "login.css")
 %>
 
+${ ui.includeFragment("emr", "header") }
+
 <div id="body-wrapper" class="container">
     <div id="content">
-
-        <img id="pih-logo" src="${ ui.resourceLink("mirebalais", "images/PIH_ZL_plum_940.jpg") }"/>
 
         <h1>${ ui.message("mirebalais.login.welcomeHeading") }</h1>
 
@@ -28,14 +28,14 @@
                     <label for="username">
                         ${ ui.message("mirebalais.login.username") }:
                     </label>
-                    <input id="username" type="text" name="username" placeholder="Enter your username"/>
+                    <input id="username" type="text" name="username" placeholder="${ ui.message("mirebalais.login.username.placeholder") }"/>
                 </p>
 
                 <p class="left">
                     <label for="password">
                         ${ ui.message("mirebalais.login.password") }:
                     </label>
-                    <input id="password" type="password" name="password" placeholder="Enter your password"/>
+                    <input id="password" type="password" name="password" placeholder="${ ui.message("mirebalais.login.password.placeholder") }"/>
                 </p>
 
                 <p class="clear">

@@ -1,65 +1,63 @@
 @import "base";
 
-#sessionLocation {
-  li {
-    display: inline-block;
-    width: 250px;
-  }
-}
-
-#header {
-  margin-bottom: 20px;
+header {
   position: relative;
-
-  #sessionLocation {
-    position: absolute;
-    top: 25px;
-    right: 0px;
-    width: 850px;
-
-    #spinner {
-      position: absolute;
-      right: 45%;
-      top:50%;
-      display: none;
+  background-color: $highlight;
+  color: #CCC;
+  @include border-radius(5px);
+  a, a:visited, a:hover, a:link {
+    color: white;
+  }
+  h1 {
+    color: #FFF;
+    margin: 0;
+    padding: 10px
+  }
+  .logo {
+    float: left;
+    margin: 10px;
+  }
+  .user-options {
+    text-align: right;
+    li {
+      display: inline-block;
+      margin: 20px;
+      &.change-location, &.logout {
+        color: white;
+      }
+      &.change-location {
+        border: 1px solid lighten($highlight, 5%);
+        @include border-radius(3px);
+        a {
+          display: block;
+        }
+        &:hover, .focus {
+          background: lighten($highlight, 5%);
+          a:hover {
+            text-decoration: none;
+          }
+        }
+      }
     }
   }
 
-  #user-info {
-    color: $pihPrimaryPurple;
-    float: right;
+  #session-location {
+    position: absolute;
+    display: none;
+    top: 60px;
+    left: 70px;
+    background: white;
+    border: 2px solid lighten($highlight, 5%);
+    @include border-radius(3px);
+    width: 853px;
+    font-size: 0.8em;
+
+    li {
+      width: 239px;
+    }
   }
 
-  .header-menu {
-    margin-right: 10px;
-  }
-
-  .header-menu.location {
-    color: $pihSecondaryBlue;
-    text-decoration: none;
-    padding: 7px 10px 10px 10px;
-    position: relative;
-    border: 2px solid transparent;
-  }
-
-  .header-menu.location.focus {
-    border: 2px solid $pihSecondaryGrey;
-    border-bottom: 0;
-    z-index: 2;
-    background-color: $white;
-  }
 }
-
-
-.panel {
-  min-width: 100px;
-  padding: 5px;
-  display: inline-block;
-  border: 1px solid $darkerGrey;
-  background-color: $lighterGrey;
-  color: black;
-}
-
 
 .hidden {
   display: none;
