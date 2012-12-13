@@ -68,15 +68,15 @@ header {
   display: inline-block;
   vertical-align: top;
 
+  table {
+    max-width: 396px;
+  }
+
   &.btn{
     margin: 85px 10px 0 10px;
 
     i{
       line-height: 1.1em;
-    }
-
-    table {
-      max-width: 396px;
     }
 
     span{
