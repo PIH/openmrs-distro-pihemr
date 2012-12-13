@@ -270,9 +270,10 @@ ul.select {
 }
 
 table {
-  display: inline-block;
+  display : inline;
+  font-size: 0.8em;
   th, td {
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: 1px solid #DDD;
   }
   tr {
@@ -283,6 +284,10 @@ table {
   }
   tr:nth-child(odd) {
     background: white;
+  }
+  tr.selected{
+    background: $link;
+    color: white;
   }
   thead th {
     border-bottom: 2px solid #DDD;
