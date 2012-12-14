@@ -75,7 +75,6 @@ header {
 
   &.btn{
     margin: 85px 10px 0 10px;
-    width: 86px;
 
     i{
       line-height: 1.1em;
@@ -87,4 +86,15 @@ header {
     }
 
   }
+}
+
+//archives-room
+.sending-records {
+  padding: 10px;
+  border: 1px solid #eee;
+  margin: 20px 0;
+  h2 {
+    margin: 0px;
+  }
+
 }
