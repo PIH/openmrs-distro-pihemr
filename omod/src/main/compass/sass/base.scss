@@ -285,7 +285,11 @@ table {
   tr:nth-child(odd) {
     background: white;
   }
-  tr.selected, tr.hover{
+  tr.hover{
+    background: lighten($link, 10%);
+    color: white;
+  }
+  tr.selected{
     background: $link;
     color: white;
   }
