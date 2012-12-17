@@ -35,4 +35,10 @@
     color: #CCC;
     cursor: default;
   }
+  &.print {
+    padding: 10px;
+    i {
+      font-size: 1.5em;
+    }
+  }
 }

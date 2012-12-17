@@ -288,6 +288,7 @@ table {
   tr.hover{
     background: lighten($link, 15%);
     color: white;
+    cursor: pointer;
   }
   tr.selected{
     background: $link;
