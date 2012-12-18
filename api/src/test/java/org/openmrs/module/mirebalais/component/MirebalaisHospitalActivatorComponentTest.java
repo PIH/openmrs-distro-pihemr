@@ -18,6 +18,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
+import org.openmrs.Location;
+import org.openmrs.LocationAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -64,6 +66,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		verifyPacsIntegrationGlobalPropertiesConfigured();
 		verifyAddressHierarchyLevelsCreated();
 		verifyAddressHierarchyLoaded();
+		verifyLocationAttributeNotOverwritten();
 	}
 	
 	private void verifyPatientRegistrationConfigured() {
@@ -184,4 +187,13 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
 	}
 	
+	private void verifyLocationAttributeNotOverwritten() throws Exception {
+		// make sure that when importing the location metadata package, the location
+		// attribute we defined in the requiredDataTestDataset has not been overwritten
+		
+		Location location = Context.getLocationService().getLocation(1001);
+		LocationAttributeType type = Context.getLocationService().getLocationAttributeType(1001);
+		assertEquals(1, location.getActiveAttributes(type).size());
+		assertEquals("Mark", location.getActiveAttributes(type).get(0).getValue().toString());
+	}
 }
