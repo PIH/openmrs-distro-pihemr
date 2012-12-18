@@ -24,6 +24,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
+import org.openmrs.module.mirebalais.MetadataPackageConfig;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -34,11 +35,7 @@ import org.openmrs.validator.ValidateUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID;
@@ -97,25 +94,27 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		// To catch the (common) case where someone gets the groupUuid wrong, we look for any installed packages that
 		// we are not expecting
-		Map<String, String> importedGroupUuids = new HashMap<String, String>();
-		for (ImportedPackage importedPackage : metadataSharingService.getAllImportedPackages()) {
-			importedGroupUuids.put(importedPackage.getGroupUuid(), importedPackage.getName());
+		
+		List<String> groupUuids = new ArrayList<String>();
+		
+		for (MetadataPackageConfig metadataPackage : activator.getCurrentMetadataVersions()) {
+			groupUuids.add(metadataPackage.getGroupUuid());
 		}
-		for (Map.Entry<String, String> entry : importedGroupUuids.entrySet()) {
-			if (!activator.getCurrentMetadataVersions().containsKey(entry.getKey())) {
-				Assert.fail("Found a package with an unexpected groupUuid. Name: " + entry.getValue() + " , groupUuid: "
-				        + entry.getKey());
+		
+		for (ImportedPackage importedPackage : metadataSharingService.getAllImportedPackages()) {
+			if (!groupUuids.contains(importedPackage.getGroupUuid())) {
+				Assert.fail("Found a package with an unexpected groupUuid. Name: " + importedPackage.getName()
+				        + " , groupUuid: " + importedPackage.getGroupUuid());
 			}
 		}
 		
-		for (Map.Entry<String, String> e : activator.getCurrentMetadataVersions().entrySet()) {
-			String metadataPackageGroupUuid = e.getKey();
-			String metadataPackageFilename = e.getValue();
-			Integer expectedVersion = getMetadataPackageVersionFrom(metadataPackageFilename);
-			ImportedPackage installedPackage = metadataSharingService.getImportedPackageByGroup(metadataPackageGroupUuid);
+		for (MetadataPackageConfig metadataPackage : activator.getCurrentMetadataVersions()) {
+			ImportedPackage installedPackage = metadataSharingService.getImportedPackageByGroup(metadataPackage
+			        .getGroupUuid());
 			Integer actualVersion = installedPackage == null ? null : installedPackage.getVersion();
-			assertEquals("Failed to install " + metadataPackageFilename + ". Expected version: " + expectedVersion
-			        + " Actual version: " + actualVersion, expectedVersion, actualVersion);
+			assertEquals("Failed to install " + metadataPackage.getFilenameBase() + ". Expected version: "
+			        + metadataPackage.getVersion() + " Actual version: " + actualVersion, metadataPackage.getVersion(),
+			    actualVersion);
 		}
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
@@ -128,12 +127,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		for (Concept concept : Context.getConceptService().getAllConcepts()) {
 			ValidateUtil.validate(concept);
 		}
-	}
-	
-	private Integer getMetadataPackageVersionFrom(String metadataPackageFilename) {
-		Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(metadataPackageFilename);
-		matcher.matches();
-		return Integer.valueOf(matcher.group(1));
 	}
 	
 	private void verifyGlobalPropertiesConfigured() throws Exception {

@@ -52,8 +52,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -66,7 +66,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
 	
-	Map<String, String> currentMetadataVersions = new LinkedHashMap<String, String>();
+	List<MetadataPackageConfig> currentMetadataVersions = new ArrayList<MetadataPackageConfig>();
 	
 	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
 	
@@ -75,19 +75,23 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private ConfigureIdGenerators configureIdGenerators;
 	
 	public MirebalaisHospitalActivator() {
-		// Note: the key of this map should be the *GROUP* uuid of the metadata sharing package, which you can
+		// Note: the uuid should be the *GROUP* uuid of the metadata sharing package, which you can
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
-		// The value should be the filename as you downloaded it from the server you created it on.
-		// In particular, you should keep the "-(versionNum)" in the filename, and update the string here
-		// to match the downloaded version.
-		currentMetadataVersions.put("32d52080-13fa-413e-a23e-6ff9a23c7a69", "Mirebalais_Hospital_locations-7.zip");
-		currentMetadataVersions.put("f12f5fb8-80a8-40d0-a20e-24af2642ce4c", "Roles_and_privileges-7.zip");
-		currentMetadataVersions.put("fa25ad0c-66cc-4715-8464-58570f7b5132", "PIH_Haiti_Patient_Registration-16.zip"); // Concept sets for radiology orders are currently in here
-		currentMetadataVersions.put("be592ba7-1fa2-4a71-a147-3c828e67e901", "PACS_Integration-1.zip");
-		currentMetadataVersions.put("e666ee52-c381-461f-b59d-7528da25473c", "AdministrativeEncounterRole-1.zip");
-		currentMetadataVersions.put("7003f131-7a15-4292-9513-c9fe52a73235", "HUM_Clinical_Concepts-1.zip");
-		customProperties = new MirebalaisCustomProperties();
+		
+		currentMetadataVersions.add(new MetadataPackageConfig("Mirebalais_Hospital_locations",
+		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 7, ImportMode.PARENT_AND_CHILD));
+		currentMetadataVersions.add(new MetadataPackageConfig("Roles_and_privileges",
+		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 7, ImportMode.MIRROR));
+		currentMetadataVersions.add(new MetadataPackageConfig("PIH_Haiti_Patient_Registration",
+		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 16, ImportMode.MIRROR));
+		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration", "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
+		        ImportMode.MIRROR));
+		currentMetadataVersions.add(new MetadataPackageConfig("AdministrativeEncounterRole",
+		        "e666ee52-c381-461f-b59d-7528da25473c", 1, ImportMode.MIRROR));
+		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 1, ImportMode.MIRROR));
+		
 	}
 	
 	/**
@@ -201,46 +205,46 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void installMetadataPackages() {
-		for (Map.Entry<String, String> e : currentMetadataVersions.entrySet()) {
-			installMetadataPackageIfNecessary(e.getKey(), e.getValue());
+		for (MetadataPackageConfig metadataPackage : currentMetadataVersions) {
+			installMetadataPackageIfNecessary(metadataPackage);
 		}
 	}
 	
 	/**
 	 * Checks whether the given version of the MDS package has been installed yet, and if not, install it
 	 *
-	 * @param groupUuid
-	 * @param filename should end in "-${versionNumber}.zip"
 	 * @return whether any changes were made to the db
 	 * @throws IOException
 	 */
-	private boolean installMetadataPackageIfNecessary(String groupUuid, String filename) {
+	private boolean installMetadataPackageIfNecessary(MetadataPackageConfig metadataPackage) {
 		try {
+			String filename = metadataPackage.getFilenameBase() + "-" + metadataPackage.getVersion().toString() + ".zip";
+			
 			Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(filename);
 			if (!matcher.matches())
-				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-v1.zip");
+				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-1.zip");
 			Integer version = Integer.valueOf(matcher.group(1));
 			
-			ImportedPackage installed = Context.getService(MetadataSharingService.class)
-			        .getImportedPackageByGroup(groupUuid);
+			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
+			    metadataPackage.getGroupUuid());
 			if (installed != null && installed.getVersion() >= version) {
 				log.info("Metadata package " + filename + " is already installed with version " + installed.getVersion());
 				return false;
 			}
 			
 			if (getClass().getClassLoader().getResource(filename) == null) {
-				throw new RuntimeException("Cannot find " + filename + " for group " + groupUuid
+				throw new RuntimeException("Cannot find " + filename + " for group " + metadataPackage.getGroupUuid()
 				        + ". Make sure it's in api/src/main/resources");
 			}
 			
 			PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
-			metadataImporter.setImportConfig(ImportConfig.valueOf(ImportMode.MIRROR));
+			metadataImporter.setImportConfig(ImportConfig.valueOf(metadataPackage.getImportMode()));
 			metadataImporter.loadSerializedPackageStream(getClass().getClassLoader().getResourceAsStream(filename));
 			metadataImporter.importPackage();
 			return true;
 		}
 		catch (Exception ex) {
-			log.error("Failed to install metadata package " + filename, ex);
+			log.error("Failed to install metadata package " + metadataPackage.getFilenameBase(), ex);
 			return false;
 		}
 	}
@@ -511,7 +515,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		}
 	}
 	
-	public Map<String, String> getCurrentMetadataVersions() {
+	public List<MetadataPackageConfig> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
 	}
 	
