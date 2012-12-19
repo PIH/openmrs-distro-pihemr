@@ -181,18 +181,22 @@ form {
   }
 
   input[type="checkbox"], input[type="radio"] {
+    min-width: 0;
     padding: 0;
     margin: 5px;
     float: left;
   }
+
   input[type="submit"], input[type="button"] {
     @include button;
     margin-top: 30px;
     display: inline-block;
     min-width: 0;
+
     &.confirm {
       @include button($success, darken($success, 8%), white);
     }
+
     &.cancel {
       @include button($error, darken($error, 8%), white);
     }
