@@ -15,13 +15,16 @@ header {
   }
   .logo {
     float: left;
-    margin: 10px;
+    margin: 4px;
+    img {
+      width: 120px;
+    }
   }
   .user-options {
     text-align: right;
     li {
       display: inline-block;
-      margin: 20px;
+      margin: 10px 0 10px 20px;
       &.change-location, &.logout {
         color: white;
       }
