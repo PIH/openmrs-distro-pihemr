@@ -11,7 +11,6 @@
   color: $font;
   cursor: pointer;
   text-decoration: none;
-
   &:hover {
     background: lighten($bcolor, 2%);
     border-color: darken($bcolor, 5%);
@@ -45,13 +44,5 @@
     i {
       font-size: 1.5em;
     }
-
-  &.confirm {
-    @include button($success, darken($success, 8%), white);
-  }
-
-  &.cancel {
-    @include button($error, darken($error, 8%), white);
-  }
   }
 }

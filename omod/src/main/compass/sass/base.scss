@@ -262,6 +262,13 @@ table {
 
 .button, button, input[type="submit"], input[type="button"], a.button {
   @include button;
+  &.confirm {
+    @include button($success, darken($success, 8%), white);
+  }
+
+  &.cancel {
+    @include button($error, darken($error, 8%), white);
+  }
 }
 
 .note {
