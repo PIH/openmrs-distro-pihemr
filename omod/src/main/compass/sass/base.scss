@@ -106,30 +106,6 @@ p {
   margin: 0 0 10px 0;
 }
 
-.title {
-  font-weight: 700;
-  font-family: "OpenSansBold"
-}
-
-.body {
-  font-weight: 400;
-}
-
-.small {
-  font-weight: 300;
-  font-family: "OpenSansLight"
-}
-
-.clear {
-  clear: both;
-}
-.left {
-  float: left;
-}
-.right {
-  float: right;
-}
-
 form {
   overflow: hidden;
   input, select, textarea, ul.select {
@@ -192,14 +168,6 @@ form {
     margin-top: 30px;
     display: inline-block;
     min-width: 0;
-
-    &.confirm {
-      @include button($success, darken($success, 8%), white);
-    }
-
-    &.cancel {
-      @include button($error, darken($error, 8%), white);
-    }
   }
 }
 
@@ -226,50 +194,6 @@ ul.select {
       color: white;
       border-color: transparent;
     }
-  }
-}
-
-.button, button, input[type="submit"], input[type="button"], a.button {
-  @include button;
-}
-
-.note {
-  padding: 10px;
-  margin: 20px 0;
-  overflow: hidden;
-  clear: both;
-
-  .icon {
-    float: left;
-    i {
-      padding: 0;
-      padding-right: 20px;
-    }
-  }
-  .text {
-    display: inline-block;
-    width: 90%;
-    padding-left: 35px;
-    p {
-      margin: 5px;
-      text-align: left;
-    }
-  }
-  &.warning, &.success, &.error {
-    border: 1px solid transparent;
-  }
-  &.warning {
-    background: lighten($alert, 10%);
-    border-color: $alert;
-  }
-  &.success {
-    background: lighten($success, 10%);
-    border-color: $success
-  }
-  &.error {
-    background: lighten($error, 10%);
-    border-color: $error;
-    color: white;
   }
 }
 
@@ -302,5 +226,86 @@ table {
     border-bottom: 2px solid #DDD;
     background: $bodyBackground;
     width: auto;
+  }
+}
+
+
+.title {
+  font-weight: 700;
+  font-family: "OpenSansBold"
+}
+
+.body {
+  font-weight: 400;
+}
+
+.small {
+  font-weight: 300;
+  font-family: "OpenSansLight"
+}
+
+.clear {
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.button, button, input[type="submit"], input[type="button"], a.button {
+  @include button;
+}
+
+.note {
+  padding: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+  clear: both;
+
+  .icon {
+    float: left;
+    i {
+      padding: 0;
+      padding-right: 20px;
+    }
+  }
+
+  .text {
+    display: inline-block;
+    width: 90%;
+    padding-left: 35px;
+
+    p {
+      margin: 5px;
+      text-align: left;
+    }
+  }
+
+  &.warning, &.success, &.error {
+    border: 1px solid transparent;
+  }
+
+  &.warning {
+    background: lighten($alert, 10%);
+    border-color: $alert;
+  }
+
+  &.success {
+    background: lighten($success, 10%);
+    border-color: $success
+  }
+
+  &.error {
+    background: lighten($error, 10%);
+    border-color: $error;
+    color: white;
   }
 }
