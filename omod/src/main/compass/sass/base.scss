@@ -123,6 +123,12 @@ form {
     }
   }
 
+  select[disabled] {
+    color: graytext;
+    border: 1px solid;
+    background-color: white;
+  }
+
   ul.select {
     margin-top: 0;
   }
