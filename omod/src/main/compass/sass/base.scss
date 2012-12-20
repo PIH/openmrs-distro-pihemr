@@ -124,9 +124,9 @@ form {
   }
 
   select[disabled] {
-    color: graytext;
-    border: 1px solid;
-    background-color: white;
+    background: #EEE;
+    border: #CCC 1px solid;
+    color: #CCC;
   }
 
   ul.select {
