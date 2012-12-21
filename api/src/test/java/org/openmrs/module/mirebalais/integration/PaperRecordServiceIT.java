@@ -50,20 +50,20 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	private AdministrationService administrationService;
 	
 	private PaperRecordService paperRecordService;
-
-    private EmrProperties emrProperties;
-
+	
+	private EmrProperties emrProperties;
+	
 	@Before
 	public void setUp() {
 		paperRecordService = new PaperRecordServiceImpl();
 		patientService = mock(PatientService.class);
 		administrationService = mock(AdministrationService.class);
-        emrProperties = mock(EmrProperties.class);
-
+		emrProperties = mock(EmrProperties.class);
+		
 		((PaperRecordServiceImpl) paperRecordService).setAdministrationService(administrationService);
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
-        ((PaperRecordServiceImpl) paperRecordService).setEmrProperties(emrProperties);
+		((PaperRecordServiceImpl) paperRecordService).setEmrProperties(emrProperties);
 	}
 	
 	@AfterClass
@@ -86,11 +86,10 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	@NotTransactional
 	public void shouldCreateTwoDifferentDossierNumbers() throws Exception {
 		authenticate();
-
+		
 		PatientIdentifierType patientIdentifierType = new PatientIdentifierType();
 		patientIdentifierType.setPatientIdentifierTypeId(3);
-		when(emrProperties.getPaperRecordIdentifierType()).thenReturn(
-		    patientIdentifierType);
+		when(emrProperties.getPaperRecordIdentifierType()).thenReturn(patientIdentifierType);
 		
 		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(
 		    new Patient(), new Location(15));
