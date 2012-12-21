@@ -1,15 +1,21 @@
 @import "colors";
 
 .task {
-  border: 1px $darkerGrey solid;
   display: block;
-  width: 200px;
   text-align: center;
-  margin: 5px;
-  padding: 5px;
-
+  
   img {
     margin: auto;
     vertical-align: middle;
   }
+}
+
+#tasks .button {
+  padding: 20px 10px;
+  width: 150px;
+  height: 70px;
+  vertical-align: top;
+  line-height: 1.4em;
+  margin: 10px;
+  text-align: center;
 }
