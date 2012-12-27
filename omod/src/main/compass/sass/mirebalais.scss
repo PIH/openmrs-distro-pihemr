@@ -53,7 +53,6 @@ header {
       }
     }
   }
-
   #session-location {
     position: absolute;
     display: none;
@@ -70,44 +69,45 @@ header {
       width: 239px;
     }
   }
-
 }
 
 
-.ui-tabs, .ui-widget, .ui-widget-content, .ui-corner-all {
+.ui-tabs {
   border: none;
-  background: none;
-  color: $text;
-  @include border-radius(0);
-}
-
-.ui-tabs .ui-tabs-nav {
   padding: 0;
-  border-bottom: 1px solid #DDD;
-  li {
+  ul {
+    border: none;
+    background: none;
+    color: $text;
     @include border-radius(0);
-    border-color: #DDD;
-    background: #F9F9F9;
-    margin: 0 5px 0 0;
-    font-family: "OpenSansBold";
-    &.ui-tabs-active {
-      background: white;
-      a, a:link, .ui-state-default {
-        border-top: 2px solid $text;
-        margin: -1px;
-        color: $text;
-        &:hover {
+  }
+  .ui-tabs-nav {
+    padding: 0;
+    border-bottom: 1px solid #DDD;
+    li {
+      @include border-radius(0);
+      border-color: #DDD;
+      background: #F9F9F9;
+      margin: 0 5px 0 0;
+      font-family: "OpenSansBold";
+      &.ui-tabs-active {
+        background: white;
+        a, a:link, .ui-state-default {
+          border-top: 2px solid $text;
+          margin: -1px;
           color: $text;
+          &:hover {
+            color: $text;
+          }
         }
       }
     }
   }
-}
-
-.ui-tabs .ui-tabs-panel {
-  padding: 5px;
-  border: 1px solid #DDD;
-  border-top: none;
+  .ui-tabs-panel {
+    padding: 5px;
+    border: 1px solid #DDD;
+    border-top: none;
+  }
 }
 
 
