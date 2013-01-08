@@ -46,6 +46,7 @@ import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.util.OpenmrsClassLoader;
+import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;
@@ -125,6 +126,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 			
 			installMetadataPackages();
+			setupCoreGlobalProperties();
 			setupNamePhoneticsGlobalProperties();
 			setupPatientRegistrationGlobalProperties();
 			setupEmrGlobalProperties();
@@ -342,6 +344,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		}
 		gp.setPropertyValue(propertyValue);
 		administrationService.saveGlobalProperty(gp);
+	}
+	
+	private void setupCoreGlobalProperties() {
+		setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
 	}
 	
 	private void setupMirebalaisGlobalProperties() {

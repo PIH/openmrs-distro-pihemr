@@ -40,6 +40,7 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="pacsintegration.sendingFacility" property_value="" uuid="7ab78666-0663-45e1-8c99-2b4f0c4f671b"/>
 
     <global_property property="layout.address.format" property_value="" uuid="7abc4766-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="locale.allowed.list" property_value="" uuid="7abc47a5-0663-45e1-8c99-2b4f0c4f888a"/>
 
     <global_property property="emr.placeOrdersEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.clinicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>

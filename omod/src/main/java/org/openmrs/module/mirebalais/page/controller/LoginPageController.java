@@ -29,8 +29,12 @@ import org.openmrs.ui.framework.page.PageRequest;
 import org.openmrs.util.PrivilegeConstants;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
+
+import static org.openmrs.module.emr.utils.GeneralUtils.getDefaultLocale;
 
 /**
  *
@@ -105,6 +109,15 @@ public class LoginPageController {
 		try {
 			context.getUserContext().authenticate(username, password, contextDao);
 			context.setSessionLocation(sessionLocation);
+			
+			// set the locale based on the user's default locale
+			Locale userLocale = getDefaultLocale(context.getUserContext().getAuthenticatedUser());
+			if (userLocale != null) {
+				context.getUserContext().setLocale(userLocale);
+				request.getResponse().setLocale(userLocale);
+				new CookieLocaleResolver().setDefaultLocale(userLocale);
+			}
+			
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
 		catch (ContextAuthenticationException ex) {
