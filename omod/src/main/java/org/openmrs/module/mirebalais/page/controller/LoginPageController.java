@@ -22,6 +22,7 @@ import org.openmrs.api.db.ContextDAO;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.api.EmrService;
+import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -34,7 +35,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
-import static org.openmrs.module.emr.utils.GeneralUtils.getDefaultLocale;
 
 /**
  *
@@ -111,9 +111,11 @@ public class LoginPageController {
 			context.setSessionLocation(sessionLocation);
 			
 			// set the locale based on the user's default locale
-			Locale userLocale = getDefaultLocale(context.getUserContext().getAuthenticatedUser());
+			Locale userLocale = GeneralUtils.getDefaultLocale(context.getUserContext().getAuthenticatedUser());
 			if (userLocale != null) {
 				context.getUserContext().setLocale(userLocale);
+
+                // these have been taken from the core login servlet, not sure if they are necessary
 				request.getResponse().setLocale(userLocale);
 				new CookieLocaleResolver().setDefaultLocale(userLocale);
 			}
