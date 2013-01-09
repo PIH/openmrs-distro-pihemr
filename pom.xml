@@ -61,6 +61,7 @@
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.7</addresshierarchyVersion>
         <eventVersion>2.0.1</eventVersion>
+        <openmrswebVersion>1.9.3-SNAPSHOT</openmrswebVersion>
         <uilibraryVersion>1.4</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -96,6 +97,19 @@
 		<!-- End OpenMRS core -->
 		
 		<!-- Begin OpenMRS modules -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlformentry-api</artifactId>
+            <version>${htmlformentryVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.web</groupId>
+            <artifactId>openmrs-web</artifactId>
+            <version>${openmrswebVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
