@@ -6,10 +6,12 @@
 
 body {
   font-family: "OpenSans", Arial, sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
   max-width: 1000px;
   margin: 10px auto;
   background: $bodyBackground;
   color: $text;
+  font-size: 16px;
 }
 
 #body-wrapper {
@@ -73,11 +75,11 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px 0;
 }
 h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 10px 0 20px 0;
 }
 h2 {
-  font-size: 1.67em;
+  font-size: 1.3em;
   color: lighten($highlight, 15%);
   em {
     font-size: 0.7em;
@@ -86,12 +88,12 @@ h2 {
   }
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1.2em;
 
 }
 
 h4 {
-  font-size: 1.33em;
+  font-size: 1.2em;
   color: lighten($highlight, 15%);
 }
 h5 {
