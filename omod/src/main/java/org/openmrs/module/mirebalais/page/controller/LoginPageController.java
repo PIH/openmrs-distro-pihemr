@@ -35,7 +35,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
-
 /**
  *
  */
@@ -114,8 +113,8 @@ public class LoginPageController {
 			Locale userLocale = GeneralUtils.getDefaultLocale(context.getUserContext().getAuthenticatedUser());
 			if (userLocale != null) {
 				context.getUserContext().setLocale(userLocale);
-
-                // these have been taken from the core login servlet, not sure if they are necessary
+				
+				// these have been taken from the core login servlet, not sure if they are necessary
 				request.getResponse().setLocale(userLocale);
 				new CookieLocaleResolver().setDefaultLocale(userLocale);
 			}
