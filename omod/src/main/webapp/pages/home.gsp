@@ -27,6 +27,7 @@
                     + ' - ' + item.gender
                     + ' - ' + item.age;
         }
+        return item.textValue;
     }
 
     function navigateFunction(item) {
