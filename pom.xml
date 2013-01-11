@@ -269,37 +269,6 @@
                 </plugin>
             </plugins>
 		</pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                <artifactId>maven-java-formatter-plugin</artifactId>
-                <version>0.3.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <compilerSource>1.6</compilerSource>
-                    <compilerCompliance>1.6</compilerCompliance>
-                    <compilerTargetPlatform>1.6</compilerTargetPlatform>
-                    <configFile>eclipse/OpenMRSFormatter.xml</configFile>
-                    <overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
-                    <lineEnding>KEEP</lineEnding>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.openmrs.tools</groupId>
-                        <artifactId>openmrs-tools</artifactId>
-                        <!-- TODO: replace below with openMRSVersion once we figure out why it can't find tools-1.9.3-SNAPSHOT -->
-                        <version>1.9.2</version>
-                    </dependency>
-                </dependencies>
-             </plugin>
-        </plugins>
 	</build>
 
 	<repositories>
