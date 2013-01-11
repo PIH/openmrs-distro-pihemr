@@ -413,9 +413,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupPatientRegistrationGlobalProperties() {
-		setExistingGlobalProperty(
-		    PatientRegistrationGlobalProperties.SUPPORTED_TASKS,
-		    "patientRegistration|primaryCareReception|primaryCareVisit|edCheckIn|retrospectiveEntry|patientLookup|reporting|viewDuplicates");
+		setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS,
+		    "patientRegistration|primaryCareReception|edCheckIn|patientLookup");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS,
 		    "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");
