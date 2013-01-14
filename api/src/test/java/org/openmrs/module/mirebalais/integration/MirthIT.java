@@ -171,7 +171,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
 			
 			for (Order order : orderService.getOrdersByPatient(patient)) {
-				orderService.deleteOrder(order);
+				orderService.purgeOrder(order);
 			}
 			
 			for (Encounter encounter : encounterService.getEncountersByPatient(patient)) {
