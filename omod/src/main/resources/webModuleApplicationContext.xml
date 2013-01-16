@@ -39,4 +39,12 @@
         <property name="iconUrl" value="icon-user"/>
 	</bean>
 
+    <!-- Mirebalais-specific Vitals form -->
+    <bean id="mirebalaisVitalsTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask">
+        <property name="id" value="mirebalais.vitals"/>
+        <property name="labelCode" value="emr.task.vitals.label"/>
+        <property name="priority" value="10"/>
+        <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/vitals.xml"/>
+    </bean>
+
 </beans>

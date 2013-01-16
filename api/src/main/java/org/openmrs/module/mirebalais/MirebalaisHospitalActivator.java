@@ -89,7 +89,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration", "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
-		        "7003f131-7a15-4292-9513-c9fe52a73235", 1, ImportMode.MIRROR));
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 3, ImportMode.MIRROR));
 		
 		customProperties = new MirebalaisCustomProperties();
 	}

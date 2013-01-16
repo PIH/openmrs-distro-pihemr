@@ -1,0 +1,190 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<!-- TODO fix formEncounterType and encounterRole-->
+<htmlform formUuid="68728aa6-4985-11e2-8815-657001b58a90" formName="Vitals" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+
+    <!--
+    Remaining Issues:
+    * Summary shows temperature twice (once for hidden input)
+    * Summary needs to show BP as 120 / 80
+    -->
+
+    <style>
+        #calculated-bmi {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+    </style>
+
+    <ifMode mode="ENTER">
+        <script type="text/javascript">
+            var calculateBmi = function() {
+                var wt = getValueIfLegal('weight.value');
+                var ht = getValueIfLegal('height.value');
+                var bmi = null
+                if (wt &amp;&amp; ht) {
+                    bmi = wt / (ht * ht);
+                }
+                if (bmi == null || isNaN(bmi)) {
+                    $j('#no-calculated-bmi').show();
+                    $j('#calculated-bmi-wrapper').hide();
+                } else {
+                    $j('#no-calculated-bmi').hide();
+                    $j('#calculated-bmi-wrapper').show();
+                    $j('#calculated-bmi').html(bmi.toFixed(1));
+                    $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                }
+            };
+
+            $j(function() {
+                $j('#calculated-bmi-wrapper').hide();
+
+                $j('#temperature-c-or-f').change(function() {
+                    checkNumber(this, 'temperature-error', true, 25, 110);
+                    if ($j(this).hasClass('legalValue')) {
+                        var temp = $j('#temperature-c-or-f').val();
+                        if (temp > 60) {
+                            // fahrenheit
+                            temp = (temp - 32) * 5 / 9;
+                            temp = parseFloat(temp.toFixed(2)); // round to one digit after the decimal point
+                            $j("#temperature-units-chosen").html("F");
+                        } else {
+                            $j("#temperature-units-chosen").html("C");
+                        }
+                        setValue('temperature_c.value', temp);
+                    } else {
+                        setValue('temperature_c.value', null);
+                    }
+                });
+
+                getField('weight.value').change(calculateBmi);
+
+                getField('height.value').change(calculateBmi);
+
+            });
+        </script>
+
+        <div class="hidden">
+            <obs conceptId="PIH:TEMPERATURE (C)" showUnits="true" id="temperature_c"/>
+        </div>
+    </ifMode>
+
+    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <fieldset>
+            <legend>When?</legend>
+
+            <encounterDate default="now" showTime="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="a0b03050-c99b-11e0-9572-0800200c9a66" required="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
+    </div>
+
+    <section id="vitals" sectionTag="section" headerStyle="title" headerLabel="Vitals">
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
+
+            <ifMode mode="ENTER">
+                <input type="text" size="3" id="temperature-c-or-f"/>
+                <label><uimessage code="mirebalais.vitals.temperature.units.entry"/></label>
+                <span class="error" style="display: none" id="temperature-error"></span>
+                <!-- in enter mode the temperature widget is outside of the form flow -->
+            </ifMode>
+            <ifMode mode="VIEW">
+                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c"/>
+                <label><uimessage code="mirebalais.vitals.temperature.units"/></label>
+            </ifMode>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.bloodPressure.title"/></legend>
+
+            <div class="left">
+                <obs conceptId="PIH:SYSTOLIC BLOOD PRESSURE" id="bp_systolic"/>
+            </div>
+            <div class="left">
+                /
+            </div>
+            <div class="left">
+                <obs conceptId="PIH:DIASTOLIC BLOOD PRESSURE" id="bp_diastolic"/>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.heartRate.title"/></legend>
+
+            <obs conceptId="PIH:PULSE" id="heart_rate"/>
+            <label><uimessage code="mirebalais.vitals.heartRate.units"/></label>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.respiratoryRate.title"/></legend>
+
+            <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate"/>
+            <label><uimessage code="mirebalais.vitals.respiratoryRate.units"/></label>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.o2sat.title"/></legend>
+
+            <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat"/>
+            <label><uimessage code="mirebalais.vitals.o2sat.units"/></label>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
+
+            <obs conceptId="PIH:HEIGHT (M)" id="height"/>
+            <uimessage code="mirebalais.vitals.height.units"/>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
+
+            <obs conceptId="PIH:WEIGHT (KG)" id="weight"/>
+            <uimessage code="mirebalais.vitals.weight.units"/>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
+
+            <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
+
+            <span id="no-calculated-bmi">
+                <uimessage code="mirebalais.vitals.bmi.instructions"/>
+            </span>
+            <span id="calculated-bmi-wrapper">
+                <uimessage code="mirebalais.vitals.bmi.display"/>
+                <span id='calculated-bmi'></span>
+            </span>
+
+            <br/><br/>
+
+            <uimessage code="mirebalais.vitals.calculatedField.continue"/>
+        </fieldset>
+    </section>
+
+    <submit/>
+
+</htmlform>
