@@ -1,0 +1,17 @@
+Source: mirebalais
+Section: unknown
+Priority: extra
+Maintainer: PIH <mirebalais@thoughtworks.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Homepage: http://github.com/PIH
+#Vcs-Git: git://git.debian.org/collab-maint/mirebalais.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/mirebalais.git;a=summary
+
+Package: mirebalais
+Architecture: all
+Depends: ${misc:Depends}
+Description: Implementation of OpenMRS for the Mirebalais hospital
+ This package install the OpenMRS war file and the necessary
+ modules that compose the mirebalais implementation. It also
+ install configurations files necessary to run the server.
