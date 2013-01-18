@@ -13,7 +13,7 @@
   -->
 
 <!-- TODO fix formEncounterType and encounterRole-->
-<htmlform formUuid="68728aa6-4985-11e2-8815-657001b58a90" formName="Vitals" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+<htmlform formUuid="68728aa6-4985-11e2-8815-657001b58a90" formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="1.0">
 
     <!--
     Remaining Issues:
@@ -84,18 +84,21 @@
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
+            <label>When?</label>
 
             <encounterDate default="now" showTime="true"/>
         </fieldset>
 
         <fieldset>
             <legend>Who?</legend>
+            <label>Who?</label>
 
             <encounterProviderAndRole default="currentUser" encounterRole="a0b03050-c99b-11e0-9572-0800200c9a66" required="true"/>
         </fieldset>
 
         <fieldset>
             <legend>Where?</legend>
+            <label>Where?</label>
 
             <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
         </fieldset>
@@ -104,6 +107,7 @@
     <section id="vitals" sectionTag="section" headerStyle="title" headerLabel="Vitals">
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.temperature.title"/></label>
 
             <ifMode mode="ENTER">
                 <input type="text" size="3" id="temperature-c-or-f"/>
@@ -119,6 +123,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.bloodPressure.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.bloodPressure.title"/></label>
 
             <div class="left">
                 <obs conceptId="PIH:SYSTOLIC BLOOD PRESSURE" id="bp_systolic"/>
@@ -133,6 +138,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.heartRate.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.heartRate.title"/></label>
 
             <obs conceptId="PIH:PULSE" id="heart_rate"/>
             <label><uimessage code="mirebalais.vitals.heartRate.units"/></label>
@@ -140,6 +146,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.respiratoryRate.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.respiratoryRate.title"/></label>
 
             <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate"/>
             <label><uimessage code="mirebalais.vitals.respiratoryRate.units"/></label>
@@ -147,6 +154,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.o2sat.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.o2sat.title"/></label>
 
             <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat"/>
             <label><uimessage code="mirebalais.vitals.o2sat.units"/></label>
@@ -154,6 +162,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.height.title"/></label>
 
             <obs conceptId="PIH:HEIGHT (M)" id="height"/>
             <uimessage code="mirebalais.vitals.height.units"/>
@@ -161,6 +170,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.weight.title"/></label>
 
             <obs conceptId="PIH:WEIGHT (KG)" id="weight"/>
             <uimessage code="mirebalais.vitals.weight.units"/>
@@ -168,6 +178,7 @@
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
+            <label><uimessage code="mirebalais.vitals.bmi.title"/></label>
 
             <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
 
