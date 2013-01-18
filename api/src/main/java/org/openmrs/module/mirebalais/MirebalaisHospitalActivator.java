@@ -437,9 +437,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
 		    "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_AMOUNT_CONCEPT,
-		    "PIH: Payment amount|en:Payment amount|ht:TODO TRANSLATE");
+		    "PIH: Payment amount|en:Payment amount|ht:Kantite lajan");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT,
-		    "PIH: Reason for HUM visit|en:Visit reason|ht:TODO TRANSLATE");
+		    "PIH: Reason for HUM visit|en:Visit reason|ht:Rezon pou vizit");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE, "Check-in");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
 		    "Patient Registration");
