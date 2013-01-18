@@ -121,7 +121,7 @@
             </ifMode>
         </fieldset>
 
-        <fieldset>
+        <fieldset field-separator=" / ">
             <legend><uimessage code="mirebalais.vitals.bloodPressure.title"/></legend>
             <label><uimessage code="mirebalais.vitals.bloodPressure.title"/></label>
 
