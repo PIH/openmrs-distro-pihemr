@@ -115,14 +115,12 @@ header {
 .box-align {
   display: inline-block;
   vertical-align: top;
-
-  table {
-    max-width: 396px;
-    display: inline-block;
-  }
+  width: 44%;
 
   &.btn{
-    margin: 85px 10px 0 10px;
+    margin-top: 85px;
+    text-align: center;
+    width: 11%;
 
     i{
       line-height: 1.1em;
