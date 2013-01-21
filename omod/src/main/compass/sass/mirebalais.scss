@@ -117,16 +117,20 @@ header {
   vertical-align: top;
   width: 44%;
 
-  &.btn{
+  &.btn {
     margin-top: 85px;
     text-align: center;
-    width: 11%;
+    width: 12%;
+    margin: {
+      left: -5px;
+      right: -5px;
+    }
 
-    i{
+    i {
       line-height: 1.1em;
     }
 
-    span{
+    span {
       display: block;
       font-size: 0.9em;
     }
