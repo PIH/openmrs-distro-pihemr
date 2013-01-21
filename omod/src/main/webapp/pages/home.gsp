@@ -12,7 +12,7 @@
         jq('#search-field-search').first().focus();
 
         jq('#search-form').submit( function() {
-            navigateToPatient(jq('#search-field-value').val());
+            navigateToPatient(parseInt(jq('#search-field-value').val()));
             return false;
         });
     });
@@ -27,7 +27,7 @@
                     + ' - ' + item.gender
                     + ' - ' + item.age;
         }
-        return item.textValue;
+        return false;
     }
 
     function navigateFunction(item) {
@@ -38,7 +38,7 @@
     }
 
     function navigateToPatient(patientId) {
-        if(patientId.length > 0 && (parseInt(patientId, 10) > 0)) {
+        if(patientId > 0) {
             emr.navigateTo({
                 provider: 'emr',
                 page: 'patient',
