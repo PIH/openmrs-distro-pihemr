@@ -75,27 +75,33 @@ header {
 .ui-tabs {
   border: none;
   padding: 0;
+
   ul {
     border: none;
     background: none;
     color: $text;
     @include border-radius(0);
   }
+
   .ui-tabs-nav {
     padding: 0;
     border-bottom: 1px solid #DDD;
+
     li {
       @include border-radius(0);
       border-color: #DDD;
       background: #F9F9F9;
       margin: 0 5px 0 0;
       font-family: "OpenSansBold";
+
       &.ui-tabs-active {
         background: white;
+
         a, a:link, .ui-state-default {
           border-top: 2px solid $text;
           margin: -1px;
           color: $text;
+          
           &:hover {
             color: $text;
           }
@@ -138,12 +144,93 @@ header {
   }
 }
 
-.sending-records {
-  padding: 10px;
-  border: 1px solid #eee;
-  margin: 20px 0;
-  h2 {
-    margin: 0px;
+.instructions {
+  font-size: 1.7em;
+  color: $highlight;
+  margin: 15px 0;
+
+  .instruction-text, strong {
+    display: table-cell;
+    vertical-align: middle;
   }
 
+  .instruction {
+    text-align: center;
+    width: 32%;
+    display: inline-block;
+  }
+
+  strong {
+    padding-left: 35%;
+    float: left;
+  }
+
+  .instruction-text {
+    padding-left: 20px;
+    font-weight: 100;
+    font-size: 0.7em;
+    width: 150px;
+    text-align: left;
+  }
+}
+
+.sending-records {
+  input {
+    width: 94.45%;
+    margin-bottom: 5px;
+    border-color: $highlight;
+    border: 2px solid;
+    color: $highlight;
+  }
+}
+
+#assign-to-create-button {
+  position: relative;
+  padding: 8px 15px;
+  margin-left: -10px;
+  
+  &.disabled {
+    background: #EEE;
+    border: #CCC 1px solid;
+    color: #CCC;
+    cursor: default;
+
+    #arrow-button {
+      border-left: 18px solid #eee;
+    }
+
+    #arrow-border-button {
+      border-left: 18px solid #ccc;
+    }
+  }
+
+  background: $highlight;
+  color: white;
+  border-color: #bbb;
+
+  i {
+    font-size: 2em;
+  }
+
+  #arrow-button {
+    width: 0;
+    height: 0;
+    top: 0;
+    right: -17px;
+    border-bottom: 34px solid transparent;
+    border-top: 33px solid transparent;
+    border-left: 18px solid $highlight;
+    position: absolute;
+  }
+
+   #arrow-border-button {
+    width: 0;
+    height: 0;
+    top: 0;
+    right: -18px;
+    border-bottom: 34px solid transparent;
+    border-top: 33px solid transparent;
+    border-left: 18px solid #bbb;
+    position: absolute;
+  }
 }
