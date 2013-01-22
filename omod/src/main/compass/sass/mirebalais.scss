@@ -101,7 +101,7 @@ header {
           border-top: 2px solid $text;
           margin: -1px;
           color: $text;
-          
+
           &:hover {
             color: $text;
           }
@@ -184,7 +184,7 @@ header {
   }
 }
 
-#assign-to-create-button {
+#assign-to-create-button, #assign-to-pull-button {
   position: relative;
   padding: 8px 15px;
   margin-left: -10px;
@@ -195,12 +195,28 @@ header {
     color: #CCC;
     cursor: default;
 
+    &:hover {
+      background: #EEE;
+
+      #arrow-button {
+      border-left: 18px solid #EEE;
+    }
+    }
+
     #arrow-button {
       border-left: 18px solid #eee;
     }
 
     #arrow-border-button {
       border-left: 18px solid #ccc;
+    }
+  }
+
+  &:hover {
+     background: lighten($highlight, 10%);
+
+     #arrow-button {
+      border-left: 18px solid lighten($highlight, 10%);
     }
   }
 
