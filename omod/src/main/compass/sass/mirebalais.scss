@@ -188,42 +188,10 @@ header {
   position: relative;
   padding: 8px 15px;
   margin-left: -10px;
-  
-  &.disabled {
-    background: #EEE;
-    border: #CCC 1px solid;
-    color: #CCC;
-    cursor: default;
-
-    &:hover {
-      background: #EEE;
-
-      #arrow-button {
-      border-left: 18px solid #EEE;
-    }
-    }
-
-    #arrow-button {
-      border-left: 18px solid #eee;
-    }
-
-    #arrow-border-button {
-      border-left: 18px solid #ccc;
-    }
-  }
-
-  &:hover {
-     background: lighten($highlight, 10%);
-
-     #arrow-button {
-      border-left: 18px solid lighten($highlight, 10%);
-    }
-  }
-
   background: $highlight;
   color: white;
   border-color: #bbb;
-
+  
   i {
     font-size: 2em;
   }
@@ -248,5 +216,28 @@ header {
     border-top: 33px solid transparent;
     border-left: 18px solid #bbb;
     position: absolute;
+  }
+
+  &:hover {
+    background: lighten($highlight, 10%);
+
+    #arrow-button {
+      border-left: 18px solid lighten($highlight, 10%);
+    }
+  }
+
+  &.disabled {
+    background: #EEE;
+    border: #CCC 1px solid;
+    color: #CCC;
+    cursor: default;
+
+    #arrow-button {
+      border-left: 18px solid #eee;
+    }
+
+    #arrow-border-button {
+      border-left: 18px solid #ccc;
+    }
   }
 }
