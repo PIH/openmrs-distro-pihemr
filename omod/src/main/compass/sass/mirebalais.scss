@@ -149,11 +149,6 @@ header {
   color: $highlight;
   margin: 15px 0;
 
-  .instruction-text, strong {
-    display: table-cell;
-    vertical-align: middle;
-  }
-
   .instruction {
     text-align: center;
     width: 32%;
@@ -171,6 +166,7 @@ header {
     font-size: 0.7em;
     width: 150px;
     text-align: left;
+    float: left;
   }
 }
 
@@ -217,14 +213,6 @@ header {
     border-top: 33px solid transparent;
     border-left: 18px solid #bbb;
     position: absolute;
-  }
-
-  &:hover {
-    background: lighten($highlight, 10%);
-
-    #arrow-button {
-      border-left: 18px solid lighten($highlight, 10%);
-    }
   }
 
   &.disabled {

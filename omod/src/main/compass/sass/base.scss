@@ -232,7 +232,7 @@ table {
     background: white;
   }
   tr.hover{
-    background: lighten($link, 15%);
+    background: grayscale($link);
     color: white;
     cursor: pointer;
   }
