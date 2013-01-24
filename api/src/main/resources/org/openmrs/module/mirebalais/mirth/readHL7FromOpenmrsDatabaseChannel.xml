@@ -13,7 +13,7 @@
     <name>sourceConnector</name>
     <properties>
       <property name="DataType">Database Reader</property>
-      <property name="URL">jdbc:mysql://localhost:3306/openmrs?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+      <property name="URL">jdbc:mysql://localhost:3306/${mysqlDatabase}?autoReconnect=true&amp;sessionVariables=storage_engine=InnoDB&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
       <property name="ack">UPDATE pacsintegration_outbound_queue SET processed=1
 			WHERE outbound_queue_id=${outbound_queue_id};</property>
       <property name="ackScript"></property>

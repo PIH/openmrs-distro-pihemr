@@ -55,12 +55,12 @@
         <property name="bufferSize">65536</property>
         <property name="charEncoding">hex</property>
         <property name="charsetEncoding">UTF-8</property>
-        <property name="host">127.0.0.1</property>
+        <property name="host">${pacsIpAddress}</property>
         <property name="keepSendSocketOpen">0</property>
         <property name="maxRetryCount">99</property>
         <property name="messageEnd">0x1C</property>
         <property name="messageStart">0x0B</property>
-        <property name="port">6660</property>
+        <property name="port">${pacsDestinationPort}</property>
         <property name="processHl7AckResponse">0</property>
         <property name="queueAckTimeout">0</property>
         <property name="queuePollInterval">200</property>

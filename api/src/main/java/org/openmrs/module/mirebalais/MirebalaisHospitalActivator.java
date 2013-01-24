@@ -267,10 +267,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 				File channelFile = new File(dir, channel + ".xml");
 				String channelString = IOUtils.toString(channelStream);
 				
-				// do a search and replace to add the appropriate the mysql username and password from runtime properties
+				// do a search and replace to add the appropriate the mysql and pacs information from runtime properties
 				channelString = channelString.replaceAll("\\$\\{mysqlUsername\\}", customProperties.getMirthMysqlUsername());
 				channelString = channelString.replaceAll("\\$\\{mysqlPassword\\}", customProperties.getMirthMysqlPassword());
-				
+                channelString = channelString.replaceAll("\\$\\{mysqlDatabase\\}", customProperties.getMirthMysqlDatabase());
+                channelString = channelString.replaceAll("\\$\\{pacsIpAddress\\}", customProperties.getPacsIpAddress());
+                channelString = channelString.replaceAll("\\$\\{pacsDestinationPort\\}", customProperties.getPacsDestinationPort());
+
 				// write the channel out to a tmp file
 				FileUtils.writeStringToFile(channelFile, channelString);
 				IOUtils.closeQuietly(channelStream);

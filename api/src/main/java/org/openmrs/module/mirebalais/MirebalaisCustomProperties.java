@@ -20,8 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static org.openmrs.module.mirebalais.MirebalaisConstants.DEFAULT_MIRTH_MYSQL_PASSWORD;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.DEFAULT_MIRTH_MYSQL_USERNAME;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
@@ -39,6 +37,13 @@ public class MirebalaisCustomProperties {
 	public static final String MIRTH_MYSQL_USERNAME = "mirth_mysql_username";
 	
 	public static final String MIRTH_MYSQL_PASSWORD = "mirth_mysql_password";
+
+    public static final String MIRTH_MYSQL_DATABASE = "mirth_mysql_database";
+
+    public static final String PACS_IP_ADDRESS = "pacs_ip_address";
+
+    public static final String PACS_DESTINATION_PORT= "pacs_destination_port";
+
 	
 	private Log log = LogFactory.getLog(getClass());
 	
@@ -62,13 +67,26 @@ public class MirebalaisCustomProperties {
 	}
 	
 	public String getMirthMysqlUsername() {
-		return properties.getProperty(MIRTH_MYSQL_USERNAME, DEFAULT_MIRTH_MYSQL_USERNAME);
+		return properties.getProperty(MIRTH_MYSQL_USERNAME, MirebalaisConstants.DEFAULT_MIRTH_MYSQL_USERNAME);
 	}
 	
 	public String getMirthMysqlPassword() {
-		return properties.getProperty(MIRTH_MYSQL_PASSWORD, DEFAULT_MIRTH_MYSQL_PASSWORD);
+		return properties.getProperty(MIRTH_MYSQL_PASSWORD, MirebalaisConstants.DEFAULT_MIRTH_MYSQL_PASSWORD);
 	}
-	
+
+    public String getMirthMysqlDatabase() {
+        return properties.getProperty(MIRTH_MYSQL_DATABASE, MirebalaisConstants.DEFAULT_MIRTH_MYSQL_DATABASE);
+    }
+
+    public String getPacsIpAddress() {
+        return properties.getProperty(PACS_IP_ADDRESS, MirebalaisConstants.DEFAULT_PACS_IP_ADDRESS);
+    }
+
+    public String getPacsDestinationPort() {
+        return properties.getProperty(PACS_DESTINATION_PORT, MirebalaisConstants.DEFAULT_PACS_DESTINATION_PORT);
+    }
+
+
 	private Properties createFile() {
 		String propertiesFile = System.getenv(MIREBALAIS_CUSTOM_PROPERTIES_FILE);
 		
