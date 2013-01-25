@@ -64,9 +64,6 @@ a {
     color: lighten($link, 10%);
     text-decoration: underline;
   }
-  &:visited, &.visited {
-    color: darken($link, 10%);
-  }
 }
 
 h1, h2, h3, h4, h5, h6 {

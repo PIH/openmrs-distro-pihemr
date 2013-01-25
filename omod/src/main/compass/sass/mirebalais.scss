@@ -230,3 +230,78 @@ header {
     }
   }
 }
+
+#modal-overlay {
+  background-color: #aaa;
+  opacity: 0.8;
+}
+
+.dialog {
+  width: 450px;
+  padding: 0 0 30px 0;
+  text-align: left;
+  background: white;
+  margin: 0 auto;
+  @include border-radius(3px);
+  @include box-shadow(2px 2px 15px #999, -2px -2px 15px #999);
+
+  .dialog-header {
+    background: $highlight;
+    color: white;
+    padding: 0 29px;
+    padding-top: 5px;
+    border-bottom: darken($highlight, 20%) 1px solid;
+    @include border-top-radius(3px);
+  }
+
+  .dialog-content {
+    padding: 20px 30px 0 30px;
+
+    .dialog-instructions {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      font-style: italic;
+    }
+
+    h5 {
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+
+      &.info {
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+
+  i {
+    font-size: 1.8em;
+    color: white;
+  }
+
+  h3 {
+    width: 350px;
+    text-align: center;
+    display: inline-block;
+    color: white;
+  }
+
+  ul {
+    margin-bottom: 40px;
+  }
+
+  select {
+    display: block;
+    margin: 5px 0;
+    color: $text;
+    padding: 5px 0 5px 10px;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+
+    option {
+      font-size: 1.5em;
+    }
+  }
+}
