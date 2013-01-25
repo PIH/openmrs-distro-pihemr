@@ -4,6 +4,7 @@ header {
   position: relative;
   background-color: $highlight;
   color: #CCC;
+  line-height: 1em;
   @include border-radius(5px);
 
   a, a:visited, a:hover, a:link {
