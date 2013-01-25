@@ -286,47 +286,66 @@ table {
 }
 
 .note {
-  padding: 10px;
-  margin: 20px 0;
+  padding: 15px;
+  margin-top: 20px;
   overflow: hidden;
   clear: both;
+  position: relative;
+  border-radius: 3px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 
   .icon {
     float: left;
+    top: 20px;
+
     i {
-      padding: 0;
-      padding-right: 20px;
+      border-radius: 50%;
+      border: 2px solid;
+      padding: 0 6px;
+      font-size: 1.7em;
+    }
+  }
+
+  .close-icon {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+    font-size: 0.25em;
+  }
+
+  &.error {
+    .icon {
+      i {
+        font-size: 1.55em;
+        padding: 1px 8px;
+      }
     }
   }
 
   .text {
     display: inline-block;
-    width: 90%;
-    padding-left: 35px;
-
+    padding-left: 45px;
     p {
       margin: 5px;
       text-align: left;
     }
   }
-
   &.warning, &.success, &.error {
     border: 1px solid transparent;
   }
-
   &.warning {
-    background: lighten($alert, 10%);
+    color: $alert;
+    background: $alertBackground;
     border-color: $alert;
   }
-
   &.success {
-    background: lighten($success, 10%);
-    border-color: $success
+    color: darken($success, 25%);
+    background: $successBackground;
+    border-color: darken($success, 25%);
   }
-
   &.error {
-    background: lighten($error, 10%);
+    color: $error;
+    background: $errorBackground;
     border-color: $error;
-    color: white;
   }
 }
