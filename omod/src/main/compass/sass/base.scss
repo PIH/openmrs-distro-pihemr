@@ -68,6 +68,9 @@ a {
     color: lighten($link, 10%);
     text-decoration: underline;
   }
+  &:visited, &.visited {
+    color: $link
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -98,7 +101,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1.2em;
   color: lighten($highlight, 15%);
 }
 
@@ -170,6 +173,7 @@ form {
   }
 
   p {
+    text-align: right;
 
     strong {
       display: block;
