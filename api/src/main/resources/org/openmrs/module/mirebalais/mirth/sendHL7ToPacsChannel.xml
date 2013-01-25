@@ -118,7 +118,7 @@
   <preprocessingScript>// Strip off the leading and trailing &lt;result&gt; and &lt;message&gt; tags
 
       message = message.replace(/&amp;amp;/g,&quot;&amp;&quot;);
-	  //message = message.replace(/&amp;#13;/g,&quot;\\n&quot;);
+      message = message.replace(/&amp;#13;/g,&quot;\x0D&quot;);
       message = message.replace(&quot;&lt;result&gt;&lt;message&gt;&quot;,&quot;&quot;);
       message = message.replace(&quot;&lt;/message&gt;&lt;/result&gt;&quot;,&quot;&quot;);
 
