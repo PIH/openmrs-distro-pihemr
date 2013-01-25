@@ -306,3 +306,57 @@ header {
     }
   }
 }
+
+//toast messages
+.toast-type-success {
+  opacity: 1;
+  border: 1px solid;
+  color: darken($success,40%);
+  background: $success;
+  border-color: darken($success, 10%);
+}
+
+.toast-type-error {
+  opacity: 1;
+  border: 1px solid;
+  color: white;
+  background: lighten($error, 10%);
+  border-color: darken($error, 10%);
+}
+
+.toast-item-image {
+  background: 0;
+  font-family: FontAwesome;
+  font-size: 1.3em;
+  border-radius: 50%;
+  border: 2px solid;
+  width: auto;
+  height: auto;
+  
+}
+
+.toast-item-close {
+  background: 0;
+  font-family: FontAwesome;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+  @extend .icon-remove;
+}
+
+.toast-item-image-success {
+  @extend .icon-ok;
+  padding: 6px;
+  color: $success;
+  background: darken($success,40%);
+  border-color: darken($success,40%);
+}
+
+.toast-item-image-error {
+  @extend .icon-remove;
+  padding: 1px 5px;
+  padding-top: 4px;
+  background: white;
+  color: lighten($error, 10%);
+  border-color: white;
+}
