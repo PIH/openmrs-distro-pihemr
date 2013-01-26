@@ -347,8 +347,8 @@ header {
 .toast-item-image-success {
   @extend .icon-ok;
   padding: 6px;
-  color: $success;
-  background: darken($success,40%);
+  color: darken($success,40%);
+  background: $success;
   border-color: darken($success,40%);
 }
 

@@ -372,8 +372,8 @@ table {
     border-color: darken($success, 10%);
 
     .icon i {
-      color: $success;
-      background: darken($success,40%);
+      color: darken($success,40%);
+      background: $success;
       border-color: darken($success,40%);
     }
   }
