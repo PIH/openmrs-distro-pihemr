@@ -76,7 +76,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	@Override
 	public String getWebappName() {
-		return "mirebalais";
+		return "mirthIT";
 	}
 	
 	@Autowired
@@ -127,7 +127,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		activator.started();
 		
 		// give Mirth channels a few seconds to start
-		Thread.sleep(5000);
+		Thread.sleep(10000);
 		
 		// confirm that appropriate Mirth channels have been deployed
 		String[] commands = new String[] {
