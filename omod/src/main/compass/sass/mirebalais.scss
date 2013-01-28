@@ -308,20 +308,25 @@ header {
 }
 
 //toast messages
+.toast-item {
+  font-family: "OpenSans", Arial, sans-serif;
+  font-size: 16px;
+}
+
 .toast-type-success {
   opacity: 1;
   border: 1px solid;
-  color: darken($success,40%);
-  background: $success;
-  border-color: darken($success, 10%);
+  border: 2px solid;
+  border-color: $success;
 }
 
 .toast-type-error {
   opacity: 1;
   border: 1px solid;
   color: white;
-  background: lighten($error, 10%);
-  border-color: darken($error, 10%);
+  //background: lighten($error, 10%);
+  border: 2px solid;
+  border-color: $error;
 }
 
 .toast-item-image {
@@ -332,7 +337,6 @@ header {
   border: 2px solid;
   width: auto;
   height: auto;
-  
 }
 
 .toast-item-close {
@@ -347,16 +351,27 @@ header {
 .toast-item-image-success {
   @extend .icon-ok;
   padding: 6px;
-  color: darken($success,40%);
+  color: white;
   background: $success;
-  border-color: darken($success,40%);
+  border-color: $success;
 }
 
 .toast-item-image-error {
   @extend .icon-remove;
   padding: 1px 5px;
   padding-top: 4px;
-  background: white;
-  color: lighten($error, 10%);
-  border-color: white;
+  background: lighten($error, 10%);
+  color: white;
+  border-color: lighten($error, 10%);
+}
+
+.toast-record-location, .toast-record-id {
+  font-size: 1.8em;
+  font-weight: bold;
+  display: block;
+  color: white;
+}
+
+.toast-record-found {
+  color: #ccc;
 }
