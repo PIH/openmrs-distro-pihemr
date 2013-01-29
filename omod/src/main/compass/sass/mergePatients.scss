@@ -1,39 +1,28 @@
 @import "colors";
-@import "base";
+@import "compass";
 
-/*.non-preferred-patient {
-  background-color: $lighterGrey;
-  padding: 0.5em;
-  vertical-align: top;
-  display:block;
-  float:left;
 
-  .section-heading {
-    color: #6B6B6B;
-    font-weight: bold;
-    padding-bottom: 0.3em;
+#merge-patient-container {
+  width: 50%;
+  margin: 40px auto;
+  border: 1px solid #EEE;
+  padding: 5px 10px;
+  form {
+    p {
+      text-align: left !important;
+      margin-bottom: 10px;
+      input {
+        min-width: auto;
+        display: inline-block;
+        max-width: 120px;
+      }
+      span {
+        display: inline-block;
+        color: #888;
+      }
+    }
   }
-
 }
-
-.preferred-patient {
-  background-color: lighten($pihSecondaryDarkBlue, 40);
-  padding: 0.5em;
-  vertical-align: top;
-  border-width: 2px;
-  border-color: $black;
-  border-style:solid;
-  display:block;
-  float:left;
-
-
-  .section-heading {
-    color: $white;
-    font-weight: bold;
-    padding-bottom: 0.3em;
-  }
-
-}*/
 
 .patient {
   background: #F9F9F9;
