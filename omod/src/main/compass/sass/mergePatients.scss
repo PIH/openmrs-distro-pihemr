@@ -1,21 +1,24 @@
 @import "colors";
 @import "compass";
 
-
 #merge-patient-container {
   width: 50%;
   margin: 40px auto;
   border: 1px solid #EEE;
   padding: 5px 10px;
+
   form {
+    
     p {
       text-align: left !important;
       margin-bottom: 10px;
+
       input {
         min-width: auto;
         display: inline-block;
         max-width: 120px;
       }
+
       span {
         display: inline-block;
         color: #888;
@@ -25,31 +28,39 @@
 }
 
 .patient {
+  cursor: pointer;
   background: #F9F9F9;
   border: 2px solid #CCC;
   width: 320px;
   float: left;
   @include border-radius(4px);
+  
   .row {
     padding: 10px;
     background: #EAEAEA;
     margin: 1px;
+
     div {
       span { display: block }
     }
   }
+
   h3 {
     font-size: 1.2em;
     margin: 0
   }
+
   &.selected {
     background: lighten($link, 20%);
     border-color: $link;
+
     .row {
       background: $link;
+
       h3 {
         color: #003F5E;
       }
+
       div {
         color: #FFF;
       }
@@ -122,4 +133,3 @@ h2{
     font-weight: bold;
   }
 }
-
