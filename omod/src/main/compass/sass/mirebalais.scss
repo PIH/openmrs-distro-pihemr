@@ -315,16 +315,13 @@ header {
 
 .toast-type-success {
   opacity: 1;
-  border: 1px solid;
   border: 2px solid;
   border-color: $success;
 }
 
 .toast-type-error {
   opacity: 1;
-  border: 1px solid;
   color: white;
-  //background: lighten($error, 10%);
   border: 2px solid;
   border-color: $error;
 }
@@ -334,7 +331,6 @@ header {
   font-family: FontAwesome;
   font-size: 1.3em;
   border-radius: 50%;
-  border: 2px solid;
   width: auto;
   height: auto;
 }
@@ -350,7 +346,7 @@ header {
 
 .toast-item-image-success {
   @extend .icon-ok;
-  padding: 6px;
+  padding: 7px 7px 5px 7px;
   color: white;
   background: $success;
   border-color: $success;
@@ -358,15 +354,15 @@ header {
 
 .toast-item-image-error {
   @extend .icon-remove;
-  padding: 1px 5px;
-  padding-top: 4px;
+  padding: 5px 9px;
+  padding-top: 8px;
   background: lighten($error, 10%);
   color: white;
   border-color: lighten($error, 10%);
 }
 
 .toast-record-location, .toast-record-id {
-  font-size: 1.8em;
+  font-size: 1.6em;
   font-weight: bold;
   display: block;
   color: white;
