@@ -342,6 +342,12 @@ header {
   color: $success;
 }
 
+.toast-item-image-alert {
+  @extend .icon-exclamation-sign;
+  color: $alert;
+  font-size: 2em;
+}
+
 .toast-item-image-error {
   @extend .icon-remove;
   color: lighten($error, 10%);
