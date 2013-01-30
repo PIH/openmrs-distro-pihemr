@@ -104,6 +104,45 @@
 
     <section id="vitals" sectionTag="section" headerStyle="title" headerLabel="Vitals">
         <fieldset>
+            <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
+
+            <p>
+                <span class="units"><uimessage code="mirebalais.vitals.height.units"/></span>
+                <obs conceptId="PIH:HEIGHT (M)" id="height"/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
+
+            <p>
+                <span class="units"><uimessage code="mirebalais.vitals.weight.units"/></span>
+                <obs conceptId="PIH:WEIGHT (KG)" id="weight"/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.bmi.title"/></h3>
+
+            <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
+
+            <span id="no-calculated-bmi">
+                <uimessage code="mirebalais.vitals.bmi.instructions"/>
+            </span>
+            <span id="calculated-bmi-wrapper">
+                <uimessage code="mirebalais.vitals.bmi.display"/>
+                <span id='calculated-bmi'></span>
+            </span>
+
+            <p>
+                <uimessage code="mirebalais.vitals.calculatedField.continue"/>
+            </p>
+        </fieldset>
+
+        <fieldset>
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
@@ -166,44 +205,6 @@
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
-
-            <p>
-                <span class="units"><uimessage code="mirebalais.vitals.height.units"/></span>
-                <obs conceptId="PIH:HEIGHT (M)" id="height"/>
-            </p>
-        </fieldset>
-
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
-
-            <p>
-                <span class="units"><uimessage code="mirebalais.vitals.weight.units"/></span>
-                <obs conceptId="PIH:WEIGHT (KG)" id="weight"/>
-            </p>
-        </fieldset>
-
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.bmi.title"/></h3>
-
-            <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
-
-            <span id="no-calculated-bmi">
-                <uimessage code="mirebalais.vitals.bmi.instructions"/>
-            </span>
-            <span id="calculated-bmi-wrapper">
-                <uimessage code="mirebalais.vitals.bmi.display"/>
-                <span id='calculated-bmi'></span>
-            </span>
-
-            <p>
-                <uimessage code="mirebalais.vitals.calculatedField.continue"/>
-            </p>
-        </fieldset>
     </section>
 
     <submit/>
