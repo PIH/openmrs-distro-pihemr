@@ -311,31 +311,24 @@ header {
 .toast-item {
   font-family: "OpenSans", Arial, sans-serif;
   font-size: 16px;
-}
-
-.toast-type-success {
-  opacity: 1;
-  border: 2px solid;
-  border-color: $success;
-}
-
-.toast-type-error {
-  opacity: 1;
-  color: white;
-  border: 2px solid;
-  border-color: $error;
+  background-color: transparent;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.88));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), inset 0 0 0 1px rgba(255,255,255,0.1);
+  border: 1px solid #000;
+  -webkit-border-radius: 4px;
 }
 
 .toast-item-image {
   background: 0;
   font-family: FontAwesome;
-  font-size: 1.3em;
-  border-radius: 50%;
+  font-size: 1.7em;
   width: auto;
   height: auto;
+  padding: 7px;
 }
 
 .toast-item-close {
+  font-size: 0.8em;
   background: 0;
   font-family: FontAwesome;
   height: auto;
@@ -346,23 +339,16 @@ header {
 
 .toast-item-image-success {
   @extend .icon-ok;
-  padding: 7px 7px 5px 7px;
-  color: white;
-  background: $success;
-  border-color: $success;
+  color: $success;
 }
 
 .toast-item-image-error {
   @extend .icon-remove;
-  padding: 5px 9px;
-  padding-top: 8px;
-  background: lighten($error, 10%);
-  color: white;
-  border-color: lighten($error, 10%);
+  color: lighten($error, 10%);
 }
 
 .toast-record-location, .toast-record-id {
-  font-size: 1.6em;
+  font-size: 1.4em;
   font-weight: bold;
   display: block;
   color: white;
