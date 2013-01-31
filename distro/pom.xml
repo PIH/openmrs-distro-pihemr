@@ -160,6 +160,13 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>providermanagement-omod</artifactId>
+                    <version>${providerManagementVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
             </dependencies>
             <build>
                 <plugins>

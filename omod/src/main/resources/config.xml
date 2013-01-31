@@ -53,6 +53,9 @@
         <require_module version="${pacsintegrationVersion}">
             org.openmrs.module.pacsintegration
         </require_module>
+        <require_module version="${providerManagementVersion}">
+            org.openmrs.module.providermanagement
+        </require_module>
 	</require_modules>
 
 	<activator>

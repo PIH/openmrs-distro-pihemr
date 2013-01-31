@@ -60,9 +60,10 @@
 		<patientregistrationVersion>2.0-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.8</addresshierarchyVersion>
+        <providerManagementVersion>1.1.2</providerManagementVersion>
         <eventVersion>2.0.1</eventVersion>
         <openmrswebVersion>1.9.3-SNAPSHOT</openmrswebVersion>
-        <uilibraryVersion>1.4</uilibraryVersion> <!-- Need to phase this out. -->
+        <uilibraryVersion>1.5</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -182,13 +183,18 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>providermanagement-api</artifactId>
+            <version>${providerManagementVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>emr-api</artifactId>
             <version>${emrVersion}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
-
-
 
         <!-- End OpenMRS modules -->
 
