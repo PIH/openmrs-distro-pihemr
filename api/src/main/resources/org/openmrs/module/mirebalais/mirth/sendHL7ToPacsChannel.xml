@@ -54,7 +54,7 @@
         <property name="ackTimeout">0</property>
         <property name="bufferSize">65536</property>
         <property name="charEncoding">hex</property>
-        <property name="charsetEncoding">UTF-8</property>
+        <property name="charsetEncoding">windows-1252</property>
         <property name="host">${pacsIpAddress}</property>
         <property name="keepSendSocketOpen">0</property>
         <property name="maxRetryCount">99</property>
