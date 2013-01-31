@@ -68,9 +68,19 @@ ${ ui.includeFragment("emr", "header") }
 
     </div>
 </div>
-<div id="cannot-login-popup">
-    ${ ui.message("mirebalais.login.cannotLoginInstructions") }
+
+<div id="cannot-login-popup" class="dialog" style="display: none">
+    <div class="dialog-header">
+        <i class="icon-info-sign"></i>
+        <h3>${ ui.message("mirebalais.login.cannotLogin") }</h3>
+    </div>
+    <div class="dialog-content">
+        <p class="dialog-instructions">${ ui.message("mirebalais.login.cannotLoginInstructions") }</p>
+
+        <button class="confirm">${ ui.message("emr.okay") }</button>
+    </div>
 </div>
+
 
 <script type="text/javascript">
 	document.getElementById('username').focus();
@@ -87,15 +97,16 @@ ${ ui.includeFragment("emr", "header") }
             updateSelectedOption();
         });
 
-        \$('#cannot-login-popup').dialog({
-            autoOpen: false,
-            modal: true,
-            title: "${ ui.message("mirebalais.login.cannotLogin") }",
-            width: 750,
-            height: 200
+        var cannotLoginController = emr.setupConfirmationDialog({
+            selector: '#cannot-login-popup',
+            actions: {
+                confirm: function() {
+                    cannotLoginController.close();
+                }
+            }
         });
         \$('a#cant-login').click(function() {
-            \$('#cannot-login-popup').dialog('open');
+            cannotLoginController.show();
         })
     });
 </script>
