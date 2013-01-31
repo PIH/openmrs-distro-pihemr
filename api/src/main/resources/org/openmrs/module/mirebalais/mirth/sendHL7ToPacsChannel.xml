@@ -56,7 +56,7 @@
                 <property name="charEncoding">hex</property>
                 <property name="charsetEncoding">windows-1252</property>
                 <property name="host">${pacsIpAddress}</property>
-                <property name="keepSendSocketOpen">0</property>
+                <property name="keepSendSocketOpen">1</property>
                 <property name="maxRetryCount">99</property>
                 <property name="messageEnd">0x1C</property>
                 <property name="messageStart">0x0B</property>
