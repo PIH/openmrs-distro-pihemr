@@ -93,7 +93,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		customProperties = new MirebalaisCustomProperties();
 	}
-	
+
 	/**
 	 * @see ModuleActivator#willRefreshContext()
 	 */
@@ -526,7 +526,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		return currentMetadataVersions;
 	}
 	
-	void setCustomProperties(MirebalaisCustomProperties customProperties) {
+	public void setCustomProperties(MirebalaisCustomProperties customProperties) {
 		this.customProperties = customProperties;
 	}
 }

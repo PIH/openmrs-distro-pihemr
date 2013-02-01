@@ -48,6 +48,7 @@ import org.openmrs.module.emr.EmrProperties;
 import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.emr.adt.AdtService;
 import org.openmrs.module.emr.radiology.RadiologyOrder;
+import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -58,6 +59,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
@@ -296,7 +300,20 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	}
 	
 	public class TestMirebalaisHospitalActivator extends MirebalaisHospitalActivator {
-		
+
+        public TestMirebalaisHospitalActivator() {
+            super();
+            MirebalaisCustomProperties properties = mock(MirebalaisCustomProperties.class);
+            when(properties.getMirthMysqlDatabase()).thenReturn("openmrs");
+            when(properties.getMirthMysqlUsername()).thenReturn("mirth");
+            when(properties.getMirthMysqlPassword()).thenReturn("Mirth123");
+            when(properties.getPacsIpAddress()).thenReturn("127.0.0.1");
+            when(properties.getPacsDestinationPort()).thenReturn("6660");
+
+            setCustomProperties(properties);
+        }
+
+
 		@Override
 		protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
 			try {
