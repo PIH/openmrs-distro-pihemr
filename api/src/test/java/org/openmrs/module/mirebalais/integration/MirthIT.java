@@ -63,6 +63,9 @@ import org.springframework.test.annotation.NotTransactional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// NOTE: the mirebalais.properties hardcoded in this file are bamboo-specific
+// these tests will only pass on bamboo
+
 @SkipBaseSetup
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
@@ -309,6 +312,9 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
             when(properties.getMirthMysqlPassword()).thenReturn("Mirth123");
             when(properties.getPacsIpAddress()).thenReturn("127.0.0.1");
             when(properties.getPacsDestinationPort()).thenReturn("6660");
+            when(properties.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
+            when(properties.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
+            when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n")
 
             setCustomProperties(properties);
         }
