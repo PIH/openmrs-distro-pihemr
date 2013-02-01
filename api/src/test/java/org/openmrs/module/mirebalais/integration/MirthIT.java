@@ -314,7 +314,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
             when(properties.getPacsDestinationPort()).thenReturn("6660");
             when(properties.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
             when(properties.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
-            when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n")
+            when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
 
             setCustomProperties(properties);
         }
