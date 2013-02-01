@@ -93,16 +93,30 @@ header {
       border-color: #DDD;
       background: #F9F9F9;
       margin: 0 5px 0 0;
-      font-family: "OpenSansBold";
+      margin-top: 8px;
+      -webkit-box-shadow: inset 0px -5px 10px #eee;
+
+      a {
+        outline: 0;
+        color: #aaa;
+      }
 
       &.ui-tabs-active {
+        font-size: 1.1em;
         background: white;
+        font-family: "OpenSansBold";
+        margin-top: 0px;
+        margin-bottom: -2px;
+        padding-bottom: 1px;
+        -webkit-box-shadow: none;
 
         a, a:link, .ui-state-default {
           border-top: 2px solid $text;
+          height: 22px;
           margin: -1px;
           color: $text;
-
+          padding-top: 13px;
+          
           &:hover {
             color: $text;
           }
@@ -111,8 +125,8 @@ header {
     }
   }
   .ui-tabs-panel {
-    padding: 5px;
-    border: 1px solid #DDD;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-top: none;
   }
 }
