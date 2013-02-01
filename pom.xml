@@ -283,10 +283,10 @@
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
 		</repository>
-        <repository>
+       <!-- <repository>
             <id>rubygems-releases</id>
             <url>http://rubygems-proxy.torquebox.org/releases</url>
-        </repository>
+        </repository>-->
 	</repositories>
 
 	<pluginRepositories>
