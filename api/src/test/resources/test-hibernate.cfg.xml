@@ -19,5 +19,6 @@
         <mapping resource="NamePhonetic.hbm.xml" />
 
         <mapping resource="RadiologyOrder.hbm.xml" />
+        <mapping resource="HtmlFormEntryHtmlForm.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
