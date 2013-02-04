@@ -161,7 +161,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		TestUtils.assertFuzzyContains("STARTED Read HL7 From OpenMRS Database", mirthStatus);
 		TestUtils.assertFuzzyContains("STARTED Send HL7 To Pacs", mirthStatus);
 		
-		// stop all channels, clear messages and statistics, and restart in preparation for tests
+	/*	// stop all channels, clear messages and statistics, and restart in preparation for tests
 		mirthShell = Runtime.getRuntime().exec(commands);
 		out = mirthShell.getOutputStream();
 		in = mirthShell.getInputStream();
@@ -173,7 +173,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		out.close();
 
         // give Mirth channels a few seconds to restart
-        Thread.sleep(5000);
+        Thread.sleep(5000);*/
 
         // now test that when we create a new patient, a new patient message is created
 		// if the test patient already exists, delete it and any existing orders
