@@ -171,8 +171,11 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		out.write("resetstats\n".getBytes());
 		out.write("channel start *\n".getBytes()); // restart all channels
 		out.close();
-		
-		// now test that when we create a new patient, a new patient message is created
+
+        // give Mirth channels a few seconds to restart
+        Thread.sleep(5000);
+
+        // now test that when we create a new patient, a new patient message is created
 		// if the test patient already exists, delete it and any existing orders
 		if (patientService.getPatients("2ADMMN").size() > 0) {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
