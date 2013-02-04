@@ -48,23 +48,26 @@
     }
 </script>
 
-
-<form id="search-form">
-    ${ ui.includeFragment("emr", "field/autocomplete", [
-            id: "search-field",
-            label: "",
-            placeholder: ui.message("emr.searchByNameOrIdOrScan"),
-            formFieldName: "patient1",
-            fragment: "findPatient",
-            action: "search",
-            maxResults: 10,
-            itemValueProperty: "patientId",
-            itemLabelFunction: "labelFunction",
-            onExactMatchFunction:"navigateFunction"
-    ])}
-</form>
-
-<hr class="separator"/>
+<div id="home-container">
+    <form id="search-form">
+        <label>
+            <i class="icon-search small"></i>
+            ${ui.message("emr.searchPatientHeading")}</label>
+        <div class="search-input">
+        ${ ui.includeFragment("emr", "field/autocomplete", [
+                id: "search-field",
+                label: "",
+                placeholder: ui.message("emr.searchByNameOrIdOrScan"),
+                formFieldName: "patient1",
+                fragment: "findPatient",
+                action: "search",
+                maxResults: 10,
+                itemValueProperty: "patientId",
+                itemLabelFunction: "labelFunction",
+                onExactMatchFunction:"navigateFunction"
+        ])}
+        </div>
+    </form>
 
 <div id="apps">
     <% apps.each { app -> %>
@@ -77,4 +80,6 @@
         </a>
 
     <% } %>
+</div>
+
 </div>
