@@ -38,6 +38,30 @@
 		<property name="homepageUrl" value="module/patientregistration/workflow/selectLocationAndService.form"/>
         <property name="iconUrl" value="icon-user"/>
 	</bean>
+    <bean id="patientRegistration" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="patientRegistration.registration" />
+        <property name="labelCode" value="mirebalais.app.patientRegistration.registration.label"/>
+        <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientRegistration"/>
+        <property name="iconUrl" value="icon-user"/>
+    </bean>
+    <bean id="checkin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="patientRegistration.checkin" />
+        <property name="labelCode" value="mirebalais.app.patientRegistration.checkin.label"/>
+        <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=primaryCareReception"/>
+        <property name="iconUrl" value="icon-user"/>
+    </bean>
+    <bean id="emergencyCheckin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="patientRegistration.emergencyCheckin" />
+        <property name="labelCode" value="mirebalais.app.patientRegistration.emergencyCheckin.label"/>
+        <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=edCheckIn"/>
+        <property name="iconUrl" value="icon-user"/>
+    </bean>
+    <bean id="patientLookup" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="patientRegistration.lookup" />
+        <property name="labelCode" value="mirebalais.app.patientRegistration.patientLookup.label"/>
+        <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientLookup"/>
+        <property name="iconUrl" value="icon-user"/>
+    </bean>
 
     <!-- Mirebalais-specific Vitals form -->
     <bean id="mirebalaisVitalsTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask">
