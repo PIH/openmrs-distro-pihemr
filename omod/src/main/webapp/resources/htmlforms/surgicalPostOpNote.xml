@@ -143,14 +143,14 @@
             <tr>
                 <td>Emergency/Urgent:</td>
                 <td>
-                    <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:No,PIH:Yes" answerLabels="no,yes"/>
+                    <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
                 </td>
             </tr>
 
             <tr>
                 <td>Scheduled/Elective:</td>
                 <td>
-                    <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:No,PIH:Yes"
+                    <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:NO,PIH:YES"
                          answerLabels="no,yes"/>
                 </td>
             </tr>
@@ -158,7 +158,7 @@
             <tr>
                 <td>Planned return to OR:</td>
                 <td>
-                    <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:No,PIH:Yes"
+                    <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:NO,PIH:YES"
                          answerLabels="no,yes"/>
                 </td>
             </tr>
@@ -177,20 +177,20 @@
             <tr>
                 <td>Fluids administered:</td>
                 <td>
-                    <obsgroup groupingConceptId="7901">
+                    <obsgroup groupingConceptId="PIH:IVF construct">
                         <obs conceptId="PIH:IVF administered" labelText="IVF:"/>
                         <obs conceptId="PIH:IVF volume" showUnits="true"/>
                         <br/>
                     </obsgroup>
                     <obs conceptId="PIH:Transfusion status" labelText="Transfusion:" style="radio"
-                         answerConceptIds="PIH:No,PIH:Yes" answerLabels="no,yes"/>
+                         answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
                     <br/>
 
                     <table style="margin-left:20px">
                         <tr>
                             <td colspan="2">If yes, specify type and volume:</td>
                         </tr>
-                        <obsgroup groupingConceptId="7867">
+                        <obsgroup groupingConceptId="PIH:Transfusion construct">
                             <tr>
                                 <td>
                                     <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
@@ -201,7 +201,7 @@
                                 </td>
                             </tr>
                         </obsgroup>
-                        <obsgroup groupingConceptId="7867">
+                        <obsgroup groupingConceptId="PIH:Transfusion construct">
                             <tr>
                                 <td>
                                     <obs conceptId="PIH:Transfusion of fluid"
@@ -213,7 +213,7 @@
                                 </td>
                             </tr>
                         </obsgroup>
-                        <obsgroup groupingConceptId="7867">
+                        <obsgroup groupingConceptId="PIH:Transfusion construct">
                             <tr>
                                 <td>
                                     <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
@@ -224,7 +224,7 @@
                                 </td>
                             </tr>
                         </obsgroup>
-                        <obsgroup groupingConceptId="7867">
+                        <obsgroup groupingConceptId="PIH:Transfusion construct">
                             <tr>
                                 <td>
                                     <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
@@ -252,7 +252,7 @@
                 <td>Pre-operative antibiotics administered:</td>
                 <td>
                     <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
-                         answerConceptIds="PIH:No,PIH:Yes" answerLabels="no,yes"/>
+                         answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
                     <br/>
                     <font class="bigIndent">
                         <obs conceptId="PIH:Surgery antibiotics" labelText="If yes, specify antibiotic name:"/>
@@ -278,7 +278,7 @@
                         <tr>
                             <td>Pathology</td>
                             <td>
-                                <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:No,PIH:Yes"
+                                <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
                                      answerLabels="no,yes"/>
                                 <br/>
                                 <font class="bigIndent">
@@ -289,7 +289,7 @@
                         <tr>
                             <td>Lab</td>
                             <td>
-                                <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:No,PIH:Yes"
+                                <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
                                      answerLabels="no,yes"/>
                                 <br/>
                                 <font class="bigIndent">
@@ -306,7 +306,7 @@
             <tr>
                 <td>Implant:</td>
                 <td>
-                    <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:No,PIH:Yes"
+                    <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:NO,PIH:YES"
                          answerLabels="no,yes"/>
                     <br/>
                     <font class="bigIndent">
