@@ -231,7 +231,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			
 			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
 			    metadataPackage.getGroupUuid());
-			if (installed != null && installed.getVersion() >= version) {
+			if (installed != null && installed.getVersion() >= version && installed.getDateImported() != null) {
 				log.info("Metadata package " + filename + " is already installed with version " + installed.getVersion());
 				return false;
 			}

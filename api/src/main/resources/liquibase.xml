@@ -4,9 +4,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--
-        See http://www.liquibase.org/manual/home#available_database_refactorings
-        for a list of supported elements and attributes
-    -->
+
+    <changeSet id="20130204-true-false-concept-uuids" author="djazayeri">
+        <comment>
+            Setting the UUIDs for the automatically-generated 'true' and 'false' concepts to match those used by PIH broadly
+        </comment>
+        <update tableName="concept">
+            <column name="uuid" value="3cd6f600-26fe-102b-80cb-0017a47871b2" />
+            <where>concept_id = 1</where>
+        </update>
+        <update tableName="concept">
+            <column name="uuid" value="3cd6f86c-26fe-102b-80cb-0017a47871b2" />
+            <where>concept_id = 2</where>
+        </update>
+    </changeSet>
     
 </databaseChangeLog>
