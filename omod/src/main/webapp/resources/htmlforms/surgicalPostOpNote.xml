@@ -2,7 +2,7 @@
   ~ The contents of this file are subject to the OpenMRS Public License
   ~ Version 1.0 (the "License"); you may not use this file except in
   ~ compliance with the License. You may obtain a copy of the License at
-  ~ http://license.openmrs.org
+  ~ http//license.openmrs.org
   ~
   ~ Software distributed under the License is distributed on an "AS IS"
   ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
@@ -15,334 +15,289 @@
 <htmlform formUuid="d29a49b1-957b-4bcb-b192-07484de4165b" formName="Brief post-operative note"
           formEncounterType="c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5" formVersion="1.0">
 
-
-    <macros>
-        headerColor =#003F5E
-        fontOnHeaderColor = white
-    </macros>
-
-    <style>
-        .formName { background-color:#e0e0ff; }
-        .section { border: 1px
-        solid #8FABC7; width:99%; padding:2px; text-align:left;
-        margin-bottom:10px; }
-        .sectionHeader { background-color: #8FABC7;
-        color: white; display: block; padding: 2px; font-weight:bold; }
-        table.symptoms th {text-align: right;}
-        .note {color:red;}
-        td {vertical-align:top;}
-        table.labTable td { color:red; }
-        table.labTable
-        td.dateField { text-align:right; }
-        table.identifierTable td {padding-right:10px;}
-        div.paddedTable span {padding-right:20px;}
-
-        .indented {padding-left: 20pt;
-        padding-right: 20pt; }
-        .bigIndent {padding-left: 40pt;
-        padding-right: 10pt; }
-    </style>
-
     <h2>Brief Operative Note (v1.0)</h2>
 
-    <section headerLabel="Encounter">
-        <table class="baseline-aligned">
-            <tr>
-                <td>Date of surgery:</td>
-                <td>
-                    <encounterDate default="today"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Location:</td>
-                <td>
-                    <encounterLocation/>
-                </td>
-            </tr>
-        </table>
+    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <fieldset>
+            <legend>When?</legend>
+            <label>When?</label>
+
+            <encounterDate default="now" showTime="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+            <label>Who?</label>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="a0b03050-c99b-11e0-9572-0800200c9a66"
+                                      required="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+            <label>Where?</label>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
+    </div>
+
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Service/team">
+
+        <p>
+            <label>Surgical service</label>
+            <obs conceptId="PIH:Surgical service"/>
+        </p>
+
+        <p>
+            <label>Attending Surgeon</label>
+            <encounterProviderAndRole encounterRole="3" required="true"/>
+        </p>
+
+        <p>
+            <label>Assistants</label>
+            <encounterProviderAndRole encounterRole="4" required="false"/>
+            <encounterProviderAndRole encounterRole="4" required="false"/>
+            <label>other</label>
+            <obs conceptId="PIH:Name of assistant surgeon"/>
+        </p>
+
+        <p>
+            <label>Anesthesiologist</label>
+            <encounterProviderAndRole encounterRole="5" required="false"/>
+            <encounterProviderAndRole encounterRole="5" required="false"/>
+        </p>
+
+        <p>
+            <label>Nurse</label>
+            <encounterProviderAndRole encounterRole="6" required="false"/>
+            <encounterProviderAndRole encounterRole="6" required="false"/>
+        </p>
+
     </section>
 
-    <section headerLabel="Surgery service/team">
-        <table class="baseline-aligned">
-            <tr>
-                <td>Surgical Service:</td>
-                <td>
-                    <obs conceptId="PIH: Surgical service"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Attending Surgeon:</td>
-                <td>
-                    <encounterProviderAndRole encounterRole="3" required="true"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Assistants:</td>
-                <td>
-                    <encounterProviderAndRole encounterRole="4" required="false"/>
-                    <encounterProviderAndRole encounterRole="4" required="false"/>
-                    <obs conceptId="PIH:Name of assistant surgeon" labelText=" other: "/>
-                </td>
-            </tr>
-            <tr>
-                <td>Anesthesiologist:</td>
-                <td>
-                    <encounterProviderAndRole encounterRole="5" required="false"/>
-                    <encounterProviderAndRole encounterRole="5" required="false"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Nurse:</td>
-                <td>
-                    <encounterProviderAndRole encounterRole="6" required="false"/>
-                    <encounterProviderAndRole encounterRole="6" required="false"/>
-                </td>
-            </tr>
-        </table>
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Description">
+
+        <p>
+            <label>Pre-operative Diagnoses</label>
+
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+
+        </p>
+
+        <p>
+            <label>Post-operative Diagnoses</label>
+
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+
+        </p>
+
+        <p>
+            <label>Procedures performed</label>
+
+            <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
+            <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
+            <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
+            <br/>
+            <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
+            <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
+
+        </p>
+
+        <p>
+            <label>Anesthesia</label>
+            <obs conceptId="PIH:Type of anesthesia"/>
+        </p>
+
+        <p>
+            <label>Emergency/Urgent</label>
+            <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
+        </p>
+
+        <p class="input-position-class">
+            <label>Scheduled/Elective</label>
+            <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator=""/>
+
+        </p>
+
+        <p class="input-position-class">
+            <label>Planned return to OR</label>
+            <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator=""/>
+
+        </p>
+
+        <p>
+            <label>Wound Classification</label>
+            <obs conceptId="PIH:Classifications of surgical wounds"/>
+        </p>
+
     </section>
 
-    <section headerLabel="Surgery description">
-        <table class="baseline-aligned">
-            <tr>
-                <td>Pre-operative Diagnoses:</td>
-                <td>
-                    <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                    <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                    <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                </td>
-            </tr>
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Ins and Outs">
+        <p>
+            <label>Fluids administered</label>
+            <obsgroup groupingConceptId="PIH:IVF construct">
+                <label>IVF</label>
+                <obs conceptId="PIH:IVF administered"/>
+                <obs conceptId="PIH:IVF volume" showUnits="true"/>
+            </obsgroup>
+            <label>Transfusion</label>
+            <obs conceptId="PIH:Transfusion status" style="radio"
+                 answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"
+                 answerSeparator=""/>
+        </p>
 
-            <tr>
-                <td>Post-operative Diagnoses:</td>
-                <td>
-                    <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                    <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                    <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                </td>
-            </tr>
+        <p>
+            <label>If yes, specify type and volume</label>
 
-            <tr>
-                <td>Procedures performed:</td>
-                <td>
-                    <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-                    <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-                    <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-                    <br/>
-                    <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-                    <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-                </td>
-            </tr>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
+                     answerLabel="Whole blood"/>
+                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
 
-            <tr>
-                <td>Anesthesia:</td>
-                <td>
-                    <obs conceptId="PIH:Type of anesthesia"/>
-                </td>
-            </tr>
 
-            <tr>
-                <td>Emergency/Urgent:</td>
-                <td>
-                    <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
-                </td>
-            </tr>
+            </obsgroup>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
 
-            <tr>
-                <td>Scheduled/Elective:</td>
-                <td>
-                    <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                         answerLabels="no,yes"/>
-                </td>
-            </tr>
+                <obs conceptId="PIH:Transfusion of fluid"
+                     answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
 
-            <tr>
-                <td>Planned return to OR:</td>
-                <td>
-                    <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                         answerLabels="no,yes"/>
-                </td>
-            </tr>
 
-            <tr>
-                <td>Wound Classification:</td>
-                <td>
-                    <obs conceptId="PIH:Classifications of surgical wounds"/>
-                </td>
-            </tr>
-        </table>
+                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
+
+
+            </obsgroup>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+
+
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
+                     answerLabel="Plasma"/>
+
+
+                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
+
+
+            </obsgroup>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+
+
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
+                     answerLabel="Platelets"/>
+
+
+                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
+
+
+            </obsgroup>
+        </p>
+
+        <p>
+            <label>Fluid outputs</label>
+            <label>Estimated blood loss</label>
+            <obs conceptId="PIH:Estimated blood loss" showUnits="true"/>
+            <label>Urine output</label>
+            <obs conceptId="PIH:Urine output" showUnits="true"/>
+        </p>
+
+
+        <p>
+            <label>Pre-operative antibiotics administered</label>
+
+            <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
+                 answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"
+                 answerSeparator=""/>
+            <label>If yes, specify antibiotic name</label>
+            <obs conceptId="PIH:Surgery antibiotics"/>
+
+        </p>
+
+
+        <p>
+            <label>Venous thromboembolism prophylaxis</label>
+
+            <obs conceptId="PIH:Venous thromboembolism prophylaxis"/>
+        </p>
+
+
     </section>
 
-    <section headerLabel="Ins and Outs">
-        <table class="baseline-aligned">
-            <tr>
-                <td>Fluids administered:</td>
-                <td>
-                    <obsgroup groupingConceptId="PIH:IVF construct">
-                        <obs conceptId="PIH:IVF administered" labelText="IVF:"/>
-                        <obs conceptId="PIH:IVF volume" showUnits="true"/>
-                        <br/>
-                    </obsgroup>
-                    <obs conceptId="PIH:Transfusion status" labelText="Transfusion:" style="radio"
-                         answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
-                    <br/>
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerLabel="Pathology / Complications">
 
-                    <table style="margin-left:20px">
-                        <tr>
-                            <td colspan="2">If yes, specify type and volume:</td>
-                        </tr>
-                        <obsgroup groupingConceptId="PIH:Transfusion construct">
-                            <tr>
-                                <td>
-                                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
-                                         answerLabel="Whole blood"/>
-                                </td>
-                                <td>
-                                    <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-                                </td>
-                            </tr>
-                        </obsgroup>
-                        <obsgroup groupingConceptId="PIH:Transfusion construct">
-                            <tr>
-                                <td>
-                                    <obs conceptId="PIH:Transfusion of fluid"
-                                         answerConceptId="PIH:Packed red blood cells"
-                                         answerLabel="Packed red blood cells"/>
-                                </td>
-                                <td>
-                                    <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-                                </td>
-                            </tr>
-                        </obsgroup>
-                        <obsgroup groupingConceptId="PIH:Transfusion construct">
-                            <tr>
-                                <td>
-                                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
-                                         answerLabel="Plasma"/>
-                                </td>
-                                <td>
-                                    <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-                                </td>
-                            </tr>
-                        </obsgroup>
-                        <obsgroup groupingConceptId="PIH:Transfusion construct">
-                            <tr>
-                                <td>
-                                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
-                                         answerLabel="Platelets"/>
-                                </td>
-                                <td>
-                                    <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-                                </td>
-                            </tr>
-                        </obsgroup>
-                    </table>
-                </td>
-            </tr>
 
-            <tr>
-                <td>Fluid outputs:</td>
-                <td>
-                    <obs labelText="Estimated blood loss" conceptId="PIH:Estimated blood loss" showUnits="true"/>
-                    <br/>
-                    <obs labelText="Urine output" conceptId="PIH:Urine output" showUnits="true"/>
-                </td>
-            </tr>
+        <p>
+            <label>Specimens sent</label>
+        </p>
 
-            <tr>
-                <td>Pre-operative antibiotics administered:</td>
-                <td>
-                    <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
-                         answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
-                    <br/>
-                    <font class="bigIndent">
-                        <obs conceptId="PIH:Surgery antibiotics" labelText="If yes, specify antibiotic name:"/>
-                    </font>
-                </td>
-            </tr>
 
-            <tr>
-                <td>Venous thromboembolism prophylaxis:</td>
-                <td>
-                    <obs conceptId="PIH:Venous thromboembolism prophylaxis"/>
-                </td>
-            </tr>
-        </table>
+        <p>
+            <label>Pathology</label>
+
+            <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator=""/>
+            <label>If yes, describe pathology sample</label>
+            <obs conceptId="PIH:Pathology sample comment"/>
+
+
+        </p>
+
+        <p>
+            <label>Lab</label>
+
+            <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator=""/>
+            <label>If yes, describe laboratory specimen</label>
+            <obs conceptId="PIH:Laboratory specimen comment"/>
+
+
+        </p>
+
+
+        <p>
+            <label>Implant</label>
+
+            <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator=""/>
+            <label>If yes, specify</label>
+            <obs conceptId="PIH:Implantation comment"/>
+
+        </p>
+
+
+        <p>
+            <label>Complications</label>
+
+            <obs conceptId="PIH:Complications from surgery"/>
+
+        </p>
+
     </section>
 
-    <section headerLabel="Pathology / Complications">
-        <table class="baseline-aligned">
-            <tr>
-                <td>Specimens sent:</td>
-                <td>
-                    <table>
-                        <tr>
-                            <td>Pathology</td>
-                            <td>
-                                <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                                     answerLabels="no,yes"/>
-                                <br/>
-                                <font class="bigIndent">
-                                    <obs conceptId="PIH:Pathology sample comment" labelText="If yes, please specify:"/>
-                                </font>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lab</td>
-                            <td>
-                                <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                                     answerLabels="no,yes"/>
-                                <br/>
-                                <font class="bigIndent">
-                                    <obs conceptId="PIH:Laboratory specimen comment"
-                                         labelText="If yes, please specify:"/>
-                                </font>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Plan">
 
 
-            <tr>
-                <td>Implant:</td>
-                <td>
-                    <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                         answerLabels="no,yes"/>
-                    <br/>
-                    <font class="bigIndent">
-                        <obs conceptId="PIH:Implantation comment" labelText="If yes, specify:"/>
-                    </font>
-                </td>
-            </tr>
+        <p>
+            <label>Disposition</label>
 
-            <tr>
-                <td>Complications:</td>
-                <td>
-                    <obs conceptId="PIH:Complications from surgery"/>
-                </td>
-            </tr>
-        </table>
+            <obs conceptId="PIH:Post-surgery disposition location"/>
+
+        </p>
+
+
+        <p>
+            <label>Findings/Description</label>
+
+            <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
+        </p>
+
+
     </section>
-
-    <section headerLabel="Plan">
-        <table class="baseline-aligned">
-
-            <tr>
-                <td>Disposition:</td>
-                <td>
-                    <obs conceptId="PIH:Post-surgery disposition location"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top">Findings/Description:</td>
-                <td>
-                    <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
-                </td>
-            </tr>
-
-        </table>
-    </section>
+    <br />
     <submit/>
 
 </htmlform>
