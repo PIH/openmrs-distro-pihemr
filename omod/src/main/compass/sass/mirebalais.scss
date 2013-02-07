@@ -66,6 +66,10 @@ header {
     font-size: 0.8em;
     z-index: 1;
 
+    .select {
+      font-size: 1em;
+    }
+
     li {
       width: 239px;
     }
@@ -131,6 +135,27 @@ header {
   }
 }
 
+#assigned_create_requests_table, #assigned_pull_requests_table {
+  th {
+    background: white;
+    border: none;
+    font-family: "OpenSansBold";
+    color: $text;
+  }
+
+  tr {
+    border: none;
+    border-bottom: 1px solid #eee;
+
+    td {
+      border: none;
+    }
+  }
+
+  tr:nth-child(even) {
+    background: white;
+  }
+}
 
 //archives-room
 .box-align {
