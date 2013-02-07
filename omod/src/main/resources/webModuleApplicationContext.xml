@@ -32,12 +32,6 @@
 	</bean>
 	
 	<!-- This should probably move to the patientregistration module -->
-	<bean id="mirebalaisPatientRegistrationApp" class="org.openmrs.module.appframework.SimpleAppDescriptor">
-		<property name="id" value="patientregistration.main"/>
-		<property name="labelCode" value="mirebalais.app.patientRegistration.main.label"/>
-		<property name="homepageUrl" value="module/patientregistration/workflow/selectLocationAndService.form"/>
-        <property name="iconUrl" value="icon-user"/>
-	</bean>
     <bean id="patientRegistration" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.registration" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.registration.label"/>
