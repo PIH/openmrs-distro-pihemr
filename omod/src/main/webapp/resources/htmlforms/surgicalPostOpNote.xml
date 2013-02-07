@@ -114,7 +114,8 @@
 
         <p>
             <label>Emergency/Urgent</label>
-            <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"/>
+            <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES"
+                 answerLabels="no,yes" answerSeparator="" />
         </p>
 
         <p class="input-position-class">
