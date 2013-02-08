@@ -64,6 +64,7 @@
         <property name="labelCode" value="mirebalais.task.vitals.label"/>
         <property name="priority" value="10.9"/>
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/vitals.xml"/>
+        <property name="requiredPrivilegeName" value="Task: mirebalais.enterClinicalForms"/>
     </bean>
 
     <bean id="mirebalaisSurgicalPostOpNoteTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithOwnUiTask">
@@ -71,6 +72,7 @@
         <property name="labelCode" value="mirebalais.task.surgicalOperativeNote.label"/>
         <property name="priority" value="10.0"/>
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/surgicalPostOpNote.xml"/>
+        <property name="requiredPrivilegeName" value="Task: mirebalais.enterClinicalForms"/>
     </bean>
 
 </beans>
