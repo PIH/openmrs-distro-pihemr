@@ -37,24 +37,28 @@
         <property name="labelCode" value="mirebalais.app.patientRegistration.registration.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientRegistration"/>
         <property name="iconUrl" value="icon-user"/>
+        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
     <bean id="checkin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.checkin" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.checkin.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=primaryCareReception"/>
         <property name="iconUrl" value="icon-user"/>
+        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
     <bean id="emergencyCheckin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.emergencyCheckin" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.emergencyCheckin.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=edCheckIn"/>
         <property name="iconUrl" value="icon-user"/>
+        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
     <bean id="patientLookup" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.lookup" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.patientLookup.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientLookup"/>
         <property name="iconUrl" value="icon-user"/>
+        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
 
     <!-- Tasks for Mirebalais-specific forms -->
