@@ -20,5 +20,9 @@
 
         <mapping resource="RadiologyOrder.hbm.xml" />
         <mapping resource="HtmlFormEntryHtmlForm.hbm.xml" />
+
+        <mapping resource="Provider.hbm.xml" />
+        <mapping resource="ProviderRole.hbm.xml" />
+
     </session-factory>
 </hibernate-configuration>
