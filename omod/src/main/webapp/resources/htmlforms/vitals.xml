@@ -71,6 +71,9 @@
 
                 getField('height.value').change(calculateBmi);
 
+                getField('bp_systolic.value').attr("min", "30");
+
+                $j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
             });
         </script>
 
@@ -127,8 +130,6 @@
             <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.bmi.title"/></h3>
 
-            <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
-
             <span id="no-calculated-bmi">
                 <uimessage code="mirebalais.vitals.bmi.instructions"/>
             </span>
@@ -138,6 +139,7 @@
             </span>
 
             <p>
+                <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
                 <uimessage code="mirebalais.vitals.calculatedField.continue"/>
             </p>
         </fieldset>
