@@ -77,6 +77,22 @@ header {
 }
 
 
+.tabs {
+  a {
+    color: $link;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($link, 10%);
+      text-decoration: underline;
+    }
+    &:visited, &.visited {
+      color: $link
+    }
+  }
+
+}
+
 .ui-tabs {
   border: none;
   padding: 0;
