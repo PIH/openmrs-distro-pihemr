@@ -151,8 +151,8 @@
             <p>
                 <ifMode mode="ENTER">
                     <span class="units"><uimessage code="mirebalais.vitals.temperature.units.entry"/></span>
-                    <input type="text" size="3" id="temperature-c-or-f"/>
-                    <span class="error" style="display: none" id="temperature-error"></span>
+                    <input type="text" size="3" id="temperature-c-or-f" class="number numeric-range" min="25" max="110"/>
+                    <span class="error field-error" style="display: none" id="temperature-error"></span>
                     <!-- in enter mode the temperature widget is outside of the form flow -->
                 </ifMode>
                 <ifMode mode="VIEW">
