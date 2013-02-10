@@ -13,7 +13,7 @@ import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class MirebalaisProviderIdentifierGeneratorComponent extends BaseModuleContextSensitiveTest {
+public class MirebalaisProviderIdentifierGeneratorComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private AccountService accountService;
