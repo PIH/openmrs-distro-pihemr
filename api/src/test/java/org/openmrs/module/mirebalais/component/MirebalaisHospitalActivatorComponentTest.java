@@ -20,10 +20,13 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
+import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.emr.account.AccountDomainWrapper;
+import org.openmrs.module.emr.account.AccountService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.mirebalais.MetadataPackageConfig;
@@ -34,6 +37,7 @@ import org.openmrs.module.patientregistration.PatientRegistrationGlobalPropertie
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.validator.ValidateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -42,9 +46,12 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID;
 
-@SkipBaseSetup
+@SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
-	
+
+    @Autowired
+    private AccountService accountService;
+
 	MirebalaisHospitalActivator activator;
 	
 	@Before
@@ -52,6 +59,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		initializeInMemoryDatabase();
 		executeDataSet("requiredDataTestDataset.xml");
 		executeDataSet("globalPropertiesTestDataset.xml");
+        executeDataSet("mirebalaisProviderIdentifierGeneratorComponentTestDataset.xml");
 		authenticate();
 		activator = new MirebalaisHospitalActivator();
 		activator.started();
@@ -67,6 +75,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		verifyAddressHierarchyLevelsCreated();
 		verifyAddressHierarchyLoaded();
 		verifyLocationAttributeNotOverwritten();
+        verifyMirebalaisProviderIdentifierGeneratorConfigured();
 	}
 	
 	private void verifyPatientRegistrationConfigured() {
@@ -196,4 +205,11 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		assertEquals(1, location.getActiveAttributes(type).size());
 		assertEquals("Mark", location.getActiveAttributes(type).get(0).getValue().toString());
 	}
+
+    private void verifyMirebalaisProviderIdentifierGeneratorConfigured() {
+        Person person = Context.getPersonService().getPerson(2);
+        AccountDomainWrapper account = accountService.getAccountByPerson(person);
+        accountService.saveAccount(account);
+        assertEquals("MCEPM", account.getProvider().getIdentifier());
+    }
 }
