@@ -73,7 +73,7 @@
 
                 getField('bp_systolic.value').attr("min", "30");
 
-                $j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
+                //$j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
             });
         </script>
 

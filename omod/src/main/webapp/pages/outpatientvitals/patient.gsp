@@ -16,53 +16,60 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             emr.navigateTo({
                 applicationUrl: '${ enterFormUrl }'
             });
-        });
+        }).focus();
     });
 </script>
 
 <% if (emrContext.activeVisitSummary) { %>
 
-    <div id="actions">
-        <button class="confirm big">
-            <i class="icon-tasks"></i>
-            Record Vitals
-        </button>
+    <div class="container half-width">
 
-        <button class="cancel big">
-            <i class="icon-repeat"></i>
-            Find Another Patient
-        </button>
-    </div>
+        <h1>Is this the right patient?</h1>
 
-    <% if (existingEncounters) { %>
-        Recently entered
-        <table>
-            <thead>
-                <tr>
-                    <th>When</th>
-                    <th>Entered by</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% existingEncounters.each { enc ->
-                    def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
-                %>
+        <div id="actions">
+            <button class="confirm big right">
+                <i class="icon-arrow-right"></i>
+                Yes, Record Vitals
+            </button>
+
+            <button class="cancel big">
+                <i class="icon-arrow-left"></i>
+                No, Find Another Patient
+            </button>
+        </div>
+
+        <% if (existingEncounters) { %>
+            <h3>Vitals recorded this visit</h3>
+            <table>
+                <thead>
                     <tr>
-                        <td>${ minutesAgo } minute(s) ago</td>
-                        <td>${ ui.format(enc.creator) }</td>
+                        <th>When</th>
+                        <th>Entered by</th>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
-    <% } %>
+                </thead>
+                <tbody>
+                    <% existingEncounters.each { enc ->
+                        def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
+                    %>
+                        <tr>
+                            <td>${ minutesAgo } minute(s) ago</td>
+                            <td>${ ui.format(enc.creator) }</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
 
 <% } else { %>
 
-    This patient is not checked in.
+    <h1>
+        This patient is not checked in.
+    </h1>
 
     <div id="actions">
         <button class="cancel big">
-            <i class="icon-repeat"></i>
+            <i class="icon-arrow-left"></i>
             Find Another Patient
         </button>
     </div>

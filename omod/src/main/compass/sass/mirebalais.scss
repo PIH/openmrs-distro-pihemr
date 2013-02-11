@@ -418,3 +418,9 @@ header {
 .toast-record-found {
   color: #ccc;
 }
+
+.container {
+  &.half-width {
+    width: 50%;
+  }
+}

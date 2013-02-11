@@ -16,12 +16,12 @@
 </script>
 
 <h1>
-    Outpatient Vitals Capture
+    Capture Vitals
 </h1>
 <h3 id="task-details">
-    <i class="icon-tasks"></i>
-    at location <span data-bind="text: text"></span>
-    as provider ${ ui.format(emrContext.currentProvider.person) }
+    Location: <span data-bind="text: text"></span>
+    <br/>
+    Provider: ${ ui.format(emrContext.currentProvider.person) }
 </h3>
 
 ${ ui.includeFragment("emr", "widget/findPatient", [
