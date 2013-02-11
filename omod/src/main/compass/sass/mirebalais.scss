@@ -424,3 +424,10 @@ header {
     width: 50%;
   }
 }
+
+#breadcrumbs {
+  clear: both;
+  li {
+    display: inline;
+  }
+}
