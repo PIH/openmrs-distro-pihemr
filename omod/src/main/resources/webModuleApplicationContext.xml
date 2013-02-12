@@ -62,7 +62,7 @@
 
     <bean id="outpatientVitalsApp" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="mirebalais.outpatientVitals" />
-        <property name="labelCode" value="mirebalais.app.mirebalais.outpatientVitals.label"/>
+        <property name="labelCode" value="mirebalais.outpatientVitals.title"/>
         <property name="homepageUrl" value="mirebalais/outpatientvitals/findPatient.page"/>
         <property name="iconUrl" value="icon-tasks"/>
     </bean>

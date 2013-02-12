@@ -9,7 +9,7 @@
 %>
 
 <h1>
-    Capture Vitals
+    ${ ui.message("mirebalais.app.mirebalais.outpatientVitals.label") }
 </h1>
 
 ${ ui.includeFragment("emr", "widget/findPatient", [

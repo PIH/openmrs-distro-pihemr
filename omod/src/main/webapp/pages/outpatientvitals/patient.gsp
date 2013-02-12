@@ -24,27 +24,27 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 
     <div class="container half-width">
 
-        <h1>Is this the right patient?</h1>
+        <h1>${ ui.message("mirebalais.outpatientVitals.confirmPatientQuestion") }</h1>
 
         <div id="actions">
             <button class="confirm big right">
                 <i class="icon-arrow-right"></i>
-                Yes, Record Vitals
+                ${ ui.message("mirebalais.outpatientVitals.confirm.yes") }
             </button>
 
             <button class="cancel big">
                 <i class="icon-arrow-left"></i>
-                No, Find Another Patient
+                ${ ui.message("mirebalais.outpatientVitals.confirm.no") }
             </button>
         </div>
 
         <% if (existingEncounters) { %>
-            <h3>Vitals recorded this visit</h3>
+            <h3>${ ui.message("mirebalais.outpatientVitals.vitalsThisVisit") }</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>When</th>
-                        <th>Entered by</th>
+                        <th>${ ui.message("mirebalais.outpatientVitals.when") }</th>
+                        <th>${ ui.message("mirebalais.outpatientVitals.enteredBy") }</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,7 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
                         def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
                     %>
                         <tr>
-                            <td>${ minutesAgo } minute(s) ago</td>
+                            <td>${ ui.message("mirebalais.outpatientVitals.minutesAgo", minutesAgo) }</td>
                             <td>${ ui.format(enc.creator) }</td>
                         </tr>
                     <% } %>
@@ -64,13 +64,13 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 <% } else { %>
 
     <h1>
-        This patient is not checked in.
+        ${ ui.message("mirebalias.outpatientVitals.noVisit") }
     </h1>
 
     <div id="actions">
         <button class="cancel big">
             <i class="icon-arrow-left"></i>
-            Find Another Patient
+            ${ ui.message("mirebalias.outpatientVitals.noVisit.findAnotherPatient") }
         </button>
     </div>
 
