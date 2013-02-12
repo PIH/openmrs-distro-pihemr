@@ -20,25 +20,4 @@ public class MirebalaisGlobalProperties {
 	public static final String ADDRESS_LAYOUT_FORMAT() {
 		return Context.getAdministrationService().getGlobalProperty("layout.address.format");
 	}
-	
-	public static final String MIRTH_IP_ADDRESS() {
-		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthIpAddress");
-	}
-	
-	public static final Integer MIRTH_ADMIN_PORT() {
-		return Integer.parseInt(Context.getAdministrationService().getGlobalProperty("mirebalais.mirthAdminPort"));
-	}
-	
-	public static final String MIRTH_USERNAME() {
-		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthUsername");
-	}
-	
-	public static final String MIRTH_PASSWORD() {
-		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthPassword");
-	}
-	
-	public static final String MIRTH_DIRECTORY() {
-		return Context.getAdministrationService().getGlobalProperty("mirebalais.mirthDirectory");
-	}
-	
 }
