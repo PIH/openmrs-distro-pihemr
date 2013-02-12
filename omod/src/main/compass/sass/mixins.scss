@@ -1,4 +1,5 @@
 @import "colors";
+@import "font-awesome.scss";
 
 @mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
   @include border-radius(3px);
@@ -44,5 +45,22 @@
     i {
       font-size: 1.5em;
     }
+  }
+}
+
+@mixin scan-bar {
+  display: inline-block;
+  &:after {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    content: "\f02a";
+    color: $text;
+    font-size: 2em;
+    position: absolute;
+    right: 5px;
+    top: 22%;
   }
 }

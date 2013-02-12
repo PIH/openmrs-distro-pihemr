@@ -15,12 +15,18 @@ hr.separator {
   #patient-search-form {
     width: 97%;
     margin: 20px auto;
+
     .search-input {
       background: lighten($text, 5%);
+      text-align: center;
       color: white;
       padding: 20px 30px;
       @include border-radius(5px);
+      .scan-input::after {
+        top: 15%;
+      }
     }
+
     label {
       font-family: "OpenSansLight";
       font-size: 1.2em;
@@ -31,14 +37,7 @@ hr.separator {
 
     #patient-search-field-search {
       margin: 0 auto;
-      font-size: 1.3em;
-      background: {
-        image: url(../images/scan_barcode.png);
-        repeat: no-repeat;
-        position: right center;
-        size: 30px;
-        origin: content-box;
-      }
+      width: 500px;
     }
   }
 

@@ -1,4 +1,5 @@
 @import "base";
+@import "mixins";
 
 header {
   position: relative;
@@ -227,14 +228,6 @@ header {
 }
 
 .sending-records {
-  input {
-    width: 94.45%;
-    margin-bottom: 5px;
-    border-color: $highlight;
-    border: 2px solid;
-    color: $highlight;
-    margin-top: 0;
-  }
 }
 
 #assign-to-create-button, #assign-to-pull-button {
@@ -444,5 +437,13 @@ header {
     &:last-child {
       font-family: OpenSansBold;
     }
+  }
+}
+
+.scan-input {
+  position: relative;
+  @include scan-bar;
+  input {
+    padding-right: 38px;
   }
 }
