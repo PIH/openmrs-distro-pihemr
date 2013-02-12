@@ -13,8 +13,15 @@
  */
 package org.openmrs.module.mirebalais;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
@@ -46,20 +53,7 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
-import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsConstants;
-import org.openmrs.util.OpenmrsUtil;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -135,7 +129,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupMirebalaisGlobalProperties();
 			setupPacsIntegrationGlobalProperties();
 			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
-			installMirthChannels();
 			setupAddressHierarchy();
 			sortApps();
             injectProviderIdentifierGenerator();
@@ -260,72 +253,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			return false;
 		}
 	}
-	
-	private boolean installMirthChannels() {
-		
-		try {
-			// first copy the channel files to a tmp directory
-			File dir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("mirth/tmp");
-			
-			Map<String, String> channels = new HashMap<String, String>();
-			channels.put("Read HL7 From OpenMRS Database", "readHL7FromOpenmrsDatabaseChannel");
-			channels.put("Send HL7 To Pacs", "sendHL7ToPacsChannel");
-			
-			for (String channel : channels.values()) {
-				// load the channel xml file
-				InputStream channelStream = OpenmrsClassLoader.getInstance().getResourceAsStream(
-				    "org/openmrs/module/mirebalais/mirth/" + channel + ".xml");
-				File channelFile = new File(dir, channel + ".xml");
-				String channelString = IOUtils.toString(channelStream);
-				
-				// do a search and replace to add the appropriate the mysql and pacs information from runtime properties
-				channelString = channelString.replaceAll("\\$\\{mysqlUsername\\}", customProperties.getMirthMysqlUsername());
-				channelString = channelString.replaceAll("\\$\\{mysqlPassword\\}", customProperties.getMirthMysqlPassword());
-                channelString = channelString.replaceAll("\\$\\{mysqlDatabase\\}", customProperties.getMirthMysqlDatabase());
-                channelString = channelString.replaceAll("\\$\\{pacsIpAddress\\}", customProperties.getPacsIpAddress());
-                channelString = channelString.replaceAll("\\$\\{pacsDestinationPort\\}", customProperties.getPacsDestinationPort());
 
-				// write the channel out to a tmp file
-				FileUtils.writeStringToFile(channelFile, channelString);
-				IOUtils.closeQuietly(channelStream);
-			}
-			
-			// now call up the Mirth shell
-			String[] commands = new String[] {
-			        "java",
-			        "-classpath",
-			        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
-			                + "/cli-lib/*",
-			        "com.mirth.connect.cli.launcher.CommandLineLauncher",
-			        "-a",
-			        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
-			                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u",
-			        MirebalaisGlobalProperties.MIRTH_USERNAME(), "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v",
-			        "0.0.0" };
-			Process mirthShell = Runtime.getRuntime().exec(commands);
-			
-			// TODO: figure out what to do to verify that this succeeds
-			
-			// deploy the channels
-			
-			OutputStream out = mirthShell.getOutputStream();
-			for (Map.Entry channel : channels.entrySet()) {
-				out.write("channel stop *\n".getBytes()); // stop all channels
-				out.write(("import \"" + dir.getAbsolutePath() + "/" + channel.getValue() + ".xml\" force\n").getBytes());
-				out.write(("channel deploy \"" + channel.getKey() + "\"\n").getBytes());
-				out.write("channel start *\n".getBytes()); // restart all channels
-			}
-			out.close();
-			
-			return true;
-		}
-		catch (Exception ex) {
-			throw new RuntimeException("Failed to install Mirth channels", ex);
-		}
-		
-	}
-	
-	/**
+    /**
 	 * Sets global property value or throws an exception if that global property does not already exist
 	 * (Set as protected so we can override it for testing purposes)
 	 *
@@ -341,24 +270,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		gp.setPropertyValue(propertyValue);
 		administrationService.saveGlobalProperty(gp);
 	}
-	
-	/**
-	 * Sets global property value or creates global property if needed
-	 * @param propertyName
-	 * @param propertyValue
-	 */
-	private void setOrCreateGlobalProperty(String propertyName, String propertyValue) {
-		AdministrationService administrationService = Context.getAdministrationService();
-		GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
-		if (gp == null) {
-			gp = new GlobalProperty();
-			gp.setProperty(propertyName);
-		}
-		gp.setPropertyValue(propertyValue);
-		administrationService.saveGlobalProperty(gp);
-	}
-	
-	private void setupCoreGlobalProperties() {
+
+    private void setupCoreGlobalProperties() {
 		setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
 	}
 	
@@ -366,12 +279,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(
 		    "layout.address.format",
 		    "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"mirebalais.address.country\"/><property name=\"stateProvince\" value=\"mirebalais.address.stateProvince\"/><property name=\"cityVillage\" value=\"mirebalais.address.cityVillage\"/><property name=\"address3\" value=\"mirebalais.address.neighborhoodCell\"/><property name=\"address1\" value=\"mirebalais.address.address1\"/><property name=\"address2\" value=\"mirebalais.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3 cityVillage</string><string>stateProvince country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>");
-		
-		setOrCreateGlobalProperty("mirebalais.mirthUsername", "mirth");
-		setOrCreateGlobalProperty("mirebalais.mirthPassword", "Mirth123");
-		setOrCreateGlobalProperty("mirebalais.mirthDirectory", "/opt/mirthconnect");
-		setOrCreateGlobalProperty("mirebalais.mirthIpAddress", "127.0.0.1");
-		setOrCreateGlobalProperty("mirebalais.mirthAdminPort", "8443");
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {

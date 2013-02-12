@@ -16,16 +16,13 @@ package org.openmrs.module.mirebalais.integration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.AfterClass;
@@ -45,11 +42,9 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrProperties;
-import org.openmrs.module.emr.TestUtils;
 import org.openmrs.module.emr.adt.AdtService;
 import org.openmrs.module.emr.radiology.RadiologyOrder;
 import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
-import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
@@ -129,53 +124,53 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		authenticate();
 		
-		// run the module activator so that the Mirth channels are configured
-		MirebalaisHospitalActivator activator = new TestMirebalaisHospitalActivator();
-		activator.started();
-		
-		// give Mirth channels a few seconds to start
-		Thread.sleep(5000);
-		
-		// confirm that appropriate Mirth channels have been deployed
-		String[] commands = new String[] {
-		        "java",
-		        "-classpath",
-		        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
-		                + "/cli-lib/*",
-		        "com.mirth.connect.cli.launcher.CommandLineLauncher",
-		        "-a",
-		        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
-		                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
-		        "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
-		Process mirthShell = Runtime.getRuntime().exec(commands);
-		
-		OutputStream out = mirthShell.getOutputStream();
-		InputStream in = mirthShell.getInputStream();
-		
-		// load the status
-		out.write("status\n".getBytes());
-		out.close();
-		
-		// confirm that the status shows that the Mirth channel has started
-		String mirthStatus = IOUtils.toString(in);
-		TestUtils.assertFuzzyContains("STARTED Read HL7 From OpenMRS Database", mirthStatus);
-		TestUtils.assertFuzzyContains("STARTED Send HL7 To Pacs", mirthStatus);
-		
-	/*	// stop all channels, clear messages and statistics, and restart in preparation for tests
-		mirthShell = Runtime.getRuntime().exec(commands);
-		out = mirthShell.getOutputStream();
-		in = mirthShell.getInputStream();
-		
-		out.write("channel stop *\n".getBytes()); // stop all channels
-		out.write("clearallmessages\n".getBytes());
-		out.write("resetstats\n".getBytes());
-		out.write("channel start *\n".getBytes()); // restart all channels
-		out.close();
+//		// run the module activator so that the Mirth channels are configured
+//		MirebalaisHospitalActivator activator = new TestMirebalaisHospitalActivator();
+//		activator.started();
+//
+//		// give Mirth channels a few seconds to start
+//		Thread.sleep(5000);
+//
+//		// confirm that appropriate Mirth channels have been deployed
+//		String[] commands = new String[] {
+//		        "java",
+//		        "-classpath",
+//		        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
+//		                + "/cli-lib/*",
+//		        "com.mirth.connect.cli.launcher.CommandLineLauncher",
+//		        "-a",
+//		        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
+//		                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
+//		        "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
+//		Process mirthShell = Runtime.getRuntime().exec(commands);
+//
+//		OutputStream out = mirthShell.getOutputStream();
+//		InputStream in = mirthShell.getInputStream();
+//
+//		// load the status
+//		out.write("status\n".getBytes());
+//		out.close();
+//
+//		// confirm that the status shows that the Mirth channel has started
+//		String mirthStatus = IOUtils.toString(in);
+//		TestUtils.assertFuzzyContains("STARTED Read HL7 From OpenMRS Database", mirthStatus);
+//		TestUtils.assertFuzzyContains("STARTED Send HL7 To Pacs", mirthStatus);
+//
+//	/*	// stop all channels, clear messages and statistics, and restart in preparation for tests
+//		mirthShell = Runtime.getRuntime().exec(commands);
+//		out = mirthShell.getOutputStream();
+//		in = mirthShell.getInputStream();
+//
+//		out.write("channel stop *\n".getBytes()); // stop all channels
+//		out.write("clearallmessages\n".getBytes());
+//		out.write("resetstats\n".getBytes());
+//		out.write("channel start *\n".getBytes()); // restart all channels
+//		out.close();
+//
+//        // give Mirth channels a few seconds to restart
+//        Thread.sleep(5000);*/
 
-        // give Mirth channels a few seconds to restart
-        Thread.sleep(5000);*/
-
-        // now test that when we create a new patient, a new patient message is created
+        // test that when we create a new patient, a new patient message is created
 		// if the test patient already exists, delete it and any existing orders
 		if (patientService.getPatients("2ADMMN").size() > 0) {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
@@ -313,11 +308,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
         public TestMirebalaisHospitalActivator() {
             super();
             MirebalaisCustomProperties properties = mock(MirebalaisCustomProperties.class);
-            when(properties.getMirthMysqlDatabase()).thenReturn("openmrs");
-            when(properties.getMirthMysqlUsername()).thenReturn("mirth");
-            when(properties.getMirthMysqlPassword()).thenReturn("Mirth123");
-            when(properties.getPacsIpAddress()).thenReturn("pacstest.pih.org");
-            when(properties.getPacsDestinationPort()).thenReturn("6660");
             when(properties.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
             when(properties.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
             when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
