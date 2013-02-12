@@ -9,7 +9,7 @@
 %>
 
 <h1>
-    ${ ui.message("mirebalais.app.mirebalais.outpatientVitals.label") }
+    ${ ui.message("mirebalais.outpatientVitals.title") }
 </h1>
 
 ${ ui.includeFragment("emr", "widget/findPatient", [
