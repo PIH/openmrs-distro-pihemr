@@ -249,7 +249,7 @@ table {
   }
   
   tr.hover{
-    background: #AAA;
+    background: lighten(desaturate($link, 20%), 20%);
     color: white;
     cursor: pointer;
   }

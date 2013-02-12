@@ -241,7 +241,7 @@ header {
   position: relative;
   padding: 8px 15px;
   margin-left: -10px;
-  background: $highlight;
+  background: darken($success, 10%);
   color: white;
   border-color: #bbb;
   
@@ -256,7 +256,7 @@ header {
     right: -17px;
     border-bottom: 34px solid transparent;
     border-top: 33px solid transparent;
-    border-left: 18px solid $highlight;
+    border-left: 18px solid darken($success, 10%);
     position: absolute;
   }
 
