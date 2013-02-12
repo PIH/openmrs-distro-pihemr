@@ -19,11 +19,6 @@
             font-weight: bold;
             font-size: 1.4em;
         }
-        .units {
-            float: right;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
     </style>
 
     <ifMode mode="ENTER">
@@ -49,24 +44,6 @@
             $j(function() {
                 $j('#calculated-bmi-wrapper').hide();
 
-                $j('#temperature-c-or-f').change(function() {
-                    checkNumber(this, 'temperature-error', true, 25, 110);
-                    if ($j(this).hasClass('legalValue')) {
-                        var temp = $j('#temperature-c-or-f').val();
-                        if (temp > 60) {
-                            // fahrenheit
-                            temp = (temp - 32) * 5 / 9;
-                            temp = parseFloat(temp.toFixed(2)); // round to one digit after the decimal point
-                            $j("#temperature-units-chosen").html("F");
-                        } else {
-                            $j("#temperature-units-chosen").html("C");
-                        }
-                        setValue('temperature_c.value', temp);
-                    } else {
-                        setValue('temperature_c.value', null);
-                    }
-                });
-
                 getField('weight.value').change(calculateBmi);
 
                 getField('height.value').change(calculateBmi);
@@ -76,10 +53,6 @@
                 //$j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
             });
         </script>
-
-        <div class="hidden">
-            <obs conceptId="PIH:TEMPERATURE (C)" showUnits="true" id="temperature_c"/>
-        </div>
     </ifMode>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
@@ -111,8 +84,7 @@
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
             <p>
-                <span class="units"><uimessage code="mirebalais.vitals.height.units"/></span>
-                <obs conceptId="PIH:HEIGHT (M)" id="height"/>
+                <obs conceptId="PIH:HEIGHT (M)" id="height" showUnits="emr.units.meters"/>
             </p>
         </fieldset>
 
@@ -121,8 +93,7 @@
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
             <p>
-                <span class="units"><uimessage code="mirebalais.vitals.weight.units"/></span>
-                <obs conceptId="PIH:WEIGHT (KG)" id="weight"/>
+                <obs conceptId="PIH:WEIGHT (KG)" id="weight" showUnits="emr.units.kilograms"/>
             </p>
         </fieldset>
 
@@ -149,16 +120,7 @@
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
             <p>
-                <ifMode mode="ENTER">
-                    <span class="units"><uimessage code="mirebalais.vitals.temperature.units.entry"/></span>
-                    <input type="text" size="3" id="temperature-c-or-f" class="number numeric-range" min="25" max="110"/>
-                    <span class="error field-error" style="display: none" id="temperature-error"></span>
-                    <!-- in enter mode the temperature widget is outside of the form flow -->
-                </ifMode>
-                <ifMode mode="VIEW">
-                    <span class="units"><uimessage code="mirebalais.vitals.temperature.units"/></span>
-                    <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c"/>
-                </ifMode>
+                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius"/>
             </p>
         </fieldset>
 
@@ -182,8 +144,7 @@
             <h3><uimessage code="mirebalais.vitals.heartRate.title"/></h3>
 
             <p>
-                <span class="units"><uimessage code="mirebalais.vitals.heartRate.units"/></span>
-                <obs conceptId="PIH:PULSE" id="heart_rate"/>
+                <obs conceptId="PIH:PULSE" id="heart_rate" showUnits="emr.units.perMinute"/>
             </p>
         </fieldset>
 
@@ -192,8 +153,7 @@
             <h3><uimessage code="mirebalais.vitals.respiratoryRate.title"/></h3>
 
             <p>
-                <span class="units"><uimessage code="mirebalais.vitals.respiratoryRate.units"/></span>
-                <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate"/>
+                <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate" showUnits="emr.units.perMinute"/>
             </p>
         </fieldset>
 
@@ -202,8 +162,7 @@
             <h3><uimessage code="mirebalais.vitals.o2sat.title"/></h3>
 
             <p>
-                <span class="units"><uimessage code="mirebalais.vitals.o2sat.units"/></span>
-                <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat"/>
+                <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat" showUnits="emr.units.percent"/>
             </p>
         </fieldset>
 
