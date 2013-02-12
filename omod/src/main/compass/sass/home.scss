@@ -11,36 +11,6 @@ hr.separator {
   width: 80%;
   margin: 0 auto;
 
-
-  #patient-search-form {
-    width: 97%;
-    margin: 20px auto;
-
-    .search-input {
-      background: lighten($text, 5%);
-      text-align: center;
-      color: white;
-      padding: 20px 30px;
-      @include border-radius(5px);
-      .scan-input::after {
-        top: 15%;
-      }
-    }
-
-    label {
-      font-family: "OpenSansLight";
-      font-size: 1.2em;
-      i {
-        line-height: 0.3em;
-      }
-    }
-
-    #patient-search-field-search {
-      margin: 0 auto;
-      width: 500px;
-    }
-  }
-
   #apps {
     border-bottom: 1px dashed #CCC;
     margin: 40px 0;

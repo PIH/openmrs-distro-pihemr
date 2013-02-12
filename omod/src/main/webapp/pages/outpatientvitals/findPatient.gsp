@@ -4,8 +4,6 @@
     }
 
     ui.decorateWith("emr", "standardEmrPage")
-
-    ui.includeCss("mirebalais", "outpatientvitals/findPatient.css")
 %>
 
 <h1>

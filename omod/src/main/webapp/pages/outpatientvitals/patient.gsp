@@ -19,6 +19,11 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
         }).focus();
     });
 </script>
+<style>
+    #existing-encounters {
+        margin-top: 2em;
+    }
+</style>
 
 <% if (emrContext.activeVisitSummary) { %>
 
@@ -39,25 +44,27 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
         </div>
 
         <% if (existingEncounters) { %>
-            <h3>${ ui.message("mirebalais.outpatientVitals.vitalsThisVisit") }</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>${ ui.message("mirebalais.outpatientVitals.when") }</th>
-                        <th>${ ui.message("mirebalais.outpatientVitals.enteredBy") }</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% existingEncounters.each { enc ->
-                        def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
-                    %>
+            <div id="existing-encounters">
+                <h3>${ ui.message("mirebalais.outpatientVitals.vitalsThisVisit") }</h3>
+                <table>
+                    <thead>
                         <tr>
-                            <td>${ ui.message("mirebalais.outpatientVitals.minutesAgo", minutesAgo) }</td>
-                            <td>${ ui.format(enc.creator) }</td>
+                            <th>${ ui.message("mirebalais.outpatientVitals.when") }</th>
+                            <th>${ ui.message("mirebalais.outpatientVitals.enteredBy") }</th>
                         </tr>
-                    <% } %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <% existingEncounters.each { enc ->
+                            def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
+                        %>
+                            <tr>
+                                <td>${ ui.message("mirebalais.outpatientVitals.minutesAgo", minutesAgo) }</td>
+                                <td>${ ui.format(enc.creator) }</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
         <% } %>
     </div>
 
