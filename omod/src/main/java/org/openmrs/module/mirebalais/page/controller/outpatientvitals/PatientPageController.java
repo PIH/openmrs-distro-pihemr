@@ -20,6 +20,7 @@ import org.openmrs.Patient;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
 import org.openmrs.module.emr.patient.PatientDomainWrapper;
+import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.page.PageModel;
@@ -27,6 +28,7 @@ import org.openmrs.util.OpenmrsUtil;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,6 +47,9 @@ public class PatientPageController {
 
         enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/vitals.xml");
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
+        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.outpatientVitals.title"), "link", ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
+        SimpleObject patientPageBreadcrumb = SimpleObject.create("label", patient.getFamilyName() + ", " + patient.getGivenName(), "link", ui.thisUrlWithContextPath());
+        enterFormTask.setBreadcrumbOverride(ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
         Form form = enterFormTask.getHtmlForm().getForm();
 
         List<Encounter> existingEncounters = new ArrayList<Encounter>();

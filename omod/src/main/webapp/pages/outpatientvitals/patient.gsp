@@ -2,6 +2,14 @@
     ui.decorateWith("emr", "standardEmrPage")
 %>
 
+<script type="text/javascript">
+    var breadcrumbs = [
+        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { label: "${ ui.message("mirebalais.outpatientVitals.title") }", link: "${ ui.pageLink("mirebalais", "outpatientvitals/findPatient") }" },
+        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" , link: '${ui.pageLink("emr", "patient", [patientId: patient.id])}'},
+    ];
+</script>
+
 ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 
 <script type="text/javascript">
