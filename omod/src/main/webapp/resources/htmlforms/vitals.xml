@@ -84,7 +84,7 @@
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:HEIGHT (M)" id="height" showUnits="emr.units.meters"/>
+                <obs conceptId="PIH:HEIGHT (M)" id="height" showUnits="emr.units.meters" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
@@ -93,7 +93,7 @@
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:WEIGHT (KG)" id="weight" showUnits="emr.units.kilograms"/>
+                <obs conceptId="PIH:WEIGHT (KG)" id="weight" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
@@ -120,7 +120,7 @@
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius"/>
+                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
@@ -144,7 +144,7 @@
             <h3><uimessage code="mirebalais.vitals.heartRate.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:PULSE" id="heart_rate" showUnits="emr.units.perMinute"/>
+                <obs conceptId="PIH:PULSE" id="heart_rate" showUnits="emr.units.perMinute" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
@@ -153,7 +153,7 @@
             <h3><uimessage code="mirebalais.vitals.respiratoryRate.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate" showUnits="emr.units.perMinute"/>
+                <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate" showUnits="emr.units.perMinute" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
@@ -162,7 +162,7 @@
             <h3><uimessage code="mirebalais.vitals.o2sat.title"/></h3>
 
             <p>
-                <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat" showUnits="emr.units.percent"/>
+                <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat" showUnits="emr.units.percent" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
 
