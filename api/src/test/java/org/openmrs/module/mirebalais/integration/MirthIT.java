@@ -26,6 +26,7 @@ import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.AfterClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -58,10 +59,14 @@ import org.springframework.test.annotation.NotTransactional;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+// ignoring MirthIT tests for now as there is no current good way to test this
+// once we get a good production pipeline set up, we may want to re-enable this
+
 // NOTE: the mirebalais.properties hardcoded in this file are bamboo-specific
 // these tests will only pass on bamboo
 
 @SkipBaseSetup
+@Ignore
 public class MirthIT extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
@@ -116,59 +121,13 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	@Autowired
 	@Qualifier("emrProperties")
 	private EmrProperties properties;
-	
+
 	@Test
 	@DirtiesContext
 	@NotTransactional
 	public void testMirthChannelIntegration() throws Exception {
 		
 		authenticate();
-		
-//		// run the module activator so that the Mirth channels are configured
-//		MirebalaisHospitalActivator activator = new TestMirebalaisHospitalActivator();
-//		activator.started();
-//
-//		// give Mirth channels a few seconds to start
-//		Thread.sleep(5000);
-//
-//		// confirm that appropriate Mirth channels have been deployed
-//		String[] commands = new String[] {
-//		        "java",
-//		        "-classpath",
-//		        MirebalaisGlobalProperties.MIRTH_DIRECTORY() + "/*:" + MirebalaisGlobalProperties.MIRTH_DIRECTORY()
-//		                + "/cli-lib/*",
-//		        "com.mirth.connect.cli.launcher.CommandLineLauncher",
-//		        "-a",
-//		        "https://" + MirebalaisGlobalProperties.MIRTH_IP_ADDRESS() + ":"
-//		                + MirebalaisGlobalProperties.MIRTH_ADMIN_PORT(), "-u", MirebalaisGlobalProperties.MIRTH_USERNAME(),
-//		        "-p", MirebalaisGlobalProperties.MIRTH_PASSWORD(), "-v", "0.0.0" };
-//		Process mirthShell = Runtime.getRuntime().exec(commands);
-//
-//		OutputStream out = mirthShell.getOutputStream();
-//		InputStream in = mirthShell.getInputStream();
-//
-//		// load the status
-//		out.write("status\n".getBytes());
-//		out.close();
-//
-//		// confirm that the status shows that the Mirth channel has started
-//		String mirthStatus = IOUtils.toString(in);
-//		TestUtils.assertFuzzyContains("STARTED Read HL7 From OpenMRS Database", mirthStatus);
-//		TestUtils.assertFuzzyContains("STARTED Send HL7 To Pacs", mirthStatus);
-//
-//	/*	// stop all channels, clear messages and statistics, and restart in preparation for tests
-//		mirthShell = Runtime.getRuntime().exec(commands);
-//		out = mirthShell.getOutputStream();
-//		in = mirthShell.getInputStream();
-//
-//		out.write("channel stop *\n".getBytes()); // stop all channels
-//		out.write("clearallmessages\n".getBytes());
-//		out.write("resetstats\n".getBytes());
-//		out.write("channel start *\n".getBytes()); // restart all channels
-//		out.close();
-//
-//        // give Mirth channels a few seconds to restart
-//        Thread.sleep(5000);*/
 
         // test that when we create a new patient, a new patient message is created
 		// if the test patient already exists, delete it and any existing orders
