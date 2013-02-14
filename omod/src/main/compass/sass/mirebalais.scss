@@ -152,6 +152,12 @@ header {
   }
 }
 
+#tab-create, #tab-pull {
+  .cancel {
+    color: $error;
+  }
+}
+
 #assigned_create_requests_table, #assigned_pull_requests_table {
   th {
     background: white;
