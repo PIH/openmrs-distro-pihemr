@@ -16,7 +16,6 @@ package org.openmrs.module.mirebalais;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +59,15 @@ import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.util.OpenmrsConstants;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
@@ -83,7 +91,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.add(new MetadataPackageConfig("Mirebalais_Hospital_locations",
 		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 10, ImportMode.PARENT_AND_CHILD));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
-		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 9, ImportMode.MIRROR));
+		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 10, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
 		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 19, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration",
