@@ -24,7 +24,6 @@ import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.page.PageModel;
-import org.openmrs.util.OpenmrsUtil;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -56,8 +55,7 @@ public class PatientPageController {
         if (emrContext.getActiveVisitSummary() != null) {
             for (Encounter encounter : emrContext.getActiveVisitSummary().getVisit().getEncounters()) {
                 if (!encounter.isVoided()
-                        && form.equals(encounter.getForm())
-                        && OpenmrsUtil.nullSafeEquals(encounter.getLocation(), emrContext.getSessionLocation())) {
+                        && form.equals(encounter.getForm())) {
                     existingEncounters.add(encounter);
                 }
             }

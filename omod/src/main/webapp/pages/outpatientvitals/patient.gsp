@@ -52,29 +52,34 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             </button>
         </div>
 
-        <% if (existingEncounters) { %>
-            <div id="existing-encounters">
-                <h3>${ ui.message("mirebalais.outpatientVitals.vitalsThisVisit") }</h3>
-                <table>
-                    <thead>
+        <div id="existing-encounters">
+            <h3>${ ui.message("mirebalais.outpatientVitals.vitalsThisVisit") }</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>${ ui.message("mirebalais.outpatientVitals.when") }</th>
+                        <th>${ ui.message("mirebalais.outpatientVitals.where") }</th>
+                        <th>${ ui.message("mirebalais.outpatientVitals.enteredBy") }</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (existingEncounters.size() == 0) { %>
                         <tr>
-                            <th>${ ui.message("mirebalais.outpatientVitals.when") }</th>
-                            <th>${ ui.message("mirebalais.outpatientVitals.enteredBy") }</th>
+                            <td colspan="3">${ ui.message("emr.none") }</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <% existingEncounters.each { enc ->
-                            def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
-                        %>
-                            <tr>
-                                <td>${ ui.message("mirebalais.outpatientVitals.minutesAgo", minutesAgo) }</td>
-                                <td>${ ui.format(enc.creator) }</td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        <% } %>
+                    <% } %>
+                    <% existingEncounters.each { enc ->
+                        def minutesAgo = (long) ((System.currentTimeMillis() - enc.encounterDatetime.time) / 1000 / 60)
+                    %>
+                        <tr>
+                            <td>${ ui.message("mirebalais.outpatientVitals.minutesAgo", minutesAgo) }</td>
+                            <td>${ ui.format(enc.location) }</td>
+                            <td>${ ui.format(enc.creator) }</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 <% } else { %>
