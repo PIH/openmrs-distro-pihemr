@@ -24,7 +24,8 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             emr.navigateTo({
                 applicationUrl: '${ enterFormUrl }'
             });
-        }).focus();
+        });
+        jq('#actions button').first().focus();
     });
 </script>
 <style>
