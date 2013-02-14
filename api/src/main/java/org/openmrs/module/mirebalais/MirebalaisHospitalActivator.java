@@ -16,12 +16,14 @@ package org.openmrs.module.mirebalais;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
@@ -53,6 +55,9 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.scheduler.SchedulerException;
+import org.openmrs.scheduler.SchedulerService;
+import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.util.OpenmrsConstants;
 
 /**
@@ -132,7 +137,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupAddressHierarchy();
 			sortApps();
             injectProviderIdentifierGenerator();
-		}
+            setupCloseStalePullRequestsTask();
+        }
 		catch (Exception e) {
 			Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
 			ModuleFactory.stopModule(mod);
@@ -439,7 +445,39 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			}
 		}
 	}
-	
+
+    private void setupCloseStalePullRequestsTask() {
+
+        SchedulerService schedulerService = Context.getSchedulerService();
+
+        TaskDefinition task = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+
+        if (task == null) {
+            task = new TaskDefinition();
+            task.setName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+            task.setDescription(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
+            task.setTaskClass("org.openmrs.module.emr.paperrecord.CloseStalePullRequestsTask");
+            task.setStartTime(DateUtils.addMinutes(new Date(), 5));
+            task.setRepeatInterval(new Long(3600));  // once an hour
+            task.setStartOnStartup(true);
+            try {
+                schedulerService.scheduleTask(task);
+            } catch (SchedulerException e) {
+                throw new RuntimeException("Failed to schedule close stale pull requests task", e);
+            }
+        }
+        else {
+            if (!task.getStarted()) {
+                task.setStarted(true);
+                try {
+                    schedulerService.scheduleTask(task);
+                } catch (SchedulerException e) {
+                    throw new RuntimeException("Failed to schedule close stale pull requests task", e);
+                }
+            }
+        }
+    }
+
 	public List<MetadataPackageConfig> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
 	}
