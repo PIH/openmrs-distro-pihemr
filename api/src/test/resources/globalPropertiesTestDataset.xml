@@ -45,7 +45,7 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="emr.radiologyOrderEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.orderingProviderEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.checkInClerkEncounterRole" property_value="" uuid="93e516a0-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.testOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyTestOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.atFacilityVisitType" property_value="" uuid="f01c54cb-2225-471a-9cd5-d348552c337c"/>
     <global_property property="emr.paperRecordIdentifierType" property_value="" uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
     <global_property property="emr.xrayOrderablesConcept" property_value="" uuid="6605657e-1c79-11e2-9b1a-423440a3714c"/>

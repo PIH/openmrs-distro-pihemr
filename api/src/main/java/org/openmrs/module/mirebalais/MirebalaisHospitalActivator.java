@@ -315,7 +315,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         // used when placing radiology orders
 		setExistingGlobalProperty(EmrConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa");
-		setExistingGlobalProperty(EmrConstants.GP_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
+		setExistingGlobalProperty(EmrConstants.GP_RADIOLOGY_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
 		setExistingGlobalProperty(EmrConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, "c458d78e-8374-4767-ad58-9f8fe276e01c");
 		
 		// check_in clerk encounter role is set to Oupatient Application User Role
