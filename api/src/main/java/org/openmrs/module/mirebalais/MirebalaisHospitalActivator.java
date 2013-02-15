@@ -94,7 +94,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
 		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 10, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
-		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 19, ImportMode.MIRROR));
+		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 21, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration",
                 "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
@@ -312,14 +312,11 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupEmrGlobalProperties() {
-		// TODO create an encounter type to represent placing orders in our MDS package
-		setExistingGlobalProperty(EmrConstants.GP_PLACE_ORDERS_ENCOUNTER_TYPE, "1373cf95-06e8-468b-a3da-360ac1cf026d");
-		
-		// TODO make sure we have the order type correct, and created via a MDS package
-		setExistingGlobalProperty(EmrConstants.GP_TEST_ORDER_TYPE, "13116a48-15f5-102d-96e4-000c29c2a5d7");
-		
-		// TODO add a Clinician encounter role to our MDS packages
-		setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "a0b03050-c99b-11e0-9572-0800200c9a66");
+
+        // used when placing radiology orders
+		setExistingGlobalProperty(EmrConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa");
+		setExistingGlobalProperty(EmrConstants.GP_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
+		setExistingGlobalProperty(EmrConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, "c458d78e-8374-4767-ad58-9f8fe276e01c");
 		
 		// check_in clerk encounter role is set to Oupatient Application User Role
 		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");

@@ -220,7 +220,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		encounter.setLocation(locationService.getLocation("Mirebalais Hospital"));
 		encounter.setEncounterType(encounterService.getEncounterType(1));
 		encounter.addOrder(order);
-		encounter.addProvider(properties.getClinicianEncounterRole(), Context.getProviderService().getProvider(1));
+		encounter.addProvider(properties.getOrderingProviderEncounterRole(), Context.getProviderService().getProvider(1));
 		encounterService.saveEncounter(encounter);
 
         // TODO: I've changed the configuration so that this sends the message directly to the PACS test server
