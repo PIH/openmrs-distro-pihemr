@@ -75,6 +75,8 @@
         <property name="priority" value="10.9"/>
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/vitals.xml"/>
         <property name="requiredPrivilegeName" value="Task: mirebalais.enterClinicalForms"/>
+        <property name="extensionPoint" value="patient.visits.active.actions"/>
+        <property name="iconUrl" value="icon-heart"/>
     </bean>
 
     <bean id="mirebalaisSurgicalPostOpNoteTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithOwnUiTask">
@@ -83,6 +85,8 @@
         <property name="priority" value="10.0"/>
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/surgicalPostOpNote.xml"/>
         <property name="requiredPrivilegeName" value="Task: mirebalais.enterClinicalForms"/>
+        <property name="extensionPoint" value="patient.visits.active.actions"/>
+        <property name="iconUrl" value="icon-paste"/>
     </bean>
 
 </beans>
