@@ -60,7 +60,7 @@
 		<patientregistrationVersion>2.0-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.0-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.8</addresshierarchyVersion>
-        <providerManagementVersion>1.1.2</providerManagementVersion>
+        <providerManagementVersion>1.1.3</providerManagementVersion>
         <eventVersion>2.0.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <openmrswebVersion>1.9.3-SNAPSHOT</openmrswebVersion>

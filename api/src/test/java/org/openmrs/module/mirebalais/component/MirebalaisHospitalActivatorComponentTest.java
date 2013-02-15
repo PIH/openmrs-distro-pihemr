@@ -39,6 +39,7 @@ import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.Task;
 import org.openmrs.scheduler.TaskDefinition;
@@ -144,7 +145,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
 		        .getGlobalProperty(RADIOLOGY_ORDER_TYPE_UUID))));
 		Assert.assertNotNull((Context.getConceptService().getConceptByMapping("TEMPERATURE (C)", "PIH")));
-		
+		Assert.assertNotNull(Context.getService((ProviderManagementService.class)).getProviderRoleByUuid("61eed524-4547-4228-a3ac-631fe1628a5e"));
+
 		// this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
 		for (Concept concept : Context.getConceptService().getAllConcepts()) {
 			ValidateUtil.validate(concept);
