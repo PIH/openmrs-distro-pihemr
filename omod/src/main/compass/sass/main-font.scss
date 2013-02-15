@@ -9,6 +9,17 @@
 }
 
 @font-face {
+    font-family: 'OpenSansItalic';
+    src: url('opensans-italic-webfont.eot');
+    src: url('opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('opensans-italic-webfont.woff') format('woff'),
+         url('opensans-italic-webfont.ttf') format('truetype'),
+         url('opensans-italic-webfont.svg#open_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'OpenSansLight';
     src: url('../fonts/opensans-light-webfont.eot');
     src: url('../fonts/opensans-light-webfont.eot?#iefix') format('embedded-opentype'),
