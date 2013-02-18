@@ -89,8 +89,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// get either from the <groupUuid> element of header.xml, or the groupUuid http parameter while viewing the
 		// package on the server you generated it on.
 		
-		currentMetadataVersions.add(new MetadataPackageConfig("Mirebalais_Hospital_locations",
-		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 10, ImportMode.PARENT_AND_CHILD));
+		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Hospital_Locations",
+		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 12, ImportMode.PARENT_AND_CHILD));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
 		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 10, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
@@ -309,6 +309,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PacsIntegrationGlobalProperties.SENDING_FACILITY, "Mirebalais");
 		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PROCEDURE_CODE_CONCEPT_SOURCE_UUID,
 		    "2889f378-f287-40a5-ac9c-ce77ee963ed7");
+        setExistingGlobalProperty(PacsIntegrationGlobalProperties.LOCATION_CODE_ATTRIBUTE_TYPE_UUID,
+                "64f01c78-191d-4947-a201-7e0a7f0caf21");
 	}
 	
 	private void setupEmrGlobalProperties() {
