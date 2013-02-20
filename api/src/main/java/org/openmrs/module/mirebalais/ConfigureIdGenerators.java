@@ -12,7 +12,9 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 
 public class ConfigureIdGenerators {
-	
+
+    // hacky test
+
 	private final MirebalaisCustomProperties customProperties;
 	
 	private final IdentifierSourceService identifierSourceService;
