@@ -45,8 +45,8 @@
 	<properties>
 		<openMRSVersion>1.9.3-SNAPSHOT</openMRSVersion>
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
-        <uiframeworkVersion>2.5-SNAPSHOT</uiframeworkVersion>
-		<appframeworkVersion>1.4-SNAPSHOT</appframeworkVersion>
+        <uiframeworkVersion>2.5</uiframeworkVersion>
+		<appframeworkVersion>1.4</appframeworkVersion>
 		<metadatasharingVersion>1.1.3</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
 		<htmlformentryVersion>2.0.5</htmlformentryVersion>
