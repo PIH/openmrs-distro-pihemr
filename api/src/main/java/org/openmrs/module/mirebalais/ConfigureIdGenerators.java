@@ -13,8 +13,6 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_Z
 
 public class ConfigureIdGenerators {
 
-    // hacky test
-
 	private final MirebalaisCustomProperties customProperties;
 	
 	private final IdentifierSourceService identifierSourceService;
