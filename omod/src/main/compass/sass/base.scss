@@ -1,6 +1,7 @@
 @import "normalize";
 @import "compass/css3";
 @import "font-awesome";
+@import "icomoon";
 @import "main-font";
 @import "mixins";
 
@@ -26,6 +27,10 @@ table {
 }
 
 i {
+  &.icomoon {
+    font-family: icomoon;
+  }
+
   font-size: 4em;
   padding: 0.2em;
 
