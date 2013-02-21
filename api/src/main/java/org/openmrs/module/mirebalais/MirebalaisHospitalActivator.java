@@ -13,16 +13,6 @@
  */
 package org.openmrs.module.mirebalais;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,6 +53,7 @@ import org.openmrs.util.OpenmrsConstants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,12 +85,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
 		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 10, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
-		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 23, ImportMode.MIRROR));
+		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 24, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration",
                 "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
-		        "7003f131-7a15-4292-9513-c9fe52a73235", 3, ImportMode.MIRROR));
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 5, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Surgery",
                 "a253327a-e222-4569-92af-847278bf0169", 5, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Provider_Roles",
@@ -322,8 +313,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		// check_in clerk encounter role is set to Oupatient Application User Role
 		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");
-		
-		// paper record location = Mirebalais
+
+        // for consultations
+        setExistingGlobalProperty(EmrConstants.GP_CONSULT_ENCOUNTER_TYPE, "92fd09b4-5335-4f7e-9f63-b2a663fd09a6");
+        setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "4f10ad1a-ec49-48df-98c7-1391c6ac7f05");
+
+        // paper record location = Mirebalais
 		setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
         setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "139766e8-15f5-102d-96e4-000c29c2a5d7");
 
