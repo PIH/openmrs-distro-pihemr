@@ -76,7 +76,7 @@
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/vitals.xml"/>
         <property name="requiredPrivilegeName" value="Task: mirebalais.enterClinicalForms"/>
         <property name="extensionPoint" value="patient.visits.active.actions"/>
-        <property name="iconUrl" value="icon-heart"/>
+        <property name="iconUrl" value="icon-vitals icomoon"/>
     </bean>
 
     <!-- not for first release
