@@ -29,8 +29,8 @@
             <legend>Who?</legend>
             <label>Who?</label>
 
-            <encounterProviderAndRole default="currentUser" encounterRole="a0b03050-c99b-11e0-9572-0800200c9a66"
-                                      required="true"/>
+            <encounterProviderAndRole default="currentUser" encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af"
+                    required="true"/>
         </fieldset>
 
         <fieldset>
@@ -50,27 +50,27 @@
 
         <p>
             <label>Attending Surgeon</label>
-            <encounterProviderAndRole encounterRole="3" required="true"/>
+            <encounterProviderAndRole encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af" required="true"/>
         </p>
 
         <p>
             <label>Assistants</label>
-            <encounterProviderAndRole encounterRole="4" required="false"/>
-            <encounterProviderAndRole encounterRole="4" required="false"/>
+            <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
+            <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
             <label>other</label>
             <obs conceptId="PIH:Name of assistant surgeon"/>
         </p>
 
         <p>
             <label>Anesthesiologist</label>
-            <encounterProviderAndRole encounterRole="5" required="false"/>
-            <encounterProviderAndRole encounterRole="5" required="false"/>
+            <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
+            <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
         </p>
 
         <p>
             <label>Nurse</label>
-            <encounterProviderAndRole encounterRole="6" required="false"/>
-            <encounterProviderAndRole encounterRole="6" required="false"/>
+            <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
+            <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
         </p>
 
     </section>
