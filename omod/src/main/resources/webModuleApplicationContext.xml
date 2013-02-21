@@ -35,7 +35,7 @@
         <property name="id" value="patientRegistration.registration" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.registration.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientRegistration"/>
-        <property name="iconUrl" value="icon-user"/>
+        <property name="iconUrl" value="icon-register icomoon"/>
         <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
     <bean id="checkin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
@@ -64,7 +64,7 @@
         <property name="id" value="mirebalais.outpatientVitals" />
         <property name="labelCode" value="mirebalais.outpatientVitals.title"/>
         <property name="homepageUrl" value="mirebalais/outpatientvitals/findPatient.page"/>
-        <property name="iconUrl" value="icon-heart"/>
+        <property name="iconUrl" value="icon-vitals icomoon"/>
     </bean>
 
     <!-- Tasks for Mirebalais-specific forms -->
