@@ -9,29 +9,8 @@
 	font-style: normal;
 }
 
-/* Use the following CSS code if you want to use data attributes for inserting your icons */
-[data-icon]:before {
-	font-family: 'icomoon';
-	content: attr(data-icon);
-	speak: none;
-	font-weight: normal;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-}
-
-/* Use the following CSS code if you want to have a class per icon */
-/*
-Instead of a list of all class selectors,
-you can use the generic selector below, but it's slower:
-[class*="icon-"]:before {
-*/
 .icon-vitals:before, .icon-vitals-2:before, .icon-provider:before, .icon-medicine:before, .icon-diagnosis:before, .icon-x-ray:before, .icon-archives:before, .icon-medical:before, .icon-register:before, .icon-check-in:before, .icon-medicine-2:before, .icon-record:before, .icon-baby:before, .icon-admission:before {
 	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
 }
 .icon-vitals:before {
 	content: "\e000";
