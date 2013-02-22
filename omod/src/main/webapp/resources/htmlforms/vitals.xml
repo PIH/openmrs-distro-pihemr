@@ -62,34 +62,40 @@
                 return ((tempFahrenheit - 32) * 5 / 9).toFixed(1);
             }
 
-            var calculateBmi = function() {
-                var wt = getValueIfLegal('weight.value');
-                var ht = getValueIfLegal('height.value');
-                var bmi = null
-                if (wt &amp;&amp; ht) {
-                    bmi = wt / (ht * ht);
-                }
-                if (bmi == null || isNaN(bmi)) {
-                    $j('#no-calculated-bmi').show();
-                    $j('#calculated-bmi-wrapper').hide();
-                } else {
-                    $j('#no-calculated-bmi').hide();
-                    $j('#calculated-bmi-wrapper').show();
-                    $j('#calculated-bmi').html(bmi.toFixed(1));
-                    $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
-                }
-            };
 
-            $j(function() {
-                $j('#calculated-bmi-wrapper').hide();
-
-                getField('weight.value').change(calculateBmi);
-
-                getField('height.value').change(calculateBmi);
-
-                //$j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
-            });
         </script>
+
+        <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+        <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
+            <script type="text/javascript">
+
+                var calculateBmi = function() {
+                    var wt = getValueIfLegal('weight.value');
+                    var ht = getValueIfLegal('height.value');
+                    var bmi = null
+                    if (wt &amp;&amp; ht) {
+                        bmi = wt / (ht * ht);
+                    }
+                    if (bmi == null || isNaN(bmi)) {
+                        $j('#no-calculated-bmi').show();
+                        $j('#calculated-bmi-wrapper').hide();
+                    } else {
+                        $j('#no-calculated-bmi').hide();
+                        $j('#calculated-bmi-wrapper').show();
+                        $j('#calculated-bmi').html(bmi.toFixed(1));
+                        $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                    }
+                };
+
+                $j(function() {
+                    $j('#calculated-bmi-wrapper').hide();
+
+                    getField('weight.value').change(calculateBmi)
+                    getField('height.value').change(calculateBmi);
+
+                });
+            </script>
+        </includeIf>
     </ifMode>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
