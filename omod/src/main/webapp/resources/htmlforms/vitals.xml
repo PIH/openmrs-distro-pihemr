@@ -48,8 +48,6 @@
 
                 getField('height.value').change(calculateBmi);
 
-                getField('bp_systolic.value').attr("min", "30");
-
                 //$j('#confirmation .after-data-canvas').append('<img src="' + emr.resourceLink('mirebalais', 'images/triage/ke-vitals-placeholder.png') + '"/>');
             });
         </script>
@@ -97,23 +95,28 @@
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.bmi.title"/></h3>
+        <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+        <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
 
-            <span id="no-calculated-bmi">
-                <uimessage code="mirebalais.vitals.bmi.instructions"/>
-            </span>
-            <span id="calculated-bmi-wrapper">
-                <uimessage code="mirebalais.vitals.bmi.display"/>
-                <span id='calculated-bmi'></span>
-            </span>
+            <fieldset>
+                <legend><uimessage code="mirebalais.vitals.bmi.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.bmi.title"/></h3>
 
-            <p>
-                <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
-                <uimessage code="mirebalais.vitals.calculatedField.continue"/>
-            </p>
-        </fieldset>
+                <span id="no-calculated-bmi">
+                    <uimessage code="mirebalais.vitals.bmi.instructions"/>
+                </span>
+                <span id="calculated-bmi-wrapper">
+                    <uimessage code="mirebalais.vitals.bmi.display"/>
+                    <span id='calculated-bmi'></span>
+                </span>
+
+                <p>
+                    <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
+                    <uimessage code="mirebalais.vitals.calculatedField.continue"/>
+                </p>
+            </fieldset>
+
+        </includeIf>
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
