@@ -152,14 +152,6 @@ header {
   }
 }
 
-#tab-create, #tab-pull {
-  .cancel {
-    color: $error;
-    font-size: 1.1em;
-    cursor: pointer;
-  }
-}
-
 #assigned_create_requests_table, #assigned_pull_requests_table {
   th {
     background: white;
@@ -482,5 +474,17 @@ header {
   #patient-search-field-search {
     margin: 0 auto;
     width: 500px;
+  }
+}
+
+.delete-item {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+  color: $darkerGrey;
+  font-size: 1em;
+  cursor: pointer;
+  &:hover {
+    color: $error;
   }
 }
