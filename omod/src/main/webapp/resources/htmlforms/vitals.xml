@@ -26,8 +26,8 @@
 
             var fahrenheitExitHandler = {
                 handleExit: function (fieldValue) {
-                    if ($j('#temperature_f') &amp;&amp; $j('#temperature_f').val()) {
-                        setValue('temperature_c.value', convertFahrenheitToCelcius($j('#temperature_f').val()));
+                    if (fieldValue &amp;&amp; fieldValue.value()) {
+                        setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
                         $j('#temperature_f').val('');
                         return false;
                     }
