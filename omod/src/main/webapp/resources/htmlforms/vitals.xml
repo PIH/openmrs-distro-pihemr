@@ -24,44 +24,24 @@
     <ifMode mode="ENTER">
         <script type="text/javascript">
 
-            var fahrenheitErrorMessage = '<uimessage code="mirebalais.vitals.formValidaton.messages.onlyOneTemperature"/>';
-
-            function FahrenheitFieldValidator() {};
-            FahrenheitFieldValidator.prototype = new FieldValidator();
-            FahrenheitFieldValidator.prototype.constructor = FahrenheitFieldValidator;
-            FahrenheitFieldValidator.prototype.validate = function(fieldValue) {
-
-                // first do basic numeric validation
-                var numberValidationError= Validators['number'].validate(fieldValue);
-                if (numberValidationError) {
-                    return numberValidationError;
-                }
-
-                var numericRangeValidationError = Validators['numeric-range'].validate(fieldValue);
-                if (numericRangeValidationError) {
-                    return numericRangeValidationError;
-                }
-
-                // make sure user hasn't entered a value for both C and F
-                if (getField('temperature_c.value').val() &amp;&amp; fieldValue &amp;&amp; fieldValue.value()) {
-                    return fahrenheitErrorMessage;
-                }
-                else {
-                    // convert F to C if necessary
-                    if (fieldValue &amp;&amp; fieldValue.value()) {
-                        setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
+            var fahrenheitExitHandler = {
+                handleExit: function (fieldValue) {
+                    if ($j('#temperature_f') &amp;&amp; $j('#temperature_f').val()) {
+                        setValue('temperature_c.value', convertFahrenheitToCelcius($j('#temperature_f').val()));
                         $j('#temperature_f').val('');
+                        return false;
                     }
-                    return null;
+                    else {
+                        return true;
+                    }
                 }
             }
 
-            Validators['fahrenheit'] = new FahrenheitFieldValidator();
+            ExitHandlers['fahrenheit'] = fahrenheitExitHandler;
 
             var convertFahrenheitToCelcius = function(tempFahrenheit) {
                 return ((tempFahrenheit - 32) * 5 / 9).toFixed(1);
             }
-
 
         </script>
 
@@ -178,7 +158,7 @@
                 </p>
                 <p class='left'>
                     <span class='obs-field'>
-                        <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="fahrenheit"/>
+                        <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>
                         <span class="append-to-value"><uimessage code="mirebalais.vitals.degreesFahrenheit"/></span>
                         <span class="error field-error" style="display: none"></span>
                     </span>
