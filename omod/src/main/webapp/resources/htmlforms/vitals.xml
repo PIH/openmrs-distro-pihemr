@@ -21,6 +21,8 @@
         }
     </style>
 
+    <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
+    <!-- TODO: handle this is 'EDIT' mode as well -->
     <ifMode mode="ENTER">
         <script type="text/javascript">
 
@@ -44,39 +46,41 @@
             }
 
         </script>
-
-        <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
-        <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
-            <script type="text/javascript">
-
-                var calculateBmi = function() {
-                    var wt = getValueIfLegal('weight.value');
-                    var ht = getValueIfLegal('height.value');
-                    var bmi = null
-                    if (wt &amp;&amp; ht) {
-                        bmi = wt / (ht * ht);
-                    }
-                    if (bmi == null || isNaN(bmi)) {
-                        $j('#no-calculated-bmi').show();
-                        $j('#calculated-bmi-wrapper').hide();
-                    } else {
-                        $j('#no-calculated-bmi').hide();
-                        $j('#calculated-bmi-wrapper').show();
-                        $j('#calculated-bmi').html(bmi.toFixed(1));
-                        $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
-                    }
-                };
-
-                $j(function() {
-                    $j('#calculated-bmi-wrapper').hide();
-
-                    getField('weight.value').change(calculateBmi)
-                    getField('height.value').change(calculateBmi);
-
-                });
-            </script>
-        </includeIf>
     </ifMode>
+
+    <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+    <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
+        <script type="text/javascript">
+
+            var calculateBmi = function() {
+
+                var wt = getValueIfLegal('weight.value');
+                var ht = getValueIfLegal('height.value');
+                var bmi = null
+                if (wt &amp;&amp; ht) {
+                    bmi = wt / (ht * ht);
+                }
+                if (bmi == null || isNaN(bmi)) {
+                    $j('#no-calculated-bmi').show();
+                    $j('#calculated-bmi-wrapper').hide();
+                } else {
+                    $j('#no-calculated-bmi').hide();
+                    $j('#calculated-bmi-wrapper').show();
+                    $j('#calculated-bmi').html(bmi.toFixed(1));
+                    $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                }
+            };
+
+            $j(function() {
+                $j('#calculated-bmi-wrapper').hide();
+
+                getField('weight.value').change(calculateBmi)
+                getField('height.value').change(calculateBmi);
+
+                calculateBmi();
+            });
+        </script>
+    </includeIf>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
@@ -151,7 +155,9 @@
                 <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>
             </p>
 
-            <!-- if we are in one of the entry modes, display the field for entering temp in F -->
+
+            <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
+            <!-- TODO: handle this is 'EDIT' mode as well -->
             <ifMode mode="ENTER">
                 <p class="left">
                     <uimessage code="mirebalais.vitals.or"/>
