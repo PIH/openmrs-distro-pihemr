@@ -30,7 +30,7 @@
                 handleExit: function (fieldValue) {
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
-                        $j('#temperature_f').val('');
+                        jq('#temperature_f').val('');
                         return false;
                     }
                     else {
@@ -50,36 +50,71 @@
 
     <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
     <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
+
         <script type="text/javascript">
-
-            var calculateBmi = function() {
-
-                var wt = getValueIfLegal('weight.value');
-                var ht = getValueIfLegal('height.value');
+            var calculateBmi = function(wt, ht) {
                 var bmi = null
                 if (wt &amp;&amp; ht) {
                     bmi = wt / (ht * ht);
                 }
-                if (bmi == null || isNaN(bmi)) {
-                    $j('#no-calculated-bmi').show();
-                    $j('#calculated-bmi-wrapper').hide();
-                } else {
-                    $j('#no-calculated-bmi').hide();
-                    $j('#calculated-bmi-wrapper').show();
-                    $j('#calculated-bmi').html(bmi.toFixed(1));
-                    $j('#hidden-calculated-bmi').val(bmi.toFixed(1));
-                }
-            };
-
-            $j(function() {
-                $j('#calculated-bmi-wrapper').hide();
-
-                getField('weight.value').change(calculateBmi)
-                getField('height.value').change(calculateBmi);
-
-                calculateBmi();
-            });
+                return bmi ;
+            }
         </script>
+
+        <ifMode mode="ENTER">
+            <script type="text/javascript">
+
+                // functions to handle updating the bmi when in ENTER mode
+                var updateBmi = function() {
+                    var wt = getValueIfLegal('weight.value');
+                    var ht = getValueIfLegal('height.value');
+
+                    var bmi = calculateBmi(wt, ht);
+
+                    if (bmi == null || isNaN(bmi)) {
+                        jq('#calculated-bmi-wrapper').hide();
+                    } else {
+                        jq('#no-calculated-bmi').hide();
+                        jq('#calculated-bmi-wrapper').show();
+                        jq('#calculated-bmi').html(bmi.toFixed(1));
+                        jq('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                    }
+                };
+
+                jq(function() {
+                    jq('#calculated-bmi-wrapper').hide();
+
+                    getField('weight.value').change(updateBmi)
+                    getField('height.value').change(updateBmi);
+
+                    updateBmi();
+                });
+            </script>
+        </ifMode>
+
+        <ifMode mode="VIEW">
+            <script type="text/javascript">
+
+                // handle displaying the bmi when in VIEW mode
+                jq(function() {
+                    jq('#calculated-bmi-continue').hide();
+                    jq('#no-calculated-bmi').hide();
+
+                    var wt = jq('#weight').find('.value').text();
+                    var ht = jq('#height').find('.value').text();
+
+                    var bmi = calculateBmi(wt, ht);
+
+                    if (bmi != null &amp;&amp; !isNaN(bmi)) {
+                        jq('#calculated-bmi-wrapper').show();
+                        jq('#calculated-bmi').html(bmi.toFixed(1));
+                        jq('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                    }
+                });
+
+            </script>
+        </ifMode>
+
     </includeIf>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
@@ -139,7 +174,7 @@
                     <span id='calculated-bmi'></span>
                 </span>
 
-                <p>
+                <p id="calculated-bmi-continue">
                     <input type="hidden" name="focus-in-bmi-question" id="hidden-calculated-bmi" />
                     <uimessage code="mirebalais.vitals.calculatedField.continue"/>
                 </p>
