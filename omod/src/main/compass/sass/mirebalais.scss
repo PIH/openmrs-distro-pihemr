@@ -202,6 +202,11 @@ header {
   }
 }
 
+.checkbox-done input {
+  vertical-align: middle;
+  @include check-box;
+}
+
 .instructions {
   font-size: 1.7em;
   color: $highlight;
