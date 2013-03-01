@@ -42,6 +42,7 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
 
     <global_property property="layout.address.format" property_value="" uuid="7abc4766-0663-45e1-8c99-2b4f0c4f888a"/>
     <global_property property="locale.allowed.list" property_value="" uuid="7abc47a5-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="default_locale" property_value="" uuid="7ddd47a5-0663-45e1-8c99-2b4f0c4f888a"/>
 
     <global_property property="emr.radiologyOrderEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.orderingProviderEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
