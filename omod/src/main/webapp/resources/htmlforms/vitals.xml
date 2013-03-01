@@ -19,7 +19,7 @@
             font-size: 1.4em;
         }
 
-        .encounter-details #calculated-bmi {
+        .encounter-summary-container #calculated-bmi {
             font-size: 1em;
             font-weight: normal;
         }
