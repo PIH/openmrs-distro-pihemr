@@ -44,6 +44,7 @@
 	
 	<properties>
 		<openMRSVersion>1.9.3-SNAPSHOT</openMRSVersion>
+        <mirebalaisreportsVersion>1.0-SNAPSHOT</mirebalaisreportsVersion>
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5</uiframeworkVersion>
 		<appframeworkVersion>1.4</appframeworkVersion>
