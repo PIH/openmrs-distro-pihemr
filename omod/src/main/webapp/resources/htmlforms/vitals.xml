@@ -18,6 +18,11 @@
             font-weight: bold;
             font-size: 1.4em;
         }
+
+        .encounter-details #calculated-bmi {
+            font-size: 1em;
+            font-weight: normal;
+        }
     </style>
 
     <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
