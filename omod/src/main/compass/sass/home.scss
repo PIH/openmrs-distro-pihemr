@@ -16,10 +16,11 @@ hr.separator {
     margin: 40px 0;
     padding: 10px 0;
     border-top: 1px dashed #CCC;
+    
     .button {
       padding: 20px 10px;
       width: 150px;
-      height: 70px;
+      min-height: 90px;
       vertical-align: top;
       line-height: 1.3em;
       margin: 10px;
