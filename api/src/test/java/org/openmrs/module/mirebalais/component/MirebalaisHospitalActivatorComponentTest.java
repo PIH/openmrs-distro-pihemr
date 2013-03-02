@@ -25,6 +25,7 @@ import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -62,6 +63,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     @Autowired
     private SchedulerService schedulerService;
+
+    @Autowired
+    private AdministrationService adminService;
 
 	private MirebalaisHospitalActivator activator;
 	
@@ -203,6 +207,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
+        assertEquals(1, Integer.parseInt(adminService.getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION)) );
 	}
 	
 	private void verifyLocationAttributeNotOverwritten() throws Exception {

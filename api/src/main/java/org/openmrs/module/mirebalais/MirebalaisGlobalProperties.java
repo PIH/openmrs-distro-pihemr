@@ -20,4 +20,7 @@ public class MirebalaisGlobalProperties {
 	public static final String ADDRESS_LAYOUT_FORMAT() {
 		return Context.getAdministrationService().getGlobalProperty("layout.address.format");
 	}
+
+    public static final String INSTALLED_ADDRESS_HIERARCHY_VERSION = "mirebalais.installedAddressHierarchyVersion";
+
 }

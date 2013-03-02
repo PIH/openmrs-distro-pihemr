@@ -72,6 +72,7 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="3f48a795-3c7d-4795-b5d8-7c4bba3875ec"/>
     <global_property property="namephonetics.middleNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="02c95d0f-f00d-465c-b17e-e9b9882ab03f"/>
-    
+
+    <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0" uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
 
 </dataset>

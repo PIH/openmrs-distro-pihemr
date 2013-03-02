@@ -69,8 +69,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	List<MetadataPackageConfig> currentMetadataVersions = new ArrayList<MetadataPackageConfig>();
 	
-	private String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries.csv";
-	
+	private final String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries";
+
+    private final Integer ADDRESS_HIERARCHY_VERSION = 1;
+
 	private MirebalaisCustomProperties customProperties;
 	
 	private ConfigureIdGenerators configureIdGenerators;
@@ -430,10 +432,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			address2.setAddressField(AddressField.ADDRESS_2);
 			address2.setParent(address1);
 			ahService.saveAddressHierarchyLevel(address2);
-			
-			// load in the csv file
-			InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE);
-			AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|");
 		}
 		// at least verify that the right levels exist
 		// TODO: perhaps do more validation here?
@@ -451,6 +449,29 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 				
 			}
 		}
+
+        // load in the csv file if necessary
+        int installedAddressHierarchyVersion = Integer.parseInt(Context.getAdministrationService()
+                .getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION));
+
+        if (installedAddressHierarchyVersion < ADDRESS_HIERARCHY_VERSION) {
+            // delete any existing entries
+            Context.getService(AddressHierarchyService.class).deleteAllAddressHierarchyEntries();
+
+            // import the new file
+            InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE + "_"
+                    + ADDRESS_HIERARCHY_VERSION + ".csv");
+            AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|", "\\^");
+
+            // update the installed version
+            GlobalProperty installedAddressHierarchyVersionObject = Context.getAdministrationService()
+                    .getGlobalPropertyObject(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION);
+            installedAddressHierarchyVersionObject.setPropertyValue(ADDRESS_HIERARCHY_VERSION.toString());
+            Context.getAdministrationService().saveGlobalProperty(installedAddressHierarchyVersionObject);
+        }
+
+
+
 	}
 
     private void setupCloseStalePullRequestsTask() {

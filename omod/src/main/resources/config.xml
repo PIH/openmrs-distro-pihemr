@@ -80,6 +80,14 @@
     </messages>
 
     <!-- Global Properties -->
+    <globalProperty>
+        <property>mirebalais.installedAddressHierarchyVersion</property>
+        <defaultValue>0</defaultValue>
+        <description>
+            Used to track what version of the address hierarchy is installed on the system
+        </description>
+    </globalProperty>
+
 
 </module>
 
