@@ -92,7 +92,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
-		        "7003f131-7a15-4292-9513-c9fe52a73235", 7, ImportMode.MIRROR));
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 8, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Surgery",
                 "a253327a-e222-4569-92af-847278bf0169", 6, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Provider_Roles",
@@ -283,7 +283,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void setupCoreGlobalProperties() {
 		setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
-        setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE, "fr");
 	}
 	
 	private void setupMirebalaisGlobalProperties() {
@@ -432,6 +431,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			address2.setAddressField(AddressField.ADDRESS_2);
 			address2.setParent(address1);
 			ahService.saveAddressHierarchyLevel(address2);
+			
+			// load in the csv file
+			InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE);
+			AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|");
 		}
 		// at least verify that the right levels exist
 		// TODO: perhaps do more validation here?
@@ -449,29 +452,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 				
 			}
 		}
-
-        // load in the csv file if necessary
-        int installedAddressHierarchyVersion = Integer.parseInt(Context.getAdministrationService()
-                .getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION));
-
-        if (installedAddressHierarchyVersion < ADDRESS_HIERARCHY_VERSION) {
-            // delete any existing entries
-            Context.getService(AddressHierarchyService.class).deleteAllAddressHierarchyEntries();
-
-            // import the new file
-            InputStream file = getClass().getClassLoader().getResourceAsStream(ADDRESS_HIERARCHY_CSV_FILE + "_"
-                    + ADDRESS_HIERARCHY_VERSION + ".csv");
-            AddressHierarchyImportUtil.importAddressHierarchyFile(file, "\\|", "\\^");
-
-            // update the installed version
-            GlobalProperty installedAddressHierarchyVersionObject = Context.getAdministrationService()
-                    .getGlobalPropertyObject(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION);
-            installedAddressHierarchyVersionObject.setPropertyValue(ADDRESS_HIERARCHY_VERSION.toString());
-            Context.getAdministrationService().saveGlobalProperty(installedAddressHierarchyVersionObject);
-        }
-
-
-
 	}
 
     private void setupCloseStalePullRequestsTask() {
