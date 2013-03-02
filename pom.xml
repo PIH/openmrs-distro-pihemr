@@ -43,7 +43,7 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.3-SNAPSHOT</openMRSVersion>
+		<openMRSVersion>1.9.3</openMRSVersion>
         <mirebalaisreportsVersion>1.0-SNAPSHOT</mirebalaisreportsVersion>
 		<emrVersion>0.1.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5</uiframeworkVersion>
@@ -64,7 +64,7 @@
         <providerManagementVersion>1.1.3</providerManagementVersion>
         <eventVersion>2.0.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
-        <openmrswebVersion>1.9.3-SNAPSHOT</openmrswebVersion>
+        <openmrswebVersion>1.9.3</openmrswebVersion>
         <uilibraryVersion>1.5</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
