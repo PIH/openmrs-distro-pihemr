@@ -40,6 +40,8 @@ import org.openmrs.module.metadatasharing.ImportMode;
 import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
+import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
@@ -53,6 +55,7 @@ import org.openmrs.util.OpenmrsConstants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +116,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	 */
 	public void contextRefreshed() {
 		log.info("Mirebalais Hospital Module refreshed");
-	}
+
+        // Since we do all MDS import programmatically, in mirror or parent-child mode, we don't want items being matched
+        // except for in specific ways.
+        // see https://tickets.openmrs.org/browse/META-323
+        List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
+        supportedResolvers.add(new ObjectByUuidResolver());
+        // We shouldn't need this unless we're ever importing concepts directly from another server like CIEL
+        // supportedResolvers.add(new ObjectByNameResolver());
+        MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
+    }
 	
 	/**
 	 * @see ModuleActivator#willStart()
