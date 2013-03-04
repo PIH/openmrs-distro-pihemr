@@ -43,7 +43,7 @@ ${ ui.includeFragment("emr", "header") }
                         ${ ui.message("mirebalais.login.sessionLocation") }:
                     </label>
                     <ul id="sessionLocation" class="select">
-                        <% locations.each { %>
+                        <% locations.sort { ui.format(it) }.each { %>
                             <li value="${it.id}">${ui.format(it)}</li>
                         <% } %>
                     </ul>
