@@ -50,7 +50,7 @@
         <property name="labelCode" value="mirebalais.app.patientRegistration.emergencyCheckin.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=edCheckIn"/>
         <property name="iconUrl" value="icon-hospital"/>
-        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
+        <property name="requiredPrivilegeName" value="App: emr.systemAdministration"/>
     </bean>
     <bean id="patientLookup" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.lookup" />
