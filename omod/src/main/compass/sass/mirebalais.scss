@@ -233,12 +233,9 @@ header {
   }
 }
 
-.sending-records {
-}
-
 #assign-to-create-button, #assign-to-pull-button {
   position: relative;
-  padding: 9px 15px;
+  padding: 9px 5px;
   margin-left: -10px;
   background: darken($success, 10%);
   color: white;
