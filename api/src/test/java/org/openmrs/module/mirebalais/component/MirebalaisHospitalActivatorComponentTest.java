@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.component;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
@@ -26,6 +27,7 @@ import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -34,7 +36,11 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.account.AccountDomainWrapper;
 import org.openmrs.module.emr.account.AccountService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
+import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
+import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.mirebalais.MetadataPackageConfig;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
@@ -49,9 +55,14 @@ import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.validator.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.timer.TimerFactoryBean;
 
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID;
 
@@ -77,6 +88,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         executeDataSet("mirebalaisProviderIdentifierGeneratorComponentTestDataset.xml");
 		authenticate();
 		activator = new MirebalaisHospitalActivator();
+        activator.willRefreshContext();
+        activator.contextRefreshed();
+        activator.willStart();
 		activator.started();
 		
 	}
@@ -146,14 +160,23 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		}
 		
 		// Verify a few pieces of sentinel data that should have been in the packages
-		Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
-		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
+        ConceptService conceptService = Context.getConceptService();
+        Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
+        Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
 		        .getGlobalProperty(RADIOLOGY_ORDER_TYPE_UUID))));
-		Assert.assertNotNull((Context.getConceptService().getConceptByMapping("TEMPERATURE (C)", "PIH")));
+        Assert.assertNotNull((conceptService.getConceptByMapping("TEMPERATURE (C)", "PIH")));
 		Assert.assertNotNull(Context.getService((ProviderManagementService.class)).getProviderRoleByUuid("61eed524-4547-4228-a3ac-631fe1628a5e"));
 
+        // Regression test for META-323
+        {
+            assertThat(conceptService.getConceptByUuid("06cc08fb-414a-46e6-8c20-136535609812"), notNullValue());
+            assertThat(conceptService.getConceptByUuid("06cc08fb-414a-46e6-8c20-136535609812").getName().getName(), is("Fièvre rhumatismale, sans attente cardiaque"));
+            assertThat(conceptService.getConceptByUuid("006ab3b2-a0ea-45bf-b495-83e06f26f87a"), notNullValue());
+            assertThat(conceptService.getConceptByUuid("006ab3b2-a0ea-45bf-b495-83e06f26f87a").getName().getName(), is("Fievre rheumatique aigue"));
+        }
+
 		// this doesn't strictly belong here, but we include it as an extra sanity check on the MDS module
-		for (Concept concept : Context.getConceptService().getAllConcepts()) {
+		for (Concept concept : conceptService.getAllConcepts()) {
 			ValidateUtil.validate(concept);
 		}
 	}
