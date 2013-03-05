@@ -55,7 +55,6 @@ import org.openmrs.util.OpenmrsConstants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +94,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
-		        "7003f131-7a15-4292-9513-c9fe52a73235", 8, ImportMode.MIRROR));
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 9, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Surgery",
                 "a253327a-e222-4569-92af-847278bf0169", 6, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Provider_Roles",
