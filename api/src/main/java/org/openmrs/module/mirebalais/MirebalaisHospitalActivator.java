@@ -73,7 +73,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	private final String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries";
 
-    private final Integer ADDRESS_HIERARCHY_VERSION = 1;
+    private final Integer ADDRESS_HIERARCHY_VERSION = 2;
 
 	private MirebalaisCustomProperties customProperties;
 	
@@ -295,6 +295,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setupCoreGlobalProperties() {
 		setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
         setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE, "fr");
+       // setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPE);
 	}
 	
 	private void setupMirebalaisGlobalProperties() {
