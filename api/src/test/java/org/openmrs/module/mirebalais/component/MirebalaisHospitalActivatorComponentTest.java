@@ -234,7 +234,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
-        assertEquals(2, Integer.parseInt(adminService.getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION)) );
+        assertEquals(3, Integer.parseInt(adminService.getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION)) );
 	}
 	
 	private void verifyLocationAttributeNotOverwritten() throws Exception {
