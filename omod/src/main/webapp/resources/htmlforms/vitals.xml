@@ -57,6 +57,7 @@
                 handleExit: function (fieldValue) {
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('weight_kg.value', convertLbsToKg(fieldValue.value()));
+                        getField('weight_kg.value').change() // trigger change event so BMI is updated
                         jq('#weight_lbs').val('');
                         return false;
                     }
@@ -73,10 +74,13 @@
             }
 
 
+            // inches to cm converter
+
             var inchesExitHandler = {
                 handleExit: function (fieldValue) {
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('height_cm.value', convertInchesToCm(fieldValue.value()));
+                        getField('height_cm.value').change()
                     jq('#height_inches').val('');
                         return false;
                     }
@@ -102,7 +106,7 @@
             var calculateBmi = function(wt, ht) {
                 var bmi = null
                 if (wt &amp;&amp; ht) {
-                    bmi = wt / (ht * ht);
+                    bmi = wt / ((ht/100) * (ht/100));
                 }
                 return bmi ;
             }
