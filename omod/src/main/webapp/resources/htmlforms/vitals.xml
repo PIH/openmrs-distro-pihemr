@@ -25,10 +25,12 @@
         }
     </style>
 
-    <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
+    <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
     <!-- TODO: handle this is 'EDIT' mode as well -->
     <ifMode mode="ENTER">
         <script type="text/javascript">
+
+            // fahrenheit to celcius converter
 
             var fahrenheitExitHandler = {
                 handleExit: function (fieldValue) {
@@ -47,6 +49,47 @@
 
             var convertFahrenheitToCelcius = function(tempFahrenheit) {
                 return ((tempFahrenheit - 32) * 5 / 9).toFixed(1);
+            }
+
+            // lbs to kg converter
+
+            var lbsExitHandler = {
+                handleExit: function (fieldValue) {
+                    if (fieldValue &amp;&amp; fieldValue.value()) {
+                        setValue('weight_kg.value', convertLbsToKg(fieldValue.value()));
+                        jq('#weight_lbs').val('');
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+
+            ExitHandlers['lbs'] = lbsExitHandler;
+
+            var convertLbsToKg = function(weightLbs) {
+                return (weightLbs / 2.2).toFixed(1);
+            }
+
+
+            var inchesExitHandler = {
+                handleExit: function (fieldValue) {
+                    if (fieldValue &amp;&amp; fieldValue.value()) {
+                        setValue('height_cm.value', convertInchesToCm(fieldValue.value()));
+                    jq('#height_inches').val('');
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+
+            ExitHandlers['inches'] = inchesExitHandler;
+
+            var convertInchesToCm = function(heightInches) {
+                return (heightInches * 2.54).toFixed(1);
             }
 
         </script>
@@ -70,8 +113,8 @@
 
                 // functions to handle updating the bmi when in ENTER mode
                 var updateBmi = function() {
-                    var wt = getValueIfLegal('weight.value');
-                    var ht = getValueIfLegal('height.value');
+                    var wt = getValueIfLegal('weight_kg.value');
+                    var ht = getValueIfLegal('height_cm.value');
 
                     var bmi = calculateBmi(wt, ht);
 
@@ -88,8 +131,8 @@
                 jq(function() {
                     jq('#calculated-bmi-wrapper').hide();
 
-                    getField('weight.value').change(updateBmi)
-                    getField('height.value').change(updateBmi);
+                    getField('weight_kg.value').change(updateBmi)
+                    getField('height_cm.value').change(updateBmi);
 
                     updateBmi();
                 });
@@ -104,8 +147,8 @@
                     jq('#calculated-bmi-continue').hide();
                     jq('#no-calculated-bmi').hide();
 
-                    var wt = jq('#weight').find('.value').text();
-                    var ht = jq('#height').find('.value').text();
+                    var wt = jq('#weight_kg').find('.value').text();
+                    var ht = jq('#height_cm').find('.value').text();
 
                     var bmi = calculateBmi(wt, ht);
 
@@ -149,18 +192,49 @@
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
-            <p>
-                <obs conceptId="PIH:HEIGHT (M)" id="height" showUnits="emr.units.meters" unitsCssClass="append-to-value"/>
+            <p class="left">
+                <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="mirebalais.vitals.centimeters" unitsCssClass="append-to-value"/>
             </p>
+
+            <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
+            <!-- TODO: handle this is 'EDIT' mode as well -->
+            <ifMode mode="ENTER">
+                <p class="left">
+                    <uimessage code="mirebalais.vitals.or"/>
+                </p>
+                <p class='left'>
+                    <span class='obs-field'>
+                        <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
+                        <span class="append-to-value"><uimessage code="mirebalais.vitals.inches"/></span>
+                        <span class="error field-error" style="display: none"></span>
+                    </span>
+                </p>
+            </ifMode>
         </fieldset>
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
-            <p>
-                <obs conceptId="PIH:WEIGHT (KG)" id="weight" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
+            <p class="left">
+                <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
             </p>
+
+            <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
+            <!-- TODO: handle this is 'EDIT' mode as well -->
+            <ifMode mode="ENTER">
+                <p class="left">
+                    <uimessage code="mirebalais.vitals.or"/>
+                </p>
+                <p class='left'>
+                    <span class='obs-field'>
+                        <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
+                        <span class="append-to-value"><uimessage code="mirebalais.vitals.lbs"/></span>
+                        <span class="error field-error" style="display: none"></span>
+                    </span>
+                </p>
+            </ifMode>
+
         </fieldset>
 
         <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
