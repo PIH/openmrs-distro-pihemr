@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>mirebalais</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>pom</packaging>
 	<name>Mirebalais Hospital Module</name>
 	<description>Custom EMR application for Mirebalais Hospital</description>
@@ -25,7 +25,7 @@
 		<connection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</connection> 
 		<developerConnection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</developerConnection> 
 		<url>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</url>
-	  <tag>HEAD</tag>
+	  <tag>1.1</tag>
   </scm>
 
     <distributionManagement>
