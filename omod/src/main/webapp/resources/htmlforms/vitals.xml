@@ -197,7 +197,7 @@
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
             <p class="left">
-                <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="mirebalais.vitals.centimeters" unitsCssClass="append-to-value"/>
+                <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
             </p>
 
             <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
@@ -209,7 +209,7 @@
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
-                        <span class="append-to-value"><uimessage code="mirebalais.vitals.inches"/></span>
+                        <span class="append-to-value"><uimessage code="emr.units.inches"/></span>
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
@@ -233,7 +233,7 @@
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
-                        <span class="append-to-value"><uimessage code="mirebalais.vitals.lbs"/></span>
+                        <span class="append-to-value"><uimessage code="emr.units.lbs"/></span>
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
@@ -282,7 +282,7 @@
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>
-                        <span class="append-to-value"><uimessage code="mirebalais.vitals.degreesFahrenheit"/></span>
+                        <span class="append-to-value"><uimessage code="emr.units.degreesFahrenheit"/></span>
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
@@ -331,6 +331,16 @@
                 <obs conceptId="PIH:BLOOD OXYGEN SATURATION" id="o2_sat" showUnits="emr.units.percent" unitsCssClass="append-to-value"/>
             </p>
         </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.muac.title"/></h3>
+
+            <p>
+                <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)" id="muac" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
+            </p>
+        </fieldset>
+
 
     </section>
 
