@@ -351,7 +351,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(EmrConstants.PAYMENT_REASON_CONCEPT, "36ba7721-fae0-4da4-aef2-7e476cc04bdf");
 		setExistingGlobalProperty(EmrConstants.PAYMENT_RECEIPT_NUMBER_CONCEPT, "20438dc7-c5b4-4d9c-8480-e888f4795123");
 		setExistingGlobalProperty(EmrConstants.PAYMENT_CONSTRUCT_CONCEPT, "7a6330f1-9503-465c-8d63-82e1ad914b47");
-		
+
+        setExistingGlobalProperty(EmrConstants.GP_DIAGNOSIS_SET_OF_SETS, "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770");
 	}
 	
 	private void setupNamePhoneticsGlobalProperties() {
