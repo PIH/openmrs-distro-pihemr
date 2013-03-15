@@ -70,17 +70,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-    <profiles>
-        <profile>
-            <id>production</id>
-            <properties>
-                <mirebalaisreportsVersion>1.0</mirebalaisreportsVersion>
-                <emrVersion>1.1</emrVersion>
-                <patientregistrationVersion>2.1</patientregistrationVersion>
-                <pacsintegrationVersion>1.0</pacsintegrationVersion>
-            </properties>
-        </profile>
-    </profiles>
 
 	<dependencies>
 
