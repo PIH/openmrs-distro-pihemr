@@ -193,10 +193,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     }
 	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-		assertEquals("admin", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.LISTENER_USERNAME));
-		assertEquals("Admin123", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.LISTENER_PASSWORD));
 		assertEquals("13116a48-15f5-102d-96e4-000c29c2a5d7", Context.getAdministrationService().getGlobalProperty(
 		    RADIOLOGY_ORDER_TYPE_UUID));
 		assertEquals("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getAdministrationService().getGlobalProperty(
@@ -234,7 +230,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 		
 		assertEquals(1, ahService.getAddressHierarchyEntriesAtTopLevel().size());
 		assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
-        assertEquals(3, Integer.parseInt(adminService.getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION)) );
+        assertEquals(4, Integer.parseInt(adminService.getGlobalProperty(MirebalaisGlobalProperties.INSTALLED_ADDRESS_HIERARCHY_VERSION)) );
 	}
 	
 	private void verifyLocationAttributeNotOverwritten() throws Exception {

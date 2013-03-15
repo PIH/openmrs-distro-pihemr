@@ -73,7 +73,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	private final String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries";
 
-    private final Integer ADDRESS_HIERARCHY_VERSION = 3;
+    private final Integer ADDRESS_HIERARCHY_VERSION = 4;
 
 	private MirebalaisCustomProperties customProperties;
 	
@@ -308,8 +308,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.LISTENER_USERNAME, "admin");
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.LISTENER_PASSWORD, "Admin123");
 		setExistingGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID,
 		    "13116a48-15f5-102d-96e4-000c29c2a5d7");
 		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PATIENT_IDENTIFIER_TYPE_UUID,
