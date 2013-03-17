@@ -41,6 +41,7 @@ import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
 import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
@@ -121,6 +122,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         // see https://tickets.openmrs.org/browse/META-323
         List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
         supportedResolvers.add(new ObjectByUuidResolver());
+        supportedResolvers.add(new ObjectByNameResolver());
         // We shouldn't need this unless we're ever importing concepts directly from another server like CIEL
         // supportedResolvers.add(new ObjectByNameResolver());
         MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
