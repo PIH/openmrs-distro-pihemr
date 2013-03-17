@@ -10,7 +10,7 @@ public class AppRouterPageController {
 
     public String controller(HttpSession session,
                              @RequestParam("task") String taskName,
-                             @RequestParam(value = "testPatient", required = false) boolean testPatient   ) {
+                             @RequestParam(value = "testPatient", defaultValue = "false") boolean testPatient   ) {
         session.setAttribute(PatientRegistrationConstants.SESSION_REGISTRATION_TASK, taskName);
 
         String url = "redirect:/module/patientregistration/workflow/" + taskName + "Task.form";
@@ -18,6 +18,7 @@ public class AppRouterPageController {
         if (testPatient){
             url += "?testPatient=true";
         }
+
 
         return url;
     }
