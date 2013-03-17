@@ -45,14 +45,14 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	private MirebalaisHospitalDAO dao;
 	
 	/**
-	 * @param dao the dao to set
+	 * @param dao the db to set
 	 */
 	public void setDao(MirebalaisHospitalDAO dao) {
 		this.dao = dao;
 	}
 	
 	/**
-	 * @return the dao
+	 * @return the db
 	 */
 	public MirebalaisHospitalDAO getDao() {
 		return dao;

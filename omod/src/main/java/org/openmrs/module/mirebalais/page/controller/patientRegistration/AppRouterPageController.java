@@ -9,8 +9,16 @@ import javax.servlet.http.HttpSession;
 public class AppRouterPageController {
 
     public String controller(HttpSession session,
-                             @RequestParam("task") String taskName) {
+                             @RequestParam("task") String taskName,
+                             @RequestParam(value = "testPatient", required = false) boolean testPatient   ) {
         session.setAttribute(PatientRegistrationConstants.SESSION_REGISTRATION_TASK, taskName);
-        return "redirect:/module/patientregistration/workflow/"+ taskName + "Task.form";
+
+        String url = "redirect:/module/patientregistration/workflow/" + taskName + "Task.form";
+
+        if (testPatient){
+            url += "?testPatient=true";
+        }
+
+        return url;
     }
 }
