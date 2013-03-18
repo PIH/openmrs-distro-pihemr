@@ -37,11 +37,8 @@
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
                         jq('#temperature_f').val('');
-                        return false;
                     }
-                    else {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
@@ -59,11 +56,8 @@
                         setValue('weight_kg.value', convertLbsToKg(fieldValue.value()));
                         getField('weight_kg.value').change() // trigger change event so BMI is updated
                         jq('#weight_lbs').val('');
-                        return false;
                     }
-                    else {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
@@ -81,12 +75,9 @@
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('height_cm.value', convertInchesToCm(fieldValue.value()));
                         getField('height_cm.value').change()
-                    jq('#height_inches').val('');
-                        return false;
+                        jq('#height_inches').val('');
                     }
-                    else {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
@@ -196,16 +187,9 @@
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
-            <p class="left">
-                <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
-            </p>
-
             <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
             <!-- TODO: handle this is 'EDIT' mode as well -->
             <ifMode mode="ENTER">
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
@@ -213,23 +197,24 @@
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
+                <p class="left">
+                    <uimessage code="mirebalais.vitals.or"/>
+                </p>
             </ifMode>
+
+            <p class="left">
+                <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
+            </p>
+
         </fieldset>
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
-            <p class="left">
-                <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
-            </p>
-
             <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
             <!-- TODO: handle this is 'EDIT' mode as well -->
             <ifMode mode="ENTER">
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
@@ -237,7 +222,14 @@
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
+                <p class="left">
+                    <uimessage code="mirebalais.vitals.or"/>
+                </p>
             </ifMode>
+
+            <p class="left">
+                <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
+            </p>
 
         </fieldset>
 
@@ -268,17 +260,9 @@
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
-            <p class="left">
-                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>
-            </p>
-
-
             <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
             <!-- TODO: handle this is 'EDIT' mode as well -->
             <ifMode mode="ENTER">
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>
@@ -286,7 +270,14 @@
                         <span class="error field-error" style="display: none"></span>
                     </span>
                 </p>
+                <p class="left">
+                    <uimessage code="mirebalais.vitals.or"/>
+                </p>
             </ifMode>
+
+            <p class="left">
+                <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>
+            </p>
 
         </fieldset>
 
