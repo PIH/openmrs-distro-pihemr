@@ -41,7 +41,6 @@ import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.resolver.Resolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
 import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
@@ -95,7 +94,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,
 		        ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
-		        "7003f131-7a15-4292-9513-c9fe52a73235", 17, ImportMode.MIRROR));
+		        "7003f131-7a15-4292-9513-c9fe52a73235", 18, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Surgery",
                 "a253327a-e222-4569-92af-847278bf0169", 6, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Provider_Roles",
@@ -122,7 +121,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         // see https://tickets.openmrs.org/browse/META-323
         List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
         supportedResolvers.add(new ObjectByUuidResolver());
-        supportedResolvers.add(new ObjectByNameResolver());
         // We shouldn't need this unless we're ever importing concepts directly from another server like CIEL
         // supportedResolvers.add(new ObjectByNameResolver());
         MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
