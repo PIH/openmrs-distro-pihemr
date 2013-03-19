@@ -27,6 +27,7 @@
 
     <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
     <!-- TODO: handle this is 'EDIT' mode as well -->
+    <!-- note that this only handles one form per page when in "ENTER" mode -->
     <ifMode mode="ENTER">
         <script type="text/javascript">
 
@@ -139,19 +140,26 @@
 
                 // handle displaying the bmi when in VIEW mode
                 jq(function() {
-                    jq('#calculated-bmi-continue').hide();
-                    jq('#no-calculated-bmi').hide();
 
-                    var wt = jq('#weight_kg').find('.value').text();
-                    var ht = jq('#height_cm').find('.value').text();
+                    // we have to iterate through in case there are multiple vitals forms
+                    // displayed on a single page
 
-                    var bmi = calculateBmi(wt, ht);
+                    jq('htmlform').each(function(index, form) {
+                        jq(form).find('#calculated-bmi-continue').hide();
+                        jq(form).find('#no-calculated-bmi').hide();
 
-                    if (bmi != null &amp;&amp; !isNaN(bmi)) {
-                        jq('#calculated-bmi-wrapper').show();
-                        jq('#calculated-bmi').html(bmi.toFixed(1));
-                        jq('#hidden-calculated-bmi').val(bmi.toFixed(1));
-                    }
+                        var wt = jq(form).find('#weight_kg').find('.value').text();
+                        var ht = jq(form).find('#height_cm').find('.value').text();
+
+                        var bmi = calculateBmi(wt, ht);
+
+                        if (bmi != null &amp;&amp; !isNaN(bmi)) {
+                            jq(form).find('#calculated-bmi-wrapper').show();
+                            jq(form).find('#calculated-bmi').html(bmi.toFixed(1));
+                            jq(form).find('#hidden-calculated-bmi').val(bmi.toFixed(1));
+                        }
+                    });
+
                 });
 
             </script>
