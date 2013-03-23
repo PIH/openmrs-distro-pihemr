@@ -84,7 +84,7 @@ public class ConfigureIdGenerators {
 		localPool.setIdentifierType(remoteZlIdentifierSource.getIdentifierType());
 		localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
 		localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
-		localPool.setSequential(true);
+		localPool.setSequential(false);
 		return localPool;
 	}
 	
