@@ -135,6 +135,14 @@
             </script>
         </ifMode>
 
+        <script>
+            // set the blood pressure fields as "expected"
+            jq(function() {
+                jq('#bp_systolic > input').addClass('expected');
+                jq('#bp_diastolic > input').addClass('expected');
+            });
+        </script>
+
         <ifMode mode="VIEW">
             <script type="text/javascript">
 
