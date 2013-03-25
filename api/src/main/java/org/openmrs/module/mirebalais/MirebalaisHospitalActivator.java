@@ -380,7 +380,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_VISIT_ENCOUNTER_TYPE,
 		    "Primary Care Visit");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.CODED_DIAGNOSIS_CONCEPT,
-		    "PIH: ZL Primary care diagnosis");
+		    "PIH: HUM Outpatient diagnosis");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.AGE_RESTRICTED_CONCEPT,
 		    "PIH: Haiti age restricted diseases");
 		setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
