@@ -41,6 +41,7 @@ import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
 import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
@@ -86,8 +87,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Hospital_Locations",
 		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 13, ImportMode.PARENT_AND_CHILD));
-		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
-		        "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 13, ImportMode.MIRROR));
+        currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
+                "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 17, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
 		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 28, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration",
@@ -120,8 +121,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         // see https://tickets.openmrs.org/browse/META-323
         List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
         supportedResolvers.add(new ObjectByUuidResolver());
-        // We shouldn't need this unless we're ever importing concepts directly from another server like CIEL
-        // supportedResolvers.add(new ObjectByNameResolver());
+        supportedResolvers.add(new ObjectByNameResolver());
         MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
     }
 	
@@ -232,6 +232,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private void installMetadataPackages() {
 		for (MetadataPackageConfig metadataPackage : currentMetadataVersions) {
 			installMetadataPackageIfNecessary(metadataPackage);
+            Context.flushSession();
 		}
 	}
 	
