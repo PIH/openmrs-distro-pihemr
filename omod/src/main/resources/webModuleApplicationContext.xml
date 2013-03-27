@@ -38,6 +38,13 @@
         <property name="iconUrl" value="icon-register"/>
         <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
+    <bean id="mirebalaisCheckin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="mirebalais.checkin" />
+        <property name="labelCode" value="mirebalais.checkin.title"/>
+        <property name="homepageUrl" value="mirebalais/checkin/findPatient.page"/>
+        <property name="iconUrl" value="icon-paste"/>
+        <property name="requiredPrivilegeName" value="App: mirebalais.checkin"/>
+    </bean>
     <bean id="checkin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="patientRegistration.checkin" />
         <property name="labelCode" value="mirebalais.app.patientRegistration.checkin.label"/>
