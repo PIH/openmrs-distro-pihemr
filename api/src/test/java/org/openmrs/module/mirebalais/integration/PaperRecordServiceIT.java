@@ -23,6 +23,7 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrProperties;
 import org.openmrs.module.emr.paperrecord.PaperRecordService;
 import org.openmrs.module.emr.paperrecord.PaperRecordServiceImpl;
@@ -87,12 +88,11 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	public void shouldCreateTwoDifferentDossierNumbers() throws Exception {
 		authenticate();
 		
-		PatientIdentifierType patientIdentifierType = new PatientIdentifierType();
-		patientIdentifierType.setPatientIdentifierTypeId(3);
+		PatientIdentifierType patientIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid("e66645eb-03a8-4991-b4ce-e87318e37566");
 		when(emrProperties.getPaperRecordIdentifierType()).thenReturn(patientIdentifierType);
 		
 		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(
-		    new Patient(), new Location(15));
+                new Patient(), new Location(15));
 		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
 		assertThat(((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(new Patient(),
 		    new Location(15)), Matchers.not(eq(paperMedicalRecordNumber)));
