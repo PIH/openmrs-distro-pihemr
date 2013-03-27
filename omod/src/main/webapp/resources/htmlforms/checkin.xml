@@ -60,7 +60,7 @@
 
             <p class="left">
                 <obsgroup groupingConceptId="PIH:Payment construct">
-                    <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
+                    <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
                 </obsgroup>
             </p>
 
