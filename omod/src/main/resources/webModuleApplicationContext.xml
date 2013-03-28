@@ -38,6 +38,13 @@
         <property name="iconUrl" value="icon-register"/>
         <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
     </bean>
+    <bean id="searchMPI" class="org.openmrs.module.appframework.SimpleAppDescriptor">
+        <property name="id" value="mirebalais.mpi" />
+        <property name="labelCode" value="mirebalais.mpi.title"/>
+        <property name="homepageUrl" value="mirebalais/mpi/findPatient.page"/>
+        <property name="iconUrl" value="icon-zoom-in"/>
+        <property name="requiredPrivilegeName" value="App: mirebalais.mpi"/>
+    </bean>
     <bean id="mirebalaisCheckin" class="org.openmrs.module.appframework.SimpleAppDescriptor">
         <property name="id" value="mirebalais.checkin" />
         <property name="labelCode" value="mirebalais.checkin.title"/>

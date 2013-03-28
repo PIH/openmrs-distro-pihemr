@@ -62,7 +62,7 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 <% } else { %>
 
 <h1>
-    ${ ui.message("mirebalias.checkin.newVisit") }
+    ${ ui.message("mirebalais.checkin.newVisit") }
 </h1>
 
 
