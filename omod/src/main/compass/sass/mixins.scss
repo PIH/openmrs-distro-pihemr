@@ -24,12 +24,17 @@
     line-height: .5em;
   }
 
-  &.big {
+  &.big, &.medium {
     i {
       display: block;
       font-size: 50px;
       margin: 0 auto;
       padding: 10px;
+    }
+  }
+  &.medium {
+    i {
+      font-size: 34px;
     }
   }
 

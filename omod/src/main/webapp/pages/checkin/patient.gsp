@@ -42,20 +42,25 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 
 <% if (!emrContext.activeVisitSummary) { %>
 
-<div class="container half-width">
-
-    <h1>${ ui.message("mirebalais.outpatientVitals.confirmPatientQuestion") }</h1>
-
+<div class="dialog no-overlay">
+    <div class="dialog-header">
+        <h3>
+            <i class="icon-question-sign"></i>
+            ${ ui.message("mirebalais.outpatientVitals.confirmPatientQuestion") }
+        </h3>
+    </div>
+    <div class="dialog-content">
     <div id="actions">
-        <button class="confirm big right">
+        <button class="confirm medium right">
             <i class="icon-arrow-right"></i>
             ${ ui.message("mirebalais.checkin.confirm.yes") }
         </button>
 
-        <button class="cancel big">
+        <button class="cancel medium">
             <i class="icon-arrow-left"></i>
             ${ ui.message("mirebalais.checkin.confirm.no") }
         </button>
+    </div>
     </div>
 </div>
 

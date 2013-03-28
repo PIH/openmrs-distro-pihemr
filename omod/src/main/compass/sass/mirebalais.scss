@@ -288,7 +288,7 @@ header {
   .dialog-header {
     background: $highlight;
     color: white;
-    padding: 0 29px;
+    padding: 0 20px;
     padding-top: 5px;
     border-bottom: darken($highlight, 20%) 1px solid;
     @include border-top-radius(3px);
@@ -317,15 +317,18 @@ header {
   }
 
   i {
-    font-size: 1.8em;
+    font-size: 1.5em;
     color: white;
+    vertical-align: middle;
+    display: inline-block;
   }
 
   h3 {
     width: 345px;
-    text-align: center;
     display: inline-block;
     color: white;
+    margin: 5px 0;
+    vertical-align: text-top;
   }
 
   ul {
@@ -343,6 +346,12 @@ header {
     option {
       font-size: 1.5em;
     }
+  }
+  &.no-overlay {
+    @include box-shadow(none);
+    border: 1px solid #CCC;
+    width: 60%;
+    margin: 20px auto;
   }
 }
 
