@@ -13,12 +13,12 @@
  */
 package org.openmrs.module.mirebalais;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
@@ -33,8 +33,14 @@ public class MirebalaisCustomProperties {
 	public static final String REMOTE_ZLIDENTIFIER_PASSWORD = "remote_zlidentifier_password";
 	
 	public static final String REMOTE_ZLIDENTIFIER_USERNAME = "remote_zlidentifier_username";
-	
-	private Log log = LogFactory.getLog(getClass());
+
+    public static final String LACOLLINE_SERVER_URL = "lacolline_server_url";
+
+    public static final String LACOLLINE_USERNAME = "lacolline_username";
+
+    public static final String LACOLLINE_PASSWORD = "lacolline_password";
+
+    private Log log = LogFactory.getLog(getClass());
 	
 	private Properties properties;
 	
@@ -55,9 +61,21 @@ public class MirebalaisCustomProperties {
 		return properties.getProperty(REMOTE_ZLIDENTIFIER_URL, REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 	}
 
+    public String getLacollineServerUrl() {
+        return properties.getProperty(LACOLLINE_SERVER_URL);
+    }
+
+    public String getLacollineUsername() {
+        return properties.getProperty(LACOLLINE_USERNAME);
+    }
+
+    public String getLacollinePassword() {
+        return properties.getProperty(LACOLLINE_PASSWORD);
+    }
+
     private Properties createFile() {
 		String propertiesFile = System.getenv(MIREBALAIS_CUSTOM_PROPERTIES_FILE);
-		
+
 		try {
 			if (propertiesFile != null) {
 				properties.load(new FileInputStream(propertiesFile));
@@ -68,5 +86,5 @@ public class MirebalaisCustomProperties {
 		}
 		return properties;
 	}
-	
+
 }

@@ -56,6 +56,9 @@
         <require_module version="${providerManagementVersion}">
             org.openmrs.module.providermanagement
         </require_module>
+        <require_module version="${importpatientfromwsVersion}">
+            org.openmrs.module.importpatientfromws
+        </require_module>
 	</require_modules>
 
 	<activator>

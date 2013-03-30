@@ -17,7 +17,9 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
+import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
@@ -35,6 +37,8 @@ import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
+import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatasharing.ImportConfig;
 import org.openmrs.module.metadatasharing.ImportMode;
 import org.openmrs.module.metadatasharing.ImportedPackage;
@@ -86,7 +90,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		// package on the server you generated it on.
 		
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Hospital_Locations",
-		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 13, ImportMode.PARENT_AND_CHILD));
+		        "32d52080-13fa-413e-a23e-6ff9a23c7a69", 14, ImportMode.PARENT_AND_CHILD));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
                 "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 17, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
@@ -148,6 +152,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupMirebalaisGlobalProperties();
 			setupPacsIntegrationGlobalProperties();
 			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
+            setupConnectionToMasterPatientIndex();
 			setupAddressHierarchy();
 			sortApps();
             injectProviderIdentifierGenerator();
@@ -166,18 +171,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Context.getService(AccountService.class).setProviderIdentifierGenerator(new MirebalaisProviderIdentifierGenerator());
     }
 
-
 	private void sortApps() {
 		AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
 		Map<String, Integer> appsOrdering = getAppsOrderingMap();
-		
+
 		List<AppDescriptor> allApps = appFrameworkService.getAllApps();
 		for (AppDescriptor app : allApps) {
 			app.setOrder(appsOrdering.get(app.getId()));
 		}
 		appFrameworkService.setAllApps(allApps);
 	}
-	
+
+
 	private Map<String, Integer> getAppsOrderingMap() {
 		Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
 		appsOrdering.put("emr.archivesRoom", 1);
@@ -188,54 +193,54 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		appsOrdering.put("emr.activeVisits", 6);
 		return appsOrdering;
 	}
-	
+
 	private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
 	        IdentifierSourceService identifierSourceService) {
-		
+
 		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
-		
+
 		createPatientIdGenerator(service);
-		
+
 		createDossierNumberGenerator(service);
 	}
-	
+
 	private void createDossierNumberGenerator(MirebalaisHospitalService service) {
 		PatientIdentifierType dossierIdentifierType = service.getDossierIdentifierType();
-		
+
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
 		        .sequentialIdentifierGeneratorToDossier(dossierIdentifierType);
 		configureIdGenerators.autoGenerationOptions(sequentialIdentifierGenerator);
 	}
-	
+
 	private void createPatientIdGenerator(MirebalaisHospitalService service) {
 		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
-		
+
 		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource(zlIdentifierType);
 		IdentifierPool localZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
 		configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
 	}
-	
+
 	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
 		log.info("Stopping Mirebalais Hospital Module");
 	}
-	
+
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
 		log.info("Mirebalais Hospital Module stopped");
 	}
-	
+
 	private void installMetadataPackages() {
 		for (MetadataPackageConfig metadataPackage : currentMetadataVersions) {
 			installMetadataPackageIfNecessary(metadataPackage);
             Context.flushSession();
 		}
 	}
-	
+
 	/**
 	 * Checks whether the given version of the MDS package has been installed yet, and if not, install it
 	 *
@@ -245,24 +250,24 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private boolean installMetadataPackageIfNecessary(MetadataPackageConfig metadataPackage) {
 		try {
 			String filename = metadataPackage.getFilenameBase() + "-" + metadataPackage.getVersion().toString() + ".zip";
-			
+
 			Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(filename);
 			if (!matcher.matches())
 				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-1.zip");
 			Integer version = Integer.valueOf(matcher.group(1));
-			
+
 			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
 			    metadataPackage.getGroupUuid());
 			if (installed != null && installed.getVersion() >= version && installed.getDateImported() != null) {
 				log.info("Metadata package " + filename + " is already installed with version " + installed.getVersion());
 				return false;
 			}
-			
+
 			if (getClass().getClassLoader().getResource(filename) == null) {
 				throw new RuntimeException("Cannot find " + filename + " for group " + metadataPackage.getGroupUuid()
 				        + ". Make sure it's in api/src/main/resources");
 			}
-			
+
 			PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
 			metadataImporter.setImportConfig(ImportConfig.valueOf(metadataPackage.getImportMode()));
 			metadataImporter.loadSerializedPackageStream(getClass().getClassLoader().getResourceAsStream(filename));
@@ -520,7 +525,40 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         }
     }
 
-	public List<MetadataPackageConfig> getCurrentMetadataVersions() {
+    private void setupConnectionToMasterPatientIndex() {
+        String url = customProperties.getLacollineServerUrl();
+        String username = customProperties.getLacollineUsername();
+        String password = customProperties.getLacollinePassword();
+
+        if (url == null || username == null || password == null) {
+            log.warn("Not configuring link to Lacolline server (url, username, and password are required)");
+            return;
+        }
+
+        Map<String, PatientIdentifierType> identifierTypeMap = new HashMap<String, PatientIdentifierType>();
+        identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getService(MirebalaisHospitalService.class).getZlIdentifierType());
+        // TODO create PatientIdentifierType for Lacolline KE dossier number
+        // TODO create PatientIdentifierType for Lacolline dental dossier number
+
+        Map<String, Location> locationMap = new HashMap<String, Location>();
+        locationMap.put("23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960", Context.getLocationService().getLocationByUuid(MirebalaisConstants.LACOLLINE_LOCATION_UUID));
+
+        Map<String, PersonAttributeType> attributeTypeMap = new HashMap<String, PersonAttributeType>();
+        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", Context.getPersonService().getPersonAttributeTypeByUuid(MirebalaisConstants.TELEPHONE_NUMBER_ATTRIBUTE_TYPE_UUID));
+
+        RemoteServerConfiguration config = new RemoteServerConfiguration();
+        config.setUrl(url);
+        config.setUsername(username);
+        config.setPassword(password);
+        config.setIdentifierTypeMap(identifierTypeMap);
+        config.setLocationMap(locationMap);
+        config.setAttributeTypeMap(attributeTypeMap);
+
+        Context.getService(ImportPatientFromWebService.class).registerRemoteServer("lacolline", config);
+    }
+
+
+    public List<MetadataPackageConfig> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
 	}
 	
