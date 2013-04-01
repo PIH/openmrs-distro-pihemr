@@ -78,7 +78,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	
 	private final String ADDRESS_HIERARCHY_CSV_FILE = "org/openmrs/module/mirebalais/addresshierarchy/haiti_address_hierarchy_entries";
 
-    private final Integer ADDRESS_HIERARCHY_VERSION = 4;
+    private final Integer ADDRESS_HIERARCHY_VERSION = 5;
 
 	private MirebalaisCustomProperties customProperties;
 	
