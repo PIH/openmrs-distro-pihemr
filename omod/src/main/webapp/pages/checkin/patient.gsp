@@ -2,7 +2,7 @@
     ui.decorateWith("emr", "standardEmrPage")
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("mirebalais.checkin.title") }", link: "${ ui.pageLink("mirebalais", "checkin/findPatient") }" },
@@ -34,11 +34,6 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
         jq('#actions button').first().focus();
     });
 </script>
-<style>
-#existing-encounters {
-    margin-top: 2em;
-}
-</style>
 
 <% if (!emrContext.activeVisitSummary) { %>
 
@@ -50,38 +45,39 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
         </h3>
     </div>
     <div class="dialog-content">
-    <div id="actions">
-        <button class="confirm medium right">
-            <i class="icon-arrow-right"></i>
-            ${ ui.message("mirebalais.checkin.confirm.yes") }
-        </button>
+        <div id="actions">
+            <button class="confirm medium right">
+                <i class="icon-arrow-right"></i>
+                ${ ui.message("mirebalais.checkin.confirm.yes") }
+            </button>
 
-        <button class="cancel medium">
-            <i class="icon-arrow-left"></i>
-            ${ ui.message("mirebalais.checkin.confirm.no") }
-        </button>
-    </div>
+            <button class="cancel medium">
+                <i class="icon-arrow-left"></i>
+                ${ ui.message("mirebalais.checkin.confirm.no") }
+            </button>
+        </div>
     </div>
 </div>
 
 <% } else { %>
 
-<h1>
-    ${ ui.message("mirebalais.checkin.newVisit") }
-</h1>
+    <%= ui.includeFragment("emr", "widget/note", [
+            noteType: "warning",
+            message: ui.message("mirebalais.checkin.newVisit"),
+            additionalContent: """
+                <div id="actions">
+                    <button class="confirm medium right">
+                        <i class="icon-arrow-right"></i>
+                        ${ ui.message("mirebalais.checkin.confirm.newvisit.yes") }
+                    </button>
 
-
-<div id="actions">
-    <button class="confirm big right">
-        <i class="icon-arrow-right"></i>
-        ${ ui.message("mirebalais.checkin.confirm.newvisit.yes") }
-    </button>
-
-    <button class="cancel big">
-        <i class="icon-arrow-left"></i>
-        ${ ui.message("mirebalais.checkin.confirm.no") }
-    </button>
-</div>
+                    <button class="cancel medium">
+                        <i class="icon-arrow-left"></i>
+                        ${ ui.message("mirebalais.checkin.confirm.no") }
+                    </button>
+                </div>
+            """
+    ]) %>
 
 <% } %>
 
