@@ -297,6 +297,10 @@ header {
   .dialog-content {
     padding: 20px 30px 0 30px;
 
+    button.right {
+      margin-left: 20px;
+    }
+
     .dialog-instructions {
       padding-top: 1em;
       padding-bottom: 1em;
@@ -324,7 +328,6 @@ header {
   }
 
   h3 {
-    width: 345px;
     display: inline-block;
     color: white;
     margin: 5px 0;
