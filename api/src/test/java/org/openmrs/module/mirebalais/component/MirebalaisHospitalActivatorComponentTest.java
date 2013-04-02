@@ -14,11 +14,6 @@
 
 package org.openmrs.module.mirebalais.component;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,14 +28,10 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.emr.account.AccountDomainWrapper;
-import org.openmrs.module.emr.account.AccountService;
+import org.openmrs.module.emrapi.account.AccountDomainWrapper;
+import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
-import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
-import org.openmrs.module.metadatasharing.resolver.Resolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.mirebalais.MetadataPackageConfig;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
@@ -48,15 +39,16 @@ import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.scheduler.SchedulerService;
-import org.openmrs.scheduler.Task;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.validator.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.timer.TimerFactoryBean;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;

@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais;
 
-import org.openmrs.module.emr.account.ProviderIdentifierGenerator;
+import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.providermanagement.Provider;

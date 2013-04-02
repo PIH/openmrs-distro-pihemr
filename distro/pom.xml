@@ -97,6 +97,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>emrapi-omod</artifactId>
+                    <version>${emrapiVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>emr-omod</artifactId>
                     <version>${emrVersion}</version>
                     <scope>provided</scope>
