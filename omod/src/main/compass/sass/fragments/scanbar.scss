@@ -3,6 +3,7 @@
 
 @mixin scan-bar {
   display: inline-block;
+  
   &:after {
     font-family: FontAwesome;
     font-weight: normal;

@@ -222,56 +222,6 @@ header {
   }
 }
 
-#assign-to-create-button, #assign-to-pull-button {
-  position: relative;
-  padding: 9px 5px;
-  margin-left: -10px;
-  background: darken($success, 10%);
-  color: white;
-  border-color: #bbb;
-  
-  i {
-    font-size: 2em;
-  }
-
-  #arrow-button {
-    width: 0;
-    height: 0;
-    top: 0;
-    right: -17px;
-    border-bottom: 34px solid transparent;
-    border-top: 33px solid transparent;
-    border-left: 18px solid darken($success, 10%);
-    position: absolute;
-  }
-
-   #arrow-border-button {
-    width: 0;
-    height: 0;
-    top: 0;
-    right: -18px;
-    border-bottom: 34px solid transparent;
-    border-top: 33px solid transparent;
-    border-left: 18px solid #bbb;
-    position: absolute;
-  }
-
-  &.disabled {
-    background: #EEE;
-    border: #CCC 1px solid;
-    color: #CCC;
-    cursor: default;
-
-    #arrow-button {
-      border-left: 18px solid #eee;
-    }
-
-    #arrow-border-button {
-      border-left: 18px solid #ccc;
-    }
-  }
-}
-
 #modal-overlay {
   background-color: #aaa;
   opacity: 0.8;
