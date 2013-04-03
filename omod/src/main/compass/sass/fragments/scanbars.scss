@@ -1,11 +1,11 @@
-@import "colors";
+@import "variables";
 @import "font-awesome.scss";
 
 @mixin scan-bar {
   display: inline-block;
   
   &:after {
-    font-family: FontAwesome;
+    font-family: "FontAwesome";
     font-weight: normal;
     font-style: normal;
     display: inline-block;

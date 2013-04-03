@@ -1,4 +1,4 @@
-@import "colors";
+@import "variables";
 
 @mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
   @include border-radius(3px);
