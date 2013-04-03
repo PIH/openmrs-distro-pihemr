@@ -1,5 +1,5 @@
 @import "base";
-@import "mixins";
+@import "fragments/reference";
 
 header {
   position: relative;
@@ -55,6 +55,7 @@ header {
       }
     }
   }
+
   #session-location {
     position: absolute;
     display: none;

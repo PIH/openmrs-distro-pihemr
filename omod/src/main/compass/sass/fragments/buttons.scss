@@ -1,0 +1,55 @@
+@import "colors";
+
+@mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
+  @include border-radius(3px);
+  @include background(linear-gradient(top, $tcolor, $bcolor));
+  background-color: $bcolor;
+  border: $bcolor 1px solid;
+  padding: 8px 20px;
+  display: inline-block;
+  line-height: 1em;
+  color: $font;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: lighten($bcolor, 2%);
+    border-color: darken($bcolor, 5%);
+  }
+
+  i {
+    font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+    line-height: .5em;
+  }
+
+  &.big, &.medium {
+    i {
+      display: block;
+      font-size: 50px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+  }
+  &.medium {
+    i {
+      font-size: 34px;
+    }
+  }
+
+  &.disabled {
+    background: #EEE;
+    border: #CCC 1px solid;
+    color: #CCC;
+    cursor: default;
+  }
+
+  &.print {
+    padding: 10px;
+
+    i {
+      font-size: 1.5em;
+    }
+  }
+}
