@@ -71,7 +71,7 @@
         <property name="labelCode" value="mirebalais.app.patientRegistration.patientLookup.label"/>
         <property name="homepageUrl" value="mirebalais/patientRegistration/appRouter.page?task=patientLookup"/>
         <property name="iconUrl" value="icon-edit"/>
-        <property name="requiredPrivilegeName" value="App: patientregistration.main"/>
+        <property name="requiredPrivilegeName" value="App: patientregistration.edit"/>
     </bean>
 
     <bean id="outpatientVitalsApp" class="org.openmrs.module.appframework.SimpleAppDescriptor">
