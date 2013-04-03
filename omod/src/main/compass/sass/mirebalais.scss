@@ -376,40 +376,6 @@ header {
   @include breadcrumb;
 }
 
-.scan-input {
-  position: relative;
-  @include scan-bar;
-  input {
-    padding-right: 38px;
-  }
-}
-
-.patient-search-form {
-  width: 70%;;
-  margin: 20px auto;
-
-  .search-input {
-    background: lighten($text, 5%);
-    text-align: center;
-    color: white;
-    padding: 20px 30px;
-    @include border-radius(5px);
-    .scan-input::after {
-      top: 7%;
-    }
-  }
-
-  label {
-    font-family: "OpenSansLight";
-    font-size: 1.2em;
-  }
-
-  #patient-search-field-search {
-    margin: 0 auto;
-    width: 500px;
-  }
-}
-
 .delete-item {
   position: relative;
   display: inline;
