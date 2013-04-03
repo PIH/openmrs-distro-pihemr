@@ -3,6 +3,7 @@
 
 @mixin scan-bar {
   display: inline-block;
+  
   &:after {
     font-family: FontAwesome;
     font-weight: normal;
@@ -17,7 +18,6 @@
     top: 16%;
   }
 }
-
 
 .scan-input {
   position: relative;
@@ -37,6 +37,7 @@
     color: white;
     padding: 20px 30px;
     @include border-radius(5px);
+
     .scan-input::after {
       top: 7%;
     }
