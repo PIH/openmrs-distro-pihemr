@@ -32,6 +32,7 @@ import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
 import org.openmrs.module.appframework.AppDescriptor;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -149,6 +150,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupNamePhoneticsGlobalProperties();
 			setupPatientRegistrationGlobalProperties();
 			setupEmrGlobalProperties();
+            setupRadiologyGlobalProperties();
 			setupMirebalaisGlobalProperties();
 			setupPacsIntegrationGlobalProperties();
 			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
@@ -329,8 +331,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	private void setupEmrGlobalProperties() {
 
         // used when placing radiology orders
-		setExistingGlobalProperty(EmrConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa");
-		setExistingGlobalProperty(EmrConstants.GP_RADIOLOGY_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
 		setExistingGlobalProperty(EmrConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, "c458d78e-8374-4767-ad58-9f8fe276e01c");
 		
 		// check_in clerk encounter role is set to Oupatient Application User Role
@@ -344,9 +344,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
         setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "139766e8-15f5-102d-96e4-000c29c2a5d7");
 
-		setExistingGlobalProperty(EmrConstants.GP_XRAY_ORDERABLES_CONCEPT, "35c24af8-6d60-4189-95c6-7e91e421d11f");
-		setExistingGlobalProperty(EmrConstants.GP_CT_SCAN_ORDERABLES_CONCEPT, "381d653b-a6b7-438a-b9f0-5034b5272def");
-		setExistingGlobalProperty(EmrConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
 		setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
 		setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
 		setExistingGlobalProperty(EmrConstants.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
@@ -358,7 +355,15 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         setExistingGlobalProperty(EmrConstants.GP_DIAGNOSIS_SET_OF_SETS, "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770");
 	}
-	
+
+    private void setupRadiologyGlobalProperties() {
+        setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa");
+        setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
+        setExistingGlobalProperty(RadiologyConstants.GP_XRAY_ORDERABLES_CONCEPT, "35c24af8-6d60-4189-95c6-7e91e421d11f");
+        setExistingGlobalProperty(RadiologyConstants.GP_CT_SCAN_ORDERABLES_CONCEPT, "381d653b-a6b7-438a-b9f0-5034b5272def");
+        setExistingGlobalProperty(RadiologyConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
+    }
+
 	private void setupNamePhoneticsGlobalProperties() {
 		setExistingGlobalProperty(NamePhoneticsConstants.GIVEN_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
 		setExistingGlobalProperty(NamePhoneticsConstants.MIDDLE_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
