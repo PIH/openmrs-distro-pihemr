@@ -1,8 +1,11 @@
+@import "variables";
+@import "compass/css3";
+
 @mixin scan-bar {
   display: inline-block;
   
   &:after {
-    font-family: FontAwesome;
+    font-family: $iconFont;
     font-weight: normal;
     font-style: normal;
     display: inline-block;
@@ -19,6 +22,7 @@
 .scan-input {
   position: relative;
   @include scan-bar;
+
   input {
     padding-right: 38px;
   }

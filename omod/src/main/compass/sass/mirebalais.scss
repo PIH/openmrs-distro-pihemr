@@ -1,4 +1,3 @@
-@import "base";
 @import "fragments/reference";
 
 header {
@@ -322,7 +321,7 @@ header {
 
 .toast-item-image {
   background: 0;
-  font-family: FontAwesome;
+  font-family: $iconFont;
   font-size: 1.7em;
   width: auto;
   height: auto;
@@ -332,7 +331,7 @@ header {
 .toast-item-close {
   font-size: 0.8em;
   background: 0;
-  font-family: FontAwesome;
+  font-family: $iconFont;
   height: auto;
   width: auto;
   cursor: pointer;
