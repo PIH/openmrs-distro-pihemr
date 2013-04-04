@@ -21,6 +21,12 @@
             jq(this).attr('autocomplete', 'off');
         });
         jq(':input:enabled:visible:first').focus();
+
+        jq("form").submit(function(){
+            jq("#mpiSpinner").css("visibility", "visible");
+            jq("#mpiSpinner").show();
+        });
+
     });
 
 </script>
@@ -69,6 +75,9 @@
     </fieldset>
 </form>
 
+<div id="mpiSpinner" style="visibility: hidden;">
+    <img src="${ui.resourceLink("mirebalais", "images/biggerloader.gif")}">
+</div>
 
 <% if (results) { %>
 <table id="active-visits" width="100%" border="1" cellspacing="0" cellpadding="2">
@@ -129,3 +138,4 @@
     </tbody>
 </table>
 <% } %>
+
