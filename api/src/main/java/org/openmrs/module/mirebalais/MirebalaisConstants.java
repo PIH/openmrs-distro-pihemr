@@ -49,4 +49,7 @@ public class MirebalaisConstants {
     public static final String TELEPHONE_NUMBER_ATTRIBUTE_TYPE_UUID = "14d4f066-15f5-102d-96e4-000c29c2a5d7";
 
     public static final String LACOLLINE_LOCATION_UUID = "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960";
+
+    public static final String MPI_REMOTE_SERVER = "lacolline";
+    public static final String MPI_SEARCH_RESULTS="mpiSearchResults";
 }

@@ -157,6 +157,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			sortApps();
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
+            setupConnectionToMasterPatientIndex();
         }
 		catch (Exception e) {
 			Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
@@ -538,6 +539,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Map<String, PatientIdentifierType> identifierTypeMap = new HashMap<String, PatientIdentifierType>();
         identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getService(MirebalaisHospitalService.class).getZlIdentifierType());
         // TODO create PatientIdentifierType for Lacolline KE dossier number
+
         // TODO create PatientIdentifierType for Lacolline dental dossier number
 
         Map<String, Location> locationMap = new HashMap<String, Location>();
