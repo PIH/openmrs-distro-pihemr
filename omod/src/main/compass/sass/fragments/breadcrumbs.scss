@@ -20,7 +20,7 @@
     display: inline;
     
     &:last-child {
-      font-family: "OpenSansBold";
+      font-family: $primaryBoldFont;
     }
   }
 }

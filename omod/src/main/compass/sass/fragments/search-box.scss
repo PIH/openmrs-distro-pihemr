@@ -1,6 +1,3 @@
-@import "variables";
-@import "font-awesome";
-
 @mixin scan-bar {
   display: inline-block;
   
@@ -44,7 +41,7 @@
   }
 
   label {
-    font-family: "OpenSansLight";
+    font-family: $primaryLightFont;
     font-size: 1.2em;
   }
 

@@ -1,3 +1,12 @@
+//vendor style
+@import "normalize";
+@import "compass/css3";
+
+//common style
+@import "variables";
+@import "font-awesome";
+
+//fragments
 @import "buttons";
 @import "checkboxes";
 @import "search-box";

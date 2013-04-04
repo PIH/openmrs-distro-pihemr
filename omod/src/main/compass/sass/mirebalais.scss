@@ -126,7 +126,7 @@ header {
       &.ui-tabs-active {
         font-size: 1.1em;
         background: white;
-        font-family: "OpenSansBold";
+        font-family: $primaryBoldFont;
         margin-top: 0px;
         margin-bottom: -2px;
         padding-bottom: 1px;
@@ -157,7 +157,7 @@ header {
   th {
     background: white;
     border: none;
-    font-family: "OpenSansBold";
+    font-family: $primaryBoldFont;
     font-weight: normal;
     color: $text;
   }
@@ -311,7 +311,7 @@ header {
 
 //toast messages
 .toast-item {
-  font-family: "OpenSans", Arial, sans-serif;
+  font-family: $primaryFont, Arial, sans-serif;
   font-size: 16px;
   background-color: transparent;
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.88));
