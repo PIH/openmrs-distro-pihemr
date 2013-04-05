@@ -52,4 +52,5 @@ public class MirebalaisConstants {
 
     public static final String MPI_REMOTE_SERVER = "lacolline";
     public static final String MPI_SEARCH_RESULTS="mpiSearchResults";
+    public static final Integer MPI_CONNECT_TIMEOUT =5000;
 }

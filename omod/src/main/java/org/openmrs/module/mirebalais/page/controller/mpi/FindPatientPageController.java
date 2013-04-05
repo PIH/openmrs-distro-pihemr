@@ -67,14 +67,15 @@ public class FindPatientPageController {
                     @RequestParam(required = false, value="id") String id,
                     @RequestParam(required = false, value = "name") String name,
                     @RequestParam(required = false, value = "gender") String gender,
+                    UiUtils ui,
                     HttpSession session) {
 
         List<RemotePatient> results = null;
         try {
             if (StringUtils.isNotBlank(id)) {
-                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, id);
+                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, id, MirebalaisConstants.MPI_CONNECT_TIMEOUT);
             }else if(StringUtils.isNotBlank(name)){
-                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, name, gender, null);
+                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, name, gender, null, MirebalaisConstants.MPI_CONNECT_TIMEOUT);
             }
             if(results!=null && results.size()>0){
                 saveToCache(results, session);
@@ -82,7 +83,7 @@ public class FindPatientPageController {
             }
         } catch (Exception e) {
             log.error("Error communicating with remote server", e);
-            session.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, "Error communicating with remote server. (See log for details.)");
+            session.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui.message("mirebalais.mpi.connect.error", e.getMessage()));
         }
 
         model.addAttribute("results", results);
@@ -107,7 +108,7 @@ public class FindPatientPageController {
                     }
                 }catch(Exception e){
                     log.error("failed to import patient", e);
-                    request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, e);
+                    request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui.message("mirebalais.mpi.import.error", e.getMessage()));
                 }
 
             }
