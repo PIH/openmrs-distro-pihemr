@@ -142,6 +142,10 @@ form {
     }
   }
 
+  select {
+    min-width: 200px;
+  }
+
   select[disabled] {
     background: #EEE;
     border: #CCC 1px solid;
@@ -186,7 +190,7 @@ form {
   input[type="checkbox"], input[type="radio"] {
     min-width: 0;
     padding: 0;
-    margin: 5px;
+    margin: 2px 5px;
     float: left;
   }
 
