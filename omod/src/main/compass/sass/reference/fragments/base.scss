@@ -11,8 +11,8 @@ body {
 #body-wrapper {
   margin-top: 10px;
   padding: 10px;
-  @include border-radius(5px);
   background-color: white;
+  @include border-radius(5px);
 }
 
 table {
@@ -62,8 +62,9 @@ a {
     color: lighten($link, 10%);
     text-decoration: underline;
   }
+
   &:visited, &.visited {
-    color: $link
+    color: $link;
   }
 }
 
@@ -194,17 +195,6 @@ form {
     margin: 2px 5px;
     float: left;
   }
-
-  input[type="submit"], input[type="button"] {
-    @include button;
-    margin-top: 30px;
-    display: inline-block;
-    min-width: 0;
-  }
-
-  input[type="checkbox"] {
-    @include check-box;
-  }
 }
 
 ul.select {
@@ -303,24 +293,4 @@ table {
 
 .hidden {
   display: none;
-}
-
-.button, button, input[type="submit"], input[type="button"], a.button {
-  @include button;
-
-  &.task {
-    @include button(lighten($text,20%), lighten($text, 20%), white);
-
-    &:visited {
-      color: white;
-    }
-  }
-
-  &.confirm {
-    @include button($success, darken($success, 8%), white);
-  }
-
-  &.cancel {
-    @include button($error, darken($error, 8%), white);
-  }
 }

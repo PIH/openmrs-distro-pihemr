@@ -103,3 +103,23 @@
 		}
   }
 }
+
+.button, button, input[type="submit"], input[type="button"], a.button {
+  @include button;
+
+  &.task {
+    @include button(lighten($text,20%), lighten($text, 20%), white);
+
+    &:visited {
+      color: white;
+    }
+  }
+
+  &.confirm {
+    @include button($success, darken($success, 8%), white);
+  }
+
+  &.cancel {
+    @include button($error, darken($error, 8%), white);
+  }
+}

@@ -28,3 +28,7 @@
     color: $text;
   }
 }
+
+input[type="checkbox"] {
+    @include check-box;
+}
