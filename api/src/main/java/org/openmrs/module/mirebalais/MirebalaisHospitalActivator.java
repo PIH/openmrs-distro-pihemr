@@ -509,7 +509,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             task = new TaskDefinition();
             task.setName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
             task.setDescription(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
-            task.setTaskClass("org.openmrs.module.emr.paperrecord.CloseStalePullRequestsTask");
+            task.setTaskClass("org.openmrs.module.paperrecord.CloseStalePullRequestsTask");
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
             task.setRepeatInterval(new Long(3600));  // once an hour
             task.setStartOnStartup(true);
