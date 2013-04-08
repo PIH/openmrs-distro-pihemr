@@ -1,4 +1,5 @@
 @import "../variables";
+@import "compass/css3";
 
 @mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
   @include border-radius(3px);
