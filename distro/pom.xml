@@ -104,6 +104,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>paperrecord-omod</artifactId>
+                    <version>${paperrecordVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>emr-omod</artifactId>
                     <version>${emrVersion}</version>
                     <scope>provided</scope>
