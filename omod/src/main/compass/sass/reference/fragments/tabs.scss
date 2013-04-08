@@ -1,3 +1,5 @@
+@import "../variables";
+
 .ui-tabs {
   border: none;
   padding: 0;
@@ -49,6 +51,7 @@
       }
     }
   }
+  
   .ui-tabs-panel {
     padding: 10px;
     border: 1px solid #ddd;

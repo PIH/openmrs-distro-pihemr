@@ -1,3 +1,5 @@
+@import "../variables";
+
 @mixin button($tcolor: #FFF, $bcolor: #DDD, $font: $text) {
   @include border-radius(3px);
   @include background(linear-gradient(top, $tcolor, $bcolor));
@@ -52,6 +54,16 @@
     i {
       font-size: 1.5em;
     }
+  }
+
+  &.app {
+    padding: 20px 10px;
+    width: 150px;
+    min-height: 90px;
+    vertical-align: top;
+    line-height: 1.3em;
+    margin: 10px;
+    text-align: center;
   }
 
   &.arrow {

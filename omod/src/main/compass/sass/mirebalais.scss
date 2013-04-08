@@ -88,6 +88,7 @@ header {
       color: lighten($link, 10%);
       text-decoration: underline;
     }
+    
     &:visited, &.visited {
       color: $link
     }
