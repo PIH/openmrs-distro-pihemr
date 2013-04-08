@@ -34,6 +34,7 @@ import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountService;
+import org.openmrs.module.emrapi.utils.GeneralUtils;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -52,6 +53,7 @@ import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
@@ -509,7 +511,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             task = new TaskDefinition();
             task.setName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
             task.setDescription(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
-            task.setTaskClass("org.openmrs.module.paperrecord.CloseStalePullRequestsTask");
+            task.setTaskClass(CloseStalePullRequestsTask.class.getName());
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
             task.setRepeatInterval(new Long(3600));  // once an hour
             task.setStartOnStartup(true);
@@ -520,6 +522,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             }
         }
         else {
+            boolean anyChanges = GeneralUtils.setPropertyIfDifferent(task, "description", EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "taskClass", CloseStalePullRequestsTask.class.getName());
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", new Long(3600));
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
+            if (anyChanges) {
+                schedulerService.saveTask(task);
+            }
             if (!task.getStarted()) {
                 task.setStarted(true);
                 try {

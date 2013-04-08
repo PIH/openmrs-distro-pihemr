@@ -47,6 +47,7 @@
 		<openMRSVersion>1.9.3</openMRSVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
 		<emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
+		<paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
 		<emrVersion>1.2-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5.1</uiframeworkVersion>
 		<appframeworkVersion>1.4</appframeworkVersion>
@@ -198,6 +199,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>emrapi-api</artifactId>
             <version>${emrapiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>paperrecord-api</artifactId>
+            <version>${paperrecordVersion}</version>
             <scope>provided</scope>
         </dependency>
 

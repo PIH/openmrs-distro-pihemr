@@ -19,7 +19,7 @@ import org.openmrs.Form;
 import org.openmrs.Patient;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
-import org.openmrs.module.emrapi.PatientDomainWrapper;
+import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;

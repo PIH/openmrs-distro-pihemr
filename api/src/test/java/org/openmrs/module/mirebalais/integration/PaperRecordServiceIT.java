@@ -24,10 +24,10 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrProperties;
-import org.openmrs.module.emr.paperrecord.PaperRecordService;
-import org.openmrs.module.emr.paperrecord.PaperRecordServiceImpl;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.paperrecord.PaperRecordService;
+import org.openmrs.module.paperrecord.PaperRecordServiceImpl;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,19 +52,19 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	
 	private PaperRecordService paperRecordService;
 	
-	private EmrProperties emrProperties;
+	private PaperRecordProperties paperRecordProperties;
 	
 	@Before
 	public void setUp() {
 		paperRecordService = new PaperRecordServiceImpl();
 		patientService = mock(PatientService.class);
 		administrationService = mock(AdministrationService.class);
-		emrProperties = mock(EmrProperties.class);
+		paperRecordProperties = mock(PaperRecordProperties.class);
 		
 		((PaperRecordServiceImpl) paperRecordService).setAdministrationService(administrationService);
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
-		((PaperRecordServiceImpl) paperRecordService).setEmrProperties(emrProperties);
+		((PaperRecordServiceImpl) paperRecordService).setPaperRecordProperties(paperRecordProperties);
 	}
 	
 	@AfterClass
@@ -89,7 +89,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		authenticate();
 		
 		PatientIdentifierType patientIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid("e66645eb-03a8-4991-b4ce-e87318e37566");
-		when(emrProperties.getPaperRecordIdentifierType()).thenReturn(patientIdentifierType);
+		when(paperRecordProperties.getPaperRecordIdentifierType()).thenReturn(patientIdentifierType);
 		
 		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumberFor(
                 new Patient(), new Location(15));
