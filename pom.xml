@@ -51,7 +51,7 @@
 		<emrVersion>1.2-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5.1</uiframeworkVersion>
 		<appframeworkVersion>1.4</appframeworkVersion>
-		<metadatasharingVersion>1.1.6</metadatasharingVersion>
+		<metadatasharingVersion>1.1.7</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
 		<htmlformentryVersion>2.1-SNAPSHOT</htmlformentryVersion>
 		<htmlformentry19extVersion>1.0</htmlformentry19extVersion>
