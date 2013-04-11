@@ -59,6 +59,9 @@
         <require_module version="${importpatientfromwsVersion}">
             org.openmrs.module.importpatientfromws
         </require_module>
+        <require_module version="${uicommonsVersion}">
+            org.openmrs.module.uicommons
+        </require_module>
 	</require_modules>
 
 	<activator>

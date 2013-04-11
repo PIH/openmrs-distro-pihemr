@@ -71,6 +71,7 @@
         <openmrswebVersion>1.9.3</openmrswebVersion>
         <uilibraryVersion>1.5</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <uicommonsVersion>1.0-SNAPSHOT</uicommonsVersion>
 	</properties>
 
 
@@ -242,6 +243,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>importpatientfromws-api</artifactId>
             <version>${importpatientfromwsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uicommons-api</artifactId>
+            <version>${uicommonsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
