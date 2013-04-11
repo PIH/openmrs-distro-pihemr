@@ -4,7 +4,7 @@
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
 
-    ui.includeCss("mirebalais", "login.css")
+    ui.includeCss("uicommons", "mirebalais/login.css")
 %>
 
 ${ ui.includeFragment("emr", "header") }
