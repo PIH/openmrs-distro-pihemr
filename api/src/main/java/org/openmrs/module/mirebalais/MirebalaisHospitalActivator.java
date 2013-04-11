@@ -35,6 +35,7 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
+import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -240,10 +241,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 
 	private void installMetadataPackages() {
-		for (MetadataPackageConfig metadataPackage : currentMetadataVersions) {
-			installMetadataPackageIfNecessary(metadataPackage);
-            Context.flushSession();
-		}
+		MetadataUtil.setupStandardMetadata(getClass().getClassLoader());
+		Context.flushSession();
 	}
 
 	/**
