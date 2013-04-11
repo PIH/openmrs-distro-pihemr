@@ -30,8 +30,8 @@ public class PatientPageController {
 
         enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/checkin.xml");
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient"));
-        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.checkin.title"), "link", ui.pageLink("mirebalais", "checkin/findPatient"));
-        SimpleObject patientPageBreadcrumb = SimpleObject.create("label", patient.getFamilyName() + ", " + patient.getGivenName(), "link", ui.thisUrlWithContextPath());
+        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")), "link", ui.pageLink("mirebalais", "checkin/findPatient"));
+        SimpleObject patientPageBreadcrumb = SimpleObject.create("label", ui.escapeJs(patient.getFamilyName()) + ", " + ui.escapeJs(patient.getGivenName()), "link", ui.thisUrlWithContextPath());
         enterFormTask.setBreadcrumbOverride(ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
         Form form = enterFormTask.getHtmlForm().getForm();
 
