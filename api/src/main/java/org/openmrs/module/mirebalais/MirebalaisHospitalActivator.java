@@ -13,6 +13,13 @@
  */
 package org.openmrs.module.mirebalais;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,21 +42,18 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
+import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
-import org.openmrs.module.metadatasharing.ImportConfig;
 import org.openmrs.module.metadatasharing.ImportMode;
-import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
-import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.metadatasharing.resolver.Resolver;
 import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
 import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
-import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
@@ -59,16 +63,6 @@ import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.util.OpenmrsConstants;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -240,49 +234,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 
 	private void installMetadataPackages() {
-		for (MetadataPackageConfig metadataPackage : currentMetadataVersions) {
-			installMetadataPackageIfNecessary(metadataPackage);
-            Context.flushSession();
-		}
-	}
-
-	/**
-	 * Checks whether the given version of the MDS package has been installed yet, and if not, install it
-	 *
-	 * @return whether any changes were made to the db
-	 * @throws IOException
-	 */
-	private boolean installMetadataPackageIfNecessary(MetadataPackageConfig metadataPackage) {
-		try {
-			String filename = metadataPackage.getFilenameBase() + "-" + metadataPackage.getVersion().toString() + ".zip";
-
-			Matcher matcher = Pattern.compile("\\w+-(\\d+).zip").matcher(filename);
-			if (!matcher.matches())
-				throw new RuntimeException("Filename must match PackageNameWithNoSpaces-1.zip");
-			Integer version = Integer.valueOf(matcher.group(1));
-
-			ImportedPackage installed = Context.getService(MetadataSharingService.class).getImportedPackageByGroup(
-			    metadataPackage.getGroupUuid());
-			if (installed != null && installed.getVersion() >= version && installed.getDateImported() != null) {
-				log.info("Metadata package " + filename + " is already installed with version " + installed.getVersion());
-				return false;
-			}
-
-			if (getClass().getClassLoader().getResource(filename) == null) {
-				throw new RuntimeException("Cannot find " + filename + " for group " + metadataPackage.getGroupUuid()
-				        + ". Make sure it's in api/src/main/resources");
-			}
-
-			PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
-			metadataImporter.setImportConfig(ImportConfig.valueOf(metadataPackage.getImportMode()));
-			metadataImporter.loadSerializedPackageStream(getClass().getClassLoader().getResourceAsStream(filename));
-			metadataImporter.importPackage();
-			return true;
-		}
-		catch (Exception ex) {
-			log.error("Failed to install metadata package " + metadataPackage.getFilenameBase(), ex);
-			return false;
-		}
+		MetadataUtil.setupStandardMetadata(getClass().getClassLoader());
+		Context.flushSession();
 	}
 
     /**

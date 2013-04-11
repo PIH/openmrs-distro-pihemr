@@ -1,0 +1,57 @@
+<!--
+	Defines the metadata packages
+-->
+<org.openmrs.module.emrapi.metadata.MetadataPackagesConfig>
+  <packages>
+  
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Hospital_Locations</filenameBase>
+      <groupUuid>32d52080-13fa-413e-a23e-6ff9a23c7a69</groupUuid>
+      <version>14</version>
+      <importMode>PARENT_AND_CHILD</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Roles_and_Privileges</filenameBase>
+      <groupUuid>f12f5fb8-80a8-40d0-a20e-24af2642ce4c</groupUuid>
+      <version>18</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Metadata</filenameBase>
+      <groupUuid>fa25ad0c-66cc-4715-8464-58570f7b5132</groupUuid>
+      <version>28</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>PACS_Integration</filenameBase>
+      <groupUuid>be592ba7-1fa2-4a71-a147-3c828e67e901</groupUuid>
+      <version>1</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Clinical_Concepts</filenameBase>
+      <groupUuid>7003f131-7a15-4292-9513-c9fe52a73235</groupUuid>
+      <version>23</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Surgery</filenameBase>
+      <groupUuid>a253327a-e222-4569-92af-847278bf0169</groupUuid>
+      <version>7</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+    <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+      <filenameBase>HUM_Provider_Roles</filenameBase>
+      <groupUuid>ebaf1f5d-5c86-485d-9e5f-9d56d545aff3</groupUuid>
+      <version>3</version>
+      <importMode>MIRROR</importMode>
+    </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+    
+  </packages>
+</org.openmrs.module.emrapi.metadata.MetadataPackagesConfig>
