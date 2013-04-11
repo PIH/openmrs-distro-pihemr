@@ -5,6 +5,8 @@
 //custom variables
 @import "variables";
 
+@import "mixins";
+
 //fragments
 @import "fragments/base";
 @import "fragments/search-box";
@@ -13,7 +15,6 @@
 @import "fragments/tabs";
 @import "fragments/dialogs";
 @import "fragments/buttons";
-@import "fragments/checkboxes";
 
 //fonts
 @import "fonts/fonts";

@@ -5,11 +5,14 @@
 
     ui.decorateWith("emr", "standardEmrPage")
 
+    ui.includeCss("mirebalais", "masterPatientIndex.css")
+
     def genderOptions = [ [label: ui.message("emr.gender.M"), value: 'M'],
             [label: ui.message("emr.gender.F"), value: 'F'] ]
+
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("mirebalais.mpi.title") }", link: "${ ui.pageLink("mirebalais", "mpi/findPatient") }" }
@@ -35,7 +38,7 @@
     ${ ui.message("mirebalais.mpi.title") }
 </h1>
 
-<form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }">
+<form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" id="master-patient-index">
 
     <fieldset>
         <legend>${ ui.message("mirebalais.mpi.searchById") }</legend>
@@ -50,9 +53,6 @@
             <input type="submit" class="confirm" id="search-button" value="${ ui.message("emr.findPatient.search") }"  />
         </div>
     </fieldset>
-</form>
-
-<form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }">
     <fieldset>
             <legend>${ ui.message("mirebalais.mpi.searchByName") }</legend>
 
@@ -80,62 +80,53 @@
 </div>
 
 <% if (results) { %>
-<table id="active-visits" width="100%" border="1" cellspacing="0" cellpadding="2">
-    <thead>
-    <tr>
-        <th>${ ui.message("emr.patient.identifier") }</th>
-        <th>${ ui.message("emr.person.name") }</th>
-        <th>${ ui.message("emr.gender") }</th>
-        <th>${ ui.message("emr.age") }</th>
-        <th>${ ui.message("emr.person.address") }</th>
-        <th>${ ui.message("mirebalais.mpi.import") }</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-
+    <h2>Your search returned {%} patients:</h2>
+    <ul class="patient-search-results">
     <% results.each {
         def p = it.patient
     %>
-    <tr id="patient-${ p.id }">
-        <td>${ ui.format(p.patientIdentifier) }</td>
-        <td>
-            ${ ui.format(p) }
-        </td>
-        <td>
-            ${ ui.message("emr.gender." + p.gender) }
-        </td>
-        <td>
-            <% if (p.birthdate) { %>
-            <% if (p.age > 0) { %>
-            <span>${ ui.message("emr.ageYears", p.age) }</span>
-            <% } else if (it.ageInMonths > 0) { %>
-            <span>${ ui.message("emr.ageMonths", it.ageInMonths) }</span>
-            <% } else { %>
-            <span>${ ui.message("emr.ageDays", it.ageInDays) }</span>
-            <% } %>
-            <% } else { %>
-            <span>${ ui.message("emr.unknownAge") }</span>
-            <% } %>
-        </td>
-        <td>
-            <% addressHierarchyLevels.each { addressLevel -> %>
-            <% if(p.personAddress && p.personAddress[addressLevel]) { %>
-            ${p.personAddress[addressLevel]}<% if(addressLevel != addressHierarchyLevels.last()){%>,<%}%>
-            <% }%>
-            <% } %>
-        </td>
-        <td>
-            <% if (!it.localPatient) { %>
-            <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" method="post">
-                <input type="hidden" name="remoteUuid" value="${ it.remoteUuid }"/>
-                <input class="icon-download-alt" type="submit" value="${ ui.message("mirebalais.mpi.import") }"/>
-            </form>
-            <% } %>
-        </td>
-    </tr>
-    <% } %>
-    </tbody>
-</table>
+        <li id="patient-${ p.id }">
+            <h3>
+                ${ ui.format(p) }
+                <div class="identifiers">
+                    <span>${ ui.format(p.patientIdentifier) }</span>
+                </div>
+            </h3>
+            <div class="gender-age">
+                <span >
+                    ${ ui.message("emr.gender." + p.gender) }
+                </span>
+                <span>
+                    <% if (p.birthdate) { %>
+                    <% if (p.age > 0) { %>
+                    <span>${ ui.message("emr.ageYears", p.age) }</span>
+                    <% } else if (it.ageInMonths > 0) { %>
+                    <span>${ ui.message("emr.ageMonths", it.ageInMonths) }</span>
+                    <% } else { %>
+                    <span>${ ui.message("emr.ageDays", it.ageInDays) }</span>
+                    <% } %>
+                    <% } else { %>
+                    <span>${ ui.message("emr.unknownAge") }</span>
+                    <% } %>
+                </span>
+            </div>
+            <span>
+                <% addressHierarchyLevels.each { addressLevel -> %>
+                <% if(p.personAddress && p.personAddress[addressLevel]) { %>
+                ${p.personAddress[addressLevel]}<% if(addressLevel != addressHierarchyLevels.last()){%>,<%}%>
+                <% }%>
+                <% } %>
+            </span>
+            <span>
+                <% if (!it.localPatient) { %>
+                <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" method="post">
+                    <input type="hidden" name="remoteUuid" value="${ it.remoteUuid }"/>
+                    <input type="submit" value="${ ui.message("mirebalais.mpi.import") }"/>
+                </form>
+                <% } %>
+            </span>
+        </li>
+        <% } %>
+    </ul>
 <% } %>
 

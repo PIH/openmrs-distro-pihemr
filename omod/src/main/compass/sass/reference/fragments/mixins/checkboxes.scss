@@ -1,4 +1,4 @@
-@import "../variables";
+@import "../../variables";
 
 @mixin check-box {
   -webkit-appearance: none;
@@ -29,8 +29,4 @@
     left: 2px;
     color: $text;
   }
-}
-
-input[type="checkbox"] {
-    @include check-box;
 }

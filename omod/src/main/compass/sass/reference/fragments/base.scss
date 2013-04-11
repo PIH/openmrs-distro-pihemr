@@ -1,4 +1,5 @@
 @import "../variables";
+@import "../mixins";
 @import "compass/css3";
 
 body {
@@ -190,12 +191,29 @@ form {
       text-align: left;
       clear: both;
     }
+
+    &.radio-btn {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 10px 20px 0;
+      input {
+        display: inline-block;
+      }
+      label {
+        display: inline-block;
+        margin: 0;
+      }
+    }
   }
 
   input[type="checkbox"], input[type="radio"] {
     min-width: 0;
     margin: 2px 5px;
     float: left;
+  }
+
+  input[type="checkbox"] {
+    @include check-box;
   }
 }
 
