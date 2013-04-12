@@ -14,7 +14,7 @@
     <div id="apps">
         <% apps.each { app -> %>
 
-            <a id="${ htmlSafeId(app) }" href="/${ contextPath }/${ app.homepageUrl }" class="button big">
+            <a id="${ htmlSafeId(app) }" href="/${ contextPath }/${ app.homepageUrl }" class="button app big">
                 <% if (app.iconUrl) { %>
                     <i class="${ app.iconUrl }"></i>
                 <% } %>
