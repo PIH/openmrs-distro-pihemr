@@ -182,7 +182,7 @@
                 </executions>
                 <configuration>
                     <!--jrubyVersion>1.6.4</jrubyVersion-->
-                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs>
+                    <!--execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs-->
                 </configuration>
             </plugin>
         </plugins>
