@@ -21,14 +21,9 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             });
         });
         jq('#actions .confirm').click(function() {
-            //start a new visit
-            emr.getFragmentActionWithCallback('emr', 'visit/visit', 'start',
-                    { patientId: '${ patient.patient.id }', locationId: sessionLocationModel.id(), stopActiveVisit: true },
-                    function(data) {
-                        emr.navigateTo({
-                            applicationUrl: '${ enterFormUrl }'
-                        });
-                    });
+            emr.navigateTo({
+                applicationUrl: '${ enterFormUrl }' + "&createVisit=true"
+            });
 
         });
         jq('#actions button').first().focus();
