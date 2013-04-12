@@ -75,7 +75,7 @@
     </fieldset>
 </form>
 
-<div id="mpiSpinner" style="visibility: hidden;">
+<div id="mpiSpinner" style="display: none; text-align: center; padding: 20px;">
     <img src="${ui.resourceLink("mirebalais", "images/biggerloader.gif")}">
 </div>
 
@@ -86,45 +86,45 @@
         def p = it.patient
     %>
         <li id="patient-${ p.id }">
-            <h3>
-                ${ ui.format(p) }
-                <div class="identifiers">
-                    <span>${ ui.format(p.patientIdentifier) }</span>
-                </div>
-            </h3>
-            <div class="gender-age">
-                <span >
-                    ${ ui.message("emr.gender." + p.gender) }
-                </span>
-                <span>
+            <div class="patient-info">
+                <h3>
+                    ${ ui.format(p) }
+                    <div class="identifiers">
+                        <span>${ ui.format(p.patientIdentifier) }</span>
+                    </div>
+                </h3>
+                <div class="demographics">
+                    <span >
+                        ${ ui.message("emr.gender." + p.gender) }
+                    </span>
                     <% if (p.birthdate) { %>
-                    <% if (p.age > 0) { %>
-                    <span>${ ui.message("emr.ageYears", p.age) }</span>
-                    <% } else if (it.ageInMonths > 0) { %>
-                    <span>${ ui.message("emr.ageMonths", it.ageInMonths) }</span>
+                        <% if (p.age > 0) { %>
+                            <span>${ ui.message("emr.ageYears", p.age) }</span>
+                        <% } else if (it.ageInMonths > 0) { %>
+                            <span>${ ui.message("emr.ageMonths", it.ageInMonths) }</span>
+                        <% } else { %>
+                            <span>${ ui.message("emr.ageDays", it.ageInDays) }</span>
+                        <% } %>
                     <% } else { %>
-                    <span>${ ui.message("emr.ageDays", it.ageInDays) }</span>
+                        <span>${ ui.message("emr.unknownAge") }</span>
                     <% } %>
-                    <% } else { %>
-                    <span>${ ui.message("emr.unknownAge") }</span>
-                    <% } %>
-                </span>
+                    <span>
+                        <% addressHierarchyLevels.each { addressLevel -> %>
+                            <% if(p.personAddress && p.personAddress[addressLevel]) { %>
+                                ${p.personAddress[addressLevel]}<% if(addressLevel != addressHierarchyLevels.last()){%>,<%}%>
+                            <% }%>
+                        <% } %>
+                    </span>
+                </div>
             </div>
-            <span>
-                <% addressHierarchyLevels.each { addressLevel -> %>
-                <% if(p.personAddress && p.personAddress[addressLevel]) { %>
-                ${p.personAddress[addressLevel]}<% if(addressLevel != addressHierarchyLevels.last()){%>,<%}%>
-                <% }%>
-                <% } %>
-            </span>
-            <span>
-                <% if (!it.localPatient) { %>
-                <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" method="post">
-                    <input type="hidden" name="remoteUuid" value="${ it.remoteUuid }"/>
-                    <input type="submit" value="${ ui.message("mirebalais.mpi.import") }"/>
-                </form>
-                <% } %>
-            </span>
+        <% if (!it.localPatient) { %>
+        <div class="import-patient">
+            <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" method="post">
+                <input type="hidden" name="remoteUuid" value="${ it.remoteUuid }"/>
+                <input type="submit" value="${ ui.message("mirebalais.mpi.import") }" class="proceed" />
+            </form>
+        </div>
+        <% } %>
         </li>
         <% } %>
     </ul>
