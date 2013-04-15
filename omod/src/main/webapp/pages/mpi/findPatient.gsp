@@ -80,7 +80,7 @@
 </div>
 
 <% if (results) { %>
-    <h2>Your search returned {%} patients:</h2>
+    <h2>${ ui.message("emr.searchPatientResultsHeading")}</h2>
     <ul class="patient-search-results">
     <% results.each {
         def p = it.patient
