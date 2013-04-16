@@ -59,7 +59,7 @@
 		<reportingVersion>0.7.5</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.5-SNAPSHOT</idgenVersion>
+		<idgenVersion>2.4.1</idgenVersion>
 		<namephoneticsVersion>1.3.6</namephoneticsVersion>
 		<patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
