@@ -14,6 +14,7 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
 
 <script type="text/javascript">
     jq(function() {
+
         jq('#actions .cancel').click(function() {
             emr.navigateTo({
                 provider: "mirebalais",
@@ -21,9 +22,18 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             });
         });
         jq('#actions .confirm').click(function() {
-            emr.navigateTo({
-                applicationUrl: '${ enterFormUrl }' + "&createVisit=true"
-            });
+            var id = jq(this).attr('id');
+            if(id == 'addCheckIn'){
+                //add check-in encounter to the active visit
+                emr.navigateTo({
+                    applicationUrl: '${ enterFormUrl }'
+                });
+            }else{
+                // create new visit and add check-in encounter to the new visit
+                emr.navigateTo({
+                    applicationUrl: '${ enterFormUrl }' + "&createVisit=true"
+                });
+            }
 
         });
         jq('#actions button').first().focus();
@@ -61,9 +71,9 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
             message: ui.message("mirebalais.checkin.newVisit"),
             additionalContent: """
                 <div id="actions">
-                    <button class="confirm medium right">
+                    <button id="addCheckIn" class="confirm medium right">
                         <i class="icon-arrow-right"></i>
-                        ${ ui.message("mirebalais.checkin.confirm.newvisit.yes") }
+                        ${ ui.message("mirebalais.checkin.confirm.addCheckIn.yes") }
                     </button>
 
                     <button class="cancel medium">
