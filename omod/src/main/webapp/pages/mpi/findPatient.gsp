@@ -26,6 +26,8 @@
         jq(':input:enabled:visible:first').focus();
 
         jq("form").submit(function(){
+            jq("#searchHeader").remove();
+            jq('.patient-search-results').empty();
             jq("#mpiSpinner").css("visibility", "visible");
             jq("#mpiSpinner").show();
         });
@@ -80,7 +82,7 @@
 </div>
 
 <% if (results) { %>
-    <h2>${ ui.message("emr.searchPatientResultsHeading")}</h2>
+    <h2 id="searchHeader">${ ui.message("mirebalais.mpi.searchPatientResultsHeading", results.size)}</h2>
     <ul class="patient-search-results">
     <% results.each {
         def p = it.patient

@@ -103,6 +103,8 @@ public class FindPatientPageController {
                 try{
                     Patient patient = Context.getPatientService().savePatient(remotePatient.getPatient());
                     if(patient!=null){
+                        request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, ui.message("mirebalais.mpi.import.success", ui.format(patient)));
+                        request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
                         removeFromCache(remoteUuid, session);
                         return "redirect:" + ui.pageLink("emr", "patient?patientId=" + patient.getId().toString());
                     }
