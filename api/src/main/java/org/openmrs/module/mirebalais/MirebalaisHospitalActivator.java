@@ -161,7 +161,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			sortApps();
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
-            setupConnectionToMasterPatientIndex();
         }
 		catch (Exception e) {
 			Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
