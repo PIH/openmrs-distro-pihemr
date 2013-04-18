@@ -12,9 +12,7 @@ import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class PatientPageController {
 
@@ -26,10 +24,13 @@ public class PatientPageController {
                            @InjectBeans PatientDomainWrapper patientDomainWrapper,
                            @InjectBeans EnterHtmlFormWithSimpleUiTask enterFormTask) {
 
-        patientDomainWrapper.setPatient(patient);
+       patientDomainWrapper.setPatient(patient);
 
         enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/checkin.xml");
-        enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient"));
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("patientId", patient.getId());
+        params.put("pullPaperRecord", true);
+        enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient", params));
         SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")), "link", ui.pageLink("mirebalais", "checkin/findPatient"));
         SimpleObject patientPageBreadcrumb = SimpleObject.create("label", ui.escapeJs(patient.getFamilyName()) + ", " + ui.escapeJs(patient.getGivenName()), "link", ui.thisUrlWithContextPath());
         enterFormTask.setBreadcrumbOverride(ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
@@ -46,8 +47,9 @@ public class PatientPageController {
             }
         }
 
+
         model.addAttribute("existingEncounters", existingEncounters);
-        model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("enterFormUrl", enterFormTask.getUrl(emrContext));
+        model.addAttribute("patient", patientDomainWrapper);
     }
 }
