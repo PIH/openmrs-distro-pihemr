@@ -27,17 +27,19 @@
                             , function(data) {
                                 emr.successMessage(data.message);
                                 pullChartDialog.close();
+                                jq(':input:enabled:visible:first').focus();
                             });
                 },
                 cancel: function() {
                     pullChartDialog.close();
+                    jq(':input:enabled:visible:first').focus();
                 }
             }
         });
     }
 
     jq(function() {
-
+     jq(':input:enabled:visible:first').focus();
      if('${ pullPaperRecord }' == 'true'){
          createPullChartDialog('${patient.id}');
          ko.applyBindings( sessionLocationModel, jq('#request-paper-record-dialog').get(0) );
