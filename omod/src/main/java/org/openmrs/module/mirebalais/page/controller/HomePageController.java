@@ -13,43 +13,43 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
-import java.util.List;
-
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.appframework.AppDescriptor;
+import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.utils.FeatureToggleProperties;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
+import java.util.List;
+
 /**
- * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
- * authenticated.
+ * Home page for Mirebalais EMR (shows list of apps)
+ * Shows the login view instead if you are not authenticated.
  */
 public class HomePageController {
-	
-	public static final String MY_ACCOUNT_APP_ID = "emr.myAccount";
-	
-	public void controller(PageModel model, EmrContext emrContext,
-	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties) {
+
+    public static final String MY_ACCOUNT_APP_ID = "emr.myAccount";
+
+    public void controller(PageModel model, EmrContext emrContext,
+                           @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties) {
 		
 		emrContext.requireAuthentication();
 		
 		AppFrameworkService appService = Context.getService(AppFrameworkService.class);
 		List<AppDescriptor> apps = appService.getAppsForUser(Context.getAuthenticatedUser());
-		
-		for (int i = 0; i < apps.size(); i++) {
-			AppDescriptor appDescriptor = apps.get(i);
-			
-			if (appDescriptor.getId().equals(MY_ACCOUNT_APP_ID)) {
-				if (!featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
-					apps.remove(i);
-				}
-			}
-			
-		}
-		
+
+        for (int i = 0 ; i < apps.size() ; i++){
+            AppDescriptor appDescriptor = apps.get(i);
+
+            if (appDescriptor.getId().equals(MY_ACCOUNT_APP_ID)){
+                if (!featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
+                    apps.remove(i);
+                }
+            }
+
+        }
+
 		model.addAttribute("apps", apps);
 	}
 	
