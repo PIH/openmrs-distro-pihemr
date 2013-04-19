@@ -34,7 +34,7 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
     }
 </style>
 
-<% if (emrContext.activeVisitSummary) { %>
+<% if (emrContext.activeVisit) { %>
 
     <div class="container half-width">
 

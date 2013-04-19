@@ -12,7 +12,11 @@ import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PatientPageController {
 
@@ -37,8 +41,8 @@ public class PatientPageController {
         Form form = enterFormTask.getHtmlForm().getForm();
 
         List<Encounter> existingEncounters = new ArrayList<Encounter>();
-        if (emrContext.getActiveVisitSummary() != null) {
-            for (Encounter encounter : emrContext.getActiveVisitSummary().getVisit().getEncounters()) {
+        if (emrContext.getActiveVisit() != null) {
+            for (Encounter encounter : emrContext.getActiveVisit().getVisit().getEncounters()) {
                 if (!encounter.isVoided()
                         && form.getEncounterType()!=null
                         && form.getEncounterType().equals(encounter.getEncounterType())) {

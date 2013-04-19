@@ -52,8 +52,8 @@ public class PatientPageController {
         Form form = enterFormTask.getHtmlForm().getForm();
 
         List<Encounter> existingEncounters = new ArrayList<Encounter>();
-        if (emrContext.getActiveVisitSummary() != null) {
-            for (Encounter encounter : emrContext.getActiveVisitSummary().getVisit().getEncounters()) {
+        if (emrContext.getActiveVisit() != null) {
+            for (Encounter encounter : emrContext.getActiveVisit().getVisit().getEncounters()) {
                 if (!encounter.isVoided()
                         && form.equals(encounter.getForm())) {
                     existingEncounters.add(encounter);

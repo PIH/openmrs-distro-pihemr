@@ -40,7 +40,7 @@ ${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
     });
 </script>
 
-<% if (!emrContext.activeVisitSummary) { %>
+<% if (!emrContext.activeVisit) { %>
 
 <div class="dialog no-overlay">
     <div class="dialog-header">
