@@ -1,0 +1,56 @@
+[
+    {
+        "id": "legacy.admin",
+        "label": "mirebalais.app.legacy.admin.label",
+        "url": "admin/index.htm",
+        "iconUrl": "icon-cogs"
+    },
+    {
+        "id": "patientRegistration.registration",
+        "label": "mirebalais.app.patientRegistration.registration.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
+        "iconUrl": "icon-register",
+        "requiredPrivilege": "App: patientregistration.main"
+    },
+    {
+        "id": "mirebalais.mpi",
+        "label": "mirebalais.mpi.title",
+        "url": "mirebalais/mpi/findPatient.page",
+        "iconUrl": "icon-zoom-in",
+        "requiredPrivilege": "App: mirebalais.mpi"
+    },
+    {
+        "id": "mirebalais.checkin",
+        "label": "mirebalais.checkin.title",
+        "url": "mirebalais/checkin/findPatient.page",
+        "iconUrl": "icon-paste",
+        "requiredPrivilege": "App: mirebalais.checkin"
+    },
+    {
+        "id": "patientRegistration.checkin",
+        "label": "mirebalais.app.patientRegistration.checkin.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=primaryCareReception",
+        "iconUrl": "icon-user-md",
+        "requiredPrivilege": "App: patientregistration.main"
+    },
+    {
+        "id": "patientRegistration.emergencyCheckin",
+        "label": "mirebalais.app.patientRegistration.emergencyCheckin.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
+        "iconUrl": "icon-hospital",
+        "requiredPrivilege": "App: emr.systemAdministration"
+    },
+    {
+        "id": "patientRegistration.lookup",
+        "label": "mirebalais.app.patientRegistration.patientLookup.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
+        "iconUrl": "icon-edit",
+        "requiredPrivilege": "App: patientregistration.edit"
+    },
+    {
+        "id": "mirebalais.outpatientVitals",
+        "label": "mirebalais.outpatientVitals.title",
+        "url": "mirebalais/outpatientvitals/findPatient.page",
+        "iconUrl": "icon-vitals"
+    }
+]

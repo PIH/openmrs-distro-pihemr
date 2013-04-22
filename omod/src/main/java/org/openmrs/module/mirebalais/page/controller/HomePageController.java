@@ -15,7 +15,6 @@ package org.openmrs.module.mirebalais.page.controller;
 
 import java.util.List;
 
-import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
@@ -32,12 +31,12 @@ public class HomePageController {
 	public static final String MY_ACCOUNT_APP_ID = "emr.myAccount";
 	
 	public void controller(PageModel model, EmrContext emrContext,
-	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties) {
+	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties,
+	                       @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService) {
 		
 		emrContext.requireAuthentication();
 		
-		AppFrameworkService appService = Context.getService(AppFrameworkService.class);
-		List<AppDescriptor> apps = appService.getAppsForUser(Context.getAuthenticatedUser());
+		List<AppDescriptor> apps = appFrameworkService.getAppsForCurrentUser();
 		
 		for (int i = 0; i < apps.size(); i++) {
 			AppDescriptor appDescriptor = apps.get(i);
