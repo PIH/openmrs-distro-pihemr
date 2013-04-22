@@ -28,6 +28,7 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
@@ -35,7 +36,7 @@ import org.openmrs.module.metadatasharing.api.MetadataSharingService;
 import org.openmrs.module.mirebalais.MetadataPackageConfig;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.scheduler.SchedulerService;
@@ -56,7 +57,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
@@ -155,7 +155,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         ConceptService conceptService = Context.getConceptService();
 		Assert.assertNotNull(Context.getLocationService().getLocation("Mirebalais Hospital"));
 		Assert.assertNotNull((Context.getOrderService().getOrderTypeByUuid(Context.getAdministrationService()
-		        .getGlobalProperty(RADIOLOGY_ORDER_TYPE_UUID))));
+		        .getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE))));
         Assert.assertNotNull((conceptService.getConceptByMapping("TEMPERATURE (C)", "PIH")));
 		Assert.assertNotNull(Context.getService((ProviderManagementService.class)).getProviderRoleByUuid("61eed524-4547-4228-a3ac-631fe1628a5e"));
 
@@ -185,16 +185,14 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     }
 	
 	private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-		assertEquals("13116a48-15f5-102d-96e4-000c29c2a5d7", Context.getAdministrationService().getGlobalProperty(
-		    RADIOLOGY_ORDER_TYPE_UUID));
 		assertEquals("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.PATIENT_IDENTIFIER_TYPE_UUID));
+		    PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID));
 		assertEquals("en", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.DEFAULT_LOCALE));
+		    PacsIntegrationConstants.GP_DEFAULT_LOCALE));
 		assertEquals("Mirebalais", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.SENDING_FACILITY));
+		    PacsIntegrationConstants.GP_SENDING_FACILITY));
 		assertEquals("2889f378-f287-40a5-ac9c-ce77ee963ed7", Context.getAdministrationService().getGlobalProperty(
-		    PacsIntegrationGlobalProperties.PROCEDURE_CODE_CONCEPT_SOURCE_UUID));
+		    PacsIntegrationConstants.GP_PROCEDURE_CODE_CONCEPT_SOURCE_UUID));
 	}
 	
 	private void verifyAddressHierarchyLevelsCreated() throws Exception {

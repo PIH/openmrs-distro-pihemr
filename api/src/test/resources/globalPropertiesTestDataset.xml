@@ -39,6 +39,7 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="pacsintegration.procedureCodeConceptSourceUuid" property_value="" uuid="7ab77666-0663-46e1-8c99-2b4f0c4f671b"/>
     <global_property property="pacsintegration.sendingFacility" property_value="" uuid="7ab78666-0663-45e1-8c99-2b4f0c4f671b"/>
     <global_property property="pacsintegration.locationCodeAttributeTypeUuid" property_value="" uuid="7ab78666-1111-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.hl7ListenerPort" property_value="" uuid="7ab78666-2222-45e1-8c99-2b4f0c4f671b"/>
 
     <global_property property="layout.address.format" property_value="" uuid="7abc4766-0663-45e1-8c99-2b4f0c4f888a"/>
     <global_property property="locale.allowed.list" property_value="" uuid="7abc47a5-0663-45e1-8c99-2b4f0c4f888a"/>
@@ -49,6 +50,10 @@ Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc8
     <global_property property="security.passwordRequiresUpperAndLowerCase" property_value="" uuid="7dda47a5-0663-45e1-8c99-2b4f0c4f888a"/>
 
     <global_property property="emr.radiologyOrderEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyStudyEncounterType" property_value="" uuid="8d95462a-0e66-1333-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyReportEncounterType" property_value="" uuid="8d954633-0e66-1333-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyTechnicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b883-bb77234a0748"/>
+    <global_property property="emr.principalResultsInterpreterEncounterRole" property_value="" uuid="92e516a0-1166-11e2-b883-bb77234a0748"/>
     <global_property property="emr.orderingProviderEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.checkInClerkEncounterRole" property_value="" uuid="93e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.radiologyTestOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>

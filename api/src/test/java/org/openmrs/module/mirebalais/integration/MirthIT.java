@@ -34,11 +34,11 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrProperties;
+import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emr.radiology.RadiologyOrder;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -205,7 +205,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		// now create and save the order for this patient
 		RadiologyOrder order = new RadiologyOrder();
 		order.setOrderType(orderService.getOrderTypeByUuid(administrationService
-		        .getGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID))); // TODO: change this based on how we actually end up doing orders
+		        .getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE)));
 		order.setPatient(patient);
 		order.setConcept(conceptService.getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
