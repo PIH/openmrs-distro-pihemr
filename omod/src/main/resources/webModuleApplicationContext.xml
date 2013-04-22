@@ -15,8 +15,8 @@
             <list>
                 <bean class="org.openmrs.ui.framework.resource.Resource">
                     <property name="category" value="css"/>
-                    <property name="providerName" value="uicommons"/>
-                    <property name="resourcePath" value="styles/mirebalais/mirebalais.css"/>
+                    <property name="providerName" value="mirebalais"/>
+                    <property name="resourcePath" value="styles/mirebalais.css"/>
                     <property name="priority" value="-100"/>
                 </bean>
             </list>

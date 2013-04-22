@@ -1,0 +1,16 @@
+hr.separator {
+  width: 100%;
+  border-bottom: 1px dashed #CCC;
+  margin-bottom: 40px;
+}
+
+#home-container {
+  margin: 0 auto;
+
+  #apps {
+    border-bottom: 1px dashed #CCC;
+    margin: 40px 0;
+    padding: 10px 0;
+    border-top: 1px dashed #CCC;
+  }
+}

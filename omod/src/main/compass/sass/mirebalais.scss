@@ -1,0 +1,252 @@
+@import "customVariables";
+@import "reference";
+
+header {
+  position: relative;
+  background-color: $highlight;
+  color: #CCC;
+  line-height: 1em;
+  @include border-radius(5px);
+
+  a, a:visited, a:hover, a:link {
+    color: white;
+  }
+
+  h1 {
+    color: #FFF;
+    margin: 0;
+    padding: 10px
+  }
+
+  .logo {
+    float: left;
+    margin: 4px;
+    
+    img {
+      width: 120px;
+    }
+  }
+
+  .user-options {
+    text-align: right;
+
+    li {
+      display: inline-block;
+      margin: 10px 0 10px 20px;
+
+      &.change-location, &.logout {
+        color: white;
+      }
+
+      &.change-location {
+        border: 1px solid lighten($highlight, 5%);
+        @include border-radius(3px);
+
+        a {
+          display: block;
+        }
+
+        &:hover, .focus {
+          background: lighten($highlight, 5%);
+
+          a:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  #session-location {
+    position: absolute;
+    display: none;
+    top: 60px;
+    left: 70px;
+    background: white;
+    border: 2px solid lighten($highlight, 5%);
+    @include border-radius(3px);
+    width: 853px;
+    font-size: 0.8em;
+    z-index: 1;
+
+    .select {
+      font-size: 1em;
+    }
+
+    li {
+      width: 239px;
+    }
+  }
+}
+
+
+.tabs {
+  a {
+    color: $link;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($link, 10%);
+      text-decoration: underline;
+    }
+    
+    &:visited, &.visited {
+      color: $link
+    }
+  }
+
+}
+
+#assigned_create_requests_table, #assigned_pull_requests_table {
+  th {
+    background: white;
+    border: none;
+    font-family: $primaryBoldFont;
+    font-weight: normal;
+    color: $text;
+  }
+
+  tr {
+    border: none;
+    border-bottom: 1px solid #eee;
+
+    td {
+      border: none;
+    }
+  }
+
+  tr:nth-child(even) {
+    background: white;
+  }
+}
+
+//archives-room
+.box-align {
+  display: inline-block;
+  vertical-align: top;
+  width: 44%;
+
+  &.btn {
+    margin-top: 85px;
+    text-align: center;
+    width: 12%;
+    margin: {
+      left: -5px;
+      right: -5px;
+    }
+
+    i {
+      line-height: 1em;
+    }
+
+    span {
+      display: block;
+      font-size: 0.9em;
+    }
+
+  }
+}
+
+.checkbox-done input {
+  vertical-align: middle;
+  @include check-box;
+}
+
+.instructions {
+  color: $highlight;
+  display: inline-block;
+  padding: 5px;
+  background: #EEE;
+  margin: 10px 0 20px 0;
+
+  .instruction {
+    display: inline-block;
+    background: #FFF;
+    padding: 3px 10px;
+  }
+}
+
+#modal-overlay {
+  background-color: #aaa;
+  opacity: 0.8;
+}
+
+//toast messages
+.toast-item {
+  font-family: $primaryFont, Arial, sans-serif;
+  font-size: 16px;
+  background-color: transparent;
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.88));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), inset 0 0 0 1px rgba(255,255,255,0.1);
+  border: 1px solid #000;
+  -webkit-border-radius: 4px;
+}
+
+.toast-item-image {
+  background: 0;
+  font-family: $iconFont;
+  font-size: 1.7em;
+  width: auto;
+  height: auto;
+  padding: 7px;
+}
+
+.toast-item-close {
+  font-size: 0.8em;
+  background: 0;
+  font-family: $iconFont;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+  @extend .icon-remove;
+}
+
+.toast-item-image-success {
+  @extend .icon-ok;
+  color: $success;
+}
+
+.toast-item-image-alert {
+  @extend .icon-exclamation-sign;
+  color: $alert;
+  font-size: 2em;
+}
+
+.toast-item-image-error {
+  @extend .icon-remove;
+  color: lighten($error, 10%);
+}
+
+.toast-record-location, .toast-record-id {
+  font-size: 1.4em;
+  font-weight: bold;
+  display: block;
+  color: white;
+}
+
+.toast-record-found {
+  color: #ccc;
+}
+
+.container {
+  &.half-width {
+    width: 60%;
+  }
+}
+
+#breadcrumbs {
+  @include breadcrumb;
+}
+
+.delete-item {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+  color: $darkerGrey;
+  font-size: 1em;
+  cursor: pointer;
+
+  &:hover {
+    color: $error;
+  }
+}

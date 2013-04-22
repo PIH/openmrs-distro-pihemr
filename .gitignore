@@ -16,6 +16,7 @@ omod/.project
 omod/.classpath
 omod/.settings/
 omod/target/
+omod/src/main/compass/sass-external/
 
 *.DS_Store
 /.idea
