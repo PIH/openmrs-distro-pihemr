@@ -33,6 +33,7 @@ import org.openmrs.module.appframework.AppDescriptor;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.radiology.RadiologyConstants;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
 import org.openmrs.module.idgen.IdentifierPool;
@@ -52,7 +53,7 @@ import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
-import org.openmrs.module.pacsintegration.PacsIntegrationGlobalProperties;
+import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.scheduler.SchedulerException;
@@ -97,9 +98,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Roles_and_Privileges",
                 "f12f5fb8-80a8-40d0-a20e-24af2642ce4c", 18, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Metadata",
-		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 31, ImportMode.MIRROR));
-		currentMetadataVersions.add(new MetadataPackageConfig("PACS_Integration",
-                "be592ba7-1fa2-4a71-a147-3c828e67e901", 1,  ImportMode.MIRROR));
+		        "fa25ad0c-66cc-4715-8464-58570f7b5132", 34, ImportMode.MIRROR));
 		currentMetadataVersions.add(new MetadataPackageConfig("HUM_Clinical_Concepts",
 		        "7003f131-7a15-4292-9513-c9fe52a73235", 26, ImportMode.MIRROR));
         currentMetadataVersions.add(new MetadataPackageConfig("HUM_Surgery",
@@ -146,8 +145,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		try {
 			MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
 			IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
-			
+
 			installMetadataPackages();
+            verifyRadiologyConceptsPresent();
 			setupCoreGlobalProperties();
 			setupNamePhoneticsGlobalProperties();
 			setupPatientRegistrationGlobalProperties();
@@ -317,16 +317,15 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	}
 	
 	private void setupPacsIntegrationGlobalProperties() {
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.RADIOLOGY_ORDER_TYPE_UUID,
-		    "13116a48-15f5-102d-96e4-000c29c2a5d7");
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PATIENT_IDENTIFIER_TYPE_UUID,
+		setExistingGlobalProperty(PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID,
 		    "a541af1e-105c-40bf-b345-ba1fd6a59b85");
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.DEFAULT_LOCALE, "en");
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.SENDING_FACILITY, "Mirebalais");
-		setExistingGlobalProperty(PacsIntegrationGlobalProperties.PROCEDURE_CODE_CONCEPT_SOURCE_UUID,
+		setExistingGlobalProperty(PacsIntegrationConstants.GP_DEFAULT_LOCALE, "en");
+		setExistingGlobalProperty(PacsIntegrationConstants.GP_SENDING_FACILITY, "Mirebalais");
+		setExistingGlobalProperty(PacsIntegrationConstants.GP_PROCEDURE_CODE_CONCEPT_SOURCE_UUID,
 		    "2889f378-f287-40a5-ac9c-ce77ee963ed7");
-        setExistingGlobalProperty(PacsIntegrationGlobalProperties.LOCATION_CODE_ATTRIBUTE_TYPE_UUID,
+        setExistingGlobalProperty(PacsIntegrationConstants.GP_LOCATION_CODE_ATTRIBUTE_TYPE_UUID,
                 "64f01c78-191d-4947-a201-7e0a7f0caf21");
+        setExistingGlobalProperty(PacsIntegrationConstants.GP_HL7_LISTENER_PORT, "6662");
 	}
 	
 	private void setupEmrGlobalProperties() {
@@ -361,10 +360,14 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void setupRadiologyGlobalProperties() {
         setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_ORDER_ENCOUNTER_TYPE, "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa");
+        setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_STUDY_ENCOUNTER_TYPE, "5b1b4a4e-0084-4137-87db-dba76c784439");
+        setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_REPORT_ENCOUNTER_TYPE, "d5ca53a7-d3b5-44ac-9aa2-1491d2a4b4e9");
         setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE, "5a3a8d2e-97c3-4797-a6a8-5417e6e699ec");
         setExistingGlobalProperty(RadiologyConstants.GP_XRAY_ORDERABLES_CONCEPT, "35c24af8-6d60-4189-95c6-7e91e421d11f");
         setExistingGlobalProperty(RadiologyConstants.GP_CT_SCAN_ORDERABLES_CONCEPT, "381d653b-a6b7-438a-b9f0-5034b5272def");
         setExistingGlobalProperty(RadiologyConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
+        setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TECHNICIAN_ENCOUNTER_ROLE, "8f4d96e2-c97c-4285-9319-e56b9ba6029c");
+        setExistingGlobalProperty(RadiologyConstants.GP_PRINCIPAL_RESULTS_INTERPRETER_ENCOUNTER_ROLE, "08f73be2-9452-44b5-801b-bdf7418c2f71");
     }
 
 	private void setupNamePhoneticsGlobalProperties() {
@@ -574,6 +577,24 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Context.getService(ImportPatientFromWebService.class).registerRemoteServer("lacolline", config);
     }
 
+    private void verifyRadiologyConceptsPresent() {
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_PROCEDURE, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_TYPE, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_BODY, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_ACCESSION_NUMBER, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_IMAGES_AVAILABLE, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_CORRECTION, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_FINAL, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_PRELIM, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_STUDY_SET, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+        verifyConceptPresent(RadiologyConstants.CONCEPT_CODE_RADIOLOGY_REPORT_SET, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+    }
+
+    private void verifyConceptPresent(String conceptCode, String conceptSource) {
+        if (Context.getConceptService().getConceptByMapping(conceptCode, conceptSource) == null) {
+            throw new RuntimeException("No concept tagged with code " + conceptCode + " from source " + conceptSource);
+        }
+    }
 
     public List<MetadataPackageConfig> getCurrentMetadataVersions() {
 		return currentMetadataVersions;
