@@ -63,7 +63,7 @@
 		<namephoneticsVersion>1.3.6</namephoneticsVersion>
 		<patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
-        <addresshierarchyVersion>2.2.8</addresshierarchyVersion>
+        <addresshierarchyVersion>2.2.9</addresshierarchyVersion>
         <providerManagementVersion>1.1.3</providerManagementVersion>
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
