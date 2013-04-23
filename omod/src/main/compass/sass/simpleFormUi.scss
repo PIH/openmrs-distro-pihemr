@@ -1,0 +1,197 @@
+@import "variables";
+@import "compass/css3";
+
+form#retrospectiveCheckin {
+  background: #F9F9F9 url(../images/aside-bg.png) repeat-y -20px;
+
+  div#error-message {
+    display: none;
+    margin-left: 40px;
+  }
+}
+
+ul#formBreadcrumb {
+  float: left;
+  vertical-align: top;
+  width: 220px;
+
+  li {
+    border: 1px solid #EEE;
+    border-bottom: none;
+    border-right: none;
+
+    span {
+      padding: 5px;
+      font-family: $primaryBoldFont;
+    }
+
+    &:first-child {
+      @include border-top-left-radius(4px);
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #EEE;
+      @include border-bottom-left-radius(4px);
+    }
+
+    &.doing {
+      border-left: 5px solid $link;
+
+      ul {
+        display: block;
+
+        li {
+          span {
+            padding-left: 32px;
+            font-weight: normal;
+            font-family: $primaryFont;
+          }
+
+          border: none;
+          @include border-radius(0);
+
+          &.focused {
+            color: #FFF;
+            background-color: $link;
+          }
+        }
+      }
+
+      .question-legend {
+        .icon-ok {
+          display: none;
+          font-size: 0.7em;
+          border: 2px solid;
+          color: rgb(40, 201, 0);
+          padding: 3px 3px;
+          margin-left: 6px;
+        }
+
+        &.done {
+          span {
+            padding-left: 5px;
+          }
+           
+          .icon-ok {
+            display: inline;
+          }
+        }
+      }
+    }
+
+    i {
+      display: inline-block;
+      font-size: 1em;
+      border: 3px solid;
+      @include border-radius(50%);
+      
+      span {
+        font-style: normal;
+        font-weight: 700;
+        padding: 0px 5px;
+        margin-top: -3px;
+      }
+    }
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+
+      em {
+        display: block;
+        font-size: .7em;
+        text-align: left;
+      }
+    }
+
+    ul {
+      display: none;
+    }
+  }
+}
+
+section, #confirmation {
+  display: none;
+
+  &.focused {
+    display: inline-block;
+  }
+
+  border-left: 3px solid #EEE;
+  width: 730px;
+  text-align: left;
+  padding: 10px;
+  background: #F9F9F9;
+
+  p {
+    margin: 0 5px;
+    text-align: left;
+    line-height: 35px;
+
+    label {
+      font-size: 1.2em;
+
+      span {
+        font-size: 0.8em;
+        color: #999;
+      }
+    }
+
+    .field-error {
+      color: $error;
+      font-size: 1.1em;
+      display: block;
+    }
+  }
+
+  fieldset, #confirmationQuestion {
+    display: none;
+    border: none;
+    padding: 0;
+
+    &.focused {
+      display: block;
+    }
+
+    legend { display: none }
+
+    select, input {
+      display: inline;
+
+      &:focus {
+        outline: 2px solid $link;
+
+      }
+
+      &.error {
+        border-color: $error;
+      }
+    }
+
+  }
+}
+
+#confirmation {
+  ul > li > .label {
+    text-align: right;
+    width: 200px;
+    display: inline-block;
+  }
+
+  ul > li > strong {
+    font-size: 2em;
+  }
+
+  ul > li > strong .after-value {
+    font-size: 0.8em;
+  }
+}
+
+
+.simple-form-ui form {
+  background: #F9F9F9 url(../../images/aside-bg.png) repeat-y -20px;
+
+  input, select, textarea, ul.select {
+    min-width: auto;
+  }
+}

@@ -1,0 +1,45 @@
+@import "variables";
+
+form fieldset {
+  margin-bottom: 20px;
+
+  input[type=button] {
+    margin-top: 0;
+  }
+}
+
+#accountForm {
+	.field-error {
+		color: $error;
+	}
+
+	strong, .form-header {
+		margin-top: 10px;
+	}
+
+	#format-password {
+		font-style: italic;
+		font-size: 0.90em;
+		color: #aaa;
+	}
+}
+
+.emr_userDetails {
+	#password {
+		color: #777;
+		font-size: 0.9em;
+		text-align: left;
+		font-style: italic;
+		line-height: 1em;
+	}
+}
+
+#list-accounts {
+	width: 50%;
+	margin: 0;
+	margin-top: 20px;
+
+	th {
+		word-break: normal;
+	}
+}

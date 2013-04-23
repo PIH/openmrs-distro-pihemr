@@ -1,0 +1,87 @@
+@import "variables";
+@import "compass/css3";
+
+#entry-fields {
+  display: inline-block;
+  width: 58%;
+  vertical-align: top;
+
+  p {
+    padding-bottom: 1em;
+  }
+}
+
+#consult-note {
+
+  #display-diagnoses {
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+    font-size: 0.9em;
+    h3 {
+      border-bottom: 1px solid #CCC;
+      padding-bottom: 5px;
+    }
+    li {
+      margin-bottom: 10px;
+      .diagnosis {
+        display: inline-block;
+        background: #4e4e4e;
+        border-left: 25px #4e4e4e solid;
+        padding: 5px 10px;
+        width: 82%;
+        color: white;
+        @include border-radius(5px);
+
+        &.primary {
+          border-left: 25px #31b31a solid;
+        }
+
+        .actions {
+          float: right;
+          font-size: 0.8em;
+          margin-top: 5px;
+
+          input {
+            float: none;
+            margin: 0px 0px 0px 10px;
+            font-size: 0.8em;
+          }
+          label {
+            display: inline;
+          }
+        }
+      }
+      i {
+        display: inline;
+      }
+    }
+  }
+}
+#buttons {
+  margin-top: 1em;
+}
+
+.matched-name {
+  display: block;
+  font-size: 1em;
+}
+.preferred-name {
+  margin-top: 5px;
+  display: block;
+  font-family: $primaryLightFont;
+  small {
+    font-size: 1em;
+    color: $darkerGrey;
+  }
+}
+
+.code {
+  float: right;
+  font-family: $primaryLightFont;
+  font-size: 0.9em;
+}
+
+.ui-menu .ui-menu-item {
+  border-bottom: 1px gray solid;
+}
