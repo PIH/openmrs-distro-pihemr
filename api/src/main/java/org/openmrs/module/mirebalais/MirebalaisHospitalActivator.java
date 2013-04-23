@@ -325,7 +325,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 		    "2889f378-f287-40a5-ac9c-ce77ee963ed7");
         setExistingGlobalProperty(PacsIntegrationConstants.GP_LOCATION_CODE_ATTRIBUTE_TYPE_UUID,
                 "64f01c78-191d-4947-a201-7e0a7f0caf21");
-        setExistingGlobalProperty(PacsIntegrationConstants.GP_HL7_LISTENER_PORT, "6662");
+        setExistingGlobalProperty(PacsIntegrationConstants.GP_HL7_LISTENER_PORT, "6663");
 	}
 	
 	private void setupEmrGlobalProperties() {
