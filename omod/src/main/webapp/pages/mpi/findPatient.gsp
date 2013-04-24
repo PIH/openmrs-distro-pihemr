@@ -42,7 +42,7 @@
 
 <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" id="master-patient-index">
 
-    <fieldset>
+    <fieldset id="search-by-id">
         <legend>${ ui.message("mirebalais.mpi.searchById") }</legend>
 
         ${ ui.includeFragment("emr", "field/text", [
@@ -55,7 +55,7 @@
             <input type="submit" class="confirm" id="search-button" value="${ ui.message("emr.findPatient.search") }"  />
         </div>
     </fieldset>
-    <fieldset>
+    <fieldset id="search-by-name">
             <legend>${ ui.message("mirebalais.mpi.searchByName") }</legend>
 
             ${ ui.includeFragment("emr", "field/text", [
