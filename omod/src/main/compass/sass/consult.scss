@@ -26,15 +26,15 @@
       margin-bottom: 10px;
       .diagnosis {
         display: inline-block;
-        background: #4e4e4e;
-        border-left: 25px #4e4e4e solid;
+        background: #006191;
+        border-left: 8px #006191 solid;
         padding: 5px 10px;
-        width: 82%;
+        width: 84%;
         color: white;
-        @include border-radius(5px);
+        @include border-radius(3px);
 
         &.primary {
-          border-left: 25px #31b31a solid;
+          border-left: 8px $success solid;
         }
 
         .actions {
@@ -48,6 +48,7 @@
             font-size: 0.8em;
           }
           label {
+            vertical-align: top;
             display: inline;
           }
         }
