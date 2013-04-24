@@ -56,7 +56,7 @@
 		<htmlformentryVersion>2.0.8</htmlformentryVersion>
 		<htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
 		<calculationVersion>1.0</calculationVersion>
-		<reportingVersion>0.7.5</reportingVersion>
+		<reportingVersion>0.7.6-SNAPSHOT</reportingVersion>
 		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
 		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
 		<idgenVersion>2.5</idgenVersion>
