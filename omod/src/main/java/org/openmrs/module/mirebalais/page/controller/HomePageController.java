@@ -15,7 +15,7 @@ package org.openmrs.module.mirebalais.page.controller;
 
 import java.util.List;
 
-import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.utils.FeatureToggleProperties;
@@ -28,7 +28,9 @@ import org.openmrs.ui.framework.page.PageModel;
  */
 public class HomePageController {
 	
-	public static final String MY_ACCOUNT_APP_ID = "emr.myAccount";
+	public static final String MY_ACCOUNT_EXTENSION_ID = "emr.myAccount";
+	
+	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.mirebalais.homepageLink";
 	
 	public void controller(PageModel model, EmrContext emrContext,
 	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties,
@@ -36,20 +38,20 @@ public class HomePageController {
 		
 		emrContext.requireAuthentication();
 		
-		List<AppDescriptor> apps = appFrameworkService.getAppsForCurrentUser();
+		List<Extension> extensions = appFrameworkService.getAllEnabledExtensions(HOME_PAGE_EXTENSION_POINT);
 		
-		for (int i = 0; i < apps.size(); i++) {
-			AppDescriptor appDescriptor = apps.get(i);
+		for (int i = 0; i < extensions.size(); i++) {
+			Extension ext = extensions.get(i);
 			
-			if (appDescriptor.getId().equals(MY_ACCOUNT_APP_ID)) {
+			if (ext.getId().equals(MY_ACCOUNT_EXTENSION_ID)) {
 				if (!featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
-					apps.remove(i);
+					extensions.remove(i);
 				}
 			}
 			
 		}
 		
-		model.addAttribute("apps", apps);
+		model.addAttribute("extensions", extensions);
 	}
 	
 }

@@ -174,17 +174,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Context.getService(AccountService.class).setProviderIdentifierGenerator(new MirebalaisProviderIdentifierGenerator());
     }
 
-	private void sortApps() {
-		AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
-		Map<String, Integer> appsOrdering = getAppsOrderingMap();
-
-		/*List<AppDescriptor> allApps = appFrameworkService.getAllApps();
-		for (AppDescriptor app : allApps) {
-			app.setOrder(appsOrdering.get(app.getId()));
-		}
-		appFrameworkService.setAllApps(allApps);*/
-	}
-
 
 	private Map<String, Integer> getAppsOrderingMap() {
 		Map<String, Integer> appsOrdering = new HashMap<String, Integer>();

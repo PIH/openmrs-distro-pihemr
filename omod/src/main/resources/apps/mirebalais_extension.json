@@ -1,0 +1,73 @@
+[
+    {
+        "id": "legacy.admin",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.app.legacy.admin.label",
+        "url": "admin/index.htm",
+        "icon": "icon-cogs"
+    },
+    {
+        "id": "patientRegistration.registration",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.app.patientRegistration.registration.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
+        "icon": "icon-register",
+        "requiredPrivilege": "App: patientRegistration.registration"
+    },
+    {
+        "id": "mirebalais.mpi",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.mpi.title",
+        "url": "mirebalais/mpi/findPatient.page",
+        "icon": "icon-zoom-in",
+        "requiredPrivilege": "App: mirebalais.mpi"
+    },
+    {
+        "id": "mirebalais.checkin",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.checkin.title",
+        "url": "mirebalais/checkin/findPatient.page",
+        "icon": "icon-paste",
+        "requiredPrivilege": "App: mirebalais.checkin"
+    },
+    {
+        "id": "patientRegistration.checkin",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.app.patientRegistration.checkin.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=primaryCareReception",
+        "icon": "icon-user-md",
+        "requiredPrivilege": "App: patientRegistration.checkin"
+    },
+    {
+        "id": "patientRegistration.emergencyCheckin",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.app.patientRegistration.emergencyCheckin.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
+        "icon": "icon-hospital",
+        "requiredPrivilege": "App: patientRegistration.emergencyCheckin"
+    },
+    {
+        "id": "patientRegistration.lookup",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.app.patientRegistration.patientLookup.label",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
+        "icon": "icon-edit",
+        "requiredPrivilege": "App: patientRegistration.lookup"
+    },
+    {
+        "id": "mirebalais.outpatientVitals",
+        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "type": "link",
+        "label": "mirebalais.outpatientVitals.title",
+        "url": "mirebalais/outpatientvitals/findPatient.page",
+        "icon": "icon-vitals",
+        "requiredPrivilege": "App: mirebalais.outpatientVitals"
+    }
+]
