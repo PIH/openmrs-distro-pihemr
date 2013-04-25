@@ -1,0 +1,10 @@
+[
+    {
+        "id": "mirebalais.homepage",
+        "extensionPoints": [
+            {
+                "id": "org.openmrs.mirebalais.homepageLink"
+            }
+        ]
+    }
+]

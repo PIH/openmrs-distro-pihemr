@@ -44,14 +44,14 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.3</openMRSVersion>
+		<openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
 		<emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
 		<paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
-		<emrVersion>1.2-SNAPSHOT</emrVersion>
+		<emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5.2-SNAPSHOT</uiframeworkVersion>
-		<appframeworkVersion>1.4</appframeworkVersion>
-		<metadatasharingVersion>1.1.8-SNAPSHOT</metadatasharingVersion>
+		<appframeworkVersion>2.0-SNAPSHOT</appframeworkVersion>
+		<metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
 		<htmlformentryVersion>2.0.8</htmlformentryVersion>
 		<htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
@@ -265,7 +265,7 @@
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.4.12</version>
+			<version>1.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

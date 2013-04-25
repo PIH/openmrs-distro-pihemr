@@ -3,8 +3,8 @@
 
     ui.includeCss("mirebalais", "home.css")
 
-    def htmlSafeId = { app ->
-        "${ app.id.replace(".", "-") }-app"
+    def htmlSafeId = { extension ->
+        "${ extension.id.replace(".", "-") }-extension"
     }
 %>
 
@@ -12,13 +12,13 @@
     ${ ui.includeFragment("emr", "widget/findPatient") }
 
     <div id="apps">
-        <% apps.each { app -> %>
+        <% extensions.each { extension -> %>
 
-            <a id="${ htmlSafeId(app) }" href="/${ contextPath }/${ app.homepageUrl }" class="button app big">
-                <% if (app.iconUrl) { %>
-                    <i class="${ app.iconUrl }"></i>
+            <a id="${ htmlSafeId(extension) }" href="/${ contextPath }/${ extension.url }" class="button app big">
+                <% if (extension.icon) { %>
+                    <i class="${ extension.icon }"></i>
                 <% } %>
-                ${ app.label }
+                ${ ui.message(extension.label) }
             </a>
 
         <% } %>

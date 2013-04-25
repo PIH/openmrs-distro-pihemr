@@ -29,8 +29,6 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
-import org.openmrs.module.appframework.AppDescriptor;
-import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.radiology.RadiologyConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -158,7 +156,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 			setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
             setupConnectionToMasterPatientIndex();
 			setupAddressHierarchy();
-			sortApps();
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
         }
@@ -174,17 +171,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         // injects the custom provider identifier generator into the Account Service
         Context.getService(AccountService.class).setProviderIdentifierGenerator(new MirebalaisProviderIdentifierGenerator());
     }
-
-	private void sortApps() {
-		AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
-		Map<String, Integer> appsOrdering = getAppsOrderingMap();
-
-		List<AppDescriptor> allApps = appFrameworkService.getAllApps();
-		for (AppDescriptor app : allApps) {
-			app.setOrder(appsOrdering.get(app.getId()));
-		}
-		appFrameworkService.setAllApps(allApps);
-	}
 
 
 	private Map<String, Integer> getAppsOrderingMap() {
