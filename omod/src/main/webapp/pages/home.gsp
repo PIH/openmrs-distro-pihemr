@@ -4,7 +4,7 @@
     ui.includeCss("mirebalais", "home.css")
 
     def htmlSafeId = { extension ->
-        "${ extension.id.replace(".", "-") }-extension"
+        "${ extension.id.replace(".", "-") }-app"
     }
 %>
 
