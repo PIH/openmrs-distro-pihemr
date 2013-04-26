@@ -17,7 +17,6 @@ package org.openmrs.module.mirebalais.integration;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -41,7 +40,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Ignore
 @SkipBaseSetup
 public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	
