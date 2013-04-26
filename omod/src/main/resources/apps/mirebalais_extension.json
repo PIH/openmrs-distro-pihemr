@@ -79,12 +79,13 @@
         "requiredPrivilege": "App: mirebalais.outpatientVitals"
     },
     {
-        "id": "registrationapp.register",
+        "id": "registrationapp.registerPatient",
         "extensionPointId": "org.openmrs.mirebalais.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.registration.label",
-        "url": "registrationapp/register.page",
+        "url": "registrationapp/registerPatient.page",
         "icon": "icon-register",
-        "requiredPrivilege": "App: registrationapp.register"
+        "order": 13,
+        "requiredPrivilege": "App: registrationapp.registerPatient"
     }
 ]
