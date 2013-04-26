@@ -5,7 +5,8 @@
         "type": "link",
         "label": "mirebalais.app.legacy.admin.label",
         "url": "admin/index.htm",
-        "icon": "icon-cogs"
+        "icon": "icon-cogs",
+        "order": 9
     },
     {
         "id": "patientRegistration.registration",
@@ -14,6 +15,7 @@
         "label": "mirebalais.app.patientRegistration.registration.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
         "icon": "icon-register",
+        "order": 8,
         "requiredPrivilege": "App: patientRegistration.registration"
     },
     {
@@ -23,6 +25,7 @@
         "label": "mirebalais.mpi.title",
         "url": "mirebalais/mpi/findPatient.page",
         "icon": "icon-zoom-in",
+        "order": 12,
         "requiredPrivilege": "App: mirebalais.mpi"
     },
     {
@@ -32,6 +35,7 @@
         "label": "mirebalais.checkin.title",
         "url": "mirebalais/checkin/findPatient.page",
         "icon": "icon-paste",
+        "order": 6,
         "requiredPrivilege": "App: mirebalais.checkin"
     },
     {
@@ -41,6 +45,7 @@
         "label": "mirebalais.app.patientRegistration.checkin.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=primaryCareReception",
         "icon": "icon-user-md",
+        "order": 10,
         "requiredPrivilege": "App: patientRegistration.checkin"
     },
     {
@@ -50,6 +55,7 @@
         "label": "mirebalais.app.patientRegistration.emergencyCheckin.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
         "icon": "icon-hospital",
+        "order": 5,
         "requiredPrivilege": "App: patientRegistration.emergencyCheckin"
     },
     {
@@ -59,6 +65,7 @@
         "label": "mirebalais.app.patientRegistration.patientLookup.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
         "icon": "icon-edit",
+        "order": 7,
         "requiredPrivilege": "App: patientRegistration.lookup"
     },
     {
@@ -68,6 +75,7 @@
         "label": "mirebalais.outpatientVitals.title",
         "url": "mirebalais/outpatientvitals/findPatient.page",
         "icon": "icon-vitals",
+        "order": 11,
         "requiredPrivilege": "App: mirebalais.outpatientVitals"
     }
 ]

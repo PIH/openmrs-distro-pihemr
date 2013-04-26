@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.openmrs.module.appframework.domain.Extension;
@@ -38,8 +40,8 @@ public class HomePageController {
 		
 		emrContext.requireAuthentication();
 		
-		List<Extension> extensions = appFrameworkService.getAllEnabledExtensions(HOME_PAGE_EXTENSION_POINT);
-		
+		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT);
+
 		for (int i = 0; i < extensions.size(); i++) {
 			Extension ext = extensions.get(i);
 			
@@ -50,8 +52,18 @@ public class HomePageController {
 			}
 			
 		}
-		
+
+        Collections.sort(extensions, new ExtensionComparator());
 		model.addAttribute("extensions", extensions);
 	}
+
+    private class ExtensionComparator implements Comparator<Extension> {
+
+        @Override
+        public int compare(Extension ext1, Extension ext2) {
+            return (ext1.getOrder() == ext2.getOrder() ? 0 : (ext1.getOrder() > ext2.getOrder() ? 1 : -1));
+        }
+
+    }
 	
 }
