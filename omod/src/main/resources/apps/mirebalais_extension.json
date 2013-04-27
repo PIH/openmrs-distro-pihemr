@@ -6,7 +6,8 @@
         "label": "mirebalais.app.legacy.admin.label",
         "url": "admin/index.htm",
         "icon": "icon-cogs",
-        "order": 9
+        "order": 9,
+        "requiredPrivilege": "App: legacy.admin"
     },
     {
         "id": "patientRegistration.registration",
