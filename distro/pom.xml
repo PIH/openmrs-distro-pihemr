@@ -216,6 +216,13 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>radiologyapp-omod</artifactId>
+                    <version>${radiologyappVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
             </dependencies>
             <build>
                 <plugins>
