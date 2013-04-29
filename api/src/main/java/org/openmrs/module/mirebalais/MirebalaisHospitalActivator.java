@@ -30,7 +30,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
 import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.emr.radiology.RadiologyConstants;
+import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.utils.GeneralUtils;

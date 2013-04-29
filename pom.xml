@@ -73,6 +73,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uicommonsVersion>1.0-SNAPSHOT</uicommonsVersion>
         <registrationappVersion>1.0-SNAPSHOT</registrationappVersion>
+        <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
 	</properties>
 
 
@@ -258,6 +259,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>registrationapp-api</artifactId>
             <version>${registrationappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>radiologyapp-api</artifactId>
+            <version>${radiologyappVersion}</version>
             <scope>provided</scope>
         </dependency>
 

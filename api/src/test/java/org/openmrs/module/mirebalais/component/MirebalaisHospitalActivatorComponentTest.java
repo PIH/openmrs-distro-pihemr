@@ -28,7 +28,7 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.emr.radiology.RadiologyConstants;
+import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.metadatasharing.ImportedPackage;
