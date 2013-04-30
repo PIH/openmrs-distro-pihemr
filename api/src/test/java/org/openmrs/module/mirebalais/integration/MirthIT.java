@@ -33,7 +33,7 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrProperties;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.module.emrapi.adt.AdtService;
@@ -119,8 +119,8 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 	private ConceptService conceptService;
 	
 	@Autowired
-	@Qualifier("emrProperties")
-	private EmrProperties properties;
+	@Qualifier("emrApiProperties")
+	private EmrApiProperties emrApiProperties;
 
 	@Test
 	@DirtiesContext
@@ -220,7 +220,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		encounter.setLocation(locationService.getLocation("Mirebalais Hospital"));
 		encounter.setEncounterType(encounterService.getEncounterType(1));
 		encounter.addOrder(order);
-		encounter.addProvider(properties.getOrderingProviderEncounterRole(), Context.getProviderService().getProvider(1));
+		encounter.addProvider(emrApiProperties.getOrderingProviderEncounterRole(), Context.getProviderService().getProvider(1));
 		encounterService.saveEncounter(encounter);
 
         // TODO: I've changed the configuration so that this sends the message directly to the PACS test server
