@@ -1,7 +1,7 @@
 [
     {
         "id": "legacy.admin",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.legacy.admin.label",
         "url": "admin/index.htm",
@@ -11,7 +11,7 @@
     },
     {
         "id": "patientRegistration.registration",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.registration.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
@@ -21,7 +21,7 @@
     },
     {
         "id": "mirebalais.mpi",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.mpi.title",
         "url": "mirebalais/mpi/findPatient.page",
@@ -31,7 +31,7 @@
     },
     {
         "id": "mirebalais.checkin",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.checkin.title",
         "url": "mirebalais/checkin/findPatient.page",
@@ -41,7 +41,7 @@
     },
     {
         "id": "patientRegistration.checkin",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.checkin.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=primaryCareReception",
@@ -51,7 +51,7 @@
     },
     {
         "id": "patientRegistration.emergencyCheckin",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.emergencyCheckin.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
@@ -61,7 +61,7 @@
     },
     {
         "id": "patientRegistration.lookup",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.patientLookup.label",
         "url": "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
@@ -71,7 +71,7 @@
     },
     {
         "id": "mirebalais.outpatientVitals",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.outpatientVitals.title",
         "url": "mirebalais/outpatientvitals/findPatient.page",
@@ -81,7 +81,7 @@
     },
     {
         "id": "registrationapp.registerPatient",
-        "extensionPointId": "org.openmrs.mirebalais.homepageLink",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.app.patientRegistration.registration.label",
         "url": "registrationapp/registerPatient.page",

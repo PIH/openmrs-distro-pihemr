@@ -32,7 +32,7 @@ public class HomePageController {
 	
 	public static final String MY_ACCOUNT_EXTENSION_ID = "emr.myAccount";
 	
-	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.mirebalais.homepageLink";
+	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
 	
 	public void controller(PageModel model, EmrContext emrContext,
 	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties,
