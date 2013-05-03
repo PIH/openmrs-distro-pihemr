@@ -3,8 +3,6 @@
     ui.includeFragment("emr", "standardEmrIncludes")
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
-
-    ui.includeCss("mirebalais", "login.css")
 %>
 
 ${ ui.includeFragment("emr", "header") }
