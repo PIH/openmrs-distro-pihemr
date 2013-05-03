@@ -1,5 +1,16 @@
-$fontPath: "../fonts";
+@import "variables";
 
-@import "fonts/fonts";
-@import "fonts/font-awesome";
-@import "fonts/icomoon";
+$pihPrimaryPurple: #872175;
+$pihSecondaryGrey: #B9B299;
+$pihSecondaryGreen: #9FA615;
+$pihSecondaryBlue: #2BBED8;
+$pihSecondaryDarkBlue: #003F5E;
+$pihSecondaryYellow: #FFC220;
+$pihSecondaryOrange: #EB6E1F;
+$pihSecondaryRed: #C41230;
+$pihSecondaryBrown: #572600;
+
+//override variables
+$text: #003F5E;
+$highlight: #501D3D;
+$fontPath: "../fonts";
