@@ -41,29 +41,28 @@ public class HomePageController {
 		emrContext.requireAuthentication();
 		
 		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT);
-
+		
 		for (int i = 0; i < extensions.size(); i++) {
 			Extension ext = extensions.get(i);
 			
-			if (ext.getId().equals(MY_ACCOUNT_EXTENSION_ID)) {
-				if (!featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
-					extensions.remove(i);
-				}
+			if (ext.getId().equals(MY_ACCOUNT_EXTENSION_ID) && !featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
+				extensions.remove(i);
+				i--;
 			}
 			
 		}
-
-        Collections.sort(extensions, new ExtensionComparator());
+		
+		Collections.sort(extensions, new ExtensionComparator());
 		model.addAttribute("extensions", extensions);
 	}
-
-    private class ExtensionComparator implements Comparator<Extension> {
-
-        @Override
-        public int compare(Extension ext1, Extension ext2) {
-            return (ext1.getOrder() == ext2.getOrder() ? 0 : (ext1.getOrder() > ext2.getOrder() ? 1 : -1));
-        }
-
-    }
+	
+	private class ExtensionComparator implements Comparator<Extension> {
+		
+		@Override
+		public int compare(Extension ext1, Extension ext2) {
+			return (ext1.getOrder() == ext2.getOrder() ? 0 : (ext1.getOrder() > ext2.getOrder() ? 1 : -1));
+		}
+		
+	}
 	
 }
