@@ -154,7 +154,7 @@
 
     .visit-status {
       width: 98.4%;
-      @include visit-status('#f9f9f9');
+      @include visit-status(#f9f9f9);
     }
 
     .visit-actions {
