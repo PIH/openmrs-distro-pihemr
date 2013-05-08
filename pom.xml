@@ -72,6 +72,7 @@
         <uilibraryVersion>1.5</uilibraryVersion> <!-- Need to phase this out. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uicommonsVersion>1.0-SNAPSHOT</uicommonsVersion>
+        <registrationcoreVersion>1.0-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
 	</properties>

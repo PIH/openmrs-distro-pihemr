@@ -211,6 +211,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>registrationcore-omod</artifactId>
+                    <version>${registrationcoreVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>registrationapp-omod</artifactId>
                     <version>${registrationappVersion}</version>
                     <scope>provided</scope>
