@@ -298,41 +298,37 @@
                  answerConceptIds="PIH:YES,PIH:NO" answerLabels="yes,no"
                  answerSeparator=""/>
         </p>
-
-        <span class="transfusion toogle">
-            <p>
-                <label><uimessage code="type_and_volume"/></label>
-            </p>
-            <p>
-                <obsgroup groupingConceptId="PIH:Transfusion construct">
-                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
-                         answerLabel="Whole blood"/>
-                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
-                </obsgroup>
-            </p>
-            <p>
-                <obsgroup groupingConceptId="PIH:Transfusion construct">
-                    <obs conceptId="PIH:Transfusion of fluid"
-                         answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
-                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
-                </obsgroup>
-            </p>
-            <p>
-                <obsgroup groupingConceptId="PIH:Transfusion construct">
-                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
-                         answerLabel="Plasma"/>
-                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
-                </obsgroup>
-            </p>
-            <p>
-                <obsgroup groupingConceptId="PIH:Transfusion construct">
-                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
-                         answerLabel="Platelets"/>
-                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
-                </obsgroup>
-            </p>
-        </span>
-
+        <p>
+            <label><uimessage code="type_and_volume"/></label>
+        </p>
+        <p>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
+                     answerLabel="Whole blood"/>
+                <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+            </obsgroup>
+        </p>
+        <p>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+                <obs conceptId="PIH:Transfusion of fluid"
+                     answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
+                <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+            </obsgroup>
+        </p>
+        <p>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
+                     answerLabel="Plasma"/>
+                <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+            </obsgroup>
+        </p>
+        <p>
+            <obsgroup groupingConceptId="PIH:Transfusion construct">
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
+                     answerLabel="Platelets"/>
+                <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+            </obsgroup>
+        </p>
         <p>
             <strong><uimessage code="fluid_out"/></strong>
             <label><uimessage code="est_blood_loss"/></label>
@@ -362,9 +358,9 @@
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerLabel="Pathology / Complications">
-        <p>
-            <strong><uimessage code="specimen_sent"/></strong>
-        </p>
+        
+        <strong><uimessage code="specimen_sent"/></strong>
+        
         <p class="radio">
             <label><uimessage code="pathology"/></label>
             <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
@@ -409,6 +405,5 @@
             <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
         </p>
     </section>
-    <br />
     <submit/>
 </htmlform>
