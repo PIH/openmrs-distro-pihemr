@@ -15,7 +15,7 @@
 <htmlform class="simple-form-ui" formUuid="d29a49b1-957b-4bcb-b192-07484de4165b" formName="Brief post-operative note"
           formEncounterType="c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5" formVersion="1.0">
 
-    <translations>
+    <translations defaultLocale="fr">
         <code name="surgical_service">
             <variant locale="en" value="Surgical service"/>
             <variant locale="fr" value="Service de chirurgie"/>
