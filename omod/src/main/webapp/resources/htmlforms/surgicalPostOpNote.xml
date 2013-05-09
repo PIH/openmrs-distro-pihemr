@@ -12,7 +12,7 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="d29a49b1-957b-4bcb-b192-07484de4165b" formName="Brief post-operative note"
+<htmlform class="simple-form-ui" formUuid="d29a49b1-957b-4bcb-b192-07484de4165b" formName="Brief post-operative note"
           formEncounterType="c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5" formVersion="1.0">
 
     <translations>
@@ -21,7 +21,7 @@
             <variant locale="fr" value="Service de chirurgie"/>
         </code>
         <code name="attending">
-            <variant locale="en" value="Attending Surgeon"/>
+            <variant locale="en" value="Attending Surgeon (required)"/>
             <variant locale="fr" value="1° Chirurgien"/>
         </code>
         <code name="assistants">
@@ -192,22 +192,30 @@
 
         <p>
             <label><uimessage code="assistants"/></label>
-            <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
-            <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
+            <span class="inline">
+                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
+                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
+            </span>
+        </p>
+        <p>
             <label><uimessage code="other"/></label>
             <obs conceptId="PIH:Name of assistant surgeon"/>
         </p>
 
         <p>
             <label><uimessage code="anesthesiologist"/></label>
-            <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
-            <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
+            <span class="inline">
+                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
+                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
+            </span>
         </p>
 
         <p>
             <label><uimessage code="nurse"/></label>
-            <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
-            <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
+            <span class="inline">
+                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
+                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
+            </span>
         </p>
 
     </section>
@@ -238,7 +246,6 @@
             <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
             <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
             <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
-            <br/>
             <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
             <obs conceptId="PIH:Surgical procedure" answerClasses="Procedure" style="autocomplete"/>
 
@@ -249,23 +256,23 @@
             <obs conceptId="PIH:Type of anesthesia"/>
         </p>
 
-        <p>
+        <p class="radio">
             <label><uimessage code="emergency"/></label>
-            <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator="" />
+            <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator="" />
         </p>
 
-        <p class="input-position-class">
+        <p class="input-position-class radio">
             <label><uimessage code="scheduled"/></label>
-            <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator=""/>
+            <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator=""/>
 
         </p>
 
-        <p class="input-position-class">
+        <p class="input-position-class radio">
             <label><uimessage code="planned_return_or"/></label>
-            <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator=""/>
+            <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator=""/>
 
         </p>
 
@@ -278,164 +285,130 @@
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Ins and Outs">
         <p>
-            <label><uimessage code="fluids_admin"/></label>
+            <strong><uimessage code="fluids_admin"/></strong>
             <obsgroup groupingConceptId="PIH:IVF construct">
                 <label><uimessage code="ivf"/></label>
                 <obs conceptId="PIH:IVF administered"/>
-                <obs conceptId="PIH:IVF volume" showUnits="true"/>
+                 <span class="small"><obs conceptId="PIH:IVF volume" showUnits="true"/></span>
             </obsgroup>
+        </p>
+        <p class="radio">
             <label><uimessage code="transfusion"/></label>
-            <obs conceptId="PIH:Transfusion status" style="radio"
-                 answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"
+            <obs id="transfusion" conceptId="PIH:Transfusion status" style="radio"
+                 answerConceptIds="PIH:YES,PIH:NO" answerLabels="yes,no"
                  answerSeparator=""/>
         </p>
 
-        <p>
-            <label><uimessage code="type_and_volume"/></label>
-
-            <obsgroup groupingConceptId="PIH:Transfusion construct">
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
-                     answerLabel="Whole blood"/>
-                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-
-
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:Transfusion construct">
-
-                <obs conceptId="PIH:Transfusion of fluid"
-                     answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
-
-
-                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-
-
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:Transfusion construct">
-
-
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
-                     answerLabel="Plasma"/>
-
-
-                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-
-
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:Transfusion construct">
-
-
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
-                     answerLabel="Platelets"/>
-
-
-                <obs conceptId="PIH:Volume of transfusion" showUnits="true"/>
-
-
-            </obsgroup>
-        </p>
+        <span class="transfusion toogle">
+            <p>
+                <label><uimessage code="type_and_volume"/></label>
+            </p>
+            <p>
+                <obsgroup groupingConceptId="PIH:Transfusion construct">
+                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
+                         answerLabel="Whole blood"/>
+                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+                </obsgroup>
+            </p>
+            <p>
+                <obsgroup groupingConceptId="PIH:Transfusion construct">
+                    <obs conceptId="PIH:Transfusion of fluid"
+                         answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
+                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+                </obsgroup>
+            </p>
+            <p>
+                <obsgroup groupingConceptId="PIH:Transfusion construct">
+                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
+                         answerLabel="Plasma"/>
+                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+                </obsgroup>
+            </p>
+            <p>
+                <obsgroup groupingConceptId="PIH:Transfusion construct">
+                    <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
+                         answerLabel="Platelets"/>
+                    <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
+                </obsgroup>
+            </p>
+        </span>
 
         <p>
-            <label><uimessage code="fluid_out"/></label>
+            <strong><uimessage code="fluid_out"/></strong>
             <label><uimessage code="est_blood_loss"/></label>
-            <obs conceptId="PIH:Estimated blood loss" showUnits="true"/>
+             <span class="small"><obs conceptId="PIH:Estimated blood loss" showUnits="true"/></span>
             <label><uimessage code="urine_out"/></label>
-            <obs conceptId="PIH:Urine output" showUnits="true"/>
+             <span class="small"><obs conceptId="PIH:Urine output" showUnits="true"/></span>
         </p>
 
-
-        <p>
+        <p class="radio">
             <label><uimessage code="pre_op_antibiotic"/></label>
-
             <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
-                 answerConceptIds="PIH:NO,PIH:YES" answerLabels="no,yes"
+                 answerConceptIds="PIH:YES,PIH:NO" answerLabels="yes,no"
                  answerSeparator=""/>
+        </p>
+        <p>
             <label><uimessage code="antibiotic_name"/></label>
             <obs conceptId="PIH:Surgery antibiotics"/>
 
         </p>
-
 
         <p>
             <label><uimessage code="vtp"/></label>
 
             <obs conceptId="PIH:Venous thromboembolism prophylaxis"/>
         </p>
-
-
     </section>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerLabel="Pathology / Complications">
-
-
         <p>
-            <label><uimessage code="specimen_sent"/></label>
+            <strong><uimessage code="specimen_sent"/></strong>
         </p>
-
-
-        <p>
+        <p class="radio">
             <label><uimessage code="pathology"/></label>
-
-            <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator=""/>
+            <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator=""/>
+        </p>
+        <p>
             <label><uimessage code="path_sample"/></label>
             <obs conceptId="PIH:Pathology sample comment"/>
-
-
         </p>
-
-        <p>
+        <p class="radio">
             <label><uimessage code="lab"/></label>
-
-            <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator=""/>
+            <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator=""/>
+        </p>
+        <p>    
             <label><uimessage code="lab_specimen"/></label>
             <obs conceptId="PIH:Laboratory specimen comment"/>
-
-
         </p>
-
-
-        <p>
+        <p class="radio">
             <label><uimessage code="implant"/></label>
-
-            <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:NO,PIH:YES"
-                 answerLabels="no,yes" answerSeparator=""/>
+            <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerLabels="yes,no" answerSeparator=""/>
+        </p>
+        <p>
             <label><uimessage code="if_yes_specify"/></label>
             <obs conceptId="PIH:Implantation comment"/>
 
         </p>
-
-
         <p>
             <label><uimessage code="complications"/></label>
-
             <obs conceptId="PIH:Complications from surgery"/>
-
         </p>
-
     </section>
-
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Plan">
-
-
         <p>
             <label><uimessage code="disposition"/></label>
-
             <obs conceptId="PIH:Post-surgery disposition location"/>
-
         </p>
-
 
         <p>
             <label><uimessage code="findings"/></label>
-
             <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
         </p>
-
-
     </section>
     <br />
     <submit/>
-
 </htmlform>
