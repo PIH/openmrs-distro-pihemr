@@ -328,7 +328,7 @@ div {
   @include transition-duration(0.35s);
   @include transition-timing-function(ease);
 
-  small, htmlform h3 {
+  small, htmlform h3, htmlform label {
     margin-right: 10px;
     color: #666;
   }
@@ -349,14 +349,14 @@ div {
     padding-bottom: 5px;
     margin-bottom: 3px;
 
-    &:last-child {
+    &:last-of-type {
       border: none;
       padding: 0;
       margin: 0;
     }
   }
 
-  legend, #no-calculated-bmi, #calculated-bmi-wrapper, .title {
+  legend, #no-calculated-bmi, #calculated-bmi-wrapper, .title, .emptyValue, .emptyValue~.units {
     display: none;
   }
 
@@ -370,7 +370,7 @@ div {
   }
 
   htmlform {
-    h3 {
+    h3, label {
       font-size: 0.8em;
       font-weight: normal;
       display: inline-block;
@@ -378,11 +378,33 @@ div {
     }
 
     p {
-      display: inline-block;
+      display: block;
 
       span {
         font-size: 1em;
       }
+
+      span.value {
+        &:not(:first-of-type):before {
+          content: ", ";
+        }
+      }
+
+      span.emptyValue~span.value {
+        &:before {
+          content: "";
+        }
+      }
+    }
+
+    strong {
+      display: block;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+
+    fieldset h3~p {
+      display: inline-block;
     }
 
     .left {
