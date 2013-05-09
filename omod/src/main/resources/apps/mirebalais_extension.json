@@ -57,7 +57,10 @@
         "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
         "icon": "icon-hospital",
         "order": 5,
-        "requiredPrivilege": "App: emr.systemAdministration"
+        "requiredPrivilege": "App: patientregistration.main",
+        "extensionParams": {
+            "featureToggle": "emergencyCheckin"
+        }
     },
     {
         "id": "patientRegistration.lookup",

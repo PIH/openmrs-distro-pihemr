@@ -43,9 +43,9 @@ public class HomePageController {
 		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT);
 		
 		for (int i = 0; i < extensions.size(); i++) {
-			Extension ext = extensions.get(i);
-			
-			if (ext.getId().equals(MY_ACCOUNT_EXTENSION_ID) && !featureToggleProperties.isFeatureEnabled("myAccountFeature")) {
+			Extension extension = extensions.get(i);
+
+            if (extensionFeatureToggledOff(extension, featureToggleProperties)) {
 				extensions.remove(i);
 				i--;
 			}
@@ -55,8 +55,16 @@ public class HomePageController {
 		Collections.sort(extensions, new ExtensionComparator());
 		model.addAttribute("extensions", extensions);
 	}
-	
-	private class ExtensionComparator implements Comparator<Extension> {
+
+    private boolean extensionFeatureToggledOff(Extension extension, FeatureToggleProperties featureToggleProperties) {
+        if (extension.getExtensionParams() == null) {
+            return false;
+        }
+        String featureToggle = (String) extension.getExtensionParams().get("featureToggle");
+        return featureToggle != null && !featureToggleProperties.isFeatureEnabled(featureToggle);
+    }
+
+    private class ExtensionComparator implements Comparator<Extension> {
 		
 		@Override
 		public int compare(Extension ext1, Extension ext2) {
