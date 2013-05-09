@@ -39,7 +39,6 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
-import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
@@ -96,7 +95,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             setupCoreGlobalProperties();
             setupNamePhoneticsGlobalProperties();
-            setupPatientRegistrationGlobalProperties();
             setupEmrGlobalProperties();
             setupRadiologyGlobalProperties();
             setupMirebalaisGlobalProperties();
@@ -261,50 +259,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(NamePhoneticsConstants.MIDDLE_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
         setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
         setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME2_GLOBAL_PROPERTY, "Double Metaphone Alternate");
-    }
-
-    private void setupPatientRegistrationGlobalProperties() {
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.SUPPORTED_TASKS,
-                "patientRegistration|primaryCareReception|edCheckIn|patientLookup");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.SEARCH_CLASS,
-                "org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.LABEL_PRINT_COUNT, "1");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_ROLES, "LacollineProvider");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PROVIDER_IDENTIFIER_PERSON_ATTRIBUTE_TYPE,
-                "Provider Identifier");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.URGENT_DIAGNOSIS_CONCEPT,
-                "PIH: Haiti nationally urgent diseases");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.NOTIFY_DIAGNOSIS_CONCEPT,
-                "PIH: Haiti nationally notifiable diseases");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.NON_CODED_DIAGNOSIS_CONCEPT,
-                "PIH: ZL Primary care diagnosis non-coded");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.NEONATAL_DISEASES_CONCEPT,
-                "PIH: Haiti neonatal diseases");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_VISIT_ENCOUNTER_TYPE,
-                "Primary Care Visit");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.CODED_DIAGNOSIS_CONCEPT,
-                "PIH: HUM Outpatient diagnosis");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.AGE_RESTRICTED_CONCEPT,
-                "PIH: Haiti age restricted diseases");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT,
-                "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PAYMENT_AMOUNT_CONCEPT,
-                "PIH: Payment amount|en:Payment amount|ht:Kantite lajan");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT,
-                "PIH: Reason for HUM visit|en:Visit reason|ht:Rezon pou vizit");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PRIMARY_CARE_RECEPTION_ENCOUNTER_TYPE, "Check-in");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_REGISTRATION_ENCOUNTER_TYPE,
-                "Patient Registration");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, "Nimewo Dosye");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_PERSON_ATTRIBUTE_TYPE, "Telephone Number");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.PATIENT_VIEWING_ATTRIBUTE_TYPES, "Telephone Number");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
-        setExistingGlobalProperty(PatientRegistrationGlobalProperties.MEDICAL_RECORD_LOCATION_TAG,
-                "71c99f93-bc0c-4a44-b573-a7ac096ff636");
-
     }
 
     private void setupCloseStalePullRequestsTask() {
