@@ -29,7 +29,7 @@
             <variant locale="fr" value="2° Chirurgien"/>
         </code>
         <code name="other">
-            <variant locale="en" value="other"/>  <!-- Use message.properties for this -->
+            <variant locale="en" value="other assistants"/>  <!-- Use message.properties for this -->
             <variant locale="fr" value="autre"/>
         </code>
         <code name="anesthesiologist">
@@ -359,9 +359,8 @@
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerLabel="Pathology / Complications">
         
-        <strong><uimessage code="specimen_sent"/></strong>
-        
         <p class="radio">
+            <strong><uimessage code="specimen_sent"/></strong>
             <label><uimessage code="pathology"/></label>
             <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
                  answerLabels="yes,no" answerSeparator=""/>
@@ -405,5 +404,6 @@
             <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
         </p>
     </section>
+    <br />
     <submit/>
 </htmlform>
