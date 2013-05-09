@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.openmrs.module</groupId>
-	<artifactId>mirebalais</artifactId>
-	<version>1.2-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>Mirebalais Hospital Module</name>
-	<description>Custom EMR application for Mirebalais Hospital</description>
-	<url>https://wiki.openmrs.org/display/docs/Mirebalais+Hospital+Module</url>
-	
-	<developers>
-		<developer>
-			<name>Partners In Health</name>
-		</developer>
-	</developers>
-	
-	<organization>
-		<name>Partners In Health</name>
-		<url>http://pih.org</url>
-	</organization>
+    <groupId>org.openmrs.module</groupId>
+    <artifactId>mirebalais</artifactId>
+    <version>1.2-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Mirebalais Hospital Module</name>
+    <description>Custom EMR application for Mirebalais Hospital</description>
+    <url>https://wiki.openmrs.org/display/docs/Mirebalais+Hospital+Module</url>
 
-	<scm>
-		<connection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</connection> 
-		<developerConnection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</developerConnection> 
-		<url>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+    <developers>
+        <developer>
+            <name>Partners In Health</name>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Partners In Health</name>
+        <url>http://pih.org</url>
+    </organization>
+
+    <scm>
+        <connection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</connection>
+        <developerConnection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</developerConnection>
+        <url>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -36,32 +37,33 @@
         </repository>
     </distributionManagement>
 
-	<modules>
-		<module>api</module>
-		<module>omod</module>
-		<module>distro</module>
-		<module>ci</module>
-	</modules>
-	
-	<properties>
-		<openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
+    <modules>
+        <module>api</module>
+        <module>omod</module>
+        <module>distro</module>
+        <module>ci</module>
+    </modules>
+
+    <properties>
+        <openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
+        <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-		<emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
-		<paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
-		<emrVersion>2.0-SNAPSHOT</emrVersion>
+        <emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
+        <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
+        <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>2.5.2-SNAPSHOT</uiframeworkVersion>
-		<appframeworkVersion>2.0-SNAPSHOT</appframeworkVersion>
-		<metadatasharingVersion>1.1.8</metadatasharingVersion>
+        <appframeworkVersion>2.0-SNAPSHOT</appframeworkVersion>
+        <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
-		<htmlformentryVersion>2.0.8</htmlformentryVersion>
-		<htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
-		<calculationVersion>1.0</calculationVersion>
-		<reportingVersion>0.7.6-SNAPSHOT</reportingVersion>
-		<htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-		<serializationxstreamVersion>0.2.7</serializationxstreamVersion>
-		<idgenVersion>2.6-SNAPSHOT</idgenVersion>
-		<namephoneticsVersion>1.3.6</namephoneticsVersion>
-		<patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
+        <htmlformentryVersion>2.0.8</htmlformentryVersion>
+        <htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
+        <calculationVersion>1.0</calculationVersion>
+        <reportingVersion>0.7.6-SNAPSHOT</reportingVersion>
+        <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
+        <serializationxstreamVersion>0.2.7</serializationxstreamVersion>
+        <idgenVersion>2.6-SNAPSHOT</idgenVersion>
+        <namephoneticsVersion>1.3.6</namephoneticsVersion>
+        <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.2.9</addresshierarchyVersion>
         <providerManagementVersion>1.1.3</providerManagementVersion>
@@ -69,46 +71,47 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <openmrswebVersion>1.9.3</openmrswebVersion>
-        <uilibraryVersion>1.5</uilibraryVersion> <!-- Need to phase this out. -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <uilibraryVersion>1.5</uilibraryVersion>
+        <!-- Need to phase this out. -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uicommonsVersion>1.0-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.0-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
-	</properties>
+    </properties>
 
 
-	<dependencies>
+    <dependencies>
 
-		<!-- Begin OpenMRS core -->
-		
-		<dependency>
-			<groupId>org.openmrs.api</groupId>
-			<artifactId>openmrs-api</artifactId>
-			<version>${openMRSVersion}</version>
-			<type>jar</type>
-			<scope>provided</scope>
-		</dependency>
+        <!-- Begin OpenMRS core -->
 
-		<dependency>
-			<groupId>org.openmrs.api</groupId>
-			<artifactId>openmrs-api</artifactId>
-			<version>${openMRSVersion}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.openmrs.test</groupId>
-			<artifactId>openmrs-test</artifactId>
-			<version>${openMRSVersion}</version>
-			<type>pom</type>
-			<scope>test</scope>
-		</dependency>
-					
-		<!-- End OpenMRS core -->
-		
-		<!-- Begin OpenMRS modules -->
+        <dependency>
+            <groupId>org.openmrs.api</groupId>
+            <artifactId>openmrs-api</artifactId>
+            <version>${openMRSVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.api</groupId>
+            <artifactId>openmrs-api</artifactId>
+            <version>${openMRSVersion}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.test</groupId>
+            <artifactId>openmrs-test</artifactId>
+            <version>${openMRSVersion}</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- End OpenMRS core -->
+
+        <!-- Begin OpenMRS modules -->
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentry-api</artifactId>
@@ -143,33 +146,33 @@
             <version>${openmrswebVersion}</version>
             <scope>provided</scope>
         </dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>uiframework-api</artifactId>
-			<version>${uiframeworkVersion}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>appframework-api</artifactId>
-			<version>${appframeworkVersion}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>metadatasharing-api</artifactId>
-			<version>${metadatasharingVersion}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uiframework-api</artifactId>
+            <version>${uiframeworkVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>patientregistration-api</artifactId>
-			<version>${patientregistrationVersion}</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appframework-api</artifactId>
+            <version>${appframeworkVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatasharing-api</artifactId>
+            <version>${metadatasharingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>patientregistration-api</artifactId>
+            <version>${patientregistrationVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
@@ -191,8 +194,8 @@
             <version>${idgenVersion}</version>
             <scope>provided</scope>
         </dependency>
-        
-	     <dependency>
+
+        <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>namephonetics-api</artifactId>
             <version>${namephoneticsVersion}</version>
@@ -272,37 +275,37 @@
 
         <!-- End OpenMRS modules -->
 
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<target>1.6</target>
-						<source>1.6</source>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <target>1.6</target>
+                        <source>1.6</source>
                         <encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.openmrs.maven.plugins</groupId>
-					<artifactId>maven-openmrs-plugin</artifactId>
-					<version>1.0.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.4</version>
-				</plugin>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.openmrs.maven.plugins</groupId>
+                    <artifactId>maven-openmrs-plugin</artifactId>
+                    <version>1.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
@@ -328,30 +331,30 @@
                     <version>0.28.6</version>
                 </plugin>
             </plugins>
-		</pluginManagement>
-	</build>
+        </pluginManagement>
+    </build>
 
-	<repositories>
-		<repository>
-			<id>openmrs-repo</id>
-			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-		</repository>
-       <!-- <repository>
-            <id>rubygems-releases</id>
-            <url>http://rubygems-proxy.torquebox.org/releases</url>
-        </repository>-->
-	</repositories>
+    <repositories>
+        <repository>
+            <id>openmrs-repo</id>
+            <name>OpenMRS Nexus Repository</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+        </repository>
+        <!-- <repository>
+             <id>rubygems-releases</id>
+             <url>http://rubygems-proxy.torquebox.org/releases</url>
+         </repository>-->
+    </repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>openmrs-repo</id>
-			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>openmrs-repo</id>
+            <name>OpenMRS Nexus Repository</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

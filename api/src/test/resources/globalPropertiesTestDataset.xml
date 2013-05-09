@@ -1,90 +1,99 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<global_property property="patientregistration.supportedTasks" property_value="patientRegistration|primaryCareReception|primaryCareVisit|retrospectiveEntry|patientLookup|reporting|viewDuplicates" description="Pipe-separated list specifying each task name that is supported by the module.
-Allowed values are 'patientRegistration', 'primaryCareReception', 'primaryCareVisit', 'patientLookup', and 'reporting'" uuid="696cb3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
-	<global_property property="patientregistration.primaryIdentifierType" property_value="ZL EMR ID" description="Primary identifier type for looking up patients, generating barcodes, etc" uuid="1e284f09-d1e3-4827-b423-1082a1bbccbf"/>
-	<global_property property="patientregistration.patientRegistrationEncounterType" property_value="Patient Registration" description="Name or primary key id of the Encounter Type that should be used when recording Patient Registration encounters" uuid="0ed48ce9-de0d-4406-960d-638a010f5e46"/>
-	<global_property property="patientregistration.idCardPersonAttributeType" property_value="Telephone Number" description="The person attribute type to print on the id card" uuid="d85d2b2b-a13d-4479-949e-e82780d6c6c0"/>
-	<global_property property="patient.viewingAttributeTypes" property_value="Telephone Number" description="Viewable attributes in the UI" uuid="ad07b038-210b-4c47-8e4a-50f34f36fe15"/>
-	<global_property property="patientregistration.searchClass" property_value="org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch" description="Name of the class that provides the search algorithm to use when searching for a patient" uuid="e2bd0fbc-ed63-4b99-a547-c742d45341ed"/>
-	<global_property property="patientregistration.registrationLocations" property_value="7" description="Pipe-separated list of either location names or ids in order to limit the locations
-available for patient registration.  If empty, all locations are supported" uuid="0d76ec8a-c17c-40f7-91f3-8516201ba96c"/>	
-	<global_property property="patientregistration.registrationLabelPrintCount" property_value="1" description="Number of copies of a patient's registration label to print" uuid="bb43337c-c798-40b0-adcb-f395a9454e07"/>	
-	<global_property property="patientregistration.providerRoles" property_value="LacollineProvider" description="Pipe-separated list specifying each provider role that is supported by the module.
-Example: lacollineProvider|mirebalaisProvider" uuid="17bc3a5e-377a-45f5-875f-cc88aa861b7f"/>
-	<global_property property="patientregistration.providerIdentifierPersonAttributeType" property_value="Provider Identifier" description="The provider identifier type (doctor stamp ID)" uuid="658144cf-9acc-442e-b395-4da2b3cf2c84"/>
-	<global_property property="patientregistration.primaryCareVisitUrgentDiagnosisConcept" property_value="PIH: Haiti nationally urgent diseases" description="Convenient set used to pop-up an alert when a diagnosis from this list is selected." uuid="283a7a9b-dc79-4794-b01e-7b09b7cdf443"/>
-	<global_property property="patientregistration.primaryCareVisitNotifyDiagnosisConcept" property_value="PIH: Haiti nationally notifiable diseases" description="Convenient set used to highlight in the UI the nationally notifying diseases." uuid="aba2f243-aace-4b80-b8a2-b27ef0a1ab04"/>
-	<global_property property="patientregistration.primaryCareVisitNonCodedDiagnosisConcept" property_value="PIH: ZL Primary care diagnosis non-coded" description="Concept used for the non-coded diagnosis question in the primary care visit workflow" uuid="c1b79a88-959d-4ffe-aa3a-746e220a7680"/>
-	<global_property property="patientregistration.primaryCareVisitNeonatalDiseasesConcept" property_value="PIH: Haiti neonatal diseases" description="Convenient set used to filter out the neonatal diseases." uuid="f93c52af-5a64-4341-8989-8243408ebc3c"/>
-	<global_property property="patientregistration.primaryCareVisitEncounterType" property_value="Primary care visit" description="Name or primary key id of the Encounter Type that should be used when recording Primary Care Visit encounters" uuid="e7ea211b-eafe-4964-8cf0-e6f3bcc31e17"/>
-	<global_property property="patientregistration.primaryCareVisitCodedDiagnosisConcept" property_value="PIH: ZL Primary care diagnosis" description="Concept used for the coded diagnosis question in the primary care visit workflow" uuid="11bb5364-a890-4857-a841-d0ec492c9060"/>
-	<global_property property="patientregistration.primaryCareVisitAgeRestrictedConcept" property_value="PIH: Haiti age restricted diseases" description="Convenient set used to pop-up an alert when a diagnosis from this list is selected." uuid="632d1ccf-6822-4895-bd8f-f959ddf75d80"/>
-	<global_property property="patientregistration.primaryCareReceptionReceiptNumberConcept" property_value="PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a" description="Concept used for the receipt number question in the primary care reception workflow" uuid="befe6c90-b9cd-45f5-a6af-0f0406f6c325"/>
-	<global_property property="patientregistration.primaryCareReceptionVisitReasonConcept" property_value="" description="Concept used for the payment question in the primary care reception workflow" uuid="c7cef837-d1c2-464c-839c-6f317df9c5e5"/>
-	<global_property property="patientregistration.primaryCareReceptionPaymentAmountConcept" property_value="" description="Concept used for the payment question in the primary care reception workflow" uuid="c7cef837-d1c2-464c-839c-6f317df9c999"/>
-	<global_property property="patientregistration.primaryCareReceptionEncounterType" property_value="Check-in" description="Name or primary key id of the Encounter Type that should be used when recording Primary Care Reception encounters" uuid="a0569db3-41af-4998-b2be-1358a5dca83f"/>
-	<global_property property="patientregistration.numeroDossier" property_value="Nimewo Dosye" description="Additional identifier type used for entering dossier numbers" uuid="59a5a0a8-03f3-4712-89ab-a8b73e47e738"/>
-	<global_property property="patientregistration.idCardLabelText" property_value="Zanmi Lasante Patient ID Card" description="Label text to print on the id card" uuid="48221959-dc82-43fe-a61f-43eae75a16be"/>
-	<global_property property="patientregistration.icd10ConceptSource" property_value="ICD-10" description="Reference to the ICD10 concept source" uuid="71566322-62b1-403b-b901-81938b734bf8"/>
-	<global_property property="patientregistration.birthYearInterval" property_value="1" description="The number of years(n) to be added or subtracted(+/- n) from the DOB year in order to determine if a patient is a duplicate." uuid="d9b3fdf8-2c4f-498e-a468-e35492fab62e"/>
-    <global_property property="patientregistration.automaticallyGenerateDossierNumber" property_value="false" description="Set how dossier number should be generate. If true will generated automatically, otherwise will be manually" uuid="d9b3fdf8-2c4f-498e-a468-e12345fab62e"/>
-    <global_property property="patientregistration.medicalRecordLocationTag" property_value="1" description="otes that this location is a valid identifier location for an identifier that references a paper medical record" uuid="71c99f93-bc0c-4a44-b573-a7ac096ff636"/>
-
-    <global_property property="pacsintegration.radiologyOrderTypeUuid" property_value="" uuid="7addd444-0663-45e1-8999-2b4f0c4f671a"/>
-    <global_property property="pacsintegration.listenerUsername" property_value="" uuid="6ed7ae555-0663-23e1-8c99-2b4f0c4f671a"/>
-    <global_property property="pacsintegration.listenerPassword" property_value="" uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671a"/>
-    <global_property property="pacsintegration.patientIdentifierTypeUuid" property_value="" uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671b"/>
-    <global_property property="pacsintegration.defaultLocale" property_value="" uuid="7ab77666-0663-4221-8c99-2b4f0c4f671b"/>
-    <global_property property="pacsintegration.procedureCodeConceptSourceUuid" property_value="" uuid="7ab77666-0663-46e1-8c99-2b4f0c4f671b"/>
-    <global_property property="pacsintegration.sendingFacility" property_value="" uuid="7ab78666-0663-45e1-8c99-2b4f0c4f671b"/>
-    <global_property property="pacsintegration.locationCodeAttributeTypeUuid" property_value="" uuid="7ab78666-1111-45e1-8c99-2b4f0c4f671b"/>
-    <global_property property="pacsintegration.hl7ListenerPort" property_value="" uuid="7ab78666-2222-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.radiologyOrderTypeUuid" property_value=""
+                     uuid="7addd444-0663-45e1-8999-2b4f0c4f671a"/>
+    <global_property property="pacsintegration.listenerUsername" property_value=""
+                     uuid="6ed7ae555-0663-23e1-8c99-2b4f0c4f671a"/>
+    <global_property property="pacsintegration.listenerPassword" property_value=""
+                     uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671a"/>
+    <global_property property="pacsintegration.patientIdentifierTypeUuid" property_value=""
+                     uuid="7ab77666-0663-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.defaultLocale" property_value=""
+                     uuid="7ab77666-0663-4221-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.procedureCodeConceptSourceUuid" property_value=""
+                     uuid="7ab77666-0663-46e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.sendingFacility" property_value=""
+                     uuid="7ab78666-0663-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.locationCodeAttributeTypeUuid" property_value=""
+                     uuid="7ab78666-1111-45e1-8c99-2b4f0c4f671b"/>
+    <global_property property="pacsintegration.hl7ListenerPort" property_value=""
+                     uuid="7ab78666-2222-45e1-8c99-2b4f0c4f671b"/>
 
     <global_property property="layout.address.format" property_value="" uuid="7abc4766-0663-45e1-8c99-2b4f0c4f888a"/>
     <global_property property="locale.allowed.list" property_value="" uuid="7abc47a5-0663-45e1-8c99-2b4f0c4f888a"/>
     <global_property property="default_locale" property_value="" uuid="7ddd47a5-0663-45e1-8c99-2b4f0c4f888a"/>
-    <global_property property="security.passwordMinimumLength" property_value="" uuid="7dde47a5-0663-45e1-8c99-2b4f0c4f888a"/>
-    <global_property property="security.passwordRequiresDigit" property_value="" uuid="7dff47a5-0663-45e1-8c99-2b4f0c4f888a"/>
-    <global_property property="security.passwordRequiresNonDigit" property_value="" uuid="7ges47a5-0663-45e1-8c99-2b4f0c4f888a"/>
-    <global_property property="security.passwordRequiresUpperAndLowerCase" property_value="" uuid="7dda47a5-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="security.passwordMinimumLength" property_value=""
+                     uuid="7dde47a5-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="security.passwordRequiresDigit" property_value=""
+                     uuid="7dff47a5-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="security.passwordRequiresNonDigit" property_value=""
+                     uuid="7ges47a5-0663-45e1-8c99-2b4f0c4f888a"/>
+    <global_property property="security.passwordRequiresUpperAndLowerCase" property_value=""
+                     uuid="7dda47a5-0663-45e1-8c99-2b4f0c4f888a"/>
 
-    <global_property property="emr.radiologyOrderEncounterType" property_value="" uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.radiologyStudyEncounterType" property_value="" uuid="8d95462a-0e66-1333-b643-bb77234a0748"/>
-    <global_property property="emr.radiologyReportEncounterType" property_value="" uuid="8d954633-0e66-1333-b643-bb77234a0748"/>
-    <global_property property="emr.radiologyTechnicianEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b883-bb77234a0748"/>
-    <global_property property="emr.principalResultsInterpreterEncounterRole" property_value="" uuid="92e516a0-1166-11e2-b883-bb77234a0748"/>
-    <global_property property="emr.orderingProviderEncounterRole" property_value="" uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.checkInClerkEncounterRole" property_value="" uuid="93e516a0-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.radiologyTestOrderType" property_value="" uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyOrderEncounterType" property_value=""
+                     uuid="8d95462a-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyStudyEncounterType" property_value=""
+                     uuid="8d95462a-0e66-1333-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyReportEncounterType" property_value=""
+                     uuid="8d954633-0e66-1333-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyTechnicianEncounterRole" property_value=""
+                     uuid="92e516a0-0e66-11e2-b883-bb77234a0748"/>
+    <global_property property="emr.principalResultsInterpreterEncounterRole" property_value=""
+                     uuid="92e516a0-1166-11e2-b883-bb77234a0748"/>
+    <global_property property="emr.orderingProviderEncounterRole" property_value=""
+                     uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.checkInClerkEncounterRole" property_value=""
+                     uuid="93e516a0-0e66-11e2-b643-bb77234a0748"/>
+    <global_property property="emr.radiologyTestOrderType" property_value=""
+                     uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.atFacilityVisitType" property_value="" uuid="f01c54cb-2225-471a-9cd5-d348552c337c"/>
-    <global_property property="emr.paperRecordIdentifierType" property_value="" uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
-    <global_property property="emr.extraPatientIdentifierTypes" property_value="" uuid="139766e8-15f5-102d-96e4-000c29c2b5d7"/>
-    <global_property property="emr.xrayOrderablesConcept" property_value="" uuid="6605657e-1c79-11e2-9b1a-423440a3714c"/>
-    <global_property property="emr.ctScanOrderablesConcept" property_value="" uuid="6a91f378-1c79-11e2-9b1a-423440a3714c"/>
-    <global_property property="emr.ultrasoundOrderablesConcept" property_value="" uuid="6ec1a132-1c79-11e2-9b1a-423440a3714c"/>
-    <global_property property="emr.checkInEncounterType" property_value="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" uuid="58b07372-3605-44b2-b8ee-c4bb98e4f088"/>
-    <global_property property="emr.primaryIdentifierType" property_value="ZL EMR ID" description="Primary identifier type for looking up patients, generating barcodes, etc" uuid="1e384f09-d1e3-4827-b423-1082a1bbccbf"/>
+    <global_property property="emr.paperRecordIdentifierType" property_value=""
+                     uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
+    <global_property property="emr.extraPatientIdentifierTypes" property_value=""
+                     uuid="139766e8-15f5-102d-96e4-000c29c2b5d7"/>
+    <global_property property="emr.xrayOrderablesConcept" property_value=""
+                     uuid="6605657e-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.ctScanOrderablesConcept" property_value=""
+                     uuid="6a91f378-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.ultrasoundOrderablesConcept" property_value=""
+                     uuid="6ec1a132-1c79-11e2-9b1a-423440a3714c"/>
+    <global_property property="emr.checkInEncounterType" property_value="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"
+                     uuid="58b07372-3605-44b2-b8ee-c4bb98e4f088"/>
+    <global_property property="emr.primaryIdentifierType" property_value="ZL EMR ID"
+                     description="Primary identifier type for looking up patients, generating barcodes, etc"
+                     uuid="1e384f09-d1e3-4827-b423-1082a1bbccbf"/>
     <global_property property="emr.consultEncounterType" property_value="" uuid="1fbfbc6c-7bc5-11e2-80c8-0295e7c832a2"/>
-    <global_property property="emr.clinicianEncounterRole" property_value="" uuid="31460360-7bc5-11e2-80c8-0295e7c832a2"/>
-    <global_property property="emr.concept.diagnosisSetOfSets" property_value="" uuid="b9d24768-8a8c-11e2-865a-f15cf9ca08c8"/>
+    <global_property property="emr.clinicianEncounterRole" property_value=""
+                     uuid="31460360-7bc5-11e2-80c8-0295e7c832a2"/>
+    <global_property property="emr.concept.diagnosisSetOfSets" property_value=""
+                     uuid="b9d24768-8a8c-11e2-865a-f15cf9ca08c8"/>
     <global_property property="emr.unknownLocation" property_value="" uuid="b9d24768-8a8c-1332-865a-f15cf9ca08c8"/>
     <global_property property="emr.unknownProvider" property_value="" uuid="b9d24228-8a8c-11e2-865a-f15cf9ca08c8"/>
 
-    <global_property property="emr.paymentAmountConcept" property_value="5d1bc5de-6a35-4195-8631-7322941fe528" />
-    <global_property property="emr.paymentReasonConcept" property_value="36ba7721-fae0-4da4-aef2-7e476cc04bdf" />
-    <global_property property="emr.paymentReceiptNumberConcept" property_value="20438dc7-c5b4-4d9c-8480-e888f4795123" />
-    <global_property property="emr.paymentConstructConcept" property_value="8af62975-330e-4de7-ab85-1cc5ae5da9a8" />
+    <global_property property="emr.paymentAmountConcept" property_value="5d1bc5de-6a35-4195-8631-7322941fe528"/>
+    <global_property property="emr.paymentReasonConcept" property_value="36ba7721-fae0-4da4-aef2-7e476cc04bdf"/>
+    <global_property property="emr.paymentReceiptNumberConcept" property_value="20438dc7-c5b4-4d9c-8480-e888f4795123"/>
+    <global_property property="emr.paymentConstructConcept" property_value="8af62975-330e-4de7-ab85-1cc5ae5da9a8"/>
 
-    <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
-If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>
-	<global_property property="namephonetics.familyNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
-If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="a36ebd74-0c6b-44c6-ba29-2f9b17360d80"/>
-	<global_property property="namephonetics.givenNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
-If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="3f48a795-3c7d-4795-b5d8-7c4bba3875ec"/>
-    <global_property property="namephonetics.middleNameStringEncoder" property_value="Double Metaphone Alternate" description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
-If left blank, no alorithmic transformation will be stored in the db for searching of this name field." uuid="02c95d0f-f00d-465c-b17e-e9b9882ab03f"/>
+    <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate"
+                     description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
+                     uuid="5391a161-3feb-46b2-9c42-fbfa1754c82c"/>
+    <global_property property="namephonetics.familyNameStringEncoder" property_value="Double Metaphone Alternate"
+                     description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
+                     uuid="a36ebd74-0c6b-44c6-ba29-2f9b17360d80"/>
+    <global_property property="namephonetics.givenNameStringEncoder" property_value="Double Metaphone Alternate"
+                     description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
+                     uuid="3f48a795-3c7d-4795-b5d8-7c4bba3875ec"/>
+    <global_property property="namephonetics.middleNameStringEncoder" property_value="Double Metaphone Alternate"
+                     description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
+If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
+                     uuid="02c95d0f-f00d-465c-b17e-e9b9882ab03f"/>
 
-    <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0" uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
+    <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0"
+                     uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
 
 </dataset>

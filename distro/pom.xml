@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -30,6 +31,13 @@
 
                 <!-- All the -omod dependencies for modules we depend on, including transitive dependencies since we
                      aren't guaranteed that OpenMRS modules declare those in their poms. -->
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>mirebalaismetadata-omod</artifactId>
+                    <version>${mirebalaismetadataVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
@@ -272,8 +280,8 @@
                                 <configuration>
                                     <target>
                                         <move todir="${project.build.directory}/distro">
-                                            <fileset dir="${project.build.directory}/dependencies" />
-                                            <mapper type="regexp" from="^(.+)-omod-(.+)\.jar" to="\1-\2.omod" />
+                                            <fileset dir="${project.build.directory}/dependencies"/>
+                                            <mapper type="regexp" from="^(.+)-omod-(.+)\.jar" to="\1-\2.omod"/>
                                         </move>
                                     </target>
                                 </configuration>
@@ -288,8 +296,8 @@
                                 <configuration>
                                     <target>
                                         <move todir="${project.build.directory}/distro">
-                                            <fileset dir="${project.build.directory}/dependencies" />
-                                            <mapper type="regexp" from="^(.+)-omod-(.+)\.omod" to="\1-\2.omod" />
+                                            <fileset dir="${project.build.directory}/dependencies"/>
+                                            <mapper type="regexp" from="^(.+)-omod-(.+)\.omod" to="\1-\2.omod"/>
                                         </move>
                                     </target>
                                 </configuration>
