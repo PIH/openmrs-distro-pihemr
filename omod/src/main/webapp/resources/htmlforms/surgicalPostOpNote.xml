@@ -193,8 +193,7 @@
         <p>
             <label><uimessage code="assistants"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
-                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false"/>
+                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false" count="2"/>
             </span>
         </p>
         <p>
@@ -205,16 +204,14 @@
         <p>
             <label><uimessage code="anesthesiologist"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
-                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false"/>
+                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false" count="2"/>
             </span>
         </p>
 
         <p>
             <label><uimessage code="nurse"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
-                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false"/>
+                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false" count="2"/>
             </span>
         </p>
 
