@@ -40,8 +40,7 @@
         <property name="labelCode" value="mirebalais.task.surgicalOperativeNote.label"/>
         <property name="priority" value="10.0"/>
         <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/surgicalPostOpNote.xml"/>
-        <!-- we need to change this required privilege to one that exists when we want to toggle on this feature -->
-        <property name="requiredPrivilegeName" value="Task: emr.toggleThisFeatureOff"/>
+        <property name="requiredPrivilegeName" value="Task: emr.enterClinicalForms"/>
         <property name="extensionPoint" value="patient.visits.active.actions"/>
         <property name="iconUrl" value="icon-paste"/>
     </bean>
