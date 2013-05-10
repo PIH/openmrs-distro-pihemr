@@ -55,7 +55,7 @@
         <appframeworkVersion>2.0-SNAPSHOT</appframeworkVersion>
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
-        <htmlformentryVersion>2.0.8</htmlformentryVersion>
+        <htmlformentryVersion>2.0.9-SNAPSHOT</htmlformentryVersion>
         <htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
         <calculationVersion>1.0</calculationVersion>
         <reportingVersion>0.7.6</reportingVersion>
