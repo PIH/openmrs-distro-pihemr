@@ -1,0 +1,40 @@
+[
+    {
+        "uuid": "d2d89630-b698-11e2-9e96-0800200c9a66",
+        "name": "disposition.death",
+        "actions": [
+            { "action": "CloseCurrentVisitAction", "name": "Close Current Visit Action" },
+            { "action": "MarkPatientDeadAction", "name": "Mark Patient as Dead Action" }
+        ],
+        "clientSideActions": [
+            {
+                "action": "include-fragment",
+                "module": "emr",
+                "fragment": "field/date",
+                "fragmentConfig": {
+                    "uuid": "d2d89630-b698-11e2-9e96-0800200c9a66",
+                    "id": "deathDate",
+                    "label": "mirebalais.deathDate"
+                }
+            }
+        ]
+    },
+    {
+        "uuid": "66de7f60-b73a-11e2-9e96-0800200c9a66",
+        "name": "disposition.home",
+        "actions": [],
+        "clientSideActions": []
+    },
+    {
+        "uuid": "dfd73dc0-b817-11e2-9e96-0800200c9a66",
+        "name": "disposition.leftWithoutSeeAClinician",
+        "actions": [],
+        "clientSideActions": []
+    },
+    {
+        "uuid": "f2d72200-b817-11e2-9e96-0800200c9a66",
+        "name": "disposition.transferOutOfHospital",
+        "actions": [],
+        "clientSideActions": []
+    }
+]
