@@ -2,9 +2,10 @@
     {
         "uuid": "d2d89630-b698-11e2-9e96-0800200c9a66",
         "name": "disposition.death",
+        "conceptCode": "PIH:DEATH",
         "actions": [
-            { "action": "CloseCurrentVisitAction", "name": "Close Current Visit Action" },
-            { "action": "MarkPatientDeadAction", "name": "Mark Patient as Dead Action" }
+            "closeCurrentVisitAction",
+            "markPatientDeadAction"
         ],
         "clientSideActions": [
             {
@@ -22,18 +23,21 @@
     {
         "uuid": "66de7f60-b73a-11e2-9e96-0800200c9a66",
         "name": "disposition.home",
+        "conceptCode": "PIH:Home",
         "actions": [],
         "clientSideActions": []
     },
     {
         "uuid": "dfd73dc0-b817-11e2-9e96-0800200c9a66",
         "name": "disposition.leftWithoutSeeAClinician",
+        "conceptCode": "PIH:Left without seeing a clinician",
         "actions": [],
         "clientSideActions": []
     },
     {
         "uuid": "f2d72200-b817-11e2-9e96-0800200c9a66",
         "name": "disposition.transferOutOfHospital",
+        "conceptCode": "PIH:Transfer out of hospital",
         "actions": [],
         "clientSideActions": []
     }
