@@ -97,8 +97,8 @@
             <variant locale="fr" value="Pertes sanguines"/>
         </code>
         <code name="urine_out">
-            <variant locale="en" value="Urine output"/>
-            <variant locale="fr" value="Urine"/>
+            <variant locale="en" value="Total urine output"/>
+            <variant locale="fr" value="Production totale d'urine"/>
         </code>
         <code name="pre_op_antibiotic">
             <variant locale="en" value="Pre-operative antibiotics administered"/>
