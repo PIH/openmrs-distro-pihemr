@@ -4,8 +4,8 @@
         "name": "disposition.death",
         "conceptCode": "PIH:DEATH",
         "actions": [
-            "closeCurrentVisitAction",
-            "markPatientDeadAction"
+            "closeCurrentVisitDispositionAction",
+            "markPatientDeadDispositionAction"
         ],
         "clientSideActions": [
             {
