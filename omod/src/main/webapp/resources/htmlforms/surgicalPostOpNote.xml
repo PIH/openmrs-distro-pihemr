@@ -22,11 +22,11 @@
         </code>
         <code name="attending">
             <variant locale="en" value="Attending Surgeon (required)"/>
-            <variant locale="fr" value="1° Chirurgien"/>
+            <variant locale="fr" value="1 Chirurgien"/>
         </code>
         <code name="assistants">
             <variant locale="en" value="Assistants"/>
-            <variant locale="fr" value="2° Chirurgien"/>
+            <variant locale="fr" value="2 Chirurgien"/>
         </code>
         <code name="other">
             <variant locale="en" value="other assistants"/>  <!-- Use message.properties for this -->
