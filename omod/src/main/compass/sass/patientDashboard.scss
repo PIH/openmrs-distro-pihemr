@@ -356,13 +356,14 @@ div {
     }
   }
 
-  legend {
-    color: $highlight;
-    font-family: "OpenSans";
+  legend, #no-calculated-bmi, #calculated-bmi-wrapper, .title, .emptyValue, .emptyValue~.units {
+    display: none;
   }
 
-  #no-calculated-bmi, #calculated-bmi-wrapper, .title, .emptyValue, .emptyValue~.units {
-    display: none;
+  .title {
+    display: block;
+    color: $highlight;
+    font-family: "OpenSans";
   }
 
   .encounter-summary-container {
