@@ -56,7 +56,7 @@
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <htmlformentryVersion>2.0.8</htmlformentryVersion>
-        <htmlformentry19extVersion>1.1-SNAPSHOT</htmlformentry19extVersion>
+        <htmlformentry19extVersion>1.1</htmlformentry19extVersion>
         <calculationVersion>1.0</calculationVersion>
         <reportingVersion>0.7.6</reportingVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
