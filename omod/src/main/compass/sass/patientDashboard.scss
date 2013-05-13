@@ -356,7 +356,12 @@ div {
     }
   }
 
-  legend, #no-calculated-bmi, #calculated-bmi-wrapper, .title, .emptyValue, .emptyValue~.units {
+  legend {
+    color: $highlight;
+    font-family: "OpenSans";
+  }
+
+  #no-calculated-bmi, #calculated-bmi-wrapper, .title, .emptyValue, .emptyValue~.units {
     display: none;
   }
 
@@ -399,6 +404,7 @@ div {
     }
 
     strong {
+      font-family: "OpenSans";
       display: block;
       padding: 10px;
     }

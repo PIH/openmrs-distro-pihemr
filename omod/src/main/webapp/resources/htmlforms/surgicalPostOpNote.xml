@@ -155,7 +155,7 @@
 
     </translations>
 
-    <h2>Brief Operative Note (v1.0)</h2>
+    <h2>Surgical Note</h2>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
