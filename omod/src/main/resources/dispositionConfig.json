@@ -1,6 +1,27 @@
 [
     {
-        "uuid": "d2d89630-b698-11e2-9e96-0800200c9a66",
+        "uuid": "emrapi-admitToHospital",
+        "name": "disposition.emrapi.admitToHospital",
+        "conceptCode": "PIH:ADMIT TO HOSPITAL",
+        "actions": [
+            "admitToSpecificLocationDispositionAction"
+        ],
+        "clientSideActions": [
+            {
+                "action": "include-fragment",
+                "module": "emr",
+                "fragment": "field/location",
+                "fragmentConfig": {
+                    "id": "emrapi-admitToHospital",
+                    "formFieldName": "admitToLocationId",
+                    "label": "disposition.emrapi.admitToHospital.admissionLocation",
+                    "withTag": "Admission Location"
+                }
+            }
+        ]
+    },
+    {
+        "uuid": "emrapi-markPatientDead",
         "name": "disposition.death",
         "conceptCode": "PIH:DEATH",
         "actions": [
@@ -13,8 +34,9 @@
                 "module": "emr",
                 "fragment": "field/date",
                 "fragmentConfig": {
-                    "uuid": "d2d89630-b698-11e2-9e96-0800200c9a66",
+                    "uuid": "emrapi-markPatientDead",
                     "id": "deathDate",
+                    "formFieldName": "deathDate",
                     "label": "mirebalais.deathDate"
                 }
             }
