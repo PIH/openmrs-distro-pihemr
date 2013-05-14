@@ -360,6 +360,12 @@ div {
     display: none;
   }
 
+  .title {
+    display: block;
+    color: $highlight;
+    font-family: "OpenSans";
+  }
+
   .encounter-summary-container {
     padding: 15px;
     border: 1px solid #ccc;
@@ -399,6 +405,7 @@ div {
     }
 
     strong {
+      font-family: "OpenSans";
       display: block;
       padding: 10px;
     }
