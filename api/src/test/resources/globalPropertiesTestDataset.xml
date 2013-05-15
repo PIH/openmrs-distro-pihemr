@@ -96,4 +96,7 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0"
                      uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
 
+    <global_property property="emr.admissionEncounterType" property_value="" uuid="9080c5f0-bd00-11e2-ad5b-8a6456859764"/>
+    <global_property property="emr.dischargeEncounterType" property_value="" uuid="a15894e8-bd00-11e2-ad5b-8a6456859764"/>
+
 </dataset>
