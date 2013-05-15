@@ -57,11 +57,22 @@
         "clientSideActions": []
     },
     {
-        "uuid": "f2d72200-b817-11e2-9e96-0800200c9a66",
-        "name": "disposition.transferOutOfHospital",
+        "uuid": "emrapi-transferOutOfHospital",
+        "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
         "actions": [],
-        "clientSideActions": []
+        "clientSideActions": [
+            {
+                "action": "include-fragment",
+                "module": "emr",
+                "fragment": "field/sites",
+                "fragmentConfig": {
+                    "id": "emrapi-transferOutOfHospital",
+                    "formFieldName": "transferOutOfHospital",
+                    "label": "disposition.emrapi.transferOutOfHospital.sites"
+                }
+            }
+        ]
     },
     {
         "uuid": "6c48b140-bc13-11e2-9e96-0800200c9a66",
