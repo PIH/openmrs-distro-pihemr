@@ -391,11 +391,12 @@
         </p>
     </section>
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Plan">
+    <!--
         <p>
             <label><uimessage code="disposition"/></label>
             <obs conceptId="PIH:Post-surgery disposition location"/>
         </p>
-
+     -->
         <p>
             <label><uimessage code="findings"/></label>
             <obs conceptId="PIH:Additional Surgery Comments" style="textarea" rows="4" cols="80"/>
