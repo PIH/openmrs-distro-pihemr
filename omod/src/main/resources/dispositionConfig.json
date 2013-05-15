@@ -43,22 +43,15 @@
         ]
     },
     {
-        "uuid": "66de7f60-b73a-11e2-9e96-0800200c9a66",
-        "name": "disposition.home",
-        "conceptCode": "PIH:Home",
-        "actions": [],
-        "clientSideActions": []
-    },
-    {
-        "uuid": "dfd73dc0-b817-11e2-9e96-0800200c9a66",
-        "name": "disposition.leftWithoutSeeAClinician",
+        "uuid": "emrapi-leftWithoutSeeingAClinician",
+        "name": "disposition.emrapi.leftWithoutSeeingAClinician",
         "conceptCode": "PIH:Left without seeing a clinician",
         "actions": [],
         "clientSideActions": []
     },
     {
-        "uuid": "08e2f19f-9e69-4d92-bc43-abcac12a2032",
-        "name": "disposition.leftWithoutCompletionOfTreatment",
+        "uuid": "emrapi-leftWithoutCompletionOfTreatment",
+        "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
         "conceptCode": "PIH:Departed without medical discharge",
         "actions": [],
         "clientSideActions": []
