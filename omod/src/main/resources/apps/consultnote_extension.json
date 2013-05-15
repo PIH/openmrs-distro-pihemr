@@ -12,17 +12,18 @@
         "extensionParams": {
             "additionalObservationsConfig": [
                 {
-                    "id": "trauma_question",
+                    "id": "traumaQuestion",
                     "type": "radioButtons",
                     "concept": "f8134959-62d2-4f94-af6c-3580312b07a0",
                     "classes": ["required"],
-                    "dependency": "traumaQuestion"
+                    "dependency": true
                 },
                 {
-                    "id": "trauma_types",
+                    "id": "traumaTypes",
                     "type": "dropDown",
                     "concept": "7c5ef8cd-3c2b-46c1-b995-20e52c11ce94",
-                    "hideEmptyLabel": true,
+                    "emptyOptionLabel": "emr.consult.trauma.choose",
+                    "classes": ["required"],
                     "depends": {
                         "variable": "traumaQuestion",
                         "value": "{&quot;concept&quot;:&quot;f8134959-62d2-4f94-af6c-3580312b07a0&quot;, &quot;value_coded&quot;: &quot;3cd6f600-26fe-102b-80cb-0017a47871b2&quot;}",
