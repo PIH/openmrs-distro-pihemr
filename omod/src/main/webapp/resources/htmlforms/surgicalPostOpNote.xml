@@ -403,5 +403,5 @@
         </p>
     </section>
     <br />
-    <submit submitClass="save"/>
+    <submit submitClass="confirm"/>
 </htmlform>
