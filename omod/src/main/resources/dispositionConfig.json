@@ -89,8 +89,7 @@
                 "fragmentConfig": {
                     "uuid": "6c48b140-bc13-11e2-9e96-0800200c9a66",
                     "id": "deathDate",
-                    "label": "mirebalais.location",
-                    "classes": "required"
+                    "label": "mirebalais.location"
                 }
             }
         ]
