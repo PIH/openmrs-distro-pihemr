@@ -60,15 +60,17 @@
         "uuid": "emrapi-transferOutOfHospital",
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
-        "actions": [],
+        "actions": [
+                "addObsToGroupDispositionAction"
+        ],
         "clientSideActions": [
             {
                 "action": "include-fragment",
-                "module": "emr",
+                "module": "mirebalais",
                 "fragment": "field/sites",
                 "fragmentConfig": {
                     "id": "emrapi-transferOutOfHospital",
-                    "formFieldName": "transferOutOfHospital",
+                    "formFieldName": "valueCoded",
                     "label": "disposition.emrapi.transferOutOfHospital.sites"
                 }
             }
