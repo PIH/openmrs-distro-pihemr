@@ -148,6 +148,10 @@
             <variant locale="en" value="Disposition"/>      <!--same -->
             <variant locale="fr" value="Disposition"/>
         </code>
+        <code name="transfer_location">
+            <variant locale="en" value="Transfer location"/>
+            <variant locale="fr" value="Transférer lieu"/>
+        </code>
         <code name="findings">
             <variant locale="en" value="Findings / Description"/>
             <variant locale="fr" value="Conclusions / Description"/>
@@ -391,10 +395,10 @@
         </p>
     </section>
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Plan">
-    <!--
+    <!-- Updated with the generic HUM disposition list
         <p>
             <label><uimessage code="disposition"/></label>
-            <obs conceptId="PIH:Post-surgery disposition location"/>
+            <obs conceptId="PIH:HUM Disposition categories" answerConceptId="PIH:8623,PIH:7889,PIH:8619,PIH:8858"/>
         </p>
      -->
         <p>
