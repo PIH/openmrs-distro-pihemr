@@ -60,15 +60,17 @@
         "uuid": "emrapi-transferOutOfHospital",
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
-        "actions": [],
+        "actions": [
+                "addObsToGroupDispositionAction"
+        ],
         "clientSideActions": [
             {
                 "action": "include-fragment",
-                "module": "emr",
+                "module": "mirebalais",
                 "fragment": "field/sites",
                 "fragmentConfig": {
                     "id": "emrapi-transferOutOfHospital",
-                    "formFieldName": "transferOutOfHospital",
+                    "formFieldName": "valueCoded",
                     "label": "disposition.emrapi.transferOutOfHospital.sites"
                 }
             }
@@ -87,7 +89,8 @@
                 "fragmentConfig": {
                     "uuid": "6c48b140-bc13-11e2-9e96-0800200c9a66",
                     "id": "deathDate",
-                    "label": "mirebalais.location"
+                    "label": "mirebalais.location",
+                    "classes": "required"
                 }
             }
         ]
