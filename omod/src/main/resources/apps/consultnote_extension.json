@@ -3,24 +3,29 @@
         "id": "emr.clinic.consult.note",
         "extensionPointId": "org.openmrs.referenceapplication.consult.note.config",
         "type": "config",
-        "extensionParams": {}
+        "extensionParams": {
+            "title": "emr.clinic.consult.title"
+        }
     },
     {
         "id": "emr.ed.consult.note",
         "extensionPointId": "org.openmrs.referenceapplication.consult.note.config",
         "type": "config",
         "extensionParams": {
+            "title": "emr.ed.consult.title",
             "additionalObservationsConfig": [
                 {
                     "id": "traumaQuestion",
-                    "type": "radioButtons",
+                    "field": "radioButtons",
+                    "formFieldName": "additionalObservations",
                     "concept": "f8134959-62d2-4f94-af6c-3580312b07a0",
                     "classes": ["required"],
                     "dependency": true
                 },
                 {
                     "id": "traumaTypes",
-                    "type": "dropDown",
+                    "field": "dropDown",
+                    "formFieldName": "additionalObservations",
                     "concept": "7c5ef8cd-3c2b-46c1-b995-20e52c11ce94",
                     "emptyOptionLabel": "emr.consult.trauma.choose",
                     "classes": ["required"],
