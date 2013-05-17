@@ -21,8 +21,17 @@
         ]
     },
     {
+        "uuid": "emrapi-discharge",
+        "name": "disposition.emrapi.discharge",
+        "conceptCode": "PIH:DISCHARGED",
+        "actions": [
+            "dischargeIfAdmittedDispositionAction"
+        ],
+        "clientSideActions": []
+    },
+    {
         "uuid": "emrapi-markPatientDead",
-        "name": "disposition.death",
+        "name": "disposition.emrapi.death",
         "conceptCode": "PIH:DEATH",
         "actions": [
             "closeCurrentVisitDispositionAction",
@@ -37,7 +46,7 @@
                     "uuid": "emrapi-markPatientDead",
                     "id": "deathDate",
                     "formFieldName": "deathDate",
-                    "label": "mirebalais.deathDate"
+                    "label": "disposition.emrapi.death.deathDate"
                 }
             }
         ]
@@ -77,19 +86,22 @@
         ]
     },
     {
-        "uuid": "6c48b140-bc13-11e2-9e96-0800200c9a66",
-        "name": "disposition.transferInHospital",
-        "conceptCode": "PIH:Transfer in Hospital",
-        "actions": [],
+        "uuid": "emrapi-transferWithinHospital",
+        "name": "disposition.emrapi.transferInHospital",
+        "conceptCode": "PIH:Transfer within hospital",
+        "actions": [
+            "transferToSpecificLocationDispositionAction"
+        ],
         "clientSideActions": [
             {
                 "action": "include-fragment",
                 "module": "emr",
-                "fragment": "field/specific-locations",
+                "fragment": "field/location",
                 "fragmentConfig": {
-                    "uuid": "6c48b140-bc13-11e2-9e96-0800200c9a66",
-                    "id": "deathDate",
-                    "label": "mirebalais.location"
+                    "id": "emrapi-transferWithinHospital",
+                    "formFieldName": "transferToLocationId",
+                    "label": "disposition.emrapi.transferInHospital.transferToLocation",
+                    "withTag": "Admission Location"
                 }
             }
         ]
