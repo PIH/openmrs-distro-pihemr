@@ -425,6 +425,10 @@ div {
   display: inline-block;
   border-top: 1px dotted #ccc;
   padding-top: 15px;
+
+  h6 {
+    font-size: 1em;
+  }
 }
 
 .report-value {
