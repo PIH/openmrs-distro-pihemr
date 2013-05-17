@@ -420,3 +420,13 @@ div {
     }
   }
 }
+
+.radiology-report {
+  display: inline-block;
+  border-top: 1px dotted #ccc;
+  padding-top: 15px;
+}
+
+.report-value {
+  color: $highlight;
+}
