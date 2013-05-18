@@ -1,0 +1,75 @@
+[
+    {
+        "id": "mirebalais.defaultEncounterTemplate",
+        "extensionPointId": "org.openmrs.referenceapplication.encounterTemplate",
+        "type": "fragment",
+        "extensionParams": {
+            "templateId": "defaultEncounterTemplate",
+            "templateFragmentProviderName": "emr",
+            "templateFragmentId": "patientdashboard/encountertemplate/defaultEncounterTemplate",
+            "supportedEncounterTypes": {
+                "4fb47712-34a6-40d2-8ed3-e153abbd25b7": {
+                    "icon": "icon-vitals"
+                },
+                "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b": {
+                    "icon": "icon-check-in"
+                },
+                "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa": {
+                    "icon": "icon-x-ray"
+                },
+                "f1c286d0-b83f-4cd4-8348-7ea3c28ead13": {
+                    "icon": "icon-money"
+                },
+                "c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5": {
+                    "icon": "icon-paste"
+                },
+                "1373cf95-06e8-468b-a3da-360ac1cf026d": {
+                    "icon": "icon-calendar"
+                }
+            }
+        }
+    },
+    {
+        "id": "mirebalais.consultEncounterTemplate",
+        "extensionPointId": "org.openmrs.referenceapplication.encounterTemplate",
+        "type": "fragment",
+        "extensionParams": {
+            "templateId": "consultEncounterTemplate",
+            "templateFragmentProviderName": "emr",
+            "templateFragmentId": "patientdashboard/encountertemplate/consultEncounterTemplate",
+            "supportedEncounterTypes": {
+                "92fd09b4-5335-4f7e-9f63-b2a663fd09a6": {
+                    "_comment": "consult",
+                    "icon": "icon-stethoscope"
+                }
+            }
+        }
+    },
+    {
+        "id": "mirebalais.noDetailsEncounterTemplate",
+        "extensionPointId": "org.openmrs.referenceapplication.encounterTemplate",
+        "type": "fragment",
+        "extensionParams": {
+            "templateId": "noDetailsEncounterTemplate",
+            "templateFragmentProviderName": "emr",
+            "templateFragmentId": "patientdashboard/encountertemplate/noDetailsEncounterTemplate",
+            "supportedEncounterTypes": {
+                "873f968a-73a8-4f9c-ac78-9f4778b751b6": {
+                    "icon": "icon-register"
+                },
+                "260566e1-c909-4d61-a96f-c1019291a09d": {
+                    "_comment": "Admission",
+                    "icon": "icon-signin"
+                },
+                "b6631959-2105-49dd-b154-e1249e0fbcd7": {
+                    "_comment": "Discharge",
+                    "icon": "icon-signout"
+                },
+                "436cfe33-6b81-40ef-a455-f134a9f7e580": {
+                    "_comment": "Transfer",
+                    "icon": "icon-share"
+                }
+            }
+        }
+    }
+]
