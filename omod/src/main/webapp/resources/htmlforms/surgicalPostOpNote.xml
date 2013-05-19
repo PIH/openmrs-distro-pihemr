@@ -308,29 +308,25 @@
         </p>
         <p>
             <obsgroup groupingConceptId="PIH:Transfusion construct">
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"
-                     answerLabel="Whole blood"/>
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Whole blood"/>
                 <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
             </obsgroup>
         </p>
         <p>
             <obsgroup groupingConceptId="PIH:Transfusion construct">
-                <obs conceptId="PIH:Transfusion of fluid"
-                     answerConceptId="PIH:Packed red blood cells" answerLabel="Packed red blood cells"/>
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Packed red blood cells"/>
                 <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
             </obsgroup>
         </p>
         <p>
             <obsgroup groupingConceptId="PIH:Transfusion construct">
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"
-                     answerLabel="Plasma"/>
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Plasma"/>
                 <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
             </obsgroup>
         </p>
         <p>
             <obsgroup groupingConceptId="PIH:Transfusion construct">
-                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"
-                     answerLabel="Platelets"/>
+                <obs conceptId="PIH:Transfusion of fluid" answerConceptId="PIH:Platelets"/>
                 <span class="small"><obs conceptId="PIH:Volume of transfusion" showUnits="true"/></span>
             </obsgroup>
         </p>
