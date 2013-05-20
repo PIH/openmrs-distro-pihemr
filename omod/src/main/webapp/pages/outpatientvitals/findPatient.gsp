@@ -3,7 +3,7 @@
         throw new IllegalStateException("Logged-in user is not a Provider")
     }
 
-    ui.decorateWith("emr", "standardEmrPage")
+    ui.decorateWith("appui", "standardEmrPage")
 %>
 
 <script type="text/javascript">

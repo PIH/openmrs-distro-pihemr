@@ -3,7 +3,7 @@
         throw new IllegalStateException("Logged-in user is not a Provider")
     }
 
-    ui.decorateWith("emr", "standardEmrPage")
+    ui.decorateWith("appui", "standardEmrPage")
 
     ui.includeCss("mirebalais", "masterPatientIndex.css")
 
@@ -45,7 +45,7 @@
     <fieldset id="search-by-id">
         <legend>${ ui.message("mirebalais.mpi.searchById") }</legend>
 
-        ${ ui.includeFragment("emr", "field/text", [
+        ${ ui.includeFragment("uicommons", "field/text", [
                 label: (''),
                 formFieldName: "id",
                 initialValue: ('')
@@ -58,13 +58,13 @@
     <fieldset id="search-by-name">
             <legend>${ ui.message("mirebalais.mpi.searchByName") }</legend>
 
-            ${ ui.includeFragment("emr", "field/text", [
+            ${ ui.includeFragment("uicommons", "field/text", [
                     label: (''),
                     formFieldName: "name",
                     initialValue: ('')
             ])}
 
-            ${ ui.includeFragment("emr", "field/radioButtons", [
+            ${ ui.includeFragment("uicommons", "field/radioButtons", [
                     label: ui.message("emr.gender"),
                     formFieldName: "gender",
                     options: genderOptions

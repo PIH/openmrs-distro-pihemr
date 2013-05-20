@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("emr", "standardEmrPage")
+    ui.decorateWith("appui", "standardEmrPage")
 %>
 
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
