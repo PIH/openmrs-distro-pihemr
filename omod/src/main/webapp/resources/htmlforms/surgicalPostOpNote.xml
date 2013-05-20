@@ -82,7 +82,7 @@
         </code>
         <code name="ivf">
             <variant locale="en" value="IVF"/>
-            <variant locale="fr" value="IVF"/>  <!-- Needs translation -->
+            <variant locale="fr" value="Perfusions intraveineuses"/>
         </code>
         <code name="transfusion">
             <variant locale="en" value="Blood transfusion"/>
@@ -129,8 +129,8 @@
             <variant locale="fr" value="Si oui, décrivez échantillon pathologie"/>
         </code>
         <code name="lab">
-            <variant locale="en" value="Lab"/>
-            <variant locale="fr" value="Labo"/>
+            <variant locale="en" value="Lab (ie. culture)"/>
+            <variant locale="fr" value="Labo (e.g. culture)"/>
         </code>
         <code name="lab_specimen">
             <variant locale="en" value="If yes, describe laboratory specimen"/>
@@ -163,7 +163,7 @@
 
     </translations>
 
-    <h2><label><uimessage code="surgical_note"/></label>Surgical Note</h2>
+    <h2><label><uimessage code="surgical_note"/></label></h2>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
