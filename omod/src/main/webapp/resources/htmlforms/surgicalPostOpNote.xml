@@ -152,9 +152,9 @@
             <variant locale="en" value="Disposition"/>      <!--same -->
             <variant locale="fr" value="Disposition"/>
         </code>
-        <code name="transfer_location">
-            <variant locale="en" value="Transfer location"/>
-            <variant locale="fr" value="Transférer lieu"/>
+        <code name="wardName">
+            <variant locale="en" value="Admit to ward"/>
+            <variant locale="fr" value="Admettre à la salle d'hôpital"/>
         </code>
         <code name="findings">
             <variant locale="en" value="Findings / Description"/>
@@ -399,6 +399,10 @@
         <p>
             <label><uimessage code="disposition"/></label>
             <obs conceptId="PIH:HUM Disposition categories" answerConceptId="PIH:8623,PIH:7889,PIH:8619,PIH:8858"/>
+        </p>
+        <p>
+            <label><uimessage code="wardName"/></label>
+            <obs conceptId="org.openmrs.module.emr:AdmissionLocation"/>
         </p>
      -->
         <p>
