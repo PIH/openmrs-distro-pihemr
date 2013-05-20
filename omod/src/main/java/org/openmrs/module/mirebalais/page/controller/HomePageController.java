@@ -13,16 +13,16 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.emr.EmrContext;
+import org.openmrs.ui.framework.annotation.SpringBean;
+import org.openmrs.ui.framework.page.PageModel;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import org.openmrs.module.appframework.domain.Extension;
-import org.openmrs.module.appframework.service.AppFrameworkService;
-import org.openmrs.module.emr.EmrContext;
-import org.openmrs.module.emr.utils.FeatureToggleProperties;
-import org.openmrs.ui.framework.annotation.SpringBean;
-import org.openmrs.ui.framework.page.PageModel;
 
 /**
  * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not

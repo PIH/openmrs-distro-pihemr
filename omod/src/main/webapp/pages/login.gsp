@@ -1,11 +1,11 @@
 <!-- This is the login page -->
 <%
-    ui.includeFragment("emr", "standardEmrIncludes")
+    ui.includeFragment("appui", "standardEmrIncludes")
 
     ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
 %>
 
-${ ui.includeFragment("emr", "header") }
+${ ui.includeFragment("appui", "header") }
 
 <div id="body-wrapper" class="container">
     <div id="content">
@@ -20,7 +20,7 @@ ${ ui.includeFragment("emr", "header") }
                     ${ ui.message("mirebalais.login.loginHeading") }
                 </legend>
 
-                ${ ui.includeFragment("emr", "infoAndErrorMessage") }
+                ${ ui.includeFragment("uicommons", "infoAndErrorMessage") }
 
                 <p class="left">
                     <label for="username">

@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("emr", "standardEmrPage")
+	ui.decorateWith("appui", "standardEmrPage")
 
     ui.includeCss("mirebalais", "home.css")
 
