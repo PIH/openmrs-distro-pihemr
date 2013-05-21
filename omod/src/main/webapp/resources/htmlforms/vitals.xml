@@ -198,7 +198,7 @@
         </fieldset>
     </div>
 
-    <section id="vitals" sectionTag="section" headerStyle="title" headerLabel="Vitals">
+    <section id="vitals" sectionTag="section" headerStyle="title" headerCode="mirebalais.vitals.title">
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
