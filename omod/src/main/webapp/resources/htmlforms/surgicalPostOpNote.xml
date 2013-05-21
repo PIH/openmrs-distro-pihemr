@@ -25,7 +25,7 @@
             <variant locale="fr" value="Service de chirurgie"/>
         </code>
         <code name="attending">
-            <variant locale="en" value="Attending Surgeon (required)"/>
+            <variant locale="en" value="Attending surgeon (required)"/>
             <variant locale="fr" value="1° Chirurgien"/>
         </code>
         <code name="assistants">
@@ -46,11 +46,11 @@
         </code>
         <code name="pre_op_diagnoses">
             <variant locale="en" value="Pre-operative Diagnoses"/>
-            <variant locale="fr" value="Diagnostic Pré-opératoire"/>
+            <variant locale="fr" value="Diagnostic pré-opératoire"/>
         </code>
         <code name="post_op_diagnoses">
             <variant locale="en" value="Post-operative Diagnoses"/>
-            <variant locale="fr" value="Diagnostic Post-opératoire"/>
+            <variant locale="fr" value="Diagnostic post-opératoire"/>
         </code>
         <code name="procedures">
             <variant locale="en" value="Procedures performed"/>
@@ -114,7 +114,7 @@
         </code>
         <code name="vtp">
             <variant locale="en" value="Venous thromboembolism prophylaxis"/>
-            <variant locale="fr" value="Méthode de Prévention de la Maladie Thrombo-embolique"/>
+            <variant locale="fr" value="Méthode de prévention de la maladie thrombo-embolique"/>
         </code>
         <code name="specimen_sent">
             <variant locale="en" value="Specimens sent"/>
@@ -194,32 +194,45 @@
         </p>
 
         <p>
+            <!-- Attending surgeon -->
             <label><uimessage code="attending"/></label>
-            <encounterProviderAndRole encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af" required="true"/>
+            <encounterProviderAndRole encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af"
+                providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
+                required="true"/>
         </p>
 
         <p>
+            <!-- Assisting surgeons -->
             <label><uimessage code="assistants"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7" required="false" count="2"/>
+                <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7"
+                   providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
+                   required="false" count="2"/>
             </span>
         </p>
         <p>
+            <!-- Non-coded name of assisting surgeon -->
             <label><uimessage code="other"/></label>
             <obs conceptId="PIH:Name of assistant surgeon"/>
         </p>
 
         <p>
+            <!-- Anesthesiologists -->
             <label><uimessage code="anesthesiologist"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8" required="false" count="2"/>
+                <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8"
+                                          providerRoles="39c28f78-6637-4c21-9bf4-db3e2398054f"
+                                          required="false" count="2"/>
             </span>
         </p>
 
         <p>
+            <!-- Nurses -->
             <label><uimessage code="nurse"/></label>
             <span class="inline">
-                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="false" count="2"/>
+                <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
+                                          providerRoles="7207ba62-027f-4f9b-be67-a9f7a8a3abcc"
+                                          required="false" count="2"/>
             </span>
         </p>
 
@@ -264,20 +277,20 @@
         <p class="radio">
             <label><uimessage code="emergency"/></label>
             <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator="" />
+                 answerCodes="general.yes,general.no" answerSeparator="" />
         </p>
 
         <p class="input-position-class radio">
             <label><uimessage code="scheduled"/></label>
             <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator=""/>
+                 answerCodes="general.yes,general.no" answerSeparator=""/>
 
         </p>
 
         <p class="input-position-class radio">
             <label><uimessage code="planned_return_or"/></label>
             <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator=""/>
+                 answerCodes="general.yes,general.no" answerSeparator=""/>
 
         </p>
 
@@ -300,7 +313,7 @@
         <p class="radio">
             <label><uimessage code="transfusion"/></label>
             <obs id="transfusion" conceptId="PIH:Transfusion status" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerLabels="yes,no"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="general.yes,general.no"
                  answerSeparator=""/>
         </p>
         <p>
@@ -341,7 +354,7 @@
         <p class="radio">
             <label><uimessage code="pre_op_antibiotic"/></label>
             <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerLabels="yes,no"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="general.yes,general.no"
                  answerSeparator=""/>
         </p>
         <p>
@@ -364,7 +377,7 @@
             <strong><uimessage code="specimen_sent"/></strong>
             <label><uimessage code="pathology"/></label>
             <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator=""/>
+                 answerCodes="general.yes,general.no" answerSeparator=""/>
         </p>
         <p>
             <label><uimessage code="path_sample"/></label>
@@ -373,7 +386,7 @@
         <p class="radio">
             <label><uimessage code="lab"/></label>
             <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator=""/>
+                 answerCodes="general.yes,general.no" answerSeparator=""/>
         </p>
         <p>    
             <label><uimessage code="lab_specimen"/></label>
@@ -382,7 +395,7 @@
         <p class="radio">
             <label><uimessage code="implant"/></label>
             <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerLabels="yes,no" answerSeparator=""/>
+                 answerCodes="general.yes,general.no" answerSeparator=""/>
         </p>
         <p>
             <label><uimessage code="if_yes_specify"/></label>
