@@ -20,6 +20,18 @@
             <variant locale="en" value="Surgical note"/>
             <variant locale="fr" value="Note de chirurgie"/>
         </code>
+        <code name="service_team">
+            <variant locale="en" value="Service / Team"/>
+            <variant locale="fr" value="Service / Equipe"/>
+        </code>
+        <code name="ins_outs">
+            <variant locale="en" value="Ins / Outs"/>
+            <variant locale="fr" value="Entrants / Sortants"/>
+        </code>
+        <code name="pathology_complications">
+            <variant locale="en" value="Pathology / Complications"/>
+            <variant locale="fr" value="Pathologie / Complications"/>
+        </code>
         <code name="surgical_service">
             <variant locale="en" value="Surgical service"/>
             <variant locale="fr" value="Service de chirurgie"/>
@@ -45,7 +57,7 @@
             <variant locale="fr" value="Infirmière"/>
         </code>
         <code name="pre_op_diagnoses">
-            <variant locale="en" value="Pre-operative Diagnoses"/>
+            <variant locale="en" value="Pre-operative diagnoses"/>
             <variant locale="fr" value="Diagnostic pré-opératoire"/>
         </code>
         <code name="post_op_diagnoses">
@@ -186,7 +198,7 @@
         </fieldset>
     </div>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Service/team">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="service_team">
 
         <p>
             <label><uimessage code="surgical_service"/></label>
@@ -301,7 +313,7 @@
 
     </section>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Ins and Outs">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="ins_outs">
         <p>
             <strong><uimessage code="fluids_admin"/></strong>
             <obsgroup groupingConceptId="PIH:IVF construct">
@@ -371,7 +383,7 @@
     </section>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerLabel="Pathology / Complications">
+             labelCode="pathology_complications">
         
         <p class="radio">
             <strong><uimessage code="specimen_sent"/></strong>
