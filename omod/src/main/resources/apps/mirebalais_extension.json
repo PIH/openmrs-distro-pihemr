@@ -1,5 +1,13 @@
 [
     {
+        "id": "mirebalais.configureStandardHeader",
+        "extensionPointId": "org.openmrs.module.appui.header.config",
+        "type": "config",
+        "extensionParams": {
+            "logo-icon-url": "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"
+        }
+    },
+    {
         "id": "emr.archivesRoom",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
