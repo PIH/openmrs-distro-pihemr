@@ -198,7 +198,7 @@
         </fieldset>
     </div>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="service_team">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
 
         <p>
             <label><uimessage code="surgical_service"/></label>
@@ -313,7 +313,7 @@
 
     </section>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="ins_outs">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="ins_outs">
         <p>
             <strong><uimessage code="fluids_admin"/></strong>
             <obsgroup groupingConceptId="PIH:IVF construct">
@@ -383,7 +383,7 @@
     </section>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             labelCode="pathology_complications">
+             headerCode="pathology_complications">
         
         <p class="radio">
             <strong><uimessage code="specimen_sent"/></strong>
