@@ -172,7 +172,14 @@
             <variant locale="en" value="Findings / Description"/>
             <variant locale="fr" value="Conclusions / Déscription"/>
         </code>
-
+        <code name="yes">
+            <variant locale="en" value="yes"/>
+            <variant locale="fr" value="oui"/>
+        </code>
+        <code name="no">
+            <variant locale="en" value="no"/>
+            <variant locale="fr" value="non"/>
+        </code>
     </translations>
 
     <h2><label><uimessage code="surgical_note"/></label></h2>
@@ -198,7 +205,7 @@
         </fieldset>
     </div>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="service_team">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
 
         <p>
             <label><uimessage code="surgical_service"/></label>
@@ -250,7 +257,7 @@
 
     </section>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Description">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Description">
 
         <p>
             <label><uimessage code="pre_op_diagnoses"/></label>
@@ -289,20 +296,20 @@
         <p class="radio">
             <label><uimessage code="emergency"/></label>
             <obs conceptId="PIH:Emergency" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator="" />
+                 answerCodes="yes,no" answerSeparator="" />
         </p>
 
         <p class="input-position-class radio">
             <label><uimessage code="scheduled"/></label>
             <obs conceptId="PIH:Scheduled surgery" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator=""/>
+                 answerCodes="yes,no" answerSeparator=""/>
 
         </p>
 
         <p class="input-position-class radio">
             <label><uimessage code="planned_return_or"/></label>
             <obs conceptId="PIH:Planned return to operating room" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator=""/>
+                 answerCodes="yes,no" answerSeparator=""/>
 
         </p>
 
@@ -313,7 +320,7 @@
 
     </section>
 
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" labelCode="ins_outs">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="ins_outs">
         <p>
             <strong><uimessage code="fluids_admin"/></strong>
             <obsgroup groupingConceptId="PIH:IVF construct">
@@ -325,7 +332,7 @@
         <p class="radio">
             <label><uimessage code="transfusion"/></label>
             <obs id="transfusion" conceptId="PIH:Transfusion status" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="general.yes,general.no"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
@@ -366,7 +373,7 @@
         <p class="radio">
             <label><uimessage code="pre_op_antibiotic"/></label>
             <obs conceptId="PIH:Pre-operative antibiotic administered" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="general.yes,general.no"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
@@ -383,13 +390,13 @@
     </section>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             labelCode="pathology_complications">
+             headerCode="pathology_complications">
         
         <p class="radio">
             <strong><uimessage code="specimen_sent"/></strong>
             <label><uimessage code="pathology"/></label>
             <obs conceptId="PIH:Pathology sample sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator=""/>
+                 answerCodes="yes,no" answerSeparator=""/>
         </p>
         <p>
             <label><uimessage code="path_sample"/></label>
@@ -398,7 +405,7 @@
         <p class="radio">
             <label><uimessage code="lab"/></label>
             <obs conceptId="PIH:Laboratory specimen sent" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator=""/>
+                 answerCodes="yes,no" answerSeparator=""/>
         </p>
         <p>    
             <label><uimessage code="lab_specimen"/></label>
@@ -407,7 +414,7 @@
         <p class="radio">
             <label><uimessage code="implant"/></label>
             <obs conceptId="PIH:Insertion of implantation" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="general.yes,general.no" answerSeparator=""/>
+                 answerCodes="yes,no" answerSeparator=""/>
         </p>
         <p>
             <label><uimessage code="if_yes_specify"/></label>
@@ -419,7 +426,7 @@
             <obs conceptId="PIH:Complications from surgery"/>
         </p>
     </section>
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerLabel="Plan">
+    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Plan">
     <!-- Updated with the generic HUM disposition list
         <p>
             <label><uimessage code="disposition"/></label>
