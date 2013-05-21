@@ -182,7 +182,7 @@
         </code>
     </translations>
 
-    <h2><label><uimessage code="surgical_note"/>Méthode de prévention de la maladie thrombo-embolique</label></h2>
+    <h2><label><uimessage code="surgical_note"/></label></h2>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
