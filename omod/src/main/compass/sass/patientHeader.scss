@@ -77,6 +77,6 @@
   color: red;
 }
 
-.visit-status, .unknown-patient {
-  @include visit-status;
+.unknown-patient {
+  @include status-container;
 }
