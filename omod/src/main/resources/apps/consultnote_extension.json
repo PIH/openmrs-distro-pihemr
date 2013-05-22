@@ -4,7 +4,17 @@
         "extensionPointId": "org.openmrs.referenceapplication.consult.note.config",
         "type": "config",
         "extensionParams": {
-            "title": "emr.clinic.consult.title"
+            "title": "emr.clinic.consult.title",
+            "additionalObservationsConfig": [
+                {
+                    "id": "appointmentDate",
+                    "widget": "datetimepicker",
+                    "useTime": false,
+                    "formFieldName": "additionalObservations",
+                    "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
+                }
+            ]
+
         }
     },
     {
@@ -16,6 +26,7 @@
             "additionalObservationsConfig": [
                 {
                     "id": "traumaQuestion",
+                    "widget": "observation",
                     "fieldProvider": "uicommons",
                     "field": "radioButtons",
                     "formFieldName": "additionalObservations",
@@ -25,6 +36,7 @@
                 },
                 {
                     "id": "traumaTypes",
+                    "widget": "observation",
                     "fieldProvider": "emr",
                     "field": "dropDown",
                     "formFieldName": "additionalObservations",
@@ -33,9 +45,16 @@
                     "classes": ["required"],
                     "depends": {
                         "variable": "traumaQuestion",
-                        "value": "{&quot;concept&quot;:&quot;f8134959-62d2-4f94-af6c-3580312b07a0&quot;, &quot;value_coded&quot;: &quot;3cd6f600-26fe-102b-80cb-0017a47871b2&quot;}",
-                        "disable": "{&quot;concept&quot;:&quot;f8134959-62d2-4f94-af6c-3580312b07a0&quot;, &quot;value_coded&quot;: &quot;3cd6f86c-26fe-102b-80cb-0017a47871b2&quot;}"
+                        "value": "{&quot;concept&quot;:&quot;f8134959-62d2-4f94-af6c-3580312b07a0&quot;, &quot;value&quot;: &quot;3cd6f600-26fe-102b-80cb-0017a47871b2&quot;, &quot;datatype&quot;: &quot;Coded&quot;}",
+                        "disable": "{&quot;concept&quot;:&quot;f8134959-62d2-4f94-af6c-3580312b07a0&quot;, &quot;value&quot;: &quot;3cd6f86c-26fe-102b-80cb-0017a47871b2&quot;, &quot;datatype&quot;: &quot;Coded&quot;}"
                     }
+                },
+                {
+                    "id": "appointmentDate",
+                    "widget": "datetimepicker",
+                    "useTime": false,
+                    "formFieldName": "additionalObservations",
+                    "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
                 }
             ]
         }
