@@ -5,26 +5,83 @@
   min-height: 300px;
 }
 
+.actions {
+  @include border-radius(3px);
+  display: inline-block;
+  float: right;
+  text-align: right;
+  font-size: 0.85em;
+  position: relative;
+  z-index: 999;
+  top: 20px;
+  padding: 5px 12px;
+  background: lighten($text,20%);
+  margin-right: 7px;
+
+  i {
+    font-size: 1.2em;
+  }
+
+  .dropdown-name {
+    width: 200px;
+    color: white;
+
+    i {
+      margin-left: 7px;
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  ul {
+    position: absolute;
+    right: 0;
+    display: none;
+
+    li {
+      background: white;
+      width: 200px;
+      padding: 5px;
+      text-align: left;
+      border: 1px solid #ccc;
+      border-bottom: none;
+
+      &:last-child {
+        border-bottom: 1px solid #ccc;
+      }
+
+      a {
+        display: block;
+      }
+
+      &:hover {
+        background: $link;
+        
+        a, i {
+          text-decoration: none;
+          color: white;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    ul {
+      display: block;
+    }
+  }
+
+  div {
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
 .dashboard-container {
     display: inline-block;
     width: 100%;
     min-height: 30%;
-
-    .actions {
-      font-size: 0.85em;
-      text-align: right;
-      margin-top: 25px;
-      margin-bottom: -40px;
-
-      i {
-        font-size: 1.2em;
-      }
-
-      div {
-        display: inline-block;
-        margin: 0 5px;
-      }
-    }
+    margin-top: -20px;
 
   .contact-info {
     ul li {
