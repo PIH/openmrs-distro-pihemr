@@ -1,6 +1,6 @@
 [
     {
-        "uuid": "emrapi-admitToHospital",
+        "uuid": "admitToHospital",
         "name": "disposition.emrapi.admitToHospital",
         "conceptCode": "PIH:ADMIT TO HOSPITAL",
         "actions": [
@@ -12,16 +12,17 @@
                 "module": "emr",
                 "fragment": "field/location",
                 "fragmentConfig": {
-                    "id": "emrapi-admitToHospital",
+                    "id": "admitToHospital",
                     "formFieldName": "admitToLocationId",
                     "label": "disposition.emrapi.admitToHospital.admissionLocation",
-                    "withTag": "Admission Location"
+                    "withTag": "Admission Location",
+                    "classes": ["required"]
                 }
             }
         ]
     },
     {
-        "uuid": "emrapi-discharge",
+        "uuid": "discharge",
         "name": "disposition.emrapi.discharge",
         "conceptCode": "PIH:DISCHARGED",
         "actions": [
@@ -30,7 +31,7 @@
         "clientSideActions": []
     },
     {
-        "uuid": "emrapi-markPatientDead",
+        "uuid": "markPatientDead",
         "name": "disposition.emrapi.death",
         "conceptCode": "PIH:DEATH",
         "actions": [
@@ -43,7 +44,7 @@
                 "module": "emr",
                 "fragment": "field/date",
                 "fragmentConfig": {
-                    "uuid": "emrapi-markPatientDead",
+                    "uuid": "markPatientDead",
                     "id": "deathDate",
                     "formFieldName": "deathDate",
                     "label": "disposition.emrapi.death.deathDate"
@@ -52,21 +53,21 @@
         ]
     },
     {
-        "uuid": "emrapi-leftWithoutSeeingAClinician",
+        "uuid": "leftWithoutSeeingAClinician",
         "name": "disposition.emrapi.leftWithoutSeeingAClinician",
         "conceptCode": "PIH:Left without seeing a clinician",
         "actions": [],
         "clientSideActions": []
     },
     {
-        "uuid": "emrapi-leftWithoutCompletionOfTreatment",
+        "uuid": "leftWithoutCompletionOfTreatment",
         "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
         "conceptCode": "PIH:Departed without medical discharge",
         "actions": [],
         "clientSideActions": []
     },
     {
-        "uuid": "emrapi-transferOutOfHospital",
+        "uuid": "transferOutOfHospital",
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
         "actions": [
@@ -78,15 +79,16 @@
                 "module": "mirebalais",
                 "fragment": "field/sites",
                 "fragmentConfig": {
-                    "id": "emrapi-transferOutOfHospital",
+                    "id": "transferOutOfHospital",
                     "formFieldName": "valueCoded",
-                    "label": "disposition.emrapi.transferOutOfHospital.sites"
+                    "label": "disposition.emrapi.transferOutOfHospital.sites",
+                    "classes": [ "required" ]
                 }
             }
         ]
     },
     {
-        "uuid": "emrapi-transferWithinHospital",
+        "uuid": "transferWithinHospital",
         "name": "disposition.emrapi.transferInHospital",
         "conceptCode": "PIH:Transfer within hospital",
         "actions": [
@@ -98,10 +100,11 @@
                 "module": "emr",
                 "fragment": "field/location",
                 "fragmentConfig": {
-                    "id": "emrapi-transferWithinHospital",
+                    "id": "transferWithinHospital",
                     "formFieldName": "transferToLocationId",
                     "label": "disposition.emrapi.transferInHospital.transferToLocation",
-                    "withTag": "Admission Location"
+                    "withTag": "Admission Location",
+                    "classes": [ "required" ]
                 }
             }
         ]
