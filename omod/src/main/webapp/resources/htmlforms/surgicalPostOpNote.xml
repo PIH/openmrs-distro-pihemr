@@ -180,6 +180,10 @@
             <variant locale="en" value="no"/>
             <variant locale="fr" value="non"/>
         </code>
+        <code name="submit_text">
+            <variant locale="en" value="Save"/>
+            <variant locale="fr" value="Conserver"/>
+        </code>
     </translations>
 
     <h2><label><uimessage code="surgical_note"/></label></h2>
@@ -443,5 +447,5 @@
         </p>
     </section>
     <br />
-    <submit submitClass="confirm"/>
+    <submit submitClass="confirm" submitCode="submit_text" />
 </htmlform>
