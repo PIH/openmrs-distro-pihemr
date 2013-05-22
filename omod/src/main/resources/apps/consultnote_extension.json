@@ -4,17 +4,7 @@
         "extensionPointId": "org.openmrs.referenceapplication.consult.note.config",
         "type": "config",
         "extensionParams": {
-            "title": "emr.clinic.consult.title",
-            "additionalObservationsConfig": [
-                {
-                    "id": "appointmentDate",
-                    "widget": "datetimepicker",
-                    "useTime": false,
-                    "formFieldName": "additionalObservations",
-                    "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
-                }
-            ]
-
+            "title": "emr.clinic.consult.title"
         }
     },
     {
