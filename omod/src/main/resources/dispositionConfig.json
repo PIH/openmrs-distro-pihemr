@@ -48,7 +48,9 @@
                     "id": "deathDate",
                     "useTime": false,
                     "formFieldName": "deathDate",
-                    "label": "disposition.emrapi.death.deathDate"
+                    "label": "disposition.emrapi.death.deathDate",
+                    "defaultToday": true,
+                    "classes": [ "required" ]
                 }
             }
         ]
