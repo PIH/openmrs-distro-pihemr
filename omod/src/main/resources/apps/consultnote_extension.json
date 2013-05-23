@@ -4,7 +4,17 @@
         "extensionPointId": "org.openmrs.referenceapplication.consult.note.config",
         "type": "config",
         "extensionParams": {
-            "title": "emr.clinic.consult.title"
+            "title": "emr.clinic.consult.title",
+            "additionalObservationsConfig": [
+                {
+                    "id": "appointmentDate",
+                    "fieldProvider": "uicommons",
+                    "field": "datetimepicker",
+                    "useTime": false,
+                    "formFieldName": "additionalObservations",
+                    "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
+                }
+            ]
         }
     },
     {
@@ -16,20 +26,18 @@
             "additionalObservationsConfig": [
                 {
                     "id": "traumaQuestion",
-                    "widget": "observation",
                     "fieldProvider": "uicommons",
                     "field": "radioButtons",
-                    "formFieldName": "additionalObservations",
+                    "formFieldName": "traumaQuestion",
                     "concept": "f8134959-62d2-4f94-af6c-3580312b07a0",
                     "classes": ["required"],
                     "dependency": true
                 },
                 {
                     "id": "traumaTypes",
-                    "widget": "observation",
                     "fieldProvider": "emr",
                     "field": "dropDown",
-                    "formFieldName": "additionalObservations",
+                    "formFieldName": "traumaTypes",
                     "concept": "7c5ef8cd-3c2b-46c1-b995-20e52c11ce94",
                     "emptyOptionLabel": "emr.consult.trauma.choose",
                     "classes": ["required"],
@@ -41,9 +49,10 @@
                 },
                 {
                     "id": "appointmentDate",
-                    "widget": "datetimepicker",
+                    "fieldProvider": "uicommons",
+                    "field": "datetimepicker",
                     "useTime": false,
-                    "formFieldName": "additionalObservations",
+                    "formFieldName": "appointmentDate",
                     "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
                 }
             ]

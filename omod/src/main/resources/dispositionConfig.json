@@ -42,11 +42,11 @@
         "clientSideActions": [
             {
                 "action": "include-fragment",
-                "module": "emr",
-                "fragment": "field/date",
+                "module": "uicommons",
+                "fragment": "field/datetimepicker",
                 "fragmentConfig": {
-                    "uuid": "markPatientDead",
                     "id": "deathDate",
+                    "useTime": false,
                     "formFieldName": "deathDate",
                     "label": "disposition.emrapi.death.deathDate"
                 }
