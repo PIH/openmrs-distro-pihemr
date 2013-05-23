@@ -242,7 +242,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(EmrApiConstants.GP_UNKNOWN_LOCATION, "8d6c993e-c2cc-11de-8d13-0010c6dffd0f");
 
         setExistingGlobalProperty(EmrApiConstants.GP_ADMISSION_ENCOUNTER_TYPE, "260566e1-c909-4d61-a96f-c1019291a09d");
-        setExistingGlobalProperty(EmrApiConstants.GP_DISCHARGE_ENCOUNTER_TYPE, "b6631959-2105-49dd-b154-e1249e0fbcd7");
+        setExistingGlobalProperty(EmrApiConstants.GP_EXIT_FROM_INPATIENT_ENCOUNTER_TYPE, "b6631959-2105-49dd-b154-e1249e0fbcd7");
         setExistingGlobalProperty(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE, "436cfe33-6b81-40ef-a455-f134a9f7e580");
     }
 

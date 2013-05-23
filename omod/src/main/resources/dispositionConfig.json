@@ -35,6 +35,7 @@
         "name": "disposition.emrapi.death",
         "conceptCode": "PIH:DEATH",
         "actions": [
+            "dischargeIfAdmittedDispositionAction",
             "closeCurrentVisitDispositionAction",
             "markPatientDeadDispositionAction"
         ],
@@ -56,14 +57,18 @@
         "uuid": "leftWithoutSeeingAClinician",
         "name": "disposition.emrapi.leftWithoutSeeingAClinician",
         "conceptCode": "PIH:Left without seeing a clinician",
-        "actions": [],
+        "actions": [
+            "dischargeIfAdmittedDispositionAction"
+        ],
         "clientSideActions": []
     },
     {
         "uuid": "leftWithoutCompletionOfTreatment",
         "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
         "conceptCode": "PIH:Departed without medical discharge",
-        "actions": [],
+        "actions": [
+            "dischargeIfAdmittedDispositionAction"
+        ],
         "clientSideActions": []
     },
     {
@@ -71,7 +76,8 @@
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
         "actions": [
-                "addObsToGroupDispositionAction"
+            "addObsToGroupDispositionAction",
+            "dischargeIfAdmittedDispositionAction"
         ],
         "clientSideActions": [
             {
