@@ -65,9 +65,6 @@
         <require_module version="${uicommonsVersion}">
             org.openmrs.module.uicommons
         </require_module>
-        <require_module version="${registrationappVersion}">
-            org.openmrs.module.registrationapp
-        </require_module>
         <require_module version="${radiologyappVersion}">
             org.openmrs.module.radiologyapp
         </require_module>
