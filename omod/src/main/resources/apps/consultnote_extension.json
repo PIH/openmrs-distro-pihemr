@@ -11,7 +11,8 @@
                     "fieldProvider": "uicommons",
                     "field": "datetimepicker",
                     "useTime": false,
-                    "formFieldName": "additionalObservations",
+                    "startToday": true,
+                    "formFieldName": "appointmentDate",
                     "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
                 }
             ]
@@ -52,6 +53,7 @@
                     "fieldProvider": "uicommons",
                     "field": "datetimepicker",
                     "useTime": false,
+                    "startToday": true,
                     "formFieldName": "appointmentDate",
                     "concept": "3ce94df0-26fe-102b-80cb-0017a47871b2"
                 }
