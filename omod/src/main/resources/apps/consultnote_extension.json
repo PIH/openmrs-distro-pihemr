@@ -5,6 +5,7 @@
         "type": "config",
         "extensionParams": {
             "title": "emr.clinic.consult.title",
+            "successMessage": "emr.consult.successMessage",
             "additionalObservationsConfig": [
                 {
                     "id": "appointmentDate",
@@ -24,6 +25,7 @@
         "type": "config",
         "extensionParams": {
             "title": "emr.ed.consult.title",
+            "successMessage": "emr.ed.consult.successMessage",
             "additionalObservationsConfig": [
                 {
                     "id": "traumaQuestion",
