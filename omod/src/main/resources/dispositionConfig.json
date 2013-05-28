@@ -112,7 +112,7 @@
                     "id": "transferWithinHospital",
                     "formFieldName": "transferToLocationId",
                     "label": "disposition.emrapi.transferInHospital.transferToLocation",
-                    "withTag": "Admission Location",
+                    "withTag": "Transfer Location",
                     "classes": [ "required" ]
                 }
             }
