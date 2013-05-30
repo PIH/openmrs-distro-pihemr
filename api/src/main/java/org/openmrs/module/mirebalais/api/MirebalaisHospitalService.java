@@ -59,6 +59,8 @@ public interface MirebalaisHospitalService extends OpenmrsService {
 	RemoteIdentifierSource getRemoteZlIdentifierSource();
 	
 	PatientIdentifierType getZlIdentifierType();
+
+    PatientIdentifierType getLacollineDossierIdentifierType();
 	
 	SequentialIdentifierGenerator getDossierSequenceGenerator();
 	

@@ -226,7 +226,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         // paper record location = Mirebalais
         setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
-        setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "e66645eb-03a8-4991-b4ce-e87318e37566,139766e8-15f5-102d-96e4-000c29c2a5d7");
+        setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "e66645eb-03a8-4991-b4ce-e87318e37566,139766e8-15f5-102d-96e4-000c29c2a5d7,9dbea4d4-35a9-4793-959e-952f2a9f5347");
 
         setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
         setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
@@ -316,7 +316,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Map<String, PatientIdentifierType> identifierTypeMap = new HashMap<String, PatientIdentifierType>();
         identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getService(MirebalaisHospitalService.class).getZlIdentifierType());
         // TODO create PatientIdentifierType for Lacolline KE dossier number
-
+        identifierTypeMap.put("e66645eb-03a8-4991-b4ce-e87318e37566", Context.getService(MirebalaisHospitalService.class).getLacollineDossierIdentifierType());
         // TODO create PatientIdentifierType for Lacolline dental dossier number
 
         Map<String, Location> locationMap = new HashMap<String, Location>();

@@ -4,12 +4,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.importpatientfromws.RemotePatient;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -101,7 +104,15 @@ public class FindPatientPageController {
             if(remotePatient!=null){
                 //import the patient
                 try{
-                    Patient patient = Context.getPatientService().savePatient(remotePatient.getPatient());
+                    Patient patient = remotePatient.getPatient();
+                    PatientIdentifierType zlIdentifierType = Context.getService(MirebalaisHospitalService.class).getZlIdentifierType();
+                    if(zlIdentifierType!=null && patient!=null){
+                        PatientIdentifier patientIdentifier = patient.getPatientIdentifier(zlIdentifierType);
+                        if(patientIdentifier!=null){
+                            patientIdentifier.setPreferred(true);
+                        }
+                    }
+                    patient = Context.getPatientService().savePatient(patient);
                     if(patient!=null){
                         request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, ui.message("mirebalais.mpi.import.success", ui.format(patient)));
                         request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
