@@ -30,7 +30,7 @@ public class MirebalaisConstants {
 	
 	public static final String DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "e66645eb-03a8-4991-b4ce-e87318e37566";
 
-    public static final String LACOLLINE_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "9dbea4d4-35a9-4793-959e-952f2a9f5347";
+    public static final String EXTERNAL_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "9dbea4d4-35a9-4793-959e-952f2a9f5347";
 	
 	public static final String LOCAL_ZL_IDENTIFIER_POOL_UUID = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 	

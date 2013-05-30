@@ -146,9 +146,9 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	}
 
     @Override
-    public PatientIdentifierType getLacollineDossierIdentifierType() {
+    public PatientIdentifierType getExternalDossierIdentifierType() {
         PatientIdentifierType lacollineDossierIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
-                MirebalaisConstants.LACOLLINE_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
+                MirebalaisConstants.EXTERNAL_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
         if (lacollineDossierIdentifierType == null) {
             throw new IllegalStateException("Lacolline Dossier Identifier Type has not been configured");
         }
