@@ -82,9 +82,19 @@ ${ ui.includeFragment("appui", "header") }
 
 <script type="text/javascript">
 	document.getElementById('username').focus();
+
     updateSelectedOption = function() {
         \$('#sessionLocation li').removeClass('selected');
         \$('#sessionLocation li[value|=' + \$('#sessionLocationInput').val() + ']').addClass('selected');
+
+        var sessionLocationVal = \$('#sessionLocationInput').val();
+        if(parseInt(sessionLocationVal, 10) > 0){
+            \$('#login-button').removeClass('disabled');
+            \$('#login-button').removeAttr('disabled');
+        }else{
+            \$('#login-button').addClass('disabled');
+            \$('#login-button').attr('disabled','disabled');
+        }
     };
 
     \$(function() {
