@@ -43,7 +43,8 @@
     text-align: right;
     margin-left: 20px;
     em {
-      width: 120px;
+      max-width: 170px;
+      min-width: 120px;
       display: inline-block;
       color: #888;
       font-style: normal;
