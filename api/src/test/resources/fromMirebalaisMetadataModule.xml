@@ -10,4 +10,9 @@
                              required="false"
                              validator="org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator" retired="false"
                              uuid="e66645eb-03a8-4991-b4ce-e87318e37566"/>
+    <patient_identifier_type patient_identifier_type_id="102" name="Lacolline Nimewo Dosye" description="Lacolline Patient's Dossier number"
+                             format="" check_digit="false" creator="1" date_created="2005-09-22 00:00:00.0"
+                             required="false"
+                             validator="org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator" retired="false"
+                             uuid="9dbea4d4-35a9-4793-959e-952f2a9f5347"/>
 </dataset>
