@@ -80,6 +80,7 @@
         <registrationcoreVersion>1.0-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
+        <coreappsVersion>1.0-SNAPSHOT</coreappsVersion>
     </properties>
 
 
