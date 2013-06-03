@@ -226,6 +226,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         // paper record location = Mirebalais
         setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
+        setExistingGlobalProperty(EmrConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, "9dbea4d4-35a9-4793-959e-952f2a9f5347");
         setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "e66645eb-03a8-4991-b4ce-e87318e37566,139766e8-15f5-102d-96e4-000c29c2a5d7");
 
         setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
