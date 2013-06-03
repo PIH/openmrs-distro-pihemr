@@ -13,16 +13,15 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
@@ -52,7 +51,7 @@ public class HomePageController {
 			
 		}
 		
-		Collections.sort(extensions, new ExtensionComparator());
+		Collections.sort(extensions);
 		model.addAttribute("extensions", extensions);
 	}
 
@@ -62,15 +61,6 @@ public class HomePageController {
         }
         String featureToggle = (String) extension.getExtensionParams().get("featureToggle");
         return featureToggle != null && !featureToggleProperties.isFeatureEnabled(featureToggle);
-    }
-
-    private class ExtensionComparator implements Comparator<Extension> {
-		
-		@Override
-		public int compare(Extension ext1, Extension ext2) {
-			return (ext1.getOrder() == ext2.getOrder() ? 0 : (ext1.getOrder() > ext2.getOrder() ? 1 : -1));
-		}
-		
 	}
 	
 }
