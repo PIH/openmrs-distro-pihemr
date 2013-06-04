@@ -38,6 +38,9 @@
         <require_module version="${htmlformentry19extVersion}">
             org.openmrs.module.htmlformentry19ext
         </require_module>
+        <require_module version="${htmlformentryuiVersion}">
+            org.openmrs.module.htmlformentryui
+        </require_module>
         <require_module version="${calculationVersion}">
             org.openmrs.calculation
         </require_module>

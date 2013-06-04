@@ -176,6 +176,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>htmlformentryui-omod</artifactId>
+                    <version>${htmlformentryuiVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>calculation-omod</artifactId>
                     <version>${calculationVersion}</version>
                     <scope>provided</scope>

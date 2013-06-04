@@ -57,6 +57,7 @@
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <htmlformentryVersion>2.1.1</htmlformentryVersion>
         <htmlformentry19extVersion>1.2</htmlformentry19extVersion>
+        <htmlformentryuiVersion>1.0-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.0</calculationVersion>
         <reportingVersion>0.7.6</reportingVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
