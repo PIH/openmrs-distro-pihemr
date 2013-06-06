@@ -54,21 +54,39 @@
     </div>
 
     <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="Check-in">
-        <fieldset>
-            <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
-            <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
 
-            <p class="left">
+            <fieldset>
+                <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
+                <h3><uimessage code="emr.retrospectiveCheckin.visitType.label"/></h3>
+
+                <p class="left">
+                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="7" />
+                </p>
+
+                <!-- TODO: handle this is 'EDIT' mode as well -->
+                <ifMode mode="ENTER">
+
+                </ifMode>
+            </fieldset>
+            <fieldset>
+                <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
+                <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
                 <obsgroup groupingConceptId="PIH:Payment construct">
+<<<<<<< Updated upstream
                     <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
+=======
+                    <p class="left">
+                        <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
+                    </p>
+>>>>>>> Stashed changes
                 </obsgroup>
-            </p>
+                <!-- TODO: handle this is 'EDIT' mode as well -->
+                <ifMode mode="ENTER">
 
-            <!-- TODO: handle this is 'EDIT' mode as well -->
-            <ifMode mode="ENTER">
+                </ifMode>
+            </fieldset>
 
-            </ifMode>
-        </fieldset>
+
 
     </section>
 
