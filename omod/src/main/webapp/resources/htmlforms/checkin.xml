@@ -72,13 +72,9 @@
                 <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
                 <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
                 <obsgroup groupingConceptId="PIH:Payment construct">
-<<<<<<< Updated upstream
-                    <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
-=======
                     <p class="left">
                         <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
                     </p>
->>>>>>> Stashed changes
                 </obsgroup>
                 <!-- TODO: handle this is 'EDIT' mode as well -->
                 <ifMode mode="ENTER">
