@@ -22,7 +22,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         });
         jq('#actions .confirm').click(function() {
             emr.navigateTo({
-                applicationUrl: '${ enterFormUrl }'
+                provider: "htmlformentryui",
+                page: "htmlform/enterHtmlFormWithSimpleUi",
+                query: {
+                    patientId: "${ patient.id }",
+                    definitionUiResource: "mirebalais:htmlforms/vitals.xml",
+                    returnUrl: "${ ui.escapeJs(ui.pageLink("mirebalais", "outpatientvitals/findPatient")) }",
+                    breadcrumbOverride: "${ ui.escapeJs(breadcrumbOverride) }"
+                }
             });
         });
         jq('#actions button').first().focus();
