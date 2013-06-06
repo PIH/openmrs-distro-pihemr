@@ -10,7 +10,7 @@
     ];
 </script>
 
-${ ui.includeFragment("emr", "patientHeader", [ patient: patient.patient ]) }
+${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <script type="text/javascript">
     jq(function() {

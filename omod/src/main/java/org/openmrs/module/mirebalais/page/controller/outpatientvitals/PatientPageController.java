@@ -17,18 +17,21 @@ package org.openmrs.module.mirebalais.page.controller.outpatientvitals;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.Patient;
+import org.openmrs.api.FormService;
 import org.openmrs.module.emr.EmrContext;
-import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -39,23 +42,28 @@ public class PatientPageController {
                            UiUtils ui,
                            EmrContext emrContext,
                            PageModel model,
-                           @InjectBeans PatientDomainWrapper patientDomainWrapper,
-                           @InjectBeans EnterHtmlFormWithSimpleUiTask enterFormTask) {
+                           @SpringBean FormService formService,
+                           @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
         patientDomainWrapper.setPatient(patient);
 
-        enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/vitals.xml");
-        enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
         SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.outpatientVitals.title"), "link", ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
         SimpleObject patientPageBreadcrumb = SimpleObject.create("label", patient.getFamilyName() + ", " + patient.getGivenName(), "link", ui.thisUrlWithContextPath());
-        enterFormTask.setBreadcrumbOverride(ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
-        Form form = enterFormTask.getHtmlForm().getForm();
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("patientId", patient.getId());
+        params.put("definitionUiResource", "mirebalais:htmlforms/vitals.xml");
+        params.put("returnUrl", ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
+        params.put("breadcrumbOverride", ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
+        String enterFormUrl = ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi", params);
+
+        Form outpatientVitalsForm = formService.getFormByUuid("68728aa6-4985-11e2-8815-657001b58a90");
 
         List<Encounter> existingEncounters = new ArrayList<Encounter>();
         if (emrContext.getActiveVisit() != null) {
             for (Encounter encounter : emrContext.getActiveVisit().getVisit().getEncounters()) {
                 if (!encounter.isVoided()
-                        && form.equals(encounter.getForm())) {
+                        && outpatientVitalsForm.equals(encounter.getForm())) {
                     existingEncounters.add(encounter);
                 }
             }
@@ -63,6 +71,6 @@ public class PatientPageController {
 
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("patient", patientDomainWrapper);
-        model.addAttribute("enterFormUrl", enterFormTask.getUrl(emrContext));
+        model.addAttribute("enterFormUrl", enterFormUrl);
     }
 }
