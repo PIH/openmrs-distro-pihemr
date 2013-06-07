@@ -266,18 +266,18 @@
         <p>
             <label><uimessage code="pre_op_diagnoses"/></label>
 
-            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
+            <obs conceptId="PIH:Pre-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
 
         </p>
 
         <p>
             <label><uimessage code="post_op_diagnoses"/></label>
 
-            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
+            <obs conceptId="PIH:Post-surgery diagnosis" answerClasses="Diagnosis,Finding,Symptom,Symptom/Finding" style="autocomplete"/>
 
         </p>
 
