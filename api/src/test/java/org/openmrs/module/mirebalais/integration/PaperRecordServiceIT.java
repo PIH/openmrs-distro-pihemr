@@ -94,6 +94,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		
 		Location location = new Location(15);
 		LocationTag locationTag = new LocationTag(15);
+		locationTag.setName("tag");
 		location.addTag(locationTag);
 		when(paperRecordProperties.getMedicalRecordLocationLocationTag()).thenReturn(locationTag);
 		
