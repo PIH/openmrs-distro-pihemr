@@ -20,6 +20,7 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 @SkipBaseSetup
@@ -50,6 +51,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     @DirtiesContext
     public void testThatActivatorDoesAllSetup() throws Exception {
         MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+
 
         IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
         RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
@@ -83,6 +85,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
         assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
         assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
+        assertTrue(Context.getService(IdentifierSourceService.class).getAutoGenerationOption(dossierNumberIdentifierType).isManualEntryEnabled());
 
         assertNotNull(Context.getService(ImportPatientFromWebService.class).getRemoteServers().get("lacolline"));
     }

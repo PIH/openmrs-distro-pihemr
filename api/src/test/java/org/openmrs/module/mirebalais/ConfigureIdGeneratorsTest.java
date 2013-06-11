@@ -226,7 +226,7 @@ public class ConfigureIdGeneratorsTest {
 		when(identifierSourceService.getAutoGenerationOption(patientIdentifierType)).thenReturn(null);
 		
 		IdentifierPool localZlIdentifierPool = new IdentifierPool();
-		configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
+		configureIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool) ;
 		AutoGenerationOption autoGen = buildAutoGenerationOptionsAsExpected(patientIdentifierType, localZlIdentifierPool);
 		
 		verify(identifierSourceService).saveAutoGenerationOption(any(AutoGenerationOption.class));

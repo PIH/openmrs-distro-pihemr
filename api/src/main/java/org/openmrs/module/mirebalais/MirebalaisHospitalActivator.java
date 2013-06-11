@@ -143,7 +143,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
                 .sequentialIdentifierGeneratorToDossier(dossierIdentifierType);
-        configureIdGenerators.autoGenerationOptions(sequentialIdentifierGenerator);
+
+        configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator);
     }
 
     private void createPatientIdGenerator(MirebalaisHospitalService service) {
@@ -151,7 +152,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators.remoteZlIdentifierSource(zlIdentifierType);
         IdentifierPool localZlIdentifierPool = configureIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
-        configureIdGenerators.autoGenerationOptions(localZlIdentifierPool);
+
+        configureIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
+
     }
 
     /**

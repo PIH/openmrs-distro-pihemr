@@ -31,15 +31,40 @@ public class ConfigureIdGenerators {
 		
 	}
 	
-	public void autoGenerationOptions(IdentifierSource identifierSource) {
-		AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
-		        .getIdentifierType());
-		if (autoGenerationOption == null) {
-			AutoGenerationOption autoGen = buildZlIdentifierAutoGenerationOptions(identifierSource);
-			identifierSourceService.saveAutoGenerationOption(autoGen);
-		}
-	}
-	
+	public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource) {
+
+        AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
+                .getIdentifierType());
+        if (autoGenerationOption == null) {
+            autoGenerationOption = new AutoGenerationOption();
+        }
+
+        autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
+        autoGenerationOption.setSource(identifierSource);
+        autoGenerationOption.setManualEntryEnabled(true);
+        autoGenerationOption.setAutomaticGenerationEnabled(true);
+
+        identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
+
+    }
+
+    public void setAutoGenerationOptionsForZlIdentifier(IdentifierSource identifierSource) {
+
+        AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
+                .getIdentifierType());
+        if (autoGenerationOption == null) {
+            autoGenerationOption = new AutoGenerationOption();
+        }
+
+        autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
+        autoGenerationOption.setSource(identifierSource);
+        autoGenerationOption.setManualEntryEnabled(false);
+        autoGenerationOption.setAutomaticGenerationEnabled(true);
+
+        identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
+
+    }
+
 	public IdentifierPool localZlIdentifierSource(RemoteIdentifierSource remoteZlIdentifierSource) {
 		IdentifierPool localZlIdentifierPool;
 		try {
@@ -66,16 +91,7 @@ public class ConfigureIdGenerators {
 		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
 		return remoteZlIdentifierSource;
 	}
-	
-	private AutoGenerationOption buildZlIdentifierAutoGenerationOptions(IdentifierSource identifierSource) {
-		AutoGenerationOption autoGen = new AutoGenerationOption();
-		autoGen.setIdentifierType(identifierSource.getIdentifierType());
-		autoGen.setSource(identifierSource);
-		autoGen.setManualEntryEnabled(false);
-		autoGen.setAutomaticGenerationEnabled(true);
-		return autoGen;
-	}
-	
+
 	private IdentifierPool buildLocalZlIdentifierPool(RemoteIdentifierSource remoteZlIdentifierSource) {
 		IdentifierPool localPool = new IdentifierPool();
 		localPool.setName("Local Pool of ZL Identifiers");
