@@ -102,4 +102,6 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="emr.exitFromInpatientEncounterType" property_value="" uuid="a15894e8-bd00-11e2-ad5b-8a6456859764"/>
     <global_property property="emr.transferWithinHospitalEncounterType" property_value="" uuid="57499872-bdc1-11e2-ad5b-8a6456859764"/>
 
+    <global_property property="coreapps.defaultPatientIdentifierLocation" property_value="" uuid="87499872-bdc1-11e2-ad5b-8a6454449764"/>
+
 </dataset>
