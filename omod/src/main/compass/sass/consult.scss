@@ -12,6 +12,29 @@
 }
 
 #consult-note {
+  #who-where-when-edit {
+    display: none;
+  }
+
+  #who-where-when-view {
+    margin-bottom: 30px;
+    td {
+      padding-left: 5px;
+      &:last-child {
+        width: 5%;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  #who-where-when-edit, #who-where-when-view {
+    p, td {
+      width: 30%;
+    }
+    p {
+      display: inline-block;
+    }
+  }
 
   #display-diagnoses {
     display: inline-block;
