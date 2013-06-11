@@ -19,6 +19,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
@@ -60,6 +61,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		patientService = mock(PatientService.class);
 		administrationService = mock(AdministrationService.class);
 		paperRecordProperties = mock(PaperRecordProperties.class);
+		when(paperRecordProperties.getMedicalRecordLocationLocationTag()).thenReturn(new LocationTag());
 		
 		((PaperRecordServiceImpl) paperRecordService).setAdministrationService(administrationService);
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
