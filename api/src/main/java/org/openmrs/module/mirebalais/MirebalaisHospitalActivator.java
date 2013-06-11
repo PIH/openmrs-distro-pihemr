@@ -25,6 +25,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountService;
@@ -99,6 +100,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupRadiologyGlobalProperties();
             setupMirebalaisGlobalProperties();
             setupPacsIntegrationGlobalProperties();
+            setupCoreAppsGlobalProperties();
             setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
             setupConnectionToMasterPatientIndex();
             injectProviderIdentifierGenerator();
@@ -267,6 +269,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(NamePhoneticsConstants.MIDDLE_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
         setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME_GLOBAL_PROPERTY, "Double Metaphone Alternate");
         setExistingGlobalProperty(NamePhoneticsConstants.FAMILY_NAME2_GLOBAL_PROPERTY, "Double Metaphone Alternate");
+    }
+
+    private void setupCoreAppsGlobalProperties() {
+        setExistingGlobalProperty(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, "a084f714-a536-473b-94e6-ec317b152b43");
     }
 
     private void setupCloseStalePullRequestsTask() {
