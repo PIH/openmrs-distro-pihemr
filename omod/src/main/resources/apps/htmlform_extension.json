@@ -4,19 +4,21 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.vitals.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&definitionUiResource=mirebalais:htmlforms/vitals.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/vitals.xml",
         "icon": "icon-vitals",
         "order": 34,
-        "requiredPrivilege": "Task: emr.enterClinicalForms"
+        "requiredPrivilege": "Task: emr.enterClinicalForms",
+        "require": "visit.active"
     },
     {
         "id": "mirebalais.surgicalOperativeNote",
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.surgicalOperativeNote.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=mirebalais:htmlforms/surgicalPostOpNote.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/surgicalPostOpNote.xml",
         "icon": "icon-paste",
         "order": 33,
-        "requiredPrivilege": "Task: emr.enterClinicalForms"
+        "requiredPrivilege": "Task: emr.enterClinicalForms",
+        "require": "visit.active"
     }
 ]
