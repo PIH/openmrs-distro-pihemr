@@ -44,6 +44,7 @@ import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
+import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.util.OpenmrsConstants;
 
 import java.util.Date;
@@ -95,6 +96,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
             setupCoreGlobalProperties();
+            setupUiFrameworkGlobalProperties();
             setupNamePhoneticsGlobalProperties();
             setupEmrGlobalProperties();
             setupRadiologyGlobalProperties();
@@ -197,6 +199,11 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_DIGIT, "false");
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_NON_DIGIT, "false");
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_UPPER_AND_LOWER_CASE, "false");
+    }
+
+    private void setupUiFrameworkGlobalProperties() {
+        setExistingGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT, "dd MMM yyyy");
+        setExistingGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATETIME_FORMAT, "dd MMM yyyy hh:mm aa");
     }
 
     private void setupMirebalaisGlobalProperties() {

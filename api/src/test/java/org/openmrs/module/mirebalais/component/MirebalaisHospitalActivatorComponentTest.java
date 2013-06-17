@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.component;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
@@ -31,8 +32,12 @@ import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -71,6 +76,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     @Test
     public void testThatActivatorDoesAllSetup() throws Exception {
         verifyGlobalPropertiesConfigured();
+        verifyDatetimeFormatting();
         verifyPacsIntegrationGlobalPropertiesConfigured();
         verifyLocationAttributeNotOverwritten();
         verifyMirebalaisProviderIdentifierGeneratorConfigured();
@@ -86,6 +92,13 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         assertEquals("false", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_NON_DIGIT));
         assertEquals("false", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_DIGIT));
         assertEquals("8", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_MINIMUM_LENGTH));
+    }
+
+    private void verifyDatetimeFormatting() {
+        Date sampleDate = new DateTime(2012, 2, 22, 14, 23, 22).toDate();
+
+        assertEquals("22 Feb 2012 02:23 PM", new SimpleDateFormat(adminService.getGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATETIME_FORMAT)).format(sampleDate));
+        assertEquals("22 Feb 2012", new SimpleDateFormat(adminService.getGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT)).format(sampleDate));
     }
 
     private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
