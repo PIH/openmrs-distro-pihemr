@@ -31,12 +31,7 @@
 
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-        <fieldset>
-            <legend>When?</legend>
-            <label>When?</label>
 
-            <encounterDate default="now" showTime="true"/>
-        </fieldset>
 
         <fieldset>
             <legend>Who?</legend>
@@ -54,6 +49,14 @@
     </div>
 
     <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="Check-in">
+
+            <fieldset>
+                <legend>Check-In Date</legend>
+                <label>Check-In Date</label>
+
+                <encounterDate default="now"/>
+            </fieldset>
+
 
             <fieldset>
                 <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
