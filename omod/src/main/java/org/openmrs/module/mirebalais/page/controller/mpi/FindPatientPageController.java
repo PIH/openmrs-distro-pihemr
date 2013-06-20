@@ -117,7 +117,7 @@ public class FindPatientPageController {
                         request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, ui.message("mirebalais.mpi.import.success", ui.format(patient)));
                         request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
                         removeFromCache(remoteUuid, session);
-                        return "redirect:" + ui.pageLink("emr", "patient?patientId=" + patient.getId().toString());
+                        return "redirect:" + ui.pageLink("coreapps", "patientdashboard/patientDashboard?patientId=" + patient.getId().toString());
                     }
                 }catch(Exception e){
                     log.error("failed to import patient", e);
