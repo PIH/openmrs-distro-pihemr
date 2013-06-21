@@ -52,9 +52,12 @@
 
             <fieldset>
                 <legend>Check-In Date</legend>
-                <label>Check-In Date</label>
+                <h3>Check-In Date</h3>
 
-                <encounterDate default="now"/>
+                <p class="left">
+                    <encounterDate default="now"/>
+                </p>
+
             </fieldset>
 
 
