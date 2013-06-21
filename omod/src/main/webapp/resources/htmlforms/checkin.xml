@@ -48,11 +48,11 @@
         </fieldset>
     </div>
 
-    <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="Check-in">
+    <section id="checkin" sectionTag="section" headerStyle="title" headerCode="emr.retrospectiveCheckin.label">
 
             <fieldset>
-                <legend>Check-In Date</legend>
-                <h3>Check-In Date</h3>
+                <legend><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></legend>
+                <h3><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></h3>
 
                 <p class="left">
                     <encounterDate default="now"/>
@@ -61,6 +61,7 @@
             </fieldset>
 
 
+            <!--
             <fieldset>
                 <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
                 <h3><uimessage code="emr.retrospectiveCheckin.visitType.label"/></h3>
@@ -68,12 +69,16 @@
                 <p class="left">
                     <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="7" />
                 </p>
-
+             -->
                 <!-- TODO: handle this is 'EDIT' mode as well -->
+             <!--
                 <ifMode mode="ENTER">
 
                 </ifMode>
             </fieldset>
+            -->
+
+
             <fieldset>
                 <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
                 <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>

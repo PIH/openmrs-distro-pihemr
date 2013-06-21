@@ -51,7 +51,7 @@
         "id": "mirebalais.checkin",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
-        "label": "mirebalais.checkin.title",
+        "label": "mirebalais.retrospectiveCheckin.title",
         "url": "mirebalais/checkin/findPatient.page",
         "icon": "icon-paste",
         "order": 6,
