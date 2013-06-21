@@ -73,8 +73,8 @@
             </li>
         </ul>
 
-        <button class="confirm right">${ ui.message("emr.confirm") }</button>
-        <button class="cancel">${ ui.message("emr.cancel") }</button>
+        <button class="confirm right">${ ui.message("emr.yes") }</button>
+        <button class="cancel">${ ui.message("emr.no") }</button>
     </div>
 </div>
 <%}%>
