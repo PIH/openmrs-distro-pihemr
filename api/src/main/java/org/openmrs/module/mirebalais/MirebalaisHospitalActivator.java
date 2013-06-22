@@ -30,6 +30,7 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
+import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -96,6 +97,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
             setupCoreGlobalProperties();
+            setupHtmlFormEntryGlobalProperties();
             setupUiFrameworkGlobalProperties();
             setupNamePhoneticsGlobalProperties();
             setupEmrGlobalProperties();
@@ -199,6 +201,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_DIGIT, "false");
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_NON_DIGIT, "false");
         setExistingGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_UPPER_AND_LOWER_CASE, "false");
+    }
+
+    private void setupHtmlFormEntryGlobalProperties() {
+        setExistingGlobalProperty(HtmlFormEntryConstants.GP_DATE_FORMAT, "dd MMM yyyy");
     }
 
     private void setupUiFrameworkGlobalProperties() {

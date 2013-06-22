@@ -107,4 +107,6 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="uiframework.formatter.dateAndTimeFormat" property_value="" uuid="87493272-bdc1-11e2-ad5b-8a6454449764"/>
     <global_property property="uiframework.formatter.dateFormat" property_value="" uuid="12499872-bdc1-11e2-ad5b-8a6454449764"/>
 
+    <global_property property="htmlformentry.dateFormat" property_value="" uuid="12499872-4444-11e2-ad5b-8a6454449764"/>
+
 </dataset>
