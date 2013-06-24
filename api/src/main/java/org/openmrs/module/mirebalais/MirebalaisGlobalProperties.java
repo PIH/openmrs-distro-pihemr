@@ -14,12 +14,17 @@
 package org.openmrs.module.mirebalais;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emr.EmrConstants;
 
 public class MirebalaisGlobalProperties {
 	
 	public static final String ADDRESS_LAYOUT_FORMAT() {
 		return Context.getAdministrationService().getGlobalProperty("layout.address.format");
 	}
+
+    public static final String PAPER_RECORD_IDENTIFIER_TYPE() {
+        return Context.getAdministrationService().getGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE);
+    }
 
     public static final String INSTALLED_ADDRESS_HIERARCHY_VERSION = "mirebalais.installedAddressHierarchyVersion";
 

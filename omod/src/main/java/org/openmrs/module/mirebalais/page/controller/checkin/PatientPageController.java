@@ -1,11 +1,16 @@
 package org.openmrs.module.mirebalais.page.controller.checkin;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
@@ -33,7 +38,19 @@ public class PatientPageController {
         enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/checkin.xml");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("patientId", patient.getId());
-        params.put("pullPaperRecord", true);
+        boolean createDossierNumber = true;
+        boolean pullPaperRecord = false;
+        String dossierType = MirebalaisGlobalProperties.PAPER_RECORD_IDENTIFIER_TYPE();
+        PatientIdentifierType patientIdentifierTypeByUuid = Context.getPatientService().getPatientIdentifierTypeByUuid(dossierType);
+        if(patientIdentifierTypeByUuid != null ){
+            PatientIdentifier patientDossier = patient.getPatientIdentifier(patientIdentifierTypeByUuid);
+            if(patientDossier != null && StringUtils.isNotBlank(patientDossier.getIdentifier())){
+                createDossierNumber = false;
+                pullPaperRecord = true;
+            }
+        }
+        params.put("createDossierNumber", createDossierNumber);
+        params.put("pullPaperRecord", pullPaperRecord);
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient", params));
         SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")), "link", ui.pageLink("mirebalais", "checkin/findPatient"));
         SimpleObject patientPageBreadcrumb = SimpleObject.create("label", ui.escapeJs(patient.getFamilyName()) + ", " + ui.escapeJs(patient.getGivenName()), "link", ui.thisUrlWithContextPath());
