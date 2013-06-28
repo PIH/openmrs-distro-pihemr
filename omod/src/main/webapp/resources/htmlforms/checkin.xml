@@ -27,7 +27,7 @@
             var today = new Date().toDateString();
 
             jq("#encounterDate select").css("display", "none");
-            jq('.hasDatepicker').datepicker('hide');
+            //jq('.hasDatepicker').datepicker('hide');
 
             // uncomment the next 2 lines if you want the day picker to display when the form gets loaded
             //jq('.hasDatepicker').datepicker('refresh');
@@ -83,7 +83,7 @@
                 <h3><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></h3>
 
                 <p class="left">
-                    <encounterDate id="encounterDate" showTime="true" default="now"/>
+                    <encounterDate id="encounterDate" showTime="false" default="now"/>
                 </p>
 
             </fieldset>
