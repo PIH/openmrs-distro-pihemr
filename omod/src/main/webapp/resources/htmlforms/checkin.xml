@@ -21,6 +21,34 @@
         }
     </style>
 
+    <script type="text/javascript">
+        jq(function(){
+
+            var today = new Date().toDateString();
+
+            jq("#encounterDate select").css("display", "none");
+            jq('.hasDatepicker').datepicker('hide');
+
+            // uncomment the next 2 lines if you want the day picker to display when the form gets loaded
+            //jq('.hasDatepicker').datepicker('refresh');
+            //jq('.hasDatepicker').datepicker('show');
+
+
+            beforeSubmit.push(function(){
+                var $encounterDateValue = getValue('encounterDate.value');
+                var parsedDate =jq.datepicker.parseDate("yy-mm-dd", $encounterDateValue);
+                if( today !== parsedDate.toDateString() ){
+                    //set hours, minutes and seconds to 00:00:00
+                    jq("[name$='hours']").val('0');
+                    jq("[name$='minutes']").val('0');
+                    jq("[name$='seconds']").val('0');
+                }
+                return true;
+            });
+
+        });
+    </script>
+
     <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
     <!-- TODO: handle this is 'EDIT' mode as well -->
     <ifMode mode="ENTER">
@@ -55,7 +83,7 @@
                 <h3><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></h3>
 
                 <p class="left">
-                    <encounterDate default="now"/>
+                    <encounterDate id="encounterDate" showTime="true" default="now"/>
                 </p>
 
             </fieldset>
