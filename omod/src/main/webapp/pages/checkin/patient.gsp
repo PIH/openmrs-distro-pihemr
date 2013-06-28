@@ -73,7 +73,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <div id="actions">
                     <button id="addCheckIn" class="confirm medium right">
                         <i class="icon-arrow-right"></i>
-                        ${ ui.message("mirebalais.checkin.confirm.addCheckIn.yes") }
+                        ${ ui.message("emr.yesContinue") }
                     </button>
 
                     <button class="cancel medium">

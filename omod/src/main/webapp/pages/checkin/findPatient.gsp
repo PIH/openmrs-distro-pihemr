@@ -43,7 +43,7 @@
             selector: '#create-dossier-number-dialog',
             actions: {
                 confirm: function() {
-                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'requestPaperRecord'
+                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'createDossierNumber'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
@@ -52,7 +52,7 @@
                             });
                 },
                 cancel: function() {
-                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'createDossierNumber'
+                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'requestPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
@@ -116,8 +116,8 @@
         <div class="dialog-content">
             <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.createDossier.where") }</p>
 
-            <button class="confirm right">${ ui.message("ui.i18n.Location.name.be50d584-26b2-4371-8768-2b9565742b3b") }</button>
-            <button class="cancel">${ ui.format(sessionContext.sessionLocation) }</button>
+            <button class="confirm right no-color">${ ui.format(sessionContext.sessionLocation) }</button>
+            <button class="cancel no-color">${ ui.message("ui.i18n.Location.name.be50d584-26b2-4371-8768-2b9565742b3b") }</button>
         </div>
     </div>
 <%} %>
