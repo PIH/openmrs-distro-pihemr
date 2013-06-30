@@ -109,8 +109,8 @@
 
                 // functions to handle updating the bmi when in ENTER mode
                 var updateBmi = function() {
-                    var wt = getValueIfLegal('weight_kg.value');
-                    var ht = getValueIfLegal('height_cm.value');
+                    var wt = htmlForm.getValueIfLegal('weight_kg.value');
+                    var ht = htmlForm.getValueIfLegal('height_cm.value');
 
                     var bmi = calculateBmi(wt, ht);
 

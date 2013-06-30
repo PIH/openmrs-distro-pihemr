@@ -188,6 +188,10 @@
             <variant locale="en" value="Location"/>
             <variant locale="fr" value="Lieu"/>
         </code>
+        <code name="date">
+            <variant locale="en" value="Date"/>
+            <variant locale="fr" value="Date"/>
+        </code>
     </translations>
 
     <h2><label><uimessage code="surgical_note"/></label></h2>
@@ -198,19 +202,19 @@
             <encounterProviderAndRole default="currentUser" encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af"
                                       required="true"/>
         </fieldset>
-
-        <fieldset>
-            <legend>Date</legend>
-            <encounterDate default="now" showTime="true"/>
-        </fieldset>
-
-        <fieldset>
-            <legend><uimessage code="location"/></legend>
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
     </div>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
+
+        <p>
+            <label><uimessage code="date"/></label>
+            <encounterDate id="encounterDate" default="now" />
+        </p>
+
+        <p>
+            <label><uimessage code="location"/></label>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </p>
 
         <p>
             <label><uimessage code="surgical_service"/></label>
