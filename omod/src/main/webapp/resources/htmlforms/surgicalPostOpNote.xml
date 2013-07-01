@@ -38,7 +38,7 @@
         </code>
         <code name="attending">
             <variant locale="en" value="Attending surgeon (required)"/>
-            <variant locale="fr" value="1° Chirurgien"/>
+            <variant locale="fr" value="1° Chirurgien (demandé)"/>
         </code>
         <code name="assistants">
             <variant locale="en" value="Assistants"/>
@@ -185,8 +185,8 @@
             <variant locale="fr" value="Conserver"/>
         </code>
         <code name="location">
-            <variant locale="en" value="Location"/>
-            <variant locale="fr" value="Lieu"/>
+            <variant locale="en" value="Location (required)"/>
+            <variant locale="fr" value="Lieu  (demandé)"/>
         </code>
         <code name="date">
             <variant locale="en" value="Date of surgery"/>
