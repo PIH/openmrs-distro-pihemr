@@ -125,5 +125,6 @@
 
 ${ ui.includeFragment("emr", "widget/findPatient", [
         targetPageProvider: "mirebalais",
-        targetPage: "checkin/patient"
+        targetPage: "checkin/patient",
+        formUrl: formUrl
 ]) }

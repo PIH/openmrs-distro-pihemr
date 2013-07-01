@@ -1,0 +1,91 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin" formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="1.0">
+    <style>
+
+        .encounter-summary-container {
+        font-size: 1em;
+        font-weight: normal;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+    </script>
+
+    <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
+    <!-- TODO: handle this is 'EDIT' mode as well -->
+    <ifMode mode="ENTER">
+        <script type="text/javascript">
+
+        </script>
+    </ifMode>
+
+
+    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+
+        <fieldset>
+            <legend>When?</legend>
+            <label>When?</label>
+
+            <encounterDate id="encounterDate" default="now" showTime="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+            <label>Who?</label>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+            <label>Where?</label>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
+    </div>
+
+    <section id="checkin" sectionTag="section" headerStyle="title" headerCode="emr.retrospectiveCheckin.label">
+
+       <fieldset>
+           <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
+           <h3><uimessage code="emr.retrospectiveCheckin.visitType.label"/></h3>
+
+           <p class="left">
+               <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="7" />
+           </p>
+       </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
+            <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
+            <obsgroup groupingConceptId="PIH:Payment construct">
+                <p class="left">
+                    <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
+                </p>
+            </obsgroup>
+            <!-- TODO: handle this is 'EDIT' mode as well -->
+            <ifMode mode="ENTER">
+
+            </ifMode>
+        </fieldset>
+
+    </section>
+
+    <submit/>
+
+</htmlform>

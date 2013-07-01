@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.page.controller.checkin;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
@@ -14,6 +15,7 @@ public class FindPatientPageController {
     public void controller(@RequestParam(value= "patientId", required = false) Patient patient,
                            @RequestParam(value = "pullPaperRecord", required = false) Boolean pullPaperRecord,
                            @RequestParam(value = "createDossierNumber", required = false) Boolean createDossierNumber,
+                           @RequestParam(value="formUrl", required = false) String formUrl,
                            UiUtils ui,
                            EmrContext emrContext,
                            PageModel model,
@@ -35,5 +37,10 @@ public class FindPatientPageController {
         model.addAttribute("pullPaperRecord", pullRecord);
         model.addAttribute("createDossierNumber", createDossier);
         model.addAttribute("patient", patientDomainWrapper);
+        if(StringUtils.isNotBlank(formUrl)){
+            model.addAttribute("formUrl", formUrl);
+        }else{
+            model.addAttribute("formUrl", "");
+        }
     }
 }

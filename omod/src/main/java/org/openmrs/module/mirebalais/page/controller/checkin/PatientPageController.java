@@ -27,15 +27,19 @@ public class PatientPageController {
 
 
     public void controller(@RequestParam("patientId") Patient patient,
+                           @RequestParam(value="formUrl", required = false) String formUrl,
                            UiUtils ui,
                            EmrContext emrContext,
                            PageModel model,
                            @InjectBeans PatientDomainWrapper patientDomainWrapper,
                            @InjectBeans EnterHtmlFormWithSimpleUiTask enterFormTask) {
 
-       patientDomainWrapper.setPatient(patient);
-
-        enterFormTask.setFormDefinitionFromUiResource("mirebalais:htmlforms/checkin.xml");
+        patientDomainWrapper.setPatient(patient);
+        String returnFormUrl = "mirebalais:htmlforms/checkin.xml";
+        if(StringUtils.isNotBlank(formUrl)){
+            returnFormUrl=formUrl;
+        }
+        enterFormTask.setFormDefinitionFromUiResource(returnFormUrl);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("patientId", patient.getId());
         boolean createDossierNumber = true;
@@ -51,8 +55,10 @@ public class PatientPageController {
         }
         params.put("createDossierNumber", createDossierNumber);
         params.put("pullPaperRecord", pullPaperRecord);
+        params.put("formUrl", "'" + formUrl + "'");
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient", params));
-        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")), "link", ui.pageLink("mirebalais", "checkin/findPatient"));
+        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")),
+                "link", ui.pageLink("mirebalais", "checkin/findPatient", SimpleObject.create("formUrl", "'" + formUrl + "'")));
         SimpleObject patientPageBreadcrumb = SimpleObject.create("label", ui.escapeJs(patient.getFamilyName()) + ", " + ui.escapeJs(patient.getGivenName()), "link", ui.thisUrlWithContextPath());
         enterFormTask.setBreadcrumbOverride(ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
         Form form = enterFormTask.getHtmlForm().getForm();
@@ -71,6 +77,7 @@ public class PatientPageController {
 
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("enterFormUrl", enterFormTask.getUrl(emrContext));
+        model.addAttribute("formUrl", "'" + formUrl + "'");
         model.addAttribute("patient", patientDomainWrapper);
     }
 }
