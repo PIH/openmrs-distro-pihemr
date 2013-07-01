@@ -22,94 +22,59 @@
     </style>
 
     <script type="text/javascript">
-        jq(function(){
 
-            var today = new Date().toDateString();
-
-            jq("#encounterDate select").css("display", "none");
-            //jq('.hasDatepicker').datepicker('hide');
-
-            // uncomment the next 2 lines if you want the day picker to display when the form gets loaded
-            //jq('.hasDatepicker').datepicker('refresh');
-            //jq('.hasDatepicker').datepicker('show');
-
-
-            beforeSubmit.push(function(){
-                var $encounterDateValue = getValue('encounterDate.value');
-                var parsedDate =jq.datepicker.parseDate("yy-mm-dd", $encounterDateValue);
-                if( today !== parsedDate.toDateString() ){
-                    //set hours, minutes and seconds to 00:00:00
-                    jq("[name$='hours']").val('0');
-                    jq("[name$='minutes']").val('0');
-                    jq("[name$='seconds']").val('0');
-                }
-                return true;
-            });
-
-        });
     </script>
-
-    <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
-    <!-- TODO: handle this is 'EDIT' mode as well -->
-    <ifMode mode="ENTER">
-        <script type="text/javascript">
-
-        </script>
-    </ifMode>
 
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
 
 
-        <fieldset>
-            <legend>Who?</legend>
-            <label>Who?</label>
-
-            <encounterProviderAndRole default="currentUser" encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="true"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Where?</legend>
-            <label>Where?</label>
-
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
     </div>
 
-    <section id="checkin" sectionTag="section" headerStyle="title" headerCode="emr.retrospectiveCheckin.label">
+    <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
-            <fieldset>
-                <legend><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></legend>
-                <h3><uimessage code="emr.retrospectiveCheckin.checkinDate.label"/></h3>
+            <fieldset class="required">
+                <legend><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></legend>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></h3>
 
                 <p class="left">
                     <encounterDate id="encounterDate" showTime="false" default="now"/>
                 </p>
-
             </fieldset>
 
 
-            <!--
+            <fieldset class="required">
+                <legend><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></legend>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
+
+                <p class="left">
+                    <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                </p>
+            </fieldset>
+
+            <fieldset class="required">
+                <legend><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></legend>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
+
+                <p class="left">
+                    <encounterLocation required="true"/>
+                </p>
+            </fieldset>
+
+
             <fieldset>
-                <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
-                <h3><uimessage code="emr.retrospectiveCheckin.visitType.label"/></h3>
+                <legend><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></legend>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></h3>
 
                 <p class="left">
                     <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="7" />
                 </p>
-             -->
-                <!-- TODO: handle this is 'EDIT' mode as well -->
-             <!--
-                <ifMode mode="ENTER">
-
-                </ifMode>
             </fieldset>
-            -->
 
 
-            <fieldset>
-                <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
-                <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
+            <fieldset class="required">
+                <legend><uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/></legend>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/></h3>
                 <obsgroup groupingConceptId="PIH:Payment construct">
                     <p class="left">
                         <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
