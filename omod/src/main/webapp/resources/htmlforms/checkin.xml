@@ -21,16 +21,6 @@
         }
     </style>
 
-    <script type="text/javascript">
-
-    </script>
-
-
-    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-
-
-    </div>
-
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
             <fieldset class="required">
