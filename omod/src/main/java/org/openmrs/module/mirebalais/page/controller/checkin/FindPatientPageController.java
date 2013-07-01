@@ -40,7 +40,7 @@ public class FindPatientPageController {
         if(StringUtils.isNotBlank(formUrl)){
             model.addAttribute("formUrl", formUrl);
         }else{
-            model.addAttribute("formUrl", "");
+            model.addAttribute("formUrl", "''");
         }
     }
 }
