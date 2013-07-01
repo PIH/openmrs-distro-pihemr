@@ -189,22 +189,14 @@
             <variant locale="fr" value="Lieu"/>
         </code>
         <code name="date">
-            <variant locale="en" value="Date"/>
-            <variant locale="fr" value="Date"/>
+            <variant locale="en" value="Date of surgery"/>
+            <variant locale="fr" value="Date d'opération"/>
         </code>
     </translations>
 
     <h2><label><uimessage code="surgical_note"/></label></h2>
 
-    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-        <fieldset>
-            <legend>Who?</legend>
-            <encounterProviderAndRole default="currentUser" encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af"
-                                      required="true"/>
-        </fieldset>
-    </div>
-
-    <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
+     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
 
         <p>
             <label><uimessage code="date"/></label>
