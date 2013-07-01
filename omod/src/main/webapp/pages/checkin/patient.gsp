@@ -40,7 +40,20 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     });
 </script>
 
-<% if (!emrContext.activeVisit) { %>
+<% if (patient.patient.dead) { %>
+    <%= ui.includeFragment("emr", "widget/note", [
+            noteType: "warning",
+            message: ui.message("mirebalais.checkin.deadPatient"),
+            additionalContent: """
+                    <div id="actions">
+                        <button class="cancel medium">
+                            <i class="icon-arrow-left"></i>
+                            ${ ui.message("mirebalais.checkin.confirm.no") }
+                        </button>
+                    </div>
+                """
+    ]) %>
+<% } else if (!emrContext.activeVisit) { %>
 
 <div class="dialog no-overlay">
     <div class="dialog-header">

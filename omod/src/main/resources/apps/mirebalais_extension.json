@@ -65,7 +65,10 @@
         "url": "mirebalais/checkin/findPatient.page?formUrl='mirebalais:htmlforms/liveCheckin.xml'",
         "icon": "icon-paste",
         "order": 5,
-        "requiredPrivilege": "App: mirebalais.liveCheckin"
+        "requiredPrivilege": "App: mirebalais.checkin",
+        "extensionParams": {
+            "featureToggle": "liveCheckin"
+        }
     },
     {
         "id": "patientRegistration.checkin",

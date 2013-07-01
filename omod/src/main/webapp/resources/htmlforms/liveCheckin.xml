@@ -61,7 +61,7 @@
 
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="emr.retrospectiveCheckin.label">
 
-       <fieldset>
+       <fieldset class="required">
            <legend><uimessage code="emr.retrospectiveCheckin.visitType.label"/></legend>
            <h3><uimessage code="emr.retrospectiveCheckin.visitType.label"/></h3>
 
@@ -70,7 +70,7 @@
            </p>
        </fieldset>
 
-        <fieldset>
+        <fieldset class="required">
             <legend><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></legend>
             <h3><uimessage code="emr.retrospectiveCheckin.paymentAmount.label"/></h3>
             <obsgroup groupingConceptId="PIH:Payment construct">
