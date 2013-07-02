@@ -21,17 +21,6 @@
         }
     </style>
 
-    <script>
-
-        jq(function() {
-
-            jq('fieldset:first').focus();
-
-        }
-
-
-    </script>
-
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
             <fieldset class="required">
