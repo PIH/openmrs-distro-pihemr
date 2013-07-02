@@ -38,7 +38,7 @@
                 <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
 
                 <p class="left">
-                    <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                    <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
                 </p>
             </fieldset>
 
