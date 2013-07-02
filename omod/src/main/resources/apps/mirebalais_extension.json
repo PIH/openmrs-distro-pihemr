@@ -59,9 +59,9 @@
     },
     {
         "id": "mirebalais.liveCheckin",
-        "extensionPointId": "mirebalais.task.checkin.label",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
-        "label": "mirebalais.task.checkin.label",
+        "label": "mirebalais.checkin.title",
         "url": "mirebalais/checkin/findPatient.page?formUrl='mirebalais:htmlforms/liveCheckin.xml'",
         "icon": "icon-paste",
         "order": 5,
