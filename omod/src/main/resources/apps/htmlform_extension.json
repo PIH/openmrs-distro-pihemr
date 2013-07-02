@@ -28,6 +28,6 @@
         "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/checkin.xml",
         "icon": "icon-paste",
         "order": 33,
-        "requiredPrivilege": "Task: mirebalais.checkin"
+        "requiredPrivilege": "Task: mirebalais.checkinForm"
     }
 ]
