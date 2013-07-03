@@ -61,16 +61,6 @@
         }
     },
     {
-        "id": "patientRegistration.checkin",
-        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-        "type": "link",
-        "label": "mirebalais.app.patientRegistration.checkin.label",
-        "url": "mirebalais/patientRegistration/appRouter.page?task=primaryCareReception",
-        "icon": "icon-user-md",
-        "order": 10,
-        "requiredPrivilege": "App: patientregistration.main"
-    },
-    {
         "id": "patientRegistration.emergencyCheckin",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
