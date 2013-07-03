@@ -21,6 +21,13 @@
         }
     </style>
 
+    <script type="text/javascript">
+        jq(function() {
+            // hack to make the datepicker show when the form is opened
+            getField('encounterDate.value').datepicker('show');
+        });
+    </script>
+
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
             <fieldset class="required">
