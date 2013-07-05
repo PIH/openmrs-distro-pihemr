@@ -12,7 +12,7 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin" formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="1.0">
+<htmlform formUuid="0a5e8b10-e587-11e2-a28f-0800200c9a66" formName="LiveCheckin" formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="1.0">
     <style>
 
         .encounter-summary-container {
