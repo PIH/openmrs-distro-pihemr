@@ -60,7 +60,8 @@
                 },
                 "260566e1-c909-4d61-a96f-c1019291a09d": {
                     "_comment": "Admission",
-                    "icon": "icon-signin"
+                    "icon": "icon-signin",
+                    "editable": true
                 },
                 "b6631959-2105-49dd-b154-e1249e0fbcd7": {
                     "_comment": "Discharge",
