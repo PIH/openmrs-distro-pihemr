@@ -78,6 +78,8 @@
     <global_property property="emr.paymentReceiptNumberConcept" property_value="20438dc7-c5b4-4d9c-8480-e888f4795123"/>
     <global_property property="emr.paymentConstructConcept" property_value="8af62975-330e-4de7-ab85-1cc5ae5da9a8"/>
 
+    <global_property property="emr.admissionForm" property_value="" uuid="12445872-4444-11e2-ad5b-8a6454449764"/>
+
     <global_property property="namephonetics.familyName2StringEncoder" property_value="Double Metaphone Alternate"
                      description="The name of a soundex type algorithm to use for patient searches.  Default values built into this module are:  Soundex, Refined Soundex, Metaphone, Double Metaphone, Caverphone.  You can also add your own algorithms programatically.
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
