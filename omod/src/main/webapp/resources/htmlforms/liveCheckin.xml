@@ -40,7 +40,7 @@
             <legend>When?</legend>
             <label>When?</label>
 
-            <encounterDate id="encounterDate" default="now" showTime="true"/>
+            <encounterDate id="encounterDate" default="now" showTime="false"/>
         </fieldset>
 
         <fieldset>

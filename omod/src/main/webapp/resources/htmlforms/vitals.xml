@@ -180,7 +180,7 @@
             <legend>When?</legend>
             <label>When?</label>
 
-            <encounterDate default="now" showTime="true"/>
+            <encounterDate default="now" showTime="false"/>
         </fieldset>
 
         <fieldset>
