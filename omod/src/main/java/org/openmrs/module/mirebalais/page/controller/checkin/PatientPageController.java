@@ -74,7 +74,7 @@ public class PatientPageController {
             }
         }
 
-
+        model.addAttribute("visit", emrContext.getActiveVisit() != null ? emrContext.getActiveVisit().getVisit() : null);
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("enterFormUrl", enterFormTask.getUrl(emrContext));
         model.addAttribute("formUrl", "'" + formUrl + "'");

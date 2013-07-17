@@ -26,6 +26,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 page: "htmlform/enterHtmlFormWithSimpleUi",
                 query: {
                     patientId: "${ patient.id }",
+                    visitId: "${ visit?.id }",
                     definitionUiResource: "mirebalais:htmlforms/vitals.xml",
                     returnUrl: "${ ui.escapeJs(ui.pageLink("mirebalais", "outpatientvitals/findPatient")) }",
                     breadcrumbOverride: "${ ui.escapeJs(breadcrumbOverride) }"

@@ -60,6 +60,7 @@ public class PatientPageController {
             }
         }
 
+        model.addAttribute("visit", emrContext.getActiveVisit() != null ? emrContext.getActiveVisit().getVisit() : null);
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
