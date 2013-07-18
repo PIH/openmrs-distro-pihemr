@@ -29,7 +29,7 @@
 
             <p>
                 <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
-                <encounterLocation required="true"/>
+                <encounterLocation required="true" tags="Admission Location"/>
             </p>
         </section>
 
