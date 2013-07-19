@@ -33,6 +33,6 @@
             </p>
         </section>
 
-    <submit/>
+    <submit submitClass="confirm right" submitCode="mirebalais.save" />
 
 </htmlform>

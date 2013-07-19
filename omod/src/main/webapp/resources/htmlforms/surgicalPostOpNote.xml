@@ -444,5 +444,5 @@
         </p>
     </section>
     <br />
-    <submit submitClass="confirm" submitCode="submit_text" />
+    <submit submitClass="confirm right" submitCode="submit_text" />
 </htmlform>
