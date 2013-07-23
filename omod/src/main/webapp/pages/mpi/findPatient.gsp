@@ -91,9 +91,11 @@
             <div class="patient-info">
                 <h3>
                     ${ ui.format(p) }
-                    <div class="identifiers">
-                        <span>${ ui.format(p.patientIdentifier) }</span>
-                    </div>
+                    <% p.activeIdentifiers.each { %>
+                        <div class="identifiers">
+                            <span>${ ui.format(it) }</span>
+                        </div>
+                    <% } %>
                 </h3>
                 <div class="demographics">
                     <span >
