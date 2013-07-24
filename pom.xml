@@ -51,7 +51,7 @@
         <emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
-        <uiframeworkVersion>2.6-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>2.6</uiframeworkVersion>
         <appframeworkVersion>2.0-SNAPSHOT</appframeworkVersion>
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
@@ -81,6 +81,7 @@
         <registrationappVersion>1.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.0-SNAPSHOT</coreappsVersion>
+        <webservicesRestVersion>2.1</webservicesRestVersion>
     </properties>
 
 
