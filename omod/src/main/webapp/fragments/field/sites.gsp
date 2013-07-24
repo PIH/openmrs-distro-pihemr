@@ -11,4 +11,4 @@
 %>
 <input type="hidden" name="concept" value="PIH:Transfer out location">
 
-${ ui.includeFragment("emr", "field/dropDown", [ options: options ] << config) }
+${ ui.includeFragment("uicommons", "field/dropDown", [ options: options ] << config) }
