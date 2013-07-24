@@ -26,7 +26,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             if(id == 'addCheckIn'){
                 //add check-in encounter to the active visit
                 emr.navigateTo({
-                    applicationUrl: '${ enterFormUrl }'
+                    applicationUrl: '${ enterFormUrl }' +  '${ visit ? '&visitId=' + visit.id : '' }'
                 });
             }else{
                 // create new visit and add check-in encounter to the new visit
