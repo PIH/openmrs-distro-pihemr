@@ -36,7 +36,7 @@
         "type": "fragment",
         "extensionParams": {
             "templateId": "consultEncounterTemplate",
-            "templateFragmentProviderName": "emr",
+            "templateFragmentProviderName": "mirebalais",
             "templateFragmentId": "patientdashboard/encountertemplate/consultEncounterTemplate",
             "supportedEncounterTypes": {
                 "92fd09b4-5335-4f7e-9f63-b2a663fd09a6": {
