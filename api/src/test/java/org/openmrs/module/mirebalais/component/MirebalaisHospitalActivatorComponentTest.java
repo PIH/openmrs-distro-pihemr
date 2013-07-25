@@ -22,6 +22,7 @@ import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
@@ -39,9 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
@@ -54,6 +53,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     @Autowired
     private AdministrationService adminService;
+
+    @Autowired
+    private AppFrameworkService appFrameworkService;
 
     private MirebalaisHospitalActivator activator;
 

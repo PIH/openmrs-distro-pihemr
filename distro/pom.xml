@@ -231,14 +231,14 @@
                     <scope>provided</scope>
                 </dependency>
 
-                <!-- Commenting out the registrationapp module until we're ready for it
+
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>registrationapp-omod</artifactId>
                     <version>${registrationappVersion}</version>
                     <scope>provided</scope>
                 </dependency>
-                -->
+
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>

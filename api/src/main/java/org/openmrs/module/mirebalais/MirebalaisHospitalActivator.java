@@ -26,6 +26,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -101,6 +102,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         try {
             MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+            Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
 
             setupCoreGlobalProperties();
             setupHtmlFormEntryGlobalProperties();
