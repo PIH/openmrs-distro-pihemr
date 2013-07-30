@@ -29,14 +29,16 @@
             display: block;
         }
 
-        #disposition small {
-            font-size: 100%;
-            display: block;
-        }
+        <ifMode mode="EDIT">
+            #disposition small {
+                font-size: 100%;
+                display: block;
+            }
 
-        #disposition span {
-            padding-left: 15px;
-        }
+            #disposition span {
+                padding-left: 15px;
+            }
+        </ifMode>
     </style>
 
     <ifMode mode="VIEW" include="false">
