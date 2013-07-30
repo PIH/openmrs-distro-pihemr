@@ -103,7 +103,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
-            Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
+            Context.getService(AppFrameworkService.class).enableApp("coreapps.activeVisits");
 
             setupCoreGlobalProperties();
             setupHtmlFormEntryGlobalProperties();
@@ -133,17 +133,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Context.getService(AccountService.class).setProviderIdentifierGenerator(new MirebalaisProviderIdentifierGenerator());
     }
 
-
-    private Map<String, Integer> getAppsOrderingMap() {
-        Map<String, Integer> appsOrdering = new HashMap<String, Integer>();
-        appsOrdering.put("emr.archivesRoom", 1);
-        appsOrdering.put("emr.retrospectiveCheckin", 2);
-        appsOrdering.put("patientregistration.main", 3);
-        appsOrdering.put("emr.findPatient", 4);
-        appsOrdering.put("emr.systemAdministration", 5);
-        appsOrdering.put("emr.activeVisits", 6);
-        return appsOrdering;
-    }
 
     private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
                                                       IdentifierSourceService identifierSourceService) {
