@@ -1,0 +1,94 @@
+<htmlform formUuid="793915d6-f8d9-11e2-8ff2-fd54ab5fdb2a" formName="ED Note" formEncounterType="92fd09b4-5335-4f7e-9f63-b2a663fd09a6" formVersion="1.0">
+
+    <uiInclude provider="emr" javascript="angular.min.js"/>
+    <uiInclude provider="emr" javascript="diagnoses/diagnoses.js"/>
+    <uiInclude provider="emr" javascript="diagnoses/diagnoses-angular.js"/>
+
+    <style type="text/css">
+        #who-when-where {
+            margin-bottom: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+            display: inline-block;
+            padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+            display: inline-block;
+        }
+
+        .narrow {
+            width: 200px;
+        }
+
+        .field-error {
+            color: #ff6666;
+            font-size: 1.1em;
+            display: block;
+        }
+
+        #disposition small {
+            font-size: 100%;
+            display: block;
+        }
+
+        #disposition span {
+            padding-left: 15px;
+        }
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h2><uimessage code="emr.ed.consult.title"/></h2>
+
+        <div id="who-when-where">
+            <p id="who">
+                <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+            </p>
+            <p id="when">
+                <label><uimessage code="emr.location"/></label>
+                <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
+            </p>
+            <p id="where">
+                <label><uimessage code="emr.patientDashBoard.date"/></label>
+                <span><encounterDate id="encounterDate" default="now" /></span>
+            </p>
+        </div>
+    </ifMode>
+
+    <encounterDiagnoses required="true"/>
+
+    <div id="disposition">
+        <encounterDisposition/>
+    </div>
+
+    <p>
+        <label><lookup expression="fn.getConcept('PIH:Occurrence of trauma').name"/></label>
+        <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" />
+    </p>
+
+    <p>
+        <label><lookup expression="fn.getConcept('PIH:Type of trauma').name"/></label>
+        <obs id="traumaType" conceptId="PIH:Type of trauma"/>
+    </p>
+
+    <p class="narrow">
+        <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
+    </p>
+
+    <p>
+        <label><uimessage code="emr.consult.freeTextComments"/></label>
+        <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
+    </p>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

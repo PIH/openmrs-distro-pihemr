@@ -41,7 +41,8 @@
             "supportedEncounterTypes": {
                 "92fd09b4-5335-4f7e-9f63-b2a663fd09a6": {
                     "_comment": "consult",
-                    "icon": "icon-stethoscope"
+                    "icon": "icon-stethoscope",
+                    "editable": true
                 }
             }
         }
