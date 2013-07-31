@@ -42,6 +42,25 @@
     </style>
 
     <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+            var yesCode = <lookup expression="fn.getConcept('PIH:YES').id"/>;
+
+            var updateTraumaQuestions = function() {
+                var trauma = getValue("trauma.value") == yesCode;
+                if (!trauma) {
+                    getField("traumaType.value").val("");
+                }
+                $('#trauma-type-container').toggle(trauma);
+            }
+
+            $(function() {
+                getField('trauma.value').change(updateTraumaQuestions);
+                updateTraumaQuestions();
+            });
+        </script>
+    </ifMode>
+
+    <ifMode mode="VIEW" include="false">
         <h2><uimessage code="emr.ed.consult.title"/></h2>
 
         <div id="who-when-where">
@@ -71,7 +90,7 @@
         <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" />
     </p>
 
-    <p>
+    <p id="trauma-type-container">
         <label><lookup expression="fn.getConcept('PIH:Type of trauma').name"/></label>
         <obs id="traumaType" conceptId="PIH:Type of trauma"/>
     </p>
