@@ -38,7 +38,7 @@
                 },
                 {
                     "id": "traumaTypes",
-                    "fieldProvider": "emr",
+                    "fieldProvider": "uicommons",
                     "field": "dropDown",
                     "formFieldName": "traumaTypes",
                     "concept": "7c5ef8cd-3c2b-46c1-b995-20e52c11ce94",
