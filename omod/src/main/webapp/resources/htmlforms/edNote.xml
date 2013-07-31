@@ -44,9 +44,15 @@
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
             var yesCode = <lookup expression="fn.getConcept('PIH:YES').id"/>;
+            var traumaFieldName = null;
+
+            radioClicked = function(radioButton) {
+                // override this to do nothing -- we don't want to allow unselecting radio buttons here
+            }
 
             var updateTraumaQuestions = function() {
                 var trauma = getValue("trauma.value") == yesCode;
+                console.log(getValue("trauma.value"));
                 if (!trauma) {
                     getField("traumaType.value").val("");
                 }
@@ -54,8 +60,15 @@
             }
 
             $(function() {
-                getField('trauma.value').change(updateTraumaQuestions);
+                traumaFieldName = $('#trauma input[type=radio]').last().attr('name');
+                //$('input[name=' + traumaFieldName + ']').change(updateTraumaQuestions);
+                $('#trauma input').change(updateTraumaQuestions);
                 updateTraumaQuestions();
+
+                // hack to make this look like the entry form. need a better fix in HFE to make radio buttons look right
+                $('#trauma input[type=radio]').last().appendTo('#no-goes-here');
+                $('#trauma label').last().appendTo('#no-goes-here');
+                $('#trauma span.required').hide();
             });
         </script>
     </ifMode>
@@ -85,14 +98,16 @@
         <encounterDisposition/>
     </div>
 
-    <p>
-        <label><lookup expression="fn.getConcept('PIH:Occurrence of trauma').name"/></label>
-        <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" />
+    <label><lookup expression="fn.getConcept('PIH:Occurrence of trauma').name"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)</label>
+    <p class="radio-btn">
+        <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" style="radio"/>
+    </p>
+    <p class="radio-btn" id="no-goes-here">
     </p>
 
     <p id="trauma-type-container">
         <label><lookup expression="fn.getConcept('PIH:Type of trauma').name"/></label>
-        <obs id="traumaType" conceptId="PIH:Type of trauma"/>
+        <obs id="traumaType" conceptId="PIH:Type of trauma" answerConceptIds="PIH:Transport Accident,SNOMED CT:397940009,PIH:Home accident,SNOMED CT:371772001,SNOMED CT:17542004,PIH:OTHER NON-CODED"/>
     </p>
 
     <p class="narrow">
