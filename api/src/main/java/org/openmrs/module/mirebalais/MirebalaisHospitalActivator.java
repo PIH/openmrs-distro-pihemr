@@ -205,6 +205,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void setupHtmlFormEntryGlobalProperties() {
         setExistingGlobalProperty(HtmlFormEntryConstants.GP_DATE_FORMAT, "dd MMM yyyy");
+        setExistingGlobalProperty(HtmlFormEntryConstants.GP_SHOW_DATE_FORMAT, "false");
     }
 
     private void setupUiFrameworkGlobalProperties() {
