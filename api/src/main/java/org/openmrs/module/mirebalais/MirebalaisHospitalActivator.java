@@ -266,6 +266,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE, "436cfe33-6b81-40ef-a455-f134a9f7e580");
 
         setExistingGlobalProperty(EmrApiConstants.GP_ADMISSION_FORM, "43acf930-eb1b-11e2-91e2-0800200c9a66");
+        setExistingGlobalProperty(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM, "d068bc80-fb95-11e2-b778-0800200c9a66");
+        setExistingGlobalProperty(EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM, "e0a26c20-fba6-11e2-b778-0800200c9a66");
     }
 
     private void setupRadiologyGlobalProperties() {
@@ -374,7 +376,11 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                                                     "mirebalais:htmlforms/checkin.xml",
                                                     "mirebalais:htmlforms/liveCheckin.xml",
                                                     "mirebalais:htmlforms/surgicalPostOpNote.xml",
-                                                    "mirebalais:htmlforms/vitals.xml");
+                                                    "mirebalais:htmlforms/vitals.xml",
+                                                    "mirebalais:htmlforms/transferNote.xml",
+                                                    "mirebalais:htmlforms/dischargeNote.xml",
+                                                    "mirebalais:htmlforms/outpatientConsult.xml",
+                                                    "mirebalais:htmlforms/edNote.xml");
 
             for (String htmlform : htmlforms) {
                 HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, htmlform);

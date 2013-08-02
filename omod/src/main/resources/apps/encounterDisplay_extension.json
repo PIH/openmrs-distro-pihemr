@@ -66,11 +66,13 @@
                 },
                 "b6631959-2105-49dd-b154-e1249e0fbcd7": {
                     "_comment": "Discharge",
-                    "icon": "icon-signout"
+                    "icon": "icon-signout",
+                    "editable": true
                 },
                 "436cfe33-6b81-40ef-a455-f134a9f7e580": {
                     "_comment": "Transfer",
-                    "icon": "icon-share"
+                    "icon": "icon-share",
+                    "editable": true
                 }
             }
         }
