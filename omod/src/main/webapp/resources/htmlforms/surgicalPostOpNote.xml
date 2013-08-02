@@ -444,5 +444,12 @@
         </p>
     </section>
     <br />
-    <submit submitClass="confirm right" submitCode="submit_text" />
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
 </htmlform>
