@@ -29,6 +29,24 @@
             display: block;
         }
 
+        <ifMode mode="VIEW" include="false">
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-target {
+                display: inline-block;
+                width: 40%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-app {
+                margin-bottom: 20px;
+            }
+        </ifMode>
+
         <ifMode mode="EDIT">
             #disposition small {
                 font-size: 100%;
@@ -60,21 +78,28 @@
         </div>
     </ifMode>
 
-    <encounterDiagnoses required="true"/>
+    <div id="data-collection">
 
-    <div id="disposition">
-        <encounterDisposition/>
+        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+
+        <div id="disposition">
+            <encounterDisposition/>
+        </div>
+
+        <p class="narrow">
+            <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
+        </p>
+
+        <p>
+            <label><uimessage code="emr.consult.freeTextComments"/></label>
+            <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
+        </p>
+
     </div>
 
-    <p class="narrow">
-        <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
-        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
-    </p>
-
-    <p>
-        <label><uimessage code="emr.consult.freeTextComments"/></label>
-        <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
-    </p>
+    <div id="encounter-diagnoses-target">
+    </div>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

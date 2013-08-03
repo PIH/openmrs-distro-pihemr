@@ -29,6 +29,22 @@
             display: block;
         }
 
+        #data-collection {
+            display: inline-block;
+            width: 58%;
+            vertical-align: top;
+        }
+
+        #encounter-diagnoses-target {
+            display: inline-block;
+            width: 40%;
+            vertical-align: top;
+        }
+
+        #encounter-diagnoses-app {
+            margin-bottom: 20px;
+        }
+
         <ifMode mode="EDIT">
             #disposition small {
                 font-size: 100%;
@@ -92,33 +108,40 @@
         </div>
     </ifMode>
 
-    <encounterDiagnoses required="true"/>
+    <div id="data-collection">
 
-    <div id="disposition">
-        <encounterDisposition/>
+        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+
+        <div id="disposition">
+            <encounterDisposition/>
+        </div>
+
+        <label><lookup expression="fn.getConcept('PIH:Occurrence of trauma').name"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)</label>
+        <p class="radio-btn">
+            <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" style="radio"/>
+        </p>
+        <p class="radio-btn" id="no-goes-here">
+        </p>
+
+        <p id="trauma-type-container">
+            <label><lookup expression="fn.getConcept('PIH:Type of trauma').name"/></label>
+            <obs id="traumaType" conceptId="PIH:Type of trauma" answerConceptIds="PIH:Transport Accident,SNOMED CT:397940009,PIH:Home accident,SNOMED CT:371772001,SNOMED CT:17542004,PIH:OTHER NON-CODED"/>
+        </p>
+
+        <p class="narrow">
+            <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
+        </p>
+
+        <p>
+            <label><uimessage code="emr.consult.freeTextComments"/></label>
+            <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
+        </p>
+
     </div>
 
-    <label><lookup expression="fn.getConcept('PIH:Occurrence of trauma').name"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)</label>
-    <p class="radio-btn">
-        <obs id="trauma" conceptId="PIH:Occurrence of trauma" required="true" answerConceptIds="PIH:YES,PIH:NO" style="radio"/>
-    </p>
-    <p class="radio-btn" id="no-goes-here">
-    </p>
-
-    <p id="trauma-type-container">
-        <label><lookup expression="fn.getConcept('PIH:Type of trauma').name"/></label>
-        <obs id="traumaType" conceptId="PIH:Type of trauma" answerConceptIds="PIH:Transport Accident,SNOMED CT:397940009,PIH:Home accident,SNOMED CT:371772001,SNOMED CT:17542004,PIH:OTHER NON-CODED"/>
-    </p>
-
-    <p class="narrow">
-        <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
-        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
-    </p>
-
-    <p>
-        <label><uimessage code="emr.consult.freeTextComments"/></label>
-        <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
-    </p>
+    <div id="encounter-diagnoses-target">
+    </div>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
