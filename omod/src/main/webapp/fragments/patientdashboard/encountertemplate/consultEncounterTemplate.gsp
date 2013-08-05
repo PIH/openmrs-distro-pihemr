@@ -3,7 +3,7 @@
 %>
 
 <script type="text/template" id="consultEncounterTemplate">
-    <li>
+    <li class="consult-encounter-template">
         <div class="encounter-date">
             <i class="icon-time"></i>
             <strong>
