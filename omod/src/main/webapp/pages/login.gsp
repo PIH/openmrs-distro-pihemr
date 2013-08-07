@@ -1,9 +1,20 @@
 <!-- This is the login page -->
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
-
-    ui.setPageTitle(ui.message("mirebalais.login.welcomeHeading"))
 %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${ ui.message("mirebalais.login.welcomeHeading") }</title>
+    <link rel="shortcut icon" type="image/ico" href="/${ ui.contextPath() }/images/openmrs-favicon.ico"/>
+    <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
+    ${ ui.resourceLinks() }
+</head>
+<body>
+<script type="text/javascript">
+    var OPENMRS_CONTEXT_PATH = '${ ui.contextPath() }';
+</script>
 
 ${ ui.includeFragment("appui", "header") }
 
@@ -118,3 +129,6 @@ ${ ui.includeFragment("appui", "header") }
         })
     });
 </script>
+
+</body>
+</html>
