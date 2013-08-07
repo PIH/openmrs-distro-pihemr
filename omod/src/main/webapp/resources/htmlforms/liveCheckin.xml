@@ -25,43 +25,47 @@
 
     </script>
 
-    <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
-    <!-- TODO: handle this is 'EDIT' mode as well -->
-    <ifMode mode="ENTER">
-        <script type="text/javascript">
+    <!-- hidden div for setting date/provider/location in view mode when entering a form -->
+    <ifMode mode="VIEW" include="false">
+        <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+            <fieldset>
+                <encounterDate id="encounterDate" default="now" showTime="false"/>
+            </fieldset>
 
-        </script>
+            <fieldset>
+                <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+            </fieldset>
+
+            <fieldset>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            </fieldset>
+        </div>
     </ifMode>
-
-
-    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-
-        <fieldset>
-            <legend>When?</legend>
-            <label>When?</label>
-
-            <encounterDate id="encounterDate" default="now" showTime="false"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Who?</legend>
-            <label>Who?</label>
-
-            <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
-
-        </fieldset>
-
-        <fieldset>
-            <legend>Where?</legend>
-            <label>Where?</label>
-
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
-    </div>
 
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
-       <fieldset class="required">
+        <!-- allows us to display date/provider/location when viewing a form -->
+        <ifMode mode="VIEW">
+            <div id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+                <fieldset>
+                    <h3><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></h3>
+                    <encounterDate id="encounterDate" default="now" showTime="false"/>
+                </fieldset>
+
+                <fieldset>
+                    <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
+                    <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+
+                </fieldset>
+
+                <fieldset>
+                    <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
+                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                </fieldset>
+            </div>
+        </ifMode>
+
+        <fieldset class="required">
            <legend><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></legend>
            <h3><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></h3>
 
