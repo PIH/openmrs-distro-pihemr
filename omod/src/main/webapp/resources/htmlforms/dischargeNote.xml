@@ -22,12 +22,12 @@
             <encounterDate id="encounterDate" showTime="false" default="now"/>
         </p>
 
-        <p>
+        <p id="provider">
             <label><uimessage code="mirebalais.dischargeNote.dischargingClinician.label"/></label>
             <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
         </p>
 
-        <p>
+        <p id="location">
             <label><uimessage code="mirebalais.dischargeNote.dischargedFrom.label"/></label>
             <encounterLocation required="true" tags="Transfer Location"/>
         </p>
