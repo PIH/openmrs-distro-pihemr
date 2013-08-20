@@ -46,23 +46,21 @@
 
         <!-- allows us to display date/provider/location when viewing a form -->
         <ifMode mode="VIEW">
-            <div id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-                <fieldset>
-                    <h3><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></h3>
-                    <encounterDate id="encounterDate" default="now" showTime="false"/>
-                </fieldset>
+            <fieldset>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></h3>
+                <encounterDate id="encounterDate" default="now" showTime="false"/>
+            </fieldset>
 
-                <fieldset>
-                    <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
-                    <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+            <fieldset>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
+                <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
 
-                </fieldset>
+            </fieldset>
 
-                <fieldset>
-                    <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
-                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                </fieldset>
-            </div>
+            <fieldset>
+                <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            </fieldset>
         </ifMode>
 
         <fieldset class="required">
