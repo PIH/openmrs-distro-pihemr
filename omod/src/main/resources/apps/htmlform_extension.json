@@ -29,5 +29,39 @@
         "icon": "icon-paste",
         "order": 31,
         "requiredPrivilege": "Task: mirebalais.checkinForm"
+    },
+    {
+        "id": "mirebalais.consult",
+        "extensionPointId": "patientDashboard.visitActions",
+        "type": "link",
+        "label": "emr.clinic.consult.title",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnProvider=mirebalais&returnPage=disposition/disposition",
+        "icon": "icon-stethoscope",
+        "order": 33,
+        "requiredPrivilege": "Task: emr.enterClinicalForms",
+        "featureToggle": "mirebalais.consult"
+    },
+    {
+        "id": "mirebalais.edConsult",
+        "extensionPointId": "patientDashboard.visitActions",
+        "type": "link",
+        "label": "emr.ed.consult.title",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/edNote.xml",
+        "icon": "icon-stethoscope",
+        "order": 34,
+        "requiredPrivilege": "Task: emr.enterClinicalForms",
+        "featureToggle": "mirebalais.edConsult"
+    },
+    {
+        "id": "mirebalais.admissionNote",
+        "extensionPointId": "patientDashboard.visitActions",
+        "type": "link",
+        "label": "mirebalais.admissionNote.label",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml",
+        "icon": "icon-signin",
+        "order": 34,
+        "requiredPrivilege": "Task: emr.enterClinicalForms",
+        "featureToggle": "mirebalais.admissionNote"
     }
+
 ]
