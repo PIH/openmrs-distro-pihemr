@@ -31,32 +31,6 @@
         "clientSideActions": []
     },
     {
-        "uuid": "markPatientDead",
-        "name": "disposition.emrapi.death",
-        "conceptCode": "PIH:DEATH",
-        "actions": [
-            "dischargeIfAdmittedDispositionAction",
-            "closeCurrentVisitDispositionAction",
-            "markPatientDeadDispositionAction"
-        ],
-        "clientSideActions": [
-            {
-                "action": "include-fragment",
-                "module": "uicommons",
-                "fragment": "field/datetimepicker",
-                "fragmentConfig": {
-                    "id": "deathDate",
-                    "useTime": false,
-                    "formFieldName": "deathDate",
-                    "label": "disposition.emrapi.death.deathDate",
-                    "defaultToday": false,
-                    "endToday": false,
-                    "classes": [ "required" ]
-                }
-            }
-        ]
-    },
-    {
         "uuid": "leftWithoutSeeingAClinician",
         "name": "disposition.emrapi.leftWithoutSeeingAClinician",
         "conceptCode": "PIH:Left without seeing a clinician",
@@ -113,6 +87,32 @@
                     "formFieldName": "transferToLocationId",
                     "label": "disposition.emrapi.transferInHospital.transferToLocation",
                     "withTag": "Transfer Location",
+                    "classes": [ "required" ]
+                }
+            }
+        ]
+    },
+    {
+        "uuid": "markPatientDead",
+        "name": "disposition.emrapi.death",
+        "conceptCode": "PIH:DEATH",
+        "actions": [
+            "dischargeIfAdmittedDispositionAction",
+            "closeCurrentVisitDispositionAction",
+            "markPatientDeadDispositionAction"
+        ],
+        "clientSideActions": [
+            {
+                "action": "include-fragment",
+                "module": "uicommons",
+                "fragment": "field/datetimepicker",
+                "fragmentConfig": {
+                    "id": "deathDate",
+                    "useTime": false,
+                    "formFieldName": "deathDate",
+                    "label": "disposition.emrapi.death.deathDate",
+                    "defaultToday": false,
+                    "endToday": false,
                     "classes": [ "required" ]
                 }
             }
