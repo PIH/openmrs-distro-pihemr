@@ -8,11 +8,11 @@
         }
     },
     {
-        "id": "emr.archivesRoom",
+        "id": "paperrecord.archivesRoom",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
-        "label": "emr.app.archivesRoom.label",
-        "url": "emr/paperrecord/archivesRoom.page",
+        "label": "paperrecord.app.archivesRoom.label",
+        "url": "paperrecord/archivesRoom.page",
         "icon": "icon-folder-open",
         "order": 1,
         "requiredPrivilege": "App: emr.archivesRoom"
