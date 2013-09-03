@@ -22,7 +22,7 @@
             selector: '#request-paper-record-dialog',
             actions: {
                 confirm: function() {
-                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'requestPaperRecord'
+                    emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'requestPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
@@ -43,7 +43,7 @@
             selector: '#create-dossier-number-dialog',
             actions: {
                 confirm: function() {
-                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'createDossierNumber'
+                    emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'createDossierNumber'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
@@ -52,7 +52,7 @@
                             });
                 },
                 cancel: function() {
-                    emr.getFragmentActionWithCallback('emr', 'paperrecord/requestPaperRecord', 'requestPaperRecord'
+                    emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'requestPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
