@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.integration;
 
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 @SkipBaseSetup
+@Ignore
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 
     private MirebalaisHospitalActivator activator;
