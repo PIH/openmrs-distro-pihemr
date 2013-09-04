@@ -31,7 +31,7 @@
                     <obs conceptId="PIH:3193"/>
                 </p>
                 <p>
-                    <label>Quantity</label>
+                    <label>Amount</label>
                     <obs conceptId="PIH:9071"/>
                 </p>
             </fieldset>
