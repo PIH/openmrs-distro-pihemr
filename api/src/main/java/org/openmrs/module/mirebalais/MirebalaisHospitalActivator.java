@@ -380,6 +380,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                                                     "mirebalais:htmlforms/transferNote.xml",
                                                     "mirebalais:htmlforms/dischargeNote.xml",
                                                     "mirebalais:htmlforms/outpatientConsult.xml",
+                                                    "mirebalais:htmlforms/dispensing.xml",
                                                     "mirebalais:htmlforms/edNote.xml");
 
             for (String htmlform : htmlforms) {
