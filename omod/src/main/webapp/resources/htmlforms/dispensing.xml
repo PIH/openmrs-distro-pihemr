@@ -1,4 +1,7 @@
 <htmlform formUuid="ba22eda5-148d-456e-8adc-f36247d1f7c3" formName="Dispensing" formEncounterType="8ff50dea-18a1-4609-b4c9-3f8f2d611b84" formVersion="1.0">
+    <script type="text/javascript">
+        var $j = jQuery;
+    </script>
 
     <h2>Dispensing</h2>
 
@@ -23,12 +26,11 @@
             <fieldset>
                 <p>
                     <label>Name</label>
-                    <!-- obs conceptId="PIH:1282" answerDrugs="true"/ -->
-                    <input type="text" placeholder="Waiting on Darius's ticket"/>
+                    <obs conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
                 <p>
-                    <label>Frequency</label>
-                    <obs conceptId="PIH:3193"/>
+                    <label>Instructions</label>
+                    <obs conceptId="PIH:9072"/>
                 </p>
                 <p>
                     <label>Amount</label>
@@ -43,6 +45,11 @@
         <span><encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c"/></span>
     </p>
 
-    <submit/>
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
 
 </htmlform>
