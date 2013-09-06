@@ -72,6 +72,7 @@
         "icon": "icon-medicine",
         "order": 36,
         "featureToggle": "dispenseMedicine",
+        "requiredPrivilege": "Task: mirebalais.dispensing",
         "require": "visit.active"
     }
 
