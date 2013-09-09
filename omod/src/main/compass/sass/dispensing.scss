@@ -1,0 +1,24 @@
+.medication-label {
+	margin-bottom: 4px;
+	font-size: 0.9em;
+}
+
+fieldset.medication {
+	background: #F8F8F8;
+	padding: 7px 12px;
+	margin: 0;
+
+	label {
+		margin-top: 0px;
+	}
+
+	p {
+		margin-bottom: 5px;
+	}
+
+	p.inline {
+		width: 200px;
+		margin-right: 20px;
+		display: inline-block;
+	}
+}

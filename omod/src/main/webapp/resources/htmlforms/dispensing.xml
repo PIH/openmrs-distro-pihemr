@@ -22,17 +22,17 @@
 
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
-            <h3>Medication {0}</h3>
-            <fieldset>
+            <label class="medication-label">MEDICATION {0}</label>
+            <fieldset class="medication">
                 <p>
                     <label>Name</label>
                     <obs conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
-                <p>
+                <p class="inline">
                     <label>Instructions</label>
                     <obs conceptId="PIH:9072"/>
                 </p>
-                <p>
+                <p class="inline">
                     <label>Amount</label>
                     <obs conceptId="PIH:9071"/>
                 </p>
