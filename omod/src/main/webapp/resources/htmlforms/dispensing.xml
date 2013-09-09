@@ -1,6 +1,35 @@
 <htmlform formUuid="ba22eda5-148d-456e-8adc-f36247d1f7c3" formName="Dispensing" formEncounterType="8ff50dea-18a1-4609-b4c9-3f8f2d611b84" formVersion="1.0">
     <script type="text/javascript">
         var $j = jQuery;
+
+        htmlForm.getBeforeValidation().push(function() {
+            var numErrors = 0;
+            var numDispensed = 0;
+            $('fieldset.medication').each(function() {
+                var numEmptyFields = 0;
+                var numFilledFields = 0;
+                $(this).find('input, select').each(function() {
+                    if ($(this).val()) {
+                        numFilledFields += 1;
+                    } else {
+                        numEmptyFields += 1;
+                    }
+                });
+                if (numFilledFields > 0 &amp;&amp; numEmptyFields > 0) {
+                    $(this).find('.field-error').first().html("All fields are required!").show();
+                    numErrors += 1;
+                } else {
+                    $(this).find('.field-error').first().html("").hide();
+                    if (numFilledFields > 0) {
+                        numDispensed += 1;
+                    }
+                }
+            });
+            if (numErrors == 0 &amp;&amp; numDispensed == 0) {
+                $('fieldset.medication').first().find('.field-error').first().html("Required").show();
+            }
+            return numErrors == 0 &amp;&amp; numDispensed > 0;
+        });
     </script>
 
     <h2>Dispensing</h2>
@@ -24,13 +53,11 @@
         <obsgroup groupingConceptId="PIH:9070">
             <label class="medication-label">MEDICATION {0}</label>
             <fieldset class="medication">
+                <p class="field-error" style="display:none"></p>
                 <p>
                     <label>Name</label>
                     <obs conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
-                <p class="inline">
-                    <label>Instructions</label>
-                    <obs conceptId="PIH:9072"/>
                 <p class="inline">
                     <label>Frequency</label>
                     <obs conceptId="PIH:3193"/>
