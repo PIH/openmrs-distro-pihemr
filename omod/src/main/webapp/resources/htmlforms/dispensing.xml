@@ -31,6 +31,19 @@
                 <p class="inline">
                     <label>Instructions</label>
                     <obs conceptId="PIH:9072"/>
+                <p class="inline">
+                    <label>Frequency</label>
+                    <obs conceptId="PIH:3193"/>
+                </p>
+                <p class="inline">
+                    <label>Dose</label>
+                    <obs conceptId="CIEL:160856"/>
+                    <obs conceptId="PIH:9074"/>
+                </p>
+                <p class="inline">
+                    <label>Duration</label>
+                    <obs conceptId="CIEL:159368"/>
+                    <obs conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
                     <label>Amount</label>
