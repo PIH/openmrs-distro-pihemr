@@ -20,7 +20,7 @@
         </p>
     </div>
 
-    <repeat with="['1'],['2'],['3']">
+    <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
             <h3>Medication {0}</h3>
             <fieldset>
