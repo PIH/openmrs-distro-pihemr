@@ -56,7 +56,7 @@
                 <p class="field-error" style="display:none"></p>
                 <p>
                     <label>Name</label>
-                    <obs conceptId="PIH:1282" answerDrugs="true"/>
+                    <obs class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
                 <p class="inline">
                     <label>Frequency</label>

@@ -1,8 +1,12 @@
 fieldset.medication {
 	background: #F8F8F8;
-	padding: 7px 12px;
+	padding: 7px 12px 12px 7px;
 	margin: 0;
 	min-width: 67.5%;
+
+	.medication-name input {
+		width: 93.5%;
+	}
 
 	h3 {
 		margin-top: 0px;
