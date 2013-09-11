@@ -80,7 +80,7 @@
         </obsgroup>
     </repeat>
 
-    <p>
+    <p class="prescriber">
         <label>Prescriber (optional)</label>
         <span class="select-arrow"><encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c"/></span>
     </p>
