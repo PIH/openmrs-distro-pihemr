@@ -1,4 +1,4 @@
-<htmlform formUuid="ba22eda5-148d-456e-8adc-f36247d1f7c3" formName="Dispensing" formEncounterType="8ff50dea-18a1-4609-b4c9-3f8f2d611b84" formVersion="1.0">
+<htmlform formUuid="ba22eda5-148d-456e-8adc-f36247d1f7c3" formName="Dispensing" formEncounterType="8ff50dea-18a1-4609-b4c9-3f8f2d611b84" formVersion="1.0" class="dispensing-form">
     <script type="text/javascript">
         var $j = jQuery;
 
@@ -33,21 +33,24 @@
     </script>
 
     <h2>Dispensing</h2>
-
-    <div id="who-where-when-edit">
-        <p id="who">
-            <label>Dispensed by</label>
-            <span><encounterProviderAndRole default="currentUser" encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/></span>
-        </p>
-        <p id="when">
-            <label><uimessage code="emr.location"/></label>
-            <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
-        </p>
-        <p id="where">
-            <label><uimessage code="emr.patientDashBoard.date"/></label>
-            <span><encounterDate id="encounterDate" default="now" /></span>
-        </p>
-    </div>
+    <table id="who-where-when-view">
+        <tbody>
+            <tr>
+                <td>
+                    <label>Dispensed by</label>
+                    <span><encounterProviderAndRole default="currentUser" encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/></span>
+                </td>
+                <td>
+                    <label><uimessage code="emr.location"/></label>
+                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
+                </td>
+                <td>
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
