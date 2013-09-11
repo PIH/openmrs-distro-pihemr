@@ -70,7 +70,7 @@
                 <p class="inline">
                     <label>Duration</label>
                     <obs class="doseInput" conceptId="CIEL:159368"/>
-                    <obs class="doseInput" conceptId="PIH:6412"/>
+                    <obs class="select-arrow" conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
                     <label>Amount</label>

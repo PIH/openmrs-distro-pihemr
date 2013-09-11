@@ -19,6 +19,10 @@ fieldset.medication {
 		float: left;
 	}
 
+	.select-arrow select {
+		min-width: 0;
+	}
+
 	.doseInput {
 		input, select {
 			display: inline;
