@@ -1,11 +1,11 @@
 fieldset.medication {
 	background: #F8F8F8;
-	padding: 7px 12px 12px 7px;
+	padding: 5px 0px 12px 19px;
 	margin: 0;
-	min-width: 67.5%;
 
 	.medication-name input {
-		width: 93.5%;
+		width: 95%;
+		display: inline-block;
 	}
 
 	h3 {
@@ -21,10 +21,21 @@ fieldset.medication {
 		margin-right: 15px;
 		display: inline-block;
 		float: left;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 
-	.select-arrow select {
-		min-width: 0;
+	.select-arrow {
+		&:after {
+			height: 33px;
+			margin-top: 1px;
+		}
+
+		select {
+			min-width: 0;
+		}
 	}
 
 	.doseInput {
@@ -41,4 +52,9 @@ fieldset.medication {
 			width: 40%;
 		}
 	}
+}
+
+.prescriber {
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
