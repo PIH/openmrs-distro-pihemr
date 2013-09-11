@@ -2,6 +2,7 @@
 
 .dispensing-form #who-where-when-view {
 	pointer-events: none;
+	margin-bottom: 10px;
 
 	input, select {
 		@include appearance(none);
