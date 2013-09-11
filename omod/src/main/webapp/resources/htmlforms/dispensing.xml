@@ -51,7 +51,7 @@
 
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
-            <label class="medication-label">MEDICATION {0}</label>
+            <h3>Medication {0}</h3>
             <fieldset class="medication">
                 <p class="field-error" style="display:none"></p>
                 <p>
@@ -64,13 +64,13 @@
                 </p>
                 <p class="inline">
                     <label>Dose</label>
-                    <obs conceptId="CIEL:160856"/>
-                    <obs conceptId="PIH:9074"/>
+                    <obs class="doseInput" conceptId="CIEL:160856"/>
+                    <obs class="doseInput" conceptId="PIH:9074"/>
                 </p>
                 <p class="inline">
                     <label>Duration</label>
-                    <obs conceptId="CIEL:159368"/>
-                    <obs conceptId="PIH:6412"/>
+                    <obs class="doseInput" conceptId="CIEL:159368"/>
+                    <obs class="doseInput" conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
                     <label>Amount</label>

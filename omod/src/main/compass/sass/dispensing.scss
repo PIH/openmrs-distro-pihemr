@@ -1,15 +1,10 @@
-.medication-label {
-	margin-bottom: 4px;
-	font-size: 0.9em;
-}
-
 fieldset.medication {
 	background: #F8F8F8;
 	padding: 7px 12px;
 	margin: 0;
 	min-width: 67.5%;
 
-	label {
+	h3 {
 		margin-top: 0px;
 	}
 
@@ -19,7 +14,23 @@ fieldset.medication {
 
 	p.inline {
 		width: 200px;
-		margin-right: 20px;
+		margin-right: 15px;
 		display: inline-block;
+		float: left;
+	}
+
+	.doseInput {
+		input, select {
+			display: inline;
+			min-width: 0;
+		}
+
+		input {
+			width: 35%;
+		}
+
+		select {
+			width: 40%;
+		}
 	}
 }
