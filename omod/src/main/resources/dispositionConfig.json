@@ -11,6 +11,7 @@
                 "label": "disposition.emrapi.admitToHospital.admissionLocation",
                 "conceptCode": "org.openmrs.module.emrapi: Admission Location",
                 "params": {
+                    "id": "admissionLocation",
                     "style": "location",
                     "answerLocationTags": "Admission Location"
                 }
@@ -54,7 +55,10 @@
         "additionalObs": [
             {
                 "label": "disposition.emrapi.transferOutOfHospital.sites",
-                "conceptCode": "PIH: Transfer out location"
+                "conceptCode": "PIH: Transfer out location",
+                "params": {
+                    "id": "transferExternalLocation"
+                }
             }
         ]
     },
@@ -70,6 +74,7 @@
                 "label": "disposition.emrapi.transferInHospital.transferToLocation",
                 "conceptCode": "org.openmrs.module.emrapi: Internal Transfer Location",
                 "params": {
+                    "id": "transferInternalLocation",
                     "style": "location",
                     "answerLocationTags": "Transfer Location"
                 }
@@ -89,6 +94,9 @@
             {
                 "label": "disposition.emrapi.death.deathDate",
                 "conceptCode": "org.openmrs.module.emrapi: Date of Death"
+                "params": {
+                    "id": "dateOfDeath"
+                }
             }
         ]
     }
