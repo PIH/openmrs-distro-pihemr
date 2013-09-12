@@ -93,7 +93,7 @@
         "additionalObs": [
             {
                 "label": "disposition.emrapi.death.deathDate",
-                "conceptCode": "org.openmrs.module.emrapi: Date of Death"
+                "conceptCode": "org.openmrs.module.emrapi: Date of Death",
                 "params": {
                     "id": "dateOfDeath"
                 }
