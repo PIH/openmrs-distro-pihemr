@@ -68,7 +68,7 @@
                 <p class="inline">
                     <label>Dose</label>
                     <obs class="doseInput" conceptId="CIEL:160856"/>
-                    <obs class="doseInput" conceptId="PIH:9074"/>
+                    <obs placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
                 </p>
                 <p class="inline">
                     <label>Duration</label>
