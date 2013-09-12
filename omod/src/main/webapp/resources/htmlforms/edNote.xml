@@ -59,6 +59,46 @@
 
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
+
+
+            var validateForm = function () {
+
+                var needsDisposition;
+
+                <excludeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+                    needsDisposition = true
+                </excludeIf>
+
+                <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+                    needsDisposition = false
+                </includeIf>
+
+                var hasDisposition = $('#disposition select:first').val() != '';
+
+                var isValid =   $('#where select').val() != '' &amp;&amp;
+                                $('#who select').val() != '' &amp;&amp;
+                                $('#when input').val() != '' &amp;&amp;      // does this actually work?
+                                $('.diagnosis').length &amp;&amp;
+                                getValue("trauma.value") &amp;&amp;
+                               (getValue("trauma.value") != yesCode || $('#trauma-type-container select').val() != '');
+
+                if (hasDisposition || needsDisposition) {
+                    // make sure disposition and all related field have been filled out
+                    isValid = isValid &amp;&amp; !$('#disposition select:visible').is(function() { return $(this).val() == ''; })  &amp;&amp;
+                                                    !$('#disposition input:visible').is(function() { return $(this).val() == ''; })
+                }
+
+                if (isValid) {
+                    $('.submitButton').removeAttr('disabled');
+                    $('.submitButton').removeClass('disabled');
+                }
+                else {
+                    $('.submitButton').attr('disabled', 'disabled');
+                    $('.submitButton').addClass('disabled');
+                }
+
+            }
+
             var yesCode = <lookup expression="fn.getConcept('PIH:YES').id"/>;
             var traumaFieldName = null;
 
@@ -85,6 +125,13 @@
                 $('#trauma input[type=radio]').last().appendTo('#no-goes-here');
                 $('#trauma label').last().appendTo('#no-goes-here');
                 $('#trauma span.required').hide();
+
+                // yes, a rather large amount of events trigger a validation...
+                $(document).change(validateForm);
+                $(document).click(validateForm);
+
+                validateForm();
+
             });
         </script>
     </ifMode>
@@ -92,20 +139,46 @@
     <ifMode mode="VIEW" include="false">
         <h2><uimessage code="emr.ed.consult.title"/></h2>
 
-        <div id="who-when-where">
-            <p id="who">
-                <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
-            </p>
-            <p id="when">
-                <label><uimessage code="emr.location"/></label>
-                <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
-            </p>
-            <p id="where">
-                <label><uimessage code="emr.patientDashBoard.date"/></label>
-                <span><encounterDate id="encounterDate" default="now" /></span>
-            </p>
-        </div>
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                    <span><encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+                </p>
+                <p id="where">
+                    <label><uimessage code="emr.location"/></label>
+                    <span><encounterLocation/></span>
+                </p>
+                <p id="when">
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </p>
+            </div>
+        </includeIf>
+
+        <excludeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </div>
+
+            <div id="who-when-where">
+                <table id="who-where-when-view"><tr>
+                    <td>
+                        <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                        <span><lookup expression="user.person.personName" /></span>
+                    </td>
+                    <td>
+                        <label><uimessage code="emr.location"/></label>
+                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
+                    </td>
+                    <td>
+                        <label><uimessage code="emr.patientDashBoard.date"/></label>
+                        <span><encounterDate id="encounterDate" default="now" /></span>
+                    </td>
+                </tr></table>
+            </div>
+        </excludeIf>
+
     </ifMode>
 
     <div id="data-collection">
@@ -145,7 +218,7 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <submit submitClass="confirm right"/>
+            <submit submitClass="confirm right disabled submitButton" submitCode="mirebalais.save"/>
             <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>

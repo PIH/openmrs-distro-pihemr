@@ -6,17 +6,13 @@
         "actions": [
             "admitToSpecificLocationDispositionAction"
         ],
-        "clientSideActions": [
+        "additionalObs": [
             {
-                "action": "include-fragment",
-                "module": "emr",
-                "fragment": "field/location",
-                "fragmentConfig": {
-                    "id": "admitToHospital",
-                    "formFieldName": "admitToLocationId",
-                    "label": "disposition.emrapi.admitToHospital.admissionLocation",
-                    "withTag": "Admission Location",
-                    "classes": ["required"]
+                "label": "disposition.emrapi.admitToHospital.admissionLocation",
+                "conceptCode": "org.openmrs.module.emrapi: Admission Location",
+                "params": {
+                    "style": "location",
+                    "answerLocationTags": "Admission Location"
                 }
             }
         ]
@@ -28,7 +24,7 @@
         "actions": [
             "dischargeIfAdmittedDispositionAction"
         ],
-        "clientSideActions": []
+        "additionalObs": []
     },
     {
         "uuid": "leftWithoutSeeingAClinician",
@@ -37,7 +33,7 @@
         "actions": [
             "dischargeIfAdmittedDispositionAction"
         ],
-        "clientSideActions": []
+        "additionalObs": []
     },
     {
         "uuid": "leftWithoutCompletionOfTreatment",
@@ -46,27 +42,19 @@
         "actions": [
             "dischargeIfAdmittedDispositionAction"
         ],
-        "clientSideActions": []
+        "additionalObs": []
     },
     {
         "uuid": "transferOutOfHospital",
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
         "actions": [
-            "addObsToGroupDispositionAction",
             "dischargeIfAdmittedDispositionAction"
         ],
-        "clientSideActions": [
+        "additionalObs": [
             {
-                "action": "include-fragment",
-                "module": "mirebalais",
-                "fragment": "field/sites",
-                "fragmentConfig": {
-                    "id": "transferOutOfHospital",
-                    "formFieldName": "valueCoded",
-                    "label": "disposition.emrapi.transferOutOfHospital.sites",
-                    "classes": [ "required" ]
-                }
+                "label": "disposition.emrapi.transferOutOfHospital.sites",
+                "conceptCode": "PIH: Transfer out location"
             }
         ]
     },
@@ -77,17 +65,13 @@
         "actions": [
             "transferToSpecificLocationDispositionAction"
         ],
-        "clientSideActions": [
+        "additionalObs": [
             {
-                "action": "include-fragment",
-                "module": "emr",
-                "fragment": "field/location",
-                "fragmentConfig": {
-                    "id": "transferWithinHospital",
-                    "formFieldName": "transferToLocationId",
-                    "label": "disposition.emrapi.transferInHospital.transferToLocation",
-                    "withTag": "Transfer Location",
-                    "classes": [ "required" ]
+                "label": "disposition.emrapi.transferInHospital.transferToLocation",
+                "conceptCode": "org.openmrs.module.emrapi: Internal Transfer Location",
+                "params": {
+                    "style": "location",
+                    "answerLocationTags": "Transfer Location"
                 }
             }
         ]
@@ -101,20 +85,10 @@
             "closeCurrentVisitDispositionAction",
             "markPatientDeadDispositionAction"
         ],
-        "clientSideActions": [
+        "additionalObs": [
             {
-                "action": "include-fragment",
-                "module": "uicommons",
-                "fragment": "field/datetimepicker",
-                "fragmentConfig": {
-                    "id": "deathDate",
-                    "useTime": false,
-                    "formFieldName": "deathDate",
-                    "label": "disposition.emrapi.death.deathDate",
-                    "defaultToday": false,
-                    "endToday": false,
-                    "classes": [ "required" ]
-                }
+                "label": "disposition.emrapi.death.deathDate",
+                "conceptCode": "org.openmrs.module.emrapi: Date of Death"
             }
         ]
     }

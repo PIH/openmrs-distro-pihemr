@@ -43,7 +43,7 @@
 
         <span>
             {{ if (emr.isFeatureEnabled('editConsultNotes') && config.editable && encounter.canEdit) { }}
-            <i class="editEncounter delete-item icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" {{ if (config.editUrl) { }} data-edit-url="{{- config.editUrl }}" {{ } }} title="${ ui.message("coreapps.edit") }"></i>
+            <i class="editEncounter delete-item icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" data-edit-url="htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{- patient.id }}&encounterId={{- encounter.encounterId }}&returnProvider=emr&returnPage=disposition/dispositionAction" title="${ ui.message("coreapps.edit") }"></i>
             {{ } }}
             {{ if ( encounter.canDelete ) { }}
             <i class="deleteEncounterId delete-item icon-remove" data-encounter-id="{{- encounter.encounterId }}" title="${ ui.message("coreapps.delete") }"></i>
