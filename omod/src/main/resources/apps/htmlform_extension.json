@@ -38,8 +38,7 @@
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
         "order": 33,
-        "requiredPrivilege": "Task: emr.enterClinicalForms",
-        "featureToggle": "mirebalais.consult"
+        "requiredPrivilege": "Task: emr.enterClinicalForms"
     },
     {
         "id": "mirebalais.edConsult",
@@ -49,8 +48,7 @@
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/edNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
         "order": 34,
-        "requiredPrivilege": "Task: emr.enterClinicalForms",
-        "featureToggle": "mirebalais.edConsult"
+        "requiredPrivilege": "Task: emr.enterClinicalForms"
     },
     {
         "id": "mirebalais.dispensing",
