@@ -32,12 +32,12 @@
         });
     </script>
 
-    <h2>Dispensing</h2>
+    <h2><uimessage code="mirebalais.dispensing.dispensing"/></h2>
     <table id="who-where-when-view">
         <tbody>
             <tr>
                 <td>
-                    <label>Dispensed by</label>
+                    <label><uimessage code="mirebalais.dispensing.dispensedBy"/></label>
                     <span><encounterProviderAndRole default="currentUser" encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/></span>
                 </td>
                 <td>
@@ -54,29 +54,29 @@
 
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
-            <h3>Medication {0}</h3>
+            <h3><uimessage code="mirebalais.dispensing.medication"/> {0}</h3>
             <fieldset class="medication">
                 <p class="field-error" style="display:none"></p>
                 <p>
-                    <label>Name</label>
+                    <label><uimessage code="mirebalais.dispensing.medicationName"/></label>
                     <obs class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
                 <p class="inline">
-                    <label>Frequency</label>
+                    <label><uimessage code="mirebalais.dispensing.medicationFrequency"/></label>
                     <obs conceptId="PIH:3193"/>
                 </p>
                 <p class="inline">
-                    <label>Dose</label>
+                    <label><uimessage code="mirebalais.dispensing.medicationDose"/></label>
                     <obs class="doseInput" conceptId="CIEL:160856"/>
                     <obs placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
                 </p>
                 <p class="inline">
-                    <label>Duration</label>
+                    <label><uimessage code="mirebalais.dispensing.medicationDuration"/></label>
                     <obs class="doseInput" conceptId="CIEL:159368"/>
                     <obs class="select-arrow" conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
-                    <label>Amount</label>
+                    <label><uimessage code="mirebalais.dispensing.medicationAmount"/></label>
                     <obs conceptId="PIH:9071"/>
                 </p>
             </fieldset>
@@ -84,7 +84,7 @@
     </repeat>
 
     <p class="prescriber">
-        <label>Prescriber (optional)</label>
+        <label><uimessage code="mirebalais.dispensing.prescriber"/></label>
         <span class="select-arrow"><encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c"/></span>
     </p>
 
