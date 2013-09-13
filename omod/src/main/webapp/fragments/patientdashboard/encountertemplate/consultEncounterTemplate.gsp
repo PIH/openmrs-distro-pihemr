@@ -56,6 +56,7 @@
     </li>
 </script>
 
+<!-- this template is no longer used since all html forms are displayed using that form  -->
 <script type="text/template" id="consultEncounterDetailsTemplate">
     {{ _.each(_.filter(diagnoses, function(d) { return d.answer }), function(d) { }}
             <p><small>{{- d.question}}</small><span>{{- d.answer}}</span></p>
