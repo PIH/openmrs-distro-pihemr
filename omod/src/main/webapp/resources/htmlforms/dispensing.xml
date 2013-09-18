@@ -32,21 +32,36 @@
         });
     </script>
 
-    <h2><uimessage code="mirebalais.dispensing.dispensing"/></h2>
+    <h2>
+        <uimessage code="mirebalais.dispensing.dispensing"/>
+    </h2>
     <table id="who-where-when-view">
         <tbody>
             <tr>
                 <td>
-                    <label><uimessage code="mirebalais.dispensing.dispensedBy"/></label>
-                    <span><encounterProviderAndRole default="currentUser" encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/></span>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.dispensedBy"/>
+                    </label>
+                    <span>
+                        <encounterProviderAndRole default="currentUser"
+                                                  encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/>
+                    </span>
                 </td>
                 <td>
-                    <label><uimessage code="emr.location"/></label>
-                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
+                    <label>
+                        <uimessage code="emr.location"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                    </span>
                 </td>
                 <td>
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><encounterDate id="encounterDate" default="now" /></span>
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
                 </td>
             </tr>
         </tbody>
@@ -54,29 +69,42 @@
 
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
-            <h3><uimessage code="mirebalais.dispensing.medication"/> {0}</h3>
+            <h3>
+                <uimessage code="mirebalais.dispensing.medication"/>
+                {0}
+            </h3>
             <fieldset class="medication">
                 <p class="field-error" style="display:none"></p>
                 <p>
-                    <label><uimessage code="mirebalais.dispensing.medicationName"/></label>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationName"/>
+                    </label>
                     <obs id="name{0}" class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
                 <p class="inline">
-                    <label><uimessage code="mirebalais.dispensing.medicationFrequency"/></label>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationFrequency"/>
+                    </label>
                     <obs id="frequency{0}" class="frequency" conceptId="PIH:3193"/>
                 </p>
                 <p class="inline">
-                    <label><uimessage code="mirebalais.dispensing.medicationDose"/></label>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationDose"/>
+                    </label>
                     <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
                     <obs id="doseUnit{0}" placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
                 </p>
                 <p class="inline">
-                    <label><uimessage code="mirebalais.dispensing.medicationDuration"/></label>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationDuration"/>
+                    </label>
                     <obs id="duration{0}" class="doseInput" conceptId="CIEL:159368"/>
                     <obs id="durationUnit{0}" class="select-arrow" conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
-                    <label><uimessage code="mirebalais.dispensing.medicationAmount"/></label>
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationAmount"/>
+                    </label>
                     <obs id="amount{0}" conceptId="PIH:9071"/>
                 </p>
             </fieldset>
@@ -84,14 +112,21 @@
     </repeat>
 
     <p class="prescriber">
-        <label><uimessage code="mirebalais.dispensing.prescriber"/></label>
-        <span class="select-arrow"><encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c" providerRole="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75,62fbeae3-4e6f-4c35-8705-f3de10ab5b87"/></span>
+        <label>
+            <uimessage code="mirebalais.dispensing.prescriber"/>
+        </label>
+        <span class="select-arrow">
+            <encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c"
+                                      providerRole="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75,62fbeae3-4e6f-4c35-8705-f3de10ab5b87"/>
+        </span>
     </p>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
         </div>
     </ifMode>
 
