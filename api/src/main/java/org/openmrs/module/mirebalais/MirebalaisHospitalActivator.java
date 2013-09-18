@@ -103,7 +103,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
-            Context.getService(AppFrameworkService.class).enableApp("coreapps.activeVisits");
+
+            // the coreapps version of this points to the new patient summary, and we want the old dashboard for now
+            Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
 
             setupCoreGlobalProperties();
             setupHtmlFormEntryGlobalProperties();

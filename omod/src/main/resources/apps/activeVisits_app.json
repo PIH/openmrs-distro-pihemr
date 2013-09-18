@@ -1,0 +1,24 @@
+[
+    {
+        // we only define a custom version of this app since the coreapps version uses the new patient dashboard and we
+        // want the old one for now
+        "id": "mirebalais.activeVisits",
+		"instanceOf": "coreapps.template.activeVisits",
+        "description": "coreapps.activeVisits.app.description",
+        "order": 10,
+        "extensions": [
+            {
+                "id": "${project.parent.groupId}.${project.parent.artifactId}.activeVisitsHomepageLink",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+                "type": "link",
+                "label": "coreapps.activeVisits.app.label",
+                "url": "coreapps/activeVisits.page?app=mirebalais.activeVisits",
+                "icon": "icon-calendar",
+                "requiredPrivilege": "App: org.openmrs.module.coreapps.activeVisits"
+            }
+        ],
+        "config": {
+            "patientPageUrl": "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"
+        }
+    }
+]
