@@ -59,25 +59,25 @@
                 <p class="field-error" style="display:none"></p>
                 <p>
                     <label><uimessage code="mirebalais.dispensing.medicationName"/></label>
-                    <obs class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
+                    <obs id="name{0}" class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
                 </p>
                 <p class="inline">
                     <label><uimessage code="mirebalais.dispensing.medicationFrequency"/></label>
-                    <obs conceptId="PIH:3193"/>
+                    <obs id="frequency{0}" class="frequency" conceptId="PIH:3193"/>
                 </p>
                 <p class="inline">
                     <label><uimessage code="mirebalais.dispensing.medicationDose"/></label>
-                    <obs class="doseInput" conceptId="CIEL:160856"/>
-                    <obs placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
+                    <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
+                    <obs id="doseUnit{0}" placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
                 </p>
                 <p class="inline">
                     <label><uimessage code="mirebalais.dispensing.medicationDuration"/></label>
-                    <obs class="doseInput" conceptId="CIEL:159368"/>
-                    <obs class="select-arrow" conceptId="PIH:6412"/>
+                    <obs id="duration{0}" class="doseInput" conceptId="CIEL:159368"/>
+                    <obs id="durationUnit{0}" class="select-arrow" conceptId="PIH:6412"/>
                 </p>
                 <p class="inline">
                     <label><uimessage code="mirebalais.dispensing.medicationAmount"/></label>
-                    <obs conceptId="PIH:9071"/>
+                    <obs id="amount{0}" conceptId="PIH:9071"/>
                 </p>
             </fieldset>
         </obsgroup>
