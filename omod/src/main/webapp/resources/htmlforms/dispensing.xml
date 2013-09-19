@@ -117,7 +117,7 @@
         </label>
         <span class="select-arrow">
             <encounterProviderAndRole encounterRole="c458d78e-8374-4767-ad58-9f8fe276e01c"
-                                      providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75,62fbeae3-4e6f-4c35-8705-f3de10ab5b87"/>
+                                      providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"/>
         </span>
     </p>
 
