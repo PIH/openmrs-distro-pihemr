@@ -1,3 +1,4 @@
+@import "variables";
 @import "compass/css3/appearance";
 
 .dispensing-form #who-where-when-view {
@@ -17,6 +18,27 @@ fieldset.medication {
 
 	.field-error {
 		color: #ff6666;
+	}
+
+	.select-arrow .emptyValue {
+		background: $error;
+	}
+
+	.select-arrow .notEmpty {
+		background: #ddffdd;
+	}
+
+	.notEmpty {
+		background: #ddffdd;
+	}
+
+	.emptyValue {
+		background: $error;
+		color: white;
+
+		&:focus {
+			background: $error;
+		}
 	}
 
 	.medication-name input {
