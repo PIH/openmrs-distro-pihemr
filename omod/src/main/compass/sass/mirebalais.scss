@@ -2,6 +2,7 @@
 @import "reference";
 @import "dispensing";
 
+
 .tabs {
   a {
     color: $link;
@@ -116,4 +117,14 @@
 	color: $white; 
 	padding: 5px;
 	margin: 5px
+}
+
+
+.dialog-diagnoses {
+  @extend .dialog;
+  width: 850px;
+  height:500px;
+  ul {
+    margin-bottom: 10px;
+  }
 }
