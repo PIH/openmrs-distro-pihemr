@@ -10,6 +10,8 @@
                 var numEmptyFields = 0;
                 var numFilledFields = 0;
                 $(this).find('input, select').each(function() {
+                    $(this).removeClass('emptyValue');
+
                     if ($(this).val()) {
                         numFilledFields += 1;
                     } else {
@@ -18,7 +20,7 @@
                 });
                 if (numFilledFields > 0 &amp;&amp; numEmptyFields > 0) {
                     $(this).find('input, select').each(function () {
-                        if($(this).val() == "") {
+                        if(!$(this).val()) {
                             if(!$(this).hasClass('illegalValue')) {
                                 $(this).addClass('emptyValue');
                             }
@@ -32,7 +34,7 @@
                     }
 
                     $('.medication input.emptyValue, .medication select.emptyValue').on('blur', function() {
-                        if ($(this).val() != "") {
+                        if ($(this).val()) {
                             if($(this).hasClass('illegalValue')) {
                                 $(this).removeClass('emptyValue');
                             } else {
@@ -108,16 +110,16 @@
                 </p>
                 <p class="inline">
                     <label>
-                        <uimessage code="mirebalais.dispensing.medicationFrequency"/>
-                    </label>
-                    <obs id="frequency{0}" class="frequency" conceptId="PIH:3193"/>
-                </p>
-                <p class="inline">
-                    <label>
                         <uimessage code="mirebalais.dispensing.medicationDose"/>
                     </label>
                     <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
                     <obs id="doseUnit{0}" placeholder="Eg: mg" class="doseInput" conceptId="PIH:9074"/>
+                </p>
+                <p class="inline">
+                    <label>
+                        <uimessage code="mirebalais.dispensing.medicationFrequency"/>
+                    </label>
+                    <obs id="frequency{0}" class="frequency" conceptId="PIH:3193"/>
                 </p>
                 <p class="inline">
                     <label>
