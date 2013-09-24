@@ -45,7 +45,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.4-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>1.9.4</openMRSVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.0-SNAPSHOT</emrapiVersion>
