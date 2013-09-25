@@ -24,6 +24,12 @@
                             if(!$(this).hasClass('illegalValue')) {
                                 $(this).addClass('emptyValue');
                             }
+                        } else {
+                            if($(this).siblings('input[type="hidden"]').length > 0) {
+                                if($(this).siblings('input[type="hidden"]').attr("value") == "") {
+                                    $(this).addClass('emptyValue');
+                                }
+                            }
                         }
                     });
                     $(this).find('.field-error').first().html("All fields are required!").show();
@@ -38,7 +44,13 @@
                             if($(this).hasClass('illegalValue')) {
                                 $(this).removeClass('emptyValue');
                             } else {
-                                $(this).removeClass('emptyValue').addClass('notEmpty');;
+                                if($(this).siblings('input[type="hidden"]').length = 0) {
+                                    $(this).removeClass('emptyValue').addClass('notEmpty');  
+                                } else {
+                                    if($(this).siblings('input[type="hidden"]').attr("value") != "") {
+                                        $(this).removeClass('emptyValue').addClass('notEmpty');  
+                                    }
+                                }
                             }
                         } else {
                             $(this).removeClass('notEmpty').addClass('emptyValue');

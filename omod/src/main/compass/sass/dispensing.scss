@@ -17,7 +17,7 @@ fieldset.medication {
 	margin: 0;
 
 	.field-error {
-		color: #ff6666;
+		color: $error;
 	}
 
 	.select-arrow .emptyValue {
@@ -25,11 +25,11 @@ fieldset.medication {
 	}
 
 	.select-arrow .notEmpty {
-		background: #ddffdd;
+		background: $successBackground;
 	}
 
 	.notEmpty {
-		background: #ddffdd;
+		background: $successBackground;
 	}
 
 	.emptyValue {
