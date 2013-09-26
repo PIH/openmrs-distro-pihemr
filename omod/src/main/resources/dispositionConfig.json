@@ -15,6 +15,15 @@
                     "style": "location",
                     "answerLocationTags": "Admission Location"
                 }
+            },
+            {
+                "label": "disposition.mirebalais.admitToHospital.boardingFor",
+                "conceptCode": "PIH: Boarding For",
+                "params": {
+                    "id": "boardingFor",
+                    "style": "location",
+                    "answerLocationTags": "Admission Location"
+                }
             }
         ]
     },
@@ -80,6 +89,13 @@
                 }
             }
         ]
+    },
+    {
+        "uuid": "edObservation",
+        "name": "disposition.mirebalais.edObservation",
+        "conceptCode": "PIH:ED Observation",
+        "actions": [],
+        "additionalObs": []
     },
     {
         "uuid": "markPatientDead",

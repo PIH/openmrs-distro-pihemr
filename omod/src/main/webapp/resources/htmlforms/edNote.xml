@@ -115,6 +115,21 @@
                 $('#trauma-type-container').toggle(trauma);
             }
 
+            // *super* hack to show/hide the boarding question based on whether or not the selected location is "ED Boarding"
+            // (note that we test by text value which is really bad--but we have nothing else to access by at this point)
+            var displayOrHideBoardingForQuestion = function () {
+
+                if ($('#admissionLocation select option:selected').text() == 'ED Boarding' ||
+                    $('#admissionLocation select option:selected').text() == 'Ijans Annatant') {
+                    $('#boardingFor').parent().show();
+                }
+                else {
+                    $('#boardingFor').parent().hide();
+                    $('#boardingFor select').val('');
+                }
+
+            }
+
             $(function() {
                 traumaFieldName = $('#trauma input[type=radio]').last().attr('name');
                 //$('input[name=' + traumaFieldName + ']').change(updateTraumaQuestions);
@@ -130,6 +145,9 @@
                 $(document).change(validateForm);
                 $(document).click(validateForm);
 
+                $(document).change(displayOrHideBoardingForQuestion);
+
+                displayOrHideBoardingForQuestion();
                 validateForm();
 
             });
