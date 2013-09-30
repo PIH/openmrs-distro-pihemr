@@ -162,7 +162,7 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
             <button type="button" class="cancel">
                 <uimessage code="emr.cancel"/>
             </button>
