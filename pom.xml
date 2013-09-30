@@ -302,6 +302,17 @@
             <scope>provided</scope>
         </dependency>
 
+
+        <!-- we explicitly use version 3.2.10 since 3.2.11 has a bug which was giving us issues,
+         can probably remove this after next sass release -->
+        <dependency>
+            <groupId>rubygems</groupId>
+            <artifactId>sass</artifactId>
+            <version>3.2.10</version>
+            <type>gem</type>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -337,7 +348,7 @@
                 <plugin>
                     <groupId>org.jasig.maven</groupId>
                     <artifactId>sass-maven-plugin</artifactId>
-                    <version>1.0.0</version>
+                    <version>1.1.1</version>
                     <configuration>
                         <sassSourceDirectory>${basedir}/src/main/webapp</sassSourceDirectory>
                         <outputDirectory>${basedir}/src/main/webapp/resources/styles</outputDirectory>
@@ -360,10 +371,10 @@
             <name>OpenMRS Nexus Repository</name>
             <url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
         </repository>
-        <!-- <repository>
+        <repository>
              <id>rubygems-releases</id>
              <url>http://rubygems-proxy.torquebox.org/releases</url>
-         </repository>-->
+         </repository>
     </repositories>
 
     <pluginRepositories>
