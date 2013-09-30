@@ -75,6 +75,7 @@
         <openmrswebVersion>1.9.3</openmrswebVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.0-SNAPSHOT</appuiVersion>
+        <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <uicommonsVersion>1.0-SNAPSHOT</uicommonsVersion>

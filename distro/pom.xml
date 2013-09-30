@@ -282,6 +282,13 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>dispensing-omod</artifactId>
+                    <version>${dispensingVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
                 <!-- temporarily adding the groovy module -->
                 <!--
                 <dependency>
