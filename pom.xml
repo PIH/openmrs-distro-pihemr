@@ -45,7 +45,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.5-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>1.9.6-SNAPSHOT</openMRSVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.1-SNAPSHOT</emrapiVersion>
@@ -57,7 +57,7 @@
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <htmlformentryVersion>2.3-SNAPSHOT</htmlformentryVersion>
         <htmlformentry19extVersion>1.4</htmlformentry19extVersion>
-        <htmlformentryuiVersion>1.0-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryuiVersion>1.1-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.0</calculationVersion>
         <reportingVersion>0.8.1-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.0-SNAPSHOT</reportinguiVersion>
