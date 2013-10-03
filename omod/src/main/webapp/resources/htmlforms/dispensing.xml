@@ -74,7 +74,7 @@
     <h2>
         <uimessage code="mirebalais.dispensing.dispensing"/>
     </h2>
-    <table id="who-where-when-view">
+   <!--  <table id="who-where-when-view">
         <tbody>
             <tr>
                 <td>
@@ -104,8 +104,47 @@
                 </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+    <table id="who-where-when-view">
+        <tr>
+            <includeIf velocityTest="$user.hasRole('Application Role: sysAdmin')">
+                <td>
+                    <label><uimessage code="mirebalais.dispensing.dispensedBy"/></label>
+                <span><encounterProviderAndRole default="currentUser"
+                                                encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" required="true"/></span>
+                </td>
+                <td>
+                    <label><uimessage code="emr.location"/></label>
+                   <span> <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/></span>
+                    <!-- <span> <encounterLocation complexExpression="$ui.format($sessionContext.sessionLocation)"/></span> -->
+                </td>
+                <td>        
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><encounterDate id="encounterDate" complexExpression="$ui.format($fn.startOfDay($visit.stopDatetime))"/></span>
+                </td>
+            </includeIf>
 
+            <includeIf velocityTest="($user.hasRole('Application Role: pharmacist') || $user.hasRole('Application Role: pharmacyAide')) and !$user.hasRole('Application Role: sysAdmin')">
+                <div style="display:none">
+                    <encounterProviderAndRole default="currentUser"
+                                              encounterRole="bad21515-fd04-4ff6-bfcd-78456d12f168" providerRoles="8fd1552e-6cb9-4719-b198-23a2c512a073" required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                </div>
+                <td>
+                    <label><uimessage code="mirebalais.dispensing.dispensedBy"/></label>
+                    <span><lookup expression="user.person.personName" /></span>
+                </td>
+                <td>
+                    <label><uimessage code="emr.location"/></label>
+                    <span><lookup complexExpression="$ui.format($sessionContext.sessionLocation)"/></span>
+                </td>
+                <td>
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                   <span><encounterDate id="encounterDate" complexExpression="$ui.format($fn.startOfDay($visit.stopDatetime))"/></span>
+                </td>
+            </includeIf>
+        </tr>
+    </table>
     <repeat with="['1'],['2'],['3'],['4'],['5']">
         <obsgroup groupingConceptId="PIH:9070">
             <h3>
