@@ -49,18 +49,6 @@
         "icon": "icon-stethoscope",
         "order": 34,
         "requiredPrivilege": "Task: emr.enterClinicalForms"
-    },
-    {
-        "id": "mirebalais.dispensing",
-        "extensionPointId": "patientDashboard.visitActions",
-        "type": "link",
-        "label": "mirebalais.task.dispensing.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/dispensing.xml",
-        "icon": "icon-medicine",
-        "order": 36,
-        "featureToggle": "dispenseMedicine",
-        "requiredPrivilege": "Task: mirebalais.dispensing"
-
     }
 
 ]
