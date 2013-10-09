@@ -26,7 +26,7 @@
         "type": "link",
         "label": "mirebalais.task.checkin.label",
         "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/checkin.xml",
-        "icon": "icon-paste",
+        "icon": "icon-check-in",
         "order": 31,
         "requiredPrivilege": "Task: mirebalais.checkinForm"
     },
