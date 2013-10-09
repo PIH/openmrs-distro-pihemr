@@ -14,10 +14,6 @@ fieldset.medication {
 	padding: 5px 0px 12px 7px;
 	margin: 0;
 
-	.field-error {
-		color: $error;
-	}
-
 	.select-arrow .emptyValue {
 		background: $error;
 	}
@@ -100,6 +96,10 @@ fieldset.medication {
 			width: 90px;
 		}
 	}
+}
+
+.field-error {
+	color: $error;
 }
 
 .prescriber {
