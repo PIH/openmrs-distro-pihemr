@@ -133,11 +133,11 @@
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote') || !($visit.open)">
             <div id="who-when-where">
                 <p id="who">
-                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                    <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
                     <span><encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
                 </p>
                 <p id="where">
-                    <label><uimessage code="emr.location"/></label>
+                    <label><uimessage code="emr.locationRequired"/></label>
                     <span><encounterLocation/></span>
                 </p>
                 <p id="when">
