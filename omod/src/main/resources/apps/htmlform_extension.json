@@ -6,7 +6,7 @@
         "label": "mirebalais.task.vitals.label",
         "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/vitals.xml",
         "icon": "icon-vitals",
-        "order": 32,
+        "order": 34,
         "requiredPrivilege": "Task: emr.enterClinicalForms",
         "require": "visit.active"
     },
@@ -17,7 +17,7 @@
         "label": "mirebalais.task.surgicalOperativeNote.label",
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/surgicalPostOpNote.xml",
         "icon": "icon-paste",
-        "order": 35,
+        "order": 38,
         "requiredPrivilege": "Task: emr.enterClinicalForms"
     },
     {
@@ -37,7 +37,7 @@
         "label": "emr.clinic.consult.title",
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
-        "order": 33,
+        "order": 32,
         "requiredPrivilege": "Task: emr.enterClinicalForms"
     },
     {
@@ -47,7 +47,7 @@
         "label": "emr.ed.consult.title",
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/edNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
-        "order": 34,
+        "order": 35,
         "requiredPrivilege": "Task: emr.enterClinicalForms"
     }
 
