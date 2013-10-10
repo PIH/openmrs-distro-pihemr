@@ -154,22 +154,28 @@
                 <encounterDate id="encounterDate" default="now" />
             </div>
 
-            <div id="who-when-where">
-                <table id="who-where-when-view"><tr>
-                    <td>
-                        <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                        <span><lookup expression="user.person.personName" /></span>
-                    </td>
-                    <td>
-                        <label><uimessage code="emr.location"/></label>
-                        <span><lookup complexExpression="$ui.format($sessionContext.sessionLocation)"/></span>
-                    </td>
-                    <td>
-                        <label><uimessage code="emr.patientDashBoard.date"/></label>
-                        <span><lookup complexExpression="$ui.format($fn.startOfDay($formGeneratedDatetime))"/></span>
-                    </td>
-                </tr></table>
-            </div>
+
+            <!-- hack to only show the provider, name and date when entering the form, since this displays the *current*
+            user and location, not user and location stores on the form -->
+            <ifMode mode="ENTER">
+                <div id="who-when-where">
+                    <table id="who-where-when-view"><tr>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                            <span><lookup expression="user.person.personName" /></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.location"/></label>
+                            <span><lookup complexExpression="$ui.format($sessionContext.sessionLocation)"/></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.date"/></label>
+                            <span><lookup complexExpression="$ui.format($fn.startOfDay($formGeneratedDatetime))"/></span>
+                        </td>
+                    </tr></table>
+                </div>
+            </ifMode>
+
         </excludeIf>
 
     </ifMode>
