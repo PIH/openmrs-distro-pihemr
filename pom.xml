@@ -78,7 +78,7 @@
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <uicommonsVersion>1.1-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>1.2-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.1-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.1-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
