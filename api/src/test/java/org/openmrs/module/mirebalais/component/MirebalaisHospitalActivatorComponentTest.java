@@ -29,6 +29,7 @@ import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -83,6 +84,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         verifyLocationAttributeNotOverwritten();
         verifyMirebalaisProviderIdentifierGeneratorConfigured();
         verifyCloseStalePullRequestsTaskScheduledAndStarted();
+        verifyCloseStaleCreateRequestsTaskScheduledAndStarted();
     }
 
     private void verifyGlobalPropertiesConfigured() throws Exception {
@@ -133,7 +135,18 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     private void verifyCloseStalePullRequestsTaskScheduledAndStarted() {
 
-        TaskDefinition taskDefinition = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+        TaskDefinition taskDefinition = schedulerService.getTaskByName(PaperRecordConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+
+        assertNotNull(taskDefinition);
+        assertTrue(taskDefinition.getStarted());
+        assertTrue(taskDefinition.getStartOnStartup());
+        assertEquals(new Long(3600), taskDefinition.getRepeatInterval());
+
+    }
+
+    private void verifyCloseStaleCreateRequestsTaskScheduledAndStarted() {
+
+        TaskDefinition taskDefinition = schedulerService.getTaskByName(PaperRecordConstants.TASK_CLOSE_STALE_CREATE_REQUESTS);
 
         assertNotNull(taskDefinition);
         assertTrue(taskDefinition.getStarted());

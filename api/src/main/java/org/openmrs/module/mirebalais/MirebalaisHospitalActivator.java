@@ -44,7 +44,9 @@ import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
+import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
@@ -120,6 +122,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupConnectionToMasterPatientIndex();
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
+            setupCloseStaleCreateRequestsTask();
             setupHtmlForms();
 
         } catch (Exception e) {
@@ -299,12 +302,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         SchedulerService schedulerService = Context.getSchedulerService();
 
-        TaskDefinition task = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+        TaskDefinition task = schedulerService.getTaskByName(PaperRecordConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
 
         if (task == null) {
             task = new TaskDefinition();
-            task.setName(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
-            task.setDescription(EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
+            task.setName(PaperRecordConstants.TASK_CLOSE_STALE_PULL_REQUESTS);
+            task.setDescription(PaperRecordConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
             task.setTaskClass(CloseStalePullRequestsTask.class.getName());
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
             task.setRepeatInterval(new Long(3600));  // once an hour
@@ -315,7 +318,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 throw new RuntimeException("Failed to schedule close stale pull requests task", e);
             }
         } else {
-            boolean anyChanges = GeneralUtils.setPropertyIfDifferent(task, "description", EmrConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
+            boolean anyChanges = GeneralUtils.setPropertyIfDifferent(task, "description", PaperRecordConstants.TASK_CLOSE_STALE_PULL_REQUESTS_DESCRIPTION);
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "taskClass", CloseStalePullRequestsTask.class.getName());
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", new Long(3600));
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
@@ -328,6 +331,44 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     schedulerService.scheduleTask(task);
                 } catch (SchedulerException e) {
                     throw new RuntimeException("Failed to schedule close stale pull requests task", e);
+                }
+            }
+        }
+    }
+
+    private void setupCloseStaleCreateRequestsTask() {
+
+        SchedulerService schedulerService = Context.getSchedulerService();
+
+        TaskDefinition task = schedulerService.getTaskByName(PaperRecordConstants.TASK_CLOSE_STALE_CREATE_REQUESTS);
+
+        if (task == null) {
+            task = new TaskDefinition();
+            task.setName(PaperRecordConstants.TASK_CLOSE_STALE_CREATE_REQUESTS);
+            task.setDescription(PaperRecordConstants.TASK_CLOSE_STALE_CREATE_REQUESTS_DESCRIPTION);
+            task.setTaskClass(CloseStaleCreateRequestsTask.class.getName());
+            task.setStartTime(DateUtils.addMinutes(new Date(), 5));
+            task.setRepeatInterval(new Long(3600));  // once an hour
+            task.setStartOnStartup(true);
+            try {
+                schedulerService.scheduleTask(task);
+            } catch (SchedulerException e) {
+                throw new RuntimeException("Failed to schedule close stale create requests task", e);
+            }
+        } else {
+            boolean anyChanges = GeneralUtils.setPropertyIfDifferent(task, "description", PaperRecordConstants.TASK_CLOSE_STALE_CREATE_REQUESTS_DESCRIPTION);
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "taskClass", CloseStaleCreateRequestsTask.class.getName());
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", new Long(3600));
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
+            if (anyChanges) {
+                schedulerService.saveTask(task);
+            }
+            if (!task.getStarted()) {
+                task.setStarted(true);
+                try {
+                    schedulerService.scheduleTask(task);
+                } catch (SchedulerException e) {
+                    throw new RuntimeException("Failed to schedule close stale create requests task", e);
                 }
             }
         }
