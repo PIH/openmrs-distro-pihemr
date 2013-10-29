@@ -94,6 +94,7 @@
         "uuid": "edObservation",
         "name": "disposition.mirebalais.edObservation",
         "conceptCode": "PIH:ED Observation",
+        "keepsVisitOpen": "true",
         "actions": [],
         "additionalObs": []
     },
