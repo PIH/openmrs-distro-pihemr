@@ -205,7 +205,7 @@
 
         <p>
             <label><uimessage code="location"/></label>
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"  tags="Surgery Note Location"/>
         </p>
 
         <p>

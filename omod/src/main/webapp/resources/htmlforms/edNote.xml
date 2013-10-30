@@ -165,7 +165,7 @@
                 </p>
                 <p id="where">
                     <label><uimessage code="emr.location"/></label>
-                    <span><encounterLocation/></span>
+                    <span><encounterLocation tags="ED Note Location"/></span>
                 </p>
                 <p id="when">
                     <label><uimessage code="emr.patientDashBoard.date"/></label>
