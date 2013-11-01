@@ -64,7 +64,7 @@
                 <h3><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></h3>
 
                 <p class="left">
-                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="7" />
+                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="8" />
                 </p>
             </fieldset>
 
