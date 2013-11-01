@@ -116,3 +116,12 @@ fieldset.medication {
 		padding-left: 5px;
 	}
 }
+
+#typePrescription span.input-container {
+	display: inline-block;
+	margin-right: 10px;
+
+	.required {
+		display: none;
+	}
+}
