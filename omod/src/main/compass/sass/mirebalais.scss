@@ -121,7 +121,8 @@
 .dialog-diagnoses {
   @extend .dialog;
   width: 850px;
-  height:500px;
+  height: auto;
+
   ul {
     margin-bottom: 10px;
   }
