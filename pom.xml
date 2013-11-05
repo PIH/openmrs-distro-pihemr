@@ -61,6 +61,7 @@
         <calculationVersion>1.0</calculationVersion>
         <reportingVersion>0.8.1-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.0-SNAPSHOT</reportinguiVersion>
+        <reportingrestVersion>1.3-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.7</serializationxstreamVersion>
         <idgenVersion>2.6</idgenVersion>

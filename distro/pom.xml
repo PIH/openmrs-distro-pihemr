@@ -162,6 +162,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>reportingrest-omod</artifactId>
+                    <version>${reportingrestVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>uilibrary-omod</artifactId>
                     <version>${uilibraryVersion}</version>
                     <scope>provided</scope>
