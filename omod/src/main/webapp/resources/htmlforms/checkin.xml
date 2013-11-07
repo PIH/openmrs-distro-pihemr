@@ -12,7 +12,8 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin" formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="2.0">
+<htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin"
+          formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="2.0">
     <style>
 
         .encounter-summary-container {
@@ -23,66 +24,126 @@
 
     <script type="text/javascript">
         jq(function() {
-            // hack to make the datepicker show when the form is opened
-            getField('encounterDate.value').datepicker('show');
+        // hack to make the datepicker show when the form is opened
+        getField('encounterDate.value').datepicker('show');
         });
     </script>
 
     <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
-            <fieldset class="required">
-                <legend><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></legend>
-                <h3><uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/></h3>
+        <fieldset class="required">
+            <legend>
+                <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
+            </legend>
+            <h3>
+                <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
+            </h3>
+
+            <p class="left">
+                <encounterDate id="encounterDate" showTime="false" default="now"/>
+            </p>
+        </fieldset>
+
+
+        <fieldset class="required">
+            <legend>
+                <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
+            </legend>
+            <h3>
+                <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
+            </h3>
+
+            <p class="left">
+                <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0"
+                                          required="true"/>
+            </p>
+        </fieldset>
+
+        <fieldset class="required">
+            <legend>
+                <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+            </legend>
+            <h3>
+                <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+            </h3>
+
+            <p class="left">
+                <encounterLocation required="true"/>
+            </p>
+        </fieldset>
+
+
+        <fieldset>
+            <legend>
+                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+            </legend>
+            <h3>
+                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
+                     unitsCssClass="append-to-value" style="dropdown" size="8" >
+                <controls>
+                    <when value="8891" thenDisplay="#appt-section"/>
+                </controls>
+                </obs>
+            </p>
+        </fieldset>
+
+        <p id="appt-section">
+
+        <obsgroup groupingConceptId="PIH:Scheduled visit construct">
+            <fieldset>
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
+                </h3>
 
                 <p class="left">
-                    <encounterDate id="encounterDate" showTime="false" default="now"/>
+                    <obs conceptId="PIH:Hospital service" id="service" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="8"/>
                 </p>
             </fieldset>
-
-
-            <fieldset class="required">
-                <legend><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></legend>
-                <h3><uimessage code="mirebalais.retrospectiveCheckin.provider.label"/></h3>
-
-                <p class="left">
-                    <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
-                </p>
-            </fieldset>
-
-            <fieldset class="required">
-                <legend><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></legend>
-                <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
-
-                <p class="left">
-                    <encounterLocation required="true"/>
-                </p>
-            </fieldset>
-
 
             <fieldset>
-                <legend><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></legend>
-                <h3><uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/></h3>
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
+                </h3>
 
                 <p class="left">
-                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="8" />
+                    <obs conceptId="PIH:RETURN VISIT DATE" id="apptDate"
+                         allowFutureDates="true"/>
                 </p>
             </fieldset>
 
+        </obsgroup>
+        </p>
 
-            <fieldset class="required">
-                <legend><uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/></legend>
-                <h3><uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/></h3>
-                <obsgroup groupingConceptId="PIH:Payment construct">
-                    <p class="left">
-                        <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt" answers="50,0" defaultValue="50"/>
-                    </p>
-                </obsgroup>
-                <!-- TODO: handle this is 'EDIT' mode as well -->
-                <ifMode mode="ENTER">
+        <fieldset class="required">
+            <legend>
+                <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+            </legend>
+            <h3>
+                <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+            </h3>
+            <obsgroup groupingConceptId="PIH:Payment construct">
+                <p class="left">
+                    <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
+                         answers="50,0" defaultValue="50"/>
+                </p>
+            </obsgroup>
+            <!-- TODO: handle this is 'EDIT' mode as well -->
+            <ifMode mode="ENTER">
 
-                </ifMode>
-            </fieldset>
-
+            </ifMode>
+        </fieldset>
 
 
     </section>
