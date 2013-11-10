@@ -42,6 +42,9 @@
         <module>omod</module>
         <module>distro</module>
         <module>ci</module>
+        <module>mirebalaisreports</module>
+        <module>emrapi</module>
+
     </modules>
 
     <properties>
