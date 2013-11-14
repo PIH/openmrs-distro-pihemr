@@ -23,9 +23,63 @@
     </style>
 
     <script type="text/javascript">
+
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+
+            var requestApptConceptId = "<lookup expression="fn.getConcept('3dcc2507-639a-4837-b6e8-71bd3b3f613d').id"/>"
+
+            var typeOfVisitExitHandler = {
+            handleExit: function(field) {
+
+                    // if "request appt" reason for visit has been selected
+                    if (field.value() == requestApptConceptId) {
+
+                        // hide the payment amount question
+                        NavigatorController.getQuestionById('payment-amount-question').hide();
+
+                        // show the appointment scheduling fields
+                        NavigatorController.getQuestionById('appt-date-question').show();
+                        NavigatorController.getQuestionById('service-question').show();
+
+                    }
+                    else {
+
+                        // hide the appointment scheduling fields
+                        NavigatorController.getQuestionById('appt-date-question').hide();
+                        NavigatorController.getQuestionById('service-question').hide();
+
+                        // hack to reset the date field since the navigator does not yet support zeroing dates automatically
+                        setValue('apptDate.value','');
+
+                        // show the payment amount question
+                        NavigatorController.getQuestionById('payment-amount-question').show();
+
+                    }
+
+                    return true;
+                }
+            }
+
+            ExitHandlers['typeOfVisit'] = typeOfVisitExitHandler;
+
+        </includeIf>
+
         jq(function() {
-        // hack to make the datepicker show when the form is opened
-        getField('encounterDate.value').datepicker('show');
+
+            // hack to make the datepicker show when the form is opened
+            getField('encounterDate.value').datepicker('show');
+
+            <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+
+                // hide the appointment scheduling fields when opening the form
+                NavigatorController.getQuestionById('appt-date-question').hide();
+                NavigatorController.getQuestionById('service-question').hide();
+
+                // hack to disallow freeform enter on appt date
+                getField('apptDate.value').attr( 'readOnly' , 'true' );
+
+            </includeIf>
+
         });
     </script>
 
@@ -73,7 +127,7 @@
         </fieldset>
 
 
-        <fieldset>
+        <fieldset class="required typeOfVisit">
             <legend>
                 <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
             </legend>
@@ -82,50 +136,49 @@
             </h3>
 
             <p class="left">
-                <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                     unitsCssClass="append-to-value" style="dropdown" size="8" >
-                <controls>
-                    <when value="8891" thenDisplay="#appt-section"/>
-                </controls>
+                <obs conceptId="PIH:Type of HUM visit" showUnits="false"
+                     unitsCssClass="append-to-value" style="dropdown" size="9" >
                 </obs>
             </p>
         </fieldset>
 
-        <p id="appt-section">
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
 
-        <obsgroup groupingConceptId="PIH:Scheduled visit construct">
-            <fieldset>
-                <legend>
-                    <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
-                </legend>
-                <h3>
-                    <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
-                </h3>
+            <obsgroup groupingConceptId="PIH:Scheduled visit construct">
 
-                <p class="left">
-                    <obs conceptId="PIH:Hospital service" id="service" showUnits="false"
-                         unitsCssClass="append-to-value" style="dropdown" size="8"/>
-                </p>
-            </fieldset>
+                <fieldset id="service-question" class="required">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
+                    </h3>
 
-            <fieldset>
-                <legend>
-                    <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
-                </legend>
-                <h3>
-                    <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
-                </h3>
+                    <p class="left">
+                        <obs conceptId="PIH:Hospital service" id="service" showUnits="false"
+                             unitsCssClass="append-to-value" style="dropdown" size="8"/>
+                    </p>
+                </fieldset>
 
-                <p class="left">
-                    <obs conceptId="PIH:RETURN VISIT DATE" id="apptDate"
-                         allowFutureDates="true"/>
-                </p>
-            </fieldset>
+                <fieldset id="appt-date-question" class="required">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
+                    </h3>
 
-        </obsgroup>
-        </p>
+                    <p class="left">
+                        <obs conceptId="PIH:RETURN VISIT DATE" id="apptDate"
+                             allowFutureDates="true"/>
+                    </p>
+                </fieldset>
 
-        <fieldset class="required">
+            </obsgroup>
+
+        </includeIf>
+
+        <fieldset id="payment-amount-question" class="required">
             <legend>
                 <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
             </legend>
@@ -134,15 +187,11 @@
             </h3>
             <obsgroup groupingConceptId="PIH:Payment construct">
                 <p class="left">
-                    <obs conceptId="PIH:Payment amount" id="paymentAmount" required="true" showUnits="false"
+                    <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
                          unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
                          answers="50,0" defaultValue="50"/>
                 </p>
             </obsgroup>
-            <!-- TODO: handle this is 'EDIT' mode as well -->
-            <ifMode mode="ENTER">
-
-            </ifMode>
         </fieldset>
 
 
