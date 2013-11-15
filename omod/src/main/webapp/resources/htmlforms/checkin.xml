@@ -60,7 +60,7 @@
                 }
             }
 
-            ExitHandlers['typeOfVisit'] = typeOfVisitExitHandler;
+            ExitHandlers['type-of-visit-question'] = typeOfVisitExitHandler;
 
         </includeIf>
 
@@ -127,7 +127,7 @@
         </fieldset>
 
 
-        <fieldset class="required typeOfVisit">
+        <fieldset class="required type-of-visit-question">
             <legend>
                 <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
             </legend>
@@ -136,7 +136,7 @@
             </h3>
 
             <p class="left">
-                <obs conceptId="PIH:Type of HUM visit" showUnits="false"
+                <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
                      unitsCssClass="append-to-value" style="dropdown" size="9" >
                 </obs>
             </p>
