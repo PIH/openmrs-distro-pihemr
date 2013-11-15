@@ -127,7 +127,7 @@
         </fieldset>
 
 
-        <fieldset class="required type-of-visit-question">
+        <fieldset class="type-of-visit-question">
             <legend>
                 <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
             </legend>
@@ -137,7 +137,7 @@
 
             <p class="left">
                 <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                     unitsCssClass="append-to-value" style="dropdown" size="9" >
+                     unitsCssClass="append-to-value" style="dropdown" size="9">
                 </obs>
             </p>
         </fieldset>

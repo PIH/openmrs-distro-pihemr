@@ -125,7 +125,7 @@
 
             <p class="left">
                 <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                     unitsCssClass="append-to-value" style="dropdown" size="9" >
+                     unitsCssClass="append-to-value" style="dropdown" size="9" required="true">
                 </obs>
             </p>
         </fieldset>
