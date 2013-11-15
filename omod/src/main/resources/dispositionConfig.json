@@ -2,7 +2,7 @@
     {
         "uuid": "admitToHospital",
         "name": "disposition.emrapi.admitToHospital",
-        "conceptCode": "PIH:ADMIT TO HOSPITAL",
+        "conceptCode": "PIH:ADMIT TO HOSPITAL   ",
         "actions": [
             "admitToSpecificLocationDispositionAction"
         ],
@@ -89,6 +89,14 @@
                 }
             }
         ]
+    },
+    {
+        "uuid": "edObservation",
+        "name": "disposition.mirebalais.stillHospitalized",
+        "conceptCode": "PIH:Still hospitalized",
+        "keepsVisitOpen": "true",
+        "actions": [],
+        "additionalObs": []
     },
     {
         "uuid": "edObservation",
