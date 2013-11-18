@@ -2,7 +2,7 @@
     {
         "uuid": "admitToHospital",
         "name": "disposition.emrapi.admitToHospital",
-        "conceptCode": "PIH:ADMIT TO HOSPITAL   ",
+        "conceptCode": "PIH:ADMIT TO HOSPITAL",
         "actions": [
             "admitToSpecificLocationDispositionAction"
         ],
