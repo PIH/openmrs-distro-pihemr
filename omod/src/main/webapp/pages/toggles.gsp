@@ -6,12 +6,14 @@
 
 <div id="toggles-container">
 	<h1>List of Feature Toggles</h1>
-	<ul>
+	<table>
+	<th>Property</th>
+	<th>Toggle</th>
     <% featureToggles.each { toggle -> %>
-		<li>
-		${ toggle.key }
-    	<strong>${ toggle.value }</strong>
-    	</li>
+		<tr>
+		<td>${ toggle.key }</td>
+    	<td><strong>${ toggle.value }</strong></td>
+    	</tr>
     <% } %>
-    </ul>
+    </table>
 </div>
