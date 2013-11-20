@@ -7,13 +7,17 @@
 <div id="toggles-container">
 	<h1>List of Feature Toggles</h1>
 	<table>
-	<th>Property</th>
-	<th>Toggle</th>
+	<thead>
+		<th>Property</th>
+		<th>Toggle</th>
+	</thead>
+	<tbody>
     <% featureToggles.each { toggle -> %>
 		<tr>
 		<td>${ toggle.key }</td>
     	<td><strong>${ toggle.value }</strong></td>
     	</tr>
     <% } %>
+    </tbody>
     </table>
 </div>
