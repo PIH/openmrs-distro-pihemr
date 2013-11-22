@@ -226,10 +226,27 @@
             <obs id="traumaType" conceptId="PIH:Type of trauma" answerConceptIds="PIH:Transport Accident,SNOMED CT:397940009,PIH:Home accident,SNOMED CT:371772001,SNOMED CT:17542004,PIH:OTHER NON-CODED"/>
         </p>
 
-        <p class="narrow">
-            <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
-            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
-        </p>
+        <excludeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+            <p class="narrow">
+                <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
+            </p>
+        </excludeIf>
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+            <obsgroup groupingConceptId="PIH:Scheduled visit construct">
+                <p class="narrow">
+                    <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                </p>
+
+                <p class="narrow">
+                    <label><uimessage code="mirebalais.retrospectiveCheckin.service.label"/></label>
+                    <obs conceptId="PIH:Hospital service" id="service" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="8"/>
+                </p>
+
+            </obsgroup>
+        </includeIf>
 
         <p>
             <label><uimessage code="emr.consult.freeTextComments"/></label>
