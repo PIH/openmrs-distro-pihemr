@@ -235,10 +235,14 @@
         <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
             <div id="schedule-appointment">
                 <fieldset> 
-                   <legend>Schedule a Future Appointment</legend>
+                   <legend>
+                       <uimessage code="mirebalais.retrospectiveCheckin.scheduleAppointment" />
+                   </legend>
                     <obsgroup groupingConceptId="PIH:Scheduled visit construct">
                         <p class="narrow date">
-                            <label><lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/></label>
+                            <label>
+                                <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
+                            </label>
                             <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
                         </p>
 
