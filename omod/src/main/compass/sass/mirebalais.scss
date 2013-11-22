@@ -127,3 +127,36 @@
     margin-bottom: 10px;
   }
 }
+
+#schedule-appointment {
+  fieldset {
+    margin-top: 22px;
+    min-width: 76%;
+
+    legend {
+      text-transform: none; 
+    }
+
+    p.narrow {
+      display: inline-block;
+      min-width: 160px;
+      width: 160px;
+
+      &.select {
+        width: 250px;
+
+        label {
+          margin-bottom: 9px;
+        }
+      }
+    }
+
+    select {
+      width: 250px;
+    }
+
+    .hasDatepicker {
+      min-width: 70%;
+    }
+  }
+}
