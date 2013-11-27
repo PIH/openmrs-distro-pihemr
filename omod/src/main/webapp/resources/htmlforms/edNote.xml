@@ -82,13 +82,18 @@
                                 getValue("trauma.value") &amp;&amp;
                                (getValue("trauma.value") != yesCode || $('#trauma-type-container select').val() != '');
 
+                var isScheduleFilled = ($('#apptDate input:last').val() != '' &amp;&amp; $('#service select').val() != '') ||
+                                       ($('#apptDate input:last').val() == '' &amp;&amp; $('#service select').val() == '');
+
+            console.log(isScheduleFilled);
+
                 if (hasDisposition || needsDisposition) {
                     // make sure disposition and all related field have been filled out
                     isValid = isValid &amp;&amp; !$('#disposition select:visible').is(function() { return $(this).val() == ''; })  &amp;&amp;
                                                     !$('#disposition input:visible').is(function() { return $(this).val() == ''; })
                 }
 
-                if (isValid) {
+                if (isValid &amp;&amp; isScheduleFilled) {
                     $('.submitButton').removeAttr('disabled');
                     $('.submitButton').removeClass('disabled');
                 }
