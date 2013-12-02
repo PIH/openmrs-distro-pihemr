@@ -44,6 +44,10 @@ form fieldset {
 	margin-top: 20px;
 	display: table;
 
+	.ui-state-default {
+		color: #003f5e;
+	}
+
 	th {
 		word-break: normal;
 
