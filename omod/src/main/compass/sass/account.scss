@@ -34,12 +34,23 @@ form fieldset {
 	}
 }
 
+#list-accounts_wrapper {
+	margin-top: 25px;
+}
 #list-accounts {
-	width: 50%;
 	margin: 0;
 	margin-top: 20px;
+	display: table;
 
 	th {
 		word-break: normal;
+
+		.medium {
+			width: 90px;
+		}
 	}
+}
+
+#list-accounts_filter {
+	width: 100%;
 }
