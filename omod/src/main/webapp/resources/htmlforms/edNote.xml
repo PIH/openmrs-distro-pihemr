@@ -82,8 +82,13 @@
                                 getValue("trauma.value") &amp;&amp;
                                (getValue("trauma.value") != yesCode || $('#trauma-type-container select').val() != '');
 
-                //var isScheduleFilled = ($('#apptDate input:last').val() != '' &amp;&amp; $('#service select').val() != '') ||
-                  //                     ($('#apptDate input:last').val() == '' &amp;&amp; $('#service select').val() == '');
+                <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+                    var isScheduleFilled = ($('#apptDate input:last').val() != '' &amp;&amp; $('#service select').val() != '') ||
+                                       ($('#apptDate input:last').val() == '' &amp;&amp; $('#service select').val() == '');
+                </includeIf>
+                <excludeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
+                    var isScheduleFilled = true;
+                </excludeIf>
 
                 if (hasDisposition || needsDisposition) {
                     // make sure disposition and all related field have been filled out
@@ -91,7 +96,7 @@
                                                     !$('#disposition input:visible').is(function() { return $(this).val() == ''; })
                 }
 
-                if (isValid) {              // &amp;&amp; isScheduleFilled) {
+                if (isValid &amp;&amp; isScheduleFilled) {
                     $('.submitButton').removeAttr('disabled');
                     $('.submitButton').removeClass('disabled');
                 }
