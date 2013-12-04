@@ -186,17 +186,27 @@
 
         </excludeIf>
 
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('editretroConsultNote')">
+        <excludeIf velocityTest="$featureToggles.isFeatureEnabled('doctorEditRetroConsultNote')">
+            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) ">
+                <ifMode mode="ENTER">
+                <div id="who-when-where">
+                    <p id="who">
+                         <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                         <span><lookup expression="user.person.personName" /></span>
+                    </p>
+                    <p id="where">
+                        <label><uimessage code="emr.locationRequired"/></label>
+                        <span><encounterLocation tags="Consult Note Location"/></span>
+                    </p>
+                    <p id="when">
+                        <label><uimessage code="emr.patientDashBoard.date"/></label>
+                        <span><encounterDate id="encounterDate" default="now" /></span>
+                    </p>
+                </div>
+                </ifMode>
+            </includeIf>
 
-
-
-
-
-
-        </includeIf>
-
-
-
+        </excludeIf>
 
     </ifMode>
 
