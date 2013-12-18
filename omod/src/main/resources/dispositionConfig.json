@@ -32,7 +32,8 @@
         "name": "disposition.emrapi.discharge",
         "conceptCode": "PIH:DISCHARGED",
         "actions": [
-            "dischargeIfAdmittedDispositionAction"
+            "dischargeIfAdmittedDispositionAction",
+            "closeCurrentVisitDispositionAction"
         ],
         "additionalObs": []
     },
@@ -41,7 +42,8 @@
         "name": "disposition.emrapi.leftWithoutSeeingAClinician",
         "conceptCode": "PIH:Left without seeing a clinician",
         "actions": [
-            "dischargeIfAdmittedDispositionAction"
+            "dischargeIfAdmittedDispositionAction",
+            "closeCurrentVisitDispositionAction"
         ],
         "additionalObs": []
     },
@@ -50,7 +52,8 @@
         "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
         "conceptCode": "PIH:Departed without medical discharge",
         "actions": [
-            "dischargeIfAdmittedDispositionAction"
+            "dischargeIfAdmittedDispositionAction",
+            "closeCurrentVisitDispositionAction"
         ],
         "additionalObs": []
     },
@@ -59,7 +62,8 @@
         "name": "disposition.emrapi.transferOutOfHospital",
         "conceptCode": "PIH:Transfer out of hospital",
         "actions": [
-            "dischargeIfAdmittedDispositionAction"
+            "dischargeIfAdmittedDispositionAction",
+            "closeCurrentVisitDispositionAction"
         ],
         "additionalObs": [
             {
