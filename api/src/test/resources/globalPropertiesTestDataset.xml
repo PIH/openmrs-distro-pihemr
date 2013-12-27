@@ -114,4 +114,6 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="htmlformentry.dateFormat" property_value="" uuid="12499872-4444-11e2-ad5b-8a6454449764"/>
     <global_property property="htmlformentry.showDateFormat" property_value="" uuid="19349872-4444-11e2-ad5b-8a6454449764"/>
 
+    <global_property property="reporting.defaultLocale" property_value="" uuid="67dab1be-6f12-11e3-bc0e-c10f06f1a979"/>
+
 </dataset>

@@ -48,12 +48,17 @@ import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
+import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.openmrs.util.OpenmrsConstants;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -109,15 +114,24 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // the coreapps version of this points to the new patient summary, and we want the old dashboard for now
             Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
 
-            setupCoreGlobalProperties();
-            setupHtmlFormEntryGlobalProperties();
-            setupUiFrameworkGlobalProperties();
-            setupNamePhoneticsGlobalProperties();
-            setupEmrGlobalProperties();
-            setupRadiologyGlobalProperties();
-            setupMirebalaisGlobalProperties();
-            setupPacsIntegrationGlobalProperties();
-            setupCoreAppsGlobalProperties();
+            PlatformTransactionManager platformTransactionManager = Context.getRegisteredComponents(PlatformTransactionManager.class).get(0);
+            TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
+            transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                @Override
+                protected void doInTransactionWithoutResult(TransactionStatus status) {
+                    setupCoreGlobalProperties();
+                    setupHtmlFormEntryGlobalProperties();
+                    setupUiFrameworkGlobalProperties();
+                    setupNamePhoneticsGlobalProperties();
+                    setupEmrGlobalProperties();
+                    setupRadiologyGlobalProperties();
+                    setupMirebalaisGlobalProperties();
+                    setupPacsIntegrationGlobalProperties();
+                    setupCoreAppsGlobalProperties();
+                    setupReportingGlobalProperties();
+                }
+            });
+
             setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
             setupConnectionToMasterPatientIndex();
             injectProviderIdentifierGenerator();
@@ -296,6 +310,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void setupCoreAppsGlobalProperties() {
         setExistingGlobalProperty(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, "a084f714-a536-473b-94e6-ec317b152b43");
+    }
+
+    private void setupReportingGlobalProperties() {
+        setExistingGlobalProperty(ReportingConstants.DEFAULT_LOCALE_GP_NAME, "fr");
     }
 
     private void setupCloseStalePullRequestsTask() {
