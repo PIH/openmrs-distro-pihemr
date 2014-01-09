@@ -86,6 +86,7 @@
         <coreappsVersion>1.2-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.4</webservicesRestVersion>
         <appointmentschedulingVersion>0.4-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
     </properties>
 
 
