@@ -84,7 +84,7 @@
         <registrationappVersion>1.1-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.2-SNAPSHOT</coreappsVersion>
-        <webservicesRestVersion>2.4-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.4</webservicesRestVersion>
         <appointmentschedulingVersion>0.4-SNAPSHOT</appointmentschedulingVersion>
     </properties>
 
