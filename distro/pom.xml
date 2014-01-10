@@ -289,7 +289,6 @@
                     <scope>provided</scope>
                 </dependency>
 
-                <!--
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
@@ -298,7 +297,6 @@
                     <scope>provided</scope>
                 </dependency>
 
-                -->
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
