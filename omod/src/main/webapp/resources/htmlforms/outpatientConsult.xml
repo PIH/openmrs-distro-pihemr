@@ -187,6 +187,7 @@
         </excludeIf>
 
         <includeIf velocityTest="$featureToggles.isFeatureEnabled('clinicianCreateRetroConsultNote')">
+            <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
             <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
                 <div id="who-when-where">
                     <p id="who">
@@ -203,7 +204,8 @@
                     </p>
                 </div>
             </includeIf>
-            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) ">
+            <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
                 <div style="display:none">
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </div>
@@ -224,7 +226,8 @@
                     </div>
 
             </includeIf>
-            <excludeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote') || $user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly')">
+            <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+            <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
                 <div style="display:none">
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                     <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
@@ -248,7 +251,7 @@
                       </tr>
                    </table>
                 </div>
-            </excludeIf>
+            </includeIf>
         </includeIf>
     </ifMode>
 
