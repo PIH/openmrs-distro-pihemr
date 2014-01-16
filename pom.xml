@@ -362,7 +362,7 @@
                 <plugin>
                     <groupId>de.saumya.mojo</groupId>
                     <artifactId>gem-maven-plugin</artifactId>
-                    <version>0.28.6</version>
+                    <version>1.0.0-rc4</version>
                 </plugin>
             </plugins>
         </pluginManagement>
