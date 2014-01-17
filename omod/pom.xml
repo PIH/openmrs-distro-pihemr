@@ -206,6 +206,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                	<jrubyVersion>1.7.10</jrubyVersion>
                     <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs>
                 </configuration>
             </plugin>
@@ -230,6 +231,7 @@
                             </execution>
                         </executions>
                         <configuration>
+                        	<jrubyVersion>1.7.10</jrubyVersion>
                             <execArgs>${project.build.directory}/rubygems/bin/compass watch ${basedir}/src/main/compass</execArgs>
                         </configuration>
                     </plugin>
