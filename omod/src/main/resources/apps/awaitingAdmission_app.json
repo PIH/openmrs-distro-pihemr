@@ -1,0 +1,27 @@
+[
+    {
+        // we only define a custom version of this app since the coreapps version uses the new patient dashboard and we
+        // want the old one for now
+        "id": "mirebalais.awaitingAdmission",
+        "instanceOf": "coreapps.template.awaitingAdmission",
+        "description": "coreapps.app.awaitingAdmission.description",
+        "order": 14,
+        "extensions": [
+            {
+                "id": "${project.parent.groupId}.${project.parent.artifactId}.awaitingAdmissionHomepageLink",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+                "type": "link",
+                "label": "coreapps.app.awaitingAdmission.label",
+                "url": "coreapps/awaitingAdmission.page?app=mirebalais.awaitingAdmission",
+                "icon": "icon-list-ul",
+                "requiredPrivilege": "App: coreapps.awaitingAdmission",
+                "extensionParams": {
+                    "featureToggle": "awaitingAdmission"
+                }
+            }
+        ],
+        "config": {
+            "patientPageUrl": "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"
+        }
+    }
+]
