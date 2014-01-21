@@ -15,9 +15,9 @@
 
 <script type="text/javascript">
     var pullChartDialog = null;
-    var createDossierNumberDialog = null;
+    var createPaperRecordDialog = null;
 
-    function createPullChartDialog(patientId) {
+    function initPullChartDialog(patientId) {
         pullChartDialog = emr.setupConfirmationDialog({
             selector: '#request-paper-record-dialog',
             actions: {
@@ -38,16 +38,16 @@
         });
     }
 
-    function createDossierDialog(patientId) {
-        createDossierNumberDialog = emr.setupConfirmationDialog({
-            selector: '#create-dossier-number-dialog',
+    function initCreatePaperRecordDialog(patientId) {
+        createPaperRecordDialog = emr.setupConfirmationDialog({
+            selector: '#create-paper-record-dialog',
             actions: {
                 confirm: function() {
-                    emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'createDossierNumber'
+                    emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'createPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
-                                createDossierNumberDialog.close();
+                                createPaperRecordDialog.close();
                                 jq(':input:enabled:visible:first').focus();
                             });
                 },
@@ -56,7 +56,7 @@
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
-                                createDossierNumberDialog.close();
+                                createPaperRecordDialog.close();
                                 jq(':input:enabled:visible:first').focus();
                             });
                 }
@@ -67,13 +67,13 @@
     jq(function() {
      jq(':input:enabled:visible:first').focus();
      if('${ pullPaperRecord }' == 'true'){
-         createPullChartDialog('${patient.id}');
+         initPullChartDialog('${patient.id}');
          ko.applyBindings( sessionLocationModel, jq('#request-paper-record-dialog').get(0) );
          pullChartDialog.show();
-     } else if('${ createDossierNumber }' == 'true'){
-         createDossierDialog('${patient.id}');
-         ko.applyBindings( sessionLocationModel, jq('#create-dossier-number-dialog').get(0) );
-         createDossierNumberDialog.show();
+     } else if('${ createPaperRecord }' == 'true'){
+         initCreatePaperRecordDialog('${patient.id}');
+         ko.applyBindings( sessionLocationModel, jq('#create-paper-record-dialog').get(0) );
+         createPaperRecordDialog.show();
      }
 
     });
@@ -107,14 +107,14 @@
         <button class="cancel">${ ui.message("emr.no") }</button>
     </div>
 </div>
-<%} else if(createDossierNumber) { %>
-    <div id="create-dossier-number-dialog" class="dialog" style="display: none">
+<%} else if(createPaperRecord) { %>
+    <div id="create-paper-record-dialog" class="dialog" style="display: none">
         <div class="dialog-header">
             <i class="icon-folder-open"></i>
-            <h3>${ ui.message("emr.patientDashBoard.createDossier.title") }</h3>
+            <h3>${ ui.message("emr.patientDashBoard.createPaperRecord.title") }</h3>
         </div>
         <div class="dialog-content">
-            <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.createDossier.where") }</p>
+            <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.createPaperRecord.where") }</p>
 
             <button class="confirm right no-color">${ ui.format(sessionContext.sessionLocation) }</button>
             <button class="cancel no-color">${ ui.message("ui.i18n.Location.name.be50d584-26b2-4371-8768-2b9565742b3b") }</button>

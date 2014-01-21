@@ -10,6 +10,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -42,18 +43,24 @@ public class PatientPageController {
         enterFormTask.setFormDefinitionFromUiResource(returnFormUrl);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("patientId", patient.getId());
-        boolean createDossierNumber = true;
+        boolean createPaperRecord = true;
         boolean pullPaperRecord = false;
+
         String dossierType = MirebalaisGlobalProperties.PAPER_RECORD_IDENTIFIER_TYPE();
         PatientIdentifierType patientIdentifierTypeByUuid = Context.getPatientService().getPatientIdentifierTypeByUuid(dossierType);
+
         if(patientIdentifierTypeByUuid != null ){
             PatientIdentifier patientDossier = patient.getPatientIdentifier(patientIdentifierTypeByUuid);
-            if(patientDossier != null && StringUtils.isNotBlank(patientDossier.getIdentifier())){
-                createDossierNumber = false;
+
+            // only show the create paper record dialog if the patient does *not* have a dossier identifier,
+            // and we are not currently at the central archives
+            if(patientDossier != null && StringUtils.isNotBlank(patientDossier.getIdentifier()) ||
+                emrContext.getSessionLocation().getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID)){
+                createPaperRecord = false;
                 pullPaperRecord = true;
             }
         }
-        params.put("createDossierNumber", createDossierNumber);
+        params.put("createPaperRecord", createPaperRecord);
         params.put("pullPaperRecord", pullPaperRecord);
         params.put("formUrl", "'" + formUrl + "'");
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient", params));

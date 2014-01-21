@@ -52,6 +52,8 @@ public class MirebalaisConstants {
 
     public static final String LACOLLINE_LOCATION_UUID = "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960";
 
+    public static final String CENTRAL_ARCHIVES_LOCATION_UUID = "be50d584-26b2-4371-8768-2b9565742b3b";
+
     public static final String MPI_REMOTE_SERVER = "lacolline";
     public static final String MPI_SEARCH_RESULTS="mpiSearchResults";
     public static final Integer MPI_CONNECT_TIMEOUT =10000;
