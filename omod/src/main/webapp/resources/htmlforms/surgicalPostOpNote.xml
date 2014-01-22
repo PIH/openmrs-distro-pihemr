@@ -56,6 +56,10 @@
             <variant locale="en" value="Nurse"/>
             <variant locale="fr" value="Infirmière"/>
         </code>
+        <code name="admission_status">
+            <variant locale="en" value="Admission status"/>
+            <variant locale="fr" value="Statut d'admission"/>
+        </code>
         <code name="pre_op_diagnoses">
             <variant locale="en" value="Pre-operative diagnoses"/>
             <variant locale="fr" value="Diagnostic pré-opératoire"/>
@@ -259,6 +263,12 @@
     </section>
 
     <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Description">
+
+        <p class="radio">
+            <label><uimessage code="admission_status"/></label>
+            <obs conceptId="PIH:TYPE OF PATIENT" style="radio" answerConceptIds="PIH:AMBULATORY,PIH:INPATIENT HOSPITALIZATION"
+                 answerSeparator="" />
+        </p>
 
         <p>
             <label><uimessage code="pre_op_diagnoses"/></label>
