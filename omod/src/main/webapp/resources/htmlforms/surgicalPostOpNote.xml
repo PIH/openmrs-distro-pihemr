@@ -58,7 +58,7 @@
         </code>
         <code name="admission_status">
             <variant locale="en" value="Admission status"/>
-            <variant locale="fr" value="Statut d'admission"/>
+            <variant locale="fr" value="Condition d’admission"/>
         </code>
         <code name="pre_op_diagnoses">
             <variant locale="en" value="Pre-operative diagnoses"/>
