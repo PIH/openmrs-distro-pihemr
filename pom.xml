@@ -52,7 +52,7 @@
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.2</uiframeworkVersion>
-        <appframeworkVersion>2.1</appframeworkVersion>
+        <appframeworkVersion>2.2-SNAPSHOT</appframeworkVersion>
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <htmlformentryVersion>2.3-SNAPSHOT</htmlformentryVersion>
