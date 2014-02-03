@@ -49,6 +49,16 @@
         "icon": "icon-stethoscope",
         "order": 35,
         "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || ( (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"
+    },
+    {
+        "id": "mirebalais.admit",
+        "extensionPointId": "patientDashboard.visitActions",
+        "type": "link",
+        "label": "mirebalais.task.admit.label",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
+        "icon": "icon-h-sign",
+        "order": 33,
+        "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit.active)"
     }
 
 ]
