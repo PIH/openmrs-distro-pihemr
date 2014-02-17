@@ -13,7 +13,7 @@
                 "type": "link",
                 "label": "coreapps.activeVisits.app.label",
                 "url": "coreapps/activeVisits.page?app=mirebalais.activeVisits",
-                "icon": "icon-calendar",
+                "icon": "icon-check-in",
                 "requiredPrivilege": "App: org.openmrs.module.coreapps.activeVisits"
             }
         ],
