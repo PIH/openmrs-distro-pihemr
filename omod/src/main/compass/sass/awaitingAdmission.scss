@@ -10,3 +10,15 @@
 	margin-bottom: 0;
 }
 
+i.admitIcon {
+	text-decoration: none;
+}
+
+#active-visits_wrapper {
+	min-height: 0;
+
+	.dataTables_filter {
+		float: right;
+		width: 26%;
+	}
+}
