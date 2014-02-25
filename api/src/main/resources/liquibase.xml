@@ -18,5 +18,28 @@
             <where>concept_id = 2</where>
         </update>
     </changeSet>
+
+    <changeSet id="20140225-set-obs-datetime-to-encounter-datetime" author="djazayeri">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from global_property where property = 'mirebalais.UHM-1065.setObsDatetimeToEncounterDatetime'
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            See UHM-1065.
+            In our present information model, all Obs.obsDatetime should be equal to Obs.encounter.encounterDatetime,
+            however due to a bug, 2/3 of obs are stored with the wrong datetime (though the vast majority are off by
+            less than a day).
+            This changeset is written so it gets run only one time, in case in the future we change our information
+            model to include obs whose datatime is not equal to the encounter they are in (e.g. a form that captures
+            multiple past lab results, each with its own date).
+        </comment>
+        <sql>
+            update obs o, encounter e
+            set o.obs_datetime = e.encounter_datetime
+            where o.encounter_id = e.encounter_id
+              and o.obs_datetime != e.encounter_datetime
+        </sql>
+    </changeSet>
     
 </databaseChangeLog>
