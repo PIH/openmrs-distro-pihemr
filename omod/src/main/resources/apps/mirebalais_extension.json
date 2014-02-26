@@ -92,5 +92,17 @@
         "icon": "icon-vitals",
         "order": 11,
         "requiredPrivilege": "App: mirebalais.outpatientVitals"
+    },
+    {
+        "id": "mirebalais.scheduledAppointments",
+        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+        "type": "link",
+        "label": "mirebalais.scheduledAppointments.title",
+        "url": "appointmentschedulingui/dailyScheduledAppointments.page",
+        "icon": "icon-calendar",
+        "order": 12 ,
+        "extensionParams": {
+            "featureToggle": "new_appointment_scheduling_ui"
+        }
     }
 ]
