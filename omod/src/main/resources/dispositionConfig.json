@@ -91,7 +91,7 @@
         ]
     },
     {
-        "uuid": "edObservation",
+        "uuid": "stillHospitalized",
         "name": "disposition.mirebalais.stillHospitalized",
         "conceptCode": "PIH:Still hospitalized",
         "keepsVisitOpen": "true",
