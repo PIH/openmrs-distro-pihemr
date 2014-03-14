@@ -21,62 +21,6 @@
         }
     </style>
 
-    <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
-
-        <script type="text/javascript">
-
-            var requestApptConceptId = "<lookup expression="fn.getConcept('3dcc2507-639a-4837-b6e8-71bd3b3f613d').id"/>"
-
-            var typeOfVisitExitHandler = {
-                handleExit: function(field) {
-
-                    // if "request appt" reason for visit has been selected
-                    if (field.value() == requestApptConceptId) {
-
-                        // hide the payment amount question
-                        NavigatorController.getQuestionById('payment-amount-question').hide();
-
-                        // show the appointment scheduling fields
-                        NavigatorController.getQuestionById('appt-date-question').show();
-                        NavigatorController.getQuestionById('service-question').show();
-
-                    }
-                    else {
-
-                        // hide the appointment scheduling fields
-                        NavigatorController.getQuestionById('appt-date-question').hide();
-                        NavigatorController.getQuestionById('service-question').hide();
-
-                        // hack to reset the date field since the navigator does not yet support zeroing dates automatically
-                        setValue('apptDate.value','');
-
-                        // show the payment amount question
-                        NavigatorController.getQuestionById('payment-amount-question').show();
-
-                    }
-
-                    return true;
-                }
-            }
-
-            ExitHandlers['type-of-visit-question'] = typeOfVisitExitHandler;
-
-            jq(function() {
-
-                // hide the appointment scheduling fields when opening the form
-                NavigatorController.getQuestionById('appt-date-question').hide();
-                NavigatorController.getQuestionById('service-question').hide();
-
-                // hack to disallow freeform enter on appt date
-                getField('apptDate.value').attr( 'readOnly' , 'true' );
-
-
-            });
-
-        </script>
-
-    </includeIf>
-
     <!-- hidden div for setting date/provider/location in view mode when entering a form -->
     <ifMode mode="VIEW" include="false">
         <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
@@ -129,42 +73,6 @@
                 </obs>
             </p>
         </fieldset>
-
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('scheduleAppointment')">
-
-            <obsgroup groupingConceptId="PIH:Scheduled visit construct">
-
-                <fieldset id="service-question" class="required">
-                    <legend>
-                        <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
-                    </legend>
-                    <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.service.label"/>
-                    </h3>
-
-                    <p class="left">
-                        <obs conceptId="PIH:Hospital service" id="service" showUnits="false"
-                             unitsCssClass="append-to-value" style="dropdown" size="8"/>
-                    </p>
-                </fieldset>
-
-                <fieldset id="appt-date-question" class="required">
-                    <legend>
-                        <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
-                    </legend>
-                    <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.appointmentDate.label"/>
-                    </h3>
-
-                    <p class="left">
-                        <obs conceptId="PIH:RETURN VISIT DATE" id="apptDate"
-                             allowFutureDates="true"/>
-                    </p>
-                </fieldset>
-
-            </obsgroup>
-
-        </includeIf>
 
         <fieldset id="payment-amount-question" class="required">
             <legend>
