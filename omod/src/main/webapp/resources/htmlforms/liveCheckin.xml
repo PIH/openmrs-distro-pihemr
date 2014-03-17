@@ -90,13 +90,6 @@
             </obsgroup>
         </fieldset>
 
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('new_appointment_scheduling_ui')">
-            <!-- appointment check-in tag will check-in patient for any valid appointment,
-                and will render information about current appointments for the patient: we inject this into the confirmation page -->
-            <div class="confirmation-message">
-                <appointmentCheckIn/>
-            </div>
-        </includeIf>
 
 
     </section>
