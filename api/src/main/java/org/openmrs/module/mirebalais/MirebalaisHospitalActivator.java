@@ -13,6 +13,12 @@
  */
 package org.openmrs.module.mirebalais;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,8 +65,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.*;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -296,6 +300,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(RadiologyConstants.GP_ULTRASOUND_ORDERABLES_CONCEPT, "a400b7e5-6b2f-404f-84d0-6eb2ca611a7d");
         setExistingGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TECHNICIAN_ENCOUNTER_ROLE, "8f4d96e2-c97c-4285-9319-e56b9ba6029c");
         setExistingGlobalProperty(RadiologyConstants.GP_PRINCIPAL_RESULTS_INTERPRETER_ENCOUNTER_ROLE, "08f73be2-9452-44b5-801b-bdf7418c2f71");
+        setExistingGlobalProperty(RadiologyConstants.GP_LEAD_RADIOLOGY_TECH_NAME, "Edner");
+        setExistingGlobalProperty(RadiologyConstants.GP_LEAD_RADIOLOGY_TECH_CONTACT_INFO, "4868-9765");
     }
 
     private void setupNamePhoneticsGlobalProperties() {
