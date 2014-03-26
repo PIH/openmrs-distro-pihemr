@@ -130,7 +130,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     setupPacsIntegrationGlobalProperties();
                     setupCoreAppsGlobalProperties();
                     setupReportingGlobalProperties();
-                    setupRestWebServicesGlobalProperties();
+                    setupWebServicesRestGlobalProperties();
                 }
             });
 
