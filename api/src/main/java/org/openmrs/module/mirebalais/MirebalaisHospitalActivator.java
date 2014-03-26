@@ -130,6 +130,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     setupPacsIntegrationGlobalProperties();
                     setupCoreAppsGlobalProperties();
                     setupReportingGlobalProperties();
+                    setupRestWebServicesGlobalProperties();
                 }
             });
 
@@ -318,6 +319,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void setupReportingGlobalProperties() {
         setExistingGlobalProperty(ReportingConstants.DEFAULT_LOCALE_GP_NAME, "fr");
+    }
+
+    private void setupWebServicesRestGlobalProperties() {
+        // up the number of results that rest web services returns (for the appointment scheduling module)
+        setExistingGlobalProperty("webservices.rest.maxResultsAbsolute", "1000");
+        setExistingGlobalProperty("webservices.rest.maxResultsDefault", "500");
     }
 
     private void setupCloseStalePullRequestsTask() {
