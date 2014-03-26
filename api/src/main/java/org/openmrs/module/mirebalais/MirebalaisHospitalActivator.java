@@ -302,6 +302,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(RadiologyConstants.GP_PRINCIPAL_RESULTS_INTERPRETER_ENCOUNTER_ROLE, "08f73be2-9452-44b5-801b-bdf7418c2f71");
         setExistingGlobalProperty(RadiologyConstants.GP_LEAD_RADIOLOGY_TECH_NAME, "Edner");
         setExistingGlobalProperty(RadiologyConstants.GP_LEAD_RADIOLOGY_TECH_CONTACT_INFO, "4868-9765");
+        setExistingGlobalProperty(RadiologyConstants.GP_CONTRAST_ORDERABLES_CONCEPT, "60e6cd5a-3070-4b41-a36d-4730d4e85733");
     }
 
     private void setupNamePhoneticsGlobalProperties() {
