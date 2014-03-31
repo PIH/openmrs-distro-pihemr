@@ -1,0 +1,62 @@
+[
+    {
+        "id": "emr.account.manageAccounts",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.task.accountManagement.label",
+        "url": "emr/account/manageAccounts.page",
+        "icon": "icon-book",
+        "order": 5
+    },
+    {
+        "id": "emr.printer.managePrinters",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.printer.managePrinters",
+        "url": "emr/printer/managePrinters.page",
+        "icon": "icon-print",
+        "order": 10
+    },
+    {
+        "id": "emr.printer.defaultPrinters",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.printer.defaultPrinters",
+        "url": "emr/printer/defaultPrinters.page",
+        "icon": "icon-print",
+        "order": 11
+    },
+    {
+        "id": "emr.mergePatients",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.mergePatients",
+        "url": "emr/mergePatients.page",
+        "icon": "icon-group",
+        "order": 6
+    },
+    {
+        "id": "emr.testPatient.registration",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.testPatient.registration",
+        "url": "mirebalais/patientRegistration/appRouter.page?task=patientRegistration&testPatient=true",
+        "icon": "icon-register",
+        "order": 20,
+        "extensionParams": {
+            "featureToggle": "registerTestPatient"
+        }
+    },
+    {
+        "id": "mirebalais.toggles",
+        "extensionPointId": "systemAdministration.apps",
+        "type": "link",
+        "label": "emr.advancedFeatures",
+        "url": "mirebalais/toggles.page",
+        "icon": "icon-search",
+        "order": 99
+    }
+]
+
+
+

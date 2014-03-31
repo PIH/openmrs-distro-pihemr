@@ -94,15 +94,13 @@
         "requiredPrivilege": "App: mirebalais.outpatientVitals"
     },
     {
-        "id": "mirebalais.scheduledAppointments",
+        "id": "emr.systemAdministration",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
-        "label": "mirebalais.scheduledAppointments.title",
-        "url": "appointmentschedulingui/dailyScheduledAppointments.page",
-        "icon": "icon-calendar",
-        "order": 12 ,
-        "extensionParams": {
-            "featureToggle": "new_appointment_scheduling_ui"
-        }
+        "label": "coreapps.app.system.administration.label",
+        "url": "coreapps/systemadministration/systemAdministration.page",
+        "icon": "icon-cogs",
+        "order": 2,
+        "requiredPrivilege": "App: emr.systemAdministration"
     }
 ]
