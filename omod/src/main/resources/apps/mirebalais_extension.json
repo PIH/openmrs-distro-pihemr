@@ -55,10 +55,7 @@
         "url": "mirebalais/checkin/findPatient.page?formUrl='mirebalais:htmlforms/liveCheckin.xml'",
         "icon": "icon-paste",
         "order": 5,
-        "requiredPrivilege": "App: mirebalais.checkin",
-        "extensionParams": {
-            "featureToggle": "liveCheckin"
-        }
+        "requiredPrivilege": "App: mirebalais.checkin"
     },
     {
         "id": "patientRegistration.emergencyCheckin",
@@ -68,10 +65,7 @@
         "url": "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
         "icon": "icon-hospital",
         "order": 5,
-        "requiredPrivilege": "App: patientregistration.main",
-        "extensionParams": {
-            "featureToggle": "emergencyCheckin"
-        }
+        "requiredPrivilege": "App: patientregistration.main"
     },
     {
         "id": "patientRegistration.lookup",

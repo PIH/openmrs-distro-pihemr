@@ -15,9 +15,7 @@
                 "url": "mirebalaisreports/awaitingAdmission.page?app=mirebalais.awaitingAdmission",
                 "icon": "icon-list-ul",
                 "requiredPrivilege": "App: coreapps.awaitingAdmission",
-                "extensionParams": {
-                    "featureToggle": "awaitingAdmission"
-                }
+                "featureToggle": "awaitingAdmission"
             }
         ],
         "config": {
