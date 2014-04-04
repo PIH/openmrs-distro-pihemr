@@ -48,6 +48,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
@@ -139,6 +140,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
             setupCloseStaleCreateRequestsTask();
+            setupMarkAppointmentAsMissedOrCompletedTask();
             setupHtmlForms();
 
         } catch (Exception e) {
@@ -402,6 +404,45 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 }
             }
         }
+    }
+
+    public void setupMarkAppointmentAsMissedOrCompletedTask() {
+
+        SchedulerService schedulerService = Context.getSchedulerService();
+
+        TaskDefinition task = schedulerService.getTaskByName(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED);
+
+        if (task == null) {
+            task = new TaskDefinition();
+            task.setName(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED);
+            task.setDescription(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_DESCRIPTION);
+            task.setTaskClass(MarkAppointmentsAsMissedOrCompletedTask.class.getName());
+            task.setStartTime(DateUtils.addMinutes(new Date(), 5));   // doesn't really do anything since start on startup = true
+            task.setRepeatInterval(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL);
+            task.setStartOnStartup(true);
+            try {
+                schedulerService.scheduleTask(task);
+            } catch (SchedulerException e) {
+                throw new RuntimeException("Failed to schedule mark appointments as missed or completed task", e);
+            }
+        } else {
+            boolean anyChanges = GeneralUtils.setPropertyIfDifferent(task, "description", MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_DESCRIPTION);
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "taskClass", MarkAppointmentsAsMissedOrCompletedTask.class.getName());
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED);
+            anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
+            if (anyChanges) {
+                schedulerService.saveTask(task);
+            }
+            if (!task.getStarted()) {
+                task.setStarted(true);
+                try {
+                    schedulerService.scheduleTask(task);
+                } catch (SchedulerException e) {
+                    throw new RuntimeException("Failed to schedule mark appointments as missed or completed task", e);
+                }
+            }
+        }
+
     }
 
     private void setupConnectionToMasterPatientIndex() {
