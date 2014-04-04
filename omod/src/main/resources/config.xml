@@ -77,9 +77,6 @@
         <require_module version="${dispensingVersion}">
             org.openmrs.module.dispensing
         </require_module>
-        <require_module version="${appointmentschedulingVersion}">
-            org.openmrs.module.appointmentscheduling
-        </require_module>
     </require_modules>
 
     <activator>
