@@ -14,6 +14,9 @@
 
 package org.openmrs.module.mirebalais.component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +26,9 @@ import org.openmrs.Person;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.service.AppFrameworkService;
-import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
@@ -38,10 +41,9 @@ import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
@@ -85,6 +87,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         verifyMirebalaisProviderIdentifierGeneratorConfigured();
         verifyCloseStalePullRequestsTaskScheduledAndStarted();
         verifyCloseStaleCreateRequestsTaskScheduledAndStarted();
+        verifyMarkAppointmentsAsMissedOrCompletedScheduledAndStarted();
     }
 
     private void verifyGlobalPropertiesConfigured() throws Exception {
@@ -153,5 +156,14 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         assertTrue(taskDefinition.getStartOnStartup());
         assertEquals(new Long(3600), taskDefinition.getRepeatInterval());
 
+    }
+
+    private void  verifyMarkAppointmentsAsMissedOrCompletedScheduledAndStarted() {
+        TaskDefinition taskDefinition = schedulerService.getTaskByName(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED);
+
+        assertNotNull(taskDefinition);
+        assertTrue(taskDefinition.getStarted());
+        assertTrue(taskDefinition.getStartOnStartup());
+        assertEquals(MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL, taskDefinition.getRepeatInterval());
     }
 }

@@ -24,5 +24,12 @@
         <mapping resource="Provider.hbm.xml" />
         <mapping resource="ProviderRole.hbm.xml" />
         <mapping resource="AppFramework.hbm.xml"/>
+
+        <mapping resource="AppointmentType.hbm.xml" />
+        <mapping resource="AppointmentBlock.hbm.xml"/>
+        <mapping resource="Appointment.hbm.xml"/>
+        <mapping resource="TimeSlot.hbm.xml"/>
+        <mapping resource="AppointmentStatusHistory.hbm.xml"/>
+
     </session-factory>
 </hibernate-configuration>
