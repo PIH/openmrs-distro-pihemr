@@ -41,5 +41,17 @@
               and o.obs_datetime != e.encounter_datetime
         </sql>
     </changeSet>
+
+    <changeSet id="20140408-delete-person-attributes-with-value-false" author="djazayeri">
+        <comment>
+            See UHM-1230: With UHM-1220 the code fix was made to correctly store phone numbers when entered as blank.
+            Prior to that ticket, they were being stored as "false" in the database.
+            In all of the environments (including production) there are several instances of them being false as a
+            result of this bug. This changeset removes all person_attributes with value = false
+        </comment>
+        <delete tableName="person_attribute">
+            <where>value='false'</where>
+        </delete>
+    </changeSet>
     
 </databaseChangeLog>
