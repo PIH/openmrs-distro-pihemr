@@ -14,23 +14,82 @@
 
 <htmlform formUuid="43acf930-eb1b-11e2-91e2-0800200c9a66" formName="Admission" formEncounterType="260566e1-c909-4d61-a96f-c1019291a09d" formVersion="2.0">
 
+    <style type="text/css">
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        <ifMode mode="VIEW" include="false">
+            #data-collection {
+            display: inline-block;
+            width: 58%;
+            vertical-align: top;
+            }
+
+            #encounter-diagnoses-target {
+            display: inline-block;
+            width: 40%;
+            vertical-align: top;
+            }
+
+            #encounter-diagnoses-app {
+            margin-bottom: 20px;
+            }
+        </ifMode>
+
+    </style>
+
+
     <h2><label><uimessage code="mirebalais.admissionNote.label"/></label></h2>
 
         <section id="admission">
-            <p>
-                <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
-                <encounterDate id="encounterDate" showTime="false" default="now"/>
-            </p>
 
-            <p id="provider">
-                <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </p>
+            <div id="who-when-where">
+                <p>
+                    <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
+                    <encounterDate id="encounterDate" showTime="false" default="now"/>
+                </p>
 
-            <p id="location">
-                <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
-                <encounterLocation required="true" tags="Admission Location"/>
-            </p>
+                <p id="provider">
+                    <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
+                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                </p>
+
+                <p id="location">
+                    <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
+                    <encounterLocation required="true" tags="Admission Location"/>
+                </p>
+            </div>
+
+            <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
+                <div id="data-collection">
+                    <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
+                </div>
+
+                <div id="encounter-diagnoses-target">
+                </div>
+            </includeIf>
+
         </section>
 
     <ifMode mode="VIEW" include="false">

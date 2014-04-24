@@ -1,6 +1,7 @@
 [
     {
         "uuid": "admitToHospital",
+        "type": "ADMIT",
         "name": "disposition.emrapi.admitToHospital",
         "conceptCode": "PIH:ADMIT TO HOSPITAL",
         "actions": [
@@ -29,6 +30,7 @@
     },
     {
         "uuid": "discharge",
+        "type": "DISCHARGE",
         "name": "disposition.emrapi.discharge",
         "conceptCode": "PIH:DISCHARGED",
         "actions": [
@@ -73,6 +75,7 @@
     },
     {
         "uuid": "transferWithinHospital",
+        "type": "TRANSFER",
         "name": "disposition.emrapi.transferInHospital",
         "conceptCode": "PIH:Transfer within hospital",
         "actions": [
