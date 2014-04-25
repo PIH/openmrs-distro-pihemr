@@ -328,9 +328,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         // up the number of results that rest web services returns (for the appointment scheduling module)
         setExistingGlobalProperty("webservices.rest.maxResultsAbsolute", "1000");
         setExistingGlobalProperty("webservices.rest.maxResultsDefault", "500");
-
-        // TODO remove once we confirm this is no longer used
-        setExistingGlobalProperty("webservices.rest.disableWwwAuthHeader", "true");
     }
 
     private void setupCloseStalePullRequestsTask() {

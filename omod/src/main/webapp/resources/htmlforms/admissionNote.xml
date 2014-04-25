@@ -59,38 +59,115 @@
 
     </style>
 
+    <script type="text/javascript">
+
+        var validateForm = function () {
+
+            var isValid =   $('#location select').val() != '' &amp;&amp;
+                            $('#provider select').val() != '' &amp;&amp;
+                            $('#date input').val() != '' &amp;&amp;      // does this actually work?
+                            $('.diagnosis').length;
+
+            if (isValid) {
+                $('.submitButton').removeAttr('disabled');
+                $('.submitButton').removeClass('disabled');
+            }
+            else {
+                $('.submitButton').attr('disabled', 'disabled');
+                $('.submitButton').addClass('disabled');
+            }
+
+        }
+
+        $(function() {
+            // yes, a rather large amount of events trigger a validation...
+            $(document).change(validateForm);
+            $(document).click(validateForm);
+            validateForm();
+        });
+
+    </script>
 
     <h2><label><uimessage code="mirebalais.admissionNote.label"/></label></h2>
 
-        <section id="admission">
+    <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+    <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+        <div id="who-when-where">
+            <p id="provider">
+                <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </p>
 
-            <div id="who-when-where">
-                <p>
-                    <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
-                    <encounterDate id="encounterDate" showTime="false" default="now"/>
-                </p>
+            <p id="location">
+                <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Admission Location"/>
+            </p>
 
-                <p id="provider">
-                    <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
-                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                </p>
+            <p id="date">
+                <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
+                <encounterDate id="encounterDate" showTime="false" default="now"/>
+            </p>
+        </div>
+    </includeIf>
+    <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+    <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+        <div style="display:none">
+            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+        </div>
 
-                <p id="location">
-                    <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
-                    <encounterLocation required="true" tags="Admission Location"/>
-                </p>
-            </div>
+        <div id="who-when-where">
+            <p id="provider">
+                <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
+                <span><lookup expression="user.person.personName" /></span>
+            </p>
 
-            <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
-                <div id="data-collection">
-                    <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
-                </div>
+            <p id="location">
+                <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"  tags="Admission Location"/>
+            </p>
 
-                <div id="encounter-diagnoses-target">
-                </div>
-            </includeIf>
+            <p id="date">
+                <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
+                <encounterDate id="encounterDate" showTime="false" default="now"/>
+            </p>
+        </div>
 
-        </section>
+    </includeIf>
+    <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+    <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+        <div style="display:none">
+            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            <encounterDate id="encounterDate" default="now" />
+        </div>
+        <div id="who-when-where">
+            <table id="who-where-when-view">
+                <tr>
+                    <td>
+                        <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
+                        <span><lookup expression="user.person.personName" /></span>
+                    </td>
+                    <td>
+                        <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
+                        <span><lookup complexExpression="$ui.format($sessionContext.sessionLocation)"/></span>
+                    </td>
+                    <td>
+                        <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
+                        <span><lookup complexExpression="$ui.format($fn.startOfDay($formGeneratedDatetime))"/></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </includeIf>
+
+    <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
+        <div id="data-collection">
+            <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
+        </div>
+
+        <div id="encounter-diagnoses-target">
+        </div>
+    </includeIf>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

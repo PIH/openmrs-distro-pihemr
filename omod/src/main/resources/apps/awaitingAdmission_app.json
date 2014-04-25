@@ -12,7 +12,7 @@
                 "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
                 "type": "link",
                 "label": "coreapps.app.awaitingAdmission.label",
-                "url": "mirebalaisreports/awaitingAdmission.page?app=mirebalais.awaitingAdmission",
+                "url": "mirebalaisreports/awaitingAdmission.page",
                 "icon": "icon-list-ul",
                 "requiredPrivilege": "App: coreapps.awaitingAdmission",
                 "featureToggle": "awaitingAdmission"

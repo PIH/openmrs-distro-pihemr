@@ -20,6 +20,11 @@
                 "f1c286d0-b83f-4cd4-8348-7ea3c28ead13": {
                     "icon": "icon-money"
                 },
+                "260566e1-c909-4d61-a96f-c1019291a09d": {
+                    "_comment": "Admission",
+                    "icon": "icon-signin",
+                    "editable": true
+                },
                 "c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5": {
                     "icon": "icon-paste",
                     "displayWithHtmlForm": true,
@@ -66,11 +71,6 @@
             "supportedEncounterTypes": {
                 "873f968a-73a8-4f9c-ac78-9f4778b751b6": {
                     "icon": "icon-register"
-                },
-                "260566e1-c909-4d61-a96f-c1019291a09d": {
-                    "_comment": "Admission",
-                    "icon": "icon-signin",
-                    "editable": true
                 },
                 "b6631959-2105-49dd-b154-e1249e0fbcd7": {
                     "_comment": "Discharge",
