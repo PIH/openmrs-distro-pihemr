@@ -53,5 +53,30 @@
             <where>value='false'</where>
         </delete>
     </changeSet>
-    
+
+    <changeSet id="20140429-update-preferred-address" author="mgoodrich">
+        <comment>
+            See UHM-1283. Make sure no patient has more than one preferred address
+            First query finds a list of all person_address_ids for persons that have more than one preferred address.
+            The second query does the same, *except* that it only records a single person_address_id for each patient--
+            the one with the lowest value.
+            Third query updates sets preferred=0 for all person_addresses in the first set but not in the second set.
+        </comment>
+        <sql>
+            CREATE TEMPORARY TABLE IF NOT EXISTS pa1 AS SELECT DISTINCT a.person_address_id AS person_address_id
+            FROM person_address AS a, person_address AS b WHERE a.person_id = b.person_id
+            AND a.preferred = 1 AND b.preferred = 1
+            AND a.person_address_id != b.person_address_id;
+
+            CREATE TEMPORARY TABLE IF NOT EXISTS pa2 AS SELECT MIN(a.person_address_id) AS person_address_id
+            FROM person_address AS a, person_address AS b WHERE a.person_id = b.person_id
+            AND a.person_address_id != b.person_address_id
+            AND a.preferred = 1 AND b.preferred = 1
+            GROUP By a.person_id;
+
+            UPDATE person_address SET preferred = 0 WHERE person_address_id IN
+            (SELECT person_address_id FROM pa1 WHERE person_address_id NOT IN (SELECT person_address_id FROM pa2));
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
