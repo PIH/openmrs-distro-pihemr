@@ -63,9 +63,9 @@
 
         var validateForm = function () {
 
-            var isValid =   $('#location select').val() != '' &amp;&amp;
-                            $('#provider select').val() != '' &amp;&amp;
-                            $('#date input').val() != '' &amp;&amp;      // does this actually work?
+            var isValid =   $('#where select').val() != '' &amp;&amp;
+                            $('#who select').val() != '' &amp;&amp;
+                            $('#when input').val() != '' &amp;&amp;      // does this actually work?
                             $('.diagnosis').length;
 
             if (isValid) {
@@ -93,17 +93,17 @@
     <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
     <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
         <div id="who-when-where">
-            <p id="provider">
+            <p id="who">
                 <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
             </p>
 
-            <p id="location">
+            <p id="where">
                 <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
                 <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Admission Location"/>
             </p>
 
-            <p id="date">
+            <p id="when">
                 <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
                 <encounterDate id="encounterDate" showTime="false" default="now"/>
             </p>
@@ -116,17 +116,17 @@
         </div>
 
         <div id="who-when-where">
-            <p id="provider">
+            <p id="who">
                 <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
                 <span><lookup expression="user.person.personName" /></span>
             </p>
 
-            <p id="location">
+            <p id="where">
                 <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
                 <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"  tags="Admission Location"/>
             </p>
 
-            <p id="date">
+            <p id="when">
                 <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
                 <encounterDate id="encounterDate" showTime="false" default="now"/>
             </p>
