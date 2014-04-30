@@ -145,15 +145,15 @@
                 <tr>
                     <td>
                         <label><uimessage code="mirebalais.admissionNote.admittingClinician.label"/></label>
-                        <span><lookup expression="user.person.personName" /></span>
+                        <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
                     </td>
                     <td>
                         <label><uimessage code="mirebalais.admissionNote.admittedTo.label"/></label>
-                        <span><lookup complexExpression="$ui.format($sessionContext.sessionLocation)"/></span>
+                        <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
                     </td>
                     <td>
                         <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
-                        <span><lookup complexExpression="$ui.format($fn.startOfDay($formGeneratedDatetime))"/></span>
+                        <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
                     </td>
                 </tr>
             </table>
