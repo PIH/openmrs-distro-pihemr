@@ -137,7 +137,6 @@
     <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
         <div style="display:none">
             <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            <encounterDate id="encounterDate" default="now" />
         </div>
         <div id="who-when-where">
             <p id="who">
@@ -152,6 +151,9 @@
                 <label><uimessage code="mirebalais.admissionNote.admissionDate.label"/></label>
                 <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
             </p>
+        </div>
+        <div style="display:none">
+            <encounterDate id="encounterDate" default="now" />
         </div>
     </includeIf>
 
