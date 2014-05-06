@@ -4,6 +4,7 @@
         "type": "ADMIT",
         "name": "disposition.emrapi.admitToHospital",
         "conceptCode": "PIH:ADMIT TO HOSPITAL",
+        "keepsVisitOpen": "true",
         "actions": [
             "admitToSpecificLocationDispositionAction"
         ],
