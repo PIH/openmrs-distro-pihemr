@@ -1,10 +1,10 @@
 [
     {
-        "id": "mirebalais.awaitingAdmission.admit",
-        "extensionPointId": "mirebalaisreports.awaitingAdmissionActions",
+        "id": "coreapps.app.awaitingAdmission",
+        "extensionPointId": "coreapps.app.awaitingAdmissionActions",
         "type": "link",
         "label": "mirebalais.task.admit.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml&returnProvider=mirebalaisreports&returnPage=awaitingAdmission&returnLabel=mirebalaisreports.awaitingAdmission.label",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label",
         "icon": "icon-h-sign",
         "order": 33,
         "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit.active)",
