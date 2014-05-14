@@ -23,4 +23,7 @@
     <appointmentscheduling_appointment appointment_id="9" time_slot_id="2" appointment_type_id="1" patient_id="2" status="SCHEDULED" uuid="c0c579b0-8e59-401d-8a4a-976a0b183609" date_created="2005-01-01 00:00:00.0" voided="false" creator="1"/>
     <appointmentscheduling_appointment appointment_id="10" time_slot_id="2" appointment_type_id="1" patient_id="2" status="WAITING" uuid="c0c579b0-8e59-401d-8a4a-976a0b183610" date_created="2005-01-01 00:00:00.0" voided="false" creator="1"/>
 
+    <!-- set the consult encounter type to one of the encounter types in the standard test dataset -->
+    <global_property property="emr.consultEncounterType" property_value="61ae96f4-6afe-4351-b6f8-cd4fc383cce1" uuid="1fbfbc6c-7bc5-11e2-80c8-0295e7c832a2"/>
+
 </dataset>

@@ -87,6 +87,7 @@
         <webservicesRestVersion>2.5-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>0.4-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
+        <openmrsTestutilsVersion>1.3-SNAPSHOT</openmrsTestutilsVersion>
     </properties>
 
 
@@ -305,6 +306,17 @@
 
 
         <!-- End OpenMRS modules -->
+
+        <!-- Begin OpenMRS contrib -->
+
+        <dependency>
+            <groupId>org.openmrs.contrib</groupId>
+            <artifactId>testutils</artifactId>
+            <version>${openmrsTestutilsVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- End OpenMRS contrib -->
 
         <dependency>
             <groupId>javax.servlet</groupId>
