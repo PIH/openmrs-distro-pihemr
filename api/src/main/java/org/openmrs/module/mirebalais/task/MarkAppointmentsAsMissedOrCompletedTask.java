@@ -35,7 +35,7 @@ public class MarkAppointmentsAsMissedOrCompletedTask extends AbstractTask {
         for (Appointment appointment : appointmentService.getAppointmentsByConstraints(null, endOfYesterday, null, null, null, null,
                 Appointment.AppointmentStatus.getAppointmentsStatusByTypes(Arrays.asList(Appointment.AppointmentStatusType.ACTIVE)))) {
 
-            if (appointment.getVisit() != null && adtService.wrap(appointment.getVisit()).hasConsultEncounter()) {
+            if (appointment.getVisit() != null && adtService.wrap(appointment.getVisit()).hasVisitNoteAtLocation(appointment.getTimeSlot().getAppointmentBlock().getLocation())) {
                 appointment.setStatus(Appointment.AppointmentStatus.COMPLETED);
                 appointmentService.saveAppointment(appointment);
             }

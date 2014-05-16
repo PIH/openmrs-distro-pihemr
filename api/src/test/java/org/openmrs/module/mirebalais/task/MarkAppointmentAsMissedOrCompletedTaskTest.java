@@ -3,8 +3,9 @@ package org.openmrs.module.mirebalais.task;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Location;
 import org.openmrs.Visit;
-import org.openmrs.api.context.Context;
+import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
@@ -20,6 +21,9 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     private EmrApiProperties emrApiProperties;
@@ -71,6 +75,9 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
         assertThat(appointmentService.getAppointment(7).getStatus(), is(AppointmentStatus.WALKIN));
         assertThat(appointmentService.getAppointment(8).getStatus(), is(AppointmentStatus.WAITING));
 
+        Location location1 = locationService.getLocation(1);
+        Location location3 = locationService.getLocation(3);  // location of the appointments, as defined in test dataset
+
         // now add a visit to one appointment, and a visit with a consult to the other
         Appointment appt4 = appointmentService.getAppointment(4);
         Visit visit4 = testDataManager.visit()
@@ -83,16 +90,31 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
 
         Appointment appt7 = appointmentService.getAppointment(7);
         Visit visit7 = testDataManager.visit()
-                .patient(appt4.getPatient())
+                .patient(appt7.getPatient())
                 .visitType(1)
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                         .encounterType(emrApiProperties.getConsultEncounterType())
+                        .location(location1)
                         .get())
                 .save();
         appt7.setVisit(visit7);
         appointmentService.saveAppointment(appt7);
+
+        Appointment appt8 = appointmentService.getAppointment(8);
+        Visit visit8 = testDataManager.visit()
+                .patient(appt8.getPatient())
+                .visitType(1)
+                .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
+                .encounter(testDataManager.encounter()
+                        .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
+                        .encounterType(emrApiProperties.getConsultEncounterType())
+                        .location(location3)
+                        .get())
+                .save();
+        appt8.setVisit(visit8);
+        appointmentService.saveAppointment(appt8);
 
         // run the task again
         new MarkAppointmentsAsMissedOrCompletedTask().execute();
@@ -100,11 +122,11 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
         // should not be changed because associated visit did not have consult
         assertThat(appointmentService.getAppointment(4).getStatus(), is(AppointmentStatus.INCONSULTATION));
 
-        // should be changed to COMPLETED since associated visit had consult
-        assertThat(appointmentService.getAppointment(7).getStatus(), is(AppointmentStatus.COMPLETED));
+        // should not be changed since associated visit did not have consult at location
+        assertThat(appointmentService.getAppointment(7).getStatus(), is(AppointmentStatus.WALKIN));
 
-        // should not be changed since no associated visit
-        assertThat(appointmentService.getAppointment(8).getStatus(), is(AppointmentStatus.WAITING));
+        // should be changed to COMPLETED since associated visit had consult at location
+        assertThat(appointmentService.getAppointment(8).getStatus(), is(AppointmentStatus.COMPLETED));
 
     }
 
