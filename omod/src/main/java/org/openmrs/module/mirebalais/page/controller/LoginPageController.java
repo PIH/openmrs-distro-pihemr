@@ -23,6 +23,7 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.api.EmrService;
 import org.openmrs.module.emr.utils.GeneralUtils;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -32,8 +33,8 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
-import javax.servlet.http.HttpSession;
 import java.util.Locale;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -86,7 +87,7 @@ public class LoginPageController {
 			
 			if (sessionLocationId != null) {
 				sessionLocation = locationService.getLocation(sessionLocationId);
-				if (!sessionLocation.hasTag(EmrConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
+				if (!sessionLocation.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
 					// the UI shouldn't allow this, but protect against it just in case
 					httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 					        .message("mirebalais.login.error.invalidLocation"));
