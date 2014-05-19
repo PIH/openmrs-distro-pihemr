@@ -1,0 +1,48 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<!-- switch this to the new encounter type -->
+<htmlform formUuid="912c7800-df82-11e3-8b68-0800200c9a66" formName="Deny Admitssion" formEncounterType="b6631959-2105-49dd-b154-e1249e0fbcd7" formVersion="1.0">
+
+    <h2><label><uimessage code="mirebalais.denyAdmission.label"/></label></h2>
+
+    <!-- hidden div for setting date/provider/location in editmode when entering a form -->
+    <ifMode mode="VIEW" include="false">
+        <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+            <fieldset>
+                <encounterDate id="encounterDate" default="now" showTime="false"/>
+            </fieldset>
+
+            <fieldset>
+                <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+            </fieldset>
+
+            <fieldset>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            </fieldset>
+        </div>
+    </ifMode>
+
+    <span style="display:none">
+        <obs conceptId="org.openmrs.module.emrapi:Admission Decision" valueCoded="org.openmrs.module.emrapi:Deny Admission" defaultValue="org.openmrs.module.emrapi:Deny Admission"></obs>
+    </span>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>
