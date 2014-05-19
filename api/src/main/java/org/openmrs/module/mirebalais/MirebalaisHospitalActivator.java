@@ -13,12 +13,6 @@
  */
 package org.openmrs.module.mirebalais;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,6 +60,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -125,7 +125,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     setupHtmlFormEntryGlobalProperties();
                     setupUiFrameworkGlobalProperties();
                     setupNamePhoneticsGlobalProperties();
+                    setupEmrApiGlobalProperties();
                     setupEmrGlobalProperties();
+                    setupPaperRecordGlobalProperties();
                     setupRadiologyGlobalProperties();
                     setupMirebalaisGlobalProperties();
                     setupPacsIntegrationGlobalProperties();
@@ -135,6 +137,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 }
             });
 
+            removOldGlobalProperties();
             setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
             setupConnectionToMasterPatientIndex();
             injectProviderIdentifierGenerator();
@@ -254,7 +257,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(PacsIntegrationConstants.GP_HL7_LISTENER_PORT, "6663");
     }
 
-    private void setupEmrGlobalProperties() {
+    private void setupEmrApiGlobalProperties() {
 
         // used when placing radiology orders
         setExistingGlobalProperty(EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, "c458d78e-8374-4767-ad58-9f8fe276e01c");
@@ -263,24 +266,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");
 
         // for consultations
-        setExistingGlobalProperty(EmrConstants.GP_CONSULT_ENCOUNTER_TYPE, "92fd09b4-5335-4f7e-9f63-b2a663fd09a6");
-        setExistingGlobalProperty(EmrConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "4f10ad1a-ec49-48df-98c7-1391c6ac7f05");
+        setExistingGlobalProperty((EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE), "92fd09b4-5335-4f7e-9f63-b2a663fd09a6");
+        setExistingGlobalProperty(EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE, "4f10ad1a-ec49-48df-98c7-1391c6ac7f05");
 
-        // paper record location = Mirebalais
-        setExistingGlobalProperty(EmrConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
-        setExistingGlobalProperty(EmrConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, "9dbea4d4-35a9-4793-959e-952f2a9f5347");
-        setExistingGlobalProperty(EmrConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "e66645eb-03a8-4991-b4ce-e87318e37566,139766e8-15f5-102d-96e4-000c29c2a5d7");
+        setExistingGlobalProperty(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, "e66645eb-03a8-4991-b4ce-e87318e37566,139766e8-15f5-102d-96e4-000c29c2a5d7");
 
-        setExistingGlobalProperty(EmrConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
-        setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
-        setExistingGlobalProperty(EmrConstants.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
+        setExistingGlobalProperty(EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE, "f01c54cb-2225-471a-9cd5-d348552c337c");
+        setExistingGlobalProperty(EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE, "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b");
+        setExistingGlobalProperty(EmrApiConstants.PRIMARY_IDENTIFIER_TYPE, "ZL EMR ID");
 
-        setExistingGlobalProperty(EmrConstants.PAYMENT_AMOUNT_CONCEPT, "5d1bc5de-6a35-4195-8631-7322941fe528");
-        setExistingGlobalProperty(EmrConstants.PAYMENT_REASON_CONCEPT, "36ba7721-fae0-4da4-aef2-7e476cc04bdf");
-        setExistingGlobalProperty(EmrConstants.PAYMENT_RECEIPT_NUMBER_CONCEPT, "20438dc7-c5b4-4d9c-8480-e888f4795123");
-        setExistingGlobalProperty(EmrConstants.PAYMENT_CONSTRUCT_CONCEPT, "7a6330f1-9503-465c-8d63-82e1ad914b47");
-
-        setExistingGlobalProperty(EmrConstants.GP_DIAGNOSIS_SET_OF_SETS, "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770");
+        setExistingGlobalProperty(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770");
 
         setExistingGlobalProperty(EmrApiConstants.GP_UNKNOWN_LOCATION, "8d6c993e-c2cc-11de-8d13-0010c6dffd0f");
 
@@ -291,6 +286,19 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(EmrApiConstants.GP_ADMISSION_FORM, "43acf930-eb1b-11e2-91e2-0800200c9a66");
         setExistingGlobalProperty(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM, "d068bc80-fb95-11e2-b778-0800200c9a66");
         setExistingGlobalProperty(EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM, "e0a26c20-fba6-11e2-b778-0800200c9a66");
+    }
+
+    private void setupEmrGlobalProperties() {
+        setExistingGlobalProperty(EmrConstants.PAYMENT_AMOUNT_CONCEPT, "5d1bc5de-6a35-4195-8631-7322941fe528");
+        setExistingGlobalProperty(EmrConstants.PAYMENT_REASON_CONCEPT, "36ba7721-fae0-4da4-aef2-7e476cc04bdf");
+        setExistingGlobalProperty(EmrConstants.PAYMENT_RECEIPT_NUMBER_CONCEPT, "20438dc7-c5b4-4d9c-8480-e888f4795123");
+        setExistingGlobalProperty(EmrConstants.PAYMENT_CONSTRUCT_CONCEPT, "7a6330f1-9503-465c-8d63-82e1ad914b47");
+    }
+
+    private void setupPaperRecordGlobalProperties() {
+        // paper record location = Mirebalais
+        setExistingGlobalProperty(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
+        setExistingGlobalProperty(EmrConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, "9dbea4d4-35a9-4793-959e-952f2a9f5347");
     }
 
     private void setupRadiologyGlobalProperties() {
@@ -329,6 +337,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty("webservices.rest.maxResultsAbsolute", "1000");
         setExistingGlobalProperty("webservices.rest.maxResultsDefault", "500");
     }
+
+
+    private void removOldGlobalProperties() {
+        AdministrationService administrationService = Context.getAdministrationService();
+        administrationService.purgeGlobalProperty(administrationService.getGlobalPropertyObject(EmrApiConstants.GP_CONSULT_ENCOUNTER_TYPE));
+    }
+
 
     private void setupCloseStalePullRequestsTask() {
 

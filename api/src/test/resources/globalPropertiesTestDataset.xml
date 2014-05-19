@@ -66,6 +66,7 @@
                      description="Primary identifier type for looking up patients, generating barcodes, etc"
                      uuid="1e384f09-d1e3-4827-b423-1082a1bbccbf"/>
     <global_property property="emr.consultEncounterType" property_value="" uuid="1fbfbc6c-7bc5-11e2-80c8-0295e7c832a2"/>
+    <global_property property="emr.visitNoteEncounterType" property_value="" uuid="4444bc6c-7bc5-11e2-80c8-0295e7c832a2"/>
     <global_property property="emr.clinicianEncounterRole" property_value=""
                      uuid="31460360-7bc5-11e2-80c8-0295e7c832a2"/>
     <global_property property="emr.concept.diagnosisSetOfSets" property_value=""
