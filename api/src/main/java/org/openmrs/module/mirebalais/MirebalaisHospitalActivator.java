@@ -263,7 +263,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         setExistingGlobalProperty(EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, "c458d78e-8374-4767-ad58-9f8fe276e01c");
 
         // check_in clerk encounter role is set to Oupatient Application User Role
-        setExistingGlobalProperty(EmrConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");
+        setExistingGlobalProperty(EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, "cbfe0b9d-9923-404c-941b-f048adc8cdc0");
 
         // for consultations
         setExistingGlobalProperty((EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE), "92fd09b4-5335-4f7e-9f63-b2a663fd09a6");
@@ -298,7 +298,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setupPaperRecordGlobalProperties() {
         // paper record location = Mirebalais
         setExistingGlobalProperty(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, "e66645eb-03a8-4991-b4ce-e87318e37566");
-        setExistingGlobalProperty(EmrConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, "9dbea4d4-35a9-4793-959e-952f2a9f5347");
+        setExistingGlobalProperty(PaperRecordConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, "9dbea4d4-35a9-4793-959e-952f2a9f5347");
     }
 
     private void setupRadiologyGlobalProperties() {
