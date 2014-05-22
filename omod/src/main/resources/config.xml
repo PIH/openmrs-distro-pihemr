@@ -84,7 +84,7 @@
             org.openmrs.module.webservices.rest
         </require_module>
         <require_module version="${reportingrestVersion}">
-            org.openmrs.module.webservices.reportingrest
+            org.openmrs.module.reportingrest
         </require_module>
     </require_modules>
 
