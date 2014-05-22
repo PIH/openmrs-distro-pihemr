@@ -80,6 +80,12 @@
         <require_module version="${appointmentschedulingVersion}">
             org.openmrs.module.appointmentscheduling
         </require_module>
+        <require_module version="${webservicesRestVersion}">
+            org.openmrs.module.webservices.rest
+        </require_module>
+        <require_module version="${reportingrestVersion}">
+            org.openmrs.module.webservices.reportingrest
+        </require_module>
     </require_modules>
 
     <activator>
