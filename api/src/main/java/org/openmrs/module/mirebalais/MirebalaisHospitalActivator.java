@@ -18,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
+import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
@@ -27,6 +28,8 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
+import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -48,8 +51,12 @@ import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
+import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.reporting.ReportingConstants;
+import org.openmrs.module.reporting.data.converter.PropertyConverter;
+import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
+import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
@@ -145,6 +152,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupCloseStaleCreateRequestsTask();
             setupMarkAppointmentAsMissedOrCompletedTask();
             setupHtmlForms();
+            customizeDailyAppointmentsDataSet();
 
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
@@ -526,6 +534,28 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 throw e;
             }
        }
+    }
+
+    private void customizeDailyAppointmentsDataSet() {
+
+        DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
+        PaperRecordProperties paperRecordProperties = Context.getRegisteredComponents(PaperRecordProperties.class).get(0);
+
+        AppointmentDataSetDefinition dsd =
+                (AppointmentDataSetDefinition) dataSetDefinitionService.getDefinition(AppointmentSchedulingUIConstants.DAILY_SCHEDULED_APPOINTMENT_DATA_SET_DEFINITION_UUID, AppointmentDataSetDefinition.class);
+
+        if (dsd == null || dsd.getId() == null) {
+            throw new RuntimeException("Daily scheduled appointment data set definition not found");
+        }
+
+        // swap out the identifier column to show dossier number instead of primary identifier
+        dsd.removeColumnDefinition("identifier");
+
+        PatientIdentifierDataDefinition dd = new PatientIdentifierDataDefinition(null, paperRecordProperties.getPaperRecordIdentifierType());
+        dd.setIncludeFirstNonNullOnly(true);
+        dsd.addColumn("identifier", dd, "", new PropertyConverter(PatientIdentifier.class, "identifier"));
+
+        dataSetDefinitionService.saveDefinition(dsd);
     }
 
     public void setCustomProperties(MirebalaisCustomProperties customProperties) {

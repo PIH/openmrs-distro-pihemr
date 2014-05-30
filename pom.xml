@@ -304,6 +304,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appointmentschedulingui-api</artifactId>
+            <version>${appointmentschedulinguiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- End OpenMRS modules -->
 
