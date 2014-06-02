@@ -35,6 +35,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         executeDataSet("globalPropertiesTestDataset.xml");
+        executeDataSet("serializedReportingDataset.xml");
         executeDataSet("fromMirebalaisMetadataModule.xml");
         authenticate();
         activator = new MirebalaisHospitalActivator();
