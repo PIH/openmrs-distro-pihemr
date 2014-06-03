@@ -79,14 +79,37 @@
 
         }
 
+
         $(function() {
             // yes, a rather large amount of events trigger a validation...
             $(document).change(validateForm);
             $(document).click(validateForm);
+
             validateForm();
         });
 
     </script>
+
+    <ifMode mode="ENTER" include="true">
+        <includeIf velocityTest="($visit.open)">
+            <script type="text/javascript">
+
+                // if this is an active visit (visit.open), and we are entering this form for the first time (mode=ENTER),
+                // set the encounter location to the most recent location that an admission request was placed for this patient during *this visit*
+
+                var admitToLocationId = '<lookup expression="fn.latestObs('f3e04276-2db0-4181-b937-d73275dc1b15').valueText"/>';
+                var admitToLocationVisitId = '<lookup expression="fn.latestObs('f3e04276-2db0-4181-b937-d73275dc1b15').encounter.visit.id"/>';
+                var activeVisitId = '<lookup expression="visit.visit.id"/>';
+
+                $(function() {
+                    if(admitToLocationId != '' &amp;&amp; admitToLocationVisitId == activeVisitId) {
+                        setValue('encounterLocation.value', admitToLocationId);
+                    }
+                });
+
+            </script>
+        </includeIf>
+    </ifMode>
 
     <h2><label><uimessage code="mirebalais.admissionNote.label"/></label></h2>
 
