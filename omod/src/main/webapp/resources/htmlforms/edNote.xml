@@ -122,6 +122,11 @@
 
             }
 
+            // another super hack to remove ED Boarding from the list of Boarding For options
+            var removeEDBoardingAsOptionForBoardingFor = function () {
+            $('#boardingFor select option:contains(Ijans Annatant)').remove();
+            }
+
             $(function() {
                 traumaFieldName = $('#trauma input[type=radio]').last().attr('name');
                 //$('input[name=' + traumaFieldName + ']').change(updateTraumaQuestions);
@@ -139,6 +144,7 @@
 
                 $(document).change(displayOrHideBoardingForQuestion);
 
+                removeEDBoardingAsOptionForBoardingFor();
                 displayOrHideBoardingForQuestion();
                 validateForm();
 

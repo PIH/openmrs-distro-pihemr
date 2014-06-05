@@ -104,7 +104,14 @@
 
         }
 
+        // another super hack to remove ED Boarding from the list of Boarding For options
+        var removeEDBoardingAsOptionForBoardingFor = function () {
+            $('#boardingFor select option:contains(Ijans Annatant)').remove();
+        }
+
         $(function() {
+
+            // hack to remove ED Boarding option from boarding for location
 
             // yes, a rather large amount of events trigger a validation...
             $(document).change(validateForm);
@@ -112,6 +119,7 @@
 
             $(document).change(displayOrHideBoardingForQuestion);
 
+            removeEDBoardingAsOptionForBoardingFor();
             displayOrHideBoardingForQuestion();
             validateForm();
 
