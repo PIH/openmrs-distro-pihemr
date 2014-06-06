@@ -1,5 +1,4 @@
 
-<!-- TODO: switch this to the new encounter type -->
 <htmlform formUuid="912c7800-df82-11e3-8b68-0800200c9a66" formName="Cancel Admission" formEncounterType="edbb857b-e736-4296-9438-462b31f97ef9" formVersion="1.0">
 
     <uiInclude provider="uicommons" javascript="emr.js"/>

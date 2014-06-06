@@ -144,6 +144,10 @@
 
                 $(document).change(displayOrHideBoardingForQuestion);
 
+                <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
+                    $('#admissionLocation select option:contains(Ijans Annatant)').remove();
+                </includeIf>
+
                 removeEDBoardingAsOptionForBoardingFor();
                 displayOrHideBoardingForQuestion();
                 validateForm();
