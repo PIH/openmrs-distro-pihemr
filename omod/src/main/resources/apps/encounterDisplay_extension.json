@@ -39,6 +39,12 @@
                     "displayWithHtmlForm": true,
                     "editable": true,
                     "primaryEncounterRole": "bad21515-fd04-4ff6-bfcd-78456d12f168"
+                },
+                "edbb857b-e736-4296-9438-462b31f97ef9": {
+                    "_comment": "Cancel Admission",
+                    "icon": "icon-ban-circle",
+                    "displayWithHtmlForm": true,
+                    "editable": true
                 }
             }
         }
