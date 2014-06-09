@@ -84,10 +84,10 @@
         <registrationappVersion>1.1-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.3-SNAPSHOT</coreappsVersion>
-        <webservicesRestVersion>2.5-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.5</webservicesRestVersion>
         <appointmentschedulingVersion>1.1-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <openmrsTestutilsVersion>1.3-SNAPSHOT</openmrsTestutilsVersion>
+        <openmrsTestutilsVersion>1.3</openmrsTestutilsVersion>
     </properties>
 
 
