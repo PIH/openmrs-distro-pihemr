@@ -125,7 +125,7 @@
         <div class="dialog-content">
             <p class="dialog-instructions"><uimessage code="mirebalais.cancelAdmissionNote.confirmWhenDispositionDoesNotMatch"/></p>
 
-            <button class="confirm right"><uimessage code="uicommons.confirm"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="confirm-cancel-admission-button" class="confirm right"><uimessage code="uicommons.confirm"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
             <button class="cancel"><uimessage code="uicommons.cancel"/></button>
         </div>
     </div>
