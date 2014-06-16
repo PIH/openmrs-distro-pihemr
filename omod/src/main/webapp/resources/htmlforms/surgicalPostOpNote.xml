@@ -198,7 +198,9 @@
         </code>
     </translations>
 
-    <h2><label><uimessage code="surgical_note"/></label></h2>
+    <ifMode mode="VIEW" include="false">
+        <h2><label><uimessage code="surgical_note"/></label></h2>
+    </ifMode>
 
      <section id="surgery" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
 

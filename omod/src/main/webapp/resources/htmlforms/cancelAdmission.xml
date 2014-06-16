@@ -99,12 +99,12 @@
     </span>
 
     <p>
-        <uimessage code="mirebalais.cancelAdmissionNote.reason"/>:
+        <label><uimessage code="mirebalais.cancelAdmissionNote.reason"/>:</label>
         <obs id="cancel-reason" conceptId="PIH:Reason not admitted"></obs>
     </p>
 
     <p>
-        <uimessage code="mirebalais.cancelAdmissionNote.clincialNote"/>
+        <label><uimessage code="mirebalais.cancelAdmissionNote.clincialNote"/></label>
         <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
     </p>
 
