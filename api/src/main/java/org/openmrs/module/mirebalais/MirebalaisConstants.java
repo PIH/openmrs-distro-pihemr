@@ -56,7 +56,7 @@ public class MirebalaisConstants {
 
     public static final String MPI_REMOTE_SERVER = "lacolline";
     public static final String MPI_SEARCH_RESULTS="mpiSearchResults";
-    public static final Integer MPI_CONNECT_TIMEOUT =10000;
+    public static final Integer MPI_CONNECT_TIMEOUT = 60000;
 
     public static final String TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED = "Mirebalais - Mark Appointments Missed or Completed";
 
