@@ -57,6 +57,10 @@
 
             var mostRecentDisposition = '<lookup expression="visit.mostRecentDisposition.conceptCode" />';
 
+            // set the most recent disposition within the cancel confirmation warning message
+            var mostRecentDispositionName = '<lookup expression="fn.message($visit.mostRecentDisposition.name)" />';
+            jq('#mostRecentDisposition').text(mostRecentDispositionName)
+
             beforeSubmit.push(function() {
 
                 var cancelReason = getValue('cancel-reason.value');
@@ -64,8 +68,12 @@
                 if (!skipConfirmCancel &amp;&amp;
                     cancelReasonToDispositionMap[cancelReason] != undefined &amp;&amp;
                     cancelReasonToDispositionMap[cancelReason] != mostRecentDisposition) {
-                    confirmCancelDialog.show();
-                    return false;
+
+                        // set the selected cancel reason within the cancel confirmation warning message
+                        jq('#selectedCancelReason').text(getField('cancel-reason.value').children('option:selected').text());
+
+                        confirmCancelDialog.show();
+                        return false;
                 }
                 return true;
             });
@@ -123,7 +131,8 @@
             </h3>
         </div>
         <div class="dialog-content">
-            <p class="dialog-instructions"><uimessage code="mirebalais.cancelAdmissionNote.confirmWhenDispositionDoesNotMatch"/></p>
+            <p class="dialog-instructions">
+            <uimessage code="mirebalais.cancelAdmissionNote.confirmWhenDispositionDoesNotMatch" arg0="&lt;span id='selectedCancelReason'&gt;&lt;/span&gt;" arg1="&lt;span id='mostRecentDisposition'&gt;&lt;/span&gt;"/></p>
 
             <button id="confirm-cancel-admission-button" class="confirm right"><uimessage code="uicommons.confirm"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
             <button class="cancel"><uimessage code="uicommons.cancel"/></button>
