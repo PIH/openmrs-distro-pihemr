@@ -519,7 +519,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                                                     "mirebalais:htmlforms/transferNote.xml",
                                                     "mirebalais:htmlforms/dischargeNote.xml",
                                                     "mirebalais:htmlforms/outpatientConsult.xml",
-                                                    "mirebalais:htmlforms/edNote.xml");
+                                                    "mirebalais:htmlforms/edNote.xml",
+                                                    "mirebalais:htmlforms/deathCertificate.xml");
 
             for (String htmlform : htmlforms) {
                 HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, htmlform);
