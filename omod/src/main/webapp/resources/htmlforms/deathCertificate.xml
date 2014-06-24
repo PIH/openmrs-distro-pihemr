@@ -154,7 +154,7 @@
         </p>
         <p class="radio">
             <label><uimessage code="habitat"/></label>
-            <obs conceptId="PIH: Classification of residential environment" style="radio"/>
+            <obs conceptId="PIH: Classification of residential environment" style="radio" answerSeparator=""/>
         </p>
         <p>
             <label><uimessage code="civil_status"/></label>
@@ -252,7 +252,7 @@
         </p>
         <p>
             <label><uimessage code="circumstances"/></label>
-            <obs conceptId="PIH: Circumstances of death"/>
+            <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="80"/>
         </p>
     </section>
 
