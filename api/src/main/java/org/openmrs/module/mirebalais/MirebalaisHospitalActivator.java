@@ -339,7 +339,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setupReportingGlobalProperties() {
         setExistingGlobalProperty(ReportingConstants.DEFAULT_LOCALE_GP_NAME, "fr");
         setExistingGlobalProperty(ReportingConstants.GLOBAL_PROPERTY_TEST_PATIENTS_COHORT_DEFINITION, "");
-		setExistingGlobalProperty(ReportingConstants.GLOBAL_PROPERTY_IDSET_JOINING_ENABLED, "false");
     }
 
     private void setupWebServicesRestGlobalProperties() {
