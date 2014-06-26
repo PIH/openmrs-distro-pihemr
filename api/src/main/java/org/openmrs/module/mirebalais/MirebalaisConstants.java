@@ -64,4 +64,6 @@ public class MirebalaisConstants {
 
     public static final Long TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL = new Long(14400); // every four hours
 
+    public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
+
 }

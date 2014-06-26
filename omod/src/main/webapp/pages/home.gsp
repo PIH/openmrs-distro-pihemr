@@ -9,7 +9,23 @@
 %>
 
 <div id="home-container">
-    ${ ui.includeFragment("emr", "widget/findPatient") }
+
+
+
+    <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
+
+        <% if (sessionContext.currentUser.hasPrivilege(privilegeSearchForPatients)) { %>
+
+            ${ ui.message("mirebalais.searchPatientHeading") }
+            ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
+                    [ afterSelectedUrl: '/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}',
+                      showLastViewedPatients: 'false' ])}
+        <% } %>
+
+    <% } else {%>
+        ${ ui.includeFragment("emr", "widget/findPatient") }
+    <% } %>
+
 
     <div id="apps">
         <% extensions.each { extension -> %>

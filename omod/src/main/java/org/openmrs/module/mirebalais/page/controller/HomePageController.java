@@ -13,15 +13,16 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
@@ -30,7 +31,7 @@ import org.openmrs.ui.framework.page.PageModel;
 public class HomePageController {
 	
 	public static final String MY_ACCOUNT_EXTENSION_ID = "emr.myAccount";
-	
+
 	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
 	
 	public void controller(PageModel model, EmrContext emrContext,
@@ -53,6 +54,7 @@ public class HomePageController {
 		
 		Collections.sort(extensions);
 		model.addAttribute("extensions", extensions);
+        model.addAttribute("privilegeSearchForPatients", MirebalaisConstants.PRIVILEGE_SEARCH_FOR_PATIENTS);
 	}
 
     private boolean extensionFeatureToggledOff(Extension extension, FeatureToggleProperties featureToggleProperties) {
