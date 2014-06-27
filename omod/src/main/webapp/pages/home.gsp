@@ -8,9 +8,16 @@
     }
 %>
 
+<% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
+    <script type="text/javascript">
+        jq(function() {
+            jq('#patient-search').first().focus();
+        });
+    </script>
+<% } %>
+
+
 <div id="home-container">
-
-
 
     <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
 
