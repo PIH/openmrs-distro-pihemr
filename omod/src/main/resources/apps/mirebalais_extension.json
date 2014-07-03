@@ -85,7 +85,8 @@
         "url": "mirebalais/outpatientvitals/findPatient.page",
         "icon": "icon-vitals",
         "order": 11,
-        "requiredPrivilege": "App: mirebalais.outpatientVitals"
+        "requiredPrivilege": "App: mirebalais.outpatientVitals",
+        "featureToggle": "!newPatientSearchWidget"
     },
     {
         "id": "emr.systemAdministration",
