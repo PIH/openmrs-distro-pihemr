@@ -42,7 +42,7 @@
         </ul>
 
         <span>
-            {{ if (emr.isFeatureEnabled('editConsultNotes') && config.editable && encounter.canEdit) { }}
+            {{ if (config.editable && encounter.canEdit) { }}
             <i class="editEncounter delete-item icon-pencil" data-patient-id="{{- patient.id }}" data-encounter-id="{{- encounter.encounterId }}" data-edit-url="htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{- patient.id }}&encounterId={{- encounter.encounterId }}&returnProvider=emr&returnPage=disposition/dispositionAction" title="${ ui.message("coreapps.edit") }"></i>
             {{ } }}
             {{ if ( encounter.canDelete ) { }}
