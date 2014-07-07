@@ -52,7 +52,7 @@
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
         "label": "mirebalais.checkin.title",
-        "url": "mirebalais/checkin/findPatient.page?formUrl='mirebalais:htmlforms/liveCheckin.xml'",
+        "url": "mirebalais/checkin/findPatient.page",
         "icon": "icon-paste",
         "order": 5,
         "requiredPrivilege": "App: mirebalais.checkin"

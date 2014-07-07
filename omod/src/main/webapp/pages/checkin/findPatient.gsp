@@ -4,8 +4,6 @@
     }
 
     ui.decorateWith("appui", "standardEmrPage")
-
-    def afterSelectedUrl = '/mirebalais/checkin/patient.page?patientId={{patientId}}&formUrl' + formUrl;
 %>
 
 <script type="text/javascript">
@@ -128,7 +126,7 @@
 
     ${ ui.message("mirebalais.searchPatientHeading") }
     ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-            [ afterSelectedUrl: afterSelectedUrl,
+            [ afterSelectedUrl: '/mirebalais/checkin/patient.page?patientId={{patientId}}',
                     showLastViewedPatients: 'false' ])}
 
 <% } else {%>
@@ -136,7 +134,6 @@
     ${ ui.includeFragment("emr", "widget/findPatient", [
             targetPageProvider: "mirebalais",
             targetPage: "checkin/patient",
-            formUrl: formUrl
     ]) }
 
 <% } %>
