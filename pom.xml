@@ -214,7 +214,7 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api</artifactId>
+            <artifactId>emrapi-api-1.9</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
