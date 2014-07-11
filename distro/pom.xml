@@ -305,6 +305,14 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>printer-omod</artifactId>
+                    <version>${printerVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+
                 <!-- temporarily adding the groovy module -->
                 <!--
                 <dependency>

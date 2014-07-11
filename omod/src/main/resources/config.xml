@@ -89,6 +89,12 @@
         <require_module version="${reportingrestVersion}">
             org.openmrs.module.reportingrest
         </require_module>
+        <require_module version="${paperrecordVersion}">
+            org.openmrs.module.paperrecord
+        </require_module>
+        <require_module version="${printerVersion}">
+            org.openmrs.module.printer
+        </require_module>
     </require_modules>
 
     <activator>

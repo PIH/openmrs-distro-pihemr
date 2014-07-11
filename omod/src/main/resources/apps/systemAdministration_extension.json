@@ -9,20 +9,20 @@
         "order": 5
     },
     {
-        "id": "emr.printer.managePrinters",
+        "id": "printer.managePrinters",
         "extensionPointId": "systemAdministration.apps",
         "type": "link",
-        "label": "emr.printer.managePrinters",
-        "url": "emr/printer/managePrinters.page",
+        "label": "printer.managePrinters",
+        "url": "printer/managePrinters.page",
         "icon": "icon-print",
         "order": 10
     },
     {
-        "id": "emr.printer.defaultPrinters",
+        "id": "printer.defaultPrinters",
         "extensionPointId": "systemAdministration.apps",
         "type": "link",
-        "label": "emr.printer.defaultPrinters",
-        "url": "emr/printer/defaultPrinters.page",
+        "label": "printer.defaultPrinters",
+        "url": "printer/defaultPrinters.page",
         "icon": "icon-print",
         "order": 11
     },
