@@ -5,11 +5,16 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PersonAddress;
+import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.addresshierarchy.util.AddressHierarchyUtil;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
@@ -21,6 +26,10 @@ import java.util.Date;
  */
 @Component
 public class WristbandTemplate {
+
+    public static Boolean LOWEST_LEVEL_ON_SEPARATE_LINE = true;
+
+    public static Boolean SKIP_HIGHEST_LEVEL = true;
 
     private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy");
 
@@ -36,7 +45,17 @@ public class WristbandTemplate {
     @Autowired
     private EmrApiProperties emrApiProperties;
 
+    // TODO figure out why this isn't getting autowired properly (at least for tests)
+    //@Autowired
+    private AddressHierarchyService addressHierarchyService;
+
+
     public String generateWristband(Patient patient, Location location) {
+
+        // TODO figure out why this isn't getting autowired properly (at least for tests)
+        if (addressHierarchyService == null) {
+            addressHierarchyService = Context.getService(AddressHierarchyService.class);
+        }
 
         StringBuffer data = new StringBuffer();
 
@@ -68,25 +87,44 @@ public class WristbandTemplate {
         }
         data.append("^FS");
 
-        // address
+        // address (based on address hierarchy)
         PersonAddress address = patient.getPersonAddress();
+        AddressHierarchyLevel level = addressHierarchyService.getBottomAddressHierarchyLevel();
+        int numberOfLevels = addressHierarchyService.getAddressHierarchyLevelsCount();
 
-        if (address != null) {
+        if (address != null && numberOfLevels > 0) {
 
-            // address field
-            if (StringUtils.isNotBlank(address.getAddress2())) {
-                data.append("^FO220,200^FB2150,1,0,L,0^AS^FD" + address.getAddress2() + "^FS");
+            int levelCount = 1;
+
+            if (LOWEST_LEVEL_ON_SEPARATE_LINE) {
+                String lowestLevelStr = AddressHierarchyUtil.getAddressFieldValue(address, level.getAddressField());
+                if (StringUtils.isNotBlank(address.getAddress2())) {
+                    data.append("^FO220,200^FB2150,1,0,L,0^AS^FD" + lowestLevelStr + "^FS");
+                }
+                levelCount++;
             }
 
-            // rest of address
-            // coded directly to the hierarchy we are using, for better or worse
-            // could be changed to be based on address template, as the paper record template (or at least against the address hierarchy)
-            String addressStr = (StringUtils.isNotBlank(address.getAddress1()) ? address.getAddress1() + ", " : "")
-                    + (StringUtils.isNotBlank(address.getAddress3()) ? address.getAddress3() + ", " : "")
-                    + (StringUtils.isNotBlank(address.getCityVillage()) ? address.getCityVillage() + ", " : "")
-                    + address.getStateProvince();
+            StringBuffer addressStr = new StringBuffer();
 
-            data.append("^FO270,200^FB2150,1,0,L,0^AS^FD" + addressStr + "^FS");
+            while (levelCount < numberOfLevels || (!SKIP_HIGHEST_LEVEL && levelCount <= numberOfLevels)
+                    && level.getParent() != null) {  // level.getParent() should never equal null as long as levelCount <= numberOfLevels, but just to be safe we will check
+
+                level = level.getParent();
+
+                String levelStr = AddressHierarchyUtil.getAddressFieldValue(address, level.getAddressField());
+
+                if (StringUtils.isNotBlank(levelStr)) {
+                    addressStr.append(levelStr + ", ");
+                }
+
+                levelCount++;
+            }
+
+            if (StringUtils.isNotBlank(addressStr.toString())) {
+                // trim off trailing comma and space
+                addressStr.delete(addressStr.length() - 2, addressStr.length());
+                data.append("^FO270,200^FB2150,1,0,L,0^AS^FD" + addressStr.toString() + "^FS");
+            }
         }
 
         // barcode with primary identifier
@@ -115,5 +153,9 @@ public class WristbandTemplate {
 
     protected void setEmrApiProperties(EmrApiProperties emrApiProperties) {
         this.emrApiProperties = emrApiProperties;
+    }
+
+    public void setAddressHierarchyService(AddressHierarchyService addressHierarchyService) {
+        this.addressHierarchyService = addressHierarchyService;
     }
 }

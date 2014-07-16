@@ -2,10 +2,12 @@ package org.openmrs.module.mirebalais.wristband;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.contrib.testdata.TestDataManager;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -17,6 +19,7 @@ import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
+
 
 public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 

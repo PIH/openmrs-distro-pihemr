@@ -95,6 +95,9 @@
         <require_module version="${printerVersion}">
             org.openmrs.module.printer
         </require_module>
+        <require_module version="${addresshierarchyVersion}">
+            org.openmrs.module.addresshierarchy
+        </require_module>
     </require_modules>
 
     <activator>

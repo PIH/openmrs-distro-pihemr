@@ -11,6 +11,9 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -43,6 +46,8 @@ public class WristbandTemplateTest {
 
     private MessageSourceService messageSourceService;
 
+    private AddressHierarchyService addressHierarchyService;
+
     private PatientIdentifierType primaryIdentifierType = new PatientIdentifierType();
 
     private PatientIdentifierType paperRecordIdentifierType = new PatientIdentifierType();
@@ -56,6 +61,7 @@ public class WristbandTemplateTest {
         paperRecordProperties = mock(PaperRecordProperties.class);
         adtService = mock(AdtService.class);
         messageSourceService = mock(MessageSourceService.class);
+        addressHierarchyService = mock(AddressHierarchyService.class);
 
         when(emrApiProperties.getPrimaryIdentifierType()).thenReturn(primaryIdentifierType);
         when(paperRecordProperties.getPaperRecordIdentifierType()).thenReturn(paperRecordIdentifierType);
@@ -64,11 +70,43 @@ public class WristbandTemplateTest {
         when(messageSourceService.getMessage("coreapps.gender.M")).thenReturn("Male");
         when(messageSourceService.getMessage("coreapps.gender.F")).thenReturn("Female");
 
+        setupAddressHierarchyLevels();
+
         wristbandTemplate.setAdtService(adtService);
         wristbandTemplate.setEmrApiProperties(emrApiProperties);
         wristbandTemplate.setMessageSourceService(messageSourceService);
         wristbandTemplate.setPaperRecordProperties(paperRecordProperties);
+        wristbandTemplate.setAddressHierarchyService(addressHierarchyService);
 
+    }
+
+    private void setupAddressHierarchyLevels() {
+
+        AddressHierarchyLevel country = new AddressHierarchyLevel();
+        country.setAddressField(AddressField.COUNTRY);
+
+        AddressHierarchyLevel state = new AddressHierarchyLevel();
+        state.setAddressField(AddressField.STATE_PROVINCE);
+        state.setParent(country);
+
+        AddressHierarchyLevel city = new AddressHierarchyLevel();
+        city.setAddressField(AddressField.CITY_VILLAGE);
+        city.setParent(state);
+
+        AddressHierarchyLevel address3 = new AddressHierarchyLevel();
+        address3.setAddressField(AddressField.ADDRESS_3);
+        address3.setParent(city);
+
+        AddressHierarchyLevel address1 = new AddressHierarchyLevel();
+        address1.setAddressField(AddressField.ADDRESS_1);
+        address1.setParent(address3);
+
+        AddressHierarchyLevel address2 = new AddressHierarchyLevel();
+        address2.setAddressField(AddressField.ADDRESS_2);
+        address2.setParent(address1);
+
+        when(addressHierarchyService.getBottomAddressHierarchyLevel()).thenReturn(address2);
+        when(addressHierarchyService.getAddressHierarchyLevelsCount()).thenReturn(6);
     }
 
     @Test
