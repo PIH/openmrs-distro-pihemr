@@ -17,7 +17,7 @@ package org.openmrs.module.mirebalais;
  *
  */
 public class MirebalaisConstants {
-	
+
 	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
 	
 	public static final String MIREBALAIS_LOCATION_UUID = "a084f714-a536-473b-94e6-ec317b152b43";
