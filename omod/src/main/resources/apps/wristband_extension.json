@@ -1,0 +1,22 @@
+[
+    {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.patientDashboard.includeFragments",
+        "extensionPointId": "patientDashboard.includeFragments",
+        "extensionParams": {
+            "provider": "mirebalais",
+            "fragment": "wristband/printWristband"
+        },
+        "featureToggle": "printWristband"
+    },
+    {
+        "id": "${project.parent.groupId}.${project.parent.artifactId}.printWristband",
+        "extensionPointId": "patientDashboard.overallActions",
+        "type": "script",
+        "label": "mirebalais.printWristband",
+        "script": "printWristband()",
+        "icon": "icon-print",
+        "order": -10,
+        "requiredPrivilege": "Task: emr.printLabels",
+        "featureToggle": "printWristband"
+    }
+]
