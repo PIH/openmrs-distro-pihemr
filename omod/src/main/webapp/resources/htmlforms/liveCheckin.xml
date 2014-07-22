@@ -131,29 +131,31 @@
                 Sal Aprè Akouchman (950852f3-8a96-4d82-a5f8-a68a92043164)
                 Swen Entansif Neonatal (62a9500e-a1a5-4235-844f-3a8cc0765d53) -->
 
-            <includeIf velocityTest="$sessionContext.sessionLocation.uuid == 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
-                || $sessionContext.sessionLocation.uuid == '109a13a9-029d-498d-b66e-bab5eb396996'
-                || $sessionContext.sessionLocation.uuid == 'dc8413be-1075-48b5-9857-9bd4954686ed'
-                || $sessionContext.sessionLocation.uuid == 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
-                || $sessionContext.sessionLocation.uuid == '950852f3-8a96-4d82-a5f8-a68a92043164'
-                || $sessionContext.sessionLocation.uuid == '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
+            <ifMode mode="ENTER" include="true">
+                <includeIf velocityTest="$sessionContext.sessionLocation.uuid == 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
+                    || $sessionContext.sessionLocation.uuid == '109a13a9-029d-498d-b66e-bab5eb396996'
+                    || $sessionContext.sessionLocation.uuid == 'dc8413be-1075-48b5-9857-9bd4954686ed'
+                    || $sessionContext.sessionLocation.uuid == 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
+                    || $sessionContext.sessionLocation.uuid == '950852f3-8a96-4d82-a5f8-a68a92043164'
+                    || $sessionContext.sessionLocation.uuid == '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
 
-                <fieldset id="print-wristband-question" class="required">
-                    <legend>
-                        <uimessage code="mirebalais.checkin.printWristband"/>
-                    </legend>
-                    <h3>
-                        <uimessage code="mirebalais.checkin.printWristband"/>
-                    </h3>
-                        <p class="left">
-                            <select id="print-wristband" size="2">
-                                <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
-                                <option value="false"><uimessage code="emr.no"/></option>
-                            </select>
-                        </p>
-                </fieldset>
+                    <fieldset id="print-wristband-question" class="required">
+                        <legend>
+                            <uimessage code="mirebalais.checkin.printWristband"/>
+                        </legend>
+                        <h3>
+                            <uimessage code="mirebalais.checkin.printWristband"/>
+                        </h3>
+                            <p class="left">
+                                <select id="print-wristband" size="2">
+                                    <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
+                                    <option value="false"><uimessage code="emr.no"/></option>
+                                </select>
+                            </p>
+                    </fieldset>
 
-            </includeIf>
+                </includeIf>
+            </ifMode>
 
         </includeIf>
 
