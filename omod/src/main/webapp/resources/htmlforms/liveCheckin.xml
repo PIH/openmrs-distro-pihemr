@@ -140,10 +140,10 @@
 
                 <fieldset id="print-wristband-question" class="required">
                     <legend>
-                        <uimessage code="mirebalais.checkin.printLabel"/>
+                        <uimessage code="mirebalais.checkin.printWristband"/>
                     </legend>
                     <h3>
-                        <uimessage code="mirebalais.checkin.printLabel"/>
+                        <uimessage code="mirebalais.checkin.printWristband"/>
                     </h3>
                         <p class="left">
                             <select id="print-wristband" size="2">
