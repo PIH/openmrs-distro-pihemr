@@ -38,7 +38,7 @@
                      emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> },
                         function(data) {
                             success = data.success;
-                            emr.successMessage(data.message);
+                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
                         });
 
                     jq.ajaxSetup({async:true});
