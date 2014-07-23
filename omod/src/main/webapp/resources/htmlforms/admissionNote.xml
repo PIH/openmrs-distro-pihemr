@@ -55,6 +55,12 @@
             #encounter-diagnoses-app {
             margin-bottom: 20px;
             }
+
+            #print-wristband-div {
+                vertical-align: top;
+                display: inline-block;
+                margin-bottom:20px;
+            }
         </ifMode>
 
     </style>
@@ -89,6 +95,39 @@
         });
 
     </script>
+
+    <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
+        <script type="text/javascript">
+
+            // print wristband on submit if that option has been selected
+            beforeSubmit.push(function() {
+
+                var success;
+
+                var printWristband = jq('#print-wristband');
+                if (printWristband &amp;&amp; printWristband.val() == 'true') {
+
+                    // temporarily turn ajax to synchronized so we can block if printing is not successful (a little bit hacky, probably better ito disable just this call?)
+                    jq.ajaxSetup({async:false});
+
+                    emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> },
+                        function(data) {
+                            success = data.success;
+                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
+                        });
+
+                    jq.ajaxSetup({async:true});
+                    return success;
+                }
+                else {
+                    return true;
+                }
+
+            });
+
+        </script>
+    </includeIf>
+
 
     <ifMode mode="ENTER" include="true">
         <includeIf velocityTest="($visit.open)">
@@ -187,6 +226,44 @@
 
         <div id="encounter-diagnoses-target">
         </div>
+
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
+            <ifMode mode="ENTER" include="true">
+
+                    <div id="print-wristband-div">
+                        <uimessage code="mirebalais.admissionNote.printWristband"/>
+                        <select id="print-wristband">
+                            <!-- we decide whether to default to "yes" or "no" based on the most recent check-in location; patients
+                                at these locatiosn should already have received wristbands:
+                                    Ijans (f3a5586e-f06c-4dfb-96b0-6f3451a35e90)
+                                    Sal Avan Operasyon | PACU (109a13a9-029d-498d-b66e-bab5eb396996)
+                                    Chimyoterapi (dc8413be-1075-48b5-9857-9bd4954686ed)
+                                    Ijans | Sante Fanm (d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c)
+                                    Sal Aprè Akouchman (950852f3-8a96-4d82-a5f8-a68a92043164)
+                                    Swen Entansif Neonatal (62a9500e-a1a5-4235-844f-3a8cc0765d53) -->
+                            <includeIf velocityTest="$visit.mostRecentCheckInEncounter.location.uuid == 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
+                                    || $visit.mostRecentCheckInEncounter.location.uuid == '109a13a9-029d-498d-b66e-bab5eb396996'
+                                    || $visit.mostRecentCheckInEncounter.location.uuid == 'dc8413be-1075-48b5-9857-9bd4954686ed'
+                                    || $visit.mostRecentCheckInEncounter.location.uuid == 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
+                                    || $visit.mostRecentCheckInEncounter.location.uuid == '950852f3-8a96-4d82-a5f8-a68a92043164'
+                                    || $visit.mostRecentCheckInEncounter.location.uuid == '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
+                                <option value="true"><uimessage code="emr.yes"/></option>
+                                <option value="false" selected="selected"><uimessage code="emr.no"/></option>
+                            </includeIf>
+                            <includeIf velocityTest="$visit.checkInEncounter.location.uuid != 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
+                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '109a13a9-029d-498d-b66e-bab5eb396996'
+                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'dc8413be-1075-48b5-9857-9bd4954686ed'
+                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
+                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '950852f3-8a96-4d82-a5f8-a68a92043164'
+                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
+                                <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
+                                <option value="false"><uimessage code="emr.no"/></option>
+                            </includeIf>
+                        </select>
+                    </div>
+            </ifMode>
+        </includeIf>
+
     </includeIf>
 
     <ifMode mode="VIEW" include="false">
