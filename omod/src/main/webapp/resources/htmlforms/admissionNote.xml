@@ -56,11 +56,6 @@
             margin-bottom: 20px;
             }
 
-            #print-wristband-div {
-                vertical-align: top;
-                display: inline-block;
-                margin-bottom:20px;
-            }
         </ifMode>
 
     </style>
@@ -69,18 +64,18 @@
 
         var validateForm = function () {
 
-            var isValid =   $('#where select').val() != '' &amp;&amp;
-                            $('#who select').val() != '' &amp;&amp;
-                            $('#when input').val() != '' &amp;&amp;      // does this actually work?
-                            $('.diagnosis').length;
+            var isValid =   jq('#where select').val() != '' &amp;&amp;
+                            jq('#who select').val() != '' &amp;&amp;
+                            jq('#when input').val() != '' &amp;&amp;      // does this actually work?
+                            jq('.diagnosis').length;
 
             if (isValid) {
-                $('.submitButton').removeAttr('disabled');
-                $('.submitButton').removeClass('disabled');
+                jq('.submitButton').removeAttr('disabled');
+                jq('.submitButton').removeClass('disabled');
             }
             else {
-                $('.submitButton').attr('disabled', 'disabled');
-                $('.submitButton').addClass('disabled');
+               jq('.submitButton').attr('disabled', 'disabled');
+               jq('.submitButton').addClass('disabled');
             }
 
         }
@@ -88,46 +83,87 @@
 
         $(function() {
             // yes, a rather large amount of events trigger a validation...
-            $(document).change(validateForm);
-            $(document).click(validateForm);
+            jq(document).change(validateForm);
+            jq(document).click(validateForm);
 
             validateForm();
         });
 
     </script>
 
+    <!-- WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
-        <script type="text/javascript">
+        <!-- functionality to ask whether or not to print a wristband, which we only do for active visits in ENTER mode -->
+        <ifMode mode="ENTER" include="true">
+            <includeIf velocityTest="($visit.open)">
+                <script type="text/javascript">
 
-            // print wristband on submit if that option has been selected
-            beforeSubmit.push(function() {
+                    jq(function() {
 
-                var success;
+                        var printWristbandDialog;
+                        var printWristband = null; // (null = we have not yet prompted user if they want to print a wristband; true = print wristband; false = don't print wristband)
 
-                var printWristband = jq('#print-wristband');
-                if (printWristband &amp;&amp; printWristband.val() == 'true') {
-
-                    // temporarily turn ajax to synchronized so we can block if printing is not successful (a little bit hacky, probably better ito disable just this call?)
-                    jq.ajaxSetup({async:false});
-
-                    emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> },
-                        function(data) {
-                            success = data.success;
-                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
+                        // set up the dialog to prompt the user if they want to print a wristband or not
+                        printWristbandDialog = emr.setupConfirmationDialog({
+                            selector: '#print-wristband-dialog',
+                            actions: {
+                                confirm: function(event) {
+                                    event.stopPropagation();
+                                    printWristbandDialog.close();
+                                    printWristband = true;  // user selected yes ("confirm") so set flag to print wristband
+                                },
+                                cancel: function(event) {
+                                    event.stopPropagation();
+                                    printWristbandDialog.close();
+                                    printWristband = false; // user selected no ("cancel") so set flag to *not* print wristband
+                                    jq('.submitButton').click();  // re-trigger submit
+                                }
+                            }
                         });
 
-                    jq.ajaxSetup({async:true});
-                    return success;
-                }
-                else {
-                    return true;
-                }
+                        beforeSubmit.push(function() {
 
-            });
+                            // if we have not yet asked whether or not to print a wristband, show that dialog and suspend the submit
+                            if (printWristband == null) {
+                                printWristbandDialog.show();
+                                return false;
+                            }
 
-        </script>
+                            // otherwise print the print wristband if requested
+                            else {
+                                if(printWristband == true) {
+
+                                    // temporarily turn ajax to synchronized so we can block if printing is not successful (a little bit hacky, probably better ito disable just this call?)
+                                    jq.ajaxSetup({async:false});
+
+                                    // call the function to print a wristband
+                                    emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> },
+                                        function(data) {
+                                            success = data.success;
+                                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
+                                        });
+
+                                    jq.ajaxSetup({async:true});
+
+                                    // set to null so that if submit fails and user submits again, they are re-prompted
+                                    printWristband = null;
+
+                                    // continue with submit if wristband printing was successful
+                                    return success;
+                                }
+                                else {
+                                    // continue with submit if user chooses *not* to print a wristband
+                                    return true;
+                                }
+                            }
+                        });
+                    });
+
+                </script>
+            </includeIf>
+        </ifMode>
     </includeIf>
-
+    <!-- END WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
 
     <ifMode mode="ENTER" include="true">
         <includeIf velocityTest="($visit.open)">
@@ -227,43 +263,6 @@
         <div id="encounter-diagnoses-target">
         </div>
 
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
-            <ifMode mode="ENTER" include="true">
-
-                    <div id="print-wristband-div">
-                        <uimessage code="mirebalais.admissionNote.printWristband"/>
-                        <select id="print-wristband">
-                            <!-- we decide whether to default to "yes" or "no" based on the most recent check-in location; patients
-                                at these locatiosn should already have received wristbands:
-                                    Ijans (f3a5586e-f06c-4dfb-96b0-6f3451a35e90)
-                                    Sal Avan Operasyon | PACU (109a13a9-029d-498d-b66e-bab5eb396996)
-                                    Chimyoterapi (dc8413be-1075-48b5-9857-9bd4954686ed)
-                                    Ijans | Sante Fanm (d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c)
-                                    Sal Aprè Akouchman (950852f3-8a96-4d82-a5f8-a68a92043164)
-                                    Swen Entansif Neonatal (62a9500e-a1a5-4235-844f-3a8cc0765d53) -->
-                            <includeIf velocityTest="$visit.mostRecentCheckInEncounter.location.uuid == 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
-                                    || $visit.mostRecentCheckInEncounter.location.uuid == '109a13a9-029d-498d-b66e-bab5eb396996'
-                                    || $visit.mostRecentCheckInEncounter.location.uuid == 'dc8413be-1075-48b5-9857-9bd4954686ed'
-                                    || $visit.mostRecentCheckInEncounter.location.uuid == 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
-                                    || $visit.mostRecentCheckInEncounter.location.uuid == '950852f3-8a96-4d82-a5f8-a68a92043164'
-                                    || $visit.mostRecentCheckInEncounter.location.uuid == '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
-                                <option value="true"><uimessage code="emr.yes"/></option>
-                                <option value="false" selected="selected"><uimessage code="emr.no"/></option>
-                            </includeIf>
-                            <includeIf velocityTest="$visit.checkInEncounter.location.uuid != 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
-                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '109a13a9-029d-498d-b66e-bab5eb396996'
-                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'dc8413be-1075-48b5-9857-9bd4954686ed'
-                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
-                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '950852f3-8a96-4d82-a5f8-a68a92043164'
-                                    &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
-                                <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
-                                <option value="false"><uimessage code="emr.no"/></option>
-                            </includeIf>
-                        </select>
-                    </div>
-            </ifMode>
-        </includeIf>
-
     </includeIf>
 
     <ifMode mode="VIEW" include="false">
@@ -272,5 +271,55 @@
             <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>
+
+
+    <!-- WRISTBAND FUNCTIONALITY (DIALOG) -->
+    <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
+        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode -->
+        <ifMode mode="ENTER" include="true">
+            <includeIf velocityTest="($visit.open)">
+                <div id="print-wristband-dialog" class="dialog" style="display: none">
+                    <div class="dialog-header">
+                        <i class="icon-folder-open"></i>
+                        <h3><uimessage code="mirebalais.admissionNote.printWristband.title"/></h3>
+                    </div>
+                    <div class="dialog-content">
+                        <p class="dialog-instructions"><uimessage code="mirebalais.admissionNote.printWristband.prompt"/></p>
+
+                        <!-- we decide whether to default to "yes" or "no" based on the most recent check-in location; patients
+                        at these locations should already have received wristbands:
+                        Ijans (f3a5586e-f06c-4dfb-96b0-6f3451a35e90)
+                        Sal Avan Operasyon | PACU (109a13a9-029d-498d-b66e-bab5eb396996)
+                        Chimyoterapi (dc8413be-1075-48b5-9857-9bd4954686ed)
+                        Ijans | Sante Fanm (d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c)
+                        Sal Aprè Akouchman (950852f3-8a96-4d82-a5f8-a68a92043164)
+                        Swen Entansif Neonatal (62a9500e-a1a5-4235-844f-3a8cc0765d53) -->
+
+                        <includeIf velocityTest="$visit.mostRecentCheckInEncounter.location.uuid == 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
+                                                || $visit.mostRecentCheckInEncounter.location.uuid == '109a13a9-029d-498d-b66e-bab5eb396996'
+                                                || $visit.mostRecentCheckInEncounter.location.uuid == 'dc8413be-1075-48b5-9857-9bd4954686ed'
+                                                || $visit.mostRecentCheckInEncounter.location.uuid == 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
+                                                || $visit.mostRecentCheckInEncounter.location.uuid == '950852f3-8a96-4d82-a5f8-a68a92043164'
+                                                || $visit.mostRecentCheckInEncounter.location.uuid == '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
+                            <!-- first button will have focus by default, so we have default=no here -->
+                            <button  class="cancel"><uimessage code="emr.no"/></button>
+                            <button  class="confirm right"><uimessage code="emr.yes"/></button>
+                        </includeIf>
+                        <includeIf velocityTest="$visit.checkInEncounter.location.uuid != 'f3a5586e-f06c-4dfb-96b0-6f3451a35e90'
+                                                &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '109a13a9-029d-498d-b66e-bab5eb396996'
+                                                &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'dc8413be-1075-48b5-9857-9bd4954686ed'
+                                                &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != 'd65eb8cf-d781-4ea8-9d9a-2b3e03c6074c'
+                                                &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '950852f3-8a96-4d82-a5f8-a68a92043164'
+                                                &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
+                            <!-- first button will have focus by default, so we have default=true here -->
+                            <button  class="confirm right"><uimessage code="emr.yes"/></button>
+                            <button  class="cancel"><uimessage code="emr.no"/></button>
+                        </includeIf>
+                    </div>
+                </div>
+            </includeIf>
+        </ifMode>
+    </includeIf>
+    <!-- END WRISTBAND FUNCTIONALITY (DIALOG) -->
 
 </htmlform>

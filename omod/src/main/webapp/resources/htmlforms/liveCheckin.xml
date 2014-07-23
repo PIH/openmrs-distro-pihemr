@@ -21,6 +21,7 @@
         }
     </style>
 
+    <!-- WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
         <script type="text/javascript">
 
@@ -52,7 +53,7 @@
 
         </script>
     </includeIf>
-
+    <!-- END WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
 
     <!-- hidden div for setting date/provider/location in view mode when entering a form -->
     <ifMode mode="VIEW" include="false">
