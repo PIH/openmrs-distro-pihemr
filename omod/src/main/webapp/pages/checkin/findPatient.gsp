@@ -22,11 +22,11 @@
             selector: '#request-paper-record-dialog',
             actions: {
                 confirm: function() {
+                    pullChartDialog.close();
                     emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'requestPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
-                                pullChartDialog.close();
                                 jq(':input:enabled:visible:first').focus();
                             });
                 },
@@ -43,20 +43,20 @@
             selector: '#create-paper-record-dialog',
             actions: {
                 confirm: function() {
+                    createPaperRecordDialog.close();
                     emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'createPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
-                                createPaperRecordDialog.close();
                                 jq(':input:enabled:visible:first').focus();
                             });
                 },
                 cancel: function() {
+                    createPaperRecordDialog.close();
                     emr.getFragmentActionWithCallback('paperrecord', 'requestPaperRecord', 'requestPaperRecord'
                             , { patientId: patientId, locationId: sessionLocationModel.id() }
                             , function(data) {
                                 emr.successMessage(data.message);
-                                createPaperRecordDialog.close();
                                 jq(':input:enabled:visible:first').focus();
                             });
                 }
