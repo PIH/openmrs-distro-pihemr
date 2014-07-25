@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * Fragment that prints a wristband. Current ways to trigger:
  *  1) Called from printWristband.js, which is configured as a overall action on the patient dashboard (see wristband_extension.json)
+ *  2) Called from within the real-time check-in form (liveCheckin.xml)
+ *  3) Called from within the admission note (admissionNote.xml)
  */
 public class WristbandFragmentController {
 

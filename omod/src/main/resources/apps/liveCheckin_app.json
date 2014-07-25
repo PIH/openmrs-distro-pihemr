@@ -1,0 +1,29 @@
+[
+
+    {
+        "id": "mirebalais.liveCheckin",
+        "instanceOf": "coreapps.template.findPatient",
+        "extensions": [
+            {
+                "id": "mirebalais.liveCheckin.appLink",
+                "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
+                "type": "link",
+                "label": "mirebalais.app.patientRegistration.checkin.label",
+                "url": "coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin",
+                "icon": "icon-paste",
+                "order": 5,
+                "requiredPrivilege": "App: mirebalais.checkin"
+            }
+        ],
+        "config": {
+            "afterSelectedUrl": "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
+            "label": "mirebalais.app.patientRegistration.checkin.label",
+            "heading": "mirebalais.app.patientRegistration.checkin.label",
+            "showLastViewedPatients": false
+        },
+        "requiredPrivilege": "App: mirebalais.checkin",
+        "featureToggle": "printWristband"
+    }
+
+]
+
