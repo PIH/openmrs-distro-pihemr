@@ -45,10 +45,10 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.7</openMRSVersion>
+        <openMRSVersion>1.9.8</openMRSVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.3-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.4-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.3-SNAPSHOT</uiframeworkVersion>
@@ -65,15 +65,15 @@
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.7</serializationxstreamVersion>
         <idgenVersion>2.7</idgenVersion>
-        <namephoneticsVersion>1.3.6</namephoneticsVersion>
+        <namephoneticsVersion>1.4</namephoneticsVersion>
         <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
-        <addresshierarchyVersion>2.2.9</addresshierarchyVersion>
+        <addresshierarchyVersion>2.3</addresshierarchyVersion>
         <providerManagementVersion>2.1</providerManagementVersion>
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
-        <openmrswebVersion>1.9.3</openmrswebVersion>
+        <openmrswebVersion>1.9.8</openmrswebVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.2-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
@@ -87,7 +87,7 @@
         <webservicesRestVersion>2.5</webservicesRestVersion>
         <appointmentschedulingVersion>1.1-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <openmrsTestutilsVersion>1.3</openmrsTestutilsVersion>
+        <openmrsTestutilsVersion>1.4-SNAPSHOT</openmrsTestutilsVersion>
         <printerVersion>1.0-SNAPSHOT</printerVersion>
     </properties>
 
@@ -406,8 +406,81 @@
                     <artifactId>gem-maven-plugin</artifactId>
                     <version>1.0.0-rc4</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                    <allowSnapshots>true</allowSnapshots>
+                    <properties>
+                        <property>
+                            <name>openMRSVersion</name>
+                            <version>[1.9.0,1.10.0-!)</version>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>openmrswebVersion</name>
+                            <version>[1.9.0,1.10.0-!)</version>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>htmlwidgetsVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>metadatasharingVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>metadatamappingVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>calculationVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>serializationxstreamVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>idgenVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>namephoneticsVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>addresshierarchyVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>providerManagementVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>eventVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>logicVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>webservicesRestVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <repositories>
