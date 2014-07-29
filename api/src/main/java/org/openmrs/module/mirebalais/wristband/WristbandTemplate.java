@@ -14,12 +14,13 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Template for the wristbands we print in Mirebalais; created the code (in ZPL II language) to send to the wristband printer
@@ -27,11 +28,16 @@ import java.util.Date;
 @Component
 public class WristbandTemplate {
 
+    // we always print in French
+    private static Locale locale = new Locale("fr");
+
     public static Boolean LOWEST_LEVEL_ON_SEPARATE_LINE = true;
 
     public static Boolean SKIP_HIGHEST_LEVEL = true;
 
-    private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy");
+    private static DateFormat fullDate  = new SimpleDateFormat("dd MMM yyyy", locale);
+
+    private static DateFormat yearOnly = new SimpleDateFormat("yyyy", locale);
 
     @Autowired
     private AdtService adtService;
@@ -66,7 +72,7 @@ public class WristbandTemplate {
 
         // visit location & current data
         data.append("^FO050,200^FB2150,1,0,L,0^AS^FD" + adtService.getLocationThatSupportsVisits(location).getName() + " "
-                + df.format(new Date()) + "^FS");
+                + fullDate.format(new Date()) + "^FS");
 
         // patient name: for now, only printing given and family names
         String patientName = null;
@@ -78,9 +84,17 @@ public class WristbandTemplate {
 
         data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "^FS");
 
-        // birthdate. gender, and patient identifier
-        data.append("^FO160,200^FB2150,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "  "
-                + messageSourceService.getMessage("coreapps.gender." + patient.getGender()) + "  ");
+        // birthdate (we only show year if birthdate is estiamted
+        DateFormat df = patient.getBirthdateEstimated() ? yearOnly : fullDate;
+        data.append("^FO160,200^FB2150,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "^FS");
+
+        // age
+        data.append("^FO160,200^FB1850,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale) +"^FS");
+
+        // gender
+        data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, locale) + "  ");
+
+        // paper record identifiers
         PatientIdentifier paperRecordIdentifier = patient.getPatientIdentifier(paperRecordProperties.getPaperRecordIdentifierType());
         if (paperRecordIdentifier != null) {
             data.append(paperRecordIdentifier.getIdentifier());

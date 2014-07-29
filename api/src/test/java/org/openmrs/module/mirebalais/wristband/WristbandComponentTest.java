@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
@@ -23,7 +24,9 @@ import static org.junit.Assert.assertThat;
 
 public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 
-    private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy");
+    private static Locale locale = new Locale("fr");
+
+    private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy", locale);
 
     @Autowired
     private TestDataManager testDataManager;
@@ -65,7 +68,9 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
-        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 Jul 1940  coreapps.gender.M  A00005^FS"));  // no message source service, se we are just going to get back the message code for gender
+        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
+        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FDcoreapps.ageYears^FS"));   // no message source service, se we are just going to get back the message code for age years and gender
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDcoreapps.gender.M  A00005^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDX2ECEX^XZ"));
     }
 }

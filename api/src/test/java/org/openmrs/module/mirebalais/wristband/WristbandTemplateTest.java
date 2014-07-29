@@ -23,7 +23,9 @@ import org.openmrs.module.printer.UnableToPrintViaSocketException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -34,7 +36,9 @@ import static org.mockito.Mockito.when;
 
 public class WristbandTemplateTest {
 
-    private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy");
+    private static Locale locale = new Locale("fr");
+
+    private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy", locale);
 
     private WristbandTemplate wristbandTemplate = new WristbandTemplate();
 
@@ -67,8 +71,8 @@ public class WristbandTemplateTest {
         when(paperRecordProperties.getPaperRecordIdentifierType()).thenReturn(paperRecordIdentifierType);
 
         when(adtService.getLocationThatSupportsVisits(argThat(any(Location.class)))).thenReturn(visitLocation);
-        when(messageSourceService.getMessage("coreapps.gender.M")).thenReturn("Male");
-        when(messageSourceService.getMessage("coreapps.gender.F")).thenReturn("Female");
+        when(messageSourceService.getMessage("coreapps.gender.M", null, locale)).thenReturn("Masculin");
+        when(messageSourceService.getMessage("coreapps.gender.F", null, locale)).thenReturn("Féminin");
 
         setupAddressHierarchyLevels();
 
@@ -145,15 +149,52 @@ public class WristbandTemplateTest {
         name.setFamilyName("Starr");
         patient.addName(name);
 
+        when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn("74 an(s)");
+
         String output = wristbandTemplate.generateWristband(patient, new Location());
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
-        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 Jul 1940  Male  A00005^FS"));
+        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
+        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A00005^FS"));
         assertThat(output, containsString("^FO220,200^FB2150,1,0,L,0^AS^FDAvant Eglise Chretienne des perlerlerin de la siant tete de moliere^FS"));
         assertThat(output, containsString("^FO270,200^FB2150,1,0,L,0^AS^FDSaut D'Eau, 1ere Riviere Canot, Saut d'Eau, Centre^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDZL1234^XZ"));
+    }
+
+    @Test
+    public void testEstimatedBirthDate() {
+
+        visitLocation.setName("Hôpital Universitaire de Mirebalais");
+
+        Patient patient = new Patient();
+        patient.setGender("M");
+        patient.setBirthdate(new DateTime(1940,7,7,5,5,5).toDate());
+        patient.setBirthdateEstimated(true);
+
+        PatientIdentifier primaryIdentifier = new PatientIdentifier();
+        primaryIdentifier.setIdentifier("ZL1234");
+        primaryIdentifier.setIdentifierType(primaryIdentifierType);
+        primaryIdentifier.setVoided(false);
+        patient.addIdentifier(primaryIdentifier);
+
+        PatientIdentifier paperRecordIdentifier = new PatientIdentifier();
+        paperRecordIdentifier.setIdentifier("A00005");
+        paperRecordIdentifier.setIdentifierType(paperRecordIdentifierType);
+        paperRecordIdentifier.setVoided(false);
+        patient.addIdentifier(paperRecordIdentifier);
+
+        PersonName name = new PersonName();
+        name.setGivenName("Ringo");
+        name.setFamilyName("Starr");
+        patient.addName(name);
+
+        String output = wristbandTemplate.generateWristband(patient, new Location());
+
+        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD1940^FS"));
+
     }
 
     @Test
@@ -172,7 +213,9 @@ public class WristbandTemplateTest {
             // demographics
             data.append("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais  19-May-2014^FS");
             data.append("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS");
-            data.append("^FO160,200^FB2150,1,0,L,0^AU^FD7/Jul/1940  Male   A001234^FS");
+            data.append("^FO160,200^FB2150,1,0,L,0^AU^FD07 Jul 1940^FS");
+            data.append("^FO160,200^FB1850,1,0,L,0^AT^FD40 years^FS");
+            data.append("^FO160,200^FB1650,1,0,L,0^AU^FDMale  A00005^FS");
             data.append("^FO220,200^FB2150,1,0,L,0^AS^FDAvant Eglise Chretienne des perlerlerin de la siant tete de moliere^FS");
             data.append("^FO270,200^FB2150,1,0,L,0^AS^FDSaut D'Eau, 1ere Riviere Canot, Saut d'Eau, Centre^FS");
 
