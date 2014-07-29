@@ -87,7 +87,7 @@
         <webservicesRestVersion>2.5</webservicesRestVersion>
         <appointmentschedulingVersion>1.1-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <openmrsTestutilsVersion>1.4-SNAPSHOT</openmrsTestutilsVersion>
+        <openmrsTestutilsVersion>1.4</openmrsTestutilsVersion>
         <printerVersion>1.0-SNAPSHOT</printerVersion>
     </properties>
 
