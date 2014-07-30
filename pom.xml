@@ -46,6 +46,7 @@
 
     <properties>
         <openMRSVersion>1.9.8</openMRSVersion>
+        <openMRSwebVersion>1.9.8</openMRSwebVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.4-SNAPSHOT</emrapiVersion>
@@ -73,7 +74,6 @@
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
-        <openmrswebVersion>1.9.8</openmrswebVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.2-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
@@ -154,7 +154,7 @@
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
-            <version>${openmrswebVersion}</version>
+            <version>${openMRSwebVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
