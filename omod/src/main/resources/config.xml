@@ -59,7 +59,7 @@
         <require_module version="${pacsintegrationVersion}">
             org.openmrs.module.pacsintegration
         </require_module>
-        <require_module version>
+        <require_module version="${providermanagementVersion}">
             org.openmrs.module.providermanagement
         </require_module>
         <require_module version="${importpatientfromwsVersion}">
