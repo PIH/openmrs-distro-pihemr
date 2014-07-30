@@ -70,7 +70,7 @@
         <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.3</addresshierarchyVersion>
-        <providermanagementVersion>2.2-SNAPSHOT</providermanagementVersion>
+        <providermanagementVersion>2.1</providermanagementVersion>
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
@@ -425,7 +425,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>openmrswebVersion</name>
+                            <name>openMRSwebVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
@@ -462,7 +462,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>providerManagementVersion</name>
+                            <name>providermanagementVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
