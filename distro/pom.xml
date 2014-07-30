@@ -213,7 +213,7 @@
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>providermanagement-omod</artifactId>
-                    <version>${providerManagementVersion}</version>
+                    <version>${providermanagementVersion}</version>
                     <scope>provided</scope>
                 </dependency>
 
