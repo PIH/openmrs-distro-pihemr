@@ -69,7 +69,7 @@
         <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.3</addresshierarchyVersion>
-        <providermanagementVersion>2.1</providermanagementVersion>
+        <providermanagementVersion>2.2-SNAPSHOT</providermanagementVersion>
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
@@ -85,7 +85,7 @@
         <webservicesRestVersion>2.5</webservicesRestVersion>
         <appointmentschedulingVersion>1.1-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <testutilsVersion>1.4-SNAPSHOT</testutilsVersion>
+        <testutilsVersion>1.4</testutilsVersion>
         <printerVersion>1.0-SNAPSHOT</printerVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
