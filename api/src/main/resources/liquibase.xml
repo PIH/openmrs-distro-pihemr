@@ -79,4 +79,19 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20140731-give-all-users-role-to-view-patient-search" author="djazayeri">
+        <comment>
+            See UHM-1500: create script to enable Patient Medical Information for all users
+            We are rolling out a change where to view the patient dashboard, a user will need to
+            have a new role "Application Role: patientMedicalInformation".  We will use this role
+            to limit who can view the patient dashboard.  But, to start, we want all existing users
+            to have this role
+        </comment>
+        <sql>
+            DELETE FROM user_role WHERE role='Application Role: patientMedicalInformation';
+            INSERT INTO user_role (user_id, role) SELECT user_id, 'Application Role: patientMedicalInformation'
+            FROM users WHERE retired = 0 AND username !='scheduler' AND username !='daemon' AND username !='pacsintegration';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
