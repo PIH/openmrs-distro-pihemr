@@ -1,0 +1,13 @@
+[
+    {
+        "id": "mirebalais.deathCertificate",
+        "extensionPointId": "patientDashboard.overallActions",
+        "type": "link",
+        "label": "mirebalais.task.deathCertificate.label",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=mirebalais:htmlforms/deathCertificate.xml",
+        "icon": "icon-remove-circle",
+        "order": 100,
+        "require": "!patientDead",
+        "featureToggle": "death_note"
+    }
+]
