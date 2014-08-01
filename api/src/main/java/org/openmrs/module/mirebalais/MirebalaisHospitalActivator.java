@@ -16,14 +16,12 @@ package org.openmrs.module.mirebalais;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.EncounterType;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
-import org.openmrs.api.EncounterService;
 import org.openmrs.api.FormService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
@@ -62,12 +60,9 @@ import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinition
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
-import org.openmrs.ui.framework.Formatter;
-import org.openmrs.ui.framework.FormatterImpl;
 import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.openmrs.util.OpenmrsConstants;
-import org.springframework.context.MessageSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
@@ -77,7 +72,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -129,10 +123,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
             Context.getService(AppFrameworkService.class).disableApp("coreapps.awaitingAdmission");
 
-            MessageSource messageSource = Context.getMessageSourceService().getActiveMessageSource();
-            AdministrationService administrationService = Context.getAdministrationService();
-            final Formatter formatter = new FormatterImpl(messageSource, administrationService);
-
             PlatformTransactionManager platformTransactionManager = Context.getRegisteredComponents(PlatformTransactionManager.class).get(0);
             TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
             transactionTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -151,8 +141,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                     setupCoreAppsGlobalProperties();
                     setupReportingGlobalProperties();
                     setupWebServicesRestGlobalProperties();
-
-                    translateEncounterTypeNamesToFrench(formatter);
                 }
             });
 
@@ -573,14 +561,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     public void setCustomProperties(MirebalaisCustomProperties customProperties) {
         this.customProperties = customProperties;
-    }
-
-    private void translateEncounterTypeNamesToFrench(Formatter formatter) {
-        EncounterService encounterService = Context.getEncounterService();
-        for (EncounterType encounterType : encounterService.getAllEncounterTypes(true)) {
-            encounterType.setName(formatter.format(encounterType, Locale.FRENCH));
-            encounterService.saveEncounterType(encounterType);
-        }
     }
 
 }
