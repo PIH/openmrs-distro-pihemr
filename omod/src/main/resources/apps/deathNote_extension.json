@@ -8,6 +8,6 @@
         "icon": "icon-remove-circle",
         "order": 100,
         "require": "!patientDead",
-        "featureToggle": "death_note"
+        "featureToggle": "deathNote"
     }
 ]
