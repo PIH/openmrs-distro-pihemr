@@ -39,7 +39,17 @@
                      emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> },
                         function(data) {
                             success = data.success;
-                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
+
+                            if (success) {
+                                emr.successMessage(data.message);
+                                jq('#print-wristband-error').hide();
+                            }
+                            else {
+                                // step back one question (to the wristband question)
+                                NavigatorController.stepBackward();
+                                jq('#print-wristband-error').text(data.message + '. <uimessage code="mirebalais.retrospectiveCheckin.checkinWithoutWristband"/>');
+                                jq('#print-wristband-error').show();
+                            }
                         });
 
                     jq.ajaxSetup({async:true});
@@ -147,12 +157,13 @@
                         <h3>
                             <uimessage code="mirebalais.checkin.printWristband"/>
                         </h3>
-                            <p class="left">
-                                <select id="print-wristband" size="2">
-                                    <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
-                                    <option value="false"><uimessage code="emr.no"/></option>
-                                </select>
-                            </p>
+                        <span class="error field-error" style="display: none" id="print-wristband-error"></span>
+                        <p class="left">
+                            <select id="print-wristband" size="2">
+                                <option value="true" selected="selected"><uimessage code="emr.yes"/></option>
+                                <option value="false"><uimessage code="emr.no"/></option>
+                            </select>
+                        </p>
                     </fieldset>
 
                 </includeIf>
