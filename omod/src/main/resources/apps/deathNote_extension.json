@@ -8,6 +8,7 @@
         "icon": "icon-remove-circle",
         "order": 100,
         "require": "!patientDead",
+        "requiredPrivilege": "Task: mirebalais.enterDeathCertificate",
         "featureToggle": "deathNote"
     }
 ]

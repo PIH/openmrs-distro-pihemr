@@ -227,6 +227,13 @@
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>emrapi-api</artifactId>
+            <version>${emrapiVersion}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
@@ -327,6 +334,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>mirebalaismetadata-api</artifactId>
+            <version>${mirebalaismetadataVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- End OpenMRS modules -->
 
         <!-- Begin OpenMRS contrib -->
@@ -356,7 +370,6 @@
             <version>3.2.10</version>
             <type>gem</type>
         </dependency>
-
 
     </dependencies>
 
