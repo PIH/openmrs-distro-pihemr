@@ -140,13 +140,18 @@
                                     emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband', { patientId: <lookup expression="patient.id"/> , locationId: getValue("encounterLocation.value") },
                                         function(data) {
                                             success = data.success;
-                                            success ? emr.successMessage(data.message) : emr.errorMessage(data.message);
+                                            if (success) {
+                                                emr.successMessage(data.message);
+                                            }
+                                            else {
+                                                // reopen display error message and reopen modal
+                                                jq('#print-wristband-error').text(data.message + '. <uimessage code="mirebalais.admissionNote.admitWithoutWristband"/>');
+                                                jq('#print-wristband-error').show();
+                                                printWristbandDialog.show();
+                                            }
                                         });
 
                                     jq.ajaxSetup({async:true});
-
-                                    // set to null so that if submit fails and user submits again, they are re-prompted
-                                    printWristband = null;
 
                                     // continue with submit if wristband printing was successful
                                     return success;
@@ -284,6 +289,7 @@
                         <h3><uimessage code="mirebalais.admissionNote.printWristband.title"/></h3>
                     </div>
                     <div class="dialog-content">
+                        <span class="error field-error" style="display: none" id="print-wristband-error"></span>
                         <p class="dialog-instructions"><uimessage code="mirebalais.admissionNote.printWristband.prompt"/></p>
 
                         <!-- we decide whether to default to "yes" or "no" based on the most recent check-in location; patients
