@@ -7,8 +7,20 @@
         "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=mirebalais:htmlforms/deathCertificate.xml",
         "icon": "icon-remove-circle",
         "order": 100,
-        "require": "!patientDead",
+        "require": "!patient.person.dead",
         "requiredPrivilege": "Task: mirebalais.enterDeathCertificate",
         "featureToggle": "deathNote"
+    },
+    {
+        "id": "mirebalais.header.deathCertificate",
+        "extensionPointId": "patientHeader.deathInfo",
+        "type": "include-fragment",
+        "order": 1,
+        "requiredPrivilege": "Task: mirebalais.enterDeathCertificate",
+        "featureToggle": "deathNote",
+        "extensionParams": {
+            "provider": "mirebalais",
+            "fragment": "deathcertificate/headerLink"
+        }
     }
 ]
