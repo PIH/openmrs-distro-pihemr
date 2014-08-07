@@ -86,6 +86,11 @@
             jq(document).change(validateForm);
             jq(document).click(validateForm);
 
+            // hack to remove ED Boarding option from admission locations location
+            <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
+                $('#encounterLocation select option:contains(Ijans Annatant)').remove();
+            </includeIf>
+
             validateForm();
         });
 

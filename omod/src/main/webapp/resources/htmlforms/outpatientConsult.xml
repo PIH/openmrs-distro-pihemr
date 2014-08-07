@@ -114,14 +114,13 @@
 
         $(function() {
 
-            // hack to remove ED Boarding option from boarding for location
-
             // yes, a rather large amount of events trigger a validation...
             $(document).change(validateForm);
             $(document).click(validateForm);
 
             $(document).change(displayOrHideBoardingForQuestion);
 
+            // hack to remove ED Boarding option from admission locations location
             <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
                 $('#admissionLocation select option:contains(Ijans Annatant)').remove();
             </includeIf>
