@@ -4,7 +4,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.vitals.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/vitals.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/vitals.xml",
         "icon": "icon-vitals",
         "order": 34,
         "requiredPrivilege": "Task: emr.enterClinicalForms",
@@ -15,7 +15,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.surgicalOperativeNote.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/surgicalPostOpNote.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/surgicalPostOpNote.xml",
         "icon": "icon-paste",
         "order": 38,
         "requiredPrivilege": "Task: emr.enterClinicalForms"
@@ -25,7 +25,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.checkin.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/checkin.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/checkin.xml",
         "icon": "icon-check-in",
         "order": 31,
         "requiredPrivilege": "Task: mirebalais.checkinForm"
@@ -35,7 +35,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "emr.clinic.consult.title",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
         "order": 32,
         "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"
@@ -45,7 +45,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "emr.ed.consult.title",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/edNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/edNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction",
         "icon": "icon-stethoscope",
         "order": 35,
         "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"
@@ -55,7 +55,7 @@
         "extensionPointId": "patientDashboard.visitActions",
         "type": "link",
         "label": "mirebalais.task.admit.label",
-        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml",
+        "url": "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=mirebalais:htmlforms/admissionNote.xml",
         "icon": "icon-h-sign",
         "order": 33,
         "require": "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))",
