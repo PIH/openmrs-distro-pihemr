@@ -106,12 +106,12 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		PaperRecord paperRecord1  = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
                 new Patient(), location);
 
-		//assertTrue(paperRecord1.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
+		assertTrue(paperRecord1.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
 
         PaperRecord paperRecord2 = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
                 new Patient(), location);
 
-
+        assertTrue(paperRecord2.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
 		assertThat(paperRecord1.getPatientIdentifier().getIdentifier(), not(paperRecord2.getPatientIdentifier().getIdentifier()));
 	}
 	
