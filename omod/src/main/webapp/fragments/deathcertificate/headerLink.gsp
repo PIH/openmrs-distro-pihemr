@@ -12,13 +12,13 @@
         ${ ui.message("uicommons.loading.placeholder") }
     </span>
     <span ng-show="existing.uuid">
-        <a ng-click="editDeathCertificate(existing.uuid)">
-            <i class="icon-file small"></i>
+        <a ng-click="viewDeathCertificate(existing.uuid)">
+            <i class="icon-file small"></i> View Death Certificate
         </a>
     </span>
     <span ng-show="existing === null && !${ ui.thisUrl().contains("deathCertificate.xml") }">
         <a ng-click="fillOutDeathCertificate()">
-            <i class="icon-plus small"></i>
+            <i class="icon-plus small"></i> Fill Out Death Certificate
         </a>
     </span>
 </span>

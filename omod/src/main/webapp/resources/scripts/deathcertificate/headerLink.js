@@ -28,13 +28,12 @@ angular.module('deathCertificate', ['encounterService']).
             });
         }
 
-        $scope.editDeathCertificate = function(encounterUuid) {
+        $scope.viewDeathCertificate = function(encounterUuid) {
             emr.navigateTo({
                 provider: "htmlformentryui",
-                page: "htmlform/editHtmlFormWithStandardUi",
+                page: "htmlform/viewEncounterWithHtmlForm",
                 query: {
-                    encounterId: encounterUuid,
-                    patientId: $scope.patientUuid,
+                    encounter: encounterUuid,
                     returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
                 }
             });
