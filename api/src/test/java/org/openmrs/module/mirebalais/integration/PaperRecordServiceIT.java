@@ -17,7 +17,6 @@ package org.openmrs.module.mirebalais.integration;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
@@ -30,6 +29,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.PaperRecordServiceImpl;
+import org.openmrs.module.paperrecord.db.PaperRecordDAO;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,9 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	private PatientService patientService;
 	
 	private AdministrationService administrationService;
-	
+
+    private PaperRecordDAO paperRecordDAO;
+
 	private PaperRecordService paperRecordService;
 	
 	private PaperRecordProperties paperRecordProperties;
@@ -62,10 +64,12 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		patientService = mock(PatientService.class);
 		administrationService = mock(AdministrationService.class);
 		paperRecordProperties = mock(PaperRecordProperties.class);
+        paperRecordDAO = mock(PaperRecordDAO.class);
 
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 		((PaperRecordServiceImpl) paperRecordService).setPaperRecordProperties(paperRecordProperties);
+        ((PaperRecordServiceImpl) paperRecordService).setPaperRecordDAO(paperRecordDAO);
 	}
 	
 	@AfterClass
@@ -102,7 +106,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
                 new Patient(), location).toString();
 		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
 		assertThat(((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(new Patient(),
-		    location).toString(), Matchers.not(eq(paperMedicalRecordNumber)));
+                location).toString(), Matchers.not(eq(paperMedicalRecordNumber)));
 	}
 	
 }
