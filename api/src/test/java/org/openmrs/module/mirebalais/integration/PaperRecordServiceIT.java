@@ -26,6 +26,7 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.paperrecord.PaperRecord;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.PaperRecordServiceImpl;
@@ -36,9 +37,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
 
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -102,11 +103,16 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		location.addTag(locationTag);
 		when(paperRecordProperties.getMedicalRecordLocationLocationTag()).thenReturn(locationTag);
 		
-		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
-                new Patient(), location).toString();
-		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
-		assertThat(((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(new Patient(),
-                location).toString(), Matchers.not(eq(paperMedicalRecordNumber)));
+		PaperRecord paperRecord1  = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
+                new Patient(), location);
+
+		//assertTrue(paperRecord1.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
+
+        PaperRecord paperRecord2 = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
+                new Patient(), location);
+
+
+		assertThat(paperRecord1.getPatientIdentifier().getIdentifier(), not(paperRecord2.getPatientIdentifier().getIdentifier()));
 	}
 	
 }
