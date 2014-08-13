@@ -62,8 +62,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		patientService = mock(PatientService.class);
 		administrationService = mock(AdministrationService.class);
 		paperRecordProperties = mock(PaperRecordProperties.class);
-		
-		((PaperRecordServiceImpl) paperRecordService).setAdministrationService(administrationService);
+
 		((PaperRecordServiceImpl) paperRecordService).setIdentifierSourceService(identifierSourceService);
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 		((PaperRecordServiceImpl) paperRecordService).setPaperRecordProperties(paperRecordProperties);
@@ -99,10 +98,10 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		location.addTag(locationTag);
 		when(paperRecordProperties.getMedicalRecordLocationLocationTag()).thenReturn(locationTag);
 		
-		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumber(
+		String paperMedicalRecordNumber = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
                 new Patient(), location).toString();
 		assertTrue(paperMedicalRecordNumber.matches("A\\d{6}"));
-		assertThat(((PaperRecordServiceImpl) paperRecordService).createPaperMedicalRecordNumber(new Patient(),
+		assertThat(((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(new Patient(),
 		    location).toString(), Matchers.not(eq(paperMedicalRecordNumber)));
 	}
 	

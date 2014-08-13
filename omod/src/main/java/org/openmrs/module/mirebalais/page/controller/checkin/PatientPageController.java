@@ -1,20 +1,22 @@
 package org.openmrs.module.mirebalais.page.controller.checkin;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.openmrs.Encounter;
 import org.openmrs.Form;
+import org.openmrs.Location;
 import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PatientIdentifierType;
-import org.openmrs.api.context.Context;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
+import org.openmrs.module.paperrecord.PaperRecord;
+import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,13 +28,22 @@ import java.util.Map;
 
 public class PatientPageController {
 
+    static Predicate ANY_NOT_PENDING_CREATION = new Predicate() {
+        @Override
+        public boolean evaluate(Object o) {
+            return !o.equals(PaperRecord.Status.PENDING_CREATION);
+        }
+    };
+
     private static String FORM_URL = "mirebalais:htmlforms/liveCheckin.xml";
 
     public void controller(@RequestParam("patientId") Patient patient,
                            @RequestParam(value="formUrl", required = false) String formUrl,
                            UiUtils ui,
                            EmrContext emrContext,
+                           UiSessionContext uiSessionContext,
                            PageModel model,
+                           @SpringBean("paperRecordService") PaperRecordService paperRecordService,
                            @InjectBeans PatientDomainWrapper patientDomainWrapper,
                            @InjectBeans EnterHtmlFormWithSimpleUiTask enterFormTask) {
 
@@ -40,25 +51,17 @@ public class PatientPageController {
         enterFormTask.setFormDefinitionFromUiResource(FORM_URL);
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("patientId", patient.getId());
-        boolean createPaperRecord = true;
-        boolean pullPaperRecord = false;
 
-        String dossierType = MirebalaisGlobalProperties.PAPER_RECORD_IDENTIFIER_TYPE();
-        PatientIdentifierType patientIdentifierTypeByUuid = Context.getPatientService().getPatientIdentifierTypeByUuid(dossierType);
+        Location currentLocation = uiSessionContext.getSessionLocation();
+        List<PaperRecord> paperRecords = paperRecordService.getPaperRecords(patient, currentLocation);
 
-        if(patientIdentifierTypeByUuid != null ){
-            PatientIdentifier patientDossier = patient.getPatientIdentifier(patientIdentifierTypeByUuid);
+        // only show the create paper record dialog if the patient does *not* have an existing record
+        // and we are not currently at the central archives
+        boolean createPaperRecord = !currentLocation.getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID) &&
+                (paperRecords == null || paperRecords.size() == 0 || !CollectionUtils.exists(paperRecords, ANY_NOT_PENDING_CREATION));
 
-            // only show the create paper record dialog if the patient does *not* have a dossier identifier,
-            // and we are not currently at the central archives
-            if(patientDossier != null && StringUtils.isNotBlank(patientDossier.getIdentifier()) ||
-                emrContext.getSessionLocation().getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID)){
-                createPaperRecord = false;
-                pullPaperRecord = true;
-            }
-        }
         params.put("createPaperRecord", createPaperRecord);
-        params.put("pullPaperRecord", pullPaperRecord);
+        params.put("pullPaperRecord", !createPaperRecord);
         enterFormTask.setReturnUrl(ui.pageLink("mirebalais", "checkin/findPatient", params));
         SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.escapeJs(ui.message("mirebalais.checkin.title")),
                 "link", ui.pageLink("mirebalais", "checkin/findPatient"));

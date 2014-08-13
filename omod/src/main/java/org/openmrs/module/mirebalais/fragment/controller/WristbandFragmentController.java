@@ -6,6 +6,7 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.mirebalais.wristband.WristbandTemplate;
+import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
@@ -30,11 +31,17 @@ public class WristbandFragmentController {
                                       @RequestParam(value = "locationId", required = false) Location location,
                                       @SpringBean("wristbandTemplate") WristbandTemplate wristbandTemplate,
                                       @SpringBean("printerService") PrinterService printerService,
+                                      @SpringBean("paperRecordService") PaperRecordService paperRecordService,
                                       UiSessionContext uiSessionContext) throws UnableToPrintLabelException {
         try {
 
             if (location == null) {
                 location = uiSessionContext.getSessionLocation();
+            }
+
+            // make sure a paper record stub has been created
+            if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
+                paperRecordService.createPaperRecordStub(patient, location);
             }
 
             String data = wristbandTemplate.generateWristband(patient, location);

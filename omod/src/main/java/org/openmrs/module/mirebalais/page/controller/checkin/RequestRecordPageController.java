@@ -1,15 +1,18 @@
 package org.openmrs.module.mirebalais.page.controller.checkin;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.openmrs.Location;
 import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PatientIdentifierType;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
+import org.openmrs.module.paperrecord.PaperRecord;
+import org.openmrs.module.paperrecord.PaperRecordService;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * This controller handles prompting the user to confirm that they want to request a paper
@@ -19,26 +22,26 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 public class RequestRecordPageController {
 
+    static Predicate ANY_NOT_PENDING_CREATION = new Predicate() {
+        @Override
+        public boolean evaluate(Object o) {
+            return !o.equals(PaperRecord.Status.PENDING_CREATION);
+        }
+    };
+
     public void controller(@RequestParam("patientId") Patient patient,
                            @RequestParam(value = "redirectToEmergency", required = false) Boolean redirectToEmergency,  // hack to redirect back to the patient registration emergency workflow if that is where we've come from
+                           @SpringBean("paperRecordService") PaperRecordService paperRecordService,
                            PageModel pageModel,
                            UiSessionContext uiSessionContext) {
 
+        Location currentLocation = uiSessionContext.getSessionLocation();
+        List<PaperRecord> paperRecords = paperRecordService.getPaperRecords(patient, currentLocation);
 
-        boolean needToCreateRecord = true;
-
-        String dossierType = MirebalaisGlobalProperties.PAPER_RECORD_IDENTIFIER_TYPE();
-        PatientIdentifierType patientIdentifierTypeByUuid = Context.getPatientService().getPatientIdentifierTypeByUuid(dossierType);
-
-        if(patientIdentifierTypeByUuid != null ){
-            PatientIdentifier patientDossier = patient.getPatientIdentifier(patientIdentifierTypeByUuid);
-            // only show the create paper record dialog if the patient does *not* have a dossier identifier,
-            // and we are not currently at the central archives
-            if(patientDossier != null && StringUtils.isNotBlank(patientDossier.getIdentifier()) ||
-                    uiSessionContext.getSessionLocation().getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID)){
-                    needToCreateRecord = false;
-            }
-        }
+        // only show the create paper record dialog if the patient does *not* have an existing record that is in some other state than pending creation
+        // and we are not currently at the central archives
+        boolean needToCreateRecord = !currentLocation.getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID) &&
+                (paperRecords == null || paperRecords.size() == 0 || !CollectionUtils.exists(paperRecords, ANY_NOT_PENDING_CREATION));
 
         pageModel.addAttribute("patient", patient);
         pageModel.addAttribute("needToCreateRecord", needToCreateRecord);
