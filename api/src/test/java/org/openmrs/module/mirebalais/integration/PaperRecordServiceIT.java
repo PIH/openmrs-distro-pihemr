@@ -33,6 +33,7 @@ import org.openmrs.module.paperrecord.PaperRecordServiceImpl;
 import org.openmrs.module.paperrecord.db.PaperRecordDAO;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.NotTransactional;
@@ -44,6 +45,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SkipBaseSetup
+@PrepareForTest(Context.class)
 public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
@@ -71,6 +73,9 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		((PaperRecordServiceImpl) paperRecordService).setPatientService(patientService);
 		((PaperRecordServiceImpl) paperRecordService).setPaperRecordProperties(paperRecordProperties);
         ((PaperRecordServiceImpl) paperRecordService).setPaperRecordDAO(paperRecordDAO);
+
+        // so we handle the hack in PaperRecordServiceImpl where internal methods are fetched via Context.getService
+        when(Context.getService(PaperRecordService.class)).thenReturn(paperRecordService);
 	}
 	
 	@AfterClass
