@@ -14,9 +14,9 @@
 
 package org.openmrs.module.mirebalais.integration;
 
-import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openmrs.Location;
@@ -50,6 +50,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @SkipBaseSetup
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
+@Ignore
 public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
