@@ -43,6 +43,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @SkipBaseSetup
 @PrepareForTest(Context.class)
@@ -75,6 +76,7 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
         ((PaperRecordServiceImpl) paperRecordService).setPaperRecordDAO(paperRecordDAO);
 
         // so we handle the hack in PaperRecordServiceImpl where internal methods are fetched via Context.getService
+        mockStatic(Context.class);
         when(Context.getService(PaperRecordService.class)).thenReturn(paperRecordService);
 	}
 	
