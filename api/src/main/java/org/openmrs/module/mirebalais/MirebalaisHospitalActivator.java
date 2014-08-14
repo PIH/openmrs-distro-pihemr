@@ -228,6 +228,21 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         administrationService.saveGlobalProperty(gp);
     }
 
+    /**
+     * Sets a global property value, creating a new GlobalProperty if none exists yet with that name
+     * @param propertyName
+     * @param propertyValue
+     */
+    protected void setGlobalProperty(String propertyName, String propertyValue) {
+        AdministrationService administrationService = Context.getAdministrationService();
+        GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
+        if (gp == null) {
+            gp = new GlobalProperty(propertyName);
+        }
+        gp.setPropertyValue(propertyValue);
+        administrationService.saveGlobalProperty(gp);
+    }
+
     private void setupCoreGlobalProperties() {
         setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
         setExistingGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE, "fr");
@@ -240,6 +255,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void setupHtmlFormEntryGlobalProperties() {
         setExistingGlobalProperty(HtmlFormEntryConstants.GP_DATE_FORMAT, "dd MMM yyyy");
         setExistingGlobalProperty(HtmlFormEntryConstants.GP_SHOW_DATE_FORMAT, "false");
+        setGlobalProperty(HtmlFormEntryConstants.GP_UNKNOWN_CONCEPT, "3cd6fac4-26fe-102b-80cb-0017a47871b2");
     }
 
     private void setupUiFrameworkGlobalProperties() {

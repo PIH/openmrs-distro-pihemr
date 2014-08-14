@@ -269,6 +269,8 @@
         </p>
     </section>
 
+    <markPatientDead/>
+
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="mirebalais.save"/>
