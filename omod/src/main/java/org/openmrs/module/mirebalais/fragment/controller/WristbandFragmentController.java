@@ -39,9 +39,9 @@ public class WristbandFragmentController {
                 location = uiSessionContext.getSessionLocation();
             }
 
-            // make sure a paper record stub has been created
+            // make sure a paper record has been created
             if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
-                paperRecordService.createPaperRecordStub(patient, location);
+                paperRecordService.createPaperRecord(patient, location);
             }
 
             String data = wristbandTemplate.generateWristband(patient, location);

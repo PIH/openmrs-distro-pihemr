@@ -103,12 +103,12 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 		location.addTag(locationTag);
 		when(paperRecordProperties.getMedicalRecordLocationLocationTag()).thenReturn(locationTag);
 		
-		PaperRecord paperRecord1  = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
+		PaperRecord paperRecord1  = ((PaperRecordServiceImpl) paperRecordService).createPaperRecord(
                 new Patient(), location);
 
 		assertTrue(paperRecord1.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
 
-        PaperRecord paperRecord2 = ((PaperRecordServiceImpl) paperRecordService).createPaperRecordStub(
+        PaperRecord paperRecord2 = ((PaperRecordServiceImpl) paperRecordService).createPaperRecord(
                 new Patient(), location);
 
         assertTrue(paperRecord2.getPatientIdentifier().getIdentifier().matches("A\\d{6}"));
