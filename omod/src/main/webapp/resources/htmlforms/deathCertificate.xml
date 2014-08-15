@@ -130,6 +130,31 @@
     -->
     </translations>
 
+    <style class="text/css">
+        .section {
+            width: 900px;
+        }
+
+        p.start-line {
+            clear: left;
+        }
+
+        p.one-quarter {
+            display: inline-block;
+            width: 22%;
+        }
+
+        p.one-third {
+            display: inline-block;
+            width: 30%;
+        }
+
+        p.one-half {
+            display: inline-block;
+            width: 46%;
+        }
+    </style>
+
     <h2>Ministere de la Sante Publique et de la Population (MSPP)</h2>
     <h2><label><uimessage code="death_certificate"/></label></h2>
 
@@ -138,33 +163,35 @@
             <label><uimessage code="name"/></label>
             <lookup class="value" expression="patient.personName"/>
         </p>
-        <p>
+        <p class="one-third">
             <label><uimessage code="gender"/></label>
             <lookup class="value" expression="patient.gender"/>
         </p>
-        <p>
-            Age: <lookup class="value" expression="patient.age"/>
+        <p class="one-third">
+            <label>Age</label>
+            <lookup class="value" expression="patient.age"/>
+        </p>
+        <p class="one-third">
             <label><uimessage code="birthdate"/></label>
             <lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/> <lookup class="value" expression="patient.birthdate"/>
-
         </p>
         <p>
             <label><uimessage code="address"/></label>
-            <lookup complexExpression="#foreach( $addr in $patient.addresses ) $!addr.cityVillage &lt;br/&gt;#end"/>
+            <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) $!addr.cityVillage &lt;br/&gt;#end"/>
         </p>
         <p class="radio">
             <label><uimessage code="habitat"/></label>
             <obs conceptId="PIH: Classification of residential environment" style="radio" answerSeparator=""/>
         </p>
-        <p>
+        <p class="one-third">
             <label><uimessage code="civil_status"/></label>
             <obs conceptId="PIH: CIVIL STATUS"/>
         </p>
-        <p>
+        <p class="one-half">
             <label>Occupation</label>
             <obs conceptId="PIH: Occupation"/>
         </p>
-        <p>
+        <p class="one-quarter">
             <label><uimessage code="maternal_death"/></label>
             <obs conceptId="PIH: Maternal death"/>
         </p>
@@ -269,7 +296,7 @@
         </p>
     </section>
 
-    <markPatientDead/>
+    <markPatientDead causeOfDeathFromObs="PIH: Final disease resulting in death"/>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
