@@ -42,7 +42,7 @@ public class RedirectToDeathNoteIfMissing implements CustomFormSubmissionAction 
             return;
         }
 
-        session.setAfterSaveUrlTemplate("htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page" +
+        session.setAfterSaveUrlTemplate("htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page" +
                 "?patientId={{patient.id}}" +
                 "&definitionUiResource=mirebalais:htmlforms/deathCertificate.xml");
     }

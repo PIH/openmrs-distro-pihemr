@@ -6,6 +6,14 @@
             <variant locale="en" value="Death certificate"/>
             <variant locale="fr" value="Certificat / Constat de deces"/>
         </code>
+        <code name="death_details">
+            <variant locale="en" value="Death Details"/>
+            <variant locale="fr" value="Detailles du deces"/>
+        </code>
+        <code name="data_collected_by">
+            <variant locale="en" value="Data collected by"/>
+            <variant locale="fr" value="Données recueillies par"/>
+        </code>
         <code name="demographics">
             <variant locale="en" value="Demographics of deceased"/>
             <variant locale="fr" value=" Caracteristiques du defunt"/>
@@ -102,17 +110,21 @@
             <variant locale="en" value="Final disease or condition resulting in death"/>
             <variant locale="fr" value="Maladie ou ayant directement provoqué le décès"/>
         </code>
+        <code name="due_to_or_following">
+            <variant locale="en" value="caused by (or following)"/>
+            <variant locale="en" value="due à (ou consécutive à)"/>
+        </code>
         <code name="condition_caused_final_disease">
             <variant locale="en" value="Condition which caused the previous disease or condition"/>
             <variant locale="fr" value="Affections morbides ayant éventuellement conduit a l'état préciser l'affectation initiale étant indiquée en dernier lieu"/>
         </code>
+        <code name="contributing_condition_title">
+            <variant locale="en" value="Contributing condition"/>
+            <variant locale="fr" value="Autre état morbide"/>
+        </code>
         <code name="contributing_condition">
             <variant locale="en" value="Condition contributing to the death but not related to the disease or morbid condition"/>
             <variant locale="fr" value="Autre état morbide important ayant contribué au décès mais sans rapport avec la maladie ou l'état morbide qui l'a provoqué"/>
-        </code>
-        <code name="underlying_cause">
-            <variant locale="en" value="Underlying cause of death"/>
-            <variant locale="fr" value="Cause sous-jacente de la mort"/>
         </code>
         <code name="burial_certificate">
             <variant locale="en" value="Burial certificate number"/>
@@ -131,10 +143,6 @@
     </translations>
 
     <style class="text/css">
-        .section {
-            width: 900px;
-        }
-
         p.start-line {
             clear: left;
         }
@@ -153,155 +161,335 @@
             display: inline-block;
             width: 46%;
         }
+
+        .signature {
+            color: blue;
+            font-style: italic;
+        }
+
+        .value {
+            font-weight: bold;
+            color: blue;
+        }
     </style>
 
-    <h2>Ministere de la Sante Publique et de la Population (MSPP)</h2>
-    <h2><label><uimessage code="death_certificate"/></label></h2>
+    <ifMode mode="VIEW">
+        <h2>Ministere de la Sante Publique et de la Population (MSPP)</h2>
+        <h2><label><uimessage code="death_certificate"/></label></h2>
 
-    <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="demographics">
-        <p>
-            <label><uimessage code="name"/></label>
-            <lookup class="value" expression="patient.personName"/>
-        </p>
-        <p class="one-third">
-            <label><uimessage code="gender"/></label>
-            <lookup class="value" expression="patient.gender"/>
-        </p>
-        <p class="one-third">
-            <label>Age</label>
-            <lookup class="value" expression="patient.age"/>
-        </p>
-        <p class="one-third">
-            <label><uimessage code="birthdate"/></label>
-            <lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/> <lookup class="value" expression="patient.birthdate"/>
-        </p>
-        <p>
-            <label><uimessage code="address"/></label>
-            <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) $!addr.cityVillage &lt;br/&gt;#end"/>
-        </p>
-        <p class="radio">
-            <label><uimessage code="habitat"/></label>
-            <obs conceptId="PIH: Classification of residential environment" style="radio" answerSeparator=""/>
-        </p>
-        <p class="one-third">
-            <label><uimessage code="civil_status"/></label>
-            <obs conceptId="PIH: CIVIL STATUS"/>
-        </p>
-        <p class="one-half">
-            <label>Occupation</label>
-            <obs conceptId="PIH: Occupation"/>
-        </p>
-        <p class="one-quarter">
-            <label><uimessage code="maternal_death"/></label>
-            <obs conceptId="PIH: Maternal death"/>
-        </p>
-    </section>
+        <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="demographics">
+            <p>
+                <label><uimessage code="name"/></label>
+                <lookup class="value" expression="patient.personName"/>
+            </p>
+            <p class="one-third">
+                <label><uimessage code="gender"/></label>
+                <lookup class="value" expression="patient.gender"/>
+            </p>
+            <p class="one-third">
+                <label>Age</label>
+                <lookup class="value" expression="patient.age"/>
+            </p>
+            <p class="one-third">
+                <label><uimessage code="birthdate"/></label>
+                <lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/> <lookup class="value" expression="patient.birthdate"/>
+            </p>
+            <p>
+                <label><uimessage code="address"/></label>
+                <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince , Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
+            </p>
+        </section>
 
-    <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="location">
-        <p>
-            <obs conceptId="PIH: Location of death" answerConceptId="PIH: Outside of institution"/>
-            <obs conceptId="PIH: Location of death" answerConceptId="PIH: HOSPITAL"/>
-        </p>
-        <p>
-            <label><uimessage code="if_external"/></label>
-            <obs conceptId="PIH: Location of death" answerConceptId="PIH: Home"/>
-            <obs conceptId="PIH: Location of death" answerConceptId="PIH: OTHER NON-CODED"/>
-            <!-- TBD Préciser / specify other -->
-        </p>
-        <p>
-            <label><uimessage code="if_internal"/></label>
-            <!-- TBD Institution / Service -->
-        </p>
-        <p>
-            <label><uimessage code="days_in_hospital"/></label>
-            <obs conceptId="PIH: Duration of hospitalization"/>
-        </p>
-        <p>
-            <label>ZL EMR ID:</label>
-            <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('ZL EMR ID') ) $patId #end "/>
-        </p>
-        <p>
-            <label><uimessage code="dossier"/></label>
-            <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Nimewo Dosye') ) $patId #end "/>
-        </p>
+        <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="location">
+            <p class="one-third">
+                [ ] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/> TODO make this work
+            </p>
+            <p class="one-third">
+                <obs id="institutional-death-span" conceptId="PIH: Location of death" answerConceptId="PIH: HOSPITAL"/>
+            </p>
+            <p>
+                <label><uimessage code="if_external"/></label>
+                <obs conceptId="PIH: Location of death" answerConceptId="PIH: Home"/>
+                <obs conceptId="PIH: Location of death" answerConceptId="PIH: OTHER NON-CODED"/>
+                <!-- TODO other -->
+            </p>
+            <p>
+                <label><uimessage code="if_internal"/></label>
+                <!-- TODO if internal -->
+            </p>
+            <p class="one-half">
+                <label><uimessage code="days_in_hospital"/></label>
+                <obs conceptId="PIH: Duration of hospitalization"/>
+            </p>
+            <p class="one-half">
+                <label>ZL EMR ID:</label>
+                <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('ZL EMR ID') ) $patId #end "/>
+                <br/>
+                <label><uimessage code="dossier"/></label>
+                <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Nimewo Dosye') ) $patId #end "/>
+            </p>
+        </section>
 
-        <hr/>
-        <p>
-            <label><uimessage code="doctor_visit"/></label>
-            <obs conceptId="PIH: Visited provider during illness"/><br/>
-            <uimessage code="yes_complete"/><br/>
-            <uimessage code="no_complete"/>
-        </p>
+        <section id="care" sectionTag="div" headerTag="div" headerStyle="" headerCode="">
+            <p>
+                <label><uimessage code="doctor_visit"/></label>
+                <obs conceptId="PIH: Visited provider during illness"/><br/>
+            </p>
+        </section>
 
-    </section>
+        <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="death_certificate">
+            <p>
+                Je soussigné
+                <span class="signature"><encounterProvider/></span>
+            </p>
+            <p>
+                TODO Doctor, Nurse, or Other
+            </p>
+            <p>
+                certifie par la présente que la personne identifiée ci-dessus est décédée
+                <br/>
+                le <encounterDate showTime="true"/>
+            </p>
 
-    <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="death_certificate">
-        <!-- TBD:  provider, signature, role, HUM department, date/time of death, patient died,
-            address, telephone, printing, ICD10 code
-        -->
-        <p>
-            <encounterProvider/>
-            <uimessage code="certification_declaration"/>
-        </p>
-        <p>
-            <label>Date</label>
-            <encounterDate default="today"/>
-        </p>
-        <p>
-            <label><uimessage code="encounter_location"/></label>
-            <encounterLocation/>
-        </p>
-        <hr/>
-        <p>
-            <uimessage code="cause_of_death"/><br/>
-            <label><uimessage code="final_disease"/></label><br/>
-            <obs conceptId="PIH: Final disease resulting in death"
-                 answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-            <label><uimessage code="condition_caused_final_disease"/></label><br/>
-            <obs conceptId="PIH: Condition causing the final disease"
-                 answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-            <label><uimessage code="contributing_condition"/></label><br/>
-            <obs conceptId="PIH: Condition contributing to the death"
-                 answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-            <label><uimessage code="underlying_cause"/></label><br/>
-            <obs conceptId="PIH: Underlying cause of death"
-                 answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-        </p>
+            <br/>
+            <p>
+                I. <uimessage code="cause_of_death"/>
+                <br/>
+                <obs conceptId="PIH: Final disease resulting in death"
+                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                <br/>
+                <label><uimessage code="due_to_or_following"/></label>
+                <br/>
+                <obs conceptId="PIH: Condition causing the final disease"
+                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                <br/>
+                <label><uimessage code="due_to_or_following"/></label>
+                <br/>
+                <obs conceptId="PIH: Condition causing the final disease"
+                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+            </p>
 
-    </section>
+            <br/>
+            <p>
+                II. <label><uimessage code="contributing_condition"/></label>
+                <obs conceptId="PIH: Condition contributing to the death"
+                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+            </p>
 
-    <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="info_source">
-        <p>
-            <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER FAMILY MEMBER"/>
-            <obs conceptId="PIH: Source of information" answerConceptId="PIH: Police"/>
-            <obs conceptId="PIH: Source of information" answerConceptId="PIH: Undertaker"/>
-            <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER NON-CODED"/>
-        </p>
-        <p>
-            <label><uimessage code="circumstances"/></label>
-            <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="80"/>
-        </p>
-    </section>
+            <br/>
+            <p>
+                <label><uimessage code="diagnosis_method"/></label>
+                <p>
+                    <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: Autopsy"/>
+                </p>
+            </p>
+        </section>
+    </ifMode>
 
-    <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" >
-        <p>
-            <label><uimessage code="diagnosis_method"/></label>
-            <label><uimessage code="clinical_exam"/></label>
-            <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
-            <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: Autopsy"/>
-        </p>
-        <p>
-            <label><uimessage code="burial_certificate"/></label>
-            <obs conceptId="PIH: Burial certificate" />
-        </p>
-    </section>
-
-    <markPatientDead causeOfDeathFromObs="PIH: Final disease resulting in death"/>
+    <p style="display: none">
+        <label><uimessage code="encounter_location"/></label>
+        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </p>
 
     <ifMode mode="VIEW" include="false">
-        <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
+
+        <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
+            <fieldset>
+                <legend><uimessage code="death_details"/></legend>
+                <p>
+                    <label>Date of death</label>
+                    <encounterDate showTime="true" default="now"/>
+                </p>
+                <p>
+                    <label><uimessage code="data_collected_by"/></label>
+                    <encounterProvider/>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="demographics" sectionTag="section" headerStyle="title" headerCode="demographics">
+
+            <fieldset>
+                <legend>Verify</legend>
+                <p>
+                    <label>
+                        Please verify the name, sex, age/birthdate, and address, and make any corrections necessary to the patient record.
+                        <br/>
+                        <br/>
+                        Press Enter to continue
+                    </label>
+                    <input type="hidden"/>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend><uimessage code="habitat"/></legend>
+                <p class="radio">
+                    <label><uimessage code="habitat"/></label>
+                    <obs conceptId="PIH: Classification of residential environment" size="2"/>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend><uimessage code="civil_status"/></legend>
+                <p>
+                    <label><uimessage code="civil_status"/></label>
+                    <obs conceptId="PIH: CIVIL STATUS" size="15"/>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>Occupation</legend>
+                <p>
+                    <label>Occupation</label>
+                    <obs conceptId="PIH: Occupation" size="27"/>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend><uimessage code="maternal_death"/></legend>
+                <p>
+                    <label><uimessage code="maternal_death"/></label>
+                    <obs conceptId="PIH: Maternal death" size="2"/>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="location" sectionTag="section" headerStyle="title" headerCode="location">
+            <fieldset>
+                <legend>Place</legend>
+
+                <p>
+                    <label>Place</label>
+                    <obs id="deathLocation" conceptId="PIH: Location of death" answerConceptIds="PIH: HOSPITAL,PIH: Home,PIH: OTHER NON-CODED" size="3">
+                        <controls>
+                            <when value="PIH: HOSPITAL"
+                                  thenJavaScript="htmlForm.simpleUi.showQuestion('if-institutional')"
+                                  elseJavaScript="htmlForm.simpleUi.hideQuestion('if-institutional')"/>
+                            <when value="PIH: OTHER NON-CODED"
+                                  thenJavaScript="htmlForm.simpleUi.showField('if-other')"
+                                  elseJavaScript="htmlForm.simpleUi.hideField('if-other')"/>
+                        </controls>
+                    </obs>
+                    <!-- TBD Préciser / specify other -->
+                </p>
+                <p id="if-other">
+                    <label>TODO Other</label>
+                    <input type="text" value="placeholder"/>
+                </p>
+            </fieldset>
+
+            <fieldset id="if-institutional">
+                <legend><uimessage code="if_internal"/></legend>
+                <p>
+                    <label><uimessage code="if_internal"/></label>
+                    <!-- TBD Institution / Service -->
+                    <input type="text"/>
+                </p>
+
+                <p>
+                    <label><uimessage code="days_in_hospital"/></label>
+                    <obs conceptId="PIH: Duration of hospitalization"/>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="care" sectionTag="section" headerStyle="title" headerCode="Received care">
+            <fieldset>
+                <legend>Received care</legend>
+
+                <p>
+                    <label><uimessage code="doctor_visit"/></label>
+                    <obs id="seenByDoctor" conceptId="PIH: Visited provider during illness" style="dropdown" size="3">
+                        <controls>
+                            <when value="PIH: YES"
+                                  thenJavaScript="htmlForm.simpleUi.showSection('certificat-constat')"
+                                  elseJavaScript="htmlForm.simpleUi.hideSection('certificat-constat')"/>
+                            <when value="PIH: NO"
+                                  thenJavaScript="htmlForm.simpleUi.showSection('source-circumstances')"
+                                  elseJavaScript="htmlForm.simpleUi.hideSection('source-circumstances')"/>
+                        </controls>
+                    </obs>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="certificat-constat" sectionTag="section" headerStyle="title" headerCode="death_certificate">
+            <!-- TBD:  provider, signature, role, HUM department, date/time of death, patient died,
+                address, telephone, printing, ICD10 code
+            -->
+            <fieldset>
+                <legend><uimessage code="cause_of_death"/></legend>
+                <p>
+                    <label><uimessage code="final_disease"/></label>
+                    <obs conceptId="PIH: Final disease resulting in death"
+                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                </p>
+                <p>
+                    <label><uimessage code="due_to_or_following"/></label>
+                    <obs conceptId="PIH: Condition causing the final disease"
+                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                </p>
+                <p>
+                    <label><uimessage code="due_to_or_following"/></label>
+                    <obs conceptId="PIH: Condition causing the final disease"
+                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                    <br/>
+                    <span style="color:red">
+                        Testing note: please test to make sure the order of these is preserved (it might not be)
+                    </span>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend><uimessage code="contributing_condition_title"/></legend>
+                <p>
+                    <label><uimessage code="contributing_condition"/></label>
+                    <obs conceptId="PIH: Condition contributing to the death"
+                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend><uimessage code="diagnosis_method"/></legend>
+                <p>
+                    <label><lookup expression="fn.getConcept('PIH: SURGERY').name"/></label>
+                    <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
+                </p>
+                <p>
+                    <label><lookup expression="fn.getConcept('PIH: Autopsy').name"/></label>
+                    <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: Autopsy"/>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="source-circumstances" sectionTag="section" headerStyle="title" headerCode="info_source">
+            <fieldset>
+                <legend><uimessage code="info_source"/></legend>
+                <p>
+                    <label><uimessage code="info_source"/></label>
+                    <obs conceptId="PIH: Source of information" style="dropdown" size="5"
+                         answerConceptIds="PIH: OTHER FAMILY MEMBER, PIH: Police, PIH: Undertaker, PIH: OTHER NON-CODED"/>
+                </p>
+                <p>
+                    <label><uimessage code="circumstances"/></label>
+                    <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="75"/>
+                </p>
+            </fieldset>
+        </section>
+
+        <section id="burial" sectionTag="section" headerStyle="title" headerCode="burial_certificate">
+            <fieldset>
+                <legend><uimessage code="burial_certificate"/></legend>
+                <p>
+                    <label><uimessage code="burial_certificate"/></label>
+                    <obs conceptId="PIH: Burial certificate" />
+                </p>
+            </fieldset>
+        </section>
+
+        <markPatientDead causeOfDeathFromObs="PIH: Final disease resulting in death"/>
+
     </ifMode>
 </htmlform>

@@ -19,7 +19,7 @@ angular.module('deathCertificate', ['encounterService']).
         $scope.fillOutDeathCertificate = function() {
             emr.navigateTo({
                 provider: "htmlformentryui",
-                page: "htmlform/enterHtmlFormWithStandardUi",
+                page: "htmlform/enterHtmlFormWithSimpleUi",
                 query: {
                     patientId: $scope.patientUuid,
                     definitionUiResource: "mirebalais:htmlforms/deathCertificate.xml",
