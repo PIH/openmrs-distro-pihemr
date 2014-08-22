@@ -1,4 +1,4 @@
-<htmlform class="simple-form-ui" formUuid="c18d68ce-a130-4460-8cdf-6fbfaa33487e" formName="Death certificate"
+<htmlform class="simple-form-ui2" formUuid="c18d68ce-a130-4460-8cdf-6fbfaa33487e" formName="Death certificate"
           formEncounterType="1545d7ff-60f1-485e-9c95-5740b8e6634b" formVersion="2.0">
 
     <translations defaultLocale="fr">
@@ -9,6 +9,10 @@
         <code name="death_details">
             <variant locale="en" value="Death Details"/>
             <variant locale="fr" value="Detailles du deces"/>
+        </code>
+        <code name="date_of_death">
+            <variant locale="en" value="Date of Death"/>
+            <variant locale="fr" value="TODO Date of Death"/>
         </code>
         <code name="data_collected_by">
             <variant locale="en" value="Data collected by"/>
@@ -65,6 +69,10 @@
         <code name="if_internal">
             <variant locale="en" value="If within institution"/>
             <variant locale="fr" value="Si institutionnel"/>
+        </code>
+        <code name="service">
+            <variant locale="en" value="Service"/>
+            <variant locale="fr" value="Service"/>
         </code>
         <code name="days_in_hospital">
             <variant locale="en" value="Hospital stay (in days)"/>
@@ -130,36 +138,69 @@
             <variant locale="en" value="Burial certificate number"/>
             <variant locale="fr" value="Permis d'inhumer : N°"/>
         </code>
-        <!--
-        <code name="">
-            <variant locale="en" value=""/>
-            <variant locale="fr" value=""/>
+        <code name="icd_code">
+            <variant locale="en" value="ICD-10 Code"/>
+            <variant locale="fr" value="CODE CIM-10"/>
         </code>
-        <code name="">
-            <variant locale="en" value=""/>
-            <variant locale="fr" value=""/>
-        </code>
-    -->
     </translations>
 
     <style class="text/css">
+        @media print {
+            div.patient-header {
+                display: none;
+            }
+        }
+
+        fieldset#institutional-view {
+            float: left;
+            width: 45%;
+        }
+
+        fieldset#extra-institutional-view {
+            display: inline-block;
+            width: 45%;
+            vertical-align: top;
+        }
+
+        #permit {
+            display: inline-block;
+            width: 45%;
+            margin-top: 20px;
+            margin-left: 12px;
+        }
+
         p.start-line {
             clear: left;
         }
 
-        p.one-quarter {
+        .one-quarter {
             display: inline-block;
             width: 22%;
+            vertical-align: top;
         }
 
-        p.one-third {
+        .three-quarters {
+            display: inline-block;
+            width: 70%;
+            vertical-align: top;
+        }
+
+        .one-third {
             display: inline-block;
             width: 30%;
+            vertical-align: top;
         }
 
-        p.one-half {
+        .two-thirds {
+            display: inline-block;
+            width: 60%;
+            vertical-align: top;
+        }
+
+        .one-half {
             display: inline-block;
             width: 46%;
+            vertical-align: top;
         }
 
         .signature {
@@ -171,11 +212,29 @@
             font-weight: bold;
             color: blue;
         }
+
+        .spaced {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 0.8em;
+        }
+
+        h4#title {
+            text-align: center;
+            border-top: 1px #a0a0a0 solid;
+            border-bottom: 1px #a0a0a0 solid;
+        }
     </style>
 
     <ifMode mode="VIEW">
-        <h2>Ministere de la Sante Publique et de la Population (MSPP)</h2>
-        <h2><label><uimessage code="death_certificate"/></label></h2>
+        <lookup complexExpression="#set( $certificate = $fn.getObs($encounter, 'PIH: Visited provider during illness').valueCoded.equals($fn.getConcept('PIH: YES')) )"/>
+
+        <h4 id="title">
+            <uimessage code="death_certificate"/> - MSPP
+        </h4>
 
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="demographics">
             <p>
@@ -198,30 +257,60 @@
                 <label><uimessage code="address"/></label>
                 <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince , Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
             </p>
+            <p class="one-third">
+                <label><uimessage code="civil_status"/></label>
+                <obs conceptId="PIH: CIVIL STATUS"/>
+            </p>
+            <p class="one-half">
+                <label>Occupation</label>
+                <obs conceptId="PIH: Occupation"/>
+            </p>
+            <p class="one-quarter">
+                <label><uimessage code="maternal_death"/></label>
+                <obs conceptId="PIH: Maternal death"/>
+            </p>
         </section>
 
-        <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="location">
-            <p class="one-third">
-                [ ] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/> TODO make this work
+        <section id="location" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="location">
+            <p class="one-half">
+                <includeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: Home')) || $fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: OTHER NON-CODED'))">
+                    <span class="value">[X] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/></span>
+                </includeIf>
             </p>
-            <p class="one-third">
+            <p class="one-half">
                 <obs id="institutional-death-span" conceptId="PIH: Location of death" answerConceptId="PIH: HOSPITAL"/>
             </p>
-            <p>
+            <p class="one-quarter">
                 <label><uimessage code="if_external"/></label>
-                <obs conceptId="PIH: Location of death" answerConceptId="PIH: Home"/>
-                <obs conceptId="PIH: Location of death" answerConceptId="PIH: OTHER NON-CODED"/>
-                <!-- TODO other -->
             </p>
-            <p>
+            <p class="three-quarters">
+                <span class="one-third">
+                    <obs conceptId="PIH: Location of death" answerConceptId="PIH: Home"/>
+                </span>
+                <span class="two-thirds">
+                    <obs conceptId="PIH: Location of death" answerConceptId="PIH: OTHER NON-CODED"/>
+                    <obsTODO conceptId="PIH: Location of death non coded"/>
+                </span>
+            </p>
+            <p class="one-quarter">
                 <label><uimessage code="if_internal"/></label>
-                <!-- TODO if internal -->
             </p>
-            <p class="one-half">
+            <p class="three-quarters">
+                <span class="one-half">
+                    Institution:
+                    <includeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: HOSPITAL'))">
+                        <span class="value">UHM</span>
+                    </includeIf>
+                </span>
+                <span class="one-half">
+                    Service: <obsTODO conceptId="PIH: Location of institutional death" style="location"/>
+                </span>
+            </p>
+            <p class="two-thirds">
                 <label><uimessage code="days_in_hospital"/></label>
-                <obs conceptId="PIH: Duration of hospitalization"/>
+                <obs conceptId="PIH: Duration of hospitalization"/> TODO change this
             </p>
-            <p class="one-half">
+            <p class="one-third">
                 <label>ZL EMR ID:</label>
                 <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('ZL EMR ID') ) $patId #end "/>
                 <br/>
@@ -231,24 +320,31 @@
         </section>
 
         <section id="care" sectionTag="div" headerTag="div" headerStyle="" headerCode="">
-            <p>
+            <p class="spaced">
                 <label><uimessage code="doctor_visit"/></label>
                 <obs conceptId="PIH: Visited provider during illness"/><br/>
             </p>
         </section>
 
-        <section id="death" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="death_certificate">
+        <section id="institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="death_certificate">
             <p>
-                Je soussigné
-                <span class="signature"><encounterProvider/></span>
+                <label>Je soussigné</label>
+                <includeIf velocityTest="$certificate">
+                    <span class="signature">
+                        <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"/>
+                    </span>
+                </includeIf>
             </p>
             <p>
                 TODO Doctor, Nurse, or Other
             </p>
             <p>
-                certifie par la présente que la personne identifiée ci-dessus est décédée
-                <br/>
-                le <encounterDate showTime="true"/>
+                <label>
+                    certifie par la présente que la personne identifiée ci-dessus est décédée le
+                </label>
+                <includeIf velocityTest="$certificate">
+                    <encounterDate showTime="true"/>
+                </includeIf>
             </p>
 
             <br/>
@@ -287,6 +383,47 @@
                 </p>
             </p>
         </section>
+
+        <section id="extra-institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="info_source">
+            <p>
+                <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER FAMILY MEMBER"/>
+            </p>
+            <p>
+                <obs conceptId="PIH: Source of information" answerConceptId="PIH: Police"/>
+            </p>
+            <p>
+                <obs conceptId="PIH: Source of information" answerConceptId="PIH: Undertaker"/>
+            </p>
+            <p>
+                <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER NON-CODED"/>
+            </p>
+            <p>
+                <br/>
+                <label><uimessage code="circumstances"/></label>
+                <br/>
+                <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="80"/>
+            </p>
+            <p>
+                <excludeIf velocityTest="$certificate">
+                    <br/>
+                    <label><uimessage code="date_of_death"/></label>
+                    <encounterDate showTime="true"/>
+                </excludeIf>
+            </p>
+        </section>
+
+        <section id="permit" sectionTag="div" headerTag="div">
+            <p>
+                <label><uimessage code="burial_certificate"/></label>
+                <obs conceptId="PIH: Burial certificate" />
+            </p>
+            <p>
+                <label><uimessage code="icd_code"/></label>
+                TODO
+            </p>
+        </section>
+
+        <div style="clear:both; height: 1px;"></div>
     </ifMode>
 
     <p style="display: none">
@@ -300,12 +437,12 @@
             <fieldset>
                 <legend><uimessage code="death_details"/></legend>
                 <p>
-                    <label>Date of death</label>
+                    <label><uimessage code="date_of_death"/></label>
                     <encounterDate showTime="true" default="now"/>
                 </p>
                 <p>
                     <label><uimessage code="data_collected_by"/></label>
-                    <encounterProvider/>
+                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </p>
             </fieldset>
         </section>
@@ -374,25 +511,23 @@
                                   elseJavaScript="htmlForm.simpleUi.hideField('if-other')"/>
                         </controls>
                     </obs>
-                    <!-- TBD Préciser / specify other -->
                 </p>
                 <p id="if-other">
-                    <label>TODO Other</label>
-                    <input type="text" value="placeholder"/>
+                    <label>Other</label>
+                    <obsTODO conceptId="PIH: Location of death non coded"/>
                 </p>
             </fieldset>
 
             <fieldset id="if-institutional">
                 <legend><uimessage code="if_internal"/></legend>
                 <p>
-                    <label><uimessage code="if_internal"/></label>
-                    <!-- TBD Institution / Service -->
-                    <input type="text"/>
+                    <label><uimessage code="service"/></label>
+                    <obsTODO conceptId="PIH: Location of institutional death" style="location"/>
                 </p>
 
                 <p>
                     <label><uimessage code="days_in_hospital"/></label>
-                    <obs conceptId="PIH: Duration of hospitalization"/>
+                    <obs conceptId="PIH: Duration of hospitalization"/> TODO change this
                 </p>
             </fieldset>
         </section>
