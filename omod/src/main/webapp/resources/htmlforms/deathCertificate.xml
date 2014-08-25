@@ -289,7 +289,7 @@
                 </span>
                 <span class="two-thirds">
                     <obs conceptId="PIH: Location of death" answerConceptId="PIH: OTHER NON-CODED"/>
-                    <obsTODO conceptId="PIH: Location of death non coded"/>
+                    <obs conceptId="PIH: Location of death non coded"/>
                 </span>
             </p>
             <p class="one-quarter">
@@ -303,12 +303,12 @@
                     </includeIf>
                 </span>
                 <span class="one-half">
-                    Service: <obsTODO conceptId="PIH: Location of institutional death" style="location"/>
+                    Service: <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </span>
             </p>
             <p class="two-thirds">
                 <label><uimessage code="days_in_hospital"/></label>
-                <obs conceptId="PIH: Duration of hospitalization"/> TODO change this
+                <obs conceptId="PIH: Duration of hospitalization when patient died"/>
             </p>
             <p class="one-third">
                 <label>ZL EMR ID:</label>
@@ -432,16 +432,108 @@
     </p>
 
     <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+            function leadingZero(input) {
+                return (input &lt; 10) ? ("0" + input) : input;
+            }
+
+            $(function() {
+                // hide HFE's built-in encounter date/time inputs, but recyle the error fields
+                $('#encounterDate').children().each(function() {
+                    var jqThis = $(this);
+                    if (!jqThis.hasClass('error')) {
+                        jqThis.hide();
+                    }
+                });
+                $('.date-component').focus(function() {
+                    $(this).select();
+                });
+
+                var encounterDateInput = $('#encounterDate input[type=hidden]');
+
+                // set date fields based on encounter date
+                var ymd = encounterDateInput.val();
+                $('.calc-enc-date.year').val(ymd.substring(0, 4));
+                $('.calc-enc-date.month').val(ymd.substring(5, 7));
+                $('.calc-enc-date.day').val(ymd.substring(8, 10));
+                var hour = Number($('#encounterDate .hfe-hours').val());
+                if (hour > 12) {
+                    $('.calc-enc-date.hour').val(hour-12);
+                    $('.calc-enc-date.ampm').val('PM');
+                } else {
+                    $('.calc-enc-date.hour').val(hour);
+                    $('.calc-enc-date.ampm').val('AM');
+                }
+                $('.calc-enc-date.minute').val(leadingZero($('#encounterDate .hfe-minutes').val()));
+
+                // set hidden encounterDate fields when visible inputs change
+                $('.calc-enc-date').blur(function() {
+                    var date = $('.calc-enc-date.year').val() + '-' +
+                            $('.calc-enc-date.month').val() + '-' +
+                            leadingZero($('.calc-enc-date.day').val());
+                    var hours = ($('.calc-enc-date.ampm').val() == 'PM' ? 12 : 0) +
+                                Number($('.calc-enc-date.hour').val());
+                    var minutes = $('.calc-enc-date.minute').val();
+
+                    encounterDateInput.val(date);
+                    $('#encounterDate .hfe-hours').val(hours);
+                    $('#encounterDate .hfe-minutes').val(minutes);
+                    $('#encounterDate .hfe-seconds').val(0);
+                });
+            });
+        </script>
 
         <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
             <fieldset>
                 <legend><uimessage code="death_details"/></legend>
-                <p>
-                    <label><uimessage code="date_of_death"/></label>
-                    <encounterDate showTime="true" default="now"/>
+                <h3>Time of death</h3>
+
+                <encounterDate showTime="true" default="now"/>
+
+                <p class="left">
+                    <label>Day</label>
+                    <input type="text" name="death-date-day" class="calc-enc-date day number numeric-range date-component" min="1" max="31" maxLength="2" size="5"/>
                 </p>
+                <p class="left">
+                    <label>Month</label>
+                    <select name="death-date-month" class="calc-enc-date month date-component">
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">Mar</option>
+                        <option value="04">Apr</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">Aug</option>
+                        <option value="09">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>
+                </p>
+                <p class="left">
+                    <label>Year</label>
+                    <input type="text" name="death-date-year" class="calc-enc-date year number date-component" min="1900" max="2100" maxLength="4" size="5"/>
+                </p>
+                <p class="left" style="clear: left">
+                    <label>Hour</label>
+                    <input type="text" name="death-date-hour" class="calc-enc-date hour number numeric-range date-component" min="1" max="12" maxLength="2" size="5"/>
+                </p>
+                <p class="left">
+                    <label>Minute</label>
+                    <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
+                </p>
+                <p class="left">
+                    <label>AM/PM</label>
+                    <select name="death-date-ampm" class="calc-enc-date ampm date-component" style="min-width: 0px">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </p>
+
+                <h3 style="clear:both; padding-top: 40px"><uimessage code="data_collected_by"/></h3>
                 <p>
-                    <label><uimessage code="data_collected_by"/></label>
+                    <label style="display: none"><uimessage code="data_collected_by"/></label>
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </p>
             </fieldset>
@@ -514,7 +606,8 @@
                 </p>
                 <p id="if-other">
                     <label>Other</label>
-                    <obsTODO conceptId="PIH: Location of death non coded"/>
+                    <input type="text" placeholder="TO DO"/>
+                    <obs conceptId="PIH: Location of death non coded"/>
                 </p>
             </fieldset>
 
@@ -522,12 +615,12 @@
                 <legend><uimessage code="if_internal"/></legend>
                 <p>
                     <label><uimessage code="service"/></label>
-                    <obsTODO conceptId="PIH: Location of institutional death" style="location"/>
+                    <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </p>
 
                 <p>
                     <label><uimessage code="days_in_hospital"/></label>
-                    <obs conceptId="PIH: Duration of hospitalization"/> TODO change this
+                    <obs conceptId="PIH: Duration of hospitalization when patient died"/>
                 </p>
             </fieldset>
         </section>
