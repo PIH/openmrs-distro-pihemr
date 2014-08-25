@@ -34,6 +34,7 @@ angular.module('deathCertificate', ['encounterService']).
                 page: "htmlform/viewEncounterWithHtmlForm",
                 query: {
                     encounter: encounterUuid,
+                    editStyle: "simple",
                     returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
                 }
             });
