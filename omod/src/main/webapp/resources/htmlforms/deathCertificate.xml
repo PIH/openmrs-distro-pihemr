@@ -151,6 +151,11 @@
             }
         }
 
+        /* the "required" class tells simple-form-entry UI to apply a validation, but it causes HFE to make the color red */
+        .required.date-component {
+            color: #003F5E; // $text from Mirebalais customVariables.scss
+        }
+
         fieldset#institutional-view {
             float: left;
             width: 45%;
@@ -438,13 +443,8 @@
             }
 
             $(function() {
-                // hide HFE's built-in encounter date/time inputs, but recyle the error fields
-                $('#encounterDate').children().each(function() {
-                    var jqThis = $(this);
-                    if (!jqThis.hasClass('error')) {
-                        jqThis.hide();
-                    }
-                });
+                // when you navigate to one of the date component field, select all its text
+                // (might be nice to do this elsewhere also)
                 $('.date-component').focus(function() {
                     $(this).select();
                 });
@@ -471,14 +471,25 @@
                     var date = $('.calc-enc-date.year').val() + '-' +
                             $('.calc-enc-date.month').val() + '-' +
                             leadingZero($('.calc-enc-date.day').val());
-                    var hours = ($('.calc-enc-date.ampm').val() == 'PM' ? 12 : 0) +
-                                Number($('.calc-enc-date.hour').val());
-                    var minutes = $('.calc-enc-date.minute').val();
-
                     encounterDateInput.val(date);
-                    $('#encounterDate .hfe-hours').val(hours);
-                    $('#encounterDate .hfe-minutes').val(minutes);
+
                     $('#encounterDate .hfe-seconds').val(0);
+                    if (Number($('.calc-enc-date.hour').val()) == 0) {
+                        $('.calc-enc-date.hour').val('');
+                        $('.calc-enc-date.minute').val('');
+                        $('.calc-enc-date.ampm').val('AM');
+
+                        $('#encounterDate .hfe-hours').val(hours);
+                        $('#encounterDate .hfe-minutes').val(minutes);
+                    }
+                    else {
+                        var hours = ($('.calc-enc-date.ampm').val() == 'PM' ? 12 : 0) +
+                                    Number($('.calc-enc-date.hour').val());
+                        var minutes = $('.calc-enc-date.minute').val();
+
+                        $('#encounterDate .hfe-hours').val(hours);
+                        $('#encounterDate .hfe-minutes').val(minutes);
+                    }
                 });
             });
         </script>
@@ -488,15 +499,17 @@
                 <legend><uimessage code="death_details"/></legend>
                 <h3>Time of death</h3>
 
-                <encounterDate showTime="true" default="now"/>
+                <div style="display: none">
+                    <encounterDate showTime="true" default="now"/>
+                </div>
 
                 <p class="left">
                     <label>Day</label>
-                    <input type="text" name="death-date-day" class="calc-enc-date day number numeric-range date-component" min="1" max="31" maxLength="2" size="5"/>
+                    <input type="text" name="death-date-day" class="calc-enc-date day number numeric-range date-component required" min="1" max="31" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
                     <label>Month</label>
-                    <select name="death-date-month" class="calc-enc-date month date-component">
+                    <select name="death-date-month" class="calc-enc-date month date-component required">
                         <option value="01">January</option>
                         <option value="02">February</option>
                         <option value="03">Mar</option>
@@ -513,7 +526,7 @@
                 </p>
                 <p class="left">
                     <label>Year</label>
-                    <input type="text" name="death-date-year" class="calc-enc-date year number date-component" min="1900" max="2100" maxLength="4" size="5"/>
+                    <input type="text" name="death-date-year" class="calc-enc-date year number date-component required" min="1900" max="2100" maxLength="4" size="5"/>
                 </p>
                 <p class="left" style="clear: left">
                     <label>Hour</label>
