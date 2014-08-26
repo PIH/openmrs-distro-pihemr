@@ -262,6 +262,12 @@
                 <label><uimessage code="address"/></label>
                 <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince , Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
             </p>
+            <p class="one-quarter">
+            </p>
+            <p class="three-quarters">
+                <label><uimessage code="habitat"/></label>
+                <obs conceptId="PIH: Classification of residential environment"/>
+            </p>
             <p class="one-third">
                 <label><uimessage code="civil_status"/></label>
                 <obs conceptId="PIH: CIVIL STATUS"/>
@@ -554,7 +560,7 @@
 
         <section id="demographics" sectionTag="section" headerStyle="title" headerCode="demographics">
 
-            <fieldset>
+            <fieldset class="no-confirmation">
                 <legend>Verify</legend>
                 <p>
                     <label>
@@ -571,7 +577,7 @@
                 <legend><uimessage code="habitat"/></legend>
                 <p class="radio">
                     <label><uimessage code="habitat"/></label>
-                    <obs conceptId="PIH: Classification of residential environment" size="2"/>
+                    <obs conceptId="PIH: Classification of residential environment" size="2" answerConceptIds="PIH:Urban,PIH:Rural"/>
                 </p>
             </fieldset>
 
@@ -619,7 +625,6 @@
                 </p>
                 <p id="if-other">
                     <label>Other</label>
-                    <input type="text" placeholder="TO DO"/>
                     <obs conceptId="PIH: Location of death non coded"/>
                 </p>
             </fieldset>
