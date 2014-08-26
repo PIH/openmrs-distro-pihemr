@@ -287,6 +287,9 @@
                 <includeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: Home')) || $fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: OTHER NON-CODED'))">
                     <span class="value">[X] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/></span>
                 </includeIf>
+                <excludeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: Home')) || $fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: OTHER NON-CODED'))">
+                    <span class="emptyValue">[&amp;nbsp;&amp;nbsp;] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/></span>
+                </excludeIf>
             </p>
             <p class="one-half">
                 <obs id="institutional-death-span" conceptId="PIH: Location of death" answerConceptId="PIH: HOSPITAL"/>
@@ -322,9 +325,6 @@
                 <obs conceptId="PIH: Duration of hospitalization when patient died"/>
             </p>
             <p class="one-third">
-                <label>ZL EMR ID:</label>
-                <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('ZL EMR ID') ) $patId #end "/>
-                <br/>
                 <label><uimessage code="dossier"/></label>
                 <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Nimewo Dosye') ) $patId #end "/>
             </p>
