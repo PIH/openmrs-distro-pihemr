@@ -501,7 +501,7 @@
         </script>
 
         <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
-            <fieldset>
+            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}, {{field.[6]}}">
                 <legend><uimessage code="death_details"/></legend>
                 <h3>Time of death</h3>
 
@@ -629,7 +629,7 @@
                 </p>
             </fieldset>
 
-            <fieldset id="if-institutional">
+            <fieldset id="if-institutional" display-template="{{field.[0]}}, durée: {{field.[1]}}">
                 <legend><uimessage code="if_internal"/></legend>
                 <p>
                     <label><uimessage code="service"/></label>
@@ -667,7 +667,7 @@
             <!-- TBD:  provider, signature, role, HUM department, date/time of death, patient died,
                 address, telephone, printing, ICD10 code
             -->
-            <fieldset>
+            <fieldset display-template="{{#each field}}{{#if this}}{{#unless @first}} &#8592; {{/unless}}{{/if}}{{this}}{{/each}}">
                 <legend><uimessage code="cause_of_death"/></legend>
                 <p>
                     <label><uimessage code="final_disease"/></label>
