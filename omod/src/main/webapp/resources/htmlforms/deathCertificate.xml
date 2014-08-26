@@ -579,7 +579,7 @@
                 <legend><uimessage code="civil_status"/></legend>
                 <p>
                     <label><uimessage code="civil_status"/></label>
-                    <obs conceptId="PIH: CIVIL STATUS" size="15"/>
+                    <obs conceptId="PIH: CIVIL STATUS" size="7" answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"/>
                 </p>
             </fieldset>
 
