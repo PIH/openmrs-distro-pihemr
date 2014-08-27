@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.htmlformentry;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.openmrs.Concept;
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Ignore
 public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
 
     private ApplyDispositionActions applyDispositionActions;
