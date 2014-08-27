@@ -150,7 +150,7 @@
                                             }
                                             else {
                                                 // reopen display error message and reopen modal
-                                                jq('#print-wristband-error').text(data.message + '. <uimessage code="mirebalais.admissionNote.admitWithoutWristband"/>');
+                                                jq('#print-wristband-error').text(data.message + ". <uimessage code='mirebalais.admissionNote.admitWithoutWristband'/>");
                                                 jq('#print-wristband-error').show();
                                                 printWristbandDialog.show();
                                             }
