@@ -208,11 +208,6 @@
             vertical-align: top;
         }
 
-        .signature {
-            color: blue;
-            font-style: italic;
-        }
-
         .value {
             font-weight: bold;
             color: blue;
@@ -341,7 +336,7 @@
             <p>
                 <label>Je soussigné</label>
                 <includeIf velocityTest="$certificate">
-                    <span class="signature">
+                    <span class="value">
                         <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"/>
                     </span>
                 </includeIf>
