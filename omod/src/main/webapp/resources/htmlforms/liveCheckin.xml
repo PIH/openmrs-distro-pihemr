@@ -47,7 +47,7 @@
                             else {
                                 // step back one question (to the wristband question)
                                 NavigatorController.stepBackward();
-                                jq('#print-wristband-error').text(data.message + ". <uimessage code='mirebalais.retrospectiveCheckin.checkinWithoutWristband'/>");
+                                jq('#print-wristband-error').text(data.message + " <uimessage code='mirebalais.retrospectiveCheckin.checkinWithoutWristband'/>");
                                 jq('#print-wristband-error').show();
                             }
                         });
