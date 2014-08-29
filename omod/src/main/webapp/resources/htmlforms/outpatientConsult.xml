@@ -92,41 +92,11 @@
 
         }
 
-        // *super* hack to show/hide the boarding question based on whether or not the selected location is "ED Boarding"
-        // (note that we test by text value which is really bad--but we have nothing else to access by at this point)
-        var displayOrHideBoardingForQuestion = function () {
-
-            if ($('#admissionLocation select option:selected').text() == 'ED Boarding' ||
-                $('#admissionLocation select option:selected').text() == 'Ijans Annatant') {
-                $('#boardingFor').parent().show();
-            }
-            else {
-                $('#boardingFor').parent().hide();
-                $('#boardingFor select').val('');
-            }
-
-        }
-
-        // another super hack to remove ED Boarding from the list of Boarding For options
-        var removeEDBoardingAsOptionForBoardingFor = function () {
-            $('#boardingFor select option:contains(Ijans Annatant)').remove();
-        }
-
         $(function() {
 
             // yes, a rather large amount of events trigger a validation...
             $(document).change(validateForm);
             $(document).click(validateForm);
-
-            $(document).change(displayOrHideBoardingForQuestion);
-
-            // hack to remove ED Boarding option from admission locations location
-            <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
-                $('#admissionLocation select option:contains(Ijans Annatant)').remove();
-            </includeIf>
-
-            removeEDBoardingAsOptionForBoardingFor();
-            displayOrHideBoardingForQuestion();
             validateForm();
 
         });

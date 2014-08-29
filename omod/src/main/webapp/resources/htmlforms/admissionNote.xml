@@ -85,12 +85,6 @@
             // yes, a rather large amount of events trigger a validation...
             jq(document).change(validateForm);
             jq(document).click(validateForm);
-
-            // hack to remove ED Boarding option from admission locations location
-            <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
-                $('#encounterLocation select option:contains(Ijans Annatant)').remove();
-            </includeIf>
-
             validateForm();
         });
 
@@ -265,15 +259,12 @@
         </div>
     </includeIf>
 
-    <includeIf velocityTest="$featureToggles.isFeatureEnabled('awaitingAdmission')">
-        <div id="data-collection">
-            <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
-        </div>
+    <div id="data-collection">
+        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
+    </div>
 
-        <div id="encounter-diagnoses-target">
-        </div>
-
-    </includeIf>
+    <div id="encounter-diagnoses-target">
+    </div>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

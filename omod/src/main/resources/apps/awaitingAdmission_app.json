@@ -13,8 +13,7 @@
                 "label": "coreapps.app.awaitingAdmission.label",
                 "url": "coreapps/adt/awaitingAdmission.page",
                 "icon": "icon-list-ul",
-                "requiredPrivilege": "App: coreapps.awaitingAdmission",
-                "featureToggle": "awaitingAdmission"
+                "requiredPrivilege": "App: coreapps.awaitingAdmission"
             }
         ],
         "config": {
