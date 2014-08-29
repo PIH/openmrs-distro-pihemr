@@ -37,7 +37,7 @@ public class ApplyDispositionActions implements CustomFormSubmissionAction {
             }
         }
 
-        if (disposition != null) {
+        if (disposition != null && disposition.getActions() != null) {
             for (String actionBeanName : disposition.getActions()) {
                 DispositionAction action = getBean(actionBeanName, DispositionAction.class);
                 action.action(new EncounterDomainWrapper(encounter), dispositionObsGroup, null);
