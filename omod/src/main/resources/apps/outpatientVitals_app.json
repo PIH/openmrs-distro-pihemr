@@ -21,8 +21,7 @@
             "heading": "mirebalais.outpatientVitals.title",
             "showLastViewedPatients": false
         },
-        "requiredPrivilege": "App: mirebalais.outpatientVitals",
-        "featureToggle": "newPatientSearchWidget"
+        "requiredPrivilege": "App: mirebalais.outpatientVitals"
     }
 
 ]

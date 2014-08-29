@@ -8,29 +8,23 @@
     }
 %>
 
-<% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
-    <script type="text/javascript">
-        jq(function() {
-            jq('#patient-search').first().focus();
-        });
-    </script>
-<% } %>
+
+<script type="text/javascript">
+    jq(function() {
+        jq('#patient-search').first().focus();
+    });
+</script>
+
 
 
 <div id="home-container">
 
-    <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
+    <% if (sessionContext.currentUser.hasPrivilege(privilegeSearchForPatients)) { %>
 
-        <% if (sessionContext.currentUser.hasPrivilege(privilegeSearchForPatients)) { %>
-
-            ${ ui.message("mirebalais.searchPatientHeading") }
-            ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-                    [ afterSelectedUrl: '/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}',
-                      showLastViewedPatients: 'false' ])}
-        <% } %>
-
-    <% } else {%>
-        ${ ui.includeFragment("emr", "widget/findPatient") }
+        ${ ui.message("mirebalais.searchPatientHeading") }
+        ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
+                [ afterSelectedUrl: '/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}',
+                  showLastViewedPatients: 'false' ])}
     <% } %>
 
 

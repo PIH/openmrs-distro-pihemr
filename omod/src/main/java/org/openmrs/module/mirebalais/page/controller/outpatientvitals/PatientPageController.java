@@ -18,7 +18,6 @@ import org.openmrs.Encounter;
 import org.openmrs.Form;
 import org.openmrs.Patient;
 import org.openmrs.api.FormService;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.SimpleObject;
@@ -43,20 +42,11 @@ public class PatientPageController {
                            EmrContext emrContext,
                            PageModel model,
                            @SpringBean("formService") FormService formService,
-                           @SpringBean("featureToggles") FeatureToggleProperties featureToggles,
                            @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
         patientDomainWrapper.setPatient(patient);
 
-        SimpleObject appHomepageBreadcrumb;
-
-        if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) {
-            appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.outpatientVitals.title"), "link", ui.pageLink("coreapps", "findpatient/findPatient", Collections.singletonMap("app", (Object) "mirebalais.outpatientVitals")));
-        }
-        else {
-            appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.outpatientVitals.title"), "link", ui.pageLink("mirebalais", "outpatientvitals/findPatient"));
-        }
-
+        SimpleObject appHomepageBreadcrumb = SimpleObject.create("label", ui.message("mirebalais.outpatientVitals.title"), "link", ui.pageLink("coreapps", "findpatient/findPatient", Collections.singletonMap("app", (Object) "mirebalais.outpatientVitals")));
         SimpleObject patientPageBreadcrumb = SimpleObject.create("label", patient.getFamilyName() + ", " + patient.getGivenName(), "link", ui.thisUrlWithContextPath());
 
         Form outpatientVitalsForm = formService.getFormByUuid("68728aa6-4985-11e2-8815-657001b58a90");

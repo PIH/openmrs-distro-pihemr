@@ -6,14 +6,10 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("mirebalais.outpatientVitals.title") }",
-
-            <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
-                link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'mirebalais.outpatientVitals' ] ) }"
-            <% } else {%>
-                link: "${ ui.pageLink("mirebalais", "outpatientvitals/findPatient") }"
-            <% } %>
+          link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'mirebalais.outpatientVitals' ] ) }"
         },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" , link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'},
+        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
+          link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'}
     ];
 </script>
 
@@ -23,14 +19,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     jq(function() {
         jq('#actions .cancel').click(function() {
             emr.navigateTo({
-                <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
-                    provider: "coreapps",
-                    page: "findpatient/findPatient",
-                    query: { 'app': 'mirebalais.outpatientVitals' }
-                <% } else {%>
-                    provider: "mirebalais",
-                    page: "outpatientvitals/findPatient"
-                <% } %>
+                provider: "coreapps",
+                page: "findpatient/findPatient",
+                query: { 'app': 'mirebalais.outpatientVitals' }
             });
         });
         jq('#actions .confirm').click(function() {
@@ -41,11 +32,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     patientId: "${ patient.id }",
                     visitId: "${ visit?.id }",
                     definitionUiResource: "mirebalais:htmlforms/vitals.xml",
-                    <% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
-                        returnUrl: "${ ui.escapeJs(ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'mirebalais.outpatientVitals' ])) }",
-                    <% } else {%>
-                        returnUrl: "${ ui.escapeJs(ui.pageLink("mirebalais", "outpatientvitals/findPatient")) }",
-                    <% } %>
+                    returnUrl: "${ ui.escapeJs(ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'mirebalais.outpatientVitals' ])) }",
                     breadcrumbOverride: "${ ui.escapeJs(breadcrumbOverride) }"
                 }
             });

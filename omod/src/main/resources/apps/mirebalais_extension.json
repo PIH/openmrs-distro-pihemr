@@ -79,17 +79,6 @@
         "requiredPrivilege": "App: patientregistration.edit"
     },
     {
-        "id": "mirebalais.outpatientVitals",
-        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-        "type": "link",
-        "label": "mirebalais.outpatientVitals.title",
-        "url": "mirebalais/outpatientvitals/findPatient.page",
-        "icon": "icon-vitals",
-        "order": 11,
-        "requiredPrivilege": "App: mirebalais.outpatientVitals",
-        "featureToggle": "!newPatientSearchWidget"
-    },
-    {
         "id": "emr.systemAdministration",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",

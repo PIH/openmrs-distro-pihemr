@@ -122,21 +122,13 @@
     </div>
 <%} %>
 
-<% if (featureToggles.isFeatureEnabled("newPatientSearchWidget")) { %>
 
-    ${ ui.message("mirebalais.searchPatientHeading") }
-    ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-            [ afterSelectedUrl: '/mirebalais/checkin/patient.page?patientId={{patientId}}',
-                    showLastViewedPatients: 'false' ])}
+${ ui.message("mirebalais.searchPatientHeading") }
+${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
+        [ afterSelectedUrl: '/mirebalais/checkin/patient.page?patientId={{patientId}}',
+                showLastViewedPatients: 'false' ])}
 
-<% } else {%>
 
-    ${ ui.includeFragment("emr", "widget/findPatient", [
-            targetPageProvider: "mirebalais",
-            targetPage: "checkin/patient",
-    ]) }
-
-<% } %>
 
 
 
