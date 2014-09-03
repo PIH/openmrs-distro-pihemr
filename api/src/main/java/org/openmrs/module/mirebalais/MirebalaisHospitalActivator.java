@@ -589,44 +589,65 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void scheduleReports(ReportService reportService, ReportDefinitionService reportDefinitionService) {
 
-        // TODO: do we need to make sure this does not run on the reporting server?
-        // TODO: how do we want to copy this to a remote server? plus a cron job to clean old reports up?
+        // TODO:  a cron job to clean old reports up?
 
-        // schedule the all patients report to run at midnight and noon everyday
-        ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
-        if (allPatientsScheduledReportRequest == null) {
-            allPatientsScheduledReportRequest = new ReportRequest();
-        }
-        ReportDefinition allPatientsReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID);
-        allPatientsScheduledReportRequest.setUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
-        allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
-        allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
+        if (customProperties.getScheduleBackupReports()) {
+
+            // schedule the all patients report to run at midnight and noon everyday
+            ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (allPatientsScheduledReportRequest == null) {
+                allPatientsScheduledReportRequest = new ReportRequest();
+            }
+            ReportDefinition allPatientsReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID);
+            allPatientsScheduledReportRequest.setUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
+            allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
         allPatientsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
-        reportService.queueReport(allPatientsScheduledReportRequest);
+            reportService.queueReport(allPatientsScheduledReportRequest);
 
-        // schedule the appointments report to run at midnight and noon everyday, retrieving all appointments for the next seven days
-        ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
-        if (appointmentsScheduledReportRequest == null) {
-            appointmentsScheduledReportRequest = new ReportRequest();
-        }
-        ReportDefinition appointmentsReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID);
-        appointmentsScheduledReportRequest.setUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
-        appointmentsScheduledReportRequest.setReportDefinition(Mapped.map(appointmentsReportDefinition, "startDate=${start_of_today},endDate=${start_of_today + 7d}"));
-        appointmentsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, appointmentsReportDefinition));
-        appointmentsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
-        reportService.queueReport(appointmentsScheduledReportRequest);
+            // schedule the appointments report to run at midnight and noon everyday, retrieving all appointments for the next seven days
+            ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (appointmentsScheduledReportRequest == null) {
+                appointmentsScheduledReportRequest = new ReportRequest();
+            }
+            ReportDefinition appointmentsReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID);
+            appointmentsScheduledReportRequest.setUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            appointmentsScheduledReportRequest.setReportDefinition(Mapped.map(appointmentsReportDefinition, "startDate=${start_of_today},endDate=${start_of_today + 7d}"));
+            appointmentsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, appointmentsReportDefinition));
+            appointmentsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            reportService.queueReport(appointmentsScheduledReportRequest);
 
-        // schedule the appointments report to run at midnight and noon everyday, retrieving all check-ins for the past seven days
-        ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
-        if (checkInsDataExportScheduledReportRequest == null) {
-            checkInsDataExportScheduledReportRequest = new ReportRequest();
+            // schedule the appointments report to run at midnight and noon everyday, retrieving all check-ins for the past seven days
+            ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (checkInsDataExportScheduledReportRequest == null) {
+                checkInsDataExportScheduledReportRequest = new ReportRequest();
+            }
+            ReportDefinition checkInsDataExportReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_REPORT_DEFINITION_UUID);
+            checkInsDataExportScheduledReportRequest.setUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            checkInsDataExportScheduledReportRequest.setReportDefinition(Mapped.map(checkInsDataExportReportDefinition, "startDate=${start_of_today - 7d},endDate=${now}"));
+            checkInsDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, checkInsDataExportReportDefinition));
+            checkInsDataExportScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+
+            reportService.queueReport(checkInsDataExportScheduledReportRequest);
         }
-        ReportDefinition checkInsDataExportReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_REPORT_DEFINITION_UUID);
-        checkInsDataExportScheduledReportRequest.setUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
-        checkInsDataExportScheduledReportRequest.setReportDefinition(Mapped.map(checkInsDataExportReportDefinition, "startDate=${start_of_today - 7d},endDate=${now}"));
-        checkInsDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, checkInsDataExportReportDefinition));
-        checkInsDataExportScheduledReportRequest.setSchedule("0 0 */12 * * ?");
-        reportService.queueReport(checkInsDataExportScheduledReportRequest);
+        else {
+
+            ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (allPatientsScheduledReportRequest != null) {
+                reportService.purgeReportRequest(allPatientsScheduledReportRequest);
+            }
+
+            ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (appointmentsScheduledReportRequest == null) {
+                reportService.purgeReportRequest(appointmentsScheduledReportRequest);
+            }
+
+            ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (checkInsDataExportScheduledReportRequest == null) {
+                reportService.purgeReportRequest(checkInsDataExportScheduledReportRequest);
+            }
+
+        }
 
     }
 
