@@ -42,7 +42,7 @@ public class MirebalaisCustomProperties {
 
     // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleReports method in Mirebalais Module Activator)
     // generally this should only be turned on on production
-    public static final String SCHEDULE_REPORTS = "schedule_backup_reports";
+    public static final String SCHEDULE_REPORTS = "schedule_reports";
 
     private Log log = LogFactory.getLog(getClass());
 	
