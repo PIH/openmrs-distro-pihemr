@@ -602,7 +602,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             allPatientsScheduledReportRequest.setUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
             allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
-        allPatientsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            allPatientsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
             reportService.queueReport(allPatientsScheduledReportRequest);
 
             // schedule the appointments report to run at midnight and noon everyday, retrieving all appointments for the next seven days
@@ -638,12 +638,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             }
 
             ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
-            if (appointmentsScheduledReportRequest == null) {
+            if (appointmentsScheduledReportRequest != null) {
                 reportService.purgeReportRequest(appointmentsScheduledReportRequest);
             }
 
             ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
-            if (checkInsDataExportScheduledReportRequest == null) {
+            if (checkInsDataExportScheduledReportRequest != null) {
                 reportService.purgeReportRequest(checkInsDataExportScheduledReportRequest);
             }
 
