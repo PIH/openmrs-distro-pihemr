@@ -602,7 +602,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             allPatientsScheduledReportRequest.setUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
             allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
-            allPatientsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            allPatientsScheduledReportRequest.setSchedule("0 */2 * * * ?");
             reportService.queueReport(allPatientsScheduledReportRequest);
 
             // schedule the appointments report to run at midnight and noon everyday, retrieving all appointments for the next seven days
