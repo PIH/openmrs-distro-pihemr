@@ -12,7 +12,7 @@
 	<name>Mirebalais Hospital Module API</name>
 	<description>API project for MirebalaisHospital</description>
 
-	<dependencies>	
+	<dependencies>
 	</dependencies>
 	
 	<build>

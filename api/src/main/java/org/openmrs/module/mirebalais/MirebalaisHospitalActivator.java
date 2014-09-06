@@ -45,6 +45,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
@@ -162,6 +163,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupCloseStalePullRequestsTask();
             setupCloseStaleCreateRequestsTask();
             setupMarkAppointmentAsMissedOrCompletedTask();
+            setupHtmlFormEntryTagHandlers();
             setupHtmlForms();
             customizeDailyAppointmentsDataSet();
             scheduleReports(reportService, reportDefinitionService);
@@ -530,6 +532,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         Context.getService(ImportPatientFromWebService.class).registerRemoteServer("lacolline", config);
     }
 
+    public void setupHtmlFormEntryTagHandlers() throws Exception {
+        HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+        htmlFormEntryService.addHandler(MirebalaisConstants.HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME, new CauseOfDeathListTagHandler());
+    }
 
     private void setupHtmlForms() throws Exception {
 

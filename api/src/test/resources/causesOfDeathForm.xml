@@ -1,0 +1,10 @@
+<htmlform>
+    Date: <encounterDate/>
+    Location: <encounterLocation />
+    Provider: <encounterProvider role="Provider"/>
+
+    Causes:
+    <causeOfDeathList/>
+
+    <submit/>
+</htmlform>

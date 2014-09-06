@@ -14,9 +14,9 @@
             <variant locale="en" value="Date of Death"/>
             <variant locale="fr" value="TODO Date of Death"/>
         </code>
-        <code name="data_collected_by">
-            <variant locale="en" value="Data collected by"/>
-            <variant locale="fr" value="Données recueillies par"/>
+        <code name="form_signed_by">
+            <variant locale="en" value="Form Signed By"/>
+            <variant locale="fr" value="TODO Form Signed By"/>
         </code>
         <code name="demographics">
             <variant locale="en" value="Demographics of deceased"/>
@@ -73,6 +73,10 @@
         <code name="service">
             <variant locale="en" value="Service"/>
             <variant locale="fr" value="Service"/>
+        </code>
+        <code name="location">
+            <variant locale="en" value="Location"/>
+            <variant locale="fr" value="Lieu"/>
         </code>
         <code name="days_in_hospital">
             <variant locale="en" value="Hospital stay (in days)"/>
@@ -227,6 +231,14 @@
             border-top: 1px #a0a0a0 solid;
             border-bottom: 1px #a0a0a0 solid;
         }
+
+        .big-display {
+            font-size: 1.5em;
+        }
+
+        .coded-or-free-text-title, .coded-or-free-text-between {
+            font-size: 0.8em;
+        }
     </style>
 
     <ifMode mode="VIEW">
@@ -312,7 +324,7 @@
                     </includeIf>
                 </span>
                 <span class="one-half">
-                    Service: <obs conceptId="PIH: Location of death at institution" style="location"/>
+                    <uimessage code="location"/>: <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </span>
             </p>
             <p class="two-thirds">
@@ -355,20 +367,7 @@
 
             <br/>
             <p>
-                I. <uimessage code="cause_of_death"/>
-                <br/>
-                <obs conceptId="PIH: Final disease resulting in death"
-                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                <br/>
-                <label><uimessage code="due_to_or_following"/></label>
-                <br/>
-                <obs conceptId="PIH: Condition causing the final disease"
-                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                <br/>
-                <label><uimessage code="due_to_or_following"/></label>
-                <br/>
-                <obs conceptId="PIH: Condition causing the final disease"
-                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                I. <causeOfDeathList/>
             </p>
 
             <br/>
@@ -425,7 +424,7 @@
             </p>
             <p>
                 <label><uimessage code="icd_code"/></label>
-                TODO
+                <lookup class="value" complexExpression="#foreach($mapping in $patient.causeOfDeath.conceptMappings) #if($mapping.conceptReferenceTerm.conceptSource.name == 'ICD-10-WHO') $mapping.conceptReferenceTerm.code #end  #end"/>
             </p>
         </section>
 
@@ -439,39 +438,12 @@
 
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
-            function leadingZero(input) {
-                return (input &lt; 10) ? ("0" + input) : input;
-            }
-
-            $(function() {
-                // when you navigate to one of the date component field, select all its text
-                // (might be nice to do this elsewhere also)
-                $('.date-component').focus(function() {
-                    $(this).select();
-                });
-
-                var encounterDateInput = $('#encounterDate input[type=hidden]');
-
-                // set date fields based on encounter date
-                var ymd = encounterDateInput.val();
-                $('.calc-enc-date.year').val(ymd.substring(0, 4));
-                $('.calc-enc-date.month').val(ymd.substring(5, 7));
-                $('.calc-enc-date.day').val(ymd.substring(8, 10));
-                var hour = Number($('#encounterDate .hfe-hours').val());
-                if (hour > 12) {
-                    $('.calc-enc-date.hour').val(hour-12);
-                    $('.calc-enc-date.ampm').val('PM');
-                } else {
-                    $('.calc-enc-date.hour').val(hour);
-                    $('.calc-enc-date.ampm').val('AM');
-                }
-                $('.calc-enc-date.minute').val(leadingZero($('#encounterDate .hfe-minutes').val()));
-
-                // set hidden encounterDate fields when visible inputs change
-                $('.calc-enc-date').blur(function() {
+            var encounterDateInput;
+            ExitHandlers['calc-enc-date'] = {
+                handleExit: function(fieldModel) {
                     var date = $('.calc-enc-date.year').val() + '-' +
-                            $('.calc-enc-date.month').val() + '-' +
-                            leadingZero($('.calc-enc-date.day').val());
+                        $('.calc-enc-date.month').val() + '-' +
+                        leadingZero($('.calc-enc-date.day').val());
                     encounterDateInput.val(date);
 
                     $('#encounterDate .hfe-seconds').val(0);
@@ -485,86 +457,118 @@
                     }
                     else {
                         var hours = ($('.calc-enc-date.ampm').val() == 'PM' ? 12 : 0) +
-                                    Number($('.calc-enc-date.hour').val());
+                        Number($('.calc-enc-date.hour').val());
                         var minutes = $('.calc-enc-date.minute').val();
 
                         $('#encounterDate .hfe-hours').val(hours);
                         $('#encounterDate .hfe-minutes').val(minutes);
                     }
+                    return true;
+                }
+            }
+
+            function leadingZero(input) {
+                return (input &lt; 10) ? ("0" + input) : input;
+            }
+
+            var defaultDeathDate = null;
+            if ('<lookup expression="patient.deathDate"/>') {
+                defaultDeathDate = new Date(<lookup expression="patient.deathDate.time"/>);
+            }
+
+            $(function() {
+                // when you navigate to one of the date component field, select all its text
+                // (might be nice to do this elsewhere also)
+                $('.date-component').focus(function() {
+                    $(this).select();
                 });
+
+                encounterDateInput = $('#encounterDate input[type=hidden]');
+
+                // set both the hidden inputs (from the encounterDate tag) and the custom visible inputs for this form
+                if (defaultDeathDate) {
+                    // set date (y/m/d) fields
+                    var ymd = defaultDeathDate.toISOString();
+                    encounterDateInput.val(ymd.substring(0,10));
+                    $('.calc-enc-date.year').val(ymd.substring(0, 4));
+                    $('.calc-enc-date.month').val(ymd.substring(5, 7));
+                    $('.calc-enc-date.day').val(ymd.substring(8, 10));
+
+                    $('#encounterDate .hfe-hours').val('' + defaultDeathDate.getHours());
+                    var hour = defaultDeathDate.getHours();
+                    if (hour > 12) {
+                        $('.calc-enc-date.hour').val(hour-12);
+                        $('.calc-enc-date.ampm').val('PM');
+                    } else {
+                        $('.calc-enc-date.hour').val(hour);
+                        $('.calc-enc-date.ampm').val('AM');
+                    }
+
+                    $('#encounterDate .hfe-minutes').val('' + defaultDeathDate.getMinutes());
+                    $('.calc-enc-date.minute').val(leadingZero(defaultDeathDate.getMinutes()));
+                } else {
+                    encounterDateInput.val('');
+                    $('#encounterDate .hfe-hours').val('');
+                    $('#encounterDate .hfe-minutes').val('');
+                    $('.calc-enc-date').val(''); // all visible inputs
+                }
+
+                var demogConfirm = '<lookup expression="patient.personName.familyName"/>, ';
+                demogConfirm += '<lookup expression="patient.personName.givenName"/>, ';
+                demogConfirm += '<lookup expression="patient.gender"/>, ';
+                demogConfirm += '<lookup complexExpression="#if( $patient.birthdateEstimated )~#end"/>';
+                demogConfirm += '<lookup expression="patient.birthdate"/>';
+                $('#hidden-demog').val(demogConfirm);
+
+                // these need to be classes on the input, and HFE doesn't give a way of setting them, so...
+                //NavigatorController.getFieldByContainerId('death-location-container').validators.push(Validators.required);
+                //NavigatorController.getFieldByContainerId('received-care-container').validators.push(Validators.required);
             });
         </script>
 
-        <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
-            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}, {{field.[6]}}">
-                <legend><uimessage code="death_details"/></legend>
-                <h3>Time of death</h3>
-
-                <div style="display: none">
-                    <encounterDate showTime="true" default="now"/>
-                </div>
-
-                <p class="left">
-                    <label>Day</label>
-                    <input type="text" name="death-date-day" class="calc-enc-date day number numeric-range date-component required" min="1" max="31" maxLength="2" size="5"/>
-                </p>
-                <p class="left">
-                    <label>Month</label>
-                    <select name="death-date-month" class="calc-enc-date month date-component required">
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">Mar</option>
-                        <option value="04">Apr</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">Aug</option>
-                        <option value="09">Sep</option>
-                        <option value="10">Oct</option>
-                        <option value="11">Nov</option>
-                        <option value="12">Dec</option>
-                    </select>
-                </p>
-                <p class="left">
-                    <label>Year</label>
-                    <input type="text" name="death-date-year" class="calc-enc-date year number date-component required" min="1900" max="2100" maxLength="4" size="5"/>
-                </p>
-                <p class="left" style="clear: left">
-                    <label>Hour</label>
-                    <input type="text" name="death-date-hour" class="calc-enc-date hour number numeric-range date-component" min="1" max="12" maxLength="2" size="5"/>
-                </p>
-                <p class="left">
-                    <label>Minute</label>
-                    <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
-                </p>
-                <p class="left">
-                    <label>AM/PM</label>
-                    <select name="death-date-ampm" class="calc-enc-date ampm date-component" style="min-width: 0px">
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
-                    </select>
-                </p>
-
-                <h3 style="clear:both; padding-top: 40px"><uimessage code="data_collected_by"/></h3>
-                <p>
-                    <label style="display: none"><uimessage code="data_collected_by"/></label>
-                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                </p>
-            </fieldset>
-        </section>
-
         <section id="demographics" sectionTag="section" headerStyle="title" headerCode="demographics">
 
-            <fieldset class="no-confirmation">
-                <legend>Verify</legend>
-                <p>
-                    <label>
-                        Please verify the name, sex, age/birthdate, and address, and make any corrections necessary to the patient record.
-                        <br/>
-                        <br/>
-                        Press Enter to continue
-                    </label>
-                    <input type="hidden"/>
+            <fieldset>
+                <legend>Patient</legend>
+                <p class="left">
+                    <label>Nom</label>
+                    <span class="big-display">
+                        <lookup expression="patient.personName.familyName"/>
+                    </span>
+                </p>
+                <p class="left">
+                    <label>Prénom</label>
+                    <span class="big-display">
+                        <lookup expression="patient.personName.givenName"/>
+                    </span>
+                </p>
+                <p style="clear: left" class="left">
+                    <label>Sexe</label>
+                    <span class="big-display">
+                        <lookup expression="patient.gender"/>
+                    </span>
+                </p>
+                <p class="left">
+                    <label>Birthdate</label>
+                    <span class="big-display">
+                        <lookup complexExpression="#if( $patient.birthdateEstimated ) ~ #end"/>
+                        <lookup expression="patient.birthdate"/>
+                    </span>
+                </p>
+                <p class="left">
+                    <label>Age</label>
+                    <span class="big-display">
+                        <lookup expression="patient.age"/>
+                    </span>
+                </p>
+                <p style="clear: left">
+                    <label style="display: none">Name</label>
+                    <br/>
+                    If any information is incorrect, edit the patient record before recording the death.
+                    <br/>
+                    <br/>
+                    Enter to continue
+                    <input type="hidden" id="hidden-demog"/>
                 </p>
             </fieldset>
 
@@ -601,11 +605,70 @@
             </fieldset>
         </section>
 
+        <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
+            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}, {{field.[6]}}" class="calc-enc-date">
+                <legend><uimessage code="death_details"/></legend>
+                <h3>Time of death</h3>
+
+                <div style="display: none">
+                    <encounterDate showTime="true" default="now"/>
+                </div>
+
+                <p class="required left" id="test-container">
+                    <label><uimessage code="uicommons.multipleInputDate.day.label"/></label>
+                    <input type="text" name="death-date-day" class="calc-enc-date day number numeric-range date-component required" min="1" max="31" maxLength="2" size="5"/>
+                </p>
+                <p class="required left">
+                    <label><uimessage code="uicommons.multipleInputDate.month.label"/></label>
+                    <select name="death-date-month" class="calc-enc-date month date-component required">
+                        <option value=""></option>
+                        <option value="01"><uimessage code="uicommons.month.1"/></option>
+                        <option value="02"><uimessage code="uicommons.month.2"/></option>
+                        <option value="03"><uimessage code="uicommons.month.3"/></option>
+                        <option value="04"><uimessage code="uicommons.month.4"/></option>
+                        <option value="05"><uimessage code="uicommons.month.5"/></option>
+                        <option value="06"><uimessage code="uicommons.month.6"/></option>
+                        <option value="07"><uimessage code="uicommons.month.7"/></option>
+                        <option value="08"><uimessage code="uicommons.month.8"/></option>
+                        <option value="09"><uimessage code="uicommons.month.9"/></option>
+                        <option value="10"><uimessage code="uicommons.month.10"/></option>
+                        <option value="11"><uimessage code="uicommons.month.11"/></option>
+                        <option value="12"><uimessage code="uicommons.month.12"/></option>
+                    </select>
+                </p>
+                <p class="required left">
+                    <label><uimessage code="uicommons.multipleInputDate.year.label"/></label>
+                    <input type="text" name="death-date-year" class="calc-enc-date year number date-component required" min="1900" max="2100" maxLength="4" size="5"/>
+                </p>
+                <p class="left" style="clear: left">
+                    <label>Hour</label>
+                    <input type="text" name="death-date-hour" class="calc-enc-date hour number numeric-range date-component" min="1" max="12" maxLength="2" size="5"/>
+                </p>
+                <p class="left">
+                    <label>Minute</label>
+                    <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
+                </p>
+                <p class="left">
+                    <label>AM/PM</label>
+                    <select name="death-date-ampm" class="calc-enc-date ampm date-component" style="min-width: 0px">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </p>
+
+                <h3 style="clear:both; padding-top: 40px"><uimessage code="form_signed_by"/></h3>
+                <p>
+                    <label style="display: none"><uimessage code="form_signed_by"/></label>
+                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                </p>
+            </fieldset>
+        </section>
+
         <section id="location" sectionTag="section" headerStyle="title" headerCode="location">
             <fieldset>
                 <legend>Place</legend>
 
-                <p>
+                <p class="required">
                     <label>Place</label>
                     <obs id="deathLocation" conceptId="PIH: Location of death" answerConceptIds="PIH: HOSPITAL,PIH: Home,PIH: OTHER NON-CODED" size="3">
                         <controls>
@@ -627,7 +690,7 @@
             <fieldset id="if-institutional" display-template="{{field.[0]}}, durée: {{field.[1]}}">
                 <legend><uimessage code="if_internal"/></legend>
                 <p>
-                    <label><uimessage code="service"/></label>
+                    <label><uimessage code="location"/></label>
                     <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </p>
 
@@ -642,7 +705,7 @@
             <fieldset>
                 <legend>Received care</legend>
 
-                <p>
+                <p class="required">
                     <label><uimessage code="doctor_visit"/></label>
                     <obs id="seenByDoctor" conceptId="PIH: Visited provider during illness" style="dropdown" size="3">
                         <controls>
@@ -662,27 +725,9 @@
             <!-- TBD:  provider, signature, role, HUM department, date/time of death, patient died,
                 address, telephone, printing, ICD10 code
             -->
-            <fieldset display-template="{{#each field}}{{#if this}}{{#unless @first}} &#8592; {{/unless}}{{/if}}{{this}}{{/each}}">
+            <fieldset>
                 <legend><uimessage code="cause_of_death"/></legend>
-                <p>
-                    <label><uimessage code="final_disease"/></label>
-                    <obs conceptId="PIH: Final disease resulting in death"
-                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                </p>
-                <p>
-                    <label><uimessage code="due_to_or_following"/></label>
-                    <obs conceptId="PIH: Condition causing the final disease"
-                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                </p>
-                <p>
-                    <label><uimessage code="due_to_or_following"/></label>
-                    <obs conceptId="PIH: Condition causing the final disease"
-                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                    <br/>
-                    <span style="color:red">
-                        Testing note: please test to make sure the order of these is preserved (it might not be)
-                    </span>
-                </p>
+                <causeOfDeathList/>
             </fieldset>
             <fieldset>
                 <legend><uimessage code="contributing_condition_title"/></legend>
@@ -730,7 +775,7 @@
             </fieldset>
         </section>
 
-        <markPatientDead causeOfDeathFromObs="PIH: Final disease resulting in death"/>
+        <markPatientDead/>
 
     </ifMode>
 </htmlform>

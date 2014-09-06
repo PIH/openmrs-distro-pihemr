@@ -66,4 +66,6 @@ public class MirebalaisConstants {
 
     public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
 
+    public static final String HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME = "causeOfDeathList";
+
 }

@@ -1,5 +1,5 @@
 <%
-    ui.includeJavascript("uicommons", "angular.js")
+    ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
@@ -13,12 +13,12 @@
     </span>
     <span ng-show="existing.uuid">
         <a ng-click="viewDeathCertificate(existing.uuid)">
-            <i class="icon-file small"></i> View Death Certificate
+            <i class="icon-file small"></i> ${ ui.message("mirebalais.task.deathCertificate.label") }
         </a>
     </span>
     <span ng-show="existing === null && !${ ui.thisUrl().contains("deathCertificate.xml") }">
         <a ng-click="fillOutDeathCertificate()">
-            <i class="icon-plus small"></i> Fill Out Death Certificate
+            <i class="icon-plus small"></i> ${ ui.message("mirebalais.task.deathCertificate.label") }
         </a>
     </span>
 </span>
