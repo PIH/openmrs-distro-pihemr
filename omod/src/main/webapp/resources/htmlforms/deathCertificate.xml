@@ -12,7 +12,7 @@
         </code>
         <code name="date_of_death">
             <variant locale="en" value="Date of Death"/>
-            <variant locale="fr" value="TODO Date of Death"/>
+            <variant locale="fr" value="Date de décès"/>
         </code>
         <code name="form_signed_by">
             <variant locale="en" value="Form Signed By"/>
@@ -20,7 +20,7 @@
         </code>
         <code name="demographics">
             <variant locale="en" value="Demographics of deceased"/>
-            <variant locale="fr" value=" Caracteristiques du defunt"/>
+            <variant locale="fr" value="Caracteristiques du defunt"/>
         </code>
         <code name="location">
             <variant locale="en" value="Place of death"/>
@@ -245,7 +245,9 @@
         <lookup complexExpression="#set( $certificate = $fn.getObs($encounter, 'PIH: Visited provider during illness').valueCoded.equals($fn.getConcept('PIH: YES')) )"/>
 
         <h4 id="title">
-            <uimessage code="death_certificate"/> - MSPP
+            <small>MINISTERE DE LA SANTE PUBLIQUE ET DE LA POPULATION (MSPP)</small>
+            <br/>
+            CERTIFICAT / CONSTAT DE DECES
         </h4>
 
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="demographics">
