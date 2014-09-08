@@ -92,9 +92,9 @@
 
     <!-- WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
-        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode at locations that have wristband printer configured -->
+        <!-- functionality to ask whether or not to print a wristband, which we only do for active visits in ENTER mode -->
         <ifMode mode="ENTER" include="true">
-            <includeIf velocityTest="( ($visit.open) &amp;&amp; $printer.fn.isDefaultPrinterConfigured($sessionContext.sessionLocation, $printer.type.WRISTBAND) )">
+            <includeIf velocityTest="($visit.open)">
                 <script type="text/javascript">
 
                     jq(function() {
@@ -276,9 +276,9 @@
 
     <!-- WRISTBAND FUNCTIONALITY (DIALOG) -->
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
-        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode at locations that have wristband printer configured -->
+        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode -->
         <ifMode mode="ENTER" include="true">
-            <includeIf velocityTest="( ($visit.open) &amp;&amp; $printer.fn.isDefaultPrinterConfigured($sessionContext.sessionLocation, $printer.type.WRISTBAND) )">
+            <includeIf velocityTest="($visit.open)">
                 <div id="print-wristband-dialog" class="dialog" style="display: none">
                     <div class="dialog-header">
                         <i class="icon-folder-open"></i>
