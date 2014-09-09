@@ -440,6 +440,14 @@
                     <artifactId>gem-maven-plugin</artifactId>
                     <version>1.0.0-rc4</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.17</version>
+                    <configuration>
+                        <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+                    </configuration>
+                </plugin>
 
             </plugins>
         </pluginManagement>
