@@ -94,10 +94,13 @@
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
         <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode at locations that have wristband printer configured -->
         <ifMode mode="ENTER" include="true">
-            <includeIf velocityTest="( ($visit.open) &amp;&amp; $printer.fn.isDefaultPrinterConfigured($sessionContext.sessionLocation, $printer.type.WRISTBAND) )">
+            <includeIf velocityTest="($visit.open)">
                 <script type="text/javascript">
 
                     jq(function() {
+
+                        // this lookup returns a comma-separated list of locations that support wristbands, which then can be assigned as an array to this variable
+                        var idsOflocationsThatSupportWristbandPrinting = [<lookup complexExpression="#set ($locations = $printer.fn.getLocationsWithDefaultPrinter($printer.type.WRISTBAND)) #foreach ($location in $locations)'$location.id'#if ($velocityCount &lt;= $locations.size() - 1),#end#end"/>]
 
                         var printWristbandDialog;
                         var printWristband = null; // (null = we have not yet prompted user if they want to print a wristband; true = print wristband; false = don't print wristband)
@@ -121,6 +124,11 @@
                         });
 
                         beforeSubmit.push(function() {
+
+                            // if this is not a location with a wristband printer configured, skip prompting to print
+                            if (idsOflocationsThatSupportWristbandPrinting.indexOf(getValue('encounterLocation.value')) == -1) {
+                                return true;
+                            }
 
                             // if we have not yet asked whether or not to print a wristband, show that dialog and suspend the submit
                             if (printWristband == null) {
@@ -276,9 +284,9 @@
 
     <!-- WRISTBAND FUNCTIONALITY (DIALOG) -->
     <includeIf velocityTest="$featureToggles.isFeatureEnabled('printWristband')">
-        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode at locations that have wristband printer configured -->
+        <!-- dialog to ask whether or not to print a wristband, which we only do for active visits in ENTER mode at admission locations that have wristband printer configured -->
         <ifMode mode="ENTER" include="true">
-            <includeIf velocityTest="( ($visit.open) &amp;&amp; $printer.fn.isDefaultPrinterConfigured($sessionContext.sessionLocation, $printer.type.WRISTBAND) )">
+            <includeIf velocityTest="($visit.open)">
                 <div id="print-wristband-dialog" class="dialog" style="display: none">
                     <div class="dialog-header">
                         <i class="icon-folder-open"></i>
