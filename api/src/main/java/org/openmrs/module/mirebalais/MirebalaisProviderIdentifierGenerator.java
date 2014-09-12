@@ -22,7 +22,8 @@ public class MirebalaisProviderIdentifierGenerator implements ProviderIdentifier
         generator.setBaseCharacterSet("ACDEFGHJKLMNPRTUVWXY1234567890");
         generator.setFirstIdentifierBase("100");
         generator.setPrefix("M");
-        generator.setLength(4);
+        generator.setMaxLength(4);
+        generator.setMinLength(4);
 
         String identifier = generator.getIdentifierForSeed(provider.getId().longValue());
 
