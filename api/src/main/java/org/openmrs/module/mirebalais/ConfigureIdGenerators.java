@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais;
 
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.LocationService;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
@@ -8,6 +9,7 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.mirebalaismetadata.MirebalaisMetadataProperties;
 
 import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 
@@ -16,13 +18,20 @@ public class ConfigureIdGenerators {
 	private final MirebalaisCustomProperties customProperties;
 	
 	private final IdentifierSourceService identifierSourceService;
-	
+
+    private final LocationService locationService;
+
+    private MirebalaisGlobalProperties mirebalaisGlobalProperties;
+
 	private final MirebalaisHospitalService service;
 	
 	public ConfigureIdGenerators(MirebalaisCustomProperties customProperties,
-	    IdentifierSourceService identifierSourceService, MirebalaisHospitalService service) {
+	    IdentifierSourceService identifierSourceService, LocationService locationService,
+        MirebalaisHospitalService service) {
+
 		this.customProperties = customProperties;
 		this.identifierSourceService = identifierSourceService;
+        this.locationService = locationService;
 		this.service = service;
 		
 		if (customProperties == null || identifierSourceService == null || service == null) {
@@ -41,6 +50,7 @@ public class ConfigureIdGenerators {
 
         autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
         autoGenerationOption.setSource(identifierSource);
+        autoGenerationOption.setLocation(locationService.getLocationByUuid(MirebalaisMetadataProperties.MIREBALAIS_HOSPITAL_LOCATION_UUID));
         autoGenerationOption.setManualEntryEnabled(true);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
 

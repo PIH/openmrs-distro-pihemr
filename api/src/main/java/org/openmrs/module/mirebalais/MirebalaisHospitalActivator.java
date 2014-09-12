@@ -23,6 +23,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.FormService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
@@ -127,6 +128,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
+            LocationService locationService = Context.getLocationService();
 
 
             Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
@@ -157,7 +159,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             });
 
             removeOldGlobalProperties();
-            setupIdentifierGeneratorsIfNecessary(service, identifierSourceService);
+            setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService);
             setupConnectionToMasterPatientIndex();
             injectProviderIdentifierGenerator();
             setupCloseStalePullRequestsTask();
@@ -183,9 +185,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
 
     private void setupIdentifierGeneratorsIfNecessary(MirebalaisHospitalService service,
-                                                      IdentifierSourceService identifierSourceService) {
+                                                      IdentifierSourceService identifierSourceService,
+                                                      LocationService locationService) {
 
-        configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
+        configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 
         createPatientIdGenerator(service);
 

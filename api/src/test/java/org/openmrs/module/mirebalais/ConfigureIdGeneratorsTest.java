@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.LocationService;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
@@ -47,6 +48,8 @@ public class ConfigureIdGeneratorsTest {
 	private ConfigureIdGenerators configureIdGenerators;
 	
 	private IdentifierSourceService identifierSourceService;
+
+    private LocationService locationService;
 	
 	private MirebalaisHospitalService service;
 	
@@ -57,12 +60,13 @@ public class ConfigureIdGeneratorsTest {
 	@Before
 	public void setUp() throws Exception {
 		identifierSourceService = mock(IdentifierSourceService.class);
+        locationService = mock(LocationService.class);
 		service = mock(MirebalaisHospitalService.class);
 		
 		patientIdentifierType = new PatientIdentifierType();
 		
 		customProperties = mock(MirebalaisCustomProperties.class);
-		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, service);
+		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 	}
 	
 	@Test
