@@ -137,7 +137,8 @@ public class ConfigureIdGenerators {
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
 		sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
 		sequentialIdentifierGenerator.setUuid(DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
-		sequentialIdentifierGenerator.setLength(7);
+		sequentialIdentifierGenerator.setMaxLength(7);
+        sequentialIdentifierGenerator.setMinLength(7);
 		sequentialIdentifierGenerator.setPrefix("A");
 		sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
 		sequentialIdentifierGenerator.setFirstIdentifierBase("000001");
