@@ -118,7 +118,8 @@ public class ConfigureIdGeneratorsTest {
 		
 		assertEquals(sequentialIdentifierGeneratorAsExpected, sequentialIdentifierGenerator);
 		assertEquals("A", sequentialIdentifierGenerator.getPrefix());
-		assertEquals(new Integer(7), sequentialIdentifierGenerator.getLength());
+		assertEquals(new Integer(7), sequentialIdentifierGenerator.getMaxLength());
+        assertEquals(new Integer(7), sequentialIdentifierGenerator.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGenerator.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGenerator.getFirstIdentifierBase());
 		assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGenerator.getUuid());
@@ -136,7 +137,8 @@ public class ConfigureIdGeneratorsTest {
 		
 		assertSame(sequentialIdentifierGeneratorAsExpected, sequentialIdentifierGenerator);
 		assertEquals("A", sequentialIdentifierGeneratorAsExpected.getPrefix());
-		assertEquals(new Integer(7), sequentialIdentifierGeneratorAsExpected.getLength());
+		assertEquals(new Integer(7), sequentialIdentifierGeneratorAsExpected.getMaxLength());
+        assertEquals(new Integer(7), sequentialIdentifierGeneratorAsExpected.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGeneratorAsExpected.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGeneratorAsExpected.getFirstIdentifierBase());
 		assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGeneratorAsExpected
@@ -147,7 +149,8 @@ public class ConfigureIdGeneratorsTest {
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
 		sequentialIdentifierGenerator.setUuid(DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
 		sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
-		sequentialIdentifierGenerator.setLength(7);
+		sequentialIdentifierGenerator.setMaxLength(7);
+        sequentialIdentifierGenerator.setMinLength(7);
 		sequentialIdentifierGenerator.setPrefix("A");
 		sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
 		sequentialIdentifierGenerator.setFirstIdentifierBase("000001");

@@ -81,7 +81,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         assertEquals(customProperties.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
 
         assertEquals("A", dossierSequenceGenerator.getPrefix());
-        assertEquals(new Integer(7), dossierSequenceGenerator.getLength());
+        assertEquals(new Integer(7), dossierSequenceGenerator.getMaxLength());
+        assertEquals(new Integer(7), dossierSequenceGenerator.getMinLength());
         assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
         assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
         assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
