@@ -1,6 +1,11 @@
 <htmlform class="simple-form-ui2" formUuid="c18d68ce-a130-4460-8cdf-6fbfaa33487e" formName="Death certificate"
           formEncounterType="1545d7ff-60f1-485e-9c95-5740b8e6634b" formVersion="2.0">
 
+    <script type="text/javascript">
+        window.messages = window.messages || { };
+        window.messages['htmlformentry.general.days'] = '<uimessage code="htmlformentry.general.days"/>';
+    </script>
+
     <translations defaultLocale="fr">
         <code name="death_certificate">
             <variant locale="en" value="Death certificate"/>
@@ -118,13 +123,17 @@
             <variant locale="en" value="Cause of death"/>
             <variant locale="fr" value="Cause du décès"/>
         </code>
+        <code name="cause_of_death_instructions">
+            <variant locale="en" value="Start with immediate cause, end with root cause"/>
+            <variant locale="fr" value="TODO Start with immediate cause, end with root cause"/>
+        </code>
         <code name="final_disease">
             <variant locale="en" value="Final disease or condition resulting in death"/>
             <variant locale="fr" value="Maladie ou ayant directement provoqué le décès"/>
         </code>
         <code name="due_to_or_following">
             <variant locale="en" value="caused by (or following)"/>
-            <variant locale="en" value="due à (ou consécutive à)"/>
+            <variant locale="fr" value="due à (ou consécutive à)"/>
         </code>
         <code name="condition_caused_final_disease">
             <variant locale="en" value="Condition which caused the previous disease or condition"/>
@@ -152,6 +161,9 @@
         @media print {
             div.patient-header {
                 display: none;
+            }
+            body {
+                font-size: 14px;
             }
         }
 
@@ -269,7 +281,7 @@
             </p>
             <p>
                 <label><uimessage code="address"/></label>
-                <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince , Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
+                <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince, Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
             </p>
             <p class="one-quarter">
             </p>
@@ -520,6 +532,7 @@
                 demogConfirm += '<lookup expression="patient.gender"/>, ';
                 demogConfirm += '<lookup complexExpression="#if( $patient.birthdateEstimated )~#end"/>';
                 demogConfirm += '<lookup expression="patient.birthdate"/>';
+                demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $!addr.stateProvince, $!addr.cityVillage &lt;br/&gt;#end"/>';
                 $('#hidden-demog').val(demogConfirm);
 
                 // these need to be classes on the input, and HFE doesn't give a way of setting them, so...
@@ -564,12 +577,16 @@
                     </span>
                 </p>
                 <p style="clear: left">
+                    <label><uimessage code="address"/></label>
+                    <span class="big-display">
+                        <lookup complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince, Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
+                    </span>
+                </p>
+                <p style="clear: left">
                     <label style="display: none">Name</label>
                     <br/>
-                    If any information is incorrect, edit the patient record before recording the death.
                     <br/>
-                    <br/>
-                    Enter to continue
+                    <uimessage code="mirebalais.vitals.calculatedField.continue"/>
                     <input type="hidden" id="hidden-demog"/>
                 </p>
             </fieldset>
@@ -689,7 +706,7 @@
                 </p>
             </fieldset>
 
-            <fieldset id="if-institutional" display-template="{{field.[0]}}, durée: {{field.[1]}}">
+            <fieldset id="if-institutional" display-template="{{field.[0]}}, {{field.[1]}} {{#unless field.[1]}}?{{/unless}} {{message 'htmlformentry.general.days'}}">
                 <legend><uimessage code="if_internal"/></legend>
                 <p>
                     <label><uimessage code="location"/></label>
@@ -753,7 +770,7 @@
         </section>
 
         <section id="source-circumstances" sectionTag="section" headerStyle="title" headerCode="info_source">
-            <fieldset>
+            <fieldset field-separator=", ">
                 <legend><uimessage code="info_source"/></legend>
                 <p>
                     <label><uimessage code="info_source"/></label>

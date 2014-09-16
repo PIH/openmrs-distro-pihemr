@@ -48,6 +48,7 @@ public class CauseOfDeathListTagHandler extends SubstitutionTagHandler {
         widget.setUiUtils((UiUtils) session.getAttribute("uiUtils"));
         widget.setBetweenElementsCode("due_to_or_following");
         widget.setTitleCode("cause_of_death");
+        widget.setPlaceholderCode("cause_of_death_instructions");
         if (existingObs != null && existingObs.size() > 0) {
             widget.setInitialValue(initialValue(existingObs));
         }
