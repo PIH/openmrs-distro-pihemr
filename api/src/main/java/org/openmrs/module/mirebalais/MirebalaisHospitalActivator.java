@@ -602,7 +602,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         if (customProperties.getScheduleBackupReports()) {
 
-            // schedule the all patients report to run at midnight and noon everyday
+            // schedule the all patients report to run at 4am and 4pm everyday
             ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             if (allPatientsScheduledReportRequest == null) {
                 allPatientsScheduledReportRequest = new ReportRequest();
@@ -611,10 +611,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             allPatientsScheduledReportRequest.setUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
             allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
-            allPatientsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            allPatientsScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
             reportService.queueReport(allPatientsScheduledReportRequest);
 
-            // schedule the appointments report to run at midnight and noon everyday, retrieving all appointments for the next seven days
+            // schedule the appointments report to run  at 4am and 4pm everyday, retrieving all appointments for the next seven days
             ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
             if (appointmentsScheduledReportRequest == null) {
                 appointmentsScheduledReportRequest = new ReportRequest();
@@ -623,10 +623,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             appointmentsScheduledReportRequest.setUuid(MirebalaisReportsProperties.APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
             appointmentsScheduledReportRequest.setReportDefinition(Mapped.map(appointmentsReportDefinition, "startDate=${start_of_today},endDate=${start_of_today + 7d}"));
             appointmentsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, appointmentsReportDefinition));
-            appointmentsScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            appointmentsScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
             reportService.queueReport(appointmentsScheduledReportRequest);
 
-            // schedule the appointments report to run at midnight and noon everyday, retrieving all check-ins for the past seven days
+            // schedule the appointments report to run  at 4am and 4pm everyday retrieving all check-ins for the past seven days
             ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
             if (checkInsDataExportScheduledReportRequest == null) {
                 checkInsDataExportScheduledReportRequest = new ReportRequest();
@@ -635,7 +635,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             checkInsDataExportScheduledReportRequest.setUuid(MirebalaisReportsProperties.CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
             checkInsDataExportScheduledReportRequest.setReportDefinition(Mapped.map(checkInsDataExportReportDefinition, "startDate=${start_of_today - 7d},endDate=${now}"));
             checkInsDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, checkInsDataExportReportDefinition));
-            checkInsDataExportScheduledReportRequest.setSchedule("0 0 */12 * * ?");
+            checkInsDataExportScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
 
             reportService.queueReport(checkInsDataExportScheduledReportRequest);
         }
