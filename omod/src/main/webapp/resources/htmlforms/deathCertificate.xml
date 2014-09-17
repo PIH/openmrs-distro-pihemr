@@ -55,6 +55,10 @@
             <variant locale="en" value="Marital status"/>
             <variant locale="fr" value="État matrimonial"/>
         </code>
+        <code name="occupation">
+            <variant locale="en" value="Occupation"/>
+            <variant locale="fr" value="Occupation"/>
+        </code>
         <code name="dossier">
             <variant locale="en" value="Dossier Number"/>
             <variant locale="fr" value="Dossier No"/>
@@ -114,6 +118,10 @@
         <code name="diagnosis_method">
             <variant locale="en" value="Method(s) to confirm diagnosis"/>
             <variant locale="fr" value="Moyen(s) de confirmation du diagnostic:"/>
+        </code>
+        <code name="diagnosis_method_short">
+            <variant locale="en" value="Method(s)"/>
+            <variant locale="fr" value="Moyen(s)"/>
         </code>
         <code name="certification_declaration">
             <variant locale="en" value="certified the death of the identified person"/>
@@ -294,8 +302,8 @@
                 <obs conceptId="PIH: CIVIL STATUS"/>
             </p>
             <p class="one-half">
-                <label>Occupation</label>
-                <obs conceptId="PIH: Occupation"/>
+                <label><uimessage code="occupation"/></label>
+                <obs conceptId="PIH: MAIN ACTIVITY, NON-CODED"/>
             </p>
             <p class="one-quarter">
                 <label><uimessage code="maternal_death"/></label>
@@ -608,10 +616,10 @@
             </fieldset>
 
             <fieldset>
-                <legend>Occupation</legend>
+                <legend><uimessage code="occupation"/></legend>
                 <p>
-                    <label>Occupation</label>
-                    <obs conceptId="PIH: Occupation" size="27"/>
+                    <label><uimessage code="occupation"/></label>
+                    <obs conceptId="PIH: MAIN ACTIVITY, NON-CODED" size="60"/>
                 </p>
             </fieldset>
 
@@ -757,13 +765,12 @@
                 </p>
             </fieldset>
             <fieldset>
-                <legend><uimessage code="diagnosis_method"/></legend>
+                <legend><uimessage code="diagnosis_method_short"/></legend>
+                <h3><uimessage code="diagnosis_method"/></h3>
                 <p>
-                    <label><lookup expression="fn.getConcept('PIH: SURGERY').name"/></label>
                     <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
                 </p>
                 <p>
-                    <label><lookup expression="fn.getConcept('PIH: Autopsy').name"/></label>
                     <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: Autopsy"/>
                 </p>
             </fieldset>
