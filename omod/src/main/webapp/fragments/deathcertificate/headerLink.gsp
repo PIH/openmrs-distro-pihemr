@@ -13,12 +13,12 @@
     </span>
     <span ng-show="existing.uuid">
         <a ng-click="viewDeathCertificate(existing.uuid)">
-            <i class="icon-file small"></i> ${ ui.message("mirebalais.task.deathCertificate.label") }
+            <i class="icon-file small"></i> ${ ui.message("mirebalais.deathCertificate.view.label") }
         </a>
     </span>
     <span ng-show="existing === null && !${ ui.thisUrl().contains("deathCertificate.xml") }">
         <a ng-click="fillOutDeathCertificate()">
-            <i class="icon-plus small"></i> ${ ui.message("mirebalais.task.deathCertificate.label") }
+            <i class="icon-plus small"></i> ${ ui.message("mirebalais.deathCertificate.enter.label") }
         </a>
     </span>
 </span>
