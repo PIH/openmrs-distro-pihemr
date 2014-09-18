@@ -460,7 +460,7 @@
 
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
-            var encounterDateInput;
+            var encounterDateInput; // set in a script at the end of the page
             ExitHandlers['calc-enc-date'] = {
                 handleExit: function(fieldModel) {
                     var date = $('.calc-enc-date.year').val() + '-' +
@@ -505,36 +505,6 @@
                     $(this).select();
                 });
 
-                encounterDateInput = $('#encounterDate input[type=hidden]');
-
-                // set both the hidden inputs (from the encounterDate tag) and the custom visible inputs for this form
-                if (defaultDeathDate) {
-                    // set date (y/m/d) fields
-                    var ymd = defaultDeathDate.toISOString();
-                    encounterDateInput.val(ymd.substring(0,10));
-                    $('.calc-enc-date.year').val(ymd.substring(0, 4));
-                    $('.calc-enc-date.month').val(ymd.substring(5, 7));
-                    $('.calc-enc-date.day').val(ymd.substring(8, 10));
-
-                    $('#encounterDate .hfe-hours').val('' + defaultDeathDate.getHours());
-                    var hour = defaultDeathDate.getHours();
-                    if (hour > 12) {
-                        $('.calc-enc-date.hour').val(hour-12);
-                        $('.calc-enc-date.ampm').val('PM');
-                    } else {
-                        $('.calc-enc-date.hour').val(hour);
-                        $('.calc-enc-date.ampm').val('AM');
-                    }
-
-                    $('#encounterDate .hfe-minutes').val('' + defaultDeathDate.getMinutes());
-                    $('.calc-enc-date.minute').val(leadingZero(defaultDeathDate.getMinutes()));
-                } else {
-                    encounterDateInput.val('');
-                    $('#encounterDate .hfe-hours').val('');
-                    $('#encounterDate .hfe-minutes').val('');
-                    $('.calc-enc-date').val(''); // all visible inputs
-                }
-
                 var demogConfirm = '<lookup expression="patient.personName.familyName"/>, ';
                 demogConfirm += '<lookup expression="patient.personName.givenName"/>, ';
                 demogConfirm += '<lookup expression="patient.gender"/>, ';
@@ -542,10 +512,6 @@
                 demogConfirm += '<lookup expression="patient.birthdate"/>';
                 demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $!addr.stateProvince, $!addr.cityVillage &lt;br/&gt;#end"/>';
                 $('#hidden-demog').val(demogConfirm);
-
-                // these need to be classes on the input, and HFE doesn't give a way of setting them, so...
-                //NavigatorController.getFieldByContainerId('death-location-container').validators.push(Validators.required);
-                //NavigatorController.getFieldByContainerId('received-care-container').validators.push(Validators.required);
             });
         </script>
 
@@ -784,7 +750,7 @@
                     <obs conceptId="PIH: Source of information" style="dropdown" size="5"
                          answerConceptIds="PIH: OTHER FAMILY MEMBER, PIH: Police, PIH: Undertaker, PIH: OTHER NON-CODED"/>
                 </p>
-                <p>
+                <p class="required">
                     <label><uimessage code="circumstances"/></label>
                     <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="75"/>
                 </p>
@@ -803,5 +769,39 @@
 
         <markPatientDead/>
 
+        <script type="text/javascript">
+            // this code snippet is here (outside of a $(function) block) because we need it to happen before the navigator
+            // model is built, and the date question does determineDisplayValue() the first time.
+
+            encounterDateInput = $('#encounterDate input[type=hidden]');
+
+            // set both the hidden inputs (from the encounterDate tag) and the custom visible inputs for this form
+            if (defaultDeathDate) {
+                // set date (y/m/d) fields
+                var ymd = defaultDeathDate.toISOString();
+                encounterDateInput.val(ymd.substring(0,10));
+                $('.calc-enc-date.year').val(ymd.substring(0, 4));
+                $('.calc-enc-date.month').val(ymd.substring(5, 7));
+                $('.calc-enc-date.day').val(ymd.substring(8, 10));
+
+                $('#encounterDate .hfe-hours').val('' + defaultDeathDate.getHours());
+                var hour = defaultDeathDate.getHours();
+                if (hour > 12) {
+                    $('.calc-enc-date.hour').val(hour-12);
+                    $('.calc-enc-date.ampm').val('PM');
+                } else {
+                    $('.calc-enc-date.hour').val(hour);
+                    $('.calc-enc-date.ampm').val('AM');
+                }
+
+                $('#encounterDate .hfe-minutes').val('' + defaultDeathDate.getMinutes());
+                $('.calc-enc-date.minute').val(leadingZero(defaultDeathDate.getMinutes()));
+            } else {
+                encounterDateInput.val('');
+                $('#encounterDate .hfe-hours').val('');
+                $('#encounterDate .hfe-minutes').val('');
+                $('.calc-enc-date').val(''); // all visible inputs
+            }
+        </script>
     </ifMode>
 </htmlform>

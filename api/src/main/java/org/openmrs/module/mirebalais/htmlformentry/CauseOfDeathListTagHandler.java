@@ -49,6 +49,7 @@ public class CauseOfDeathListTagHandler extends SubstitutionTagHandler {
         widget.setBetweenElementsCode("due_to_or_following");
         widget.setTitleCode("cause_of_death");
         widget.setPlaceholderCode("cause_of_death_instructions");
+        widget.setContainerClasses("required");
         if (existingObs != null && existingObs.size() > 0) {
             widget.setInitialValue(initialValue(existingObs));
         }
