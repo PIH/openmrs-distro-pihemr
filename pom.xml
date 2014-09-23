@@ -362,6 +362,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- added this just so the versions plug-in picks it up when updating dependencies -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod</artifactId>
+            <version>${webservicesRestVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- End OpenMRS modules -->
 
         <!-- Begin OpenMRS contrib -->
