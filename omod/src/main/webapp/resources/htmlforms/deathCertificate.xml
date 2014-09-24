@@ -19,9 +19,21 @@
             <variant locale="en" value="Date of Death"/>
             <variant locale="fr" value="Date de décès"/>
         </code>
+        <code name="death_captured_by">
+            <variant locale="en" value="Captured by"/>
+            <variant locale="fr" value="TODO Captured by"/>
+        </code>
         <code name="form_signed_by">
             <variant locale="en" value="Form Signed By"/>
             <variant locale="fr" value="TODO Form Signed By"/>
+        </code>
+        <code name="form_signed_role">
+            <variant locale="en" value="Title"/>
+            <variant locale="fr" value="TODO Title"/>
+        </code>
+        <code name="specify">
+            <variant locale="en" value="Specify"/>
+            <variant locale="fr" value="Préciser"/>
         </code>
         <code name="demographics">
             <variant locale="en" value="Demographics of deceased"/>
@@ -90,6 +102,10 @@
         <code name="days_in_hospital">
             <variant locale="en" value="Hospital stay (in days)"/>
             <variant locale="fr" value="Durée d'hospitalisation (en jours)"/>
+        </code>
+        <code name="doctor_visit_short">
+            <variant locale="en" value="Received care"/>
+            <variant locale="fr" value="Vu par un personnel de santé"/>
         </code>
         <code name="doctor_visit">
             <variant locale="en" value="Did the deceased visit health provider during this illness?"/>
@@ -162,6 +178,18 @@
         <code name="icd_code">
             <variant locale="en" value="ICD-10 Code"/>
             <variant locale="fr" value="CODE CIM-10"/>
+        </code>
+        <code name="hour">
+            <variant locale="en" value="Hour"/>
+            <variant locale="fr" value="Heure"/>
+        </code>
+        <code name="minute">
+            <variant locale="en" value="Minute"/>
+            <variant locale="fr" value="Minute"/>
+        </code>
+        <code name="other">
+            <variant locale="en" value="Other"/>
+            <variant locale="fr" value="Autre"/>
         </code>
     </translations>
 
@@ -375,9 +403,12 @@
                     </span>
                 </includeIf>
             </p>
+            <obsgroup groupingConceptId="PIH:9722">
             <p>
-                TODO Doctor, Nurse, or Other
+                <obs conceptId="PIH:TITLE WHO COMPLETED FORM" answerConceptIds="PIH:DOCTOR,PIH:NURSE,PIH:OTHER" style="radio"/>
+                <obs conceptId="PIH:GENERAL FREE TEXT"/>
             </p>
+            </obsgroup>
             <p>
                 <label>
                     certifie par la présente que la personne identifiée ci-dessus est décédée le
@@ -538,7 +569,7 @@
                     </span>
                 </p>
                 <p class="left">
-                    <label>Birthdate</label>
+                    <label><uimessage code="birthdate"/></label>
                     <span class="big-display">
                         <lookup complexExpression="#if( $patient.birthdateEstimated ) ~ #end"/>
                         <lookup expression="patient.birthdate"/>
@@ -599,9 +630,9 @@
         </section>
 
         <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
-            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}, {{field.[6]}}" class="calc-enc-date">
-                <legend><uimessage code="death_details"/></legend>
-                <h3>Time of death</h3>
+            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}" class="calc-enc-date">
+                <legend><uimessage code="date_of_death"/></legend>
+                <h3><uimessage code="date_of_death"/></h3>
 
                 <div style="display: none">
                     <encounterDate showTime="true" default="now"/>
@@ -634,11 +665,11 @@
                     <input type="text" name="death-date-year" class="calc-enc-date year number date-component required" min="1900" max="2100" maxLength="4" size="5"/>
                 </p>
                 <p class="left" style="clear: left">
-                    <label>Hour</label>
+                    <label><uimessage code="hour"/></label>
                     <input type="text" name="death-date-hour" class="calc-enc-date hour number numeric-range date-component" min="1" max="12" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
-                    <label>Minute</label>
+                    <label><uimessage code="minute"/></label>
                     <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
@@ -648,21 +679,41 @@
                         <option value="PM">PM</option>
                     </select>
                 </p>
+            </fieldset>
 
-                <h3 style="clear:both; padding-top: 40px"><uimessage code="form_signed_by"/></h3>
+            <fieldset display-template="{{field.[0]}} ({{field.[1]}}{{#if field.[2]}}: {{field.[2]}}{{/if}})">
+                <legend><uimessage code="death_captured_by"/></legend>
+
                 <p>
-                    <label style="display: none"><uimessage code="form_signed_by"/></label>
+                    <label><uimessage code="form_signed_by"/></label>
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </p>
+
+                <obsgroup groupingConceptId="PIH:9722">
+                    <p class="required">
+                        <label><uimessage code="form_signed_role"/></label>
+                        <obs id="form-signed-role" conceptId="PIH:TITLE WHO COMPLETED FORM" answerConceptIds="PIH:DOCTOR,PIH:NURSE,PIH:OTHER" size="3">
+                            <controls>
+                                <when value="PIH:OTHER"
+                                      thenJavaScript="htmlForm.simpleUi.showField('form-signed-role-other')"
+                                      elseJavaScript="htmlForm.simpleUi.hideField('form-signed-role-other')"/>
+                            </controls>
+                        </obs>
+                    </p>
+                    <p id="form-signed-role-other" class="left">
+                        <label><uimessage code="specify"/></label>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </p>
+                </obsgroup>
             </fieldset>
         </section>
 
         <section id="location" sectionTag="section" headerStyle="title" headerCode="location">
             <fieldset>
-                <legend>Place</legend>
+                <legend><uimessage code="location"/></legend>
 
                 <p class="required">
-                    <label>Place</label>
+                    <label><uimessage code="location"/></label>
                     <obs id="deathLocation" conceptId="PIH: Location of death" answerConceptIds="PIH: HOSPITAL,PIH: Home,PIH: OTHER NON-CODED" size="3">
                         <controls>
                             <when value="PIH: HOSPITAL"
@@ -675,7 +726,7 @@
                     </obs>
                 </p>
                 <p id="if-other">
-                    <label>Other</label>
+                    <label><uimessage code="specify"/></label>
                     <obs conceptId="PIH: Location of death non coded"/>
                 </p>
             </fieldset>
@@ -694,9 +745,9 @@
             </fieldset>
         </section>
 
-        <section id="care" sectionTag="section" headerStyle="title" headerCode="Received care">
+        <section id="care" sectionTag="section" headerStyle="title" headerCode="doctor_visit_short">
             <fieldset>
-                <legend>Received care</legend>
+                <legend><uimessage code="doctor_visit_short"/></legend>
 
                 <p class="required">
                     <label><uimessage code="doctor_visit"/></label>
