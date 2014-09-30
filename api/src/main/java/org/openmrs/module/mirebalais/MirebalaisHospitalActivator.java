@@ -57,7 +57,7 @@ import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.reporting.ReportingConstants;
-import org.openmrs.module.reporting.data.converter.PrivilegedDataFormatter;
+import org.openmrs.module.reporting.data.converter.PrivilegedDataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
@@ -592,7 +592,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         PatientIdentifierDataDefinition dd = new PatientIdentifierDataDefinition(null, paperRecordProperties.getPaperRecordIdentifierType());
         dd.setIncludeFirstNonNullOnly(true);
-        dsd.addColumn("identifier", dd, "", new PropertyConverter(PatientIdentifier.class, "identifier"), new PrivilegedDataFormatter(AppointmentSchedulingUIConstants.PRIVILEGE_VIEW_CONFIDENTIAL_APPOINTMENT_DETAILS));
+        dsd.addColumn("identifier", dd, "", new PropertyConverter(PatientIdentifier.class, "identifier"), new PrivilegedDataConverter(AppointmentSchedulingUIConstants.PRIVILEGE_VIEW_CONFIDENTIAL_APPOINTMENT_DETAILS));
 
         dataSetDefinitionService.saveDefinition(dsd);
     }
