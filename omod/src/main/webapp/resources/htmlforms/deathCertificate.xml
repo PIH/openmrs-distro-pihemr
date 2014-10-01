@@ -634,9 +634,7 @@
                 <legend><uimessage code="date_of_death"/></legend>
                 <h3><uimessage code="date_of_death"/></h3>
 
-                <div style="display: none">
-                    <encounterDate showTime="true" default="now"/>
-                </div>
+                <encounterDate showTime="true" default="now" widget="hidden"/>
 
                 <p class="required left" id="test-container">
                     <label><uimessage code="uicommons.multipleInputDate.day.label"/></label>
@@ -835,7 +833,7 @@
                 $('.calc-enc-date.month').val(ymd.substring(5, 7));
                 $('.calc-enc-date.day').val(ymd.substring(8, 10));
 
-                $('#encounterDate .hfe-hours').val('' + defaultDeathDate.getHours());
+                $('#encounterDate .hfe-hours').val(leadingZero(defaultDeathDate.getHours()));
                 var hour = defaultDeathDate.getHours();
                 if (hour > 12) {
                     $('.calc-enc-date.hour').val(hour-12);
