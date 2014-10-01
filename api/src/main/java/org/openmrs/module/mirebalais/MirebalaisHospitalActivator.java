@@ -136,6 +136,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // the coreapps version of this points to the new patient summary, and we want the old dashboard for now
             Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
             Context.getService(AppFrameworkService.class).disableApp("coreapps.awaitingAdmission");
+            Context.getService(AppFrameworkService.class).disableApp("coreapps.systemAdministrationApp");
+            Context.getService(AppFrameworkService.class).disableApp("coreapps.configuremetadata");
 
             PlatformTransactionManager platformTransactionManager = Context.getRegisteredComponents(PlatformTransactionManager.class).get(0);
             TransactionTemplate transactionTemplate = new TransactionTemplate(platformTransactionManager);
