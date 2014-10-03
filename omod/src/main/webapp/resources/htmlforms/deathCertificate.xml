@@ -792,7 +792,7 @@
         </section>
 
         <section id="source-circumstances" sectionTag="section" headerStyle="title" headerCode="info_source">
-            <fieldset field-separator=", ">
+            <fieldset display-template="{{field.[0]}}{{#if field.[0]}}:{{/if}} {{field.[1]}}">
                 <legend><uimessage code="info_source"/></legend>
                 <p>
                     <label><uimessage code="info_source"/></label>
