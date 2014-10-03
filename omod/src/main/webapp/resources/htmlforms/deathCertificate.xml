@@ -822,7 +822,7 @@
             // this code snippet is here (outside of a $(function) block) because we need it to happen before the navigator
             // model is built, and the date question does determineDisplayValue() the first time.
 
-            encounterDateInput = $('#encounterDate input[type=hidden]');
+            encounterDateInput = $('#encounterDate input[type=hidden]').first();
 
             // set both the hidden inputs (from the encounterDate tag) and the custom visible inputs for this form
             if (defaultDeathDate) {
