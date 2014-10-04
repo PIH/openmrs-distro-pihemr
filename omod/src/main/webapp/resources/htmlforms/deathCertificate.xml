@@ -630,7 +630,7 @@
         </section>
 
         <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
-            <fieldset display-template="{{field.[0]}}-{{field.[1]}}-{{field.[2]}} {{field.[3]}}:{{field.[4]}} {{field.[5]}}" class="calc-enc-date">
+            <fieldset display-template="{{field.[0]}} {{field.[1]}} {{field.[2]}} {{#if field.[3]}}{{field.[3]}}:{{/if}}{{field.[4]}} {{#if field.[3]}}{{field.[5]}}{{/if}}" class="calc-enc-date">
                 <legend><uimessage code="date_of_death"/></legend>
                 <h3><uimessage code="date_of_death"/></h3>
 
@@ -833,18 +833,30 @@
                 $('.calc-enc-date.month').val(ymd.substring(5, 7));
                 $('.calc-enc-date.day').val(ymd.substring(8, 10));
 
-                $('#encounterDate .hfe-hours').val(leadingZero(defaultDeathDate.getHours()));
                 var hour = defaultDeathDate.getHours();
-                if (hour > 12) {
-                    $('.calc-enc-date.hour').val(hour-12);
-                    $('.calc-enc-date.ampm').val('PM');
-                } else {
-                    $('.calc-enc-date.hour').val(hour);
+                var minute = defaultDeathDate.getMinutes();
+                $('#encounterDate .hfe-hours').val(leadingZero(hour));
+                $('#encounterDate .hfe-minutes').val(leadingZero(minute));
+                $('#encounterDate .hfe-seconds').val(0);
+
+                if (hour == 0 &amp;&amp; minute == 0) {
+                    $('.calc-enc-date.hour').val('');
                     $('.calc-enc-date.ampm').val('AM');
+                    $('.calc-enc-date.minute').val('');
+                } else {
+                    $('.calc-enc-date.minute').val(leadingZero(minute));
+                    if (hour == 0) {
+                        $('.calc-enc-date.hour').val('12');
+                        $('.calc-enc-date.ampm').val('AM');
+                    } else if (hour > 12) {
+                        $('.calc-enc-date.hour').val(hour-12);
+                        $('.calc-enc-date.ampm').val('PM');
+                    } else {
+                        $('.calc-enc-date.hour').val(hour);
+                        $('.calc-enc-date.ampm').val('AM');
+                    }
                 }
 
-                $('#encounterDate .hfe-minutes').val('' + defaultDeathDate.getMinutes());
-                $('.calc-enc-date.minute').val(leadingZero(defaultDeathDate.getMinutes()));
             } else {
                 encounterDateInput.val('');
                 $('#encounterDate .hfe-hours').val('');
