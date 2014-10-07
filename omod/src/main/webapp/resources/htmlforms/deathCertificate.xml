@@ -21,15 +21,15 @@
         </code>
         <code name="death_captured_by">
             <variant locale="en" value="Captured by"/>
-            <variant locale="fr" value="TODO Captured by"/>
+            <variant locale="fr" value="Enregistré par"/>
         </code>
         <code name="form_signed_by">
             <variant locale="en" value="Form Signed By"/>
-            <variant locale="fr" value="TODO Form Signed By"/>
+            <variant locale="fr" value="Signée par"/>
         </code>
         <code name="form_signed_role">
             <variant locale="en" value="Title"/>
-            <variant locale="fr" value="TODO Title"/>
+            <variant locale="fr" value="Titre"/>
         </code>
         <code name="specify">
             <variant locale="en" value="Specify"/>
@@ -149,7 +149,7 @@
         </code>
         <code name="cause_of_death_instructions">
             <variant locale="en" value="Start with immediate cause, end with root cause"/>
-            <variant locale="fr" value="TODO Start with immediate cause, end with root cause"/>
+            <variant locale="fr" value="premier: cause immédiate; dernier: cause initiale"/>
         </code>
         <code name="final_disease">
             <variant locale="en" value="Final disease or condition resulting in death"/>
