@@ -317,7 +317,7 @@
             </p>
             <p>
                 <label><uimessage code="address"/></label>
-                <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince, Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
+                <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>
             </p>
             <p class="one-quarter">
             </p>
@@ -540,8 +540,8 @@
                 demogConfirm += '<lookup expression="patient.personName.givenName"/>, ';
                 demogConfirm += '<lookup expression="patient.gender"/>, ';
                 demogConfirm += '<lookup complexExpression="#if( $patient.birthdateEstimated )~#end"/>';
-                demogConfirm += '<lookup expression="patient.birthdate"/>';
-                demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $!addr.stateProvince, $!addr.cityVillage &lt;br/&gt;#end"/>';
+                demogConfirm += '<lookup expression="patient.birthdate"/> &lt;br/&gt;';
+                demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>';
                 $('#hidden-demog').val(demogConfirm);
             });
         </script>
@@ -584,7 +584,7 @@
                 <p style="clear: left">
                     <label><uimessage code="address"/></label>
                     <span class="big-display">
-                        <lookup complexExpression="#foreach( $addr in $patient.addresses ) Départment: $!addr.stateProvince, Commune: $!addr.cityVillage &lt;br/&gt;#end"/>
+                        <lookup complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>
                     </span>
                 </p>
                 <p style="clear: left">
