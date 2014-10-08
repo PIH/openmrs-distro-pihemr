@@ -46,9 +46,9 @@ public class CauseOfDeathListTagHandler extends SubstitutionTagHandler {
 
         CodedOrFreeTextAnswerListWidget widget = new CodedOrFreeTextAnswerListWidget();
         widget.setUiUtils((UiUtils) session.getAttribute("uiUtils"));
-        widget.setBetweenElementsCode("due_to_or_following");
-        widget.setTitleCode("cause_of_death");
-        widget.setPlaceholderCode("cause_of_death_instructions");
+        widget.setBetweenElementsCode("mirebalais.deathCertificate.due_to_or_following");
+        widget.setTitleCode("mirebalais.deathCertificate.cause_of_death");
+        widget.setPlaceholderCode("mirebalais.deathCertificate.cause_of_death_instructions");
         widget.setContainerClasses("required");
         if (existingObs != null && existingObs.size() > 0) {
             widget.setInitialValue(initialValue(existingObs));

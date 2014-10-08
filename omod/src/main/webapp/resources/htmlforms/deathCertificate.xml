@@ -43,14 +43,6 @@
             <variant locale="en" value="Place of death"/>
             <variant locale="fr" value="Lieu du deces"/>
         </code>
-        <code name="gender">
-            <variant locale="en" value="Gender"/>
-            <variant locale="fr" value="Sexe"/>
-        </code>
-        <code name="birthdate">
-            <variant locale="en" value="Birthdate"/>
-            <variant locale="fr" value="Date de naissance"/>
-        </code>
         <code name="name">
             <variant locale="en" value="Name"/>
             <variant locale="fr" value="Nom"/>
@@ -298,48 +290,48 @@
             CERTIFICAT / CONSTAT DE DECES
         </h4>
 
-        <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="demographics">
+        <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="mirebalais.deathCertificate.demographics">
             <p>
-                <label><uimessage code="name"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.name"/></label>
                 <lookup class="value" expression="patient.personName"/>
             </p>
             <p class="one-third">
-                <label><uimessage code="gender"/></label>
+                <label><uimessage code="coreapps.gender"/></label>
                 <lookup class="value" expression="patient.gender"/>
             </p>
             <p class="one-third">
-                <label>Age</label>
+                <label><uimessage code="coreapps.age"/></label>
                 <lookup class="value" expression="patient.age"/>
             </p>
             <p class="one-third">
-                <label><uimessage code="birthdate"/></label>
+                <label><uimessage code="coreapps.birthdate"/></label>
                 <lookup class="value" complexExpression="#if( \$patient.birthdateEstimated ) ~#end"/> <lookup class="value" expression="patient.birthdate"/>
             </p>
             <p>
-                <label><uimessage code="address"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.address"/></label>
                 <lookup class="value" complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>
             </p>
             <p class="one-quarter">
             </p>
             <p class="three-quarters">
-                <label><uimessage code="habitat"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.habitat"/></label>
                 <obs conceptId="PIH: Classification of residential environment"/>
             </p>
             <p class="one-third">
-                <label><uimessage code="civil_status"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.civil_status"/></label>
                 <obs conceptId="PIH: CIVIL STATUS"/>
             </p>
             <p class="one-half">
-                <label><uimessage code="occupation"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.occupation"/></label>
                 <obs conceptId="PIH: MAIN ACTIVITY, NON-CODED"/>
             </p>
             <p class="one-quarter">
-                <label><uimessage code="maternal_death"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.maternal_death"/></label>
                 <obs conceptId="PIH: Maternal death"/>
             </p>
         </section>
 
-        <section id="location" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="location">
+        <section id="location" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="mirebalais.deathCertificate.location">
             <p class="one-half">
                 <includeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: Home')) || $fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: OTHER NON-CODED'))">
                     <span class="value">[X] <lookup expression="fn.getConcept('PIH: Outside of institution').name"/></span>
@@ -352,7 +344,7 @@
                 <obs id="institutional-death-span" conceptId="PIH: Location of death" answerConceptId="PIH: HOSPITAL"/>
             </p>
             <p class="one-quarter">
-                <label><uimessage code="if_external"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.if_external"/></label>
             </p>
             <p class="three-quarters">
                 <span class="one-third">
@@ -364,7 +356,7 @@
                 </span>
             </p>
             <p class="one-quarter">
-                <label><uimessage code="if_internal"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.if_internal"/></label>
             </p>
             <p class="three-quarters">
                 <span class="one-half">
@@ -374,27 +366,27 @@
                     </includeIf>
                 </span>
                 <span class="one-half">
-                    <uimessage code="location"/>: <obs conceptId="PIH: Location of death at institution" style="location"/>
+                    <uimessage code="mirebalais.deathCertificate.location"/>: <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </span>
             </p>
             <p class="two-thirds">
-                <label><uimessage code="days_in_hospital"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.days_in_hospital"/></label>
                 <obs conceptId="PIH: Duration of hospitalization when patient died"/>
             </p>
             <p class="one-third">
-                <label><uimessage code="dossier"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.dossier"/></label>
                 <lookup class="value" complexExpression="#foreach( $patId in $patientIdentifiers.get('Nimewo Dosye') ) $patId #end "/>
             </p>
         </section>
 
         <section id="care" sectionTag="div" headerTag="div" headerStyle="" headerCode="">
             <p class="spaced">
-                <label><uimessage code="doctor_visit"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.doctor_visit"/></label>
                 <obs conceptId="PIH: Visited provider during illness"/><br/>
             </p>
         </section>
 
-        <section id="institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="death_certificate">
+        <section id="institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="mirebalais.deathCertificate.death_certificate">
             <p>
                 <label>Je soussigné</label>
                 <includeIf velocityTest="$certificate">
@@ -425,14 +417,14 @@
 
             <br/>
             <p>
-                II. <label><uimessage code="contributing_condition"/></label>
+                II. <label><uimessage code="mirebalais.deathCertificate.contributing_condition"/></label>
                 <obs conceptId="PIH: Condition contributing to the death"
                      answerClasses="Diagnosis, Symptom" style="autocomplete"/>
             </p>
 
             <br/>
             <p>
-                <label><uimessage code="diagnosis_method"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.diagnosis_method"/></label>
                 <p>
                     <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
                 </p>
@@ -442,7 +434,7 @@
             </p>
         </section>
 
-        <section id="extra-institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="info_source">
+        <section id="extra-institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="mirebalais.deathCertificate.info_source">
             <p>
                 <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER FAMILY MEMBER"/>
             </p>
@@ -457,14 +449,14 @@
             </p>
             <p>
                 <br/>
-                <label><uimessage code="circumstances"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.circumstances"/></label>
                 <br/>
                 <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="80"/>
             </p>
             <p>
                 <excludeIf velocityTest="$certificate">
                     <br/>
-                    <label><uimessage code="date_of_death"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.date_of_death"/></label>
                     <encounterDate showTime="true"/>
                 </excludeIf>
             </p>
@@ -472,11 +464,11 @@
 
         <section id="permit" sectionTag="div" headerTag="div">
             <p>
-                <label><uimessage code="burial_certificate"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.burial_certificate"/></label>
                 <obs conceptId="PIH: Burial certificate" />
             </p>
             <p>
-                <label><uimessage code="icd_code"/></label>
+                <label><uimessage code="mirebalais.deathCertificate.icd_code"/></label>
                 <lookup class="value" complexExpression="#foreach($mapping in $patient.causeOfDeath.conceptMappings) #if($mapping.conceptReferenceTerm.conceptSource.name == 'ICD-10-WHO') $mapping.conceptReferenceTerm.code #end  #end"/>
             </p>
         </section>
@@ -485,7 +477,6 @@
     </ifMode>
 
     <p style="display: none">
-        <label><uimessage code="encounter_location"/></label>
         <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
     </p>
 
@@ -546,7 +537,7 @@
             });
         </script>
 
-        <section id="demographics" sectionTag="section" headerStyle="title" headerCode="demographics">
+        <section id="demographics" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.demographics">
 
             <fieldset>
                 <legend>Patient</legend>
@@ -563,26 +554,26 @@
                     </span>
                 </p>
                 <p style="clear: left" class="left">
-                    <label>Sexe</label>
+                    <label><uimessage code="coreapps.gender"/></label>
                     <span class="big-display">
                         <lookup expression="patient.gender"/>
                     </span>
                 </p>
                 <p class="left">
-                    <label><uimessage code="birthdate"/></label>
+                    <label><uimessage code="coreapps.birthdate"/></label>
                     <span class="big-display">
                         <lookup complexExpression="#if( $patient.birthdateEstimated ) ~ #end"/>
                         <lookup expression="patient.birthdate"/>
                     </span>
                 </p>
                 <p class="left">
-                    <label>Age</label>
+                    <label><uimessage code="coreapps.age"/></label>
                     <span class="big-display">
                         <lookup expression="patient.age"/>
                     </span>
                 </p>
                 <p style="clear: left">
-                    <label><uimessage code="address"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.address"/></label>
                     <span class="big-display">
                         <lookup complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>
                     </span>
@@ -597,42 +588,42 @@
             </fieldset>
 
             <fieldset>
-                <legend><uimessage code="habitat"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.habitat"/></legend>
                 <p class="radio">
-                    <label><uimessage code="habitat"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.habitat"/></label>
                     <obs conceptId="PIH: Classification of residential environment" size="2" answerConceptIds="PIH:Urban,PIH:Rural"/>
                 </p>
             </fieldset>
 
             <fieldset>
-                <legend><uimessage code="civil_status"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.civil_status"/></legend>
                 <p>
-                    <label><uimessage code="civil_status"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.civil_status"/></label>
                     <obs conceptId="PIH: CIVIL STATUS" size="7" answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"/>
                 </p>
             </fieldset>
 
             <fieldset>
-                <legend><uimessage code="occupation"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.occupation"/></legend>
                 <p>
-                    <label><uimessage code="occupation"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.occupation"/></label>
                     <obs conceptId="PIH: MAIN ACTIVITY, NON-CODED" size="60"/>
                 </p>
             </fieldset>
 
             <fieldset>
-                <legend><uimessage code="maternal_death"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.maternal_death"/></legend>
                 <p>
-                    <label><uimessage code="maternal_death"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.maternal_death"/></label>
                     <obs conceptId="PIH: Maternal death" size="2"/>
                 </p>
             </fieldset>
         </section>
 
-        <section id="death" sectionTag="section" headerStyle="title" headerCode="death_details">
+        <section id="death" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.death_details">
             <fieldset display-template="{{field.[0]}} {{field.[1]}} {{field.[2]}} {{#if field.[3]}}{{field.[3]}}:{{/if}}{{field.[4]}} {{#if field.[3]}}{{field.[5]}}{{/if}}" class="calc-enc-date">
-                <legend><uimessage code="date_of_death"/></legend>
-                <h3><uimessage code="date_of_death"/></h3>
+                <legend><uimessage code="mirebalais.deathCertificate.date_of_death"/></legend>
+                <h3><uimessage code="mirebalais.deathCertificate.date_of_death"/></h3>
 
                 <encounterDate showTime="true" default="now" widget="hidden"/>
 
@@ -663,11 +654,11 @@
                     <input type="text" name="death-date-year" class="calc-enc-date year number date-component required" min="1900" max="2100" maxLength="4" size="5"/>
                 </p>
                 <p class="left" style="clear: left">
-                    <label><uimessage code="hour"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.hour"/></label>
                     <input type="text" name="death-date-hour" class="calc-enc-date hour number numeric-range date-component" min="1" max="12" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
-                    <label><uimessage code="minute"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.minute"/></label>
                     <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
@@ -680,16 +671,16 @@
             </fieldset>
 
             <fieldset display-template="{{field.[0]}} ({{field.[1]}}{{#if field.[2]}}: {{field.[2]}}{{/if}})">
-                <legend><uimessage code="death_captured_by"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.death_captured_by"/></legend>
 
                 <p>
-                    <label><uimessage code="form_signed_by"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.form_signed_by"/></label>
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </p>
 
                 <obsgroup groupingConceptId="PIH:9722">
                     <p class="required">
-                        <label><uimessage code="form_signed_role"/></label>
+                        <label><uimessage code="mirebalais.deathCertificate.form_signed_role"/></label>
                         <obs id="form-signed-role" conceptId="PIH:TITLE WHO COMPLETED FORM" answerConceptIds="PIH:DOCTOR,PIH:NURSE,PIH:OTHER" size="3">
                             <controls>
                                 <when value="PIH:OTHER"
@@ -699,19 +690,19 @@
                         </obs>
                     </p>
                     <p id="form-signed-role-other" class="left">
-                        <label><uimessage code="specify"/></label>
+                        <label><uimessage code="mirebalais.deathCertificate.specify"/></label>
                         <obs conceptId="PIH:GENERAL FREE TEXT"/>
                     </p>
                 </obsgroup>
             </fieldset>
         </section>
 
-        <section id="location" sectionTag="section" headerStyle="title" headerCode="location">
+        <section id="location" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.location">
             <fieldset>
-                <legend><uimessage code="location"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.location"/></legend>
 
                 <p class="required">
-                    <label><uimessage code="location"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.location"/></label>
                     <obs id="deathLocation" conceptId="PIH: Location of death" answerConceptIds="PIH: HOSPITAL,PIH: Home,PIH: OTHER NON-CODED" size="3">
                         <controls>
                             <when value="PIH: HOSPITAL"
@@ -724,31 +715,31 @@
                     </obs>
                 </p>
                 <p id="if-other">
-                    <label><uimessage code="specify"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.specify"/></label>
                     <obs conceptId="PIH: Location of death non coded"/>
                 </p>
             </fieldset>
 
             <fieldset id="if-institutional" display-template="{{field.[0]}}, {{field.[1]}} {{#unless field.[1]}}?{{/unless}} {{message 'htmlformentry.general.days'}}">
-                <legend><uimessage code="if_internal"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.if_internal"/></legend>
                 <p>
-                    <label><uimessage code="location"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.location"/></label>
                     <obs conceptId="PIH: Location of death at institution" style="location"/>
                 </p>
 
                 <p>
-                    <label><uimessage code="days_in_hospital"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.days_in_hospital"/></label>
                     <obs conceptId="PIH: Duration of hospitalization when patient died"/>
                 </p>
             </fieldset>
         </section>
 
-        <section id="care" sectionTag="section" headerStyle="title" headerCode="doctor_visit_short">
+        <section id="care" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.doctor_visit_short">
             <fieldset>
-                <legend><uimessage code="doctor_visit_short"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.doctor_visit_short"/></legend>
 
                 <p class="required">
-                    <label><uimessage code="doctor_visit"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.doctor_visit"/></label>
                     <obs id="seenByDoctor" conceptId="PIH: Visited provider during illness" style="dropdown" size="3">
                         <controls>
                             <when value="PIH: YES"
@@ -763,25 +754,22 @@
             </fieldset>
         </section>
 
-        <section id="certificat-constat" sectionTag="section" headerStyle="title" headerCode="death_certificate">
-            <!-- TBD:  provider, signature, role, HUM department, date/time of death, patient died,
-                address, telephone, printing, ICD10 code
-            -->
+        <section id="certificat-constat" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.death_certificate">
             <fieldset>
-                <legend><uimessage code="cause_of_death"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.cause_of_death"/></legend>
                 <causeOfDeathList/>
             </fieldset>
             <fieldset>
-                <legend><uimessage code="contributing_condition_title"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.contributing_condition_title"/></legend>
                 <p>
-                    <label><uimessage code="contributing_condition"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.contributing_condition"/></label>
                     <obs conceptId="PIH: Condition contributing to the death"
                          answerClasses="Diagnosis, Symptom" style="autocomplete"/>
                 </p>
             </fieldset>
             <fieldset>
-                <legend><uimessage code="diagnosis_method_short"/></legend>
-                <h3><uimessage code="diagnosis_method"/></h3>
+                <legend><uimessage code="mirebalais.deathCertificate.diagnosis_method_short"/></legend>
+                <h3><uimessage code="mirebalais.deathCertificate.diagnosis_method"/></h3>
                 <p>
                     <obs conceptId="PIH: Method of confirming death" answerConceptId="PIH: SURGERY"/>
                 </p>
@@ -791,26 +779,26 @@
             </fieldset>
         </section>
 
-        <section id="source-circumstances" sectionTag="section" headerStyle="title" headerCode="info_source">
+        <section id="source-circumstances" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.info_source">
             <fieldset display-template="{{field.[0]}}{{#if field.[0]}}:{{/if}} {{field.[1]}}">
-                <legend><uimessage code="info_source"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.info_source"/></legend>
                 <p>
-                    <label><uimessage code="info_source"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.info_source"/></label>
                     <obs conceptId="PIH: Source of information" style="dropdown" size="5"
                          answerConceptIds="PIH: OTHER FAMILY MEMBER, PIH: Police, PIH: Undertaker, PIH: OTHER NON-CODED"/>
                 </p>
                 <p class="required">
-                    <label><uimessage code="circumstances"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.circumstances"/></label>
                     <obs conceptId="PIH: Circumstances of death" style="textarea" rows="4" cols="75"/>
                 </p>
             </fieldset>
         </section>
 
-        <section id="burial" sectionTag="section" headerStyle="title" headerCode="burial_certificate">
+        <section id="burial" sectionTag="section" headerStyle="title" headerCode="mirebalais.deathCertificate.burial_certificate">
             <fieldset>
-                <legend><uimessage code="burial_certificate"/></legend>
+                <legend><uimessage code="mirebalais.deathCertificate.burial_certificate"/></legend>
                 <p>
-                    <label><uimessage code="burial_certificate"/></label>
+                    <label><uimessage code="mirebalais.deathCertificate.burial_certificate"/></label>
                     <obs conceptId="PIH: Burial certificate" />
                 </p>
             </fieldset>
