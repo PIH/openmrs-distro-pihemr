@@ -487,6 +487,10 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
+                            <name>serializationxstreamVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
                             <name>idgenVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
