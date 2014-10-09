@@ -69,7 +69,7 @@
         <namephoneticsVersion>1.4</namephoneticsVersion>
         <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
-        <addresshierarchyVersion>2.3</addresshierarchyVersion>
+        <addresshierarchyVersion>2.4</addresshierarchyVersion>
         <providermanagementVersion>2.2</providermanagementVersion>
         <eventVersion>2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
