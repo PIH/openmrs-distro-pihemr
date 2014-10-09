@@ -23,6 +23,9 @@
         <require_module version="${mirebalaismetadataVersion}">
             org.openmrs.module.mirebalaismetadata
         </require_module>
+        <require_module version="${mirebalaisreportsVersion}">
+            org.openmrs.module.mirebalaisreports
+        </require_module>
         <require_module version="${uiframeworkVersion}">
             org.openmrs.module.uiframework
         </require_module>
