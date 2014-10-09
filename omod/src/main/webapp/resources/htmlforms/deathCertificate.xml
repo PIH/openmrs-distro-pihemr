@@ -210,11 +210,9 @@
         <section id="institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="mirebalais.deathCertificate.death_certificate">
             <p>
                 <label>Je soussigné</label>
-                <includeIf velocityTest="$certificate">
-                    <span class="value">
-                        <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"/>
-                    </span>
-                </includeIf>
+                <span class="value">
+                    <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"/>
+                </span>
             </p>
             <obsgroup groupingConceptId="PIH:9722">
             <p>
@@ -494,7 +492,7 @@
             <fieldset display-template="{{field.[0]}} ({{field.[1]}}{{#if field.[2]}}: {{field.[2]}}{{/if}})">
                 <legend><uimessage code="mirebalais.deathCertificate.death_captured_by"/></legend>
 
-                <p>
+                <p class="required">
                     <label><uimessage code="mirebalais.deathCertificate.form_signed_by"/></label>
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
                 </p>
