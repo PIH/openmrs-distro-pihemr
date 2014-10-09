@@ -480,7 +480,7 @@
                 </p>
                 <p class="left">
                     <label><uimessage code="mirebalais.deathCertificate.minute"/></label>
-                    <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range date-component" min="0" max="59" maxLength="2" size="5"/>
+                    <input type="text" name="death-date-minute" class="calc-enc-date minute number numeric-range leading-zeros date-component" min="0" max="59" maxLength="2" size="5"/>
                 </p>
                 <p class="left">
                     <label>AM/PM</label>
@@ -541,7 +541,7 @@
                 </p>
             </fieldset>
 
-            <fieldset id="if-institutional" display-template="{{field.[0]}}, {{field.[1]}} {{#unless field.[1]}}?{{/unless}} {{message 'htmlformentry.general.days'}}">
+            <fieldset id="if-institutional" display-template="{{field.[0]}}{{#if field.[1]}}, {{field.[1]}} {{message 'htmlformentry.general.days'}}{{/if}}">
                 <legend><uimessage code="mirebalais.deathCertificate.if_internal"/></legend>
                 <p>
                     <label><uimessage code="mirebalais.deathCertificate.location"/></label>
