@@ -84,9 +84,11 @@ public class WristbandTemplate {
 
         data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "^FS");
 
-        // birthdate (we only show year if birthdate is estiamted
-        DateFormat df = patient.getBirthdateEstimated() ? yearOnly : fullDate;
-        data.append("^FO160,200^FB2150,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "^FS");
+        if (patient.getBirthdate() != null) {
+            // birthdate (we only show year if birthdate is estimated
+            DateFormat df = patient.getBirthdateEstimated() ? yearOnly : fullDate;
+            data.append("^FO160,200^FB2150,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "^FS");
+        }
 
         // age
         data.append("^FO160,200^FB1850,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale) +"^FS");
