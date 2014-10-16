@@ -237,8 +237,8 @@
             <br/>
             <p>
                 II. <label><uimessage code="mirebalais.deathCertificate.contributing_condition"/></label>
-                <obs conceptId="PIH: Condition contributing to the death"
-                     answerClasses="Diagnosis, Symptom" style="autocomplete"/>
+                <codedOrFreeTextObs codedConceptId="PIH: Condition contributing to the death"
+                                    nonCodedConceptId="PIH: Condition contributing to the death non coded" />
             </p>
 
             <br/>
@@ -580,11 +580,10 @@
             </fieldset>
             <fieldset>
                 <legend><uimessage code="mirebalais.deathCertificate.contributing_condition_title"/></legend>
-                <p>
-                    <label><uimessage code="mirebalais.deathCertificate.contributing_condition"/></label>
-                    <obs conceptId="PIH: Condition contributing to the death"
-                         answerClasses="Diagnosis, Symptom" style="autocomplete"/>
-                </p>
+                <codedOrFreeTextObs titleCode="mirebalais.deathCertificate.contributing_condition"
+                                    codedConceptId="PIH: Condition contributing to the death"
+                                    nonCodedConceptId="PIH: Condition contributing to the death non coded"
+                                    conceptClasses="Diagnosis,Finding,Symptom/Finding" />
             </fieldset>
             <fieldset>
                 <legend><uimessage code="mirebalais.deathCertificate.diagnosis_method_short"/></legend>
@@ -670,6 +669,25 @@
                 $('#encounterDate .hfe-minutes').val('');
                 $('.calc-enc-date').val(''); // all visible inputs
             }
+
+            $(function() {
+                onBlurAutocomplete = function(element){
+                var hiddenField = jQuery("#"+element.id+"_hid");
+                var textField = jQuery(element);
+                if (hiddenField.val() == "" || hiddenField.val() == "ERROR") {
+                    if(textField.val() != ""){
+                        hiddenField.val("ERROR");
+                        textField.css('color', 'red');
+                        textField.addClass("invalid");
+                    } else if (textField.val() == ""){
+                        hiddenField.val("");
+                        textField.removeClass("invalid");
+                    }
+                } else {
+                    textField.removeClass("error");
+                }
+            }
+            });
         </script>
     </ifMode>
 </htmlform>
