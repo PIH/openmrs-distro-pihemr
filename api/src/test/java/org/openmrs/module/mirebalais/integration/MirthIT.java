@@ -34,12 +34,12 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.radiologyapp.RadiologyConstants;
-import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.module.radiologyapp.RadiologyConstants;
+import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -273,24 +273,5 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 
             setCustomProperties(properties);
         }
-
-
-		@Override
-		protected void setExistingGlobalProperty(String propertyName, String propertyValue) {
-			try {
-				super.setExistingGlobalProperty(propertyName, propertyValue);
-			}
-			catch (RuntimeException e) {
-				// only log a warning if this is the "global property does not exist" exception
-				if (e.getMessage().contains("global property") && e.getMessage().contains("does not exist")) {
-					log.error(e.getMessage());
-				} else {
-					throw e;
-				}
-				
-			}
-			
-		}
-		
 	}
 }

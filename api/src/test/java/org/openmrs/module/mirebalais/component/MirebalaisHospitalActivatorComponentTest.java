@@ -14,13 +14,11 @@
 
 package org.openmrs.module.mirebalais.component;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
-import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.PatientToAppointmentDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
@@ -29,26 +27,19 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisGlobalProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
+import org.openmrs.module.mirebalaismetadata.MetadataManager;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
-import org.openmrs.module.reporting.dataset.column.definition.ColumnDefinition;
 import org.openmrs.module.reporting.dataset.column.definition.RowPerObjectColumnDefinition;
-import org.openmrs.module.reporting.dataset.definition.RowPerObjectDataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.ui.framework.UiFrameworkConstants;
-import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static junit.framework.Assert.assertNull;
 import static org.hamcrest.CoreMatchers.is;
@@ -67,9 +58,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     private SchedulerService schedulerService;
 
     @Autowired
-    private AdministrationService adminService;
-
-    @Autowired
     private DataSetDefinitionService dataSetDefinitionService;
 
     @Autowired
@@ -86,19 +74,23 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         executeDataSet("fromMirebalaisMetadataModule.xml");
         executeDataSet("serializedReportingDataset.xml");
         authenticate();
+		installRequiredMetadata();
         activator = new MirebalaisHospitalActivator();
         activator.willRefreshContext();
         activator.contextRefreshed();
         activator.willStart();
         activator.started();
-
     }
+
+	private void installRequiredMetadata() {
+		System.setProperty(MirebalaisMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
+		MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
+		manager.refresh();
+	}
 
     @Test
     public void testThatActivatorDoesAllSetup() throws Exception {
-        verifyGlobalPropertiesConfigured();
-        verifyDatetimeFormatting();
-        verifyPacsIntegrationGlobalPropertiesConfigured();
+		verifyGlobalPropertiesConfigured();
         verifyLocationAttributeNotOverwritten();
         verifyMirebalaisProviderIdentifierGeneratorConfigured();
         verifyCloseStalePullRequestsTaskScheduledAndStarted();
@@ -107,38 +99,10 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         verifyDailyAppointmentsDataSetUpdated();
     }
 
-    private void verifyGlobalPropertiesConfigured() throws Exception {
-        assertEquals("fr", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE));
-        assertEquals(
-                "<org.openmrs.layout.web.address.AddressTemplate><nameMappings class=\"properties\"><property name=\"country\" value=\"mirebalais.address.country\"/><property name=\"stateProvince\" value=\"mirebalais.address.stateProvince\"/><property name=\"cityVillage\" value=\"mirebalais.address.cityVillage\"/><property name=\"address3\" value=\"mirebalais.address.neighborhoodCell\"/><property name=\"address1\" value=\"mirebalais.address.address1\"/><property name=\"address2\" value=\"mirebalais.address.address2\"/></nameMappings><sizeMappings class=\"properties\"><property name=\"country\" value=\"40\"/><property name=\"stateProvince\" value=\"40\"/><property name=\"cityVillage\" value=\"40\"/><property name=\"address3\" value=\"60\"/><property name=\"address1\" value=\"60\"/><property name=\"address2\" value=\"60\"/></sizeMappings><elementDefaults class=\"properties\"><property name=\"country\" value=\"Haiti\"/></elementDefaults><lineByLineFormat><string>address2</string><string>address1</string><string>address3, cityVillage</string><string>stateProvince, country</string></lineByLineFormat></org.openmrs.layout.web.address.AddressTemplate>",
-                MirebalaisGlobalProperties.ADDRESS_LAYOUT_FORMAT());
-        assertEquals("false", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_UPPER_AND_LOWER_CASE));
-        assertEquals("false", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_NON_DIGIT));
-        assertEquals("false", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_REQUIRES_DIGIT));
-        assertEquals("8", Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GP_PASSWORD_MINIMUM_LENGTH));
-
-        // confirm that old global property has been removed
-        assertNull(Context.getAdministrationService().getGlobalPropertyObject(EmrApiConstants.GP_CONSULT_ENCOUNTER_TYPE));
-
-    }
-
-    private void verifyDatetimeFormatting() {
-        Date sampleDate = new DateTime(2012, 2, 22, 14, 23, 22).toDate();
-
-        assertEquals("22 Feb 2012 02:23 PM", new SimpleDateFormat(adminService.getGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATETIME_FORMAT)).format(sampleDate));
-        assertEquals("22 Feb 2012", new SimpleDateFormat(adminService.getGlobalProperty(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT)).format(sampleDate));
-    }
-
-    private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-        assertEquals("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getAdministrationService().getGlobalProperty(
-                PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID));
-        assertEquals("en", Context.getAdministrationService().getGlobalProperty(
-                PacsIntegrationConstants.GP_DEFAULT_LOCALE));
-        assertEquals("Mirebalais", Context.getAdministrationService().getGlobalProperty(
-                PacsIntegrationConstants.GP_SENDING_FACILITY));
-        assertEquals("2889f378-f287-40a5-ac9c-ce77ee963ed7", Context.getAdministrationService().getGlobalProperty(
-                PacsIntegrationConstants.GP_PROCEDURE_CODE_CONCEPT_SOURCE_UUID));
-    }
+	private void verifyGlobalPropertiesConfigured() throws Exception {
+		// confirm that old global property has been removed
+		assertNull(Context.getAdministrationService().getGlobalPropertyObject(EmrApiConstants.GP_CONSULT_ENCOUNTER_TYPE));
+	}
 
     private void verifyLocationAttributeNotOverwritten() throws Exception {
         // make sure that when importing the location metadata package, the location
