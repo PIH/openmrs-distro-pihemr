@@ -41,9 +41,11 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
+import org.openmrs.module.mirebalaismetadata.CoreMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
@@ -335,7 +337,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         locationMap.put("23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960", Context.getLocationService().getLocationByUuid(MirebalaisConstants.LACOLLINE_LOCATION_UUID));
 
         Map<String, PersonAttributeType> attributeTypeMap = new HashMap<String, PersonAttributeType>();
-        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", Context.getPersonService().getPersonAttributeTypeByUuid(MirebalaisConstants.TELEPHONE_NUMBER_ATTRIBUTE_TYPE_UUID));
+        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", MetadataUtils.existing(PersonAttributeType.class, CoreMetadata.PersonAttributeTypes.TELEPHONE_NUMBER));
 
         RemoteServerConfiguration config = new RemoteServerConfiguration();
         config.setUrl(url);

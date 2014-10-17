@@ -20,17 +20,9 @@ public class MirebalaisConstants {
 
 	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
 	
-	public static final String MIREBALAIS_LOCATION_UUID = "a084f714-a536-473b-94e6-ec317b152b43";
-	
 	public static final String RADIOLOGY_ORDERABLE_CONCEPTS_GP = "mirebalais.radiology.orderableConcepts";
 	
 	public static final String RADIOLOGY_ORDERTYPE_GP = "radiology-order-type";
-	
-	public static final String ZL_IDENTIFIER_TYPE_UUID = "a541af1e-105c-40bf-b345-ba1fd6a59b85";
-	
-	public static final String DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "e66645eb-03a8-4991-b4ce-e87318e37566";
-
-    public static final String EXTERNAL_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID = "9dbea4d4-35a9-4793-959e-952f2a9f5347";
 	
 	public static final String LOCAL_ZL_IDENTIFIER_POOL_UUID = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
 	
@@ -47,8 +39,6 @@ public class MirebalaisConstants {
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "testidgen";
 	
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "Testing123";
-
-    public static final String TELEPHONE_NUMBER_ATTRIBUTE_TYPE_UUID = "14d4f066-15f5-102d-96e4-000c29c2a5d7";
 
     public static final String LACOLLINE_LOCATION_UUID = "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960";
 

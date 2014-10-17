@@ -29,6 +29,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
+import org.openmrs.module.mirebalaismetadata.CoreMetadata;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -137,8 +138,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	
 	@Override
 	public PatientIdentifierType getZlIdentifierType() {
-		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
-		    MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
+		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
 		if (zlIdentifierType == null) {
 			throw new IllegalStateException("ZL Identifier Type has not been configured");
 		}
@@ -147,8 +147,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 
     @Override
     public PatientIdentifierType getExternalDossierIdentifierType() {
-        PatientIdentifierType externalDossierIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
-                MirebalaisConstants.EXTERNAL_DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
+        PatientIdentifierType externalDossierIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
         if (externalDossierIdentifierType == null) {
             throw new IllegalStateException("External Dossier Identifier Type has not been configured");
         }
@@ -170,8 +169,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	
 	@Override
 	public PatientIdentifierType getDossierIdentifierType() {
-		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(
-		    MirebalaisConstants.DOSSIER_NUMBER_IDENTIFIER_TYPE_UUID);
+		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.DOSSIER_NUMBER);
 		if (dossierNumberIdentifierType == null) {
 			throw new IllegalStateException("Dossier Number Identifier Type has not been configured");
 		}

@@ -24,6 +24,7 @@ import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.impl.MirebalaisHospitalServiceImpl;
+import org.openmrs.module.mirebalaismetadata.CoreMetadata;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -32,7 +33,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID;
 
 /**
  * Tests {@link MirebalaisHospitalService}.
@@ -51,10 +51,10 @@ public class MirebalaisHospitalServiceTest {
 	@Test
 	public void shouldGetZlIdentifierType() {
 		PatientIdentifierType zlIdentifierTypeMock = new PatientIdentifierType();
-		zlIdentifierTypeMock.setUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID);
+		zlIdentifierTypeMock.setUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
 		
 		PatientService patientServiceMock = mock(PatientService.class);
-		when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID)).thenReturn(
+		when(patientServiceMock.getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID)).thenReturn(
 		    zlIdentifierTypeMock);
 		
 		PowerMockito.mockStatic(Context.class);
@@ -62,13 +62,13 @@ public class MirebalaisHospitalServiceTest {
 		
 		PatientIdentifierType zlIdentifierType = service.getZlIdentifierType();
 		assertNotNull(zlIdentifierType);
-		assertEquals(ZL_IDENTIFIER_TYPE_UUID, zlIdentifierType.getUuid());
+		assertEquals(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID, zlIdentifierType.getUuid());
 	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void getZlIdentifierType_shouldFailIfTypeIsNotInDatabase() {
 		PatientService patientServiceMock = mock(PatientService.class);
-		when(patientServiceMock.getPatientIdentifierTypeByUuid(MirebalaisConstants.ZL_IDENTIFIER_TYPE_UUID))
+		when(patientServiceMock.getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID))
 		        .thenReturn(null);
 		
 		PowerMockito.mockStatic(Context.class);
