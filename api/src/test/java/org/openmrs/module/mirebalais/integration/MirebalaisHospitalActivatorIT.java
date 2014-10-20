@@ -16,6 +16,8 @@ import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalaismetadata.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.MetadataManager;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
@@ -39,10 +41,17 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         executeDataSet("serializedReportingDataset.xml");
         executeDataSet("fromMirebalaisMetadataModule.xml");
         authenticate();
+		installRequiredMetadata();
         activator = new MirebalaisHospitalActivator();
         activator.started();
         customProperties = new MirebalaisCustomProperties();
     }
+
+	private void installRequiredMetadata() {
+		System.setProperty(MirebalaisMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
+		MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
+		manager.refresh();
+	}
 
     @AfterClass
     public static void tearDown() {
