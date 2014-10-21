@@ -45,7 +45,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
-import org.openmrs.module.mirebalaismetadata.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
@@ -117,6 +117,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             LocationService locationService = Context.getLocationService();
+            //FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
 
@@ -137,6 +138,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupHtmlForms();
             customizeDailyAppointmentsDataSet();
             scheduleReports(reportService, reportDefinitionService);
+
+            //if (featu)
+            //migratePaperRecordLocations();
 
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);

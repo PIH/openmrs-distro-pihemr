@@ -29,7 +29,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
-import org.openmrs.module.mirebalaismetadata.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
