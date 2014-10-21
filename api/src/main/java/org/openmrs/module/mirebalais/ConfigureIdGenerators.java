@@ -9,7 +9,6 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisSpecificMetadata;
 
 import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 
@@ -50,7 +49,7 @@ public class ConfigureIdGenerators {
 
         autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
         autoGenerationOption.setSource(identifierSource);
-        autoGenerationOption.setLocation(locationService.getLocationByUuid(MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL));
+        autoGenerationOption.setLocation(null);
         autoGenerationOption.setManualEntryEnabled(true);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
 
