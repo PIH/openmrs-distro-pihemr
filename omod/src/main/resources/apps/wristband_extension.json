@@ -1,6 +1,6 @@
 [
     {
-        "id": "${project.parent.groupId}.${project.parent.artifactId}.patientDashboard.includeFragments",
+        "id": "mirebalais.patientDashboard.printWristband",
         "extensionPointId": "patientDashboard.includeFragments",
         "extensionParams": {
             "provider": "mirebalais",
@@ -9,7 +9,7 @@
         "featureToggle": "printWristband"
     },
     {
-        "id": "${project.parent.groupId}.${project.parent.artifactId}.printWristband",
+        "id": "mirebalais.printWristband",
         "extensionPointId": "patientDashboard.overallActions",
         "type": "script",
         "label": "mirebalais.printWristband",
