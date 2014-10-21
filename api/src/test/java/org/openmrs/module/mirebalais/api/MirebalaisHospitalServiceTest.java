@@ -24,7 +24,7 @@ import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.impl.MirebalaisHospitalServiceImpl;
-import org.openmrs.module.mirebalaismetadata.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
