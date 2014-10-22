@@ -23,10 +23,12 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
@@ -46,6 +48,7 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisSpecificMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
@@ -66,6 +69,7 @@ import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +121,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             LocationService locationService = Context.getLocationService();
-            //FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
+            PatientService patientService = Context.getPatientService();
+            PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
+            FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
 
@@ -139,8 +145,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             customizeDailyAppointmentsDataSet();
             scheduleReports(reportService, reportDefinitionService);
 
-            //if (featu)
-            //migratePaperRecordLocations();
+            if (featureToggleProperties.isFeatureEnabled("cdi")) {
+                migratePaperRecordIdentifierLocation(patientService, locationService, paperRecordProperties);
+            }
 
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
@@ -477,6 +484,23 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         }
 
+    }
+
+    private void migratePaperRecordIdentifierLocation(PatientService patientService, LocationService locationService, PaperRecordProperties paperRecordProperties) {
+
+        Location newPaperRecordLocation = locationService.getLocationByUuid(MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS);
+
+        List < PatientIdentifier > identifiersToMigrate = patientService.getPatientIdentifiers(null,
+                Collections.singletonList(paperRecordProperties.getPaperRecordIdentifierType()),
+                Collections.singletonList(locationService.getLocationByUuid(MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL)), null, null);
+
+        if (identifiersToMigrate != null && identifiersToMigrate.size() > 0) {
+
+            for (PatientIdentifier identifier : identifiersToMigrate) {
+                identifier.setLocation(newPaperRecordLocation);
+                patientService.savePatientIdentifier(identifier);
+            }
+        }
     }
 
     private RenderingMode getCsvReportRenderer(ReportService reportService, ReportDefinition reportDefinition) {
