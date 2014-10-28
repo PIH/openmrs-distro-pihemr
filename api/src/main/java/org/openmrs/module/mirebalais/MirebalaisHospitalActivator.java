@@ -23,7 +23,6 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
-import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
@@ -69,7 +68,6 @@ import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -121,7 +119,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             LocationService locationService = Context.getLocationService();
-            PatientService patientService = Context.getPatientService();
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
@@ -146,7 +143,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             scheduleReports(reportService, reportDefinitionService);
 
             if (featureToggleProperties.isFeatureEnabled("cdi")) {
-                migratePaperRecordIdentifierLocation(patientService, locationService, paperRecordProperties);
+                migratePaperRecordIdentifierLocation(paperRecordProperties);
             }
 
         } catch (Exception e) {
@@ -486,21 +483,15 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     }
 
-    private void migratePaperRecordIdentifierLocation(PatientService patientService, LocationService locationService, PaperRecordProperties paperRecordProperties) {
+    private void migratePaperRecordIdentifierLocation(PaperRecordProperties paperRecordProperties) {
 
-        Location newPaperRecordLocation = locationService.getLocationByUuid(MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS);
+        Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
+                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
+                paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
+                "and location_id = (select location_id from location where uuid='" +
+                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL + "')", false);
 
-        List < PatientIdentifier > identifiersToMigrate = patientService.getPatientIdentifiers(null,
-                Collections.singletonList(paperRecordProperties.getPaperRecordIdentifierType()),
-                Collections.singletonList(locationService.getLocationByUuid(MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL)), null, null);
-
-        if (identifiersToMigrate != null && identifiersToMigrate.size() > 0) {
-
-            for (PatientIdentifier identifier : identifiersToMigrate) {
-                identifier.setLocation(newPaperRecordLocation);
-                patientService.savePatientIdentifier(identifier);
-            }
-        }
     }
 
     private RenderingMode getCsvReportRenderer(ReportService reportService, ReportDefinition reportDefinition) {
