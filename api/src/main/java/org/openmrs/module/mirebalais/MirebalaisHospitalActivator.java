@@ -28,7 +28,6 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -121,14 +120,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             LocationService locationService = Context.getLocationService();
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
-
-            Context.getService(AppFrameworkService.class).disableApp("registrationapp.basicRegisterPatient");
-
-            // the coreapps version of this points to the new patient summary, and we want the old dashboard for now
-            Context.getService(AppFrameworkService.class).disableApp("coreapps.activeVisits");
-            Context.getService(AppFrameworkService.class).disableApp("coreapps.awaitingAdmission");
-            Context.getService(AppFrameworkService.class).disableApp("coreapps.systemAdministrationApp");
-            Context.getService(AppFrameworkService.class).disableApp("coreapps.configuremetadata");
 
             removeOldGlobalProperties();
             setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService);

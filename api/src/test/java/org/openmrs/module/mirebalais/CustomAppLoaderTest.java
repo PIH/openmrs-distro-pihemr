@@ -47,7 +47,9 @@ public class CustomAppLoaderTest {
 
     @Test
     public void shouldCreatePatientTemplateApp() {
-        AppDescriptor app = CustomAppLoaderFactory.findPatientTemplateApp("id", "label", "icon", "privilege", "afterSelectedUrl");
+        AppDescriptor app = CustomAppLoaderFactory.findPatientTemplateApp("id", "label", "icon", "privilege", "afterSelectedUrl",
+                CustomAppLoaderFactory.arrayNode(CustomAppLoaderFactory.objectNode("label", "label1", "link", "link1"),
+                        CustomAppLoaderFactory.objectNode("label", "label2", "link", "link2")));
 
         assertThat(app.getId(), is("id"));
         assertThat(app.getLabel(), is("label"));
@@ -58,6 +60,11 @@ public class CustomAppLoaderTest {
         assertThat(app.getConfig().get("label").getTextValue(), is("label"));
         assertThat(app.getConfig().get("heading").getTextValue(), is("label"));
         assertThat(app.getConfig().get("showLastViewedPatients").getBooleanValue(), is(false));
+        assertThat(app.getConfig().get("breadcrumbs").get(0).get("label").getTextValue(), is("label1"));
+        assertThat(app.getConfig().get("breadcrumbs").get(0).get("link").getTextValue(), is("link1"));
+        assertThat(app.getConfig().get("breadcrumbs").get(1).get("label").getTextValue(), is("label2"));
+        assertThat(app.getConfig().get("breadcrumbs").get(1).get("link").getTextValue(), is("link2"));
+
     }
 
     @Test
@@ -72,6 +79,22 @@ public class CustomAppLoaderTest {
         assertThat(app.getExtensions().get(0).getUrl(), is("url"));
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
+        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderFactory.HOME_PAGE_EXTENSION_POINT));
+    }
+
+    @Test
+    public void shouldAddAppToSystemAdministrationPage() {
+        AppDescriptor app = CustomAppLoaderFactory.app("id", "label", "icon", "url", "privilege", null);
+
+        CustomAppLoaderFactory.addToSystemAdministrationPage(app);
+        assertThat(app.getExtensions().size(), is(1));
+        assertThat(app.getExtensions().get(0).getId(), is("id.systemAdministration.appLink"));
+        assertThat(app.getExtensions().get(0).getType(), is("link"));
+        assertThat(app.getExtensions().get(0).getLabel(), is("label"));
+        assertThat(app.getExtensions().get(0).getUrl(), is("url"));
+        assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
+        assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
+        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderFactory.SYSTEM_ADMINISTRATION_PAGE_EXTENSION_POINT));
     }
 
 
@@ -105,6 +128,21 @@ public class CustomAppLoaderTest {
         assertThat(extension.getExtensionPointId(), is(CustomAppLoaderFactory.OVERALL_ACTIONS_EXTENSION_POINT));
     }
 
+    @Test
+    public void shouldCreateAwaitingAdmissionActionsExtension() {
+        Extension extension = CustomAppLoaderFactory.awaitingAdmissionAction(CustomAppLoaderFactory.ADMISSION_FORM_AWAITING_ADMISSION_ACTION, "label", "icon", "link", "url", "privilege", "require");
+
+        assertThat(extension.getId(), is(CustomAppLoaderFactory.ADMISSION_FORM_AWAITING_ADMISSION_ACTION));
+        assertThat(extension.getLabel(), is("label"));
+        assertThat(extension.getIcon(), is("icon"));
+        assertThat(extension.getUrl(), is("url"));
+        assertThat(extension.getScript(), nullValue());
+        assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getRequire(), is("require"));
+        assertThat(extension.getType(), is("link"));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderFactory.AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT));
+    }
+
 
     @Test
     public void shouldCreateDashboardTab() {
@@ -117,6 +155,17 @@ public class CustomAppLoaderTest {
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat((String) extension.getExtensionParams().get("provider"), is("provider"));
         assertThat((String) extension.getExtensionParams().get("fragment"), is("fragment"));
+    }
+
+    @Test
+    public void shouldCreateFragmentExtension() {
+        Extension extension = CustomAppLoaderFactory.fragmentExtension("id", "provider", "fragment", "privilege", "extensionPoint");
+
+        assertThat(extension.getId(), is ("id"));
+        assertThat((String) extension.getExtensionParams().get("provider"), is("provider"));
+        assertThat((String) extension.getExtensionParams().get("fragment"), is("fragment"));
+        assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getExtensionPointId(), is("extensionPoint"));
     }
 
     @Test
@@ -160,14 +209,13 @@ public class CustomAppLoaderTest {
         CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
         factory.setExtensions(extensions);
 
-        factory.registerTemplateForEncounterType("encounterTypeUuid", "id","icon",
-                true, false, "primaryEncounterRoleUuid", "comment");
+        factory.registerTemplateForEncounterType("encounterTypeUuid", factory.findExtensionById("id"), "icon",
+                true, false, "primaryEncounterRoleUuid");
 
         assertTrue(template.getExtensionParams().containsKey("supportedEncounterTypes"));
         assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey("encounterTypeUuid"));
 
         Map<String,Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get("encounterTypeUuid");
-        assertThat((String) params.get("_comment"), is("comment"));
         assertThat((String) params.get("icon"), is("icon"));
         assertThat((String) params.get("primaryEncounterRoleUuid"), is("primaryEncounterRoleUuid"));
         assertThat((Boolean) params.get("displayWithHtmlForm"), is(true));
