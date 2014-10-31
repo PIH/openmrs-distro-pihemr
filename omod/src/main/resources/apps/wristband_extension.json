@@ -5,8 +5,7 @@
         "extensionParams": {
             "provider": "mirebalais",
             "fragment": "wristband/printWristband"
-        },
-        "featureToggle": "printWristband"
+        }
     },
     {
         "id": "mirebalais.printWristband",
@@ -17,6 +16,5 @@
         "icon": "icon-print",
         "order": -10,
         "requiredPrivilege": "Task: emr.printLabels",
-        "featureToggle": "printWristband"
     }
 ]

@@ -21,8 +21,7 @@
             "heading": "mirebalais.app.patientRegistration.checkin.label",
             "showLastViewedPatients": false
         },
-        "requiredPrivilege": "App: mirebalais.checkin",
-        "featureToggle": "printWristband"
+        "requiredPrivilege": "App: mirebalais.checkin"
     }
 
 ]

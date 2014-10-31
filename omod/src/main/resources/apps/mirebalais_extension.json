@@ -48,17 +48,6 @@
         "requiredPrivilege": "App: mirebalais.mpi"
     },
     {
-        "id": "mirebalais.liveCheckin",
-        "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
-        "type": "link",
-        "label": "mirebalais.checkin.title",
-        "url": "mirebalais/checkin/findPatient.page",
-        "icon": "icon-paste",
-        "order": 5,
-        "requiredPrivilege": "App: mirebalais.checkin",
-        "featureToggle": "!printWristband"
-    },
-    {
         "id": "patientRegistration.emergencyCheckin",
         "extensionPointId": "org.openmrs.referenceapplication.homepageLink",
         "type": "link",
