@@ -16,6 +16,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
 public class CustomAppLoaderTest {
@@ -159,6 +161,34 @@ public class CustomAppLoaderTest {
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat((String) extension.getExtensionParams().get("provider"), is("provider"));
         assertThat((String) extension.getExtensionParams().get("fragment"), is("fragment"));
+    }
+
+    @Test
+    public void shouldCreateOverviewReportExtension() {
+        Extension extension = CustomAppLoaderUtil.overviewReport("id", "label", "uuid", "privilege", "linkId");
+
+        assertThat(extension.getId(), is("id"));
+        assertThat(extension.getLabel(), is("label"));
+        assertThat(extension.getType(), is("link"));
+        assertThat(extension.getExtensionPointId(), is(REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT));
+        assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
+        assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
+
+    }
+
+    @Test
+    public void shouldCreateDataExportExtension() {
+        Extension extension = CustomAppLoaderUtil.dataExport("id", "label", "uuid", "privilege", "linkId");
+
+        assertThat(extension.getId(), is("id"));
+        assertThat(extension.getLabel(), is("label"));
+        assertThat(extension.getType(), is("link"));
+        assertThat(extension.getExtensionPointId(), is(REPORTING_DATA_EXPORT_EXTENSION_POINT));
+        assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
+        assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
+
     }
 
     @Test

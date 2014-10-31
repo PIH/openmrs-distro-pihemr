@@ -11,19 +11,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_TAB_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ENCOUNTER_TEMPLATE_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEADER_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_PAGE_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_TAB_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEADER_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ENCOUNTER_TEMPLATE_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 
 
 
@@ -92,18 +96,51 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  action(id, label, icon, type, urlOrScript, privilege, require, VISIT_ACTIONS_EXTENSION_POINT, VISIT_ACTIONS_ORDER.indexOf(id));
+        return  extension(id, label, icon, type, urlOrScript, privilege, require, VISIT_ACTIONS_EXTENSION_POINT, VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension overallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  action(id, label, icon, type, urlOrScript, privilege, require, OVERALL_ACTIONS_EXTENSION_POINT, OVERALL_ACTIONS_ORDER.indexOf(id));
+        return  extension(id, label, icon, type, urlOrScript, privilege, require, OVERALL_ACTIONS_EXTENSION_POINT, OVERALL_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension awaitingAdmissionAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  action(id, label, icon, type, urlOrScript, privilege, require, AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT, AWAITING_ADMISSION_ACTIONS_ORDER.indexOf(id));
+        return  extension(id, label, icon, type, urlOrScript, privilege, require, AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT, AWAITING_ADMISSION_ACTIONS_ORDER.indexOf(id), null);
     }
 
-    static private Extension action(String id, String label, String icon, String type, String urlOrScript, String privilege, String require, String extensionPoint, int order) {
+    static public Extension dashboardTab(String id, String label, String privilege, String provider, String fragment) {
+        return new Extension(id, null, DASHBOARD_TAB_EXTENSION_POINT, "link", label, null, 0,
+                privilege, map("provider", provider, "fragment", fragment));
+    }
+
+    static public Extension encounterTemplate(String id, String templateProvider, String templateFragment) {
+        return new Extension(id, null, ENCOUNTER_TEMPLATE_EXTENSION_POINT, "fragment", null, null, 0, null,
+                map("templateId", id, "templateFragmentProviderName", templateProvider, "templateFragmentId", templateFragment));
+    }
+
+    static public Extension header(String id, String logo) {
+        return new Extension(id, null, HEADER_EXTENSION_POINT, "config", null, null, 0, null, map("logo-icon-url", logo));
+    }
+
+    static public Extension fragmentExtension(String id, String provider, String fragment, String privilege, String extensionPoint) {
+        return new Extension(id, null, extensionPoint, "include-fragment", null, null, 0,
+                privilege, map("provider", provider, "fragment", fragment));
+    }
+
+    static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, String linkId) {
+        return report(id, label, definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+
+    }
+
+    static public Extension dataExport(String id, String label, String definitionUuid, String privilege, String linkId) {
+        return report(id, label, definitionUuid, privilege, REPORTING_DATA_EXPORT_EXTENSION_POINT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id), linkId);
+    }
+
+    static public Extension report(String id, String label, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
+        return new Extension(id, null, extensionPoint, "link", label,"reportingui/runReport.page?reportDefinition=" + definitionUuid,
+                order, privilege, map("linkId", linkId));
+    }
+
+    static public Extension extension(String id, String label, String icon, String type, String urlOrScript, String privilege, String require, String extensionPoint, int order, Map<String,Object> extensionParams) {
         Extension extension = new Extension(id, null,extensionPoint, type, label, null, order, privilege, null);
         extension.setIcon(icon);
 
@@ -120,28 +157,14 @@ public class CustomAppLoaderUtil {
         else {
             throw new IllegalStateException("Invalid type: " + type);
         }
+
+        if (extensionParams != null) {
+            extension.setExtensionParams(extensionParams);
+        }
+
         return extension;
     }
 
-    static public Extension dashboardTab(String id, String label, String privilege, String provider, String fragment) {
-        return new Extension(id, null, DASHBOARD_TAB_EXTENSION_POINT, "link", label, null, 0,
-                privilege, map("provider", provider, "fragment", fragment));
-
-    }
-
-    static public Extension encounterTemplate(String id, String templateProvider, String templateFragment) {
-        return new Extension(id, null, ENCOUNTER_TEMPLATE_EXTENSION_POINT, "fragment", null, null, 0, null,
-                map("templateId", id, "templateFragmentProviderName", templateProvider, "templateFragmentId", templateFragment));
-    }
-
-    static public Extension header(String id, String logo) {
-        return new Extension(id, null, HEADER_EXTENSION_POINT, "config", null, null, 0, null, map("logo-icon-url", logo));
-    }
-
-    static public Extension fragmentExtension(String id, String provider, String fragment, String privilege, String extensionPoint) {
-        return new Extension(id, null, extensionPoint, "include-fragment", null, null, 0,
-                privilege, map("provider", provider, "fragment", fragment));
-    }
 
     static public Extension appExtension(AppDescriptor app, String id, String label, String icon, String type, String url,
                                          String requiredPrivilege, int order, String extensionPoint) {

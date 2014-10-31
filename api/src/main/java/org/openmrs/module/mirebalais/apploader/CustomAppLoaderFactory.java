@@ -6,14 +6,18 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
+import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ACTIVE_VISITS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADMISSION_FORM_AWAITING_ADMISSION_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADMISSION_NOTE_VISIT_ACTION;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ALL_PATIENTS_WITH_IDS_DATA_EXPORT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENTS_DATA_EXPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENTS_TAB;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENT_SCHEDULING_HOME_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ARCHIVES_ROOM_APP;
@@ -24,6 +28,10 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CONSULT_NOTE_VISIT_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CREATE_VISIT_OVERALL_ACTION;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_CHECK_INS_OVERVIEW_REPORT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_INPATIENTS_OVERVIEW_REPORT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_REGISTRATIONS_OVERVIEW_REPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEATH_CERTIFICATE_HEADER_EXTENSION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEATH_CERTIFICATE_VISIT_ACTION;
@@ -35,15 +43,19 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.D
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DISPENSING_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ED_CONSULT_NOTE_VISIT_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.FEATURE_TOGGLES_APP;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.INPATIENTS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_MPI_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_LOOKUP_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LQAS_DATA_EXPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MANAGE_ACCOUNTS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MANAGE_PRINTERS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MERGE_PATIENTS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MERGE_VISITS_OVERALL_ACTION;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MONTHLY_INPATIENTS_OVERVIEW_REPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MY_ACCOUNT_APP;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.NO_DETAILS_ENCOUNTER_TEMPLATE;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ORDER_CT_VISIT_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ORDER_ULTRASOUND_VISIT_ACTION;
@@ -56,11 +68,18 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.P
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PRINT_WRISTBAND_OVERALL_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.RADIOLOGY_TAB;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTER_TEST_PATIENT_APP;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_AD_HOC_ANALYSIS;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_QUALITY_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REQUEST_APPOINTMENT_OVERALL_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REQUEST_PAPER_RECORD_OVERALL_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SCHEDULE_APPOINTMENT_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SURGICAL_NOTE_VISIT_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.USERS_AND_PROVIDERS_DATA_EXPORT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_INCLUDES;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VITALS_APP;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VITALS_CAPTURE_VISIT_ACTION;
@@ -73,12 +92,16 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.simpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.standardHtmlFormLink;
@@ -124,6 +147,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         configureHeader();
         setupDefaultEncounterTemplates();
         enableVisitManagement();
+        enableActiveVisits();
         enableCheckIn();
         enableVitals();
         enableConsult();
@@ -132,6 +156,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         enableRadiology();
         enableDispensing();
         enableSurgery();
+        enableReports();
         enableArchives();
         enableWristbands();
         enableAppointmentScheduling();
@@ -194,6 +219,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT));
 
+    }
+
+    private void enableActiveVisits() {
+
+        apps.add(addToHomePage(app(ACTIVE_VISITS_APP,
+                "coreapps.activeVisits.app.label",
+                "icon-check-in",
+                "coreapps/activeVisits.page?app=mirebalais.activeVisits",
+                "App: org.openmrs.module.coreapps.activeVisits",
+                objectNode("patientPageUrl", "App: org.openmrs.module.coreapps.activeVisits"))));
 
     }
 
@@ -272,6 +307,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/adt/awaitingAdmission.page",
                 "App: coreapps.awaitingAdmission",
                 objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
+
+        apps.add(addToHomePage(app(INPATIENTS_APP,
+                "mirebalaisreports.app.inpatients.label",
+                "icon-list-ol",
+                "mirebalaisreports/inpatientList.page",
+                "App: emr.inpatients",
+                null)));
 
         extensions.add(awaitingAdmissionAction(ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "mirebalais.task.admit.label",
@@ -409,6 +451,104 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-paste", true, true, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
+
+    private void enableReports() {
+
+        // TODO move all the other reporting stuff in here?
+        // TODO do we need to explicitly add the extension points?
+
+        apps.add(addToHomePage(app(REPORTS_APP,
+                "reportingui.reportsapp.home.title",
+                "icon-list-alt",
+                "reportingui/reportsapp/home.page",
+                "App: reportingui.reports",
+                null)));
+
+        extensions.add(extension(REPORTING_AD_HOC_ANALYSIS,
+                "reportingui.adHocAnalysis.label",
+                null,
+                "link",
+                "reportingui/adHocManage.page",
+                "App: reportingui.adHocAnalysis",
+                null,
+                REPORTING_DATA_EXPORT_EXTENSION_POINT,
+                9999,
+                null));
+
+        extensions.add(overviewReport(DAILY_REGISTRATIONS_OVERVIEW_REPORT,
+                "mirebalaisreports.dailyRegistrations.name",
+                MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
+                "App: reportingui.reports",
+                "mirebalaisreports-dailyRegistrationsReport-link"));
+
+        extensions.add(overviewReport(DAILY_CHECK_INS_OVERVIEW_REPORT,
+                "mirebalaisreports.dailyCheckInEncounters.name",
+                MirebalaisReportsProperties.DAILY_CHECK_INS_REPORT_DEFINITION_UUID,
+                "App: reportingui.reports",
+                "mirebalaisreports-dailyCheckInsReport-link"));
+
+        extensions.add(overviewReport(DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
+                "mirebalaisreports-dailyCheckInsReport-link",
+                MirebalaisReportsProperties.DAILY_CLINICAL_ENCOUNTERS_REPORT_DEFINITION_UUID,
+                "App: reportingui.reports",
+                "mirebalaisreports-dailyClinicalEncountersReport-link"));
+
+        // custom overview report
+        extensions.add(extension(DAILY_INPATIENTS_OVERVIEW_REPORT,
+                "mirebalaisreports.inpatientStatsDailyReport.name",
+                null,
+                "link",
+                "mirebalaisreports/inpatientStatsDailyReport.page",
+                "App: reportingui.reports",
+                null,
+                REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT,
+                REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(DAILY_INPATIENTS_OVERVIEW_REPORT),
+                map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
+
+        extensions.add(overviewReport(MONTHLY_INPATIENTS_OVERVIEW_REPORT,
+                "org.openmrs.module.reportingui.reports.overview",
+                MirebalaisReportsProperties.INPATIENT_STATS_MONTHLY_REPORT_DEFINITION_UUID,
+                "App: reportingui.reports",
+                "mirebalaisreports-inpatientMonthlyReport-link"));
+
+        extensions.add(extension(NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
+                "mirebalaisreports.dataQuality.nonCodedDiagnoses",
+                null,
+                "link",
+                "mirebalaisreports/nonCodedDiagnoses.page",
+                "App: reportingui.reports",
+                null,
+                REPORTING_DATA_QUALITY_EXTENSION_POINT,
+                0,
+                map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
+
+        extensions.add(dataExport(USERS_AND_PROVIDERS_DATA_EXPORT,
+                "mirebalaisreports.userAndProviders.name",
+                MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
+                "App: mirebalaisreports.dataexports",
+                "mirebalaisreports-usersAndProvidersReport-link" ));
+
+        extensions.add(dataExport(LQAS_DATA_EXPORT,
+                "mirebalaisreports.dataExports.lqasDiagnoses",
+                MirebalaisReportsProperties.LQAS_DIAGNOSES_REPORT_DEFINITION_UUID,
+                "App: mirebalaisreports.dataexports",
+                "mirebalaisreports-lqasDiagnosesReport-link"));
+
+        extensions.add(dataExport(ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
+                "mirebalaisreports.allpatientswithids.name",
+                MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
+                "App: mirebalaisreports.dataexports",
+                "mirebalaisreports-allPatientsWithIdsReport-link"));
+
+        extensions.add(dataExport(APPOINTMENTS_DATA_EXPORT,
+                "mirebalaisreports.appointments.name",
+                MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID,
+                "App: mirebalaisreports.dataexports",
+                "mirebalaisreports-appointments-link"));
+
+        addFeatureToggleToExtension(findExtensionById(REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
+
+    }
 
     private void enableArchives() {
 
@@ -613,7 +753,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     public void registerLacollinePatientRegistrationEncounterTypes() {
-        // TODO: I *believe these are used in Lacolline, but not 100% sure
+        // TODO: I *believe* these are used in Lacolline, but not 100% sure
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PAYMENT,
                 findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-money");
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PRIMARY_CARE_VISIT,
