@@ -143,7 +143,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             scheduleReports(reportService, reportDefinitionService);
 
             if (featureToggleProperties.isFeatureEnabled("cdi")) {
-                migratePaperRecordIdentifierLocation(paperRecordProperties);
+                migratePaperRecordLocation(paperRecordProperties);
             }
 
         } catch (Exception e) {
@@ -483,13 +483,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     }
 
-    private void migratePaperRecordIdentifierLocation(PaperRecordProperties paperRecordProperties) {
+    private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
         Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
                 MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
                 "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
                 paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
                 "and location_id = (select location_id from location where uuid='" +
+                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL + "')", false);
+
+        Context.getAdministrationService().executeSQL("update paperrecord_paper_record set record_location = (select location_id from location where uuid='" +
+                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                "where record_location = (select location_id from location where uuid='" +
                 MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL + "')", false);
 
     }
