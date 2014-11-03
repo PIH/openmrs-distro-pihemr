@@ -22,27 +22,6 @@
             </list>
         </property>
     </bean>
-    
-    <!-- Tasks for Mirebalais-specific forms -->
 
-    <bean id="mirebalaisVitalsTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithSimpleUiTask">
-        <property name="id" value="mirebalais.vitals"/>
-        <property name="labelCode" value="mirebalais.task.vitals.label"/>
-        <property name="priority" value="10.9"/>
-        <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/vitals.xml"/>
-        <property name="requiredPrivilegeName" value="Task: emr.enterClinicalForms"/>
-        <property name="extensionPoint" value="patient.visits.active.actions"/>
-        <property name="iconUrl" value="icon-vitals"/>
-    </bean>
-
-    <bean id="mirebalaisSurgicalPostOpNoteTask" class="org.openmrs.module.emr.htmlform.EnterHtmlFormWithOwnUiTask">
-        <property name="id" value="mirebalais.surgicalOperativeNote"/>
-        <property name="labelCode" value="mirebalais.task.surgicalOperativeNote.label"/>
-        <property name="priority" value="10.0"/>
-        <property name="formDefinitionFromUiResource" value="mirebalais:htmlforms/surgicalPostOpNote.xml"/>
-        <property name="requiredPrivilegeName" value="Task: emr.enterClinicalForms"/>
-        <property name="extensionPoint" value="patient.visits.active.actions"/>
-        <property name="iconUrl" value="icon-paste"/>
-    </bean>
 
 </beans>
