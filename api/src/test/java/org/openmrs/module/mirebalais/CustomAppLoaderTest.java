@@ -4,6 +4,7 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
 public class CustomAppLoaderTest {
@@ -35,21 +37,24 @@ public class CustomAppLoaderTest {
         Extension extension = CustomAppLoaderUtil.header("id", "logo");
 
         assertThat(extension.getId(), is("id"));
-        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.HEADER_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(AppUiExtensions.HEADER_CONFIG_EXTENSION));
         assertThat(extension.getType(), is("config"));
         assertThat((String) extension.getExtensionParams().get("logo-icon-url"), is("logo"));
     }
 
     @Test
     public void shouldCreateApp() {
-        AppDescriptor app = CustomAppLoaderUtil.app("id", "label", "icon", "url", "privilege", null);
+        AppDescriptor app = CustomAppLoaderUtil.app("id", "label", "icon", "url", "privilege", objectNode("patientPageUrl", "patientPageUrl"));
 
         assertThat(app.getId(), is("id"));
         assertThat(app.getLabel(), is("label"));
         assertThat(app.getIcon(), is("icon"));
         assertThat(app.getUrl(), is("url"));
         assertThat(app.getRequiredPrivilege(), is("privilege"));
+        assertThat(app.getConfig().get("patientPageUrl").getTextValue(), is("patientPageUrl"));
+
     }
+
 
     @Test
     public void shouldCreatePatientTemplateApp() {
@@ -75,7 +80,7 @@ public class CustomAppLoaderTest {
 
     @Test
     public void shouldAddAppToHomePage() {
-        AppDescriptor app = CustomAppLoaderUtil.app("id", "label", "icon", "url", "privilege", null);
+        AppDescriptor app = CustomAppLoaderUtil.app("id", "label", "icon", "url", "privilege", objectNode("patientPageUrl", "patientPageUrl"));
 
         CustomAppLoaderUtil.addToHomePage(app);
         assertThat(app.getExtensions().size(), is(1));
@@ -86,6 +91,7 @@ public class CustomAppLoaderTest {
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
         assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.HOME_PAGE_EXTENSION_POINT));
+        assertThat(app.getConfig().get("patientPageUrl").getTextValue(), is("patientPageUrl"));
     }
 
     @Test

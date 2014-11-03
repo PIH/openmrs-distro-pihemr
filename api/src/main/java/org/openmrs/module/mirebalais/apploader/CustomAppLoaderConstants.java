@@ -43,7 +43,6 @@ public class CustomAppLoaderConstants {
     public static final String DISPENSE_MEDICATION_VISIT_ACTION = "dispensing.form";
     public static final String ED_CONSULT_NOTE_VISIT_ACTION = "pih.form.edConsult";
     public static final String SURGICAL_NOTE_VISIT_ACTION = "pih.form.surgicalNote";
-    public static final String DEATH_CERTIFICATE_VISIT_ACTION = "pih.haiti.deathCertificate";
     public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
     public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
     public static final String ORDER_ULTRASOUND_VISIT_ACTION = "radiologyapp.orderUS";
@@ -59,6 +58,7 @@ public class CustomAppLoaderConstants {
     public static final String CREATE_VISIT_OVERALL_ACTION = "coreapps.createVisit";
     public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
     public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
+    public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
 
     public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
     public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -94,7 +94,6 @@ public class CustomAppLoaderConstants {
     public static final String AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT = "coreapps.app.awaitingAdmissionActions";
     public static final String ENCOUNTER_TEMPLATE_EXTENSION_POINT = "org.openmrs.referenceapplication.encounterTemplate";
     public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
-    public static final String HEADER_EXTENSION_POINT = "appui.header.config";
     public static final String DEATH_INFO_HEADER_EXTENSION_POINT = "patientHeader.deathInfo";
     public static final String DASHBOARD_TAB_EXTENSION_POINT = "patientDashboard.tabs";
     public static final String DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT = "patientDashboard.includeFragments";
@@ -111,19 +110,20 @@ public class CustomAppLoaderConstants {
 
     // order of lists define the order apps and extensions appear
     public static final List<String> HOME_PAGE_APPS_ORDER = Arrays.asList(
-            CHECK_IN_APP,
-            VITALS_APP,
             ACTIVE_VISITS_APP,
+            AWAITING_ADMISSION_APP,
+            VITALS_APP,
+            APPOINTMENT_SCHEDULING_HOME_APP,
+            ARCHIVES_ROOM_APP,
+            SYSTEM_ADMINISTRATION_APP,
+            INPATIENTS_APP,
+            CHECK_IN_APP,
+            REPORTS_APP,
             LEGACY_PATIENT_REGISTRATION_APP,
             LEGACY_PATIENT_REGISTRATION_ED_APP,
             LEGACY_PATIENT_LOOKUP_APP,
             DISPENSING_APP,
-            APPOINTMENT_SCHEDULING_HOME_APP,
-            ARCHIVES_ROOM_APP,
-            AWAITING_ADMISSION_APP,
-            REPORTS_APP,
             LEGACY_MPI_APP,
-            SYSTEM_ADMINISTRATION_APP,
             MY_ACCOUNT_APP);
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -136,26 +136,27 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
             CREATE_VISIT_OVERALL_ACTION,
+            CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
             REQUEST_PAPER_RECORD_OVERALL_ACTION,
-            REQUEST_APPOINTMENT_OVERALL_ACTION,
             PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
             PRINT_ID_CARD_OVERALL_ACTION,
             PRINT_WRISTBAND_OVERALL_ACTION,
+            REQUEST_APPOINTMENT_OVERALL_ACTION,
             SCHEDULE_APPOINTMENT_APP,
-            CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
-            MERGE_VISITS_OVERALL_ACTION);
+            MERGE_VISITS_OVERALL_ACTION,
+            DEATH_CERTIFICATE_OVERALL_ACTION);
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
+            CHECK_IN_VISIT_ACTION,
             CONSULT_NOTE_VISIT_ACTION,
-            ED_CONSULT_NOTE_VISIT_ACTION,
             ADMISSION_NOTE_VISIT_ACTION,
             VITALS_CAPTURE_VISIT_ACTION,
+            ED_CONSULT_NOTE_VISIT_ACTION,
+            DISPENSE_MEDICATION_VISIT_ACTION,
+            SURGICAL_NOTE_VISIT_ACTION,
             ORDER_XRAY_VISIT_ACTION,
             ORDER_CT_VISIT_ACTION,
-            ORDER_ULTRASOUND_VISIT_ACTION,
-            DISPENSE_MEDICATION_VISIT_ACTION,
-            DEATH_CERTIFICATE_VISIT_ACTION,
-            CHECK_IN_VISIT_ACTION);
+            ORDER_ULTRASOUND_VISIT_ACTION);
 
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             ADMISSION_FORM_AWAITING_ADMISSION_ACTION,

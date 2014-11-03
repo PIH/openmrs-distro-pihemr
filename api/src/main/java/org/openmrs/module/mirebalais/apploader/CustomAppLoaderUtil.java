@@ -6,6 +6,7 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.appui.AppUiExtensions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_TAB_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ENCOUNTER_TEMPLATE_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEADER_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_EXTENSION_POINT;
@@ -118,7 +118,7 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension header(String id, String logo) {
-        return new Extension(id, null, HEADER_EXTENSION_POINT, "config", null, null, 0, null, map("logo-icon-url", logo));
+        return new Extension(id, null, AppUiExtensions.HEADER_CONFIG_EXTENSION, "config", null, null, 0, null, map("logo-icon-url", logo));
     }
 
     static public Extension fragmentExtension(String id, String provider, String fragment, String privilege, String extensionPoint) {
@@ -127,16 +127,20 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, String linkId) {
-        return report(id, label, definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+        return report(id, label, "reportingui", "runReport", definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+    }
 
+    static public Extension dailyReport(String id, String label, String definitionUuid, String privilege, String linkId) {
+        return report(id, label, "mirebalaisreports", "dailyReport", definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
     }
 
     static public Extension dataExport(String id, String label, String definitionUuid, String privilege, String linkId) {
-        return report(id, label, definitionUuid, privilege, REPORTING_DATA_EXPORT_EXTENSION_POINT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id), linkId);
+        // note the indexOf(id) + 100 to make sure that these reports are ranked below the others defined in mirebalais reports--to do, we want to fix this at some point
+        return report(id, label, "reportingui", "runReport",definitionUuid, privilege, REPORTING_DATA_EXPORT_EXTENSION_POINT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id) + 100, linkId);
     }
 
-    static public Extension report(String id, String label, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
-        return new Extension(id, null, extensionPoint, "link", label,"reportingui/runReport.page?reportDefinition=" + definitionUuid,
+    static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
+        return new Extension(id, null, extensionPoint, "link", label,provider + "/" + fragment + ".page?reportDefinition=" + definitionUuid,
                 order, privilege, map("linkId", linkId));
     }
 
