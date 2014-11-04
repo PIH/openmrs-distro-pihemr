@@ -530,7 +530,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: mirebalaisreports.dataexports",
                 "mirebalaisreports-usersAndProvidersReport-link" ));
 
-        // custom data export report overview report
+        // custom data export report LQAS report report
         extensions.add(extension(LQAS_DATA_EXPORT,
                 "mirebalaisreports.lqasdiagnoses.name",
                 null,
@@ -539,14 +539,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: mirebalaisreports.dataexports",
                 null,
                 REPORTING_DATA_EXPORT_EXTENSION_POINT,
-                REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(DAILY_INPATIENTS_OVERVIEW_REPORT),
+                REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
                 map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
-
-        extensions.add(dataExport(LQAS_DATA_EXPORT,
-                "mirebalaisreports.lqasdiagnoses.name",
-                MirebalaisReportsProperties.LQAS_DIAGNOSES_REPORT_DEFINITION_UUID,
-                "App: mirebalaisreports.dataexports",
-                "mirebalaisreports-lqasDiagnosesReport-link"));
 
         extensions.add(dataExport(ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
                 "mirebalaisreports.allpatientswithids.name",
