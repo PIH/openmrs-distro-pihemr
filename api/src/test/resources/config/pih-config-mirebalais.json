@@ -1,0 +1,6 @@
+{
+    "components": [
+        "someComponent",
+        "anotherComponent"
+    ]
+}

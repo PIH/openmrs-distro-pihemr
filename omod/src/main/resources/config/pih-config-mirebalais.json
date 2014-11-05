@@ -1,0 +1,25 @@
+{
+    "components": [
+        "visitManagement",
+        "activeVisits",
+        "checkIn",
+        "vitals",
+        "consult",
+        "adt",
+        "deathCertificate",
+        "radiology",
+        "dispensing",
+        "surgery",
+        "overviewReports",
+        "dataExports",
+        "archives",
+        "wristbands",
+        "appointmentScheduling",
+         "systemAdministration",
+        "managePrinters",
+        "myAccount",
+        "legacyMpi",
+        "legacyPatientRegistration",
+        "lacollinePatientRegistrationEncounterTypes"
+    ]
+}

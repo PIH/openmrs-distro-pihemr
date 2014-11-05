@@ -12,21 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_TAB_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ENCOUNTER_TEMPLATE_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_PAGE_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 
 
@@ -67,7 +58,7 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
-                HOME_PAGE_EXTENSION_POINT);
+                CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
         return app;
     }
 
@@ -79,7 +70,7 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 OVERALL_ACTIONS_ORDER.indexOf(app.getId()),
-                OVERALL_ACTIONS_EXTENSION_POINT);
+                CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS);
         return app;
     }
 
@@ -91,29 +82,32 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 SYSTEM_ADMINISTRATION_APPS_ORDER.indexOf(app.getId()),
-                SYSTEM_ADMINISTRATION_PAGE_EXTENSION_POINT);
+                CustomAppLoaderConstants.ExtensionPoints.SYSTEM_ADMINISTRATION_PAGE);
         return app;
     }
 
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  extension(id, label, icon, type, urlOrScript, privilege, require, VISIT_ACTIONS_EXTENSION_POINT, VISIT_ACTIONS_ORDER.indexOf(id), null);
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                CustomAppLoaderConstants.ExtensionPoints.VISIT_ACTIONS, VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension overallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  extension(id, label, icon, type, urlOrScript, privilege, require, OVERALL_ACTIONS_EXTENSION_POINT, OVERALL_ACTIONS_ORDER.indexOf(id), null);
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS, OVERALL_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension awaitingAdmissionAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  extension(id, label, icon, type, urlOrScript, privilege, require, AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT, AWAITING_ADMISSION_ACTIONS_ORDER.indexOf(id), null);
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                CustomAppLoaderConstants.ExtensionPoints.AWAITING_ADMISSION_ACTIONS, AWAITING_ADMISSION_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension dashboardTab(String id, String label, String privilege, String provider, String fragment) {
-        return new Extension(id, null, DASHBOARD_TAB_EXTENSION_POINT, "link", label, null, 0,
+        return new Extension(id, null, CustomAppLoaderConstants.ExtensionPoints.DASHBOARD_TAB, "link", label, null, 0,
                 privilege, map("provider", provider, "fragment", fragment));
     }
 
     static public Extension encounterTemplate(String id, String templateProvider, String templateFragment) {
-        return new Extension(id, null, ENCOUNTER_TEMPLATE_EXTENSION_POINT, "fragment", null, null, 0, null,
+        return new Extension(id, null, CustomAppLoaderConstants.ExtensionPoints.ENCOUNTER_TEMPLATE, "fragment", null, null, 0, null,
                 map("templateId", id, "templateFragmentProviderName", templateProvider, "templateFragmentId", templateFragment));
     }
 
@@ -127,16 +121,19 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, String linkId) {
-        return report(id, label, "reportingui", "runReport", definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+        return report(id, label, "reportingui", "runReport", definitionUuid, privilege,
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
     }
 
     static public Extension dailyReport(String id, String label, String definitionUuid, String privilege, String linkId) {
-        return report(id, label, "mirebalaisreports", "dailyReport", definitionUuid, privilege, REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+        return report(id, label, "mirebalaisreports", "dailyReport", definitionUuid, privilege,
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
     }
 
     static public Extension dataExport(String id, String label, String definitionUuid, String privilege, String linkId) {
         // note the indexOf(id) + 100 to make sure that these reports are ranked below the others defined in mirebalais reports--to do, we want to fix this at some point
-        return report(id, label, "reportingui", "runReport",definitionUuid, privilege, REPORTING_DATA_EXPORT_EXTENSION_POINT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id) + 100, linkId);
+        return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id) + 100, linkId);
     }
 
     static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {

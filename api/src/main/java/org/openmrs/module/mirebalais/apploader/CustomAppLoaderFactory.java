@@ -1,9 +1,12 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
@@ -13,77 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ACTIVE_VISITS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADMISSION_FORM_AWAITING_ADMISSION_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADMISSION_NOTE_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ALL_PATIENTS_WITH_IDS_DATA_EXPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENTS_DATA_EXPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENTS_TAB;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.APPOINTMENT_SCHEDULING_HOME_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ARCHIVES_ROOM_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CHECK_IN_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CHECK_IN_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CONSULT_ENCOUNTER_TEMPLATE;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CONSULT_NOTE_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CREATE_VISIT_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_CHECK_INS_OVERVIEW_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_INPATIENTS_OVERVIEW_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DAILY_REGISTRATIONS_OVERVIEW_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEATH_CERTIFICATE_HEADER_EXTENSION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEATH_CERTIFICATE_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEATH_INFO_HEADER_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEFAULT_ENCOUNTER_TEMPLATE;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DEFAULT_PRINTERS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DISPENSE_MEDICATION_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DISPENSING_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ED_CONSULT_NOTE_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.FEATURE_TOGGLES_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.INPATIENTS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_MPI_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_LOOKUP_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LQAS_DATA_EXPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MANAGE_ACCOUNTS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MANAGE_PRINTERS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MERGE_PATIENTS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MERGE_VISITS_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MONTHLY_INPATIENTS_OVERVIEW_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MY_ACCOUNT_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.NO_DETAILS_ENCOUNTER_TEMPLATE;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ORDER_CT_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ORDER_ULTRASOUND_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ORDER_XRAY_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PAPER_RECORD_ACTIONS_INCLUDES;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PIH_HEADER_EXTENSION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PRINT_ID_CARD_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PRINT_WRISTBAND_ACTION_INCLUDES;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PRINT_WRISTBAND_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.RADIOLOGY_TAB;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTER_TEST_PATIENT_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_AD_HOC_ANALYSIS;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_QUALITY_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REQUEST_APPOINTMENT_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REQUEST_PAPER_RECORD_OVERALL_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SCHEDULE_APPOINTMENT_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SURGICAL_NOTE_VISIT_ACTION;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.USERS_AND_PROVIDERS_DATA_EXPORT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_INCLUDES;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VITALS_APP;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VITALS_CAPTURE_VISIT_ACTION;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
@@ -111,6 +49,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitA
 
 @Component
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
+
+    private final Log log = LogFactory.getLog(getClass());
 
     private List<AppDescriptor> apps;
 
@@ -146,43 +86,109 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps = new ArrayList<AppDescriptor>();
         extensions = new ArrayList<Extension>();
 
+        Config config = new Config();
+
         configureHeader();
         setupDefaultEncounterTemplates();
-        enableVisitManagement();
-        enableActiveVisits();
-        enableCheckIn();
-        enableVitals();
-        enableConsult();
-        enableADT();
-        enableDeathCertificate();
-        enableRadiology();
-        enableDispensing();
-        enableSurgery();
-        enableReports();
-        enableArchives();
-        enableWristbands();
-        enableAppointmentScheduling();
-        enableSystemAdministration();
-        enableMyAccount();
 
-        enableLegacyMPI();
-        enableLegacyPatientRegistration();
-        registerLacollinePatientRegistrationEncounterTypes();
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_MANAGEMENT)) {
+            enableVisitManagement();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ACTIVE_VISITS)) {
+            enableActiveVisits();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
+            enableCheckIn();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS)) {
+            enableVitals();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CONSULT)) {
+            enableConsult();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ADT)) {
+            enableADT();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DEATH_CERTIFICATE)) {
+            enableDeathCertificate();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.RADIOLOGY)) {
+            enableRadiology();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DISPENSING)) {
+            enableDispensing();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.SURGERY)) {
+            enableSurgery();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
+            enableOverviewReports();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
+            enableDataExports();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
+            enableArchives();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.WRISTBANDS)) {
+            enableWristbands();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.APPOINTMENT_SCHEDULING)) {
+            enableAppointmentScheduling();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.SYSTEM_ADMINISTRATION)) {
+            enableSystemAdministration();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MANAGE_PRINTERS)) {
+            enableManagePrinters();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MY_ACCOUNT)) {
+            enableMyAccount();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
+            enableLegacyMPI();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_PATIENT_REGISTRATION)) {
+            enableLegacyPatientRegistration();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES)) {
+            registerLacollinePatientRegistrationEncounterTypes();
+        }
 
         needsRefresh = false;
     }
 
     private void configureHeader(){
-        extensions.add(header(PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
+        extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
     }
 
     private void setupDefaultEncounterTemplates() {
 
-        extensions.add(encounterTemplate(DEFAULT_ENCOUNTER_TEMPLATE,
+        extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.DEFAULT,
                 "coreapps",
                 "patientdashboard/encountertemplate/defaultEncounterTemplate"));
 
-        extensions.add(encounterTemplate(NO_DETAILS_ENCOUNTER_TEMPLATE,
+        extensions.add(encounterTemplate(EncounterTemplates.NO_DETAILS,
                 "coreapps",
                 "patientdashboard/encountertemplate/noDetailsEncounterTemplate"));
 
@@ -190,7 +196,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableVisitManagement() {
 
-        extensions.add(overallAction(CREATE_VISIT_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
                 "coreapps.task.startVisit.label",
                 "icon-check-in",
                 "script",
@@ -198,7 +204,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: coreapps.createVisit",
                 "!visit && !patient.person.dead"));
 
-        extensions.add(overallAction(CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
                 "coreapps.task.createRetrospectiveVisit.label",
                 "icon-plus",
                 "script",
@@ -206,7 +212,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: coreapps.createRetrospectiveVisit",
                 null));
 
-        extensions.add(overallAction(MERGE_VISITS_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.MERGE_VISITS_OVERALL_ACTION,
                 "coreapps.task.mergeVisits.label",
                 "icon-link",
                 "link",
@@ -215,20 +221,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         // this provides the javascript the backs the three overall action buttons
-        extensions.add(fragmentExtension(VISIT_ACTIONS_INCLUDES,
+        extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
 
     }
 
     private void enableActiveVisits() {
 
-        apps.add(addToHomePage(app(ACTIVE_VISITS_APP,
+        apps.add(addToHomePage(app(Apps.ACTIVE_VISITS,
                 "coreapps.activeVisits.app.label",
                 "icon-check-in",
-                "coreapps/activeVisits.page?app=" + ACTIVE_VISITS_APP,
+                "coreapps/activeVisits.page?app=" + Apps.ACTIVE_VISITS,
                 "App: org.openmrs.module.coreapps.activeVisits",
                 objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
 
@@ -236,14 +242,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableCheckIn() {
 
-        apps.add(addToHomePage(findPatientTemplateApp(CHECK_IN_APP,
+        apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
                 "mirebalais.app.patientRegistration.checkin.label",
                 "icon-paste",
                 "App: mirebalais.checkin",
                 "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
                 null)));
 
-        extensions.add(visitAction(CHECK_IN_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
@@ -252,19 +258,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CHECK_IN,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-check-in");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in");
     }
 
     private void enableVitals() {
 
-        apps.add(addToHomePage(findPatientTemplateApp(VITALS_APP,
+        apps.add(addToHomePage(findPatientTemplateApp(Apps.VITALS,
                 "mirebalais.outpatientVitals.title",
                 "icon-vitals",
                 "App: mirebalais.outpatientVitals",
                 "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
                 null)));
 
-        extensions.add(visitAction(VITALS_CAPTURE_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
                 "icon-vitals",
                 "link",
@@ -273,13 +279,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "visit != null && visit.active"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.VITALS,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-vitals");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals");
 
     }
 
     private void enableConsult() {
 
-        extensions.add(visitAction(CONSULT_NOTE_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
                 "emr.clinic.consult.title",
                 "icon-stethoscope",
                 "link",
@@ -287,7 +293,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
-        extensions.add(visitAction(ED_CONSULT_NOTE_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
                 "emr.ed.consult.title",
                 "icon-stethoscope",
                 "link",
@@ -295,29 +301,29 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
-        extensions.add(encounterTemplate(CONSULT_ENCOUNTER_TEMPLATE, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+        extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CONSULTATION,
-                findExtensionById(CONSULT_ENCOUNTER_TEMPLATE), "icon-stethoscope", null, true, null);
+                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null);
     }
 
     private void enableADT() {
 
-        apps.add(addToHomePage(app(AWAITING_ADMISSION_APP,
+        apps.add(addToHomePage(app(Apps.AWAITING_ADMISSION,
                 "coreapps.app.awaitingAdmission.label",
                 "icon-list-ul",
                 "coreapps/adt/awaitingAdmission.page",
                 "App: coreapps.awaitingAdmission",
                 objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
 
-        apps.add(addToHomePage(app(INPATIENTS_APP,
+        apps.add(addToHomePage(app(Apps.INPATIENTS,
                 "mirebalaisreports.app.inpatients.label",
                 "icon-list-ol",
                 "mirebalaisreports/inpatientList.page",
                 "App: emr.inpatients",
                 null)));
 
-        extensions.add(awaitingAdmissionAction(ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
+        extensions.add(awaitingAdmissionAction(Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
@@ -325,7 +331,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.enterClinicalForms",
                 null));
 
-        extensions.add(awaitingAdmissionAction(DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
+        extensions.add(awaitingAdmissionAction(Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "uicommons.cancel",
                 "icon-remove",
                 "link",
@@ -333,7 +339,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.enterClinicalForms",
                 null));
 
-        extensions.add(visitAction(ADMISSION_NOTE_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.ADMISSION_NOTE_VISIT_ACTION,
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
@@ -342,21 +348,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.ADMISSION,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-signin", null, true, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CANCEL_ADMISSION,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-ban-circle", true, true, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-ban-circle", true, true, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.TRANSFER,
-                findExtensionById(NO_DETAILS_ENCOUNTER_TEMPLATE), "icon-share", null, true, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-share", null, true, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.EXIT_FROM_CARE,
-                findExtensionById(NO_DETAILS_ENCOUNTER_TEMPLATE), "icon-signout", null, true, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-signout", null, true, null);
     }
 
     private void enableDeathCertificate() {
 
-        extensions.add(overallAction(DEATH_CERTIFICATE_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
                 "mirebalais.deathCertificate.enter.label",
                 "icon-remove-circle",
                 "link",
@@ -365,25 +371,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "!patient.person.dead"
         ));
 
-        extensions.add(fragmentExtension(DEATH_CERTIFICATE_HEADER_EXTENSION,
+        extensions.add(fragmentExtension(Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,
                 "mirebalais",
                 "deathcertificate/headerLink",
                 "Task: mirebalais.enterDeathCertificate",
-                DEATH_INFO_HEADER_EXTENSION_POINT));
+                ExtensionPoints.DEATH_INFO_HEADER));
 
-        addFeatureToggleToExtension(findExtensionById(DEATH_CERTIFICATE_OVERALL_ACTION), "deathNote");
-        addFeatureToggleToExtension(findExtensionById(DEATH_CERTIFICATE_HEADER_EXTENSION), "deathNote");
+        addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION), "deathNote");
+        addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION), "deathNote");
     }
 
     private void enableRadiology() {
 
-        extensions.add(dashboardTab(RADIOLOGY_TAB,
+        extensions.add(dashboardTab(Extensions.RADIOLOGY_TAB,
                 "radiologyapp.radiology.label",
                 "Task: org.openmrs.module.radiologyapp.tab",
                 "radiologyapp",
                 "radiologyTab"));
 
-        extensions.add(visitAction(ORDER_XRAY_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.ORDER_XRAY_VISIT_ACTION,
                 "radiologyapp.task.order.CR.label",
                 "icon-x-ray",
                 "link",
@@ -391,7 +397,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderXray') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
 
-        extensions.add(visitAction(ORDER_CT_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
                 "icon-x-ray",
                 "link",
@@ -399,7 +405,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderCT') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
 
-        extensions.add(visitAction(ORDER_ULTRASOUND_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
                 "icon-x-ray",
                 "link",
@@ -408,26 +414,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderUS') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
 
         registerTemplateForEncounterType(RadiologyMetadata.EncounterTypes.RADIOLOGY_ORDER,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
 
         registerTemplateForEncounterType(RadiologyMetadata.EncounterTypes.RADIOLOGY_STUDY,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
 
         registerTemplateForEncounterType(RadiologyMetadata.EncounterTypes.RADIOLOGY_REPORT,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
     }
 
     private void enableDispensing() {
 
         // TODO change this to use the coreapps find patient app?
-        apps.add(addToHomePage(app(DISPENSING_APP,
+        apps.add(addToHomePage(app(Apps.DISPENSING,
                 "dispensing.app.label",
                 "icon-medicine",
                 "dispensing/findPatient.page",
                 "App: dispensing.app.dispense",
                 null)));
 
-        extensions.add(visitAction(DISPENSE_MEDICATION_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
                 "icon-medicine",
                 "link",
@@ -436,13 +442,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.MEDICATION_DISPENSED,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-medicine", true, true, "bad21515-fd04-4ff6-bfcd-78456d12f168");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
 
     private void enableSurgery() {
 
-        extensions.add(visitAction(SURGICAL_NOTE_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.SURGICAL_NOTE_VISIT_ACTION,
                 "mirebalais.task.surgicalOperativeNote.label",
                 "icon-paste",
                 "link",
@@ -451,123 +457,142 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-paste", true, true, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
 
-    private void enableReports() {
+    private void enableOverviewReports() {
 
         // TODO move all the other reporting stuff in here?
         // TODO do we need to explicitly add the extension points?
 
-        apps.add(addToHomePage(app(REPORTS_APP,
-                "reportingui.reportsapp.home.title",
-                "icon-list-alt",
-                "reportingui/reportsapp/home.page",
-                "App: reportingui.reports",
-                null)));
+        // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
+        if (findAppById(Apps.REPORTS) == null) {
+            apps.add(addToHomePage(app(Apps.REPORTS,
+                    "reportingui.reportsapp.home.title",
+                    "icon-list-alt",
+                    "reportingui/reportsapp/home.page",
+                    "App: reportingui.reports",
+                    null)));
+        }
 
-        extensions.add(extension(REPORTING_AD_HOC_ANALYSIS,
-                "reportingui.adHocAnalysis.label",
-                null,
-                "link",
-                "reportingui/adHocManage.page",
-                "App: reportingui.adHocAnalysis",
-                null,
-                REPORTING_DATA_EXPORT_EXTENSION_POINT,
-                9999,
-                null));
-
-        extensions.add(dailyReport(DAILY_REGISTRATIONS_OVERVIEW_REPORT,
+        extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
                 "mirebalaisreports.dailyRegistrations.name",
                 MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
                 "App: reportingui.reports",
                 "mirebalaisreports-dailyRegistrationsReport-link"));
 
-        extensions.add(dailyReport(DAILY_CHECK_INS_OVERVIEW_REPORT,
+        extensions.add(dailyReport(Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
                 "mirebalaisreports.dailyCheckInEncounters.name",
                 MirebalaisReportsProperties.DAILY_CHECK_INS_REPORT_DEFINITION_UUID,
                 "App: reportingui.reports",
                 "mirebalaisreports-dailyCheckInsReport-link"));
 
-        extensions.add(dailyReport(DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
+        extensions.add(dailyReport(Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
                 "mirebalaisreports.dailyClinicalEncounters.name",
                 MirebalaisReportsProperties.DAILY_CLINICAL_ENCOUNTERS_REPORT_DEFINITION_UUID,
                 "App: reportingui.reports",
                 "mirebalaisreports-dailyClinicalEncountersReport-link"));
 
         // custom overview report
-        extensions.add(extension(DAILY_INPATIENTS_OVERVIEW_REPORT,
+        extensions.add(extension(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
                 "mirebalaisreports.inpatientStatsDailyReport.name",
                 null,
                 "link",
                 "mirebalaisreports/inpatientStatsDailyReport.page",
                 "App: reportingui.reports",
                 null,
-                REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT,
-                REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(DAILY_INPATIENTS_OVERVIEW_REPORT),
+                ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
+                REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT),
                 map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
 
-        extensions.add(overviewReport(MONTHLY_INPATIENTS_OVERVIEW_REPORT,
+        extensions.add(overviewReport(Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT,
                 "mirebalaisreports.inpatientStatsMonthlyReport.name",
                 MirebalaisReportsProperties.INPATIENT_STATS_MONTHLY_REPORT_DEFINITION_UUID,
                 "App: reportingui.reports",
                 "mirebalaisreports-inpatientMonthlyReport-link"));
 
-        extensions.add(extension(NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
+        extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
                 "mirebalaisreports.noncodeddiagnoses.name",
                 null,
                 "link",
                 "mirebalaisreports/nonCodedDiagnoses.page",
                 "App: reportingui.reports",
                 null,
-                REPORTING_DATA_QUALITY_EXTENSION_POINT,
+                ExtensionPoints.REPORTING_DATA_QUALITY,
                 0,
                 map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
+    }
 
-        extensions.add(dataExport(USERS_AND_PROVIDERS_DATA_EXPORT,
+    private void enableDataExports() {
+
+        // TODO move all the other reporting stuff in here?
+        // TODO do we need to explicitly add the extension points?
+
+        // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
+        if (findAppById(Apps.REPORTS) == null) {
+            apps.add(addToHomePage(app(Apps.REPORTS,
+                    "reportingui.reportsapp.home.title",
+                    "icon-list-alt",
+                    "reportingui/reportsapp/home.page",
+                    "App: reportingui.reports",
+                    null)));
+        }
+
+        extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
+                "reportingui.adHocAnalysis.label",
+                null,
+                "link",
+                "reportingui/adHocManage.page",
+                "App: reportingui.adHocAnalysis",
+                null,
+                ExtensionPoints.REPORTING_DATA_EXPORT,
+                9999,
+                null));
+
+        extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
                 "mirebalaisreports.userAndProviders.name",
                 MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
                 "App: mirebalaisreports.dataexports",
                 "mirebalaisreports-usersAndProvidersReport-link" ));
 
         // custom data export report LQAS report report
-        extensions.add(extension(LQAS_DATA_EXPORT,
+        extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
                 "mirebalaisreports.lqasdiagnoses.name",
                 null,
                 "link",
                 "mirebalaisreports/lqasDiagnoses.page",
                 "App: mirebalaisreports.dataexports",
                 null,
-                REPORTING_DATA_EXPORT_EXTENSION_POINT,
-                REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
+                ExtensionPoints.REPORTING_DATA_EXPORT,
+                REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
                 map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
 
-        extensions.add(dataExport(ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
+        extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
                 "mirebalaisreports.allpatientswithids.name",
                 MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
                 "App: mirebalaisreports.dataexports",
                 "mirebalaisreports-allPatientsWithIdsReport-link"));
 
-        extensions.add(dataExport(APPOINTMENTS_DATA_EXPORT,
+        extensions.add(dataExport(Extensions.APPOINTMENTS_DATA_EXPORT,
                 "mirebalaisreports.appointments.name",
                 MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID,
                 "App: mirebalaisreports.dataexports",
                 "mirebalaisreports-appointments-link"));
 
-        addFeatureToggleToExtension(findExtensionById(REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
+        addFeatureToggleToExtension(findExtensionById(Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
 
     }
 
     private void enableArchives() {
 
-        apps.add(addToHomePage(app(ARCHIVES_ROOM_APP,
+        apps.add(addToHomePage(app(Apps.ARCHIVES_ROOM,
                 "paperrecord.app.archivesRoom.label",
                 "icon-folder-open",
                 "paperrecord/archivesRoom.page",
                 "App: emr.archivesRoom",
                 null)));
 
-        extensions.add(overallAction(REQUEST_PAPER_RECORD_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
                 "paperrecord.task.requestPaperRecord.label",
                 "icon-folder-open",
                 "script",
@@ -575,7 +600,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.requestPaperRecord",
                 null));
 
-        extensions.add(overallAction(PRINT_ID_CARD_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.PRINT_ID_CARD_OVERALL_ACTION,
                 "paperrecord.task.printIdCardLabel.label",
                 "icon-print",
                 "script",
@@ -583,7 +608,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.printLabels",
                 null));
 
-        extensions.add(overallAction(PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
                 "paperrecord.task.printPaperFormLabel.label",
                 "icon-print",
                 "script",
@@ -592,17 +617,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         // this provides the javascript the backs the three overall action buttons
-        extensions.add(fragmentExtension(PAPER_RECORD_ACTIONS_INCLUDES,
+        extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,
                 "paperrecord",
                 "patientdashboard/overallActionsIncludes",
                 null,
-                DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
 
     }
 
     public void enableWristbands() {
 
-        extensions.add(overallAction(PRINT_WRISTBAND_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.PRINT_WRISTBAND_OVERALL_ACTION,
                 "mirebalais.printWristband",
                 "icon-print",
                 "script",
@@ -611,24 +636,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         // this provides the javascript the backs the overall action button
-        extensions.add(fragmentExtension(PRINT_WRISTBAND_ACTION_INCLUDES,
+        extensions.add(fragmentExtension(Extensions.PRINT_WRISTBAND_ACTION_INCLUDES,
                 "mirebalais",
                 "wristband/printWristband",
                 null,
-                DASHBOARD_INCLUDE_FRAGMENTS_EXTENSION_POINT));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
 
     }
 
     public void enableAppointmentScheduling() {
 
-        apps.add(addToHomePage(app(APPOINTMENT_SCHEDULING_HOME_APP,
+        apps.add(addToHomePage(app(Apps.APPOINTMENT_SCHEDULING_HOME,
                 "appointmentschedulingui.home.title",
                 "icon-calendar",
                 "/appointmentschedulingui/home.page",
                 "App: appointmentschedulingui.home",
                 null)));
 
-        apps.add(addToOverallActions(findPatientTemplateApp(SCHEDULE_APPOINTMENT_APP,
+        apps.add(addToOverallActions(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
                         "appointmentschedulingui.scheduleAppointment.buttonTitle",
                         "icon-calendar",
                         "Task: appointmentschedulingui.bookAppointments",
@@ -638,7 +663,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))),
                 "appointmentschedulingui.scheduleAppointment.title"));
 
-        extensions.add(overallAction(REQUEST_APPOINTMENT_OVERALL_ACTION,
+        extensions.add(overallAction(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.requestAppointment.label",
                 "icon-calendar",
                 "link",
@@ -646,85 +671,101 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: appointmentschedulingui.requestAppointments",
                 null));
 
-        extensions.add(dashboardTab(APPOINTMENTS_TAB,
+        extensions.add(dashboardTab(Extensions.APPOINTMENTS_TAB,
                 "appointmentschedulingui.appointmentsTab.label",
                 "App: appointmentschedulingui.viewAppointments",
                 "appointmentschedulingui",
                 "appointmentsTab"));
 
-        addFeatureToggleToExtension(findExtensionById(APPOINTMENTS_TAB), "requestAppointments");
-        addFeatureToggleToExtension(findExtensionById(REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
+        addFeatureToggleToExtension(findExtensionById(Extensions.APPOINTMENTS_TAB), "requestAppointments");
+        addFeatureToggleToExtension(findExtensionById(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
 
     }
 
     public void enableSystemAdministration() {
 
-        apps.add(addToHomePage(app(SYSTEM_ADMINISTRATION_APP,
-                "coreapps.app.system.administration.label",
-                "icon-cogs",
-                "coreapps/systemadministration/systemAdministration.page",
-                "App: emr.systemAdministration",
-                null)));
+        if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
+            apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
+                    "coreapps.app.system.administration.label",
+                    "icon-cogs",
+                    "coreapps/systemadministration/systemAdministration.page",
+                    "App: emr.systemAdministration",
+                    null)));
+        }
 
-        apps.add(addToSystemAdministrationPage(app(MANAGE_ACCOUNTS_APP,
+        apps.add(addToSystemAdministrationPage(app(Apps.MANAGE_ACCOUNTS,
                 "emr.task.accountManagement.label",
                 "icon-book",
                 "emr/account/manageAccounts.page",
                 "App: emr.systemAdministration",
                 null)));
 
-        apps.add(addToSystemAdministrationPage(app(MANAGE_PRINTERS_APP,
-                "printer.managePrinters",
-                "icon-print",
-                "printer/managePrinters.page",
-                "App: emr.systemAdministration",
-                null)));
-
-        apps.add(addToSystemAdministrationPage(app(DEFAULT_PRINTERS_APP,
-                "printer.defaultPrinters",
-                "icon-print",
-                "printer/defaultPrinters.page",
-                "App: emr.systemAdministration",
-                null)));
-
-        apps.add(addToSystemAdministrationPage(app(MERGE_PATIENTS_APP,
+        apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
                 "emr.mergePatients",
                 "icon-group",
                 "emr/mergePatients.page",
                 "App: emr.systemAdministration",
                 null)));
 
-        apps.add(addToSystemAdministrationPage(app(REGISTER_TEST_PATIENT_APP,
+        apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
                 "emr.testPatient.registration",
                 "icon-register",
                 "mirebalais/patientRegistration/appRouter.page?task=patientRegistration&testPatient=true",
                 "App: emr.systemAdministration",
                 null)));
 
-        apps.add(addToSystemAdministrationPage(app(FEATURE_TOGGLES_APP,
+        apps.add(addToSystemAdministrationPage(app(Apps.FEATURE_TOGGLES,
                 "emr.advancedFeatures",
                 "icon-search",
                 "mirebalais/toggles.page",
                 "App: emr.systemAdministration",
                 null)));
 
-        addFeatureToggleToApp(findAppById(REGISTER_TEST_PATIENT_APP), "registerTestPatient");
+        addFeatureToggleToApp(findAppById(Apps.REGISTER_TEST_PATIENT), "registerTestPatient");
+
+    }
+
+    public void enableManagePrinters() {
+
+        if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
+            apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
+                    "coreapps.app.system.administration.label",
+                    "icon-cogs",
+                    "coreapps/systemadministration/systemAdministration.page",
+                    "App: emr.systemAdministration",
+                    null)));
+        }
+
+        apps.add(addToSystemAdministrationPage(app(Apps.MANAGE_PRINTERS,
+            "printer.managePrinters",
+            "icon-print",
+            "printer/managePrinters.page",
+            "App: emr.systemAdministration",
+            null)));
+
+        apps.add(addToSystemAdministrationPage(app(Apps.DEFAULT_PRINTERS,
+                "printer.defaultPrinters",
+                "icon-print",
+                "printer/defaultPrinters.page",
+                "App: emr.systemAdministration",
+                null)));
+
     }
 
     public void enableMyAccount() {
 
-        apps.add(addToHomePage(app(MY_ACCOUNT_APP,
+        apps.add(addToHomePage(app(Apps.MY_ACCOUNT,
                 "emr.app.system.administration.myAccount.label",
                 "icon-cog",
                 "emr/account/myAccount.page",
                 null, null)));
 
-        addFeatureToggleToApp(findAppById(MY_ACCOUNT_APP), "myAccountFeature");
+        addFeatureToggleToApp(findAppById(Apps.MY_ACCOUNT), "myAccountFeature");
     }
 
     // legacy MPI used in Mirebalais to connect to Lacolline
     public void enableLegacyMPI() {
-        apps.add(addToHomePage(app(LEGACY_MPI_APP,
+        apps.add(addToHomePage(app(Apps.LEGACY_MPI,
                 "mirebalais.mpi.title",
                 "icon-zoom-in",
                 "mirebalais/mpi/findPatient.page",
@@ -734,21 +775,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     public void enableLegacyPatientRegistration() {
 
-        apps.add(addToHomePage(app(LEGACY_PATIENT_REGISTRATION_APP,
+        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION,
                 "mirebalais.app.patientRegistration.registration.label",
                 "icon-register",
                 "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
                 "App: patientregistration.main",
                 null)));
 
-        apps.add(addToHomePage(app(LEGACY_PATIENT_REGISTRATION_ED_APP,
+        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
                 "mirebalais.app.patientRegistration.emergencyCheckin.label",
                 "icon-hospital",
                 "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
                 "App: patientregistration.main",
                 null)));
 
-        apps.add(addToHomePage(app(LEGACY_PATIENT_LOOKUP_APP,
+        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_LOOKUP,
                 "mirebalais.app.patientRegistration.patientLookup.label",
                 "icon-edit",
                 "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
@@ -756,16 +797,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
-                findExtensionById(NO_DETAILS_ENCOUNTER_TEMPLATE), "icon-register");
+                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-register");
 
     }
 
     public void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PAYMENT,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-money");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-money");
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PRIMARY_CARE_VISIT,
-                findExtensionById(DEFAULT_ENCOUNTER_TEMPLATE), "icon-calendar");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-calendar");
 
     }
 
@@ -775,7 +816,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 return app;
             }
         }
-        throw new IllegalStateException("App Not Found: " + id);
+        log.warn("App Not Found: " + id);
+        return null;
     }
 
     public Extension findExtensionById(String id) {
@@ -784,7 +826,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 return extension;
             }
         }
-        throw new IllegalStateException("Extension Not Found: " + id);
+        log.warn("Extension Not Found: " + id);
+        return null;
     }
 
     public void setNeedsRefresh(Boolean needsRefresh) {

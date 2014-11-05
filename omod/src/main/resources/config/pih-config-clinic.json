@@ -1,0 +1,11 @@
+{
+    "components": [
+        "visitManagement",
+        "activeVisits",
+        "checkIn",
+        "vitals",
+        "consult",
+        "systemAdministration",
+        "myAccount"
+    ]
+}

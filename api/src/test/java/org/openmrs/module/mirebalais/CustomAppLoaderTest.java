@@ -17,8 +17,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_EXTENSION_POINT;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
@@ -90,7 +88,7 @@ public class CustomAppLoaderTest {
         assertThat(app.getExtensions().get(0).getUrl(), is("url"));
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
-        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.HOME_PAGE_EXTENSION_POINT));
+        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE));
         assertThat(app.getConfig().get("patientPageUrl").getTextValue(), is("patientPageUrl"));
     }
 
@@ -106,15 +104,15 @@ public class CustomAppLoaderTest {
         assertThat(app.getExtensions().get(0).getUrl(), is("url"));
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
-        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_PAGE_EXTENSION_POINT));
+        assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.SYSTEM_ADMINISTRATION_PAGE));
     }
 
 
     @Test
     public void shouldCreateVisitActionsExtension() {
-        Extension extension = CustomAppLoaderUtil.visitAction(CustomAppLoaderConstants.ORDER_XRAY_VISIT_ACTION, "label", "icon","link", "url", "privilege", "require");
+        Extension extension = CustomAppLoaderUtil.visitAction(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION, "label", "icon","link", "url", "privilege", "require");
 
-        assertThat(extension.getId(), is(CustomAppLoaderConstants.ORDER_XRAY_VISIT_ACTION));
+        assertThat(extension.getId(), is(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getIcon(), is("icon"));
         assertThat(extension.getUrl(), is("url"));
@@ -122,14 +120,14 @@ public class CustomAppLoaderTest {
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getRequire(), is("require"));
         assertThat(extension.getType(), is("link"));
-        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.VISIT_ACTIONS_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.VISIT_ACTIONS));
     }
 
     @Test
     public void shouldCreateOverallActionsExtension() {
-        Extension extension = CustomAppLoaderUtil.overallAction(CustomAppLoaderConstants.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION, "label", "icon","script", "script", "privilege", "require");
+        Extension extension = CustomAppLoaderUtil.overallAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION, "label", "icon","script", "script", "privilege", "require");
 
-        assertThat(extension.getId(), is(CustomAppLoaderConstants.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION));
+        assertThat(extension.getId(), is(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getIcon(), is("icon"));
         assertThat(extension.getUrl(), is(nullValue()));
@@ -137,14 +135,14 @@ public class CustomAppLoaderTest {
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getRequire(), is("require"));
         assertThat(extension.getType(), is("script"));
-        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.OVERALL_ACTIONS_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS));
     }
 
     @Test
     public void shouldCreateAwaitingAdmissionActionsExtension() {
-        Extension extension = CustomAppLoaderUtil.awaitingAdmissionAction(CustomAppLoaderConstants.ADMISSION_FORM_AWAITING_ADMISSION_ACTION, "label", "icon", "link", "url", "privilege", "require");
+        Extension extension = CustomAppLoaderUtil.awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION, "label", "icon", "link", "url", "privilege", "require");
 
-        assertThat(extension.getId(), is(CustomAppLoaderConstants.ADMISSION_FORM_AWAITING_ADMISSION_ACTION));
+        assertThat(extension.getId(), is(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getIcon(), is("icon"));
         assertThat(extension.getUrl(), is("url"));
@@ -152,7 +150,7 @@ public class CustomAppLoaderTest {
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getRequire(), is("require"));
         assertThat(extension.getType(), is("link"));
-        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.AWAITING_ADMISSION_ACTIONS));
     }
 
 
@@ -176,7 +174,7 @@ public class CustomAppLoaderTest {
         assertThat(extension.getId(), is("id"));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getType(), is("link"));
-        assertThat(extension.getExtensionPointId(), is(REPORTING_OVERVIEW_REPORTS_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS));
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
         assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
@@ -190,7 +188,7 @@ public class CustomAppLoaderTest {
         assertThat(extension.getId(), is("id"));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getType(), is("link"));
-        assertThat(extension.getExtensionPointId(), is(REPORTING_DATA_EXPORT_EXTENSION_POINT));
+        assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT));
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
         assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
