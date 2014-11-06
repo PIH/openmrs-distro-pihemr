@@ -133,7 +133,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.createPaperRecord.where") }</p>
 
         <button class="confirm right no-color">${ ui.format(sessionContext.sessionLocation) }</button>
-        <button class="cancel no-color">${ ui.message("ui.i18n.Location.name.be50d584-26b2-4371-8768-2b9565742b3b") }</button>
+        <button class="cancel no-color">${ ui.format(associatedArchivesLocation) }</button>
     </div>
 </div>
 <%} %>

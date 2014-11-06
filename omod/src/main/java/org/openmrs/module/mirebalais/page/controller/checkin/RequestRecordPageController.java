@@ -5,8 +5,8 @@ import org.apache.commons.collections.Predicate;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.paperrecord.PaperRecord;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -39,13 +39,17 @@ public class RequestRecordPageController {
         List<PaperRecord> paperRecords = paperRecordService.getPaperRecords(patient, currentLocation);
 
         // only show the create paper record dialog if the patient does *not* have an existing record that is in some other state than pending creation
-        // and we are not currently at the central archives
-        boolean needToCreateRecord = !currentLocation.getUuid().equals(MirebalaisConstants.CENTRAL_ARCHIVES_LOCATION_UUID) &&
+        // and we are not currently at an archives location
+        boolean needToCreateRecord = !currentLocation.hasTag(PaperRecordConstants.LOCATION_TAG_ARCHIVES_LOCATION) &&
                 (paperRecords == null || paperRecords.size() == 0 || !CollectionUtils.exists(paperRecords, ANY_NOT_PENDING_CREATION));
 
         pageModel.addAttribute("patient", patient);
         pageModel.addAttribute("needToCreateRecord", needToCreateRecord);
         pageModel.addAttribute("redirectToEmergency", redirectToEmergency);
+
+        if (needToCreateRecord) {
+            pageModel.addAttribute("associatedArchivesLocation", paperRecordService.getArchivesLocationAssociatedWith(currentLocation));
+        }
 
     }
 
