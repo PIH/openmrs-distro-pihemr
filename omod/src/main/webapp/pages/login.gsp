@@ -21,7 +21,7 @@ ${ ui.includeFragment("appui", "header") }
 <div id="body-wrapper" class="container">
     <div id="content">
 
-        <h1>${ ui.message("mirebalais.login.welcomeHeading") }</h1>
+        <h1>${ welcomeMessage }</h1>
 
         <form id="login-form" method="post" autocomplete="off">
             <fieldset>

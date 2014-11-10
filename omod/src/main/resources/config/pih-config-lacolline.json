@@ -1,4 +1,9 @@
 {
+
+    "welcomeMessage": "Bienvenue dans l'EMR de Lacolline",
+
+    "site": "LACOLLINE",
+
     "components": [
         "visitManagement",
         "activeVisits",

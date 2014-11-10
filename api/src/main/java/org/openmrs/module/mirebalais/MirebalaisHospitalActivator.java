@@ -44,9 +44,10 @@ import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
+import org.openmrs.module.mirebalais.setup.LocationTagSetup;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisSpecificMetadata;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask;
 import org.openmrs.module.paperrecord.CloseStalePullRequestsTask;
@@ -132,6 +133,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupHtmlForms();
             customizeDailyAppointmentsDataSet();
             scheduleReports(reportService, reportDefinitionService);
+            LocationTagSetup.setupLocationTags(locationService, featureToggleProperties);
 
             if (featureToggleProperties.isFeatureEnabled("cdi")) {
                 migratePaperRecordLocation(paperRecordProperties);
@@ -477,16 +479,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
         Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
-                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
                 "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
                 paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
                 "and location_id = (select location_id from location where uuid='" +
-                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL + "')", false);
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')", false);
 
         Context.getAdministrationService().executeSQL("update paperrecord_paper_record set record_location = (select location_id from location where uuid='" +
-                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
                 "where record_location = (select location_id from location where uuid='" +
-                MirebalaisSpecificMetadata.MirebalaisHospitalLocations.MIREBALAIS_HOSPITAL + "')", false);
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')", false);
 
     }
 

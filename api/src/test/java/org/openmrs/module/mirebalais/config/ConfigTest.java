@@ -16,6 +16,8 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("someComponent"), is(true));
         assertThat(config.isComponentEnabled("anotherComponent"), is(true));
         assertThat(config.isComponentEnabled("missingComponent"), is(false));
+        assertThat(config.getWelcomeMessage(), is("Hello Mirebalais!"));
+        assertThat(config.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
     }
 
     @Test
@@ -25,6 +27,8 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("someComponent"), is(true));
         assertThat(config.isComponentEnabled("anotherComponent"), is(false));
         assertThat(config.isComponentEnabled("customComponent"), is(true));
+        assertThat(config.getWelcomeMessage(), is("Hello custom!"));
+        assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
         runtimeProperties.remove(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
 

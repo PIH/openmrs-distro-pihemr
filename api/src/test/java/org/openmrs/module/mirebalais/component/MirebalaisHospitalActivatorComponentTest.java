@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.component;
 
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
@@ -30,6 +31,7 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalaismetadata.MetadataManager;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
@@ -97,6 +99,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         verifyCloseStaleCreateRequestsTaskScheduledAndStarted();
         verifyMarkAppointmentsAsMissedOrCompletedScheduledAndStarted();
         verifyDailyAppointmentsDataSetUpdated();
+        verifyLocationTags();
     }
 
 	private void verifyGlobalPropertiesConfigured() throws Exception {
@@ -165,6 +168,29 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         assertThat(patientIdentifierDataDefinition.getTypes().get(0), is(paperRecordProperties.getPaperRecordIdentifierType()));
     }
 
+    private void verifyLocationTags() {
+        // test a couple of sentinel locations
+        // mirebalais hospital should support neither login nor admission nor transfer
+        Location location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL);
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN), Is.is(false));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION), Is.is(false));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_TRANSFER), Is.is(false));
 
+        // outpatient clinic should support login and transfer
+        location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC);
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN), Is.is(true));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION), Is.is(false));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_TRANSFER), Is.is(true));
+
+        // pre-natal should support login, admission and transfer
+        location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD);
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN), Is.is(true));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION), Is.is(true));
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_TRANSFER), Is.is(true));
+
+        // outpatient pharmacy should support dispensing medication encounter
+        location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY);
+        assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_DISPENSING), Is.is(true));
+    }
 
 }

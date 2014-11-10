@@ -1,4 +1,8 @@
 {
+    "welcomeMessage": "Bienvenue dans l'EMR de l'Hôpital Universitaire de Mirebalais",
+
+    "site": "MIREBALAIS",
+
     "components": [
         "visitManagement",
         "activeVisits",
@@ -15,7 +19,7 @@
         "archives",
         "wristbands",
         "appointmentScheduling",
-         "systemAdministration",
+        "systemAdministration",
         "managePrinters",
         "myAccount",
         "legacyMpi",

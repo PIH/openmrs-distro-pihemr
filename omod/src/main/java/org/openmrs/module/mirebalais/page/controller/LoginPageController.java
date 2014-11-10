@@ -24,6 +24,7 @@ import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.api.EmrService;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -51,7 +52,9 @@ public class LoginPageController {
 		if (context.isAuthenticated()) {
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
-		
+
+        pageModel.put("welcomeMessage", new Config().getWelcomeMessage());
+
 		// Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges
 		try {

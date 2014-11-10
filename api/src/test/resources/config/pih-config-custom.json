@@ -1,6 +1,10 @@
 {
+    "welcomeMessage": "Hello custom!",
+    "site": "LACOLLINE",
+
     "components": [
         "someComponent",
         "customComponent"
     ]
+
 }

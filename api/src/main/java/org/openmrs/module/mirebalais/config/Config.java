@@ -56,6 +56,14 @@ public class Config {
         return descriptor.getComponents().contains(component);
     }
 
+    public String getWelcomeMessage() {
+        return descriptor.getWelcomeMessage();
+    }
+
+
+    public ConfigDescriptor.Site getSite() {
+        return descriptor.getSite();
+    }
 
     private InputStream findConfig(String config) {
 

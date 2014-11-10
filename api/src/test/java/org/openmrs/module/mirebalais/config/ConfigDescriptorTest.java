@@ -18,6 +18,8 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getComponents().contains("someComponent"), is(true));
         assertThat(configDescriptor.getComponents().contains("anotherComponent"), is(true));
         assertThat(configDescriptor.getComponents().contains("missingComponent"), is(false));
+        assertThat(configDescriptor.getWelcomeMessage(), is("Hello World!"));
+        assertThat(configDescriptor.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
     }
 
 }

@@ -6,8 +6,34 @@ import java.util.List;
 
 public class ConfigDescriptor {
 
+    public enum Site {
+        MIREBALAIS, LACOLLINE
+    }
+
+    @JsonProperty
+    String welcomeMessage;
+
+    @JsonProperty
+    Site site;
+
     @JsonProperty
     List<String> components;
+
+    public String getWelcomeMessage() {
+        return welcomeMessage;
+    }
+
+    public void setWelcomeMessage(String welcomeMessage) {
+        this.welcomeMessage = welcomeMessage;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
+    }
 
     public List<String> getComponents() {
         return components;
