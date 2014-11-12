@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
+import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpSession;
 
@@ -60,8 +61,10 @@ public class LoginPageController {
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges
 		try {
 			Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
-			
-			pageModel.addAttribute("locations", emrService.getLoginLocations());
+
+            List<Location> loginLocations = emrService.getLoginLocations();
+
+			pageModel.addAttribute("locations", loginLocations);
 			Location lastSessionLocation = null;
 			try {
 				lastSessionLocation = locationService.getLocation(Integer.valueOf(lastSessionLocationId));
@@ -69,12 +72,15 @@ public class LoginPageController {
 			catch (Exception ex) {
 				// pass
 			}
-			pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
-			return null;
+            // double-check that the last session location is still a valid login location
+            if (lastSessionLocation != null && loginLocations.contains(lastSessionLocation)) {
+                pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
+            }
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
 		}
+        return null;
 	}
 	
 	public String post(@RequestParam(value = "username", required = false) String username,

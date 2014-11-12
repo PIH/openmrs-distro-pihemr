@@ -4,6 +4,9 @@
 
     "components": [
         "someComponent",
-        "anotherComponent"
+        "anotherComponent",
+        "archives",
+        "appointmentScheduling",
+        "legacyMpi"
     ]
 }

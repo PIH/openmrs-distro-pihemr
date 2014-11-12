@@ -17,6 +17,7 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
+import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,7 +68,7 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
                 .name("CAUSES OF DEATH FROM DEATH CERTIFICATE").mapping("SAME-AS", "CIEL:1816")
                 .setMembers(codedCauseConcept, nonCodedCauseConcept, sequenceConcept).save();
 
-        new MirebalaisHospitalActivator().setupHtmlFormEntryTagHandlers();
+        HtmlFormSetup.setupHtmlFormEntryTagHandlers();
     }
 
     @Test
