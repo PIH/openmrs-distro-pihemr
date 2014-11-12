@@ -8,6 +8,7 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
+import org.openmrs.module.mirebalais.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class CustomAppLoaderTest {
     public void shouldSetUpAppsAndExtensions() throws Exception {
         // TODO implement--right now we are just testing to make sure there are no runtime tests
         CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
+        factory.setConfig(new Config());
         factory.getExtensions();
         factory.getAppDescriptors();
     }

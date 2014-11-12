@@ -10,6 +10,7 @@ import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -52,6 +53,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private final Log log = LogFactory.getLog(getClass());
 
+    @Autowired
+    private Config config;
+
     private List<AppDescriptor> apps;
 
     private List<Extension> extensions;
@@ -85,8 +89,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps = new ArrayList<AppDescriptor>();
         extensions = new ArrayList<Extension>();
-
-        Config config = new Config();
 
         configureHeader();
         setupDefaultEncounterTemplates();
@@ -843,5 +845,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         this.extensions = extensions;
     }
 
-
+    public void setConfig(Config config) {
+        this.config = config;
+    }
 }

@@ -9,12 +9,14 @@ import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Component
 public class Config {
 
     private final Log log = LogFactory.getLog(getClass());

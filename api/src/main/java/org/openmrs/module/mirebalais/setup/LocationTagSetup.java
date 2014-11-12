@@ -15,9 +15,7 @@ import java.util.Collection;
 public class LocationTagSetup {
 
 
-    public static void setupLocationTags(LocationService locationService, FeatureToggleProperties featureToggles) {
-
-        Config config = new Config();
+    public static void setupLocationTags(LocationService locationService, Config config, FeatureToggleProperties featureToggles) {
 
         if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
             setupLocationTagsForLacolline(locationService);
@@ -44,32 +42,26 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.LOGIN_LOCATION, Arrays.asList(
             ZanmiLocations.MirebalaisLocations.CLINIC_REGISTRATION,
             ZanmiLocations.MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION,
-            ZanmiLocations.MirebalaisLocations. CENTRAL_ARCHIVES,
-
+            ZanmiLocations.MirebalaisLocations.CENTRAL_ARCHIVES,
             ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC,
             ZanmiLocations.MirebalaisLocations.EMERGENCY,
             ZanmiLocations.MirebalaisLocations.COMMUNITY_HEALTH,
             ZanmiLocations.MirebalaisLocations.DENTAL,
-
             ZanmiLocations.MirebalaisLocations.WOMENS_CLINIC,
             ZanmiLocations.MirebalaisLocations.WOMENS_TRIAGE,
             ZanmiLocations.MirebalaisLocations.LABOR_AND_DELIVERY,
             ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD,
             ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
             ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-
             ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
             ZanmiLocations.MirebalaisLocations.OPERATING_ROOMS,
             ZanmiLocations.MirebalaisLocations.PRE_OP_PACU,
-
             ZanmiLocations.MirebalaisLocations.MAIN_LABORATORY,
             ZanmiLocations.MirebalaisLocations.WOMENS_OUTPATIENT_LABORATORY,
             ZanmiLocations.MirebalaisLocations.RADIOLOGY,
-
             ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE,
             ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
             ZanmiLocations.MirebalaisLocations.PEDIATRICS,
-
             ZanmiLocations.MirebalaisLocations.ICU,
             ZanmiLocations.MirebalaisLocations.NICU,
             ZanmiLocations.MirebalaisLocations.ISOLATION,

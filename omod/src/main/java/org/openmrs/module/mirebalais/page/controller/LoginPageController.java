@@ -45,6 +45,7 @@ public class LoginPageController {
 	public String get(
 	        PageModel pageModel,
 	        @SpringBean EmrService emrService,
+            @SpringBean Config config,
 	        @CookieValue(value = EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, required = false) String lastSessionLocationId,
 	        @SpringBean("locationService") LocationService locationService, EmrContext context, UiUtils ui,
 	        PageRequest request) {
@@ -53,7 +54,7 @@ public class LoginPageController {
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
 
-        pageModel.put("welcomeMessage", new Config().getWelcomeMessage());
+        pageModel.put("welcomeMessage", config.getWelcomeMessage());
 
 		// Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges

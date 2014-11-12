@@ -43,6 +43,7 @@ import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.mirebalais.setup.LocationTagSetup;
 import org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask;
@@ -120,6 +121,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             LocationService locationService = Context.getLocationService();
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
+            Config config = Context.getRegisteredComponents(Config.class).get(0); // currrently only one of these
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             removeOldGlobalProperties();
@@ -133,7 +135,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             setupHtmlForms();
             customizeDailyAppointmentsDataSet();
             scheduleReports(reportService, reportDefinitionService);
-            LocationTagSetup.setupLocationTags(locationService, featureToggleProperties);
+            LocationTagSetup.setupLocationTags(locationService, config, featureToggleProperties);
 
             if (featureToggleProperties.isFeatureEnabled("cdi")) {
                 migratePaperRecordLocation(paperRecordProperties);

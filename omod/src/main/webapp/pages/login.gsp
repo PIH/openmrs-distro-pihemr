@@ -47,19 +47,29 @@ ${ ui.includeFragment("appui", "header") }
                     <input id="password" type="password" name="password" placeholder="${ ui.message("mirebalais.login.password.placeholder") }"/>
                 </p>
 
-                <p class="clear">
-                    <label for="sessionLocation">
-                        ${ ui.message("mirebalais.login.sessionLocation") }:
-                    </label>
-                    <ul id="sessionLocation" class="select">
-                        <% locations.sort { ui.format(it) }.each { %>
-                            <li value="${it.id}">${ui.format(it)}</li>
-                        <% } %>
-                    </ul>
-                </p>
+
+                <!-- only show location selector if there are multiple locations to choose from -->
+                <% if (locations.size > 1) { %>
+                    <p class="clear">
+                        <label for="sessionLocation">
+                            ${ ui.message("mirebalais.login.sessionLocation") }:
+                        </label>
+                        <ul id="sessionLocation" class="select">
+                            <% locations.sort { ui.format(it) }.each { %>
+                                <li value="${it.id}">${ui.format(it)}</li>
+                            <% } %>
+                        </ul>
+                    </p>
+                <% } %>
 
                 <input type="hidden" id="sessionLocationInput" name="sessionLocation"
-                       <% if (lastSessionLocation != null) { %> value="${lastSessionLocation.id}" <% } %> />
+                    <% if (locations.size == 1) { %>
+                       value="${locations[0].id}"
+                    <% } %>
+                    <% if (lastSessionLocation != null) { %>
+                    value="${lastSessionLocation.id}"
+                    <% } %>
+                />
 
                 <p>
                     <input id="login-button" class="confirm" type="submit" value="${ ui.message("mirebalais.login.button") }"/>
@@ -95,24 +105,24 @@ ${ ui.includeFragment("appui", "header") }
 	document.getElementById('username').focus();
 
     updateSelectedOption = function() {
-        \$('#sessionLocation li').removeClass('selected');
-        \$('#sessionLocation li[value|=' + \$('#sessionLocationInput').val() + ']').addClass('selected');
+        jq('#sessionLocation li').removeClass('selected');
+        jq('#sessionLocation li[value|=' + jq('#sessionLocationInput').val() + ']').addClass('selected');
 
-        var sessionLocationVal = \$('#sessionLocationInput').val();
+        var sessionLocationVal = jq('#sessionLocationInput').val();
         if(parseInt(sessionLocationVal, 10) > 0){
-            \$('#login-button').removeClass('disabled');
-            \$('#login-button').removeAttr('disabled');
+            jq('#login-button').removeClass('disabled');
+            jq('#login-button').removeAttr('disabled');
         }else{
-            \$('#login-button').addClass('disabled');
-            \$('#login-button').attr('disabled','disabled');
+            jq('#login-button').addClass('disabled');
+            jq('#login-button').attr('disabled','disabled');
         }
     };
 
-    \$(function() {
+    jq(function() {
         updateSelectedOption();
 
-        \$('#sessionLocation li').click( function() {
-            \$('#sessionLocationInput').val(\$(this).attr("value"));
+        jq('#sessionLocation li').click( function() {
+            jq('#sessionLocationInput').val(jq(this).attr("value"));
             updateSelectedOption();
         });
 
@@ -124,7 +134,7 @@ ${ ui.includeFragment("appui", "header") }
                 }
             }
         });
-        \$('a#cant-login').click(function() {
+        jq('a#cant-login').click(function() {
             cannotLoginController.show();
         })
     });
