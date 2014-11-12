@@ -72,10 +72,13 @@ public class LoginPageController {
 			catch (Exception ex) {
 				// pass
 			}
-            // double-check that the last session location is still a valid login location
-            if (lastSessionLocation != null && loginLocations.contains(lastSessionLocation)) {
-                pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
+
+            // double-check that the last session location is still a valid login location (and null if not)
+            if (lastSessionLocation == null || !(loginLocations.contains(lastSessionLocation))) {
+                lastSessionLocation = null;
             }
+
+            pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
