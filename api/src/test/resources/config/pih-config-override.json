@@ -2,6 +2,8 @@
 
     "components": [
         "override"
-    ]
+    ],
+
+    "scheduleBackupReports": "true"
 
 }

@@ -19,6 +19,13 @@ public class ConfigDescriptor {
     @JsonProperty
     List<String> components;
 
+    // Mirebalais-Specific Properties
+
+    // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator)
+    // generally this should only be turned on on production
+    @JsonProperty
+    Boolean scheduleBackupReports;
+
     public String getWelcomeMessage() {
         return welcomeMessage;
     }
@@ -43,4 +50,11 @@ public class ConfigDescriptor {
         this.components = components;
     }
 
+    public Boolean getScheduleBackupReports() {
+        return scheduleBackupReports;
+    }
+
+    public void setScheduleBackupReports(Boolean scheduleBackupReports) {
+        this.scheduleBackupReports = scheduleBackupReports;
+    }
 }

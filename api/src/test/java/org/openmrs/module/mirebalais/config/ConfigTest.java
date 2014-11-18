@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class ConfigTest extends BaseModuleContextSensitiveTest{
 
@@ -18,6 +20,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("missingComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Hello Mirebalais!"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
+        assertFalse(config.shouldScheduleBackupReports());
     }
 
     @Test
@@ -29,6 +32,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("customComponent"), is(true));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        assertFalse(config.shouldScheduleBackupReports());
         runtimeProperties.remove(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
 
@@ -41,6 +45,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("customComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        assertTrue(config.shouldScheduleBackupReports());
         runtimeProperties.remove(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY);
 
     }

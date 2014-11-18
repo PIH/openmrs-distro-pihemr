@@ -78,9 +78,12 @@ public class Config {
         return descriptor.getWelcomeMessage();
     }
 
-
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
+    }
+
+    public Boolean shouldScheduleBackupReports() {
+        return descriptor.getScheduleBackupReports() != null ? descriptor.getScheduleBackupReports() : false;
     }
 
     public JsonNode merge(JsonNode mainNode, JsonNode updateNode) {

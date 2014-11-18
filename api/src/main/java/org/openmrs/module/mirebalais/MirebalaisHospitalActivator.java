@@ -114,7 +114,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
             }
 
-            ReportSetup.scheduleReports(reportService, reportDefinitionService, customProperties);
+            ReportSetup.scheduleReports(reportService, reportDefinitionService, config);
 
             if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 migratePaperRecordLocation(paperRecordProperties);

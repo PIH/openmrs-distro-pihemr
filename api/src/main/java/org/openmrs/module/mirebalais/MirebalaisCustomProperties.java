@@ -40,10 +40,6 @@ public class MirebalaisCustomProperties {
 
     public static final String LACOLLINE_PASSWORD = "lacolline_password";
 
-    // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleReports method in Mirebalais Module Activator)
-    // generally this should only be turned on on production
-    public static final String SCHEDULE_REPORTS = "schedule_reports";
-
     private Log log = LogFactory.getLog(getClass());
 	
 	private Properties properties;
@@ -75,10 +71,6 @@ public class MirebalaisCustomProperties {
 
     public String getLacollinePassword() {
         return properties.getProperty(LACOLLINE_PASSWORD);
-    }
-
-    public Boolean getScheduleBackupReports() {
-        return Boolean.valueOf(properties.getProperty(SCHEDULE_REPORTS, "false"));
     }
 
     private Properties createFile() {

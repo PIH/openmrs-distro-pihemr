@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais.setup;
 
-import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
+import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportRequest;
@@ -12,9 +12,9 @@ import org.openmrs.module.reporting.report.service.ReportService;
 public class ReportSetup {
 
     // sets up daily reports, currently only used on Mirebalais production server (as a backup)
-    public static void scheduleReports(ReportService reportService, ReportDefinitionService reportDefinitionService, MirebalaisCustomProperties customProperties) {
+    public static void scheduleReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
 
-        if (customProperties.getScheduleBackupReports()) {
+        if (config.shouldScheduleBackupReports()) {
 
             // schedule the all patients report to run at 4am and 4pm everyday
             ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);

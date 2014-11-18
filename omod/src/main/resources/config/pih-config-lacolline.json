@@ -14,5 +14,7 @@
         "consult",
         "systemAdministration",
         "myAccount"
-    ]
+    ],
+
+    "scheduleBackupReports": "false"
 }

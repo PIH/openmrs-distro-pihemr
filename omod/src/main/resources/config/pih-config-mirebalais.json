@@ -26,5 +26,7 @@
         "legacyMpi",
         "legacyPatientRegistration",
         "lacollinePatientRegistrationEncounterTypes"
-    ]
+    ],
+
+    "scheduleBackupReports": "false"
 }
