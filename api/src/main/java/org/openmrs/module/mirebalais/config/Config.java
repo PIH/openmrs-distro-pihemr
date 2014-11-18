@@ -3,8 +3,10 @@ package org.openmrs.module.mirebalais.config;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.core.io.Resource;
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 
 @Component
 public class Config {
@@ -39,18 +42,31 @@ public class Config {
             configs = "mirebalais";  // we default to mirebalais for now
         }
 
-        for (String config : configs.split(",")) {
-            InputStream configStream = findConfig(config.trim());
+        try {
+            JsonNode configNode = null;
+            for (String config : configs.split(",")) {
+                InputStream configStream = findConfig(config.trim());
 
-            if (configStream != null) {
-                try {
-                    descriptor = objectMapper.readValue(configStream, ConfigDescriptor.class);
-                } catch (IOException e) {
-                    throw new IllegalStateException("Unable to load config file for configuration " + config, e);
+                if (configStream != null) {
+                    JsonNode rootNode = objectMapper.readTree(configStream);
+
+                    if (configNode == null) {
+                        configNode = rootNode;
+                    }
+                    else {
+                        configNode = merge(configNode, rootNode);
+                    }
                 }
-            } else {
-                throw new IllegalStateException("Unable to find config file for configuration " + config);
+                else {
+                    throw new IllegalStateException("Unable to find config file for configuration " + config);
+                }
             }
+
+            String json = objectMapper.writeValueAsString(configNode);
+            descriptor = objectMapper.readValue(json, ConfigDescriptor.class);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error parsing json configuration", e);
         }
     }
 
@@ -65,6 +81,21 @@ public class Config {
 
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
+    }
+
+    public JsonNode merge(JsonNode mainNode, JsonNode updateNode) {
+        Iterator<String> fieldNames = updateNode.getFieldNames();
+        while (fieldNames.hasNext()) {
+            String fieldName = fieldNames.next();
+            JsonNode jsonNode = mainNode.get(fieldName);
+            if (jsonNode != null && jsonNode.isObject()) {
+                merge(jsonNode, updateNode.get(fieldName));
+            }
+            else {
+                ((ObjectNode) mainNode).put(fieldName, updateNode.get(fieldName));
+            }
+        }
+        return mainNode;
     }
 
     private InputStream findConfig(String config) {

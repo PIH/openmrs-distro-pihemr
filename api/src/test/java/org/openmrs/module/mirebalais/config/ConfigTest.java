@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.config;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -34,7 +33,6 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
     }
 
     @Test
-    @Ignore
     public void testCascadingConfigs() {
         runtimeProperties.setProperty(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY, "custom,override");
         config = new Config();
