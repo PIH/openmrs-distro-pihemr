@@ -48,10 +48,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     protected Log log = LogFactory.getLog(getClass());
 
-    private MirebalaisCustomProperties customProperties;
+    private RuntimeProperties customProperties;
 
     public MirebalaisHospitalActivator() {
-        customProperties = new MirebalaisCustomProperties();
+        customProperties = new RuntimeProperties();
     }
 
     /**
@@ -168,7 +168,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     }
 
-    public void setCustomProperties(MirebalaisCustomProperties customProperties) {
+    public void setCustomProperties(RuntimeProperties customProperties) {
         this.customProperties = customProperties;
     }
 

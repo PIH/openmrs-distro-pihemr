@@ -35,7 +35,7 @@ import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
+import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
@@ -266,7 +266,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 
         public TestMirebalaisHospitalActivator() {
             super();
-            MirebalaisCustomProperties properties = mock(MirebalaisCustomProperties.class);
+            RuntimeProperties properties = mock(RuntimeProperties.class);
             when(properties.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
             when(properties.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
             when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");

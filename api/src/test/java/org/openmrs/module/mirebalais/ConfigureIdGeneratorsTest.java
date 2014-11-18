@@ -55,7 +55,7 @@ public class ConfigureIdGeneratorsTest {
 	
 	private PatientIdentifierType patientIdentifierType;
 	
-	private MirebalaisCustomProperties customProperties;
+	private RuntimeProperties customProperties;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -65,7 +65,7 @@ public class ConfigureIdGeneratorsTest {
 		
 		patientIdentifierType = new PatientIdentifierType();
 		
-		customProperties = mock(MirebalaisCustomProperties.class);
+		customProperties = mock(RuntimeProperties.class);
 		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 	}
 	

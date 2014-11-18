@@ -12,7 +12,7 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
+import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
@@ -31,7 +31,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 
     private MirebalaisHospitalActivator activator;
 
-    private MirebalaisCustomProperties customProperties;
+    private RuntimeProperties customProperties;
 
     @Before
     public void beforeEachTest() throws Exception {
@@ -44,7 +44,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 		installRequiredMetadata();
         activator = new MirebalaisHospitalActivator();
         activator.started();
-        customProperties = new MirebalaisCustomProperties();
+        customProperties = new RuntimeProperties();
     }
 
 	private void installRequiredMetadata() {

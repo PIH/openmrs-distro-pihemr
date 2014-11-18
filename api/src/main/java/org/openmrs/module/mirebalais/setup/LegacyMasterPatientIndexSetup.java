@@ -10,7 +10,7 @@ import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
+import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 
@@ -21,7 +21,7 @@ public class LegacyMasterPatientIndexSetup {
 
     protected static Log log = LogFactory.getLog(LegacyMasterPatientIndexSetup.class);
 
-    public static void setupConnectionToMasterPatientIndex(MirebalaisCustomProperties customProperties) {
+    public static void setupConnectionToMasterPatientIndex(RuntimeProperties customProperties) {
         String url = customProperties.getLacollineServerUrl();
         String username = customProperties.getLacollineUsername();
         String password = customProperties.getLacollinePassword();

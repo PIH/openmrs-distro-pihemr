@@ -14,7 +14,7 @@ import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_Z
 
 public class ConfigureIdGenerators {
 
-	private final MirebalaisCustomProperties customProperties;
+	private final RuntimeProperties customProperties;
 	
 	private final IdentifierSourceService identifierSourceService;
 
@@ -24,7 +24,7 @@ public class ConfigureIdGenerators {
 
 	private final MirebalaisHospitalService service;
 	
-	public ConfigureIdGenerators(MirebalaisCustomProperties customProperties,
+	public ConfigureIdGenerators(RuntimeProperties customProperties,
 	    IdentifierSourceService identifierSourceService, LocationService locationService,
         MirebalaisHospitalService service) {
 

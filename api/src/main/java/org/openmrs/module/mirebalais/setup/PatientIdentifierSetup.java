@@ -7,7 +7,7 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.ConfigureIdGenerators;
-import org.openmrs.module.mirebalais.MirebalaisCustomProperties;
+import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.config.Config;
@@ -18,7 +18,7 @@ public class PatientIdentifierSetup {
                                                       IdentifierSourceService identifierSourceService,
                                                       LocationService locationService,
                                                       Config config,
-                                                      MirebalaisCustomProperties customProperties) {
+                                                      RuntimeProperties customProperties) {
 
         ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 
