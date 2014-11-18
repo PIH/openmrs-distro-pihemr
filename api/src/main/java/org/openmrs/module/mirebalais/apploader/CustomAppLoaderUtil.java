@@ -15,10 +15,12 @@ import java.util.Map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
+
+;
 
 
 
@@ -228,7 +230,46 @@ public class CustomAppLoaderUtil {
         ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterTypeUuid, encounterTypeParams);
     }
 
+    static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, ObjectNode ... sections) {
+        return objectNode("afterCreatedUrl", afterCreatedUrl,
+                "sections", arrayNode(sections));
+    }
+
+    static public ObjectNode section(String sectionId, String sectionLabel, ObjectNode ... questions) {
+        return objectNode("id", sectionId,
+                "label", sectionLabel,
+                "questions", arrayNode(questions));
+    }
+
+    static public ObjectNode question(String questionId, String questionLegend, ObjectNode ... fields) {
+        return objectNode("id", questionId,
+                "legend", questionLegend,
+                "fields", arrayNode(fields));
+    }
+
+    static public ObjectNode field(String formFieldName, String label, String type, String uuid, String widgetProvider, String widgetFragment, String ... cssClasses) {
+
+        return objectNode("formFieldName", formFieldName,
+                        "label", label,
+                        "type", type,
+                        "uuid", uuid,
+                        "cssClasses", arrayNode(cssClasses),
+                        "widget", objectNode("providerName", widgetProvider,
+                                            "fragmentId", widgetFragment));
+
+
+    }
+
+
     static public ArrayNode arrayNode(ObjectNode ... nodes) {
+        ArrayNode arrayNode = new ObjectMapper().createArrayNode();
+        for (int i = 0; i < nodes.length; i++) {
+            arrayNode.add(nodes[i]);
+        }
+        return arrayNode;
+    }
+
+    static public ArrayNode arrayNode(String ... nodes) {
         ArrayNode arrayNode = new ObjectMapper().createArrayNode();
         for (int i = 0; i < nodes.length; i++) {
             arrayNode.add(nodes[i]);
@@ -276,6 +317,5 @@ public class CustomAppLoaderUtil {
 
         return map;
     }
-
 
 }

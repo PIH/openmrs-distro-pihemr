@@ -5,6 +5,8 @@
     "site": "LACOLLINE",
 
     "components": [
+        "clinicianDashboard",
+        "patientRegistration",
         "visitManagement",
         "activeVisits",
         "checkIn",

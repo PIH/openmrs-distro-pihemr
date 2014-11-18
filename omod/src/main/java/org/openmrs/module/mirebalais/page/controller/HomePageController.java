@@ -18,6 +18,8 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
@@ -33,6 +35,7 @@ public class HomePageController {
 	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
 	
 	public void controller(PageModel model, EmrContext emrContext,
+                           @SpringBean("config") Config config,
 	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties,
 	                       @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService) {
 		
@@ -53,6 +56,13 @@ public class HomePageController {
 		Collections.sort(extensions);
 		model.addAttribute("extensions", extensions);
         model.addAttribute("privilegeSearchForPatients", MirebalaisConstants.PRIVILEGE_SEARCH_FOR_PATIENTS);
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+            model.addAttribute("dashboardUrl", "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}");
+        }
+        else {
+            model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");
+        }
 	}
 
     private boolean extensionFeatureToggledOff(Extension extension, FeatureToggleProperties featureToggleProperties) {

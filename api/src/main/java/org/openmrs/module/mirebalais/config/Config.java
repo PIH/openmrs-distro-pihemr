@@ -33,24 +33,24 @@ public class Config {
         descriptor = new ConfigDescriptor();
         objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
 
-        String config = Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY);
+        String configs = Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY);
 
-        if (StringUtils.isBlank(config)) {
-            config = "mirebalais";  // we default to mirebalais for now
+        if (StringUtils.isBlank(configs)) {
+            configs = "mirebalais";  // we default to mirebalais for now
         }
 
-        InputStream configStream = findConfig(config.trim());
+        for (String config : configs.split(",")) {
+            InputStream configStream = findConfig(config.trim());
 
-        if (configStream != null) {
-            try {
-                descriptor = objectMapper.readValue(configStream, ConfigDescriptor.class);
+            if (configStream != null) {
+                try {
+                    descriptor = objectMapper.readValue(configStream, ConfigDescriptor.class);
+                } catch (IOException e) {
+                    throw new IllegalStateException("Unable to load config file for configuration " + config, e);
+                }
+            } else {
+                throw new IllegalStateException("Unable to find config file for configuration " + config);
             }
-            catch (IOException e) {
-                throw new IllegalStateException("Unable to load config file for configuration " + config, e);
-            }
-        }
-        else {
-            throw new IllegalStateException("Unable to find config file for configuration " + config);
         }
     }
 

@@ -279,4 +279,88 @@ public class CustomAppLoaderTest {
         assertThat((Boolean) map.get("boolean"), is (true));
     }
 
+    @Test
+    public void shouldCreateQuestion() {
+
+        ObjectNode question = CustomAppLoaderUtil.question(
+                "someQuestionId", "someQuestionLegend",
+                CustomAppLoaderUtil.field("phoneNumber", "registrationapp.patient.phone.question", "personAttribute",
+                        "14d4f066-15f5-102d-96e4-000c29c2a5d7", "uicommons", "field/text"),
+                CustomAppLoaderUtil.field("anotherField", "anotherLabel", "anotherType",
+                        "", "", "", "someClass","anotherClass"));
+
+        assertThat(question.get("id").getTextValue(), is("someQuestionId"));
+        assertThat(question.get("legend").getTextValue(), is("someQuestionLegend"));
+
+        ObjectNode field1 = (ObjectNode) question.get("fields").get(0);
+        ObjectNode field2 = (ObjectNode) question.get("fields").get(1);
+
+        assertThat(field1.get("formFieldName").getTextValue(), is("phoneNumber"));
+        assertThat(field1.get("label").getTextValue(), is("registrationapp.patient.phone.question"));
+        assertThat(field1.get("type").getTextValue(), is("personAttribute"));
+        assertThat(field1.get("uuid").getTextValue(), is("14d4f066-15f5-102d-96e4-000c29c2a5d7"));
+        assertThat(field1.get("widget").get("providerName").getTextValue(), is("uicommons"));
+        assertThat(field1.get("widget").get("fragmentId").getTextValue(), is("field/text"));
+
+        assertThat(field2.get("formFieldName").getTextValue(), is("anotherField"));
+        assertThat(field2.get("label").getTextValue(), is("anotherLabel"));
+        assertThat(field2.get("type").getTextValue(), is("anotherType"));
+        assertThat(field2.get("cssClasses").get(0).getTextValue(), is("someClass"));
+        assertThat(field2.get("cssClasses").get(1).getTextValue(), is("anotherClass"));
+
+    }
+
+    @Test
+    public void shouldCreateSection() {
+
+        ObjectNode section = CustomAppLoaderUtil.section(
+                "someSectionId", "someSectionLabel",
+                CustomAppLoaderUtil.question(
+                        "someQuestionId", "someQuestionLegend",
+                        CustomAppLoaderUtil.field("someField", "someLabel", "someType", "", "", "")
+                ),
+                CustomAppLoaderUtil.question(
+                        "anotherQuestionId", "anotherQuestionLegend",
+                        CustomAppLoaderUtil.field("anotherField", "anotherLabel", "anotherType", "", "", "")
+                ));
+
+        assertThat(section.get("id").getTextValue(), is("someSectionId"));
+        assertThat(section.get("label").getTextValue(), is("someSectionLabel"));
+
+        ObjectNode question1 = (ObjectNode) section.get("questions").get(0);
+        ObjectNode question2 = (ObjectNode) section.get("questions").get(1);
+
+        assertThat(question1.get("id").getTextValue(), is("someQuestionId"));
+        assertThat(question1.get("legend").getTextValue(), is("someQuestionLegend"));
+
+        assertThat(question2.get("id").getTextValue(), is("anotherQuestionId"));
+        assertThat(question2.get("legend").getTextValue(), is("anotherQuestionLegend"));
+
+    }
+
+    @Test
+    public void shouldCreatePatientRegistrationConfig() {
+
+        ObjectNode config = CustomAppLoaderUtil.patientRegistrationConfig("afterCreatedUrl",
+                CustomAppLoaderUtil.section(
+                "someSectionId", "someSectionLabel",
+                CustomAppLoaderUtil.question(
+                        "someQuestionId", "someQuestionLegend",
+                        CustomAppLoaderUtil.field("someField", "someLabel", "someType", "", "", "")
+                )));
+
+        assertThat(config.get("afterCreatedUrl").getTextValue(), is("afterCreatedUrl"));
+
+        ObjectNode section = (ObjectNode) config.get("sections").get(0);
+
+        assertThat(section.get("id").getTextValue(), is("someSectionId"));
+        assertThat(section.get("label").getTextValue(), is("someSectionLabel"));
+
+        ObjectNode question1 = (ObjectNode) section.get("questions").get(0);
+
+        assertThat(question1.get("id").getTextValue(), is("someQuestionId"));
+        assertThat(question1.get("legend").getTextValue(), is("someQuestionLegend"));
+
+    }
+
 }

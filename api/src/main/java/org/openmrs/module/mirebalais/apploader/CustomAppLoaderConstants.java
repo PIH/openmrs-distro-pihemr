@@ -24,6 +24,8 @@ public class CustomAppLoaderConstants {
         public static final String SYSTEM_ADMINISTRATION = "systemAdministration";
         public static final String MANAGE_PRINTERS = "managePrinters";
         public static final String MY_ACCOUNT = "myAccount";
+        public static final String PATIENT_REGISTRATION = "patientRegistration";
+        public static final String CLINICIAN_DASHBOARD = "clinicianDashboard";
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
@@ -46,6 +48,7 @@ public class CustomAppLoaderConstants {
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
+        public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String MANAGE_PRINTERS = "printer.managePrinters";
@@ -148,6 +151,7 @@ public class CustomAppLoaderConstants {
             Apps.INPATIENTS,
             Apps.CHECK_IN,
             Apps.REPORTS,
+            Apps.PATIENT_REGISTRATION,
             Apps.LEGACY_PATIENT_REGISTRATION,
             Apps.LEGACY_PATIENT_REGISTRATION_ED,
             Apps.LEGACY_PATIENT_LOOKUP,

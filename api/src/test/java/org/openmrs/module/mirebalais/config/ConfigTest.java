@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.config;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -30,6 +31,20 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
         runtimeProperties.remove(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+    }
+
+    @Test
+    @Ignore
+    public void testCascadingConfigs() {
+        runtimeProperties.setProperty(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY, "custom,override");
+        config = new Config();
+        assertThat(config.isComponentEnabled("override"), is(true));
+        assertThat(config.isComponentEnabled("someComponent"), is(false));
+        assertThat(config.isComponentEnabled("customComponent"), is(false));
+        assertThat(config.getWelcomeMessage(), is("Hello custom!"));
+        assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        runtimeProperties.remove(Config.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+
     }
 
 }

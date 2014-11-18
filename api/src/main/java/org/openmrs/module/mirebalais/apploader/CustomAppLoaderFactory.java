@@ -36,6 +36,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashbo
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.field;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
@@ -43,7 +44,10 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patientRegistrationConfig;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.question;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.section;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.simpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.standardHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
@@ -163,6 +167,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MY_ACCOUNT)) {
             enableMyAccount();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PATIENT_REGISTRATION)) {
+            enablePatientRegistration();
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
@@ -646,7 +654,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    public void enableAppointmentScheduling() {
+    private void enableAppointmentScheduling() {
 
         apps.add(addToHomePage(app(Apps.APPOINTMENT_SCHEDULING_HOME,
                 "appointmentschedulingui.home.title",
@@ -684,7 +692,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    public void enableSystemAdministration() {
+    private void enableSystemAdministration() {
 
         if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
             apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
@@ -727,7 +735,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    public void enableManagePrinters() {
+    private void enableManagePrinters() {
 
         if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
             apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
@@ -754,7 +762,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    public void enableMyAccount() {
+    private void enableMyAccount() {
 
         apps.add(addToHomePage(app(Apps.MY_ACCOUNT,
                 "emr.app.system.administration.myAccount.label",
@@ -765,8 +773,43 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addFeatureToggleToApp(findAppById(Apps.MY_ACCOUNT), "myAccountFeature");
     }
 
+    private void enablePatientRegistration() {
+
+        apps.add(addToHomePage(app(Apps.PATIENT_REGISTRATION,
+                "registrationapp.app.registerPatient.label",
+                "icon-user",
+                "registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                "App: patientregistration.main",
+                patientRegistrationConfig("/coreapps/clinicianfacing/patient.page?patientId={{patientId}}",
+                        section("contactInfo",
+                                "registrationapp.patient.contactInfo.label",
+                                question("personAddressQuestion",
+                                        "Person.address",
+                                        field("",
+                                                "registrationapp.patient.address.question",
+                                                "personAddress",
+                                                "",
+                                                "uicommons",
+                                                "field/personAddress")
+                                ),
+                                question("phoneNumberLabel",
+                                        "registrationapp.patient.phone.label",
+                                        field("phoneNumber",
+                                                "registrationapp.patient.phone.question",
+                                                "personAttribute",
+                                                "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+                                                "uicommons",
+                                                "field/text",
+                                                "number")
+                                )
+                        )
+                )
+        )));
+
+    }
+
     // legacy MPI used in Mirebalais to connect to Lacolline
-    public void enableLegacyMPI() {
+    private void enableLegacyMPI() {
         apps.add(addToHomePage(app(Apps.LEGACY_MPI,
                 "mirebalais.mpi.title",
                 "icon-zoom-in",
@@ -775,7 +818,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
     }
 
-    public void enableLegacyPatientRegistration() {
+    private void enableLegacyPatientRegistration() {
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION,
                 "mirebalais.app.patientRegistration.registration.label",
@@ -803,7 +846,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    public void registerLacollinePatientRegistrationEncounterTypes() {
+    private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PAYMENT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-money");

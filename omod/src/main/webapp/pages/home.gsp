@@ -23,7 +23,7 @@
 
         ${ ui.message("mirebalais.searchPatientHeading") }
         ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-                [ afterSelectedUrl: '/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}',
+                [ afterSelectedUrl: dashboardUrl,
                   showLastViewedPatients: 'false' ])}
     <% } %>
 
