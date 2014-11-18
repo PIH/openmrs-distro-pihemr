@@ -117,6 +117,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableConsult();
         }
 
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ED_CONSULT)) {
+            enableEDConsult();
+        }
+
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ADT)) {
             enableADT();
         }
@@ -303,6 +307,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
+        extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+
+        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CONSULTATION,
+                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null);
+    }
+
+    private void  enableEDConsult() {
+
         extensions.add(visitAction(Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
                 "emr.ed.consult.title",
                 "icon-stethoscope",
@@ -311,10 +323,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
-        extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
-
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CONSULTATION,
-                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null);
     }
 
     private void enableADT() {

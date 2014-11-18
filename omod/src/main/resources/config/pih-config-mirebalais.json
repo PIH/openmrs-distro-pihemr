@@ -9,6 +9,7 @@
         "checkIn",
         "vitals",
         "consult",
+        "edConsult",
         "adt",
         "deathCertificate",
         "radiology",

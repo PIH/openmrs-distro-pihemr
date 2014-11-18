@@ -9,6 +9,7 @@ import org.openmrs.module.mirebalais.config.ConfigDescriptor;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -35,6 +36,13 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
                 ZanmiLocations.Locations.LACOLLINE
         ));
+
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ADMISSION_LOCATION, new ArrayList<String>());
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.TRANSFER_LOCAITON, new ArrayList<String>());
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ED_NOTE_LOCATION, new ArrayList<String>());
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.SURGERY_NOTE_LOCATION, new ArrayList<String>());
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.APPOINTMENT_LOCATION, new ArrayList<String>());
+        setLocationTagsFor(locationService, CoreMetadata.LocationTags.DISPENSING_LOCATION, new ArrayList<String>());
     }
 
     private static void setupLocationTagsForMirebalais(LocationService locationService, FeatureToggleProperties featureToggles) {

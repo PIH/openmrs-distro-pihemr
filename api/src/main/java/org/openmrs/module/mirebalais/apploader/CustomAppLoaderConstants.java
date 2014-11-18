@@ -11,6 +11,7 @@ public class CustomAppLoaderConstants {
         public static final String CHECK_IN = "checkIn";
         public static final String VITALS = "vitals";
         public static final String CONSULT = "consult";
+        public static final String ED_CONSULT = "edConsult";
         public static final String ADT = "adt";
         public static final String DEATH_CERTIFICATE = "deathCertificate";
         public static final String RADIOLOGY = "radiology";
