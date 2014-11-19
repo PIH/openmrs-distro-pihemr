@@ -303,7 +303,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.clinic.consult.title",
                 "icon-stethoscope",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=emr&returnPage=disposition/dispositionAction"),
+                standardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
@@ -319,7 +319,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.ed.consult.title",
                 "icon-stethoscope",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=emr&returnPage=disposition/dispositionAction"),
+                standardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
