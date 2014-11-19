@@ -50,6 +50,9 @@ public class CauseOfDeathListTagHandler extends SubstitutionTagHandler {
         widget.setTitleCode("mirebalais.deathCertificate.cause_of_death");
         widget.setPlaceholderCode("mirebalais.deathCertificate.cause_of_death_instructions");
         widget.setContainerClasses("required");
+        if (parameters.get("locale") != null) {
+            widget.setLocale(parameters.get("locale"));
+        }
         if (existingObs != null && existingObs.size() > 0) {
             widget.setInitialValue(initialValue(existingObs));
         }
