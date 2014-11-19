@@ -6,6 +6,7 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
@@ -51,5 +52,6 @@ public class CheckinPageController {
         model.addAttribute("activeVisit", activeVisit);
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("patient", patientDomainWrapper);
+        model.addAttribute("appName", CustomAppLoaderConstants.Apps.CHECK_IN);
     }
 }
