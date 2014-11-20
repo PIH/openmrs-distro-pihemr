@@ -231,14 +231,14 @@
 
             <br/>
             <p>
-                I. <causeOfDeathList locale="fr"/> ****
+                I. <causeOfDeathList locale="fr"/>
             </p>
 
             <br/>
             <p>
-                II. <label>Autre état morbide</label>
+                II. <label>Autre état morbide important ayant contribué au décès mais sans rapport avec la maladie ou l'état morbide qui l'a provoqué</label>
                 <codedOrFreeTextObs codedConceptId="PIH: Condition contributing to the death"
-                                    nonCodedConceptId="PIH: Condition contributing to the death non coded" locale="fr"/> ****
+                                    nonCodedConceptId="PIH: Condition contributing to the death non coded" locale="fr"/>
             </p>
 
             <br/>
