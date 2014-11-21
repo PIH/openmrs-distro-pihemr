@@ -202,7 +202,7 @@
 
         <section id="care" sectionTag="div" headerTag="div" headerStyle="" headerCode="">
             <p class="spaced">
-                <label>Vu par un personnel de santé</label>
+                <label>Le défunt-a-t-il été vu par un personnel de santé au cours de cette maladie?</label>
                 <obs conceptId="PIH: Visited provider during illness" locale="fr"/><br/>
             </p>
         </section>
