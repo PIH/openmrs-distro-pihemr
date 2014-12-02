@@ -133,4 +133,14 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20141202-drop-temporary-tables-1" author="mgoodrich">
+        <comment>
+            See UHM-1705. Clean up after previous two change sets
+        </comment>
+        <sql>
+           DROP TABLE IF EXISTS transfer_encounters_to_void;
+           DROP TABLE IF EXISTS discharge_encounters_to_void;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
