@@ -94,4 +94,43 @@
         <!--</sql>-->
     <!--</changeSet>-->
 
+    <changeSet id="20141201-void-duplicate-discharge-encounters-1" author="mgoodrich">
+        <comment>
+            See UHM-1705. Void any duplicate discharge encounters (note doesn't handle triplicates or greater,etc)
+            (There are no obs in transfer encounters, so we don't worry about voiding obs)
+        </comment>
+        <sql>
+            CREATE TEMPORARY TABLE IF NOT EXISTS discharge_encounters_to_void AS select MAX(encounter_id) AS encounter_id FROM encounter
+            WHERE encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE uuid = 'b6631959-2105-49dd-b154-e1249e0fbcd7')
+            AND voided = 0
+            GROUP BY patient_id, visit_id, encounter_type, encounter_datetime, creator, date_created HAVING (count(*)>1);
+
+            UPDATE encounter_provider SET voided = 1, voided_by = (SELECT user_id FROM users WHERE system_id='admin'), date_voided = NOW(), void_reason = 'duplicate voided by changeset 20141201-void-duplicate-transfer-encounters-1 (UHM-1705)'
+            WHERE encounter_id IN (SELECT encounter_id FROM discharge_encounters_to_void);
+
+            UPDATE encounter SET voided = 1, voided_by = (SELECT user_id FROM users WHERE system_id='admin'), date_voided = NOW(), void_reason = 'duplicate voided by changeset 20141201-void-duplicate-transfer-encounters-1 (UHM-1705)'
+            WHERE encounter_id IN (SELECT encounter_id FROM discharge_encounters_to_void);
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="20141201-void-duplicate-transfer-encounters-1" author="mgoodrich">
+        <comment>
+            See UHM-1705. Void any duplicate transfer encounters (note doesn't handle triplicates or greater,etc)
+            (There are no obs in transfer encounters, so we don't worry about voiding obs)
+        </comment>
+        <sql>
+            CREATE TEMPORARY TABLE IF NOT EXISTS transfer_encounters_to_void AS select MAX(encounter_id) AS encounter_id FROM encounter
+            WHERE encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE uuid = '436cfe33-6b81-40ef-a455-f134a9f7e580')
+            AND voided = 0
+            GROUP BY patient_id, visit_id, encounter_type, encounter_datetime, creator, date_created HAVING (count(*)>1);
+
+            UPDATE encounter_provider SET voided = 1, voided_by = (SELECT user_id FROM users WHERE system_id='admin'), date_voided = NOW(), void_reason = 'duplicate voided by changeset 20141201-void-duplicate-discharge-encounters-1 (UHM-1705)'
+            WHERE encounter_id IN (SELECT encounter_id FROM transfer_encounters_to_void);
+
+            UPDATE encounter SET voided = 1, voided_by = (SELECT user_id FROM users WHERE system_id='admin'), date_voided = NOW(), void_reason = 'duplicate voided by changeset 20141201-void-duplicate-discharge-encounters-1 (UHM-1705)'
+            WHERE encounter_id IN (SELECT encounter_id FROM transfer_encounters_to_void);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
