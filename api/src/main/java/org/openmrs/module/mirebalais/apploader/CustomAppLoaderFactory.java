@@ -10,6 +10,7 @@ import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,6 +60,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     @Autowired
     private Config config;
+
+    @Autowired
+    private FullDataExportBuilder fullDataExportBuilder;
 
     private List<AppDescriptor> apps;
 
@@ -480,9 +484,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableOverviewReports() {
 
-        // TODO move all the other reporting stuff in here?
-        // TODO do we need to explicitly add the extension points?
-
         // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
@@ -492,6 +493,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "App: reportingui.reports",
                     null)));
         }
+
+        extensions.addAll(fullDataExportBuilder.getExtensions());
 
         extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
                 "mirebalaisreports.dailyRegistrations.name",
