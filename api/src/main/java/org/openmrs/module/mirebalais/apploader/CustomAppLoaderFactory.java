@@ -494,8 +494,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null)));
         }
 
-        extensions.addAll(fullDataExportBuilder.getExtensions());
-
         extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
                 "mirebalaisreports.dailyRegistrations.name",
                 MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
@@ -546,9 +544,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableDataExports() {
 
-        // TODO move all the other reporting stuff in here?
-        // TODO do we need to explicitly add the extension points?
-
         // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
@@ -558,6 +553,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "App: reportingui.reports",
                     null)));
         }
+
+        extensions.addAll(fullDataExportBuilder.getExtensions());
 
         extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
                 "reportingui.adHocAnalysis.label",
