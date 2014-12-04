@@ -4,7 +4,9 @@ import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.providermanagement.Provider;
+import org.springframework.stereotype.Component;
 
+@Component   /// this is autowired in the DomainWrapperFactory (which injects it into Account Domain Wrapper instances)
 public class MirebalaisProviderIdentifierGenerator implements ProviderIdentifierGenerator {
 
     // this generates a 3digit base 30 identifier with an "M" prefix and a check-digit suffix

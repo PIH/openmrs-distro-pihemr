@@ -23,7 +23,6 @@ import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
@@ -91,7 +90,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             removeOldGlobalProperties();
-            injectProviderIdentifierGenerator();
 
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
             LocationTagSetup.setupLocationTags(locationService, config, featureToggleProperties);
@@ -141,11 +139,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	public void stopped() {
 		log.info("Mirebalais Hospital Module stopped");
 	}
-
-    private void injectProviderIdentifierGenerator() {
-        // injects the custom provider identifier generator into the Account Service
-        Context.getService(AccountService.class).setProviderIdentifierGenerator(new MirebalaisProviderIdentifierGenerator());
-    }
 
     private void removeOldGlobalProperties() {
         AdministrationService administrationService = Context.getAdministrationService();
