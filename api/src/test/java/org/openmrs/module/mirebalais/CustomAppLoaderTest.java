@@ -342,6 +342,8 @@ public class CustomAppLoaderTest {
     public void shouldCreatePatientRegistrationConfig() {
 
         ObjectNode config = CustomAppLoaderUtil.patientRegistrationConfig("afterCreatedUrl",
+                "123abc",
+                "456def",
                 CustomAppLoaderUtil.section(
                 "someSectionId", "someSectionLabel",
                 CustomAppLoaderUtil.question(
@@ -350,6 +352,9 @@ public class CustomAppLoaderTest {
                 )));
 
         assertThat(config.get("afterCreatedUrl").getTextValue(), is("afterCreatedUrl"));
+        assertThat(config.get("registrationEncounterType").getTextValue(), is("123abc"));
+        assertThat(config.get("registrationEncounterRole").getTextValue(), is("456def"));
+        assertThat(config.get("allowRetrospectiveEntry").getBooleanValue(), is(true));
 
         ObjectNode section = (ObjectNode) config.get("sections").get(0);
 

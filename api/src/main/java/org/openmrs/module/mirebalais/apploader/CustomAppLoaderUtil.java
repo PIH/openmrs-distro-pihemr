@@ -230,8 +230,11 @@ public class CustomAppLoaderUtil {
         ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterTypeUuid, encounterTypeParams);
     }
 
-    static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, ObjectNode ... sections) {
+    static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, String registrationEncounterType, String registrationEncounterRole, ObjectNode ... sections) {
         return objectNode("afterCreatedUrl", afterCreatedUrl,
+                "allowRetrospectiveEntry", true,
+                "registrationEncounterType", registrationEncounterType,
+                "registrationEncounterRole", registrationEncounterRole,
                 "sections", arrayNode(sections));
     }
 
