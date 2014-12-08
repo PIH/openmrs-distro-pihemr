@@ -352,8 +352,8 @@ public class CustomAppLoaderTest {
                 )));
 
         assertThat(config.get("afterCreatedUrl").getTextValue(), is("afterCreatedUrl"));
-        assertThat(config.get("registrationEncounterType").getTextValue(), is("123abc"));
-        assertThat(config.get("registrationEncounterRole").getTextValue(), is("456def"));
+        assertThat(config.get("registrationEncounter").get("encounterType").getTextValue(), is("123abc"));
+        assertThat(config.get("registrationEncounter").get("encounterRole").getTextValue(), is("456def"));
         assertThat(config.get("allowRetrospectiveEntry").getBooleanValue(), is(true));
 
         ObjectNode section = (ObjectNode) config.get("sections").get(0);
