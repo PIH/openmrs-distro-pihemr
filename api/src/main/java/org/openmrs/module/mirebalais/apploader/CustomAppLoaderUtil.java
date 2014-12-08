@@ -233,8 +233,8 @@ public class CustomAppLoaderUtil {
     static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, String registrationEncounterType, String registrationEncounterRole, ObjectNode ... sections) {
         return objectNode("afterCreatedUrl", afterCreatedUrl,
                 "allowRetrospectiveEntry", true,
-                "registrationEncounterType", registrationEncounterType,
-                "registrationEncounterRole", registrationEncounterRole,
+                "registrationEncounter", objectNode("encounterType", registrationEncounterType,
+                                                    "encounterRole", registrationEncounterRole),
                 "sections", arrayNode(sections));
     }
 
