@@ -98,6 +98,9 @@ public class CustomAppLoaderConstants {
         public static final String RADIOLOGY_TAB = "radiologyapp.tab";
         public static final String APPOINTMENTS_TAB = "appointmentschedulingui.tab";
 
+        public static final String EDIT_PATIENT_CONTACT_INFO = "registrationapp.editPatientContactInfo";
+        public static final String EDIT_PATIENT_DEMOGRAPHICS = "registrationapp.editPatientDemographics";
+
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
@@ -133,6 +136,8 @@ public class CustomAppLoaderConstants {
         public static final String REPORTING_DATA_EXPORT = "org.openmrs.module.reportingui.reports.dataexport";
         public static final String REPORTING_OVERVIEW_REPORTS = "org.openmrs.module.reportingui.reports.overview";
         public static final String REPORTING_DATA_QUALITY = "org.openmrs.module.reportingui.reports.dataquality";
+        public static final String PATIENT_HEADER_PATIENT_CONTACT_INFO = "patientHeader.editPatientContactInfo";
+        public static final String PATIENT_HEADER_PATIENT_DEMOGRAPHICS = "patientHeader.editPatientDemographics";
     }
 
     public static final class EncounterTemplates {

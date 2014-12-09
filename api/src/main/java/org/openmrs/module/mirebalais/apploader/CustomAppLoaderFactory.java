@@ -816,6 +816,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )
         )));
 
+        extensions.add(extension(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
+                "general.edit",
+                null,
+                "link",
+                "registrationapp/editPatientDemographics.page?patientId={{patient.patientId}}",
+                "App: patientregistration.edit",
+                null,
+                ExtensionPoints.PATIENT_HEADER_PATIENT_DEMOGRAPHICS,
+                0,
+                null));
+
+        extensions.add(extension(Extensions.EDIT_PATIENT_CONTACT_INFO,
+                "general.edit",
+                null,
+                "link",
+                "registrationapp/editPatientContactInfo.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                "App: patientregistration.edit",
+                null,
+                ExtensionPoints.PATIENT_HEADER_PATIENT_CONTACT_INFO,
+                0,
+                null));
+
     }
 
     // legacy MPI used in Mirebalais to connect to Lacolline
