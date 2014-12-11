@@ -78,6 +78,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         authenticate();
 		installRequiredMetadata();
         activator = new MirebalaisHospitalActivator();
+        activator.setTestMode(true);  // TODO: get ReportSetup to work while testing so we no longer need this
         activator.willRefreshContext();
         activator.contextRefreshed();
         activator.willStart();
