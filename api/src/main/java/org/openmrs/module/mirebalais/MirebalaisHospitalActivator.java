@@ -18,6 +18,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
@@ -82,8 +83,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+            AdministrationService administrationService = Context.getAdministrationService();
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
+            SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
             LocationService locationService = Context.getLocationService();
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
             Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
@@ -112,7 +115,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
             }
 
-            ReportSetup.scheduleReports(reportService, reportDefinitionService, config);
+            // must happen after location tags have been configured
+            ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
 
             if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 migratePaperRecordLocation(paperRecordProperties);
