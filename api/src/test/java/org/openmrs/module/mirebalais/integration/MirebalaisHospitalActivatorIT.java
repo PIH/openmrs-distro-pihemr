@@ -43,6 +43,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         authenticate();
 		installRequiredMetadata();
         activator = new MirebalaisHospitalActivator();
+        activator.setTestMode(true);
         activator.started();
         customProperties = new RuntimeProperties();
     }
