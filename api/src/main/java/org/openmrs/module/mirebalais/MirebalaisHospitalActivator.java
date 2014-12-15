@@ -15,6 +15,7 @@ package org.openmrs.module.mirebalais;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.GlobalProperty;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
@@ -23,6 +24,7 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
@@ -115,6 +117,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.APPOINTMENT_SCHEDULING)) {
                 AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
+            }
+
+            if (!config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+                GlobalProperty gp = administrationService.getGlobalPropertyObject(CoreAppsConstants.GP_DEFAULT_DASHBOARD);
+                gp.setPropertyValue("visits");
+                administrationService.saveGlobalProperty(gp);
             }
 
             if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompontentTest; TODO is to fix and get this to work

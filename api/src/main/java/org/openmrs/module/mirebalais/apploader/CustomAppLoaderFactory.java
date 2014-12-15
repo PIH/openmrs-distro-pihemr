@@ -249,12 +249,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableActiveVisits() {
 
+        String url;
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+            url = "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}";
+        }
+        else {
+            url = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}";
+        }
+
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS,
                 "coreapps.activeVisits.app.label",
                 "icon-check-in",
                 "coreapps/activeVisits.page?app=" + Apps.ACTIVE_VISITS,
                 "App: org.openmrs.module.coreapps.activeVisits",
-                objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
+                objectNode("patientPageUrl", url))));
 
     }
 
@@ -815,26 +823,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )
         )));
 
-        extensions.add(extension(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
-                "general.edit",
-                null,
+        extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
+                "mirebalais.overallAction.editDemographics",
+                "icon-edit",
                 "link",
                 "registrationapp/editPatientDemographics.page?patientId={{patient.patientId}}",
                 "App: patientregistration.edit",
-                null,
-                ExtensionPoints.PATIENT_HEADER_PATIENT_DEMOGRAPHICS,
-                0,
                 null));
 
-        extensions.add(extension(Extensions.EDIT_PATIENT_CONTACT_INFO,
-                "general.edit",
-                null,
+        extensions.add(overallAction(Extensions.EDIT_PATIENT_CONTACT_INFO,
+                "mirebalais.overallAction.editContactInfo",
+                "icon-edit",
                 "link",
                 "registrationapp/editPatientContactInfo.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.edit",
-                null,
-                ExtensionPoints.PATIENT_HEADER_PATIENT_CONTACT_INFO,
-                0,
                 null));
 
     }

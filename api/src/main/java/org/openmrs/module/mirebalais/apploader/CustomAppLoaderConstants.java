@@ -149,21 +149,21 @@ public class CustomAppLoaderConstants {
     // order of lists define the order apps and extensions appear
     public static final List<String> HOME_PAGE_APPS_ORDER = Arrays.asList(
             Apps.ACTIVE_VISITS,
+            Apps.PATIENT_REGISTRATION,
+            Apps.CHECK_IN,
             Apps.AWAITING_ADMISSION,
             Apps.VITALS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
-            Apps.SYSTEM_ADMINISTRATION,
             Apps.INPATIENTS,
-            Apps.CHECK_IN,
             Apps.REPORTS,
-            Apps.PATIENT_REGISTRATION,
             Apps.LEGACY_PATIENT_REGISTRATION,
             Apps.LEGACY_PATIENT_REGISTRATION_ED,
             Apps.LEGACY_PATIENT_LOOKUP,
             Apps.DISPENSING,
             Apps.LEGACY_MPI,
-            Apps.MY_ACCOUNT);
+            Apps.MY_ACCOUNT,
+            Apps.SYSTEM_ADMINISTRATION);
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
             Apps.MANAGE_ACCOUNTS,
@@ -183,7 +183,9 @@ public class CustomAppLoaderConstants {
             Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
             Apps.SCHEDULE_APPOINTMENT,
             Extensions.MERGE_VISITS_OVERALL_ACTION,
-            Extensions.DEATH_CERTIFICATE_OVERALL_ACTION);
+            Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
+            Extensions.EDIT_PATIENT_DEMOGRAPHICS,
+            Extensions.EDIT_PATIENT_CONTACT_INFO);
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,
