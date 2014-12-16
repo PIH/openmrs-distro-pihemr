@@ -12,7 +12,7 @@
                 display: none;
             }
             body {
-                font-size: 14px;
+                font-size: 13px;
             }
         }
 
@@ -292,7 +292,16 @@
             </p>
         </section>
 
-        <div style="clear:both; height: 1px;"></div>
+        <div style="clear:both; padding-top:25px">
+            Signature:
+            <div style="border-bottom: 1px black solid; width: 450px; display: inline-block"></div>
+            <br/>
+            <div style="padding-left: 150px; font-size: 0.9em;">
+                Hôpital Universitaire de Mirebalais<br/>
+                Route Départmentale 11,
+                Mirebalais, Haïti
+            </div>
+        </div>
     </ifMode>
 
     <p style="display: none">
