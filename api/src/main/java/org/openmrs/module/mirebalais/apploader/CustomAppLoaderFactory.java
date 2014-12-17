@@ -803,7 +803,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                         "address2"
                                 ))));
         ObjectNode addressHierarchyQuestion = question("personAddressQuestion", "Person.address", addressHierarchyField);
-        addressHierarchyQuestion.put("displayTemplate", "{{field[6]}}, {{field[5]}}, {{field[4]}}, {{field[3]}}, {{field[2]}}");
+        addressHierarchyQuestion.put("displayTemplate", "{{field.[6]}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
 
         apps.add(addToHomePage(app(Apps.PATIENT_REGISTRATION,
                 "registrationapp.app.registerPatient.label",
