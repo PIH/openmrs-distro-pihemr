@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -791,6 +792,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePatientRegistration() {
 
+        ObjectNode addressHierarchyField = objectNode("type", "personAddress",
+                "label", "registrationapp.patient.address.question",
+                "widget", objectNode(
+                        "providerName", "registrationapp",
+                        "fragmentId", "field/personAddressWithHierarchy",
+                        "config", objectNode(
+                                "shortcutFor", "address1",
+                                "manualFields", arrayNode(
+                                        "address2"
+                                ))));
+        ObjectNode addressHierarchyQuestion = question("personAddressQuestion", "Person.address", addressHierarchyField);
+        addressHierarchyQuestion.put("displayTemplate", "{{field[6]}}, {{field[5]}}, {{field[4]}}, {{field[3]}}, {{field[2]}}");
+
         apps.add(addToHomePage(app(Apps.PATIENT_REGISTRATION,
                 "registrationapp.app.registerPatient.label",
                 "icon-user",
@@ -801,15 +815,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK,
                         section("contactInfo",
                                 "registrationapp.patient.contactInfo.label",
-                                question("personAddressQuestion",
-                                        "Person.address",
-                                        field("",
-                                                "registrationapp.patient.address.question",
-                                                "personAddress",
-                                                "",
-                                                "uicommons",
-                                                "field/personAddress")
-                                ),
+                                addressHierarchyQuestion,
                                 question("phoneNumberLabel",
                                         "registrationapp.patient.phone.label",
                                         field("phoneNumber",
