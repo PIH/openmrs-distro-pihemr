@@ -810,7 +810,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-user",
                 "registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.main",
-                patientRegistrationConfig("/coreapps/clinicianfacing/patient.page?patientId={{patientId}}",
+                patientRegistrationConfig("registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK,
                         section("contactInfo",
