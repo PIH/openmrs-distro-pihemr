@@ -1,0 +1,12 @@
+<htmlform formUuid="43bcbb00-8790-11e4-b4a9-0800200c9a66" formName="Patient Registration" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
+
+    <div class="hidden">
+        <encounterDate default="now" showTime="false"/>
+        <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </div>
+
+    <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="-">
+    </section>
+
+</htmlform>

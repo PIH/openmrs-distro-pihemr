@@ -88,6 +88,34 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
+    static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        appExtension(app, app.getId() + ".clinicianDashboardFirstColumn",
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                1,  // TODO; create array to set order like others in CustomAppLoaderConstants
+                CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN)
+                .setExtensionParams(map("provider", provider,
+                        "fragment", fragment));
+        return app;
+    }
+
+    static public AppDescriptor addToClinicianDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        appExtension(app, app.getId() + ".clinicianDashboardSecondColumn",
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
+                CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN)
+                .setExtensionParams(map("provider", provider,
+                        "fragment", fragment));
+        return app;
+    }
+
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 CustomAppLoaderConstants.ExtensionPoints.VISIT_ACTIONS, VISIT_ACTIONS_ORDER.indexOf(id), null);
@@ -141,6 +169,12 @@ public class CustomAppLoaderUtil {
     static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
         return new Extension(id, null, extensionPoint, "link", label,provider + "/" + fragment + ".page?reportDefinition=" + definitionUuid,
                 order, privilege, map("linkId", linkId));
+    }
+
+    static public Extension clinicianDashboardFirstColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, int order, Map<String,Object> extensionParams) {
+        extensionParams.put("provider", provider);
+        extensionParams.put("fragment", fragment);
+        return extension(id, label, icon, "link", null, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, order, extensionParams);
     }
 
     static public Extension extension(String id, String label, String icon, String type, String urlOrScript, String privilege, String require, String extensionPoint, int order, Map<String,Object> extensionParams) {

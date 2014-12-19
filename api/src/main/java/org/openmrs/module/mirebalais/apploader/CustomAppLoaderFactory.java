@@ -27,6 +27,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.R
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToOverallActions;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
@@ -304,6 +306,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 simpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
                 "Task: emr.enterClinicalForms",
                 "visit != null && visit.active"));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
+                "mirebalais.mostRecentVitals.label",
+                "icon-vitals",
+                null,
+                "App: mirebalais.outpatientVitals",
+                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                        "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS)),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals");
@@ -828,6 +840,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         )
                 )
         )));
+
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_REGISTRATION,
+                        "mirebalais.mostRecentRegistration.label",
+                        "icon-user",
+                        null,
+                        "App: patientregistration.main",  // TODO: should this have it's own privilege?
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml")),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
 
         extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
                 "mirebalais.overallAction.editDemographics",

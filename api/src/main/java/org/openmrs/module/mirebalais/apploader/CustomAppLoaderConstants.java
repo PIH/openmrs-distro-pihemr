@@ -30,7 +30,6 @@ public class CustomAppLoaderConstants {
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
-
     }
 
     public static final class Apps {
@@ -57,6 +56,9 @@ public class CustomAppLoaderConstants {
         public static final String MERGE_PATIENTS = "emr.mergePatients";
         public static final String REGISTER_TEST_PATIENT = "emr.testPatient.registration";
         public static final String FEATURE_TOGGLES = "pih.featureToggles";
+
+        public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
+        public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "mirebalais.patientRegistration.app.registration";
@@ -138,6 +140,8 @@ public class CustomAppLoaderConstants {
         public static final String REPORTING_DATA_QUALITY = "org.openmrs.module.reportingui.reports.dataquality";
         public static final String PATIENT_HEADER_PATIENT_CONTACT_INFO = "patientHeader.editPatientContactInfo";
         public static final String PATIENT_HEADER_PATIENT_DEMOGRAPHICS = "patientHeader.editPatientDemographics";
+        public static final String CLINICIAN_DASHBOARD_FIRST_COLUMN = "patientDashboard.firstColumnFragments";
+        public static final String CLINICIAN_DASHBOARD_SECOND_COLUMN = "patientDashboard.secondColumnFragments";
     }
 
     public static final class EncounterTemplates {
