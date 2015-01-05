@@ -45,8 +45,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.8</openMRSVersion>
-        <openMRSwebVersion>1.9.8</openMRSwebVersion>
+        <openMRSVersion>1.9.9-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>1.9.9-SNAPSHOT</openMRSwebVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.5-SNAPSHOT</emrapiVersion>
