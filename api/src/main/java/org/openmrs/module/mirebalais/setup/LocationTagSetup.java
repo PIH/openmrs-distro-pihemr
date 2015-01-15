@@ -79,9 +79,13 @@ public class LocationTagSetup {
             ZanmiLocations.MirebalaisLocations.REHABILITATION,
             ZanmiLocations.MirebalaisLocations.FAMILY_PLANNING,
             ZanmiLocations.MirebalaisLocations.BLOOD_BANK,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_ACHIV : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_RESEPSYON : null)
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
         ));
 
 
@@ -117,7 +121,7 @@ public class LocationTagSetup {
             ZanmiLocations.MirebalaisLocations.ISOLATION,
             ZanmiLocations.MirebalaisLocations.REHABILITATION,
             ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN : null)
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null)
         ));
 
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
@@ -146,7 +150,8 @@ public class LocationTagSetup {
             ZanmiLocations.MirebalaisLocations.EMERGENCY,
             ZanmiLocations.MirebalaisLocations.FAMILY_PLANNING,
             ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN : null)
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
         ));
 
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.ED_NOTE_LOCATION, Arrays.asList(
@@ -162,7 +167,8 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.DISPENSING_LOCATION, Arrays.asList(
             ZanmiLocations.MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY
+            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
         ));
 
         setLocationTagsFor(locationService, CoreMetadata.LocationTags.APPOINTMENT_LOCATION, Arrays.asList(
@@ -177,7 +183,10 @@ public class LocationTagSetup {
             ZanmiLocations.MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
             ZanmiLocations.MirebalaisLocations.RADIOLOGY,
             ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN : null)
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
         ));
 
 

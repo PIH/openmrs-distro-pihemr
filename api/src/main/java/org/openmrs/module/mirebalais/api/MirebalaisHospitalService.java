@@ -62,7 +62,7 @@ public interface MirebalaisHospitalService extends OpenmrsService {
 
     PatientIdentifierType getExternalDossierIdentifierType();
 	
-	SequentialIdentifierGenerator getDossierSequenceGenerator();
-	
+	SequentialIdentifierGenerator getDossierSequenceGenerator(String identifierSourceUuid);
+
 	PatientIdentifierType getDossierIdentifierType();
 }

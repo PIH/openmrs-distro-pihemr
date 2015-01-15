@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais;
 
+import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.idgen.AutoGenerationOption;
@@ -9,8 +10,6 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-
-import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
 
 public class ConfigureIdGenerators {
 
@@ -39,17 +38,18 @@ public class ConfigureIdGenerators {
 		
 	}
 	
-	public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource) {
+	public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
-                .getIdentifierType());
+                .getIdentifierType(), location);
+
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();
         }
 
         autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
         autoGenerationOption.setSource(identifierSource);
-        autoGenerationOption.setLocation(null);
+        autoGenerationOption.setLocation(location);
         autoGenerationOption.setManualEntryEnabled(true);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
 
@@ -128,27 +128,26 @@ public class ConfigureIdGenerators {
 		remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
 	}
 	
-	public SequentialIdentifierGenerator sequentialIdentifierGeneratorToDossier(PatientIdentifierType patientIdentifierType) {
-		
+	public SequentialIdentifierGenerator sequentialIdentifierGeneratorForDossier(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
 		SequentialIdentifierGenerator dossierSequenceGenerator;
 		try {
-			dossierSequenceGenerator = service.getDossierSequenceGenerator();
+			dossierSequenceGenerator = service.getDossierSequenceGenerator(identifierSourceUuid);
 		}
 		catch (IllegalStateException e) {
-			dossierSequenceGenerator = buildSequenceGenerator(patientIdentifierType);
+			dossierSequenceGenerator = buildSequenceGenerator(patientIdentifierType, prefix, identifierSourceUuid);
 			identifierSourceService.saveIdentifierSource(dossierSequenceGenerator);
 		}
 		
 		return dossierSequenceGenerator;
 	}
 	
-	private SequentialIdentifierGenerator buildSequenceGenerator(PatientIdentifierType patientIdentifierType) {
+	private SequentialIdentifierGenerator buildSequenceGenerator(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
 		sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
-		sequentialIdentifierGenerator.setUuid(DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
-		sequentialIdentifierGenerator.setMaxLength(7);
-        sequentialIdentifierGenerator.setMinLength(7);
-		sequentialIdentifierGenerator.setPrefix("A");
+		sequentialIdentifierGenerator.setUuid(identifierSourceUuid);
+		sequentialIdentifierGenerator.setMaxLength(6 + prefix.length());
+        sequentialIdentifierGenerator.setMinLength(6 + prefix.length());
+		sequentialIdentifierGenerator.setPrefix(prefix);
 		sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
 		sequentialIdentifierGenerator.setFirstIdentifierBase("000001");
 		sequentialIdentifierGenerator.setIdentifierType(patientIdentifierType);

@@ -66,7 +66,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 
         IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
         RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator();
+        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
         PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
         PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.DOSSIER_NUMBER);
@@ -91,7 +91,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         assertEquals(new Integer(7), dossierSequenceGenerator.getMinLength());
         assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
         assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
-        assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
+        assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
         assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
         assertTrue(Context.getService(IdentifierSourceService.class).getAutoGenerationOption(dossierNumberIdentifierType).isManualEntryEnabled());
 

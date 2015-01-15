@@ -7,10 +7,13 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.ConfigureIdGenerators;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.mirebalais.config.ConfigDescriptor;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
 
 public class PatientIdentifierSetup {
 
@@ -25,7 +28,7 @@ public class PatientIdentifierSetup {
         createPatientIdGenerator(service, configureIdGenerators);
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
-            createDossierNumberGenerator(service, configureIdGenerators);
+            createDossierNumberGenerator(service, locationService, configureIdGenerators, config);
         }
 
     }
@@ -37,9 +40,28 @@ public class PatientIdentifierSetup {
         configureIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
     }
 
-    private static void createDossierNumberGenerator(MirebalaisHospitalService service, ConfigureIdGenerators configureIdGenerators) {
-        PatientIdentifierType dossierIdentifierType = service.getDossierIdentifierType();
-        SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators.sequentialIdentifierGeneratorToDossier(dossierIdentifierType);
-        configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator);
+    private static void createDossierNumberGenerator(MirebalaisHospitalService service, LocationService locationService, ConfigureIdGenerators configureIdGenerators, Config config) {
+
+        // TODO configure dossier generators for sites besides Mirebalais, if any of them start using the archives app
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            PatientIdentifierType dossierIdentifierType = service.getDossierIdentifierType();
+
+            SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            MirebalaisConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                            MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+
+            configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
+                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS));
+
+            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            MirebalaisConstants.CDI_DOSSIER_NUMBER_PREFIX,
+                            MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+
+            configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
+                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI));
+        }
+
     }
 }

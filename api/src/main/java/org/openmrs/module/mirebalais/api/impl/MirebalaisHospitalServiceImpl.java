@@ -155,10 +155,11 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
     }
 	
 	@Override
-	public SequentialIdentifierGenerator getDossierSequenceGenerator() {
+	public SequentialIdentifierGenerator getDossierSequenceGenerator(String identifierSourceUuid) {
+
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = (SequentialIdentifierGenerator) Context.getService(
 		    IdentifierSourceService.class).getIdentifierSourceByUuid(
-		    MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
+		    identifierSourceUuid);
 		
 		if (sequentialIdentifierGenerator == null) {
 			throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
@@ -166,7 +167,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 		
 		return sequentialIdentifierGenerator;
 	}
-	
+
 	@Override
 	public PatientIdentifierType getDossierIdentifierType() {
 		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.DOSSIER_NUMBER);

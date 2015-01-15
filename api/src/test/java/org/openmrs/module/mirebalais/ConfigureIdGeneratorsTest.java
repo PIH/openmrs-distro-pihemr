@@ -34,7 +34,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID;
+import static org.openmrs.module.mirebalais.MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE;
 import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID;
@@ -111,10 +111,12 @@ public class ConfigureIdGeneratorsTest {
 	
 	@Test
 	public void shouldConfigureDossierNumberGeneratorWhenThereIsNoConfigurationInDatabase() {
-		when(service.getDossierSequenceGenerator()).thenThrow(IllegalStateException.class);
+		when(service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenThrow(IllegalStateException.class);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
-		        .sequentialIdentifierGeneratorToDossier(patientIdentifierType);
+		        .sequentialIdentifierGeneratorForDossier(patientIdentifierType,
+                        MirebalaisConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                        MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGeneratorAsExpected = buildSequentialIdentifierGeneratorAsExpected();
 		
@@ -126,16 +128,18 @@ public class ConfigureIdGeneratorsTest {
         assertEquals(new Integer(7), sequentialIdentifierGenerator.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGenerator.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGenerator.getFirstIdentifierBase());
-		assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGenerator.getUuid());
+		assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGenerator.getUuid());
 	}
 	
 	@Test
 	public void shouldConfigureDossierNumberGeneratorWhenThereOneConfigurationInDatabase() {
 		SequentialIdentifierGenerator sequentialIdentifierGeneratorAsExpected = buildSequentialIdentifierGeneratorAsExpected();
-		when(service.getDossierSequenceGenerator()).thenReturn(sequentialIdentifierGeneratorAsExpected);
+		when(service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenReturn(sequentialIdentifierGeneratorAsExpected);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
-		        .sequentialIdentifierGeneratorToDossier(patientIdentifierType);
+		        .sequentialIdentifierGeneratorForDossier(patientIdentifierType,
+                        MirebalaisConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                        MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 		
 		verify(identifierSourceService, never()).saveIdentifierSource(any(SequentialIdentifierGenerator.class));
 		
@@ -145,13 +149,13 @@ public class ConfigureIdGeneratorsTest {
         assertEquals(new Integer(7), sequentialIdentifierGeneratorAsExpected.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGeneratorAsExpected.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGeneratorAsExpected.getFirstIdentifierBase());
-		assertEquals(MirebalaisConstants.DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGeneratorAsExpected
+		assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGeneratorAsExpected
 		        .getUuid());
 	}
 	
 	private SequentialIdentifierGenerator buildSequentialIdentifierGeneratorAsExpected() {
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
-		sequentialIdentifierGenerator.setUuid(DOSSIER_NUMBER_ZL_IDENTIFIER_SOURCE_UUID);
+		sequentialIdentifierGenerator.setUuid(UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 		sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
 		sequentialIdentifierGenerator.setMaxLength(7);
         sequentialIdentifierGenerator.setMinLength(7);
