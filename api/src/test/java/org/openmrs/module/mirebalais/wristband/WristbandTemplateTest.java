@@ -134,6 +134,7 @@ public class WristbandTemplateTest {
         paperRecordIdentifier.setIdentifier("A00005");
         paperRecordIdentifier.setIdentifierType(paperRecordIdentifierType);
         paperRecordIdentifier.setVoided(false);
+        paperRecordIdentifier.setLocation(visitLocation);
         patient.addIdentifier(paperRecordIdentifier);
 
         PersonAddress address = new PersonAddress();
@@ -151,7 +152,7 @@ public class WristbandTemplateTest {
 
         when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn("74 an(s)");
 
-        String output = wristbandTemplate.generateWristband(patient, new Location());
+        String output = wristbandTemplate.generateWristband(patient, visitLocation);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));

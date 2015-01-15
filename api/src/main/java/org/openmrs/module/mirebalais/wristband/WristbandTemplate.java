@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
@@ -20,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -98,8 +100,8 @@ public class WristbandTemplate {
         // gender
         data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, locale) + "  ");
 
-        // paper record identifiers
-        PatientIdentifier paperRecordIdentifier = patient.getPatientIdentifier(paperRecordProperties.getPaperRecordIdentifierType());
+        // paper record identifier
+        PatientIdentifier paperRecordIdentifier = getAppropriatePaperRecordIdentifierForLocation(patient, location);
         if (paperRecordIdentifier != null) {
             data.append(paperRecordIdentifier.getIdentifier());
         }
@@ -175,5 +177,19 @@ public class WristbandTemplate {
 
     public void setAddressHierarchyService(AddressHierarchyService addressHierarchyService) {
         this.addressHierarchyService = addressHierarchyService;
+    }
+
+    private PatientIdentifier getAppropriatePaperRecordIdentifierForLocation(Patient patient, Location location) {
+
+        List<PatientIdentifier> paperRecordIdentifiers = patient.getPatientIdentifiers(paperRecordProperties.getPaperRecordIdentifierType());
+
+        if (paperRecordIdentifiers != null) {
+            for (PatientIdentifier paperRecordIdentifier : paperRecordIdentifiers) {
+                if (Location.isInHierarchy(location, paperRecordIdentifier.getLocation())) {
+                    return paperRecordIdentifier;
+                }
+            }
+        }
+        return null;
     }
 }
