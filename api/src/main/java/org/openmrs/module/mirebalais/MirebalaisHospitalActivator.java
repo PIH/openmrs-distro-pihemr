@@ -164,16 +164,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
         Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')" +
                 "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
                 paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
                 "and location_id = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')", false);
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_CDI_PARENT + "')", false);
 
         Context.getAdministrationService().executeSQL("update paperrecord_paper_record set record_location = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS + "')" +
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')" +
                 "where record_location = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')", false);
+                ZanmiLocations.MirebalaisLocations.MIREBALAIS_CDI_PARENT + "')", false);
 
     }
 

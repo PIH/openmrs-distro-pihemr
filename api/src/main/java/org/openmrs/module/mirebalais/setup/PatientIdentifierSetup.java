@@ -52,7 +52,7 @@ public class PatientIdentifierSetup {
                             MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL_MAIN_CAMPUS));
+                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL));
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
@@ -60,7 +60,7 @@ public class PatientIdentifierSetup {
                             MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI));
+                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
         }
 
     }

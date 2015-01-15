@@ -171,8 +171,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     private void verifyLocationTags() {
         // test a couple of sentinel locations
-        // mirebalais hospital should support neither login nor admission nor transfer
-        Location location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL);
+        // mirebalais cdi parent should support neither login nor admission nor transfer
+        Location location = Context.getLocationService().getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_CDI_PARENT);
         assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN), Is.is(false));
         assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION), Is.is(false));
         assertThat(location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_TRANSFER), Is.is(false));
