@@ -355,6 +355,8 @@ public class CustomAppLoaderTest {
         assertThat(config.get("registrationEncounter").get("encounterType").getTextValue(), is("123abc"));
         assertThat(config.get("registrationEncounter").get("encounterRole").getTextValue(), is("456def"));
         assertThat(config.get("allowRetrospectiveEntry").getBooleanValue(), is(true));
+        assertThat(config.get("allowManualIdentifier").getBooleanValue(), is(true));
+        assertThat(config.get("allowUnknownPatients").getBooleanValue(), is(true));
 
         ObjectNode section = (ObjectNode) config.get("sections").get(0);
 
