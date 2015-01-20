@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.setup;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -21,14 +22,15 @@ public class PatientIdentifierSetup {
                                                       IdentifierSourceService identifierSourceService,
                                                       LocationService locationService,
                                                       Config config,
-                                                      RuntimeProperties customProperties) {
+                                                      RuntimeProperties customProperties,
+                                                      FeatureToggleProperties featureToggles) {
 
         ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 
         createPatientIdGenerator(service, configureIdGenerators);
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
-            createDossierNumberGenerator(service, locationService, configureIdGenerators, config);
+            createDossierNumberGenerator(service, locationService, configureIdGenerators, config, featureToggles);
         }
 
     }
@@ -40,7 +42,7 @@ public class PatientIdentifierSetup {
         configureIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
     }
 
-    private static void createDossierNumberGenerator(MirebalaisHospitalService service, LocationService locationService, ConfigureIdGenerators configureIdGenerators, Config config) {
+    private static void createDossierNumberGenerator(MirebalaisHospitalService service, LocationService locationService, ConfigureIdGenerators configureIdGenerators, Config config, FeatureToggleProperties featureToggles) {
 
         // TODO configure dossier generators for sites besides Mirebalais, if any of them start using the archives app
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
@@ -52,15 +54,17 @@ public class PatientIdentifierSetup {
                             MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL));
+                    featureToggles.isFeatureEnabled("cdi") ? locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL) : null);
 
-            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
-                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
-                            MirebalaisConstants.CDI_DOSSIER_NUMBER_PREFIX,
-                            MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+            if (featureToggles.isFeatureEnabled("cdi")) {
+                SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
+                        .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                                MirebalaisConstants.CDI_DOSSIER_NUMBER_PREFIX,
+                                MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
-            configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                    locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+                configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
+                        locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+            }
         }
 
     }

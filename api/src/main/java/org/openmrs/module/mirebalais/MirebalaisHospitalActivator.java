@@ -98,7 +98,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             removeOldGlobalProperties();
 
-            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
+            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties, featureToggleProperties);
             LocationTagSetup.setupLocationTags(locationService, config, featureToggleProperties);
 
             // for now, we install all forms everywhere
