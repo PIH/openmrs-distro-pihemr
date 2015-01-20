@@ -4,13 +4,13 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
-import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyUtil;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -52,6 +52,9 @@ public class WristbandTemplate {
 
     @Autowired
     private EmrApiProperties emrApiProperties;
+
+    @Autowired
+    private FeatureToggleProperties featureToggles;
 
     // TODO figure out why this isn't getting autowired properly (at least for tests)
     //@Autowired
@@ -103,7 +106,14 @@ public class WristbandTemplate {
         // paper record identifier
         PatientIdentifier paperRecordIdentifier = getAppropriatePaperRecordIdentifierForLocation(patient, location);
         if (paperRecordIdentifier != null) {
-            data.append(paperRecordIdentifier.getIdentifier());
+            if (featureToggles.isFeatureEnabled("cdi")) {
+                data.append(paperRecordIdentifier.getIdentifier().substring(0, paperRecordIdentifier.getIdentifier().length() - 6) + " "
+                        + paperRecordIdentifier.getIdentifier().substring(paperRecordIdentifier.getIdentifier().length() - 6));
+            }
+            else {
+                data.append(paperRecordIdentifier.getIdentifier());
+            }
+
         }
         data.append("^FS");
 
@@ -177,6 +187,10 @@ public class WristbandTemplate {
 
     public void setAddressHierarchyService(AddressHierarchyService addressHierarchyService) {
         this.addressHierarchyService = addressHierarchyService;
+    }
+
+    public void setFeatureToggles(FeatureToggleProperties featureToggles) {
+        this.featureToggles = featureToggles;
     }
 
     private PatientIdentifier getAppropriatePaperRecordIdentifierForLocation(Patient patient, Location location) {

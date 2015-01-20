@@ -14,6 +14,7 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -52,6 +53,8 @@ public class WristbandTemplateTest {
 
     private AddressHierarchyService addressHierarchyService;
 
+    private FeatureToggleProperties featureToggles;
+
     private PatientIdentifierType primaryIdentifierType = new PatientIdentifierType();
 
     private PatientIdentifierType paperRecordIdentifierType = new PatientIdentifierType();
@@ -66,13 +69,14 @@ public class WristbandTemplateTest {
         adtService = mock(AdtService.class);
         messageSourceService = mock(MessageSourceService.class);
         addressHierarchyService = mock(AddressHierarchyService.class);
+        featureToggles = mock(FeatureToggleProperties.class);
 
         when(emrApiProperties.getPrimaryIdentifierType()).thenReturn(primaryIdentifierType);
         when(paperRecordProperties.getPaperRecordIdentifierType()).thenReturn(paperRecordIdentifierType);
-
         when(adtService.getLocationThatSupportsVisits(argThat(any(Location.class)))).thenReturn(visitLocation);
         when(messageSourceService.getMessage("coreapps.gender.M", null, locale)).thenReturn("Masculin");
         when(messageSourceService.getMessage("coreapps.gender.F", null, locale)).thenReturn("Féminin");
+        when(featureToggles.isFeatureEnabled("cdi")).thenReturn(true);
 
         setupAddressHierarchyLevels();
 
@@ -81,6 +85,7 @@ public class WristbandTemplateTest {
         wristbandTemplate.setMessageSourceService(messageSourceService);
         wristbandTemplate.setPaperRecordProperties(paperRecordProperties);
         wristbandTemplate.setAddressHierarchyService(addressHierarchyService);
+        wristbandTemplate.setFeatureToggles(featureToggles);
 
     }
 
@@ -131,7 +136,7 @@ public class WristbandTemplateTest {
         patient.addIdentifier(primaryIdentifier);
 
         PatientIdentifier paperRecordIdentifier = new PatientIdentifier();
-        paperRecordIdentifier.setIdentifier("A00005");
+        paperRecordIdentifier.setIdentifier("A000005");
         paperRecordIdentifier.setIdentifierType(paperRecordIdentifierType);
         paperRecordIdentifier.setVoided(false);
         paperRecordIdentifier.setLocation(visitLocation);
@@ -159,7 +164,7 @@ public class WristbandTemplateTest {
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
         assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
-        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A00005^FS"));
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A 000005^FS"));
         assertThat(output, containsString("^FO220,200^FB2150,1,0,L,0^AS^FDAvant Eglise Chretienne des perlerlerin de la siant tete de moliere^FS"));
         assertThat(output, containsString("^FO270,200^FB2150,1,0,L,0^AS^FDSaut D'Eau, 1ere Riviere Canot, Saut d'Eau, Centre^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDZL1234^XZ"));
@@ -216,7 +221,7 @@ public class WristbandTemplateTest {
             data.append("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS");
             data.append("^FO160,200^FB2150,1,0,L,0^AU^FD07 Jul 1940^FS");
             data.append("^FO160,200^FB1850,1,0,L,0^AT^FD40 years^FS");
-            data.append("^FO160,200^FB1650,1,0,L,0^AU^FDMale  A00005^FS");
+            data.append("^FO160,200^FB1650,1,0,L,0^AU^FDMale  A 000005^FS");
             data.append("^FO220,200^FB2150,1,0,L,0^AS^FDAvant Eglise Chretienne des perlerlerin de la siant tete de moliere^FS");
             data.append("^FO270,200^FB2150,1,0,L,0^AS^FDSaut D'Eau, 1ere Riviere Canot, Saut d'Eau, Centre^FS");
 
