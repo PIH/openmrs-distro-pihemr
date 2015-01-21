@@ -820,7 +820,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.PATIENT_REGISTRATION,
                 "registrationapp.app.registerPatient.label",
                 "icon-user",
-                "registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                "/registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.main",
                 patientRegistrationConfig("registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
