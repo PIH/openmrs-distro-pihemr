@@ -12,6 +12,12 @@
 	<name>Mirebalais Hospital Module OMOD</name>
 	<description>OMOD project for MirebalaisHospital</description>
 
+    <!-- by default rubygems are installed in the target directory, which we don't want, because then they'd need to be reinstalled after every clean -->
+    <properties>
+        <gem.home>${basedir}/.rubygems</gem.home>
+        <gem.path>${basedir}/.rubygems</gem.path>
+    </properties>
+
 	<dependencies>
 
 		<dependency>
@@ -39,6 +45,7 @@
             <artifactId>compass</artifactId>
             <version>0.11.7</version>
             <type>gem</type>
+            <scope>provided</scope>
         </dependency>
 
         <!-- OpenMRS modules -->
@@ -220,7 +227,7 @@
                 </executions>
                 <configuration>
                 	<jrubyVersion>1.7.10</jrubyVersion>
-                    <execArgs>${project.build.directory}/rubygems/bin/compass compile ${basedir}/src/main/compass</execArgs>
+                    <execArgs>${gem.home}/bin/compass compile ${basedir}/src/main/compass</execArgs>
                 </configuration>
             </plugin>
         </plugins>
@@ -245,7 +252,7 @@
                         </executions>
                         <configuration>
                         	<jrubyVersion>1.7.10</jrubyVersion>
-                            <execArgs>${project.build.directory}/rubygems/bin/compass watch ${basedir}/src/main/compass</execArgs>
+                            <execArgs>${gem.home}/bin/compass watch ${basedir}/src/main/compass</execArgs>
                         </configuration>
                     </plugin>
                 </plugins>
