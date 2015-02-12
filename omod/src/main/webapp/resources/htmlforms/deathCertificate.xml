@@ -183,7 +183,7 @@
                 <span class="one-half">
                     Institution:
                     <includeIf velocityTest="$fn.getObs($encounter, 'PIH: Location of death').valueCoded.equals($fn.getConcept('PIH: HOSPITAL'))">
-                        <span class="value">UHM</span>
+                        <span class="value">HUM</span>
                     </includeIf>
                 </span>
                 <span class="one-half">
@@ -255,7 +255,7 @@
 
         <section id="extra-institutional-view" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Source d'information">
             <p>
-                <obs conceptId="PIH: Source of information" answerConceptId="PIH: OTHER FAMILY MEMBER" locale="fr"/>
+                <obs conceptId="PIH: Source of information" answerConceptId="PIH: FAMILY MEMBER" locale="fr"/>
             </p>
             <p>
                 <obs conceptId="PIH: Source of information" answerConceptId="PIH: Police" locale="fr"/>
