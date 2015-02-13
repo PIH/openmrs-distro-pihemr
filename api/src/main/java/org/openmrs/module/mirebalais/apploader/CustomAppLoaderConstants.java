@@ -44,7 +44,6 @@ public class CustomAppLoaderConstants {
         public static final String SYSTEM_ADMINISTRATION = "coreapps.app.systemAdministration";
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
-        public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
@@ -85,6 +84,7 @@ public class CustomAppLoaderConstants {
 
         public static final String REQUEST_PAPER_RECORD_OVERALL_ACTION = "paperrecord.requestPaperRecord";
         public static final String REQUEST_APPOINTMENT_OVERALL_ACTION = "appointmentschedulingui.requestAppointment";
+        public static final String SCHEDULE_APPOINTMENT_OVERALL_ACTION = "appointmentschedulingui.scheduleAppointment";
         public static final String PRINT_ID_CARD_OVERALL_ACTION = "paperrecord.printIdCardLabel";
         public static final String PRINT_PAPER_FORM_LABEL_OVERALL_ACTION = "paperrecord.printPaperFormLabel";
         public static final String PRINT_WRISTBAND_OVERALL_ACTION = "pih.wristband.print";
@@ -185,7 +185,7 @@ public class CustomAppLoaderConstants {
             Extensions.PRINT_ID_CARD_OVERALL_ACTION,
             Extensions.PRINT_WRISTBAND_OVERALL_ACTION,
             Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
-            Apps.SCHEDULE_APPOINTMENT,
+            Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
             Extensions.MERGE_VISITS_OVERALL_ACTION,
             Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,

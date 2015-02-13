@@ -30,7 +30,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFea
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToOverallActions;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -692,15 +691,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: appointmentschedulingui.home",
                 null)));
 
-        apps.add(addToOverallActions(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
-                        "appointmentschedulingui.scheduleAppointment.buttonTitle",
-                        "icon-calendar",
-                        "Task: appointmentschedulingui.bookAppointments",
-                        "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
-                        arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
-                                objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
-                                objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))),
-                "appointmentschedulingui.scheduleAppointment.title"));
+        extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
+                "appointmentschedulingui.scheduleAppointment.title",
+                "icon-calendar",
+                "link",
+                "/appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "Task: appointmentschedulingui.bookAppointments",
+                null));
 
         extensions.add(overallAction(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.requestAppointment.label",
