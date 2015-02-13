@@ -44,6 +44,7 @@ public class CustomAppLoaderConstants {
         public static final String SYSTEM_ADMINISTRATION = "coreapps.app.systemAdministration";
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
+        public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
