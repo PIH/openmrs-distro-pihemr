@@ -30,7 +30,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFea
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToOverallActions;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -782,19 +781,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null)));
         }
 
-        apps.add(addToSystemAdministrationPage(app(Apps.MANAGE_PRINTERS,
-            "printer.managePrinters",
+        apps.add(addToSystemAdministrationPage(app(Apps.PRINTER_ADMINISTRATION,
+            "printer.administration",
             "icon-print",
-            "printer/managePrinters.page",
+            "printer/printerAdministration.page",
             "App: emr.systemAdministration",
             null)));
-
-        apps.add(addToSystemAdministrationPage(app(Apps.DEFAULT_PRINTERS,
-                "printer.defaultPrinters",
-                "icon-print",
-                "printer/defaultPrinters.page",
-                "App: emr.systemAdministration",
-                null)));
 
     }
 
