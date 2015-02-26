@@ -98,7 +98,6 @@ public class P110iPrintHandler extends SocketPrintHandler implements PrintHandle
 
         if (StringUtils.isNotBlank(telephoneNumber)) {
             data.append(ESC + "T 600 350 0 0 0 25 1 Nimewo Telefòn\n");
-            verticalPosition = verticalPosition + 50;
             data.append(ESC + "T 600 400 0 1 0 50 1 " + telephoneNumber + "\n");
         }
 
