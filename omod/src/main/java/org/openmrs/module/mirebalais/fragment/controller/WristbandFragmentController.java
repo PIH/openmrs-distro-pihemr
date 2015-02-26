@@ -10,6 +10,7 @@ import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
+import org.openmrs.module.printer.PrinterType;
 import org.openmrs.module.printer.UnableToPrintViaSocketException;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -45,7 +46,7 @@ public class WristbandFragmentController {
             }
 
             String data = wristbandTemplate.generateWristband(patient, location);
-            Printer printer = printerService.getDefaultPrinter(location, Printer.Type.WRISTBAND);
+            Printer printer = printerService.getDefaultPrinter(location, PrinterType.WRISTBAND);
 
             if (printer == null) {
                 // TODO: better warning if no default printer

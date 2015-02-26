@@ -37,9 +37,11 @@ import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.LocationTagSetup;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
+import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
 
@@ -92,6 +94,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
             LocationService locationService = Context.getLocationService();
+            PrinterService printerService = Context.getService(PrinterService.class);
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
             Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
@@ -104,6 +107,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // for now, we install all forms everywhere
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             HtmlFormSetup.setupHtmlForms();
+
+            // register our custom print handlers
+            PrinterSetup.registerPrintHandlers(printerService);
 
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
                 LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);
