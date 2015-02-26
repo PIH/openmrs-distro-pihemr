@@ -612,7 +612,7 @@
                 <p>
                     <label><uimessage code="mirebalais.deathCertificate.info_source"/></label>
                     <obs conceptId="PIH: Source of information" style="dropdown" size="5"
-                         answerConceptIds="PIH: OTHER FAMILY MEMBER, PIH: Police, PIH: Undertaker, PIH: OTHER NON-CODED"/>
+                         answerConceptIds="PIH: FAMILY MEMBER, PIH: Police, PIH: Undertaker, PIH: OTHER NON-CODED"/>
                 </p>
                 <p class="required">
                     <label><uimessage code="mirebalais.deathCertificate.circumstances"/></label>
