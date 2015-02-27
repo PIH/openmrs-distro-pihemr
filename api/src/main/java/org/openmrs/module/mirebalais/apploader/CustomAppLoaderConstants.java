@@ -52,7 +52,7 @@ public class CustomAppLoaderConstants {
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
-        public static final String MERGE_PATIENTS = "emr.mergePatients";
+        public static final String MERGE_PATIENTS = "coreapps.mergePatients";
         public static final String REGISTER_TEST_PATIENT = "emr.testPatient.registration";
         public static final String FEATURE_TOGGLES = "pih.featureToggles";
 

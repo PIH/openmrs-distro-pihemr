@@ -307,12 +307,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "visit != null && visit.active"));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
-                "mirebalais.mostRecentVitals.label",
-                "icon-vitals",
-                null,
-                "App: mirebalais.outpatientVitals",
-                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                        "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS)),
+                        "mirebalais.mostRecentVitals.label",
+                        "icon-vitals",
+                        null,
+                        "App: mirebalais.outpatientVitals",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -692,13 +692,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
         apps.add(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
-                        "appointmentschedulingui.scheduleAppointment.buttonTitle",
-                        "icon-calendar",
-                        "Task: appointmentschedulingui.bookAppointments",
-                        "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
-                        arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
-                                objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
-                                objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
+                "appointmentschedulingui.scheduleAppointment.buttonTitle",
+                "icon-calendar",
+                "Task: appointmentschedulingui.bookAppointments",
+                "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
+                arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
+                        objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
+                        objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
 
         extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.scheduleAppointment.title",
@@ -746,11 +746,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
         apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
-                "emr.mergePatients",
+                "coreapps.mergePatientsLong",
                 "icon-group",
-                "emr/mergePatients.page",
+                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
                 "App: emr.systemAdministration",
-                null)));
+                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
+                        objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemAdministration.page"),
+                        objectNode("label", "coreapps.mergePatientsLong"))))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
                 "emr.testPatient.registration",
