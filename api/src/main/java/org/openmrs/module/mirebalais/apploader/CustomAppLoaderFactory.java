@@ -751,7 +751,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
                 "App: emr.systemAdministration",
                 objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
-                        objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemAdministration.page"),
+                        objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong"))))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
