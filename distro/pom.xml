@@ -318,6 +318,12 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>zlconsultnote-omod</artifactId>
+                    <version>${zlconsultnoteVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 
                 <!-- temporarily adding the groovy module -->
                 <!--

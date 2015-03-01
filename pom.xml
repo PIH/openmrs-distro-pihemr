@@ -88,6 +88,7 @@
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.2-SNAPSHOT</printerVersion>
+        <zlconsultnoteVersion>1.0-SNAPSHOT</zlconsultnoteVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
