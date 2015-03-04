@@ -45,6 +45,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragme
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.option;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patientRegistrationConfig;
@@ -835,6 +836,34 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "registrationapp.patient.phone.question",
                                                 "personAttribute",
                                                 "14d4f066-15f5-102d-96e4-000c29c2a5d7",
+                                                "uicommons",
+                                                "field/text")
+                                )
+                        ),
+                        section("social",
+                                "zl.registration.patient.social.label",
+                                question("civilStatusLabel",
+                                        "zl.registration.patient.civilStatus.label",
+                                        field("obs.PIH:CIVIL STATUS",
+                                                "zl.registration.patient.civilStatus.question",
+                                                "obs",
+                                                "",
+                                                "uicommons",
+                                                "field/dropDown",
+                                                arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
+                                                        option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
+                                                        option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
+                                                        option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
+                                                        option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
+                                                        option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
+                                        )
+                                ),
+                                question("occupationLabel",
+                                        "zl.registration.patient.occupation.label",
+                                        field("obs.PIH:2452",
+                                                "zl.registration.patient.occupation.question",
+                                                "obs",
+                                                "",
                                                 "uicommons",
                                                 "field/text")
                                 )

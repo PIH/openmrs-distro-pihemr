@@ -299,6 +299,22 @@ public class CustomAppLoaderUtil {
 
     }
 
+    static public ObjectNode field(String formFieldName, String label, String type, String uuid, String widgetProvider, String widgetFragment, ArrayNode options, String ... cssClasses) {
+
+        return objectNode("formFieldName", formFieldName,
+                "label", label,
+                "type", type,
+                "uuid", uuid,
+                "cssClasses", arrayNode(cssClasses),
+                "widget", objectNode("providerName", widgetProvider,
+                                    "fragmentId", widgetFragment,
+                                    "config", objectNode("options", options)));
+    }
+
+    static public ObjectNode option(String label, String value) {
+        return objectNode("label", label,
+                            "value", value);
+    }
 
     static public ArrayNode arrayNode(ObjectNode ... nodes) {
         ArrayNode arrayNode = new ObjectMapper().createArrayNode();
