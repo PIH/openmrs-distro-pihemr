@@ -42,7 +42,12 @@ import javax.servlet.http.HttpSession;
  *
  */
 public class LoginPageController {
-	
+
+    //see TRUNK-4536 for details why we need this
+    private static final String GET_LOCATIONS = "Get Locations";
+     // RA-592: don't use PrivilegeConstants.VIEW_LOCATIONS
+    private static final String VIEW_LOCATIONS = "View Locations";
+
 	public String get(
 	        PageModel pageModel,
 	        @SpringBean EmrService emrService,
@@ -60,7 +65,8 @@ public class LoginPageController {
 		// Since the user isn't authenticated, we need to use proxy privileges to get locations via the API
 		// TODO consider letting the Anonymous role have the Get Location privilege instead of using proxy privileges
 		try {
-			Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+			Context.addProxyPrivilege(GET_LOCATIONS);
+            Context.addProxyPrivilege(VIEW_LOCATIONS);
 
             List<Location> loginLocations = emrService.getLoginLocations();
 
@@ -81,7 +87,8 @@ public class LoginPageController {
             pageModel.addAttribute("lastSessionLocation", lastSessionLocation);
 		}
 		finally {
-			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+			Context.removeProxyPrivilege(GET_LOCATIONS);
+            Context.removeProxyPrivilege(VIEW_LOCATIONS);
 		}
         return null;
 	}
