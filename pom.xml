@@ -57,7 +57,7 @@
         <metadatasharingVersion>1.1.8</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.5-SNAPSHOT</metadatadeployVersion>
-        <htmlformentryVersion>2.5-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>2.5</htmlformentryVersion>
         <htmlformentry19extVersion>1.5-SNAPSHOT</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.2-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
