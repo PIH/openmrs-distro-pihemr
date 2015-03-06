@@ -30,6 +30,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFea
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -876,6 +877,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon-user",
                         null,
                         "App: patientregistration.main",  // TODO: should this have it's own privilege?
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml")),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
+
+        apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
+                        "mirebalais.mostRecentRegistration.label",
+                        "icon-user",
+                        null,
+                        "App: patientregistration.main",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml")),
