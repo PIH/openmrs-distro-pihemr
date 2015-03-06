@@ -20,6 +20,7 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
@@ -36,6 +37,7 @@ import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.LocationTagSetup;
+import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
@@ -71,7 +73,24 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
      * @see ModuleActivator#contextRefreshed()
      */
     public void contextRefreshed() {
-        log.info("Mirebalais Hospital Module refreshed");
+
+        if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
+            try {
+                Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+                NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
+
+                // configure name template (don't do this in Mirebalais yet)
+                if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+                    NameTemplateSetup.configureNameTemplate(nameSupport);
+                }
+
+                log.info("Mirebalais Hospital Module refreshed");
+            } catch (Exception e) {
+                Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
+                ModuleFactory.stopModule(mod);
+                throw new RuntimeException("failed to setup the required modules", e);
+            }
+        }
     }
 
     /**
@@ -131,7 +150,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 administrationService.saveGlobalProperty(gp);
             }
 
-            if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompontentTest; TODO is to fix and get this to work
+            if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
                 // must happen after location tags have been configured
                 ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
             }

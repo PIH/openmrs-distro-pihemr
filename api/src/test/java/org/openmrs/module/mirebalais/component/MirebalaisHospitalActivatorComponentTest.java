@@ -21,6 +21,8 @@ import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
 import org.openmrs.api.context.Context;
+import org.openmrs.layout.web.name.NameSupport;
+import org.openmrs.layout.web.name.NameTemplate;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.PatientToAppointmentDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
