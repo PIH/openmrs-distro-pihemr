@@ -828,6 +828,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 patientRegistrationConfig("registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK,
+                        section("demographics",
+                                "",
+                                question("mothersFirstNameLabel",
+                                        "zl.registration.patient.mothersFirstName.label",
+                                        field("mothersFirstName",
+                                            "zl.registration.patient.mothersFirstName.question",
+                                            "personAttribute",
+                                            "01621fd0-c687-11e4-8830-0800200c9a66",
+                                            "uicommons",
+                                            "field/text")
+                                )
+                        ),
                         section("contactInfo",
                                 "registrationapp.patient.contactInfo.label",
                                 addressHierarchyQuestion,
