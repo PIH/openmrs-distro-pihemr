@@ -910,7 +910,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.overallAction.editDemographics",
                 "icon-edit",
                 "link",
-                "registrationapp/editPatientDemographics.page?patientId={{patient.patientId}}",
+                "registrationapp/editSection.page?patientId={{patient.patientId}}&sectionId=demographics&appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.edit",
                 null));
 
@@ -918,7 +918,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.overallAction.editContactInfo",
                 "icon-edit",
                 "link",
-                "registrationapp/editPatientContactInfo.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                "registrationapp/editSection.page?patientId={{patient.patientId}}&sectionId=contactInfo&appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.edit",
                 null));
 
