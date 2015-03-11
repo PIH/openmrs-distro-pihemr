@@ -77,11 +77,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
             try {
                 Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
-                NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
 
                 // configure name template (don't do this in Mirebalais yet)
                 if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-                    NameTemplateSetup.configureNameTemplate(nameSupport);
+                    NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
                 }
 
                 log.info("Mirebalais Hospital Module refreshed");
