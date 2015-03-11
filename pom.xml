@@ -596,10 +596,10 @@
                             <name>logicVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
+                  <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
-                        </property>
+                        </property>-->
                     </properties>
                 </configuration>
             </plugin>
