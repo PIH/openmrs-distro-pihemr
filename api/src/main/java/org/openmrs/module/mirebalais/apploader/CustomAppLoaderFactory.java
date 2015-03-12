@@ -906,6 +906,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
+        apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
+                        "zl.registration.patient.social.label",
+                        "icon-wrench",
+                        null,
+                        "App: patientregistration.main",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml")),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
+
         extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
                 "mirebalais.overallAction.editDemographics",
                 "icon-edit",

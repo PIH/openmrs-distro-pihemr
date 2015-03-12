@@ -59,6 +59,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
         public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";
         public static final String MOST_RECENT_REGISTRATION_SUMMARY = "coreapps.mostRecentRegistrationSummary";
+        public static final String MOST_RECENT_REGISTRATION_SOCIAL = "coreapps.mostRecentRegistrationSocial";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "mirebalais.patientRegistration.app.registration";
