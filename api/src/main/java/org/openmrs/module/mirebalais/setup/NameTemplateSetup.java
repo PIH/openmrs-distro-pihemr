@@ -30,7 +30,7 @@ public class NameTemplateSetup {
         List<String> lineByLineFormat = new ArrayList<String>();
         lineByLineFormat.add("familyName,");
         lineByLineFormat.add("givenName");
-        lineByLineFormat.add("\"middleName\"");
+        lineByLineFormat.add("'middleName'");
 
         nameTemplate.setLineByLineFormat(lineByLineFormat);
 
