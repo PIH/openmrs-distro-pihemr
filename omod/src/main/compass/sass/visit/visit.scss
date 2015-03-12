@@ -1,0 +1,93 @@
+@import "customVariables";
+@import "fragments/status-container";
+
+#visit {
+
+  @include status-container(#f9f9f9);
+  width: 98.4%;
+
+  > span {
+    display: inline-block;
+  }
+
+  .visit-type {
+    width: 30%;
+  }
+
+  .visit-dates {
+    width: 30%;
+  }
+
+  .visit-location {
+    width: 20%;
+  }
+
+  .actions {
+    float: right;
+  }
+
+}
+
+.visit-element {
+
+  border: 1px solid $darkerGrey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .header {
+    background-color: $lighterGrey;
+    border-bottom: 1px solid $darkerGrey;
+    padding: 5px;
+
+    > span {
+      display: inline-block;
+    }
+
+    .encounter-type {
+      font-family: $primaryBoldFont;
+      width: 25%;
+    }
+
+    .encounter-datetime {
+      width: 25%;
+    }
+
+    .encounter-location {
+      width: 25%;
+    }
+
+    .actions {
+      float: right;
+    }
+  }
+
+  .content {
+    padding: 5px;
+    font-size: 0.9em;
+
+    .col2 {
+      display: inline-block;
+      width: 48%;
+    }
+
+    p.aligned {
+      label {
+        width: 300px;
+        text-align: right;
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  &.missing {
+    border: 1px solid $lighterGrey;
+
+    .header {
+      background-color: white;
+      border-bottom: 1px solid $lighterGrey;
+    }
+  }
+
+}
