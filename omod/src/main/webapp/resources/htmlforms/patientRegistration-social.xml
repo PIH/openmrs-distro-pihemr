@@ -15,7 +15,9 @@
             <h3><uimessage code="zl.registration.patient.social.label"/></h3>
 
             <p class="left">
-                <obs conceptId="PIH:CIVIL STATUS" id="civilStatus" showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="1"/>
+                <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
+                     answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
+                     showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="1"/>
             </p>
 
         </fieldset>
