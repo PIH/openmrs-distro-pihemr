@@ -16,28 +16,33 @@
     <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="">
 
             <fieldset class="required">
-                <h3>
-                    <uimessage code="registrationapp.registrationDate.label"/>
-                </h3>
+                <div>
+                    <h3>
+                        <uimessage code="registrationapp.registrationDate.label"/>
+                    </h3>
 
-                <p class="left">
-                    <encounterDate id="encounterDateField" showTime="false" />
-                </p>
+                    <p class="left">
+                        <encounterDate id="encounterDateField" showTime="false" />
+                    </p>
+                </div>
 
+                <div>
+                    <h3>
+                        <uimessage code="emr.patientDashBoard.provider"/>
+                    </h3>
+                    <p class="left">
+                        <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                    </p>
+                </div>
 
-                <h3>
-                    <uimessage code="emr.patientDashBoard.provider"/>
-                </h3>
-                <p class="left">
-                    <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
-                </p>
-
-                <h3>
-                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
-                </h3>
-                <p class="left">
-                    <encounterLocation/>
-                </p>
+                <div>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                    </h3>
+                    <p class="left">
+                        <encounterLocation/>
+                    </p>
+                </div>
 
             </fieldset>
 
