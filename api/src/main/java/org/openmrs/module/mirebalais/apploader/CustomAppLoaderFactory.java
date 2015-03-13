@@ -919,7 +919,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
+       /* extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
                 "mirebalais.overallAction.editDemographics",
                 "icon-edit",
                 "link",
@@ -933,7 +933,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "registrationapp/editSection.page?patientId={{patient.patientId}}&sectionId=contactInfo&appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.edit",
-                null));
+                null));*/
 
     }
 
