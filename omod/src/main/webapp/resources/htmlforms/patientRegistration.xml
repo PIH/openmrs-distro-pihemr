@@ -5,30 +5,41 @@
         jq(function() {
 
             // hack to make the datepicker show when the form is opened
-            // getField('encounterDate.value').datepicker('show');
-           jq("#encounterDateField").datepicker('show');
+           // jq("#encounterDateField").datepicker('show');
 
         });
     </script>
 
-    <div class="hidden">
-        <encounterDate  showTime="false"/>
-        <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
-        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-    </div>
+    <input id="displayEncounterDate" value="false" type="hidden" />
 
     <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="">
-        <ifMode mode="EDIT">
+
             <fieldset class="required">
                 <h3>
-                    <uimessage code="registrationapp.registrationDate.question"/>
+                    <uimessage code="registrationapp.registrationDate.label"/>
                 </h3>
 
                 <p class="left">
                     <encounterDate id="encounterDateField" showTime="false" />
                 </p>
+
+
+                <h3>
+                    <uimessage code="emr.patientDashBoard.provider"/>
+                </h3>
+                <p class="left">
+                    <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                </p>
+
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </h3>
+                <p class="left">
+                    <encounterLocation/>
+                </p>
+
             </fieldset>
-        </ifMode>
+
     </section>
 
     <ifMode mode="VIEW" include="false">

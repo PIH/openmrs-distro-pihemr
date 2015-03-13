@@ -1,5 +1,14 @@
 <htmlform formUuid="3C953068-B460-4B1A-8889-0AAD43447CD7" formName="Patient Registration Social" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
 
+    <script type="text/javascript">
+
+        jq(function() {
+
+            console.log("patientRegistration-social form is loaded");
+
+        });
+    </script>
+
     <div class="hidden">
         <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
         <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
@@ -10,7 +19,7 @@
     <section id="social" sectionTag="section" headerStyle="title" headerCode="">
 
         <fieldset>
-            <legend><uimessage code="zl.registration.patient.civilStatus.label"/></legend>
+
             <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
 
             <p class="left">
@@ -19,12 +28,7 @@
                      showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="1"/>
             </p>
 
-        </fieldset>
-
-        <fieldset>
-            <legend><uimessage code="zl.registration.patient.occupation.label"/></legend>
             <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
-
             <p class="left">
                 <obs conceptId="PIH:2452" id="occupation" showUnits="false" unitsCssClass="append-to-value" size="20" />
             </p>
