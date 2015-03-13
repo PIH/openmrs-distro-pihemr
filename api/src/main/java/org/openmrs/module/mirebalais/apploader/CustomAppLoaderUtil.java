@@ -313,7 +313,7 @@ public class CustomAppLoaderUtil {
 
     }
 
-    static public ObjectNode field(String formFieldName, String label, String type, String uuid, String widgetProvider, String widgetFragment, ArrayNode options, String ... cssClasses) {
+    static public ObjectNode field(String formFieldName, String label, String type, String uuid, String widgetProvider, String widgetFragment, ObjectNode config, String ... cssClasses) {
 
         return objectNode("formFieldName", formFieldName,
                 "label", label,
@@ -322,7 +322,7 @@ public class CustomAppLoaderUtil {
                 "cssClasses", arrayNode(cssClasses),
                 "widget", objectNode("providerName", widgetProvider,
                                     "fragmentId", widgetFragment,
-                                    "config", objectNode("options", options)));
+                                    "config", config));
     }
 
     static public ObjectNode option(String label, String value) {

@@ -28,7 +28,7 @@
             <p class="left">
                 <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
                      answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
-                     showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="1"/>
+                     showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="8"/>
             </p>
 
             <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>

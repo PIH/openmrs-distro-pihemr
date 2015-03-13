@@ -863,12 +863,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "",
                                                 "uicommons",
                                                 "field/dropDown",
-                                                arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
-                                                        option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
-                                                        option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
-                                                        option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
-                                                        option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
-                                                        option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
+                                                objectNode("expanded", true,
+                                                           "options", arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
+                                                                                option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
+                                                                                option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
+                                                                                option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
+                                                                                option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
+                                                                                option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
+                                                )
                                         )
                                 ),
                                 question("occupationLabel",

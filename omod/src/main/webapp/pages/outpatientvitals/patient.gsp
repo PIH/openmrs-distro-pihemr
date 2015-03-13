@@ -8,7 +8,7 @@
         { label: "${ ui.message("mirebalais.outpatientVitals.title") }",
           link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'pih.app.vitals' ] ) }"
         },
-        { label: "${ ui.format(patient.patient.familyName) }, ${ ui.format(patient.patient.givenName) }" ,
+        { label: "${ ui.escapeJs(ui.format(patient.patient)) }" ,
           link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'}
     ];
 </script>
