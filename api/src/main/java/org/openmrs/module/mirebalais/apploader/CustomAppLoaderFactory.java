@@ -910,7 +910,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
                         "zl.registration.patient.social.label",
-                        "icon-wrench",
+                        "icon-group",
                         null,
                         "App: patientregistration.main",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
