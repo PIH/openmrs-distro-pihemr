@@ -904,7 +904,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: patientregistration.main",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml")),
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml",
+                                "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -915,7 +916,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: patientregistration.main",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml")),
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml",
+                                "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
