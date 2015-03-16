@@ -49,7 +49,7 @@
         <openMRSwebVersion>1.9.9-SNAPSHOT</openMRSwebVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.5</emrapiVersion>
+        <emrapiVersion>1.6-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.3.1</uiframeworkVersion>
