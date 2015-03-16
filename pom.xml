@@ -49,7 +49,7 @@
         <openMRSwebVersion>1.9.9-SNAPSHOT</openMRSwebVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.5-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.5</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.3.1</uiframeworkVersion>
@@ -76,13 +76,13 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
-        <appuiVersion>1.3-SNAPSHOT</appuiVersion>
+        <appuiVersion>1.4-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
-        <uicommonsVersion>1.4</uicommonsVersion>
+        <uicommonsVersion>1.5-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.2-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.2-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
-        <coreappsVersion>1.5-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>1.6-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.11-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.3-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.0-SNAPSHOT</appointmentschedulinguiVersion>
