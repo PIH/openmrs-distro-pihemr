@@ -78,7 +78,7 @@
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.4-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
-        <uicommonsVersion>1.5-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>1.5</uicommonsVersion>
         <registrationcoreVersion>1.2-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.2-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
