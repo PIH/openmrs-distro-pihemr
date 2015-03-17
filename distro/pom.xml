@@ -320,8 +320,15 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>zlconsultnote-omod</artifactId>
-                    <version>${zlconsultnoteVersion}</version>
+                    <artifactId>allergyapi-omod</artifactId>
+                    <version>${allergyapiVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>allergyui-omod</artifactId>
+                    <version>${allergyuiVersion}</version>
                     <scope>provided</scope>
                 </dependency>
 
