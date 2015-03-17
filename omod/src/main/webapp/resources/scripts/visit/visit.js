@@ -1,11 +1,12 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService" ])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "allergies" ])
 
     .directive("displayElement", [ "Concepts", function(Concepts) {
         return {
             restrict: 'E',
             scope: {
                 visit: '=',
-                element: '&'
+                element: '&',
+                dateFormat: '@'
             },
             controller: function($scope) {
                 var element = $scope.element();
@@ -29,13 +30,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.encounterStub = element.encounter.existingStub;
                     $scope.encounter = element.encounter.existing;
 
-                    $scope.headerTemplate = function() {
-                        return $scope.encounterStub ?
-                            "templates/defaultEncounterHeader.page":
-                            "templates/noEncounterYetHeader.page";
-                    }
-
-                    $scope.contentTemplate = function() {
+                    $scope.encounterTemplate = function() {
                         if ($scope.encounterStub) {
                             var content = element.encounter[element.state + "Template"];
                             if (!content) {
@@ -44,7 +39,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             return content;
                         }
                         else {
-                            return "templates/action.page"
+                            return "templates/action.page";
                         }
                     }
 
@@ -71,6 +66,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 else {
                     $scope.type = element.type;
                     $scope.template = "templates/visitElementNotYetImplemented.page";
+                }
+
+                $scope.goToPage = function(provider, page, opts) {
+                    location.href = emr.pageLink(provider, page, opts);
                 }
             },
             template: '<div ng-include="template"></div>'
@@ -104,6 +103,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     .controller("VisitController", [ "$scope", "Visit", "VisitTemplateService",
         function($scope, Visit, VisitTemplateService) {
 
+            function sameDate(d1, d2) {
+                return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
+            }
+
             function loadVisit(visitUuid) {
                 $scope.visit = Visit.get({ uuid: visitUuid, v: "full" });
 
@@ -113,12 +116,17 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                     Visit.get({patient: $scope.visit.patient.uuid, v: "default"}).$promise.then(function(response) {
                         $scope.visits = _.map(response.results, function(it) {
+                            if (!it.stopDatetime) {
+                                it.display += " [active visit]";
+                            }
                             if (it.uuid === $scope.visit.uuid) {
-                                it.display = it.display + " [this visit]";
+                                it.display += " [selected visit]";
                             }
                             return it;
                         });
                     });
+
+                    $scope.encounterDateFormat = sameDate(visit.startDatetime, visit.stopDatetime) ? "HH:mm" : "HH:mm (d-MMM)";
                 });
             }
 

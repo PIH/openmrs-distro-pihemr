@@ -1,5 +1,7 @@
-<span class="encounter-type">{{ encounterStub.encounterType | omrs.display }}</span>
-<span class="encounter-datetime">{{ encounterStub.encounterDatetime | date:'medium' }}</span>
+<span class="one-third">
+    <span class="title">{{ encounterStub.encounterType | omrs.display }}</span>
+    <span>{{ encounterStub.encounterDatetime | date:dateFormat }}</span>
+</span>
 <span class="encounter-location">{{ encounterStub.location | omrs.display }}</span>
 <span class="encounter-provider">{{ encounterStub.provider | omrs.display }}</span>
 <span class="actions">

@@ -4,7 +4,7 @@
 #visit {
 
   @include status-container(#f9f9f9);
-  width: 98.4%;
+  width: 80%;
 
   > span {
     display: inline-block;
@@ -36,11 +36,35 @@
 
   .header {
     background-color: $lighterGrey;
-    border-bottom: 1px solid $darkerGrey;
     padding: 5px;
 
     > span {
       display: inline-block;
+      vertical-align: top;
+    }
+
+    .one-third {
+      width: 30%;
+      display: inline-block;
+    }
+
+    .one-half {
+      width: 46%;
+      display: inline-block;
+    }
+
+    .two-thirds {
+      width: 63%;
+      display: inline-block;
+    }
+
+    .title {
+      font-family: $primaryBoldFont;
+      padding-right: 10px;
+    }
+
+    .details {
+      font-size: 0.9em;
     }
 
     .encounter-type {
@@ -62,6 +86,7 @@
   }
 
   .content {
+    border-top: 1px solid $darkerGrey;
     padding: 5px;
     font-size: 0.9em;
 
@@ -90,4 +115,14 @@
     }
   }
 
+}
+
+#choose-another-visit {
+  float: right;
+  text-align: right;
+
+  .popup {
+    position: absolute;
+    right: 0;
+  }
 }

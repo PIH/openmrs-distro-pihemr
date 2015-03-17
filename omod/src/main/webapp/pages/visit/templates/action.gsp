@@ -1,3 +1,8 @@
-<a class="button" href="{{ eval(action.href) }}">
+<div class="header">
     {{ action.label }}
-</a>
+</div>
+<div class="content">
+    <a class="button" href="{{ eval(action.href) }}">
+        {{ action.label }}
+    </a>
+</div>

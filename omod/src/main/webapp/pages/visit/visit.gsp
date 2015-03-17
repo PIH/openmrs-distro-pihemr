@@ -11,19 +11,33 @@
     ui.includeJavascript("uicommons", "services/encounterService.js")
     ui.includeJavascript("uicommons", "filters/display.js")
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
+    ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("mirebalais", "visit/constants.js")
     ui.includeJavascript("mirebalais", "visit/filters.js")
     ui.includeJavascript("mirebalais", "visit/visit-templates.js")
+    ui.includeJavascript("mirebalais", "visit/allergies.js")
     ui.includeJavascript("mirebalais", "visit/visit.js")
 %>
 
-${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
+<script type="text/javascript">
+    var breadcrumbs = [
+        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { label: "${ ui.escapeJs(patient.formattedName) }" },
+        { label: "${ui.message("coreapps.patientDashBoard.visits")}" }
+    ];
+</script>
+
+${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <div id="visit-app" ng-controller="VisitController">
 
-    Go to another visit:
-    <select ng-model="visitUuid" ng-options="visit.uuid as visit.display for visit in visits">
-    </select>
+    <div id="choose-another-visit" ng-mouseenter="showOtherVisits = true" ng-mouseleave="showOtherVisits = false">
+        <a>Go to another visit</a>
+        <p class="popup" ng-show="showOtherVisits">
+            <select ng-model="visitUuid" ng-options="visit.uuid as visit.display for visit in visits">
+            </select>
+        </p>
+    </div>
 
     <div id="visit">
         <span class="visit-type">
@@ -41,7 +55,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     </div>
 
     <div ng-repeat="element in visitTemplate.elements">
-        <display-element visit="visit" element="element"></display-element>
+        <display-element visit="visit" element="element" date-format="{{encounterDateFormat}}"></display-element>
     </div>
 
 </div>
