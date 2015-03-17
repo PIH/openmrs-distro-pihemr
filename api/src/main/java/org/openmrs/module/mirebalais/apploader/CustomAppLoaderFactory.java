@@ -893,7 +893,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: patientregistration.main",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml")),
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml",
+                                "editable", true,
+                                "edit-icon", "icon-share-alt",
+                                "edit-provider", "registrationapp",
+                                "edit-fragment", "registrationSummary")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
