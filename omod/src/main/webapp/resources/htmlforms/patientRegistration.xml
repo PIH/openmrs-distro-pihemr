@@ -28,19 +28,22 @@
 
                 <div>
                     <h3>
-                        <uimessage code="emr.patientDashBoard.provider"/>
+                        <uimessage code="zl.registration.patient.occupation.label"/>
                     </h3>
                     <p class="left">
-                        <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                        <obs conceptId="PIH:2452" id="occupation" showUnits="false" unitsCssClass="append-to-value" size="20" />
                     </p>
                 </div>
 
                 <div>
                     <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                        <uimessage code="zl.registration.patient.civilStatus.label"/>
                     </h3>
                     <p class="left">
-                        <encounterLocation/>
+                        <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
+                             answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
+                             answerCodes="zl.registration.patient.civilStatus.single.label,zl.registration.patient.civilStatus.married.label,zl.registration.patient.civilStatus.livingWithPartner.label,zl.registration.patient.civilStatus.separated.label,zl.registration.patient.civilStatus.divorced.label,zl.registration.patient.civilStatus.widowed.label"
+                             showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="8"/>
                     </p>
                 </div>
 
