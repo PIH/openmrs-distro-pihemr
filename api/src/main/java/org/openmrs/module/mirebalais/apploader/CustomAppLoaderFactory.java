@@ -7,6 +7,7 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
@@ -826,6 +827,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.main",
                 patientRegistrationConfig("registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                        MirebalaisConstants.PATIENT_DASHBOARD_LINK,
                         CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                         CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK,
                         section("demographics",
@@ -864,12 +866,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "uicommons",
                                                 "field/dropDown",
                                                 objectNode("expanded", true,
-                                                           "options", arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
-                                                                                option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
-                                                                                option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
-                                                                                option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
-                                                                                option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
-                                                                                option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
+                                                        "options", arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
+                                                                option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
+                                                                option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
+                                                                option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
+                                                                option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
+                                                                option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
                                                 )
                                         )
                                 ),

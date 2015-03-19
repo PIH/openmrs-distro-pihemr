@@ -342,6 +342,7 @@ public class CustomAppLoaderTest {
     public void shouldCreatePatientRegistrationConfig() {
 
         ObjectNode config = CustomAppLoaderUtil.patientRegistrationConfig("afterCreatedUrl",
+                "",
                 "123abc",
                 "456def",
                 CustomAppLoaderUtil.section(
