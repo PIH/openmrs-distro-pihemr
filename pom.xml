@@ -72,7 +72,7 @@
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.5</addresshierarchyVersion>
         <providermanagementVersion>2.2</providermanagementVersion>
-        <eventVersion>2.1</eventVersion>
+        <eventVersion>2.2</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
