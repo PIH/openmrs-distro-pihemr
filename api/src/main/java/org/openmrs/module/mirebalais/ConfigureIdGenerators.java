@@ -71,7 +71,6 @@ public class ConfigureIdGenerators {
         autoGenerationOption.setAutomaticGenerationEnabled(true);
 
         identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
-
     }
 
 	public IdentifierPool localZlIdentifierSource(RemoteIdentifierSource remoteZlIdentifierSource) {
@@ -80,52 +79,70 @@ public class ConfigureIdGenerators {
 			localZlIdentifierPool = service.getLocalZlIdentifierPool();
 		}
 		catch (IllegalStateException ex) {
-			localZlIdentifierPool = buildLocalZlIdentifierPool(remoteZlIdentifierSource);
+            localZlIdentifierPool = new IdentifierPool();
+            localZlIdentifierPool.setName("Local Pool of ZL Identifiers");
+            localZlIdentifierPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
+            localZlIdentifierPool.setSource(remoteZlIdentifierSource);
+            localZlIdentifierPool.setIdentifierType(remoteZlIdentifierSource.getIdentifierType());
+            localZlIdentifierPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
+            localZlIdentifierPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
+            localZlIdentifierPool.setSequential(false);
 			identifierSourceService.saveIdentifierSource(localZlIdentifierPool);
 		}
 		return localZlIdentifierPool;
 	}
+
+    public SequentialIdentifierGenerator localZlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
+        SequentialIdentifierGenerator localZlIdentifierGenerator;
+        try {
+            localZlIdentifierGenerator = service.getLocalZlIdentifierGenerator();
+        }
+        catch (IllegalStateException ex) {
+            localZlIdentifierGenerator = new SequentialIdentifierGenerator();
+            localZlIdentifierGenerator.setName("Local ZL Identifier Generator");
+            localZlIdentifierGenerator.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID);
+            localZlIdentifierGenerator.setIdentifierType(zlPatientIdentifierType);
+            localZlIdentifierGenerator.setBaseCharacterSet("ACDEFGHJKLMNPRTUVWXY1234567890");
+            localZlIdentifierGenerator.setMaxLength(6);
+            localZlIdentifierGenerator.setMinLength(6);
+        }
+        String prefix = customProperties.getLocalZlIdentifierGeneratorPrefix();
+        int firstIdentifierBase = (int)Math.pow(10, (4-prefix.length()));
+        localZlIdentifierGenerator.setPrefix(prefix);
+        localZlIdentifierGenerator.setFirstIdentifierBase(Integer.toString(firstIdentifierBase));
+
+        identifierSourceService.saveIdentifierSource(localZlIdentifierGenerator);
+        return localZlIdentifierGenerator;
+    }
 	
 	public RemoteIdentifierSource remoteZlIdentifierSource(PatientIdentifierType zlPatientIdentifierType) {
 		RemoteIdentifierSource remoteZlIdentifierSource;
-		
+
+        SequentialIdentifierGenerator localGenerator = null;
+        if (customProperties.getLocalZlIdentifierGeneratorEnabled()) {
+            localGenerator = localZlIdentifierGenerator(zlPatientIdentifierType);
+        }
+
 		try {
 			remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-			updateInformationFromPropertiesFile(remoteZlIdentifierSource);
 		}
 		catch (IllegalStateException ex) {
-			remoteZlIdentifierSource = buildRemoteZlIdentifierSource(zlPatientIdentifierType);
+            remoteZlIdentifierSource = new RemoteIdentifierSource();
+            remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
+            remoteZlIdentifierSource.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
+            remoteZlIdentifierSource.setIdentifierType(zlPatientIdentifierType);
 		}
+
+        String url = customProperties.getRemoteZlIdentifierSourceUrl();
+        if (url != null && localGenerator != null) {
+            url = url.replace("{LOCAL_SOURCE_ID}", localGenerator.getId().toString());
+        }
+        remoteZlIdentifierSource.setUrl(url);
+        remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
+        remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
 		
 		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
 		return remoteZlIdentifierSource;
-	}
-
-	private IdentifierPool buildLocalZlIdentifierPool(RemoteIdentifierSource remoteZlIdentifierSource) {
-		IdentifierPool localPool = new IdentifierPool();
-		localPool.setName("Local Pool of ZL Identifiers");
-		localPool.setUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-		localPool.setSource(remoteZlIdentifierSource);
-		localPool.setIdentifierType(remoteZlIdentifierSource.getIdentifierType());
-		localPool.setMinPoolSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
-		localPool.setBatchSize(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
-		localPool.setSequential(false);
-		return localPool;
-	}
-	
-	private RemoteIdentifierSource buildRemoteZlIdentifierSource(PatientIdentifierType zlIdentifierType) {
-		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
-		remoteZlIdentifierSource.setName("Remote Source for ZL Identifiers");
-		remoteZlIdentifierSource.setUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-		remoteZlIdentifierSource.setIdentifierType(zlIdentifierType);
-		updateInformationFromPropertiesFile(remoteZlIdentifierSource);
-		return remoteZlIdentifierSource;
-	}
-	
-	private void updateInformationFromPropertiesFile(RemoteIdentifierSource remoteZlIdentifierSource) {
-		remoteZlIdentifierSource.setUrl(customProperties.getRemoteZlIdentifierSourceUrl());
-		remoteZlIdentifierSource.setUser(customProperties.getRemoteZlIdentifierSourceUsername());
-		remoteZlIdentifierSource.setPassword(customProperties.getRemoteZlIdentifierSourcePassword());
 	}
 	
 	public SequentialIdentifierGenerator sequentialIdentifierGeneratorForDossier(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
@@ -134,23 +151,18 @@ public class ConfigureIdGenerators {
 			dossierSequenceGenerator = service.getDossierSequenceGenerator(identifierSourceUuid);
 		}
 		catch (IllegalStateException e) {
-			dossierSequenceGenerator = buildSequenceGenerator(patientIdentifierType, prefix, identifierSourceUuid);
+            dossierSequenceGenerator = new SequentialIdentifierGenerator();
+            dossierSequenceGenerator.setName("Sequential Generator for Dossier");
+            dossierSequenceGenerator.setUuid(identifierSourceUuid);
+            dossierSequenceGenerator.setMaxLength(6 + prefix.length());
+            dossierSequenceGenerator.setMinLength(6 + prefix.length());
+            dossierSequenceGenerator.setPrefix(prefix);
+            dossierSequenceGenerator.setBaseCharacterSet("0123456789");
+            dossierSequenceGenerator.setFirstIdentifierBase("000001");
+            dossierSequenceGenerator.setIdentifierType(patientIdentifierType);
 			identifierSourceService.saveIdentifierSource(dossierSequenceGenerator);
 		}
 		
 		return dossierSequenceGenerator;
-	}
-	
-	private SequentialIdentifierGenerator buildSequenceGenerator(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
-		SequentialIdentifierGenerator sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
-		sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
-		sequentialIdentifierGenerator.setUuid(identifierSourceUuid);
-		sequentialIdentifierGenerator.setMaxLength(6 + prefix.length());
-        sequentialIdentifierGenerator.setMinLength(6 + prefix.length());
-		sequentialIdentifierGenerator.setPrefix(prefix);
-		sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
-		sequentialIdentifierGenerator.setFirstIdentifierBase("000001");
-		sequentialIdentifierGenerator.setIdentifierType(patientIdentifierType);
-		return sequentialIdentifierGenerator;
 	}
 }

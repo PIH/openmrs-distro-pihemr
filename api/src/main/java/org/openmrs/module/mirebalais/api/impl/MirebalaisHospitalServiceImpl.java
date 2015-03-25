@@ -23,6 +23,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.IdentifierPool;
+import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -111,29 +112,20 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	public void configureZlIdentifierSources() {
 		
 	}
-	
-	/**
-	 * @see org.openmrs.module.mirebalais.api.MirebalaisHospitalService#getLocalZlIdentifierPool()
-	 *
-	 */
+
+    @Override
+    public SequentialIdentifierGenerator getLocalZlIdentifierGenerator() {
+        return getIdentifierSource(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID, SequentialIdentifierGenerator.class);
+    }
+
 	@Override
 	public IdentifierPool getLocalZlIdentifierPool() {
-		IdentifierPool zlIdentifierPool = (IdentifierPool) Context.getService(IdentifierSourceService.class)
-		        .getIdentifierSourceByUuid(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-		if (zlIdentifierPool == null) {
-			throw new IllegalStateException("Local ZL Identifier Source has not been configured");
-		}
-		return zlIdentifierPool;
+        return getIdentifierSource(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, IdentifierPool.class);
 	}
 	
 	@Override
 	public RemoteIdentifierSource getRemoteZlIdentifierSource() {
-		RemoteIdentifierSource remoteIdentifierSource = (RemoteIdentifierSource) Context.getService(
-		    IdentifierSourceService.class).getIdentifierSourceByUuid(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
-		if (remoteIdentifierSource == null) {
-			throw new IllegalStateException("Remote ZL Identifier Source has not been configured");
-		}
-		return remoteIdentifierSource;
+        return getIdentifierSource(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, RemoteIdentifierSource.class);
 	}
 	
 	@Override
@@ -184,6 +176,15 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	private OrderType getRadiologyOrderType() {
 		return getGlobalPropertyOrderType(MirebalaisConstants.RADIOLOGY_ORDERTYPE_GP);
 	}
+
+    private <T extends IdentifierSource> T getIdentifierSource(String uuid, Class<T> sourceType) {
+        IdentifierSourceService iss = Context.getService(IdentifierSourceService.class);
+        IdentifierSource source = iss.getIdentifierSourceByUuid(uuid);
+        if (source == null) {
+            throw new IllegalStateException(sourceType.getSimpleName() + " has not been configured");
+        }
+        return (T) source;
+    }
 	
 	/**
 	 * @param propertyName

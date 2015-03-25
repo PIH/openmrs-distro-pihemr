@@ -55,7 +55,9 @@ public interface MirebalaisHospitalService extends OpenmrsService {
 	void configureZlIdentifierSources();
 	
 	IdentifierPool getLocalZlIdentifierPool();
-	
+
+    SequentialIdentifierGenerator getLocalZlIdentifierGenerator();
+
 	RemoteIdentifierSource getRemoteZlIdentifierSource();
 	
 	PatientIdentifierType getZlIdentifierType();
