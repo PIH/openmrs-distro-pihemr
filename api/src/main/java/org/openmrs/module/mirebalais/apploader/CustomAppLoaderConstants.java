@@ -104,6 +104,9 @@ public class CustomAppLoaderConstants {
 
         public static final String EDIT_PATIENT_CONTACT_INFO = "registrationapp.editPatientContactInfo";
         public static final String EDIT_PATIENT_DEMOGRAPHICS = "registrationapp.editPatientDemographics";
+        public static final String CLINICIAN_FACING_PATIENT_DASHBOARD = "coreapps.clinicianFacingPatientDashboardApp";
+        public static final String REGISTER_NEW_PATIENT = "registrationapp.registerNewPatient";
+        public static final String PRINT_PAPER_FORM_LABEL = "registrationapp.printPaperFormLabel";
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 
@@ -129,6 +132,7 @@ public class CustomAppLoaderConstants {
 
     public static final class ExtensionPoints {
         public static final String OVERALL_ACTIONS = "patientDashboard.overallActions";
+        public static final String OVERALL_REGISTRATION_ACTIONS = "registrationSummary.overallActions";
         public static final String VISIT_ACTIONS = "patientDashboard.visitActions";
         public static final String AWAITING_ADMISSION_ACTIONS = "coreapps.app.awaitingAdmissionActions";
         public static final String ENCOUNTER_TEMPLATE = "org.openmrs.referenceapplication.encounterTemplate";
