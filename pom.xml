@@ -66,7 +66,7 @@
         <reportingrestVersion>1.4-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.8-SNAPSHOT</serializationxstreamVersion>
-        <idgenVersion>3.2</idgenVersion>
+        <idgenVersion>4.0-SNAPSHOT</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
