@@ -840,7 +840,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                             "personAttribute",
                                             "01621fd0-c687-11e4-8830-0800200c9a66",
                                             "uicommons",
-                                            "field/text")
+                                            "field/text",
+                                            "required")
                                 )
                         ),
                         section("contactInfo",
