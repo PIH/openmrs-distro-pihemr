@@ -140,6 +140,11 @@ public class CustomAppLoaderUtil {
                 CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS, OVERALL_ACTIONS_ORDER.indexOf(id), null);
     }
 
+    static public Extension overallRegistrationAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                CustomAppLoaderConstants.ExtensionPoints.OVERALL_REGISTRATION_ACTIONS, OVERALL_ACTIONS_ORDER.indexOf(id), null);
+    }
+
     static public Extension awaitingAdmissionAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 CustomAppLoaderConstants.ExtensionPoints.AWAITING_ADMISSION_ACTIONS, AWAITING_ADMISSION_ACTIONS_ORDER.indexOf(id), null);

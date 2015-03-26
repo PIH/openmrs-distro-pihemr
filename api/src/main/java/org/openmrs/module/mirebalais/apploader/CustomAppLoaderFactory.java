@@ -49,6 +49,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.option;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patientRegistrationConfig;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.question;
@@ -926,6 +927,37 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
+
+        extensions.add(overallRegistrationAction(Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,
+                "registrationapp.clinicalDashboard",
+                "icon-share-alt",
+                "link",
+                "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                "App: patientregistration.edit",
+                null));
+
+        extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
+                "registrationapp.new.registration",
+                "icon-share-alt",
+                "link",
+                "registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                "App: patientregistration.edit",
+                null));
+
+        extensions.add(overallRegistrationAction(Extensions.PRINT_PAPER_FORM_LABEL,
+                "paperrecord.task.printPaperFormLabel.label",
+                "icon-print",
+                "script",
+                "printPaperFormLabel()",
+                "Task: emr.printLabels",
+                null));
+
+        // this provides the javascript the backs the three overall action buttons
+        extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,
+                "paperrecord",
+                "patientdashboard/overallActionsIncludes",
+                null,
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
 
        /* extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
                 "mirebalais.overallAction.editDemographics",
