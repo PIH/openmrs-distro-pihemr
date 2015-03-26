@@ -611,12 +611,10 @@
                             <name>providermanagementVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <!--
                         <property>
                             <name>eventVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        -->
                         <property>
                             <name>logicVersion</name>
                             <banSnapshots>true</banSnapshots>
