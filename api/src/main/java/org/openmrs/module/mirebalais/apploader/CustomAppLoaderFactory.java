@@ -929,19 +929,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
+        extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
+                "registrationapp.home",
+                "icon-user",
+                "link",
+                "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                "App: patientregistration.edit",
+                null));
+
         extensions.add(overallRegistrationAction(Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,
                 "registrationapp.clinicalDashboard",
-                "icon-share-alt",
+                "icon-stethoscope",
                 "link",
                 "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
                 "App: patientregistration.edit",
                 null));
 
-        extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
-                "registrationapp.new.registration",
-                "icon-share-alt",
+        extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
+                "coreapps.mergePatients.mergeIntoAnotherPatientRecord.button",
+                "icon-group",
                 "link",
-                "registrationapp/registerPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
+                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
                 "App: patientregistration.edit",
                 null));
 

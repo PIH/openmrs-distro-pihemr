@@ -106,6 +106,7 @@ public class CustomAppLoaderConstants {
         public static final String EDIT_PATIENT_DEMOGRAPHICS = "registrationapp.editPatientDemographics";
         public static final String CLINICIAN_FACING_PATIENT_DASHBOARD = "coreapps.clinicianFacingPatientDashboardApp";
         public static final String REGISTER_NEW_PATIENT = "registrationapp.registerNewPatient";
+        public static final String MERGE_INTO_ANOTHER_PATIENT = "registrationapp.mergePatient";
         public static final String PRINT_PAPER_FORM_LABEL = "registrationapp.printPaperFormLabel";
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
