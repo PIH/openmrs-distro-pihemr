@@ -836,12 +836,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 question("mothersFirstNameLabel",
                                         "zl.registration.patient.mothersFirstName.label",
                                         field("mothersFirstName",
-                                            "zl.registration.patient.mothersFirstName.question",
-                                            "personAttribute",
-                                            "01621fd0-c687-11e4-8830-0800200c9a66",
-                                            "uicommons",
-                                            "field/text",
-                                            "required")
+                                                "zl.registration.patient.mothersFirstName.question",
+                                                "personAttribute",
+                                                "01621fd0-c687-11e4-8830-0800200c9a66",
+                                                "uicommons",
+                                                "field/text",
+                                                "required")
+                                ),
+                                question("birthplaceLabel",
+                                        "zl.registration.patient.birthplace.label",
+                                        field("birthplace",
+                                                "zl.registration.patient.birthplace.question",
+                                                "personAttribute",
+                                                "8d8718c2-c2cc-11de-8d13-0010c6dffd0f",
+                                                "uicommons",
+                                                "field/text",
+                                                "required")
                                 )
                         ),
                         section("contactInfo",
