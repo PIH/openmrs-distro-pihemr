@@ -14,7 +14,7 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalais.config.ConfigDescriptor;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
+import org.openmrs.module.mirebalaismetadata.constants.Locations;
 
 public class PatientIdentifierSetup {
 
@@ -54,7 +54,7 @@ public class PatientIdentifierSetup {
                             MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    featureToggles.isFeatureEnabled("cdi") ? locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL) : null);
+                    featureToggles.isFeatureEnabled("cdi") ? locationService.getLocationByUuid(Locations.MIREBALAIS_HOSPITAL.uuid()) : null);
 
             if (featureToggles.isFeatureEnabled("cdi")) {
                 SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
@@ -63,7 +63,7 @@ public class PatientIdentifierSetup {
                                 MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
                 configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                        locationService.getLocationByUuid(ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+                        locationService.getLocationByUuid(Locations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
             }
         }
 

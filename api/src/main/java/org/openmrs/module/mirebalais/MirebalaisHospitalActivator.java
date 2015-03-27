@@ -41,7 +41,7 @@ import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
+import org.openmrs.module.mirebalaismetadata.constants.Locations;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
@@ -193,16 +193,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
         Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')" +
+                Locations.MIREBALAIS_HOSPITAL.uuid() + "')" +
                 "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
                 paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
                 "and location_id = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_CDI_PARENT + "')", false);
+                Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
 
         Context.getAdministrationService().executeSQL("update paperrecord_paper_record set record_location = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_HOSPITAL + "')" +
+                Locations.MIREBALAIS_HOSPITAL.uuid() + "')" +
                 "where record_location = (select location_id from location where uuid='" +
-                ZanmiLocations.MirebalaisLocations.MIREBALAIS_CDI_PARENT + "')", false);
+                Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
 
     }
 

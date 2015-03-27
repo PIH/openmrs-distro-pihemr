@@ -6,15 +6,15 @@ import org.openmrs.api.LocationService;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalais.config.ConfigDescriptor;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZanmiLocations;
+import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
+import org.openmrs.module.mirebalaismetadata.constants.Locations;
+import org.openmrs.module.mirebalaismetadata.descriptor.LocationDescriptor;
+import org.openmrs.module.mirebalaismetadata.descriptor.LocationTagDescriptor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
 public class LocationTagSetup {
-
 
     public static void setupLocationTags(LocationService locationService, Config config, FeatureToggleProperties featureToggles) {
 
@@ -28,177 +28,176 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
-
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.LOGIN_LOCATION, Arrays.asList(
-                ZanmiLocations.Locations.LACOLLINE
-        ));
-
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
-                ZanmiLocations.Locations.LACOLLINE
-        ));
-
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ADMISSION_LOCATION, new ArrayList<String>());
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.TRANSFER_LOCAITON, new ArrayList<String>());
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ED_NOTE_LOCATION, new ArrayList<String>());
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.SURGERY_NOTE_LOCATION, new ArrayList<String>());
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.APPOINTMENT_LOCATION, new ArrayList<String>());
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.DISPENSING_LOCATION, new ArrayList<String>());
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
     }
 
     private static void setupLocationTagsForMirebalais(LocationService locationService, FeatureToggleProperties featureToggles) {
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.LOGIN_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.CLINIC_REGISTRATION,
-            ZanmiLocations.MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION,
-            ZanmiLocations.MirebalaisLocations.CENTRAL_ARCHIVES,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC,
-            ZanmiLocations.MirebalaisLocations.EMERGENCY,
-            ZanmiLocations.MirebalaisLocations.COMMUNITY_HEALTH,
-            ZanmiLocations.MirebalaisLocations.DENTAL,
-            ZanmiLocations.MirebalaisLocations.WOMENS_CLINIC,
-            ZanmiLocations.MirebalaisLocations.WOMENS_TRIAGE,
-            ZanmiLocations.MirebalaisLocations.LABOR_AND_DELIVERY,
-            ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-            ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
-            ZanmiLocations.MirebalaisLocations.OPERATING_ROOMS,
-            ZanmiLocations.MirebalaisLocations.PRE_OP_PACU,
-            ZanmiLocations.MirebalaisLocations.MAIN_LABORATORY,
-            ZanmiLocations.MirebalaisLocations.WOMENS_OUTPATIENT_LABORATORY,
-            ZanmiLocations.MirebalaisLocations.RADIOLOGY,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS,
-            ZanmiLocations.MirebalaisLocations.ICU,
-            ZanmiLocations.MirebalaisLocations.NICU,
-            ZanmiLocations.MirebalaisLocations.ISOLATION,
-            ZanmiLocations.MirebalaisLocations.CHEMOTHERAPY,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
-            ZanmiLocations.MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
-            ZanmiLocations.MirebalaisLocations.REHABILITATION,
-            ZanmiLocations.MirebalaisLocations.FAMILY_PLANNING,
-            ZanmiLocations.MirebalaisLocations.BLOOD_BANK,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(
+            Locations.CLINIC_REGISTRATION,
+            Locations.EMERGENCY_DEPARTMENT_RECEPTION,
+            Locations.CENTRAL_ARCHIVES,
+            Locations.OUTPATIENT_CLINIC,
+            Locations.EMERGENCY,
+            Locations.COMMUNITY_HEALTH,
+            Locations.DENTAL,
+            Locations.WOMENS_CLINIC,
+            Locations.WOMENS_TRIAGE,
+            Locations.LABOR_AND_DELIVERY,
+            Locations.ANTEPARTUM_WARD,
+            Locations.POSTPARTUM_WARD,
+            Locations.POST_OP_GYN,
+            Locations.SURGICAL_WARD,
+            Locations.OPERATING_ROOMS,
+            Locations.PRE_OP_PACU,
+            Locations.MAIN_LABORATORY,
+            Locations.WOMENS_OUTPATIENT_LABORATORY,
+            Locations.RADIOLOGY,
+            Locations.MENS_INTERNAL_MEDICINE,
+            Locations.WOMENS_INTERNAL_MEDICINE,
+            Locations.PEDIATRICS,
+            Locations.ICU,
+            Locations.NICU,
+            Locations.ISOLATION,
+            Locations.CHEMOTHERAPY,
+            Locations.OUTPATIENT_CLINIC_PHARMACY,
+            Locations.WOMENS_AND_CHILDRENS_PHARMACY,
+            Locations.REHABILITATION,
+            Locations.FAMILY_PLANNING,
+            Locations.BLOOD_BANK,
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
         ));
 
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ADMISSION_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
-            ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.LABOR_AND_DELIVERY,
-            ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS,
-            ZanmiLocations.MirebalaisLocations.NICU,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.ISOLATION,
-            ZanmiLocations.MirebalaisLocations.REHABILITATION,
-            ZanmiLocations.MirebalaisLocations.POST_OP_GYN
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, Arrays.asList(
+            Locations.SURGICAL_WARD,
+            Locations.ANTEPARTUM_WARD,
+            Locations.LABOR_AND_DELIVERY,
+            Locations.POSTPARTUM_WARD,
+            Locations.PEDIATRICS,
+            Locations.NICU,
+            Locations.MENS_INTERNAL_MEDICINE,
+            Locations.WOMENS_INTERNAL_MEDICINE,
+            Locations.ISOLATION,
+            Locations.REHABILITATION,
+            Locations.POST_OP_GYN
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.TRANSFER_LOCAITON, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
-            ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.LABOR_AND_DELIVERY,
-            ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.EMERGENCY,
-            ZanmiLocations.MirebalaisLocations.COMMUNITY_HEALTH,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC,
-            ZanmiLocations.MirebalaisLocations.WOMENS_CLINIC,
-            ZanmiLocations.MirebalaisLocations.WOMENS_TRIAGE,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS,
-            ZanmiLocations.MirebalaisLocations.NICU,
-            ZanmiLocations.MirebalaisLocations.DENTAL,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.ISOLATION,
-            ZanmiLocations.MirebalaisLocations.REHABILITATION,
-            ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null)
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, Arrays.asList(
+            Locations.SURGICAL_WARD,
+            Locations.ANTEPARTUM_WARD,
+            Locations.LABOR_AND_DELIVERY,
+            Locations.POSTPARTUM_WARD,
+            Locations.EMERGENCY,
+            Locations.COMMUNITY_HEALTH,
+            Locations.OUTPATIENT_CLINIC,
+            Locations.WOMENS_CLINIC,
+            Locations.WOMENS_TRIAGE,
+            Locations.PEDIATRICS,
+            Locations.NICU,
+            Locations.DENTAL,
+            Locations.MENS_INTERNAL_MEDICINE,
+            Locations.WOMENS_INTERNAL_MEDICINE,
+            Locations.ISOLATION,
+            Locations.REHABILITATION,
+            Locations.POST_OP_GYN,
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null)
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.ANTEPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE_A,
-            ZanmiLocations.MirebalaisLocations.MENS_INTERNAL_MEDICINE_B,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC,
-            ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
-            ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.COMMUNITY_HEALTH,
-            ZanmiLocations.MirebalaisLocations.LABOR_AND_DELIVERY,
-            ZanmiLocations.MirebalaisLocations.NICU,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS_A,
-            ZanmiLocations.MirebalaisLocations.PEDIATRICS_B,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_A,
-            ZanmiLocations.MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_B,
-            ZanmiLocations.MirebalaisLocations.WOMENS_CLINIC,
-            ZanmiLocations.MirebalaisLocations.WOMENS_TRIAGE,
-            ZanmiLocations.MirebalaisLocations.CHEMOTHERAPY,
-            ZanmiLocations.MirebalaisLocations.DENTAL,
-            ZanmiLocations.MirebalaisLocations.ISOLATION,
-            ZanmiLocations.MirebalaisLocations.REHABILITATION,
-            ZanmiLocations.MirebalaisLocations.EMERGENCY,
-            ZanmiLocations.MirebalaisLocations.FAMILY_PLANNING,
-            ZanmiLocations.MirebalaisLocations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
+            Locations.ANTEPARTUM_WARD,
+            Locations.MENS_INTERNAL_MEDICINE,
+            Locations.MENS_INTERNAL_MEDICINE_A,
+            Locations.MENS_INTERNAL_MEDICINE_B,
+            Locations.OUTPATIENT_CLINIC,
+            Locations.SURGICAL_WARD,
+            Locations.POSTPARTUM_WARD,
+            Locations.COMMUNITY_HEALTH,
+            Locations.LABOR_AND_DELIVERY,
+            Locations.NICU,
+            Locations.PEDIATRICS,
+            Locations.PEDIATRICS_A,
+            Locations.PEDIATRICS_B,
+            Locations.WOMENS_INTERNAL_MEDICINE,
+            Locations.WOMENS_INTERNAL_MEDICINE_A,
+            Locations.WOMENS_INTERNAL_MEDICINE_B,
+            Locations.WOMENS_CLINIC,
+            Locations.WOMENS_TRIAGE,
+            Locations.CHEMOTHERAPY,
+            Locations.DENTAL,
+            Locations.ISOLATION,
+            Locations.REHABILITATION,
+            Locations.EMERGENCY,
+            Locations.FAMILY_PLANNING,
+            Locations.POST_OP_GYN,
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.ED_NOTE_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.EMERGENCY
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(
+            Locations.EMERGENCY
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.SURGERY_NOTE_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.SURGICAL_WARD,
-            ZanmiLocations.MirebalaisLocations.OPERATING_ROOMS,
-            ZanmiLocations.MirebalaisLocations.POSTPARTUM_WARD,
-            ZanmiLocations.MirebalaisLocations.POST_OP_GYN
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, Arrays.asList(
+            Locations.SURGICAL_WARD,
+            Locations.OPERATING_ROOMS,
+            Locations.POSTPARTUM_WARD,
+            Locations.POST_OP_GYN
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.DISPENSING_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(
+            Locations.WOMENS_AND_CHILDRENS_PHARMACY,
+            Locations.OUTPATIENT_CLINIC_PHARMACY,
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
         ));
 
-        setLocationTagsFor(locationService, CoreMetadata.LocationTags.APPOINTMENT_LOCATION, Arrays.asList(
-            ZanmiLocations.MirebalaisLocations.CHEMOTHERAPY,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC,
-            ZanmiLocations.MirebalaisLocations.WOMENS_CLINIC,
-            ZanmiLocations.MirebalaisLocations.MAIN_LABORATORY,
-            ZanmiLocations.MirebalaisLocations.WOMENS_OUTPATIENT_LABORATORY,
-            ZanmiLocations.MirebalaisLocations.COMMUNITY_HEALTH,
-            ZanmiLocations.MirebalaisLocations.DENTAL,
-            ZanmiLocations.MirebalaisLocations.FAMILY_PLANNING,
-            ZanmiLocations.MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
-            ZanmiLocations.MirebalaisLocations.RADIOLOGY,
-            ZanmiLocations.MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? ZanmiLocations.MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
+        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, Arrays.asList(
+            Locations.CHEMOTHERAPY,
+            Locations.OUTPATIENT_CLINIC,
+            Locations.WOMENS_CLINIC,
+            Locations.MAIN_LABORATORY,
+            Locations.WOMENS_OUTPATIENT_LABORATORY,
+            Locations.COMMUNITY_HEALTH,
+            Locations.DENTAL,
+            Locations.FAMILY_PLANNING,
+            Locations.WOMENS_AND_CHILDRENS_PHARMACY,
+            Locations.RADIOLOGY,
+            Locations.OUTPATIENT_CLINIC_PHARMACY,
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
+            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
         ));
 
 
     }
 
+    private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {
 
-    private static void setLocationTagsFor(LocationService service, String locationTagUuid, Collection<String> uuidsThatGetTag) {
-
-        LocationTag tag = service.getLocationTagByUuid(locationTagUuid);
+        LocationTag tag = service.getLocationTagByUuid(locationTag.uuid());
 
         for (Location candidate : service.getAllLocations()) {
-            boolean expected = uuidsThatGetTag.contains(candidate.getUuid());
+            boolean expected = false;
+            if (locationsThatGetTag != null) {
+                for (LocationDescriptor d : locationsThatGetTag) {
+                    if (d != null && d.uuid().equals(candidate.getUuid())) {
+                        expected = true;
+                    }
+                }
+            }
             boolean actual = candidate.hasTag(tag.getName());
             if (actual && !expected) {
                 candidate.removeTag(tag);
