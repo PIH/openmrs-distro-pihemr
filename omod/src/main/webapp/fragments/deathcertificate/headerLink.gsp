@@ -12,12 +12,12 @@
         ${ ui.message("uicommons.loading.placeholder") }
     </span>
     <span ng-show="existing.uuid">
-        <a ng-click="viewDeathCertificate(existing.uuid)">
+        <a ng-click="viewDeathCertificate(existing.uuid)" style="cursor:pointer">
             <i class="icon-file small"></i> ${ ui.message("mirebalais.deathCertificate.view.label") }
         </a>
     </span>
     <span ng-show="existing === null && !${ ui.thisUrl().contains("deathCertificate.xml") }">
-        <a ng-click="fillOutDeathCertificate()">
+        <a ng-click="fillOutDeathCertificate()" style="cursor:pointer">
             <i class="icon-plus small"></i> ${ ui.message("mirebalais.deathCertificate.enter.label") }
         </a>
     </span>
