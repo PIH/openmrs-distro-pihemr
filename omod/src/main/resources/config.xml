@@ -20,6 +20,9 @@
     <require_version>1.9.2</require_version>
 
     <require_modules>
+        <require_module version="${pihcoreVersion}">
+            org.openmrs.module.pihcore
+        </require_module>
         <require_module version="${mirebalaismetadataVersion}">
             org.openmrs.module.mirebalaismetadata
         </require_module>

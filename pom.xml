@@ -47,6 +47,7 @@
     <properties>
         <openMRSVersion>1.9.9-SNAPSHOT</openMRSVersion>
         <openMRSwebVersion>1.9.9-SNAPSHOT</openMRSwebVersion>
+        <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.6-SNAPSHOT</emrapiVersion>
@@ -354,6 +355,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>printer-api</artifactId>
             <version>${printerVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pihcore-api</artifactId>
+            <version>${pihcoreVersion}</version>
             <scope>provided</scope>
         </dependency>
 
