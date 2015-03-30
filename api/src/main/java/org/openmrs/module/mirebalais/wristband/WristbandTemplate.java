@@ -53,9 +53,6 @@ public class WristbandTemplate {
     @Autowired
     private EmrApiProperties emrApiProperties;
 
-    @Autowired
-    private FeatureToggleProperties featureToggles;
-
     // TODO figure out why this isn't getting autowired properly (at least for tests)
     //@Autowired
     private AddressHierarchyService addressHierarchyService;
@@ -106,13 +103,9 @@ public class WristbandTemplate {
         // paper record identifier
         PatientIdentifier paperRecordIdentifier = getAppropriatePaperRecordIdentifierForLocation(patient, location);
         if (paperRecordIdentifier != null) {
-            if (featureToggles.isFeatureEnabled("cdi")) {
-                data.append(paperRecordIdentifier.getIdentifier().substring(0, paperRecordIdentifier.getIdentifier().length() - 6) + " "
-                        + paperRecordIdentifier.getIdentifier().substring(paperRecordIdentifier.getIdentifier().length() - 6));
-            }
-            else {
-                data.append(paperRecordIdentifier.getIdentifier());
-            }
+            data.append(paperRecordIdentifier.getIdentifier().substring(0, paperRecordIdentifier.getIdentifier().length() - 6) + " "
+                    + paperRecordIdentifier.getIdentifier().substring(paperRecordIdentifier.getIdentifier().length() - 6));
+
 
         }
         data.append("^FS");
@@ -187,10 +180,6 @@ public class WristbandTemplate {
 
     public void setAddressHierarchyService(AddressHierarchyService addressHierarchyService) {
         this.addressHierarchyService = addressHierarchyService;
-    }
-
-    public void setFeatureToggles(FeatureToggleProperties featureToggles) {
-        this.featureToggles = featureToggles;
     }
 
     private PatientIdentifier getAppropriatePaperRecordIdentifierForLocation(Patient patient, Location location) {

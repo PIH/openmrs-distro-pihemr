@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.setup;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -22,15 +21,14 @@ public class PatientIdentifierSetup {
                                                       IdentifierSourceService identifierSourceService,
                                                       LocationService locationService,
                                                       Config config,
-                                                      RuntimeProperties customProperties,
-                                                      FeatureToggleProperties featureToggles) {
+                                                      RuntimeProperties customProperties) {
 
         ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 
         createPatientIdGenerator(service, configureIdGenerators);
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
-            createDossierNumberGenerator(service, locationService, configureIdGenerators, config, featureToggles);
+            createDossierNumberGenerator(service, locationService, configureIdGenerators, config);
         }
 
     }
@@ -42,7 +40,7 @@ public class PatientIdentifierSetup {
         configureIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
     }
 
-    private static void createDossierNumberGenerator(MirebalaisHospitalService service, LocationService locationService, ConfigureIdGenerators configureIdGenerators, Config config, FeatureToggleProperties featureToggles) {
+    private static void createDossierNumberGenerator(MirebalaisHospitalService service, LocationService locationService, ConfigureIdGenerators configureIdGenerators, Config config) {
 
         // TODO configure dossier generators for sites besides Mirebalais, if any of them start using the archives app
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
@@ -54,17 +52,16 @@ public class PatientIdentifierSetup {
                             MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    featureToggles.isFeatureEnabled("cdi") ? locationService.getLocationByUuid(Locations.MIREBALAIS_HOSPITAL.uuid()) : null);
+                    locationService.getLocationByUuid(Locations.MIREBALAIS_HOSPITAL.uuid()));
 
-            if (featureToggles.isFeatureEnabled("cdi")) {
-                SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
-                        .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
-                                MirebalaisConstants.CDI_DOSSIER_NUMBER_PREFIX,
-                                MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            MirebalaisConstants.CDI_DOSSIER_NUMBER_PREFIX,
+                            MirebalaisConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
-                configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                        locationService.getLocationByUuid(Locations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
-            }
+            configureIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
+                    locationService.getLocationByUuid(Locations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
+
         }
 
     }

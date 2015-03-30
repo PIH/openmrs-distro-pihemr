@@ -41,7 +41,6 @@ import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
-import org.openmrs.module.mirebalaismetadata.constants.Locations;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
@@ -124,8 +123,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             removeOldGlobalProperties();
 
-            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties, featureToggleProperties);
-            LocationTagSetup.setupLocationTags(locationService, config, featureToggleProperties);
+            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
+            LocationTagSetup.setupLocationTags(locationService, config);
 
             // for now, we install all forms everywhere
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
@@ -159,10 +158,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
             }
 
-            if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+          /*  if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 migratePaperRecordLocation(paperRecordProperties);
             }
-
+*/
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
             ModuleFactory.stopModule(mod);
@@ -190,7 +189,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         administrationService.purgeGlobalProperty(administrationService.getGlobalPropertyObject(EmrApiConstants.GP_CONSULT_ENCOUNTER_TYPE));
     }
 
-    private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
+  /*  private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
         Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
                 Locations.MIREBALAIS_HOSPITAL.uuid() + "')" +
@@ -204,7 +203,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 "where record_location = (select location_id from location where uuid='" +
                 Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
 
-    }
+    }*/
 
     public void setCustomProperties(RuntimeProperties customProperties) {
         this.customProperties = customProperties;

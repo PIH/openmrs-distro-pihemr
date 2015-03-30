@@ -14,7 +14,6 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -53,8 +52,6 @@ public class WristbandTemplateTest {
 
     private AddressHierarchyService addressHierarchyService;
 
-    private FeatureToggleProperties featureToggles;
-
     private PatientIdentifierType primaryIdentifierType = new PatientIdentifierType();
 
     private PatientIdentifierType paperRecordIdentifierType = new PatientIdentifierType();
@@ -69,14 +66,12 @@ public class WristbandTemplateTest {
         adtService = mock(AdtService.class);
         messageSourceService = mock(MessageSourceService.class);
         addressHierarchyService = mock(AddressHierarchyService.class);
-        featureToggles = mock(FeatureToggleProperties.class);
 
         when(emrApiProperties.getPrimaryIdentifierType()).thenReturn(primaryIdentifierType);
         when(paperRecordProperties.getPaperRecordIdentifierType()).thenReturn(paperRecordIdentifierType);
         when(adtService.getLocationThatSupportsVisits(argThat(any(Location.class)))).thenReturn(visitLocation);
         when(messageSourceService.getMessage("coreapps.gender.M", null, locale)).thenReturn("Masculin");
         when(messageSourceService.getMessage("coreapps.gender.F", null, locale)).thenReturn("Féminin");
-        when(featureToggles.isFeatureEnabled("cdi")).thenReturn(true);
 
         setupAddressHierarchyLevels();
 
@@ -85,7 +80,6 @@ public class WristbandTemplateTest {
         wristbandTemplate.setMessageSourceService(messageSourceService);
         wristbandTemplate.setPaperRecordProperties(paperRecordProperties);
         wristbandTemplate.setAddressHierarchyService(addressHierarchyService);
-        wristbandTemplate.setFeatureToggles(featureToggles);
 
     }
 

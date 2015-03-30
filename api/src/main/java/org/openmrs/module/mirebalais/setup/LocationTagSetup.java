@@ -3,7 +3,6 @@ package org.openmrs.module.mirebalais.setup;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalais.config.ConfigDescriptor;
 import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
@@ -16,13 +15,13 @@ import java.util.Collection;
 
 public class LocationTagSetup {
 
-    public static void setupLocationTags(LocationService locationService, Config config, FeatureToggleProperties featureToggles) {
+    public static void setupLocationTags(LocationService locationService, Config config) {
 
         if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
             setupLocationTagsForLacolline(locationService);
         }
         else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-            setupLocationTagsForMirebalais(locationService, featureToggles);
+            setupLocationTagsForMirebalais(locationService);
         }
 
     }
@@ -38,7 +37,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
     }
 
-    private static void setupLocationTagsForMirebalais(LocationService locationService, FeatureToggleProperties featureToggles) {
+    private static void setupLocationTagsForMirebalais(LocationService locationService) {
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(
             Locations.CLINIC_REGISTRATION,
@@ -72,13 +71,13 @@ public class LocationTagSetup {
             Locations.REHABILITATION,
             Locations.FAMILY_PLANNING,
             Locations.BLOOD_BANK,
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
+            Locations.CDI_KLINIK_EKSTEN_JENERAL,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
 
 
@@ -114,7 +113,7 @@ public class LocationTagSetup {
             Locations.ISOLATION,
             Locations.REHABILITATION,
             Locations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null)
+            Locations.CDI_KLINIK_EKSTEN_JENERAL
         ));
 
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(
@@ -143,8 +142,8 @@ public class LocationTagSetup {
             Locations.EMERGENCY,
             Locations.FAMILY_PLANNING,
             Locations.POST_OP_GYN,
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null)
+            Locations.CDI_KLINIK_EKSTEN_JENERAL,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
 
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(
@@ -161,7 +160,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(
             Locations.WOMENS_AND_CHILDRENS_PHARMACY,
             Locations.OUTPATIENT_CLINIC_PHARMACY,
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI
         ));
 
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, Arrays.asList(
@@ -176,10 +175,10 @@ public class LocationTagSetup {
             Locations.WOMENS_AND_CHILDRENS_PHARMACY,
             Locations.RADIOLOGY,
             Locations.OUTPATIENT_CLINIC_PHARMACY,
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI : null),
-            (featureToggles.isFeatureEnabled("cdi") ? Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI : null)
+            Locations.CDI_KLINIK_EKSTEN_JENERAL,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+            Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI
         ));
 
 
