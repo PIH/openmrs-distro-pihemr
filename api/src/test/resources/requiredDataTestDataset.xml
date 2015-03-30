@@ -13,6 +13,9 @@
   <concept_datatype concept_datatype_id="12" name="Structured Numeric" hl7_abbreviation="SN" description="Complex numeric values possible (ie, &lt;5, 1-10, etc.)" creator="1" date_created="2005-08-06 00:00:00.0" retired="false" uuid="8d4a606c-c2cc-11de-8d13-0010c6dffd0f"/>
   <concept_datatype concept_datatype_id="13" name="Complex" hl7_abbreviation="ED" description="Complex value.  Analogous to HL7 Embedded Datatype" creator="1" date_created="2008-06-11 13:22:00.0" retired="false" uuid="8d4a6242-c2cc-11de-8d13-0010c6dffd0f"/>
 
+  <concept_map_type concept_map_type_id="1" name="SAME-AS" is_hidden="0" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="35543629-7d8c-11e1-909d-c80aa9edcf4e"/>
+  <concept_map_type concept_map_type_id="2" name="NARROWER-THAN" is_hidden="0" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="43ac5109-7d8c-11e1-909d-c80aa9edcf4e"/>
+  <concept_map_type concept_map_type_id="3" name="BROADER-THAN" is_hidden="0" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="4b9d9421-7d8c-11e1-909d-c80aa9edcf4e"/>
 
   <location location_id="1001" name="Antepartum ward" description="Antepartum ward" creator="1" date_created="2008-08-15 15:28:54.0" retired="false" uuid="272bd989-a8ee-4a16-b5aa-55bad4e84f5c"/>
   <location_attribute_type location_attribute_type_id="1001" max_occurs="1" min_occurs="0" name="Name to print on ID card" description="Name to print on ID card" datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype" retired="0" creator="1" date_created="2006-01-18 00:00:00.0" uuid="a5fb5770-409a-11e2-a25f-0800200c9a66" />
