@@ -12,11 +12,11 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
+import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.MetadataManager;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -24,7 +24,6 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
@@ -93,7 +92,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
         assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
         assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
-        assertTrue(Context.getService(IdentifierSourceService.class).getAutoGenerationOption(dossierNumberIdentifierType).isManualEntryEnabled());
+        assertEquals(2, Context.getService(IdentifierSourceService.class).getAutoGenerationOptions(dossierNumberIdentifierType).size());
 
         assertNotNull(Context.getService(ImportPatientFromWebService.class).getRemoteServers().get("lacolline"));
     }
