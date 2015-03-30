@@ -57,7 +57,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 
         Patient patient = testDataManager.patient()
                 .identifier(emrApiProperties.getPrimaryIdentifierType(), "X2ECEX", location)
-                .identifier(paperRecordProperties.getPaperRecordIdentifierType(), "A00005", location)
+                .identifier(paperRecordProperties.getPaperRecordIdentifierType(), "A000005", location)
                 .birthdate(new DateTime(1940,7,7,5,5,5).toDate())
                 .gender("M")
                 .name("Ringo", "Starr")
@@ -70,7 +70,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
         assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FDcoreapps.ageYears^FS"));   // no message source service, se we are just going to get back the message code for age years and gender
-        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDcoreapps.gender.M  A00005^FS"));
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDcoreapps.gender.M  A 000005^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDX2ECEX^XZ"));
     }
 }
