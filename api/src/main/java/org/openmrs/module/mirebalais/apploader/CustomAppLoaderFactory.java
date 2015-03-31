@@ -850,7 +850,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "personAttribute",
                                                 "8d8718c2-c2cc-11de-8d13-0010c6dffd0f",
                                                 "uicommons",
-                                                "field/text",
+                                                "field/textarea",
                                                 "required")
                                 )
                         ),
