@@ -50,7 +50,7 @@
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.6-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.6</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.4-SNAPSHOT</uiframeworkVersion>
@@ -62,7 +62,7 @@
         <htmlformentry19extVersion>1.5</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.3-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.4</reportingVersion>
+        <reportingVersion>0.9.5-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.0-SNAPSHOT</reportinguiVersion>
         <reportingrestVersion>1.4-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
