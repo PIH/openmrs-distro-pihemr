@@ -320,7 +320,7 @@
                                             &amp;&amp; $visit.mostRecentCheckInEncounter.location.uuid != '62a9500e-a1a5-4235-844f-3a8cc0765d53'">
                         <!-- first button will have focus by default, so we have default=true here -->
                         <button  class="confirm right"><uimessage code="emr.yes"/></button>
-                        <button  class="cancel"><uimessage code="emr.no"/></button>
+                        <button  type="button" class="cancel"><uimessage code="emr.no"/></button>
                     </includeIf>
                 </div>
             </div>
