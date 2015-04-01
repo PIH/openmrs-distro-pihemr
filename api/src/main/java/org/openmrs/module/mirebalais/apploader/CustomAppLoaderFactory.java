@@ -700,7 +700,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-calendar",
                 "Task: appointmentschedulingui.bookAppointments",
                 "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
-                arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
+                arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
 
@@ -754,7 +754,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-group",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
                 "App: emr.systemAdministration",
-                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.html"),
+                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong"))))));
 
