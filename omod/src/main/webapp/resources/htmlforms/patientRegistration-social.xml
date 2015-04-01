@@ -29,7 +29,7 @@
                     <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
                          answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
                          answerCodes="zl.registration.patient.civilStatus.single.label,zl.registration.patient.civilStatus.married.label,zl.registration.patient.civilStatus.livingWithPartner.label,zl.registration.patient.civilStatus.separated.label,zl.registration.patient.civilStatus.divorced.label,zl.registration.patient.civilStatus.widowed.label"
-                         showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="8"/>
+                         showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
                 </p>
             </div>
 
@@ -37,6 +37,16 @@
                 <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
                 <p class="left">
                     <obs conceptId="PIH:2452" id="occupation" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                </p>
+            </div>
+
+            <div>
+                <h3><uimessage code="zl.registration.patient.religion.label"/></h3>
+                <p class="left">
+                    <obs conceptId="PIH:RELIGION" id="religion"
+                         answerConceptIds="PIH:Voodoo,PIH:Catholic,PIH:Baptist,PIH:Islam,PIH:Pentecostal,PIH:Seventh Day Adventist,PIH:Jehovah's Witness,PIH:OTHER NON-CODED"
+                         answerCodes="zl.registration.patient.religion.voodoo.label,zl.registration.patient.religion.catholic.label,zl.registration.patient.religion.baptist.label,zl.registration.patient.religion.islam.label,zl.registration.patient.religion.pentecostal.label,zl.registration.patient.religion.adventist.label,zl.registration.patient.religion.jehovahsWitness.label,zl.registration.patient.religion.other.label"
+                         showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
                 </p>
             </div>
 

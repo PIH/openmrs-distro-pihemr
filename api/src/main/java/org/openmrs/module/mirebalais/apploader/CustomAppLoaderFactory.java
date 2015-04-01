@@ -895,6 +895,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "",
                                                 "uicommons",
                                                 "field/text")
+                                ),
+                                question("religionLabel",
+                                        "zl.registration.patient.religion.label",
+                                        field("obs.PIH:Religion",
+                                                "zl.registration.patient.religion.question",
+                                                "obs",
+                                                "",
+                                                "uicommons",
+                                                "field/dropDown",
+                                                objectNode("expanded", true,
+                                                        "options", arrayNode(option("zl.registration.patient.religion.voodoo.label", "PIH:Voodoo"),
+                                                                option("zl.registration.patient.religion.catholic.label", "PIH:Catholic"),
+                                                                option("zl.registration.patient.religion.baptist.label", "PIH:Baptist"),
+                                                                option("zl.registration.patient.religion.islam.label", "PIH:Islam"),
+                                                                option("zl.registration.patient.religion.pentecostal.label", "PIH:Pentecostal"),
+                                                                option("zl.registration.patient.religion.adventist.label", "PIH:Seventh Day Adventist"),
+                                                                option("zl.registration.patient.religion.jehovahsWitness.label", "PIH:Jehovah's Witness"),
+                                                                option("zl.registration.patient.religion.other.label", "PIH:OTHER NON-CODED"))
+                                                )
+                                        )
                                 )
                         )
                 )
