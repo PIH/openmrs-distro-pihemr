@@ -13,7 +13,13 @@
 	<description>API project for MirebalaisHospital</description>
 
 	<dependencies>
-	</dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-test-resources</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 	
 	<build>
 		<resources>
