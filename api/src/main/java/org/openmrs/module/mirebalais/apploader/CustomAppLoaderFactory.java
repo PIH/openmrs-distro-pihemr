@@ -691,7 +691,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.APPOINTMENT_SCHEDULING_HOME,
                 "appointmentschedulingui.home.title",
                 "icon-calendar",
-                "/appointmentschedulingui/home.page",
+                "appointmentschedulingui/home.page",
                 "App: appointmentschedulingui.home",
                 null)));
 
@@ -699,7 +699,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.scheduleAppointment.buttonTitle",
                 "icon-calendar",
                 "Task: appointmentschedulingui.bookAppointments",
-                "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
+                "appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
                 arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
@@ -708,7 +708,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.scheduleAppointment.title",
                 "icon-calendar",
                 "link",
-                "/appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
                 "Task: appointmentschedulingui.bookAppointments",
                 null));
 
@@ -716,7 +716,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.requestAppointment.label",
                 "icon-calendar",
                 "link",
-                "/appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
                 "Task: appointmentschedulingui.requestAppointments",
                 null));
 
