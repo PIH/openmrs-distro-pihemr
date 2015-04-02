@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Patient;
@@ -23,8 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 
 import java.io.InputStream;
-
-import static org.junit.Assert.assertTrue;
 
 @SkipBaseSetup
 public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
@@ -55,7 +54,10 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
     @Test
     public void testHtmlForms() throws Exception {
         String[] formsToTest = {
-                "deathCertificate.xml"
+                "deathCertificate.xml",
+                "patientRegistration.xml",
+                "patientRegistration-rs.xml",
+                "patientRegistration-social.xml"
         };
 
         for (String formName : formsToTest) {
@@ -66,9 +68,12 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
             HtmlForm form = HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class), xml);
 
             FormEntrySession fes = new FormEntrySession(new Patient(), form, FormEntryContext.Mode.ENTER, new MockHttpSession());
-            String html = fes.getHtmlToDisplay();
-
-            assertTrue("Problem with " + formName, html.indexOf("<htmlform ") >= 0);
+            try {
+                String html = fes.getHtmlToDisplay();
+            }
+            catch (Exception ex) {
+                Assert.fail("Failed to load " + formName + ": " + ex.getMessage());
+            }
         }
     }
 
