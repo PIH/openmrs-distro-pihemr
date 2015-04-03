@@ -1,0 +1,11 @@
+<htmlform>
+    Date: <encounterDate/>
+    Location: <encounterLocation />
+    Provider: <encounterProvider role="Provider"/>
+
+    Asthma: <pastMedicalHistoryCheckbox concept="3ccc4bf6-26fe-102b-80cb-0017a47871b2"/>
+    Epilepsy: <pastMedicalHistoryCheckbox concept="3cce0a90-26fe-102b-80cb-0017a47871b2"/>
+    STI: <pastMedicalHistoryCheckbox concept="3cce6116-26fe-102b-80cb-0017a47871b2" specify="true"/>
+
+    <submit/>
+</htmlform>

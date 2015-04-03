@@ -8,6 +8,7 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.htmlformentry.CauseOfDeathListTagHandler;
+import org.openmrs.module.mirebalais.htmlformentry.PastMedicalHistoryCheckboxTagHandler;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public class HtmlFormSetup {
     public static void setupHtmlFormEntryTagHandlers() throws Exception {
         HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
         htmlFormEntryService.addHandler(MirebalaisConstants.HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME, new CauseOfDeathListTagHandler());
+        htmlFormEntryService.addHandler(MirebalaisConstants.HTMLFORMENTRY_PAST_MEDICAL_HISTORY_CHECKBOX_TAG_NAME, new PastMedicalHistoryCheckboxTagHandler());
     }
 
     public static void setupHtmlForms() throws Exception {

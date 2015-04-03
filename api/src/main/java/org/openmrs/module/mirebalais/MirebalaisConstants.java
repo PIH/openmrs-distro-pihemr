@@ -43,7 +43,7 @@ public class MirebalaisConstants {
 	public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 500;
 	
 	public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 1000;
-	
+
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "testidgen";
 	
 	public static String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD = "Testing123";
@@ -63,6 +63,7 @@ public class MirebalaisConstants {
     public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
 
     public static final String HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME = "causeOfDeathList";
+    public static final String HTMLFORMENTRY_PAST_MEDICAL_HISTORY_CHECKBOX_TAG_NAME = "pastMedicalHistoryCheckbox";
 
     public static final String PATIENT_DASHBOARD_LINK = "registrationapp/registrationSummary.page";
 
