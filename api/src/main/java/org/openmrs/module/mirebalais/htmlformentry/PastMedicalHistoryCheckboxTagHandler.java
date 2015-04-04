@@ -59,6 +59,9 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
     @Override
     protected String getSubstitution(FormEntrySession session, FormSubmissionController controller, Map<String, String> attributes) throws BadFormDesignException {
         Concept concept = HtmlFormEntryUtil.getConcept(attributes.get("concept"));
+        if (concept == null) {
+            throw new IllegalArgumentException("Concept not found: " + attributes.get("concept"));
+        }
         boolean includeCommentField = parseBooleanAttribute(attributes.get("specify"), false);
         String label = attributes.get("label");
         // TODO translate label
