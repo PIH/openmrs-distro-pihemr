@@ -57,7 +57,8 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
                 "deathCertificate.xml",
                 "patientRegistration.xml",
                 "patientRegistration-rs.xml",
-                "patientRegistration-social.xml"
+                "patientRegistration-social.xml",
+                "zl/consult-adult-initial.xml"
         };
 
         for (String formName : formsToTest) {
@@ -72,6 +73,7 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
                 String html = fes.getHtmlToDisplay();
             }
             catch (Exception ex) {
+                ex.printStackTrace();
                 Assert.fail("Failed to load " + formName + ": " + ex.getMessage());
             }
         }

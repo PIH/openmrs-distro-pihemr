@@ -1,0 +1,60 @@
+<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="1ère visite adulte" formEncounterType="ffa148de-2c88-4828-833e-f3788991543d" formVersion="1.0">
+
+    <h3>CONSULTATION MEDICALE - 1ERE VISITE ADULTE</h3>
+
+    <p>
+        <label>Motifs de consultation</label>
+        <obs conceptId="PIH:PRESENTING HISTORY" style="textarea"/>
+    </p>
+
+    <h3>ANTECEDENTS HEREDO-COLLATERAUX</h3>
+
+    <h3>ANTECEDENTS PERSONNELS / HABITUDES</h3>
+
+    <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" label="Asthme"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:CARDIOPATHY" label="Cardiopathie"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" label="Chirurgie"/><br/>
+    [] Trauma <br/> <!-- TODO form has Surgery/Trauma. Find concept for traume (maybe CIEL:124172) and verify splitting okay -->
+    <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY" label="Epilepsie"/><br/>
+    [] Hémoglobinopathie, preciser <br/> <!-- TODO -->
+    <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" specify="true" label="IST"/><br/> <!-- TODO explicit options for common STIs -->
+    [] Malf. Congenitales, preciser<br/> <!-- TODO: probably SNOMED CT 276655000 -->
+    [] Malnutrition"<br/> <!-- TODO PIH:MALNUTRITION, verify split okay -->
+    <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS" label="Perte de poids"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:MEASLES" label="Rougeole"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS" label="Tuberculose"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" label="Varicelle"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:Diphtheria" label="Diphtérie"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/> <!-- TODO verify concept -->
+    <pastMedicalHistoryCheckbox concept="PIH:DIABETES" label="Diabète"/><br/>
+    [] Prématuré <!-- TODO is this premature birth? if so why is it on the adult form? -->
+    <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
+    <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
+
+    <fieldset>
+        <legend>Activeités sexuelles</legend>
+        <p>
+            <label>Actif</label>
+            <obs conceptId="PIH:SEXUALLY ACTIVE" style="yes_no"/>
+        </p>
+        <p>
+            <label>Contraception</label>
+            <obs conceptId="PIH:METHOD OF FAMILY PLANNING"/>
+            si autre, préciser: <obs conceptId="PIH:OTHER FAMILY PLANNING METHOD, NON-CODED"/>
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Examens paracliniques déjà effectués</legend>
+        TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?)
+    </fieldset>
+
+    <fieldset>
+        <legend>HOSPITALISATION ANTERIEURE</legend>
+        TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form?
+        <br/>
+        <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
+    </fieldset>
+
+</htmlform>
