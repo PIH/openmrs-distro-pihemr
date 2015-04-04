@@ -699,7 +699,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.scheduleAppointment.buttonTitle",
                 "icon-calendar",
                 "Task: appointmentschedulingui.bookAppointments",
-                "appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
+                "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
                 arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
