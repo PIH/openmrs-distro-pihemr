@@ -87,7 +87,7 @@
         <coreappsVersion>1.6-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.12-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.4-SNAPSHOT</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.1-SNAPSHOT</appointmentschedulinguiVersion>
+        <appointmentschedulinguiVersion>1.0.1-SNAPSHOT</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.2-SNAPSHOT</printerVersion>
         <allergyapiVersion>1.4-testreleaseci-SNAPSHOT</allergyapiVersion>
