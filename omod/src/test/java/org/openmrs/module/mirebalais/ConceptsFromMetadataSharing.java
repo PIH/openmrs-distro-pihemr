@@ -37,6 +37,7 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(diagnosis("Diphtheria"));
         install(diagnosis("ACUTE RHEUMATIC FEVER"));
         install(diagnosis("DIABETES"));
+        install(diagnosisWithCielMapping("Cancer", "116031"));
     }
 
     private Concept diagnosis(String name) {
@@ -45,6 +46,12 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         concept.setConceptClass(diagnosis);
         concept.addName(new ConceptName(name, Locale.ENGLISH));
         concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(pih, name).build());
+        return concept;
+    }
+
+    private Concept diagnosisWithCielMapping(String name, String cielMapping) {
+        Concept concept = diagnosis(name);
+        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(ciel, cielMapping).build());
         return concept;
     }
 
