@@ -16,8 +16,10 @@ package org.openmrs.module.mirebalais;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
+import org.openmrs.Privilege;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.layout.web.name.NameSupport;
@@ -122,6 +124,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             removeOldGlobalProperties();
+            removeOldPrivileges();
 
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
             LocationTagSetup.setupLocationTags(locationService, config);
@@ -204,6 +207,14 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
 
     }*/
+
+    private void removeOldPrivileges() {
+        UserService userService = Context.getUserService();
+        Privilege privilege = userService.getPrivilege("App: appointmentschedulingui.scheduleAdmin");
+        if (privilege != null) {
+            userService.purgePrivilege(privilege);
+        }
+    }
 
     public void setCustomProperties(RuntimeProperties customProperties) {
         this.customProperties = customProperties;
