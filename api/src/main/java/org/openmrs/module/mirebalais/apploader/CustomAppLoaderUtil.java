@@ -236,11 +236,15 @@ public class CustomAppLoaderUtil {
         return extension;
     }
 
-    static public String simpleHtmlFormLink(String definitionUiResource) {
+    static public String enterSimpleHtmlFormLink(String definitionUiResource) {
         return "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=" + definitionUiResource;
     }
 
-    static public String standardHtmlFormLink(String definitionUiResource) {
+    static public String editSimpleHtmlFormLink(String definitionUiResource) {
+        return "htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&encounterId={{encounter.id}}&definitionUiResource=" + definitionUiResource;
+    }
+
+    static public String enterStandardHtmlFormLink(String definitionUiResource) {
         return "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=" + definitionUiResource;
     }
 
@@ -253,11 +257,12 @@ public class CustomAppLoaderUtil {
     }
 
     static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon) {
-        registerTemplateForEncounterType(encounterTypeUuid, template, icon, null, null, null);
+        registerTemplateForEncounterType(encounterTypeUuid, template, icon, null, null, null, null);
     }
 
     static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon,
                                                         Boolean displayWithHtmlForm, Boolean editable,
+                                                        String editUrl,  // note that if editUrl is null/empty, the standard Html Form link is used by default--that's why we don't specify this is most cases
                                                         String primaryEncounterRoleUuid) {
 
         Map<String,Object> extensionParams = template.getExtensionParams();
@@ -276,6 +281,11 @@ public class CustomAppLoaderUtil {
         if (editable != null) {
             encounterTypeParams.put("editable", editable);
         }
+
+        if (StringUtils.isNotBlank(editUrl)) {
+            encounterTypeParams.put("editUrl", editUrl);
+        }
+
         if (StringUtils.isNotBlank(primaryEncounterRoleUuid)) {
             encounterTypeParams.put("primaryEncounterRoleUuid", primaryEncounterRoleUuid);
         }

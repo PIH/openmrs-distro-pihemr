@@ -250,7 +250,7 @@ public class CustomAppLoaderTest {
         factory.setExtensions(extensions);
 
         registerTemplateForEncounterType("encounterTypeUuid", factory.findExtensionById("id"), "icon",
-                true, false, "primaryEncounterRoleUuid");
+                true, false, "someLink", "primaryEncounterRoleUuid");
 
         assertTrue(template.getExtensionParams().containsKey("supportedEncounterTypes"));
         assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey("encounterTypeUuid"));
@@ -260,6 +260,7 @@ public class CustomAppLoaderTest {
         assertThat((String) params.get("primaryEncounterRoleUuid"), is("primaryEncounterRoleUuid"));
         assertThat((Boolean) params.get("displayWithHtmlForm"), is(true));
         assertThat((Boolean) params.get("editable"), is(false));
+        assertThat((String) params.get("editUrl"), is("someLink"));
 
     }
 

@@ -25,10 +25,8 @@
         }
     </style>
 
-    <!-- only show/handle the English conversion fields if we are in 'ENTER' mode -->
-    <!-- TODO: handle this is 'EDIT' mode as well -->
-    <!-- note that this only handles one form per page when in "ENTER" mode -->
-    <ifMode mode="ENTER">
+    <!-- only show/handle the English conversion fields if we are in 'ENTER' or 'EDIT' mode -->
+    <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
 
             // fahrenheit to celcius converter
@@ -104,7 +102,7 @@
             }
         </script>
 
-        <ifMode mode="ENTER">
+        <ifMode mode="VIEW" include="false">
             <script type="text/javascript">
 
                 // functions to handle updating the bmi when in ENTER mode
@@ -203,9 +201,8 @@
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
-            <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
-            <!-- TODO: handle this is 'EDIT' mode as well -->
-            <ifMode mode="ENTER">
+            <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
+            <ifMode mode="VIEW" include="false">
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
@@ -228,9 +225,8 @@
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
-            <!-- only show/handle the lbs field if we are in 'ENTER' mode -->
-            <!-- TODO: handle this is 'EDIT' mode as well -->
-            <ifMode mode="ENTER">
+            <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
+            <ifMode mode="VIEW" include="false">
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
@@ -276,9 +272,8 @@
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
-            <!-- only show/handle the fahrenheit field if we are in 'ENTER' mode -->
-            <!-- TODO: handle this is 'EDIT' mode as well -->
-            <ifMode mode="ENTER">
+            <!-- only show/handle the fahrenheit field if we are in 'ENTER' or 'EDIT' mode -->
+            <ifMode mode="VIEW" include="false">
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>

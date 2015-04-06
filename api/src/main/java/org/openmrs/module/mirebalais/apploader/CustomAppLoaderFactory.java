@@ -39,6 +39,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.field;
@@ -55,8 +56,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patien
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.question;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.section;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.simpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.standardHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 
 @Component
@@ -285,7 +286,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                simpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"),
+                enterSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"),
                 "Task: mirebalais.checkinForm",
                 null));
 
@@ -306,7 +307,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.vitals.label",
                 "icon-vitals",
                 "link",
-                simpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
+                enterSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
                 "Task: emr.enterClinicalForms",
                 "visit != null && visit.active"));
 
@@ -321,7 +322,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.VITALS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true, editSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"), null);
 
     }
 
@@ -331,14 +332,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.clinic.consult.title",
                 "icon-stethoscope",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CONSULTATION,
-                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null);
+                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
     }
 
     private void  enableEDConsult() {
@@ -347,7 +348,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.ed.consult.title",
                 "icon-stethoscope",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
@@ -373,7 +374,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
                 "Task: emr.enterClinicalForms",
                 null));
 
@@ -381,7 +382,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "uicommons.cancel",
                 "icon-remove",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
                 "Task: emr.enterClinicalForms",
                 null));
 
@@ -389,21 +390,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.ADMISSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CANCEL_ADMISSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-ban-circle", true, true, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-ban-circle", true, true, null, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.TRANSFER,
-                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-share", null, true, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-share", null, true, null, null);
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.EXIT_FROM_CARE,
-                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-signout", null, true, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-signout", null, true, null, null);
     }
 
     private void enableDeathCertificate() {
@@ -412,7 +413,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.deathCertificate.enter.label",
                 "icon-remove-circle",
                 "link",
-                simpleHtmlFormLink("mirebalais:htmlforms/deathCertificate.xml"),
+                enterSimpleHtmlFormLink("mirebalais:htmlforms/deathCertificate.xml"),
                 "Task: mirebalais.enterDeathCertificate",
                 "!patient.person.dead"
         ));
@@ -483,12 +484,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "dispensing.app.label",
                 "icon-medicine",
                 "link",
-                standardHtmlFormLink("dispensing:htmlforms/dispensing.xml"),
+                enterStandardHtmlFormLink("dispensing:htmlforms/dispensing.xml"),
                 "Task: mirebalais.dispensing",
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.MEDICATION_DISPENSED,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, "bad21515-fd04-4ff6-bfcd-78456d12f168");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
 
@@ -498,12 +499,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.surgicalOperativeNote.label",
                 "icon-paste",
                 "link",
-                standardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
+                enterStandardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
                 "Task: emr.enterClinicalForms",
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
 
     private void enableOverviewReports() {
