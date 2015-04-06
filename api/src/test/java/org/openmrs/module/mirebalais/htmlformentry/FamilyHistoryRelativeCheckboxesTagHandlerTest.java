@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.htmlformentry;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
+@Ignore
 public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
