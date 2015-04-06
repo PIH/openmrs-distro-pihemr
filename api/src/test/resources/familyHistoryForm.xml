@@ -1,0 +1,10 @@
+<htmlform>
+    Date: <encounterDate/>
+    Location: <encounterLocation />
+    Provider: <encounterProvider role="Provider"/>
+
+    <familyHistoryRelativeCheckboxes concept="3ccc4bf6-26fe-102b-80cb-0017a47871b2" relatives="3ce18444-26fe-102b-80cb-0017a47871b2" label="Asthma:"/>
+    <familyHistoryRelativeCheckboxes concept="ac2e94e4-c86f-4b68-99d3-5b9acc762949" relatives="3ce18444-26fe-102b-80cb-0017a47871b2" label="Cancer:" specify="true"/>
+
+    <submit/>
+</htmlform>

@@ -31,10 +31,12 @@ import java.util.Set;
 
 /**
  * Usage:
- * <pastMedicalHistoryCheckbox concept="uuid-of-asthma"/>
+ * <pastMedicalHistoryCheckbox concept="uuid-of-asthma" />
  * => [ ] Asthma
- * <pastMedicalHistoryCheckbox concept="uuid-of-STI" specify="true"/>
+ * <pastMedicalHistoryCheckbox concept="uuid-of-STI" label="STI" specify="true"/>
  * => [ ] STI, specify:_______
+ *
+ * If you don't specify label, the preferred concept name in the context locale will be used
  *
  * If checked, will be stored as an obs group with concept CIEL:1633, and members:
  * * which? CIEL:1628 = @concept
@@ -65,10 +67,13 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         boolean includeCommentField = parseBooleanAttribute(attributes.get("specify"), false);
         String label = attributes.get("label");
         // TODO translate label
+        if (label == null) {
+            label = concept.getName().getName();
+        }
 
         FormEntryContext context = session.getContext();
 
-        CheckboxWidget checkboxWidget = new CheckboxWidget(PRESENT);
+        CheckboxWidget checkboxWidget = new CheckboxWidget(label, PRESENT);
         context.registerWidget(checkboxWidget);
 
         TextFieldWidget textFieldWidget = null;
@@ -80,16 +85,14 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         }
 
         StringBuilder html = new StringBuilder();
+        html.append("<div class=\"past-medical-history-item\">");
         html.append(checkboxWidget.generateHtml(context));
-        html.append(concept.getName().getName());
         if (includeCommentField) {
-            html.append(", " + messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
+            html.append(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
             html.append(textFieldWidget.generateHtml(context));
-            if (StringUtils.isNotEmpty(label)) {
-                html.append(label);
-            }
             html.append(errorWidget.generateHtml(context));
         }
+        html.append("</div>");
 
         Obs existingObs = findExistingObs(context, HtmlFormEntryUtil.getConcept("CIEL:1633"), HtmlFormEntryUtil.getConcept("CIEL:1628"), concept);
         session.getSubmissionController().addAction(new Action(concept, checkboxWidget, textFieldWidget, existingObs));
