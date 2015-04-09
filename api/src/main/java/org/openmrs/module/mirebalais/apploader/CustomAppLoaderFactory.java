@@ -291,7 +291,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CHECK_IN,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in");
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
+                editSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"), null);
     }
 
     private void enableVitals() {
@@ -322,7 +323,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.VITALS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true, editSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"), null);
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
+                editSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"), null);
 
     }
 

@@ -22,94 +22,169 @@
         }
     </style>
 
-    <script type="text/javascript">
 
-        jq(function() {
+    <!-- START ENTER/EDIT VERSION OF THE FORM -->
+    <ifMode mode="VIEW" include="false">
 
-            // hack to make the datepicker show when the form is opened
-            getField('encounterDate.value').datepicker('show');
+        <script type="text/javascript">
 
-        });
-    </script>
+            jq(function() {
 
-    <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
+                // hack to make the datepicker show when the form is opened
+                getField('encounterDate.value').datepicker('show');
 
-        <fieldset class="required">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
-            </h3>
+            });
 
-            <p class="left">
-                <encounterDate id="encounterDate" showTime="false" default="now"/>
-            </p>
-        </fieldset>
+        </script>
 
+        <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
-        <fieldset class="required">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
-            </h3>
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
+                </h3>
 
-            <p class="left">
-                <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0"
-                                          required="true"/>
-            </p>
-        </fieldset>
-
-        <fieldset class="required">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
-            </h3>
-
-            <p class="left">
-                <encounterLocation required="true"/>
-            </p>
-        </fieldset>
-
-
-        <fieldset class="type-of-visit-question">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-            </h3>
-
-            <p class="left">
-                <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                     unitsCssClass="append-to-value" style="dropdown" size="9">
-                </obs>
-            </p>
-        </fieldset>
-
-        <fieldset id="payment-amount-question" class="required">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
-            </h3>
-            <obsgroup groupingConceptId="PIH:Payment construct">
                 <p class="left">
-                    <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
-                         unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
-                         answers="50,0" defaultValue="50"/>
+                    <encounterDate id="encounterDate" showTime="false" default="now"/>
                 </p>
+            </fieldset>
+
+
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.provider.label"/>
+                </h3>
+
+                <p class="left">
+                    <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0"
+                                              required="true"/>
+                </p>
+            </fieldset>
+
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </h3>
+
+                <p class="left">
+                    <encounterLocation required="true"/>
+                </p>
+            </fieldset>
+
+
+            <fieldset class="type-of-visit-question">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </h3>
+
+                <p class="left">
+                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="9">
+                    </obs>
+                </p>
+            </fieldset>
+
+            <obsgroup groupingConceptId="PIH:Payment construct">
+                <fieldset id="payment-amount-question" class="required">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                    </h3>
+
+                        <p class="left">
+                            <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
+                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
+                                 answers="50,0" defaultValue="50"/>
+                        </p>
+                </fieldset>
+
+                <fieldset id="receipt-number-question">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                    </h3>
+
+                    <p class="left">
+                        <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
+                             unitsCssClass="append-to-value" style="dropdown" />
+                    </p>
+                </fieldset>
             </obsgroup>
-        </fieldset>
 
+            </section>
 
-    </section>
+        <submit/>
 
-    <submit/>
+    </ifMode>
+    <!-- END ENTER/EDIT VERSION OF THE FORM -->
+
+    <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not section title or provider, date, location) -->
+    <ifMode mode="VIEW">
+
+            <fieldset class="type-of-visit-question">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </h3>
+
+                <p class="left">
+                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="9">
+                    </obs>
+                </p>
+            </fieldset>
+
+            <obsgroup groupingConceptId="PIH:Payment construct">
+                <fieldset id="payment-amount-question" class="required">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                    </h3>
+
+                    <p class="left">
+                        <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
+                             unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
+                             answers="50,0" defaultValue="50"/>
+                    </p>
+                </fieldset>
+
+                <fieldset id="receipt-number-question">
+                    <legend>
+                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                    </h3>
+
+                    <p class="left">
+                        <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
+                             unitsCssClass="append-to-value" style="dropdown" />
+                    </p>
+                </fieldset>
+            </obsgroup>
+
+    </ifMode>
+    <!-- END VIEW VERSION OF THE FORM -->
+
 
 </htmlform>
