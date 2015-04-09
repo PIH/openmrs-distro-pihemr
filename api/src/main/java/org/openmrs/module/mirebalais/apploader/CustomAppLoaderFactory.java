@@ -920,6 +920,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 )
                                         )
                                 )
+                        ),
+                        section("contacts",
+                                "zl.registration.patient.contactPerson.label",
+                                question("contactNameLabel",
+                                        "zl.registration.patient.contactPerson.contactName.label",
+                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT",
+                                                "zl.registration.patient.contactPerson.contactName.question",
+                                                "obsgroup",
+                                                "",
+                                                "uicommons",
+                                                "field/text"
+                                        )
+                                )
                         )
                 )
         )));

@@ -50,6 +50,15 @@
                 </p>
             </div>
 
+            <div>
+                <h3><uimessage code="zl.registration.patient.contactPerson.label"/></h3>
+                <p class="left">
+                    <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
+                        <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                    </obsgroup>
+                </p>
+            </div>
+
         </fieldset>
     </section>
 
