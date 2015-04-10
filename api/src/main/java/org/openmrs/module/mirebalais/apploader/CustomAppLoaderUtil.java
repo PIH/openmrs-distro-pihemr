@@ -130,6 +130,20 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
+    static public AppDescriptor addToRegistrationSummarySecondColumnContent(AppDescriptor app, String provider, String fragment) {
+        appExtension(app, app.getId() + ".registrationSummaryContent",
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
+                CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT)
+                .setExtensionParams(map("provider", provider,
+                        "fragment", fragment));
+        return app;
+    }
+
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 CustomAppLoaderConstants.ExtensionPoints.VISIT_ACTIONS, VISIT_ACTIONS_ORDER.indexOf(id), null);

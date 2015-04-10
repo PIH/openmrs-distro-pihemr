@@ -32,6 +32,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToC
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -943,6 +944,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "field/text"
                                         )
                                 ),
+                                question("contactAddressLabel",
+                                        "zl.registration.patient.contactPerson.contactAddress.label",
+                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT",
+                                                "zl.registration.patient.contactPerson.contactAddress.question",
+                                                "obsgrup",
+                                                "",
+                                                "uicommons",
+                                                "field/textarea",
+                                                objectNode("maxlength", "50"),
+                                                "required")
+                                ),
                                 question("contactPhoneNumberLabel",
                                         "registrationapp.patient.phone.label",
                                         field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT",
@@ -986,12 +998,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
                         "zl.registration.patient.social.label",
-                        "icon-group",
+                        "icon-user",
                         null,
                         "App: patientregistration.main",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml",
+                                "editable", true)),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
+
+        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
+                        "zl.registration.patient.contactPerson.label",
+                        "icon-group",
+                        null,
+                        "App: patientregistration.main",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-contact.xml",
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));

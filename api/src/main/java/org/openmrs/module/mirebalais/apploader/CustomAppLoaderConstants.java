@@ -60,6 +60,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";
         public static final String MOST_RECENT_REGISTRATION_SUMMARY = "coreapps.mostRecentRegistrationSummary";
         public static final String MOST_RECENT_REGISTRATION_SOCIAL = "coreapps.mostRecentRegistrationSocial";
+        public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "mirebalais.patientRegistration.app.registration";
@@ -150,6 +151,7 @@ public class CustomAppLoaderConstants {
         public static final String CLINICIAN_DASHBOARD_FIRST_COLUMN = "patientDashboard.firstColumnFragments";
         public static final String CLINICIAN_DASHBOARD_SECOND_COLUMN = "patientDashboard.secondColumnFragments";
         public static final String REGISTRATION_SUMMARY_CONTENT = "registrationSummary.contentFragments";
+        public static final String REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT = "registrationSummary.secondColumnContentFragments";
     }
 
     public static final class EncounterTemplates {
