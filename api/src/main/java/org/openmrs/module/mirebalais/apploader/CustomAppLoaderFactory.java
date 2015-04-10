@@ -932,6 +932,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "uicommons",
                                                 "field/text"
                                         )
+                                ),
+                                question("relationshipsLabel",
+                                        "zl.registration.patient.contactPerson.relationships.label",
+                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT",
+                                                "zl.registration.patient.contactPerson.relationships.question",
+                                                "obsgroup",
+                                                "",
+                                                "uicommons",
+                                                "field/text"
+                                        )
+                                ),
+                                question("contactPhoneNumberLabel",
+                                        "registrationapp.patient.phone.label",
+                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT",
+                                                "zl.registration.patient.contactPerson.phonenumber.question",
+                                                "obsgroup",
+                                                "",
+                                                "uicommons",
+                                                "field/text"
+                                        )
                                 )
                         )
                 )

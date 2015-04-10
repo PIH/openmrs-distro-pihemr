@@ -50,14 +50,30 @@
                 </p>
             </div>
 
+            <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
+
             <div>
                 <h3><uimessage code="zl.registration.patient.contactPerson.label"/></h3>
                 <p class="left">
-                    <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
-                        <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20" />
-                    </obsgroup>
+                    <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20" />
                 </p>
             </div>
+
+            <div>
+                <h3><uimessage code="zl.registration.patient.contactPerson.relationships.label"/></h3>
+                <p class="left">
+                    <obs conceptId="PIH:RELATIONSHIPS OF CONTACT" id="contactRelationship" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                </p>
+            </div>
+
+            <div>
+                <h3><uimessage code="registrationapp.patient.phone.label"/></h3>
+                <p class="left">
+                    <obs conceptId="PIH:TELEPHONE NUMBER OF CONTACT" id="contactTelephoneNumber" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                </p>
+            </div>
+
+            </obsgroup>
 
         </fieldset>
     </section>
