@@ -343,8 +343,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
                     "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
-                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
-                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CONSULT_NOTE_LOCATION.uuid() + "')"));
+                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly')) && " +
+                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CONSULT_NOTE_LOCATION.uuid() + "'))"));
 
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
@@ -363,7 +363,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
                     "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
                     "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
-                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ED_NOTE_LOCATION.uuid() + "')"));
+                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ED_NOTE_LOCATION.uuid() + "'))"));
     }
 
     private void enableADT() {

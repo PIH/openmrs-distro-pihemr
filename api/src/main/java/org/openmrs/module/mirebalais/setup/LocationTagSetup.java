@@ -198,7 +198,6 @@ public class LocationTagSetup {
                 Locations.SURGICAL_WARD,
                 Locations.OPERATING_ROOMS,
                 Locations.PRE_OP_PACU,
-                Locations.RADIOLOGY,
                 Locations.MENS_INTERNAL_MEDICINE,
                 Locations.WOMENS_INTERNAL_MEDICINE,
                 Locations.PEDIATRICS,
