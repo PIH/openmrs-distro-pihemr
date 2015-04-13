@@ -52,41 +52,57 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
-    static public AppDescriptor addToHomePage(AppDescriptor app) {
+    static public AppDescriptor addToHomePage(AppDescriptor app, String require) {
         appExtension(app, app.getId() + ".appLink",
                 app.getLabel(),
                 app.getIcon(),
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                require,
                 HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
         return app;
     }
 
-    static public AppDescriptor addToOverallActions(AppDescriptor app, String label) {
+    static public AppDescriptor addToHomePage(AppDescriptor app) {
+        return addToHomePage(app, null);
+    }
+
+    static public AppDescriptor addToOverallActions(AppDescriptor app, String label, String require) {
         appExtension(app, app.getId() + ".overallActions.appLink",
                 label,
                 app.getIcon(),
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                require,
                 OVERALL_ACTIONS_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS);
         return app;
     }
 
-    static public AppDescriptor addToSystemAdministrationPage(AppDescriptor app) {
+    static public AppDescriptor addToOverallActions(AppDescriptor app, String label) {
+        return addToOverallActions(app,label, null);
+    }
+
+    static public AppDescriptor addToSystemAdministrationPage(AppDescriptor app, String require) {
         appExtension(app, app.getId() + ".systemAdministration.appLink",
                 app.getLabel(),
                 app.getIcon(),
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                require,
                 SYSTEM_ADMINISTRATION_APPS_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.SYSTEM_ADMINISTRATION_PAGE);
         return app;
     }
+
+    static public AppDescriptor addToSystemAdministrationPage(AppDescriptor app) {
+        return addToSystemAdministrationPage(app, null);
+    }
+
 
     static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         appExtension(app, app.getId() + ".clinicianDashboardFirstColumn",
@@ -95,6 +111,7 @@ public class CustomAppLoaderUtil {
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                null,
                 1,  // TODO; create array to set order like others in CustomAppLoaderConstants
                 CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN)
                 .setExtensionParams(map("provider", provider,
@@ -109,6 +126,7 @@ public class CustomAppLoaderUtil {
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                null,
                 1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
                 CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN)
                 .setExtensionParams(map("provider", provider,
@@ -123,6 +141,7 @@ public class CustomAppLoaderUtil {
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                null,
                 1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_CONTENT)
                 .setExtensionParams(map("provider", provider,
@@ -137,6 +156,7 @@ public class CustomAppLoaderUtil {
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
+                null,
                 1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT)
                 .setExtensionParams(map("provider", provider,
@@ -237,10 +257,14 @@ public class CustomAppLoaderUtil {
 
 
     static public Extension appExtension(AppDescriptor app, String id, String label, String icon, String type, String url,
-                                         String requiredPrivilege, int order, String extensionPoint) {
+                                         String requiredPrivilege, String require, int order, String extensionPoint) {
 
         Extension extension = new Extension(id, app.getId(), extensionPoint, type, label, url, order, requiredPrivilege, null);
         extension.setIcon(icon);
+
+        if (StringUtils.isNotBlank(require)) {
+            extension.setRequire(require);
+        }
 
         if (app.getExtensions() == null) {
             app.setExtensions(new ArrayList<Extension>());

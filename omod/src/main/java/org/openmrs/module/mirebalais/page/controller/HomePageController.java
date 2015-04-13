@@ -13,10 +13,11 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
-import org.openmrs.module.emr.EmrContext;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.config.Config;
@@ -34,14 +35,16 @@ public class HomePageController {
 
 	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
 	
-	public void controller(PageModel model, EmrContext emrContext,
+	public void controller(PageModel model, UiSessionContext sessionContext,
                            @SpringBean("config") Config config,
 	                       @SpringBean("featureToggles") FeatureToggleProperties featureToggleProperties,
 	                       @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService) {
 		
-		emrContext.requireAuthentication();
-		
-		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT);
+		sessionContext.requireAuthentication();
+
+        AppContextModel appContextModel = sessionContext.generateAppContextModel();
+
+		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT, appContextModel);
 		
 		for (int i = 0; i < extensions.size(); i++) {
 			Extension extension = extensions.get(i);

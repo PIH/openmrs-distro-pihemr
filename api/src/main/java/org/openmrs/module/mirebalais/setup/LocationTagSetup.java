@@ -29,6 +29,7 @@ public class LocationTagSetup {
     private static void setupLocationTagsForLacolline(LocationService locationService) {
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(Locations.LACOLLINE));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  Arrays.asList(Locations.LACOLLINE));
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
@@ -163,6 +164,8 @@ public class LocationTagSetup {
             Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI
         ));
 
+        // TODO: update the following tags to remove unnecessary/unsupported CDI locations
+
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, Arrays.asList(
             Locations.CHEMOTHERAPY,
             Locations.OUTPATIENT_CLINIC,
@@ -179,6 +182,145 @@ public class LocationTagSetup {
             Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(
+                Locations.OUTPATIENT_CLINIC,
+                Locations.EMERGENCY,
+                Locations.COMMUNITY_HEALTH,
+                Locations.DENTAL,
+                Locations.WOMENS_CLINIC,
+                Locations.WOMENS_TRIAGE,
+                Locations.LABOR_AND_DELIVERY,
+                Locations.ANTEPARTUM_WARD,
+                Locations.POSTPARTUM_WARD,
+                Locations.POST_OP_GYN,
+                Locations.SURGICAL_WARD,
+                Locations.OPERATING_ROOMS,
+                Locations.PRE_OP_PACU,
+                Locations.RADIOLOGY,
+                Locations.MENS_INTERNAL_MEDICINE,
+                Locations.WOMENS_INTERNAL_MEDICINE,
+                Locations.PEDIATRICS,
+                Locations.ICU,
+                Locations.NICU,
+                Locations.ISOLATION,
+                Locations.CHEMOTHERAPY,
+                Locations.REHABILITATION,
+                Locations.FAMILY_PLANNING,
+                Locations.BLOOD_BANK,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, Arrays.asList(
+                Locations.CLINIC_REGISTRATION,
+                Locations.EMERGENCY_DEPARTMENT_RECEPTION,
+                Locations.CENTRAL_ARCHIVES,
+                Locations.OUTPATIENT_CLINIC,
+                Locations.EMERGENCY,
+                Locations.COMMUNITY_HEALTH,
+                Locations.DENTAL,
+                Locations.WOMENS_CLINIC,
+                Locations.WOMENS_TRIAGE,
+                Locations.LABOR_AND_DELIVERY,
+                Locations.ANTEPARTUM_WARD,
+                Locations.POSTPARTUM_WARD,
+                Locations.POST_OP_GYN,
+                Locations.SURGICAL_WARD,
+                Locations.OPERATING_ROOMS,
+                Locations.PRE_OP_PACU,
+                Locations.MAIN_LABORATORY,
+                Locations.WOMENS_OUTPATIENT_LABORATORY,
+                Locations.RADIOLOGY,
+                Locations.MENS_INTERNAL_MEDICINE,
+                Locations.WOMENS_INTERNAL_MEDICINE,
+                Locations.PEDIATRICS,
+                Locations.ICU,
+                Locations.NICU,
+                Locations.ISOLATION,
+                Locations.CHEMOTHERAPY,
+                Locations.REHABILITATION,
+                Locations.FAMILY_PLANNING,
+                Locations.BLOOD_BANK,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(
+                Locations.WOMENS_CLINIC,
+                Locations.EMERGENCY,
+                Locations.PRE_OP_PACU,
+                Locations.OUTPATIENT_CLINIC,
+                Locations.DENTAL,
+                Locations.SURGICAL_WARD,
+                Locations.COMMUNITY_HEALTH,
+                Locations.WOMENS_TRIAGE,
+                Locations.CHEMOTHERAPY,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(
+                Locations.COMMUNITY_HEALTH,
+                Locations.CLINIC_REGISTRATION,
+                Locations.CENTRAL_ARCHIVES,
+                Locations.EMERGENCY_DEPARTMENT_RECEPTION,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, Arrays.asList(
+                Locations.OUTPATIENT_CLINIC,
+                Locations.EMERGENCY,
+                Locations.COMMUNITY_HEALTH,
+                Locations.DENTAL,
+                Locations.WOMENS_CLINIC,
+                Locations.WOMENS_TRIAGE,
+                Locations.LABOR_AND_DELIVERY,
+                Locations.ANTEPARTUM_WARD,
+                Locations.POSTPARTUM_WARD,
+                Locations.POST_OP_GYN,
+                Locations.SURGICAL_WARD,
+                Locations.OPERATING_ROOMS,
+                Locations.PRE_OP_PACU,
+                Locations.RADIOLOGY,
+                Locations.MENS_INTERNAL_MEDICINE,
+                Locations.WOMENS_INTERNAL_MEDICINE,
+                Locations.PEDIATRICS,
+                Locations.ICU,
+                Locations.NICU,
+                Locations.ISOLATION,
+                Locations.CHEMOTHERAPY,
+                Locations.REHABILITATION,
+                Locations.FAMILY_PLANNING,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
 
 

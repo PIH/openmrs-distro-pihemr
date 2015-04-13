@@ -9,6 +9,7 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
@@ -42,6 +43,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashbo
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.field;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
@@ -57,8 +60,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patien
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.question;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.section;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 
 @Component
@@ -277,11 +278,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableCheckIn() {
 
         apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
-                "mirebalais.app.patientRegistration.checkin.label",
-                "icon-paste",
-                "App: mirebalais.checkin",
-                "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
-                null)));
+                                "mirebalais.app.patientRegistration.checkin.label",
+                                "icon-paste",
+                                "App: mirebalais.checkin",
+                                "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
+                                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CHECKIN_LOCATION.uuid() + "')"));
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
@@ -289,7 +291,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"),
                 "Task: mirebalais.checkinForm",
-                null));
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CHECKIN_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
@@ -299,11 +301,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableVitals() {
 
         apps.add(addToHomePage(findPatientTemplateApp(Apps.VITALS,
-                "mirebalais.outpatientVitals.title",
-                "icon-vitals",
-                "App: mirebalais.outpatientVitals",
-                "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
-                null)));
+                                "mirebalais.outpatientVitals.title",
+                                "icon-vitals",
+                                "App: mirebalais.outpatientVitals",
+                                "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
+                                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.VITALS_LOCATION.uuid() + "')"));
 
         extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
@@ -311,7 +314,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
                 "Task: emr.enterClinicalForms",
-                "visit != null && visit.active"));
+                "visit != null && visit.active  && util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.VITALS_LOCATION.uuid() + "')"));
+
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
                         "mirebalais.mostRecentVitals.label",
@@ -337,7 +341,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
+                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
+                    "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
+                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
+                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CONSULT_NOTE_LOCATION.uuid() + "')"));
 
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
@@ -353,8 +360,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
-
+                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
+                    "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
+                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
+                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ED_NOTE_LOCATION.uuid() + "')"));
     }
 
     private void enableADT() {
@@ -367,11 +376,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
 
         apps.add(addToHomePage(app(Apps.INPATIENTS,
-                "mirebalaisreports.app.inpatients.label",
-                "icon-list-ol",
-                "mirebalaisreports/inpatientList.page",
-                "App: emr.inpatients",
-                null)));
+                                "mirebalaisreports.app.inpatients.label",
+                                "icon-list-ol",
+                                "mirebalaisreports/inpatientList.page",
+                                "App: emr.inpatients",
+                                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.INPATIENTS_APP_LOCATION.uuid() + "')"));
 
         extensions.add(awaitingAdmissionAction(Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "mirebalais.task.admit.label",
@@ -445,7 +455,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=CR",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderXray') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
+                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderXray') && visit != null && visit.active) || " +
+                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
+                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
 
         extensions.add(visitAction(Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
@@ -453,7 +465,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=Ct",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderCT') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
+                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderCT') && visit != null && visit.active) || " +
+                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
+                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
 
         extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
@@ -461,7 +475,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=US",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderUS') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder')"));
+                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderUS') && visit != null && visit.active) || " +
+                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
+                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(RadiologyMetadata.EncounterTypes.RADIOLOGY_ORDER,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
@@ -481,7 +497,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-medicine",
                 "dispensing/findPatient.page",
                 "App: dispensing.app.dispense",
-                null)));
+                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.DISPENSING_LOCATION.uuid() + "')"));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
@@ -489,7 +506,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("dispensing:htmlforms/dispensing.xml"),
                 "Task: mirebalais.dispensing",
-                null));
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.DISPENSING_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
@@ -504,7 +521,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
                 "Task: emr.enterClinicalForms",
-                null));
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.SURGERY_NOTE_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
@@ -1094,21 +1111,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-register",
                 "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
                 "App: patientregistration.main",
-                null)));
+                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
                 "mirebalais.app.patientRegistration.emergencyCheckin.label",
                 "icon-hospital",
                 "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
                 "App: patientregistration.main",
-                null)));
+                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_LOOKUP,
                 "mirebalais.app.patientRegistration.patientLookup.label",
                 "icon-edit",
                 "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
                 "App: patientregistration.edit",
-                null)));
+                null),
+                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "icon-register");

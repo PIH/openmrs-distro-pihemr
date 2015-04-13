@@ -212,7 +212,7 @@ public class CustomAppLoaderTest {
     public void shouldCreateAppExtension() {
         AppDescriptor app = new AppDescriptor();
         CustomAppLoaderUtil.appExtension(app, "id", "label", "icon", "type",
-                "url", "requiredPrivilege", 1, "extensionPoint");
+                "url", "requiredPrivilege", "require", 1, "extensionPoint");
 
         assertThat(app.getExtensions().size(), is(1));
         assertThat(app.getExtensions().get(0).getId(), is("id"));
@@ -223,6 +223,7 @@ public class CustomAppLoaderTest {
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getOrder(), is(1));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("requiredPrivilege"));
+        assertThat(app.getExtensions().get(0).getRequire(), is("require"));
     }
 
 
