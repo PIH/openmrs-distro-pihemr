@@ -354,6 +354,13 @@ public class CustomAppLoaderUtil {
                 "fields", arrayNode(fields));
     }
 
+    static public ObjectNode question(String questionId, String questionLegend, String questionHeader, ObjectNode ... fields) {
+        return objectNode("id", questionId,
+                "legend", questionLegend,
+                "header", questionHeader,
+                "fields", arrayNode(fields));
+    }
+
     static public ObjectNode field(String formFieldName, String label, String type, String uuid, String widgetProvider, String widgetFragment, String ... cssClasses) {
 
         return objectNode("formFieldName", formFieldName,
