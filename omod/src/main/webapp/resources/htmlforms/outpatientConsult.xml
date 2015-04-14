@@ -193,7 +193,7 @@
 
         <p>
             <label><uimessage code="emr.consult.freeTextComments"/></label>
-            <obs conceptId="org.openmrs.module.emr:Consult Free Text Comments" style="textarea" rows="5"/>
+            <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
         </p>
 
     </div>
