@@ -90,7 +90,7 @@
         <appointmentschedulinguiVersion>1.0.2-SNAPSHOT</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.2-SNAPSHOT</printerVersion>
-        <allergyapiVersion>1.4-SNAPSHOT</allergyapiVersion>
+        <allergyapiVersion>1.4-testreleaseci-SNAPSHOT</allergyapiVersion>
         <allergyuiVersion>1.2-SNAPSHOT</allergyuiVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
