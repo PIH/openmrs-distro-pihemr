@@ -58,7 +58,8 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
                 "patientRegistration.xml",
                 "patientRegistration-rs.xml",
                 "patientRegistration-social.xml",
-                "zl/consult-adult-initial.xml"
+                "zl/primary-care-adult-history.xml",
+                "zl/primary-care-adult-exam-dx.xml"
         };
 
         for (String formName : formsToTest) {

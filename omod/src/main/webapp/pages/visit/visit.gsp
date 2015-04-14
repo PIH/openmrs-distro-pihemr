@@ -9,6 +9,7 @@
     ui.includeJavascript("uicommons", "angular-app.js")
     ui.includeJavascript("uicommons", "services/visitService.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
+    ui.includeJavascript("uicommons", "services/orderService.js")
     ui.includeJavascript("uicommons", "filters/display.js")
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
     ui.includeJavascript("uicommons", "moment.min.js")
@@ -16,6 +17,7 @@
     ui.includeJavascript("mirebalais", "visit/filters.js")
     ui.includeJavascript("mirebalais", "visit/visit-templates.js")
     ui.includeJavascript("mirebalais", "visit/allergies.js")
+    ui.includeJavascript("mirebalais", "visit/orders.js")
     ui.includeJavascript("mirebalais", "visit/visit.js")
 %>
 

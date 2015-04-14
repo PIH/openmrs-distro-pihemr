@@ -61,7 +61,7 @@ public class HomePageController {
         model.addAttribute("privilegeSearchForPatients", MirebalaisConstants.PRIVILEGE_SEARCH_FOR_PATIENTS);
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
-            model.addAttribute("dashboardUrl", "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}");
+            model.addAttribute("dashboardUrl", "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=" + CustomAppLoaderConstants.Apps.CLINICIAN_DASHBOARD);
         }
         else {
             model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");

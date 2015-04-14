@@ -1,5 +1,14 @@
 angular.module("filters", [ "uicommons.filters", "constants" ])
 
+    .filter("with", [function() {
+        return function(list, property, value, justOne) {
+            var f = justOne ? _.find : _.filter;
+            return f(list, function(candidate) {
+                return candidate[property] && (candidate[property].uuid === value.uuid);
+            });
+        }
+    }])
+
     .filter("byConcept", [function() {
         return function(listOfObs, concept, justOne) {
             var f = justOne ? _.find : _.filter;
@@ -73,5 +82,17 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
                 return it.concept.uuid == Concepts.nonCodedDiagnosis.uuid;
             });
             return nonCoded ? nonCoded.value : null;
+        }
+    }])
+
+    // if val is not empty, we return before + val + after
+    .filter("wrapWith", [ function() {
+        return function(val, before, after) {
+            if (val) {
+                return before + val + after;
+            }
+            else {
+                return val;
+            }
         }
     }]);

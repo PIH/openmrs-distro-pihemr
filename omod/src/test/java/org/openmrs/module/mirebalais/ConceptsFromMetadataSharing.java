@@ -1,7 +1,9 @@
 package org.openmrs.module.mirebalais;
 
 import org.openmrs.Concept;
+import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptName;
+import org.openmrs.ConceptSource;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.CoreConceptMetadataBundle;
@@ -37,21 +39,35 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(diagnosis("Diphtheria"));
         install(diagnosis("ACUTE RHEUMATIC FEVER"));
         install(diagnosis("DIABETES"));
-        install(diagnosisWithCielMapping("Cancer", "116031"));
+        install(diagnosis("Cancer", ciel, "116031"));
+        install(question("Clinical Impression Comments", text, emrapi, "Consult Free Text Comments"));
     }
 
-    private Concept diagnosis(String name) {
+    private Concept baseConcept(String name) {
         Concept concept = new Concept();
-        concept.setDatatype(notApplicable);
-        concept.setConceptClass(diagnosis);
         concept.addName(new ConceptName(name, Locale.ENGLISH));
         concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(pih, name).build());
         return concept;
     }
 
-    private Concept diagnosisWithCielMapping(String name, String cielMapping) {
+    private Concept question(String name, ConceptDatatype datatype, ConceptSource source, String mapping) {
+        Concept concept = baseConcept(name);
+        concept.setDatatype(datatype);
+        concept.setConceptClass(question);
+        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        return concept;
+    }
+
+    private Concept diagnosis(String name) {
+        Concept concept = baseConcept(name);
+        concept.setDatatype(notApplicable);
+        concept.setConceptClass(diagnosis);
+        return concept;
+    }
+
+    private Concept diagnosis(String name, ConceptSource source, String mapping) {
         Concept concept = diagnosis(name);
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(ciel, cielMapping).build());
+        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
         return concept;
     }
 

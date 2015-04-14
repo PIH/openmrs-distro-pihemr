@@ -42,7 +42,8 @@ public class HtmlFormSetup {
                     "mirebalais:htmlforms/outpatientConsult.xml",
                     "mirebalais:htmlforms/edNote.xml",
                     "mirebalais:htmlforms/deathCertificate.xml",
-                    "mirebalais:htmlforms/zl/consult-adult-initial.xml"
+                    "mirebalais:htmlforms/zl/primary-care-adult-history.xml",
+                    "mirebalais:htmlforms/zl/primary-care-adult-exam-dx.xml"
                     );
 
             for (String htmlform : htmlforms) {

@@ -1,6 +1,6 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "allergies" ])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "allergies", "orders" ])
 
-    .directive("displayElement", [ "Concepts", function(Concepts) {
+    .directive("displayElement", [ "Concepts", "EncounterTypes", function(Concepts, EncounterTypes) {
         return {
             restrict: 'E',
             scope: {
@@ -9,6 +9,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 dateFormat: '@'
             },
             controller: function($scope) {
+                $scope.Concepts = Concepts;
+                $scope.EncounterTypes = EncounterTypes;
+
                 var element = $scope.element();
 
                 if (element.type === 'encounter') {
@@ -55,7 +58,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         });
                     }
 
-                    $scope.Concepts = Concepts;
                     $scope.template = "templates/visitElementEncounter.page";
 
                 }
@@ -85,10 +87,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 },
 
                 applyVisit: function(visitTemplate, visit) {
+                    var encounters = _.reject(visit.encounters, function(it) { return it.voided; });
                     _.each(visitTemplate.elements, function(it) {
                         it.state = it.defaultState;
                         if (it.type == 'encounter') {
-                            it.encounter.existingStub = _.find(visit.encounters, function(candidate) {
+                            it.encounter.existingStub = _.find(encounters, function(candidate) {
                                 return candidate.encounterType.uuid === it.encounter.encounterType.uuid;
                             });
                             if (it.encounter.existingStub) {

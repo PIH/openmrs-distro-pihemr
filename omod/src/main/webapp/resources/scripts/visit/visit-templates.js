@@ -36,7 +36,7 @@ angular.module("visit-templates", ["constants"])
                 {
                     type: "include",
                     include: {
-                        label: "Review Allergies...",
+                        label: "Review Allergies",
                         template: "templates/reviewAllergies.page"
                     }
                 },
@@ -44,16 +44,36 @@ angular.module("visit-templates", ["constants"])
                     type: "encounter",
                     encounter: {
                         encounterType: {
-                            uuid: EncounterTypes.consultation.uuid
+                            uuid: EncounterTypes.primaryCareHistory.uuid
                         },
-                        shortTemplate: "templates/clinicConsultShort.page",
-                        longTemplate: "templates/clinicConsultLong.page"
+                        longTemplate: "templates/primaryCareAdultHistoryLong.page"
                     },
                     action: {
-                        label: "Consult Note",
-                        href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/outpatientConsult.xml&returnUrl={{returnUrl}}"
+                        label: "History (Adult)",
+                        href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/zl/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
                     },
                     defaultState: "long"
+                },
+                {
+                    type: "encounter",
+                    encounter: {
+                        encounterType: {
+                            uuid: EncounterTypes.primaryCareExam.uuid
+                        },
+                        longTemplate: "templates/defaultEncounterLong.page"
+                    },
+                    action: {
+                        label: "Exam and Diagnosis (Adult)",
+                        href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/zl/primary-care-adult-exam-dx.xml&returnUrl={{returnUrl}}"
+                    },
+                    defaultState: "long"
+                },
+                {
+                    type: "include",
+                    include: {
+                        label: "Conduite a tenir",
+                        template: "templates/outpatient-plan.page"
+                    }
                 }
             ]
         };

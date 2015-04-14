@@ -44,6 +44,7 @@ import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
@@ -153,6 +154,16 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             if (!config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
                 GlobalProperty gp = administrationService.getGlobalPropertyObject(CoreAppsConstants.GP_DEFAULT_DASHBOARD);
                 gp.setPropertyValue("visits");
+                administrationService.saveGlobalProperty(gp);
+            }
+
+            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ALLERGIES)) {
+                GlobalProperty gp = administrationService.getGlobalPropertyObject("allergy.concept.unknown");
+                gp.setPropertyValue(CommonConcepts.Concepts.UNKNOWN);
+                administrationService.saveGlobalProperty(gp);
+
+                gp = administrationService.getGlobalPropertyObject("allergy.concept.otherNonCoded");
+                gp.setPropertyValue(CommonConcepts.Concepts.OTHER_NON_CODED);
                 administrationService.saveGlobalProperty(gp);
             }
 

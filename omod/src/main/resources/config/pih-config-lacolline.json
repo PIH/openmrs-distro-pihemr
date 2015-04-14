@@ -6,6 +6,8 @@
 
     "components": [
         "clinicianDashboard",
+        "visitNote",
+        "allergies",
         "patientRegistration",
         "visitManagement",
         "activeVisits",

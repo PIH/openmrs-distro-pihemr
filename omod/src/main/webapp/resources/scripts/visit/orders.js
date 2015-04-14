@@ -1,0 +1,1 @@
+angular.module("orders", [ "constants", "orderService" ]);

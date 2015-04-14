@@ -40,7 +40,7 @@ import java.util.Set;
  * <familyHistoryRelativeCheckboxes concept="uuid-of-cancer" label="Cancer" relatives="uuid-of-father,uuid-of-mother" specify="true"/>
  * => Cancer, specify:________   [ ]Father  [ ]Mother
  *
- * For each relateive box that is checked, an obs group will be stored with concept CIEL:160593 and members:
+ * For each relative box that is checked, an obs group will be stored with concept CIEL:160593 and members:
  * * which disease? CIEL:160592 = @concept
  * * which relative? CIEL:1560 = @relatives[i]
  * * present? CIEL:1729 = YES

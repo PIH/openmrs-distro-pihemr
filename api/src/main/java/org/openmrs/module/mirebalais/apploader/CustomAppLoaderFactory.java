@@ -7,6 +7,7 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.config.Config;
 import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
@@ -202,6 +203,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             registerLacollinePatientRegistrationEncounterTypes();
         }
 
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+            enableClinicianDashboard();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ALLERGIES)) {
+            enableAllergies();
+        }
+
         needsRefresh = false;
     }
 
@@ -259,7 +268,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableActiveVisits() {
 
         String url;
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
+            url = "/mirebalais/visit/visit.page?visit={{visit.uuid}}";
+        }
+        else if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
             url = "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}";
         }
         else {
@@ -616,7 +628,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalaisreports.userAndProviders.name",
                 MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
                 "App: mirebalaisreports.dataexports",
-                "mirebalaisreports-usersAndProvidersReport-link" ));
+                "mirebalaisreports-usersAndProvidersReport-link"));
 
         // custom data export report LQAS report report
         extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
@@ -809,11 +821,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         apps.add(addToSystemAdministrationPage(app(Apps.PRINTER_ADMINISTRATION,
-            "printer.administration",
-            "icon-print",
-            "printer/printerAdministration.page",
-            "App: emr.systemAdministration",
-            null)));
+                "printer.administration",
+                "icon-print",
+                "printer/printerAdministration.page",
+                "App: emr.systemAdministration",
+                null)));
 
     }
 
@@ -1102,6 +1114,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais/mpi/findPatient.page",
                 "App: mirebalais.mpi",
                 null)));
+    }
+
+    private void enableClinicianDashboard() {
+        apps.add(app(Apps.CLINICIAN_DASHBOARD,
+                "mirebalais.app.clinicianDashboard.label",
+                "icon-medkit",
+                "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
+                CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
+                objectNode(
+                        "visitUrl", "mirebalais/visit/visit.page?visit={{visit.uuid}}"
+                )));
+    }
+
+    private void enableAllergies() {
+        // TODO
     }
 
     private void enableLegacyPatientRegistration() {

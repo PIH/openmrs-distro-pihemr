@@ -1,0 +1,68 @@
+<htmlform formUuid="3498f204-a6fa-4df0-b7fd-a94eb03a43c9" formName="Examen physique et diagnostic" formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
+
+    <uiInclude provider="uicommons" javascript="angular.min.js"/>
+    <uiInclude provider="coreapps" javascript="diagnoses/diagnoses.js"/>
+    <uiInclude provider="coreapps" javascript="diagnoses/diagnoses-angular.js"/>
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-target {
+                display: inline-block;
+                width: 40%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-app {
+                margin-bottom: 20px;
+            }
+        </ifMode>
+    </style>
+
+    <h3>Examen physique</h3>
+
+    TODO: systems <br/>
+
+    TODO: this is probably not right for other physical exam findings <br/>
+    <p>
+        <label><uimessage code="emr.consult.freeTextComments"/></label>
+        <obs conceptId="org.openmrs.module.emrapi:Consult Free Text Comments" style="textarea" rows="3"/>
+    </p>
+
+    <h3>Impressions clinique / Diagnostic</h3>
+
+    <div id="data-collection">
+
+        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+
+    </div>
+
+    <div id="encounter-diagnoses-target">
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div>
+            <encounterDate id="encounterDate" default="now" widget="hidden"/>
+            <p id="provider">
+                <label>Signed By</label>
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </p>
+
+            <p id="location">
+                <label>Location</label>
+                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
+            </p>
+
+        </div>
+        <div id="buttons">
+            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

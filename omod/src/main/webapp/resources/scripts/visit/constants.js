@@ -1,6 +1,15 @@
 angular.module('constants', [])
 
     .value('Concepts', {
+        yes: {
+            uuid: "3cd6f600-26fe-102b-80cb-0017a47871b2"
+        },
+        no: {
+            uuid: "3cd6f86c-26fe-102b-80cb-0017a47871b2"
+        },
+        unknown: {
+            uuid: "3cd6fac4-26fe-102b-80cb-0017a47871b2"
+        },
         diagnosisConstruct: {
             uuid: "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -36,6 +45,33 @@ angular.module('constants', [])
         },
         temperature: {
             uuid: "3ce939d2-26fe-102b-80cb-0017a47871b2"
+        },
+        pastMedicalHistoryConstruct: {
+            uuid: "1633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        pastMedicalHistoryFinding: {
+            uuid: "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        pastMedicalHistoryPresence: {
+            uuid: "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        pastMedicalHistoryComment: {
+            uuid: "160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        familyHistoryConstruct: {
+            uuid: "160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        familyHistoryRelative: {
+            uuid: "3ce18156-26fe-102b-80cb-0017a47871b2"
+        },
+        familyHistoryDiagnosis: {
+            uuid: "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        familyHistoryPresence: {
+            uuid: "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        familyHistoryComments: {
+            uuid: "160618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
     })
 
@@ -46,7 +82,16 @@ angular.module('constants', [])
         vitals: {
             uuid: "4fb47712-34a6-40d2-8ed3-e153abbd25b7"
         },
+        primaryCareHistory: {
+            uuid: "ffa148de-2c88-4828-833e-f3788991543d"
+        },
+        primaryCareExam: {
+            uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
+        },
         consultation: {
             uuid: "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"
+        },
+        consultationPlan: {
+            uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
         }
     })
