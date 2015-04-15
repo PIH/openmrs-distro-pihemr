@@ -98,7 +98,8 @@ public class LocationTagSetup {
             Locations.WOMENS_INTERNAL_MEDICINE,
             Locations.ISOLATION,
             Locations.REHABILITATION,
-            Locations.POST_OP_GYN
+            Locations.POST_OP_GYN,
+            Locations.ICU
         ));
 
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, Arrays.asList(
@@ -119,6 +120,7 @@ public class LocationTagSetup {
             Locations.ISOLATION,
             Locations.REHABILITATION,
             Locations.POST_OP_GYN,
+            Locations.ICU,
             Locations.CDI_KLINIK_EKSTEN_JENERAL
         ));
 
@@ -148,6 +150,7 @@ public class LocationTagSetup {
             Locations.EMERGENCY,
             Locations.FAMILY_PLANNING,
             Locations.POST_OP_GYN,
+            Locations.ICU,
             Locations.CDI_KLINIK_EKSTEN_JENERAL,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
