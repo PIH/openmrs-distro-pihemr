@@ -325,7 +325,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-vitals",
                 "link",
                 enterSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
-                "Task: emr.enterClinicalForms",
+                "Task: emr.enterVitalsNote",
                 "visit != null && visit.active  && util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.VITALS_LOCATION.uuid() + "')"));
 
 
@@ -353,7 +353,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
+                "(user.get('fn').hasPrivilege('Task: emr.enterConsultNote') && visit != null && visit.active) || " +
                     "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
                     "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly')) && " +
                     "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CONSULT_NOTE_LOCATION.uuid() + "'))"));
@@ -372,7 +372,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || " +
+                "(user.get('fn').hasPrivilege('Task: emr.enterEDNote') && visit != null && visit.active) || " +
                     "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
                     "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
                     "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ED_NOTE_LOCATION.uuid() + "'))"));
@@ -400,7 +400,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-h-sign",
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
-                "Task: emr.enterClinicalForms",
+                "Task: emr.enterAdmissionNote",
                 null));
 
         extensions.add(awaitingAdmissionAction(Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
@@ -408,7 +408,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-remove",
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
-                "Task: emr.enterClinicalForms",
+                "Task: emr.enterAdmissionNote",
                 null));
 
         extensions.add(visitAction(Extensions.ADMISSION_NOTE_VISIT_ACTION,
@@ -417,7 +417,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterClinicalForms') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
+                "(user.get('fn').hasPrivilege('Task: emr.enterAdmissionNote') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.ADMISSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
@@ -532,7 +532,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-paste",
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
-                "Task: emr.enterClinicalForms",
+                "Task: emr.enterSurgicalNote",
                 "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.SURGERY_NOTE_LOCATION.uuid() + "')"));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
