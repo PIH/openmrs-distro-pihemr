@@ -30,12 +30,17 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(Locations.LACOLLINE));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(Locations.LACOLLINE));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(Locations.LACOLLINE));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(Locations.LACOLLINE));
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
     }
 
     private static void setupLocationTagsForMirebalais(LocationService locationService) {
