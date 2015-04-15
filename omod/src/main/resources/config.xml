@@ -139,6 +139,29 @@
         </description>
     </globalProperty>
 
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmounts</property>
+        <defaultValue>50,0</defaultValue>
+        <decscription>
+            A comma-delimited list of numeric values, which represent the available payment amounts to collect during check-in
+        </decscription>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmountLabels</property>
+        <defaultValue>50,Exempt</defaultValue>
+        <description>
+            A comma-delimited list of text values, which represent the display labels for the payment amounts to collect during check-in
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmountDefault</property>
+        <defaultValue>50</defaultValue>
+        <description>
+            The value within the available payment amounts that should be the default value
+        </description>
+    </globalProperty>
 
 </module>
 

@@ -21,6 +21,12 @@
         }
     </style>
 
+    <macros>
+        <macro key="paymentAmts" expression="fn.globalProperty('mirebalais.checkIn.paymentAmounts')"/>
+        <macro key="paymentAmtLabels" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountLabels')"/>
+        <macro key="paymentAmtDefault" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountDefault')"/>
+    </macros>
+
     <!-- START ENTER/EDIT VERSION OF THE FORM -->
     <ifMode mode="VIEW" include="false">
 
@@ -129,8 +135,8 @@
                     </h3>
                         <p class="left">
                             <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
-                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
-                                 answers="50,0" defaultValue="50"/>
+                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="$paymentAmtLabels"
+                                 answers="$paymentAmts" defaultValue="$paymentAmtDefault"/>
                         </p>
                 </fieldset>
 
