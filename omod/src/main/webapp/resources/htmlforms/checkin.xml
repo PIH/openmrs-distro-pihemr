@@ -15,13 +15,17 @@
 <htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin"
           formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="2.0">
     <style>
-
         .encounter-summary-container {
-        font-size: 1em;
-        font-weight: normal;
+            font-size: 1em;
+            font-weight: normal;
         }
     </style>
 
+    <macros>
+        <macro key="paymentAmts" expression="fn.globalProperty('mirebalais.checkIn.paymentAmounts')"/>
+        <macro key="paymentAmtLabels" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountLabels')"/>
+        <macro key="paymentAmtDefault" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountDefault')"/>
+    </macros>
 
     <!-- START ENTER/EDIT VERSION OF THE FORM -->
     <ifMode mode="VIEW" include="false">
@@ -107,8 +111,8 @@
 
                         <p class="left">
                             <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
-                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
-                                 answers="50,0" defaultValue="50"/>
+                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="$paymentAmtLabels"
+                                 answers="$paymentAmts" defaultValue="$paymentAmtDefault"/>
                         </p>
                 </fieldset>
 
