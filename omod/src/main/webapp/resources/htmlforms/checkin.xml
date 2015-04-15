@@ -76,7 +76,7 @@
                 </h3>
 
                 <p class="left">
-                    <encounterLocation required="true"/>
+                    <encounterLocation required="true" tags="Check-In Location"/>
                 </p>
             </fieldset>
 

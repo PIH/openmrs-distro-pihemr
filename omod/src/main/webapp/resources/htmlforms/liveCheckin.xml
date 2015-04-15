@@ -78,7 +78,7 @@
                 </fieldset>
 
                 <fieldset>
-                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Check-In Location"/>
                 </fieldset>
             </div>
         </ifMode>
@@ -100,7 +100,7 @@
 
                 <fieldset>
                     <h3><uimessage code="mirebalais.retrospectiveCheckin.location.label"/></h3>
-                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Check-In Location"/>
                 </fieldset>
             </ifMode>
 
