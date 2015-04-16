@@ -24,7 +24,7 @@ import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emr.api.EmrService;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;

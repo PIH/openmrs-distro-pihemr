@@ -20,7 +20,7 @@ import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 

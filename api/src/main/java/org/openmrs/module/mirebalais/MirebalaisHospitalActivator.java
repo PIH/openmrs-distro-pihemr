@@ -32,8 +32,8 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.config.Config;
-import org.openmrs.module.mirebalais.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
@@ -44,6 +44,7 @@ import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
@@ -76,26 +77,25 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
      */
     public void contextRefreshed() {
 
-        if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
-            try {
-                Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+        try {
+            Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+            config.reload(ConfigLoader.loadFromRuntimeProperties());
 
+            // configure name template (don't do this in Mirebalais yet)
+            if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+                NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
 
-                // configure name template (don't do this in Mirebalais yet)
-                if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-                    NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
-
-                    // hack: configure both name support beans, since two actually exist (?)
-                    NameTemplateSetup.configureNameTemplate(nameSupport);
-                    NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
-                }
-
-                log.info("Mirebalais Hospital Module refreshed");
-            } catch (Exception e) {
-                Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
-                ModuleFactory.stopModule(mod);
-                throw new RuntimeException("failed to setup the required modules", e);
+                // hack: configure both name support beans, since two actually exist (?)
+                NameTemplateSetup.configureNameTemplate(nameSupport);
+                NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
             }
+
+            log.info("Mirebalais Hospital Module refreshed");
+        }
+        catch (Exception e) {
+            Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
+            ModuleFactory.stopModule(mod);
+            throw new RuntimeException("failed to setup the required modules", e);
         }
     }
 

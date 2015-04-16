@@ -8,7 +8,7 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
-import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.pihcore.config.Config;
 
 import java.util.ArrayList;
 import java.util.List;
