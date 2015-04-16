@@ -28,5 +28,11 @@
         "lacollinePatientRegistrationEncounterTypes"
     ],
 
+    "globalProperties": {
+        "mirebalais.checkIn.paymentAmounts": "50,0",
+        "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
+        "mirebalais.checkIn.paymentAmountDefault": "50"
+    },
+
     "scheduleBackupReports": "false"
 }

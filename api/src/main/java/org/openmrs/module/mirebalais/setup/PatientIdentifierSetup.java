@@ -11,8 +11,8 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.config.Config;
-import org.openmrs.module.mirebalais.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.mirebalaismetadata.constants.Locations;
 
 public class PatientIdentifierSetup {

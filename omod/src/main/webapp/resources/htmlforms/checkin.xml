@@ -95,7 +95,7 @@
 
                 <p class="left">
                     <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                         unitsCssClass="append-to-value" style="dropdown" size="9">
+                         unitsCssClass="append-to-value" style="dropdown" size="999">
                     </obs>
                 </p>
             </fieldset>
@@ -111,7 +111,7 @@
 
                         <p class="left">
                             <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
-                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="$paymentAmtLabels"
+                                 unitsCssClass="append-to-value" style="dropdown" size="999" answerLabels="$paymentAmtLabels"
                                  answers="$paymentAmts" defaultValue="$paymentAmtDefault"/>
                         </p>
                 </fieldset>

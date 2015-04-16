@@ -6,7 +6,7 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
-import org.openmrs.module.mirebalais.config.Config;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.AllPatientsWithIdsReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.AppointmentsReportManager;

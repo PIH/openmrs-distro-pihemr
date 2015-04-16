@@ -1,9 +1,0 @@
-{
-
-    "components": [
-        "override"
-    ],
-
-    "scheduleBackupReports": "true"
-
-}
