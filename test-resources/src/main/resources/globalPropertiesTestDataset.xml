@@ -102,8 +102,10 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
 If left blank, no alorithmic transformation will be stored in the db for searching of this name field."
                      uuid="02c95d0f-f00d-465c-b17e-e9b9882ab03f"/>
 
-    <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0"
-                     uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
+    <global_property property="mirebalais.installedAddressHierarchyVersion" property_value="0" uuid="66660360-7bc5-11e2-80c8-0295e7c832a2"/>
+    <global_property property="mirebalais.checkIn.paymentAmounts" property_value="" uuid="66660360-7bc5-11e2-81c8-0295e7c832a2"/>
+    <global_property property="mirebalais.checkIn.paymentAmountLabels" property_value="" uuid="66660360-7bc5-11e2-82c8-0295e7c832a2"/>
+    <global_property property="mirebalais.checkIn.paymentAmountDefault" property_value="" uuid="66660360-7bc5-11e2-83c8-0295e7c832a2"/>
 
     <global_property property="emr.admissionEncounterType" property_value="" uuid="9080c5f0-bd00-11e2-ad5b-8a6456859764"/>
     <global_property property="emr.exitFromInpatientEncounterType" property_value="" uuid="a15894e8-bd00-11e2-ad5b-8a6456859764"/>
