@@ -79,7 +79,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         try {
             Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
-            config.reload(ConfigLoader.loadFromRuntimeProperties());
+
+            // Reload configuration based on runtime properties values, defaulting to mirebalais if nothing found
+            String configs = Context.getRuntimeProperties().getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
+            config.reload(ConfigLoader.load(configs));
 
             // configure name template (don't do this in Mirebalais yet)
             if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
