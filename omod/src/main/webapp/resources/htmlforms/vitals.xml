@@ -334,6 +334,15 @@
             </p>
         </fieldset>
 
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
+
+            <p>
+                <obs conceptId="CIEL:160531" />
+            </p>
+        </fieldset>
+
 
         <!-- only show BMI if patient is less than 13 years old (on the encounterDate) -->
         <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">

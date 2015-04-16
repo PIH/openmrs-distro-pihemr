@@ -23,37 +23,44 @@
         <legend>ANTECEDENTS HEREDO-COLLATERAUX</legend>
 
         <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="CIEL:116031" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
+        <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:CARDIOPATHY" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
+
         <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        TODO Hémoglobinopathie, preciser <br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Asthme" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Asthme" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
     </fieldset>
 
     <fieldset>
         <legend>ANTECEDENTS PERSONNELS / HABITUDES</legend>
 
-        <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" label="Asthme"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:CARDIOPATHY" label="Cardiopathie"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" label="Chirurgie"/><br/>
-        [] Trauma <br/> <!-- TODO form has Surgery/Trauma. Find concept for traume (maybe CIEL:124172) and verify splitting okay -->
-        <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY" label="Epilepsie"/><br/>
-        [] Hémoglobinopathie, preciser <br/> <!-- TODO -->
+        <pastMedicalHistoryCheckbox concept="PIH:ALLERGY" specify="true"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:CARDIOPATHY" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" /><br/>
+        <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
+        <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY" /><br/>
+        <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hémoglobinopathie" specify="true" /><br/>
+
         <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" specify="true" label="IST"/><br/> <!-- TODO explicit options for common STIs -->
-        [] Malf. Congenitales, preciser<br/> <!-- TODO: probably SNOMED CT 276655000 -->
-        [] Malnutrition<br/> <!-- TODO PIH:MALNUTRITION, verify split okay -->
+        <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="IST" specify="true"/><br/>
+        <!-- TODO explicit options for common STIs -->
+        <pastMedicalHistoryCheckbox concept="CIEL:143849" label="Malformations congénitales" specify="true"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:MALNUTRITION" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS" label="Perte de poids"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:MEASLES" label="Rougeole"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS" label="Tuberculose"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" label="Varicelle"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:Diphtheria" label="Diphtérie"/><br/>
+        <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
+        <pastMedicalHistoryCheckbox concept="PIH:MEASLES" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS" /><br/>
+
+        <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/> <!-- TODO verify concept -->
-        <pastMedicalHistoryCheckbox concept="PIH:DIABETES" label="Diabète"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/><br/>
         [] Prématuré<br/> <!-- TODO is this premature birth? if so why is it on the adult form? -->
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
