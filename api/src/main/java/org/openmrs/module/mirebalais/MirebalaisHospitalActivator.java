@@ -232,7 +232,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void updateGlobalProperty(String name, Object value) {
         AdministrationService administrationService = Context.getAdministrationService();
         GlobalProperty gp = administrationService.getGlobalPropertyObject(name);
-        gp.setPropertyValue(value.toString());
+        gp.setPropertyValue(value == null ? "" : value.toString());
         administrationService.saveGlobalProperty(gp);
     }
 
