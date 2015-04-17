@@ -45,7 +45,6 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
-import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
@@ -156,11 +155,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             if (!config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
                 updateGlobalProperty(CoreAppsConstants.GP_DEFAULT_DASHBOARD, "visits");
-            }
-
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ALLERGIES)) {
-                updateGlobalProperty("allergy.concept.unknown", CommonConcepts.Concepts.UNKNOWN);
-                updateGlobalProperty("allergy.concept.otherNonCoded", CommonConcepts.Concepts.OTHER_NON_CODED);
             }
 
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
