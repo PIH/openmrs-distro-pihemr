@@ -7,7 +7,7 @@
 %>
 <span id="death-certificate-info"
       ng-controller="DeathCertificateCtrl"
-      ng-init="init('${ config.contextModel.patient.uuid }')">
+      ng-init="init('${ config.contextModel.patient.uuid }', '${ ui.escapeJs(ui.format(patient.patient)) }')">
     <span ng-show="existing.loading">
         ${ ui.message("uicommons.loading.placeholder") }
     </span>
