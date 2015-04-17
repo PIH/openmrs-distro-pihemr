@@ -64,6 +64,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- for RequireUtilTest -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod-common</artifactId>
+            <version>${webservicesRestVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- end OpenMRS modules -->
 
 	</dependencies>

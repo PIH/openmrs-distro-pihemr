@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.LocationTag;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -10,6 +11,7 @@ import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
+import org.openmrs.module.mirebalaismetadata.constants.Privileges;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
@@ -62,6 +64,12 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.questi
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.section;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
+import static org.openmrs.module.mirebalais.require.RequireUtil.and;
+import static org.openmrs.module.mirebalais.require.RequireUtil.or;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 
 @Component
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
@@ -295,7 +303,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "App: mirebalais.checkin",
                                 "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
                                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CHECKIN_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
@@ -303,7 +311,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"),
                 "Task: mirebalais.checkinForm",
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CHECKIN_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
@@ -318,7 +326,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "App: mirebalais.outpatientVitals",
                                 "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
                                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.VITALS_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.VITALS_LOCATION)));
 
         extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
@@ -326,8 +334,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
                 "Task: emr.enterVitalsNote",
-                "visit != null && visit.active  && util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.VITALS_LOCATION.uuid() + "')"));
-
+                and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
                         "mirebalais.mostRecentVitals.label",
@@ -353,10 +360,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterConsultNote') && visit != null && visit.active) || " +
-                    "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
-                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly')) && " +
-                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.CONSULT_NOTE_LOCATION.uuid() + "'))"));
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
@@ -372,10 +379,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterEDNote') && visit != null && visit.active) || " +
-                    "(user.get('fn').hasPrivilege('Task: emr.retroConsultNote')) || " +
-                    "(visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))  && " +
-                    "(util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ED_NOTE_LOCATION.uuid() + "'))"));
+                and(sessionLocationHasTag(LocationTags.ED_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
     }
 
     private void enableADT() {
@@ -393,7 +400,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalaisreports/inpatientList.page",
                                 "App: emr.inpatients",
                                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.INPATIENTS_APP_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.INPATIENTS_APP_LOCATION)));
 
         extensions.add(awaitingAdmissionAction(Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "mirebalais.task.admit.label",
@@ -417,7 +424,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
                 null,
-                "(user.get('fn').hasPrivilege('Task: emr.enterAdmissionNote') && visit != null && visit.active) || user.get('fn').hasPrivilege('Task: emr.retroConsultNote') || (visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) <30 &&  user.get('fn').hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"));
+                and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.ADMISSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
@@ -467,9 +477,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=CR",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderXray') && visit != null && visit.active) || " +
-                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
-                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
+                and(sessionLocationHasTag(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         extensions.add(visitAction(Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
@@ -477,19 +487,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=Ct",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderCT') && visit != null && visit.active) || " +
-                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
-                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
-
+                and(sessionLocationHasTag(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
         extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
                 "icon-x-ray",
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=US",
                 null,
-                "(user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.orderUS') && visit != null && visit.active) || " +
-                        "user.get('fn').hasPrivilege('Task: org.openmrs.module.radiologyapp.retroOrder') && " +
-                        "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION.uuid() + "')"));
+                and(sessionLocationHasTag(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         registerTemplateForEncounterType(RadiologyMetadata.EncounterTypes.RADIOLOGY_ORDER,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
@@ -510,7 +519,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "dispensing/findPatient.page",
                 "App: dispensing.app.dispense",
                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.DISPENSING_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
@@ -518,7 +527,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("dispensing:htmlforms/dispensing.xml"),
                 "Task: mirebalais.dispensing",
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.DISPENSING_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
@@ -533,7 +542,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
                 "Task: emr.enterSurgicalNote",
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.SURGERY_NOTE_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
@@ -1135,7 +1144,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
                 "App: patientregistration.main",
                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
                 "mirebalais.app.patientRegistration.emergencyCheckin.label",
@@ -1143,7 +1152,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
                 "App: patientregistration.main",
                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_LOOKUP,
                 "mirebalais.app.patientRegistration.patientLookup.label",
@@ -1151,7 +1160,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
                 "App: patientregistration.edit",
                 null),
-                "util.hasMemberWithProperty(sessionLocation.get('tags'),'uuid','" + LocationTags.REGISTRATION_LOCATION.uuid() + "')"));
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "icon-register");
