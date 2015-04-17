@@ -2,10 +2,12 @@ angular.module('deathCertificate', ['encounterService']).
     controller('DeathCertificateCtrl', ['$scope', 'EncounterService', function ($scope, EncounterService) {
 
         $scope.patientUuid = null;
+        $scope.returnLabel = '';
         $scope.existing = { loading: true };
 
-        $scope.init = function (patientUuid) {
+        $scope.init = function (patientUuid, returnLabel) {
             $scope.patientUuid = patientUuid;
+            $scope.returnLabel = returnLabel;
             EncounterService.getEncounters({ patient: patientUuid, encounterType: "1545d7ff-60f1-485e-9c95-5740b8e6634b" }).
                 then(function (results) {
                     if (results.length > 0) {
@@ -35,6 +37,7 @@ angular.module('deathCertificate', ['encounterService']).
                 query: {
                     encounter: encounterUuid,
                     editStyle: "simple",
+                    returnLabel: $scope.returnLabel,
                     returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
                 }
             });
