@@ -424,7 +424,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
                 null,
-                and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION),
+                and(sessionLocationHasTag(LocationTags.ADMISSION_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
@@ -1152,7 +1152,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
                 "App: patientregistration.main",
                 null),
-                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
+                sessionLocationHasTag(LocationTags.ED_REGISTRATION_LOCATION)));
 
         apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_LOOKUP,
                 "mirebalais.app.patientRegistration.patientLookup.label",
