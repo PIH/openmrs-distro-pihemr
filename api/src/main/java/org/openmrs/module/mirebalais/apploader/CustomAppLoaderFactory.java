@@ -282,7 +282,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.activeVisits.app.label",
                 "icon-check-in",
                 "coreapps/activeVisits.page?app=" + Apps.ACTIVE_VISITS,
-                "App: org.openmrs.module.coreapps.activeVisits",
+                "App: coreapps.activeVisits",
                 objectNode("patientPageUrl", url))));
 
     }
@@ -859,7 +859,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp.app.registerPatient.label",
                 "icon-user",
                 "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
-                "App: patientregistration.main",
+                "App: registrationapp.registerPatient",
                 patientRegistrationConfig("registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                         MirebalaisConstants.PATIENT_DASHBOARD_LINK,
                         CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
@@ -998,7 +998,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "mirebalais.mostRecentRegistration.label",
                         "icon-user",
                         null,
-                        "App: patientregistration.main",  // TODO: should this have it's own privilege?
+                        "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml",
@@ -1013,7 +1013,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "mirebalais.mostRecentRegistration.label",
                         "icon-user",
                         null,
-                        "App: patientregistration.main",
+                        "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-rs.xml",
@@ -1025,7 +1025,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "zl.registration.patient.social.label",
                         "icon-user",
                         null,
-                        "App: patientregistration.main",
+                        "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml",
@@ -1037,7 +1037,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "zl.registration.patient.contactPerson.label",
                         "icon-group",
                         null,
-                        "App: patientregistration.main",
+                        "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-contact.xml",
@@ -1204,3 +1204,5 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         this.config = config;
     }
 }
+
+
