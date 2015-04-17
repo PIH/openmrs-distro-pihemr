@@ -197,6 +197,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- for RequireUtilTest -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appui-omod</artifactId>
+            <version>${appuiVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>metadatasharing-api</artifactId>
@@ -393,6 +401,15 @@
             <version>${allergyuiVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- for RequireUtilTest -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod-common</artifactId>
+            <version>${webservicesRestVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- End OpenMRS modules -->
 
         <!-- Begin OpenMRS contrib -->

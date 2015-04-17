@@ -339,7 +339,7 @@
             <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
 
             <p>
-                <obs conceptId="CIEL:160531" />
+                <obs conceptId="CIEL:160531" id="chief_complaint"/>
             </p>
         </fieldset>
 
