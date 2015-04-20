@@ -38,7 +38,7 @@
     <fieldset>
         <legend>ANTECEDENTS PERSONNELS / HABITUDES</legend>
 
-        <pastMedicalHistoryCheckbox concept="PIH:ALLERGY" specify="true"/><br/>
+        <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
         <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:CARDIOPATHY" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" /><br/>
