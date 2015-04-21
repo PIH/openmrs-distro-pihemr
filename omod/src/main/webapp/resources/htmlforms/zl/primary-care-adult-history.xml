@@ -15,7 +15,8 @@
 
     <fieldset>
         <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
-        <obs conceptId="CIEL:160531" style="textarea"/>
+        <!-- TODO:  Add Finding to ConceptsFromMetadataSharing
+        <obs conceptId="CIEL:160531" style="textarea"/>        -->
     </fieldset>
 
     <fieldset>
