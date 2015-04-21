@@ -15,8 +15,7 @@
 
     <fieldset>
         <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
-        <!-- TODO:  Add Finding to ConceptsFromMetadataSharing
-        <obs conceptId="CIEL:160531" style="textarea"/>        -->
+        <obs conceptId="CIEL:160531" style="textarea"/>
     </fieldset>
 
     <fieldset>
@@ -58,7 +57,7 @@
 
         <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/> <!-- TODO verify concept -->
+        <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient" label="Prématuré"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>

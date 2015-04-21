@@ -41,10 +41,15 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(diagnosis("DIABETES"));
         install(diagnosis("Traumatic Injury"));
         install(diagnosis("MALNUTRITION"));
+        install(diagnosis("HEART DISEASE"));
+        install(diagnosis("Premature birth of patient"));
         install(diagnosis("Cancer", ciel, "116031"));
         install(diagnosis("Hémoglobinopathie", ciel, "117635"));
         install(diagnosis("Malformations congénitales", ciel, "143849"));
+        install(diagnosis("Surgery"));
+        install(diagnosis("RAA"));
         install(question("Clinical Impression Comments", text, emrapi, "Consult Free Text Comments"));
+        install(finding("Chief complaint", text, ciel, "160531"));
     }
 
     private Concept baseConcept(String name) {
@@ -58,6 +63,14 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         Concept concept = baseConcept(name);
         concept.setDatatype(datatype);
         concept.setConceptClass(question);
+        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        return concept;
+    }
+
+    private Concept finding(String name, ConceptDatatype datatype, ConceptSource source, String mapping) {
+        Concept concept = baseConcept(name);
+        concept.setDatatype(datatype);
+        concept.setConceptClass(finding);
         concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
         return concept;
     }
