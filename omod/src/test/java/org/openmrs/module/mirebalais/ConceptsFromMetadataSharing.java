@@ -46,7 +46,6 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(diagnosis("Cancer", ciel, "116031"));
         install(diagnosis("Hémoglobinopathie", ciel, "117635"));
         install(diagnosis("Malformations congénitales", ciel, "143849"));
-        install(diagnosis("Surgery"));
         install(diagnosis("RAA"));
         install(question("Clinical Impression Comments", text, emrapi, "Consult Free Text Comments"));
         install(finding("Chief complaint", text, ciel, "160531"));

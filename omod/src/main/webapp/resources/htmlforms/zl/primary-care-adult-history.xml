@@ -38,7 +38,7 @@
 
         <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
         <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" /><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:CARDIOPATHY" /><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:HEART DISEASE" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" /><br/>
         <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
