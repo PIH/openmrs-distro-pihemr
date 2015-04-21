@@ -11,7 +11,10 @@
         }
     </style>
 
-    <h3>CONSULTATION MEDICALE - 1ère visite adulte</h3>
+    <h2><uimessage code="zl.consultNote.title"/></h2>
+    <!-- CONSULTATION MEDICALE -->
+    <h3><uimessage code="zl.consultNote.adultIntake.title"/></h3>
+    <!-- 1ère visite adulte -->
 
     <fieldset>
         <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
@@ -19,8 +22,8 @@
     </fieldset>
 
     <fieldset>
-        <legend>ANTECEDENTS HEREDO-COLLATERAUX</legend>
-
+        <legend><uimessage code="mirebalais.consultNote.familyHistory.title"/></legend>
+        <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
         <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
@@ -34,7 +37,8 @@
     </fieldset>
 
     <fieldset>
-        <legend>ANTECEDENTS PERSONNELS / HABITUDES</legend>
+        <legend><uimessage code="zl.consultNote.patientHistory.title"/></legend>
+        <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
 
         <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
         <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" /><br/>
@@ -79,12 +83,14 @@
     </fieldset>
 
     <fieldset>
-        <legend>Examens paracliniques déjà effectués</legend>
+        <legend><uimessage code="zl.consultNote.previousTests.label"/></legend>
+        <!-- Examens paracliniques déjà effectués -->
         <!--TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?) -->
     </fieldset>
 
     <fieldset>
-        <legend>HOSPITALISATION ANTERIEURE</legend>
+        <legend><uimessage code="zl.consultNote.previousHospitalization.title"/></legend>
+        <!-- HOSPITALISATION ANTERIEURE -->
         <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
         <br/>
         <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
@@ -95,11 +101,12 @@
             <encounterDate id="encounterDate" default="now" widget="hidden"/>
             <p id="provider">
                 <label>Signed By</label>
+                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by -->
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
             </p>
 
             <p id="location">
-                <label>Location</label>
+                <label><uimessage code="uicommons.location"/></label>
                 <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
             </p>
 
