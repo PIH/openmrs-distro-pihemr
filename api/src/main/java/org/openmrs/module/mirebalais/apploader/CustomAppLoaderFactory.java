@@ -342,7 +342,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: mirebalais.outpatientVitals",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS)),
+                                "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS,
+                                "editable", Boolean.TRUE,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                                "definitionUiResource", "mirebalais:htmlforms/vitals.xml",
+                                "returnProvider", "coreapps",
+                                "returnPage", "clinicianfacing/patient")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
