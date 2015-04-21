@@ -22,7 +22,7 @@
     </fieldset>
 
     <fieldset>
-        <legend><uimessage code="mirebalais.consultNote.familyHistory.title"/></legend>
+        <legend><uimessage code="zl.consultNote.familyHistory.title"/></legend>
         <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
         <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
@@ -47,14 +47,14 @@
         <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" /><br/>
         <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
         <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY" /><br/>
-        <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hémoglobinopathie" specify="true" /><br/>
+        <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true" /><br/>
 
         <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="IST" specify="true"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="STI/IST" specify="true"/><br/>
         <!-- TODO explicit options for common STIs -->
-        <pastMedicalHistoryCheckbox concept="CIEL:143849" label="Malformations congénitales" specify="true"/><br/>
+        <pastMedicalHistoryCheckbox concept="CIEL:143849" comment="Congenital malformations" specify="true"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:MALNUTRITION" /><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS" label="Perte de poids"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS"/><br/>
         <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
         <pastMedicalHistoryCheckbox concept="PIH:MEASLES" /><br/>
         <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS" /><br/>
@@ -63,7 +63,7 @@
         <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/><br/>
-        <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient" label="Prématuré"/><br/>
+        <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
     </fieldset>
@@ -92,7 +92,6 @@
         <legend><uimessage code="zl.consultNote.previousHospitalization.title"/></legend>
         <!-- HOSPITALISATION ANTERIEURE -->
         <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
-        <br/>
         <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
     </fieldset>
 
