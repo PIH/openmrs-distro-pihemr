@@ -344,7 +344,7 @@
         </fieldset>
 
 
-        <!-- only show BMI if patient is less than 13 years old (on the encounterDate) -->
+        <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
         <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
             <fieldset>
                 <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
