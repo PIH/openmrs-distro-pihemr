@@ -11,27 +11,25 @@
         }
     </style>
 
-    <h3>CONSULTATION MEDICALE - 1ERE VISITE ADULTE</h3>
+    <h3>CONSULTATION MEDICALE - 1ère visite adulte</h3>
 
-    <p>
-        <label>Motifs de consultation</label>
-        Should this only be in Vitals?
-        <obs conceptId="PIH:PRESENTING HISTORY" style="textarea"/>
-    </p>
+    <fieldset>
+        <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
+        <obs conceptId="CIEL:160531" style="textarea"/>
+    </fieldset>
 
     <fieldset>
         <legend>ANTECEDENTS HEREDO-COLLATERAUX</legend>
 
         <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:CARDIOPATHY" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
-
+        <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
+        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
     </fieldset>
 
@@ -61,32 +59,33 @@
         <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/><br/> <!-- TODO verify concept -->
         <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/><br/>
-        [] Prématuré<br/> <!-- TODO is this premature birth? if so why is it on the adult form? -->
+        <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient" label="Prématuré"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
         <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/><br/>
     </fieldset>
 
     <fieldset>
-        <legend>Activeités sexuelles</legend>
-        <p>
-            <label>Actif</label>
+        <legend><uimessage code="zl.consultNote.sexualActivities.label"/></legend>
+        <p class="radio">
+            <label><uimessage code="zl.active"/></label>
             <obs conceptId="PIH:SEXUALLY ACTIVE" style="yes_no"/>
         </p>
         <p>
             <label>Contraception</label>
             <obs conceptId="PIH:METHOD OF FAMILY PLANNING"/>
-            si autre, préciser: <obs conceptId="PIH:OTHER FAMILY PLANNING METHOD, NON-CODED"/>
+            <label><uimessage code="zl.ifOtherSpecify"/></label>
+            <obs conceptId="PIH:OTHER FAMILY PLANNING METHOD, NON-CODED"/>
         </p>
     </fieldset>
 
     <fieldset>
         <legend>Examens paracliniques déjà effectués</legend>
-        TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?)
+        <!--TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?) -->
     </fieldset>
 
     <fieldset>
         <legend>HOSPITALISATION ANTERIEURE</legend>
-        TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form?
+        <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
         <br/>
         <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
     </fieldset>
