@@ -154,27 +154,34 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20150422-pre-1.10-migration-2" author="mgoodrich">
+    <changeSet id="20150422-pre-1.10-migration-2a" author="mgoodrich">
         <comment>
             See UHM-1877. Add the appropriate values to java_class_name
         </comment>
         <sql>
             UPDATE `order_type` SET java_class_name='org.openmrs.DrugOrder' WHERE name='Drug Order';
             UPDATE `order_type` SET java_class_name='org.openmrs.module.radiologyapp.RadiologyOrder' WHERE name='Radiology Test Order';
-            UPDATE `order_type` SET java_class_name='org.openmrs.TestOrder' WHERE name='Test';
         </sql>
     </changeSet>
 
-    <changeSet id="20150422-pre-1.10-migration-3" author="mgoodrich">
-        <comment>
-            See UHM-1877. Correct name, description and uuid of test order to be consistent with core stands
-        </comment>
-        <sql>
-            UPDATE `order_type` SET uuid='52a447d3-a64a-11e3-9aeb-50e549534c5e', name='Test Order', description='Order type for test orders' WHERE name='Test';
-        </sql>
+    <!-- this is a copy of a change set from liquibase-update-to-latest, we execute it here so that we can properly set the Radiology Test Order to have Test Order as a parent -->
+    <changeSet id="20150422-pre-1.10-migration-3a" author="mgoodrich">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from order_type where java_class_name = 'org.openmrs.TestOrder'</sqlCheck>
+        </preConditions>
+        <comment>Insert order type for test orders</comment>
+        <insert tableName="order_type">
+            <column name="name" value="Test Order" />
+            <column name="description" value="Order type for test orders" />
+            <column name="java_class_name" value="org.openmrs.TestOrder" />
+            <column name="creator" valueNumeric="1" />
+            <column name="date_created" valueDate="2014-03-09" />
+            <column name="retired" valueNumeric="0" />
+            <column name="uuid" value="52a447d3-a64a-11e3-9aeb-50e549534c5e" />
+        </insert>
     </changeSet>
 
-    <changeSet id="20150422-pre-1.10-migration-4" author="mgoodrich">
+    <changeSet id="20150422-pre-1.10-migration-4a" author="mgoodrich">
         <comment>
             See UHM-1877. Set parent of Radiology Order to Test Order
         </comment>
