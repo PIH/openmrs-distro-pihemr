@@ -18,6 +18,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalaismetadata.constants.LocationAttributeTypes;
+import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
@@ -91,7 +92,7 @@ public class ZlEmrIdCardPrinter {
      * @return the patient identifier in the format that it should be displayed on the id cards
      */
     protected String getIdentifier(Patient patient) {
-        PatientIdentifierType idType = MetadataUtils.existing(PatientIdentifierType.class, CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
+        PatientIdentifierType idType = MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.ZL_EMR_ID.uuid());
         PatientIdentifier pi = patient.getPatientIdentifier(idType);
         if (pi == null || pi.isVoided()) {
             pi = patient.getPatientIdentifier();

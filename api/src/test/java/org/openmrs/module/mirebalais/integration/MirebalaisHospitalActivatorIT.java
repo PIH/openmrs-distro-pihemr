@@ -16,7 +16,7 @@ import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalaismetadata.MetadataManager;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -27,8 +27,6 @@ import static org.junit.Assert.assertNotNull;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
-
-    private MirebalaisHospitalActivator activator;
 
     private RuntimeProperties customProperties;
 
@@ -41,7 +39,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         executeDataSet("fromMirebalaisMetadataModule.xml");
         authenticate();
 		installRequiredMetadata();
-        activator = new MirebalaisHospitalActivator();
+        MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
         activator.setTestMode(true);
         activator.contextRefreshed();
         activator.started();
@@ -68,12 +66,12 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
         SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
-        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
-        PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.DOSSIER_NUMBER);
+        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(PatientIdentifierTypes.ZL_EMR_ID.uuid());
+        PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
 
         AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(zlIdentifierType);
 
-        assertEquals(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID, zlIdentifierType.getUuid());
+        assertEquals(PatientIdentifierTypes.ZL_EMR_ID.uuid(), zlIdentifierType.getUuid());
         assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
         assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
 

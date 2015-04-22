@@ -27,10 +27,11 @@ import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -130,20 +131,12 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	
 	@Override
 	public PatientIdentifierType getZlIdentifierType() {
-		PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.ZL_EMR_ID);
-		if (zlIdentifierType == null) {
-			throw new IllegalStateException("ZL Identifier Type has not been configured");
-		}
-		return zlIdentifierType;
+		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.ZL_EMR_ID.uuid());
 	}
 
     @Override
     public PatientIdentifierType getExternalDossierIdentifierType() {
-        PatientIdentifierType externalDossierIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
-        if (externalDossierIdentifierType == null) {
-            throw new IllegalStateException("External Dossier Identifier Type has not been configured");
-        }
-        return externalDossierIdentifierType;
+		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
     }
 	
 	@Override
@@ -162,11 +155,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 
 	@Override
 	public PatientIdentifierType getDossierIdentifierType() {
-		PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CoreMetadata.PatientIdentifierTypes.DOSSIER_NUMBER);
-		if (dossierNumberIdentifierType == null) {
-			throw new IllegalStateException("Dossier Number Identifier Type has not been configured");
-		}
-		return dossierNumberIdentifierType;
+		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
 	}
 	
 	/**
