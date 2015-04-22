@@ -334,16 +334,6 @@
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
-
-            <p>
-                <obs conceptId="CIEL:160531" id="chief_complaint"/>
-            </p>
-        </fieldset>
-
-
         <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
         <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
             <fieldset>
@@ -352,6 +342,17 @@
 
                 <p>
                     <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)" id="muac" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
+                </p>
+            </fieldset>
+        </includeIf>
+
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('chiefComplaint')">
+            <fieldset>
+                <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
+
+                <p>
+                    <obs conceptId="CIEL:160531" id="chief_complaint"/>
                 </p>
             </fieldset>
         </includeIf>
