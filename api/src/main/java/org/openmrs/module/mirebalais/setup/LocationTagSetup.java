@@ -144,7 +144,6 @@ public class LocationTagSetup {
             Locations.POST_OP_GYN,
             Locations.COMMUNITY_HEALTH,
             Locations.NICU,
-            Locations.OPERATING_ROOMS,
             Locations.WOMENS_TRIAGE,
             Locations.ICU,
             Locations.LABOR_AND_DELIVERY,
@@ -161,7 +160,6 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, Arrays.asList(
             Locations.SURGICAL_WARD,
-            Locations.DENTAL,
             Locations.OPERATING_ROOMS,
             Locations.POSTPARTUM_WARD,
             Locations.POST_OP_GYN
@@ -189,6 +187,7 @@ public class LocationTagSetup {
             Locations.WOMENS_TRIAGE,
             Locations.ICU,
             Locations.LABOR_AND_DELIVERY,
+            Locations.ISOLATION,
             Locations.REHABILITATION,
             Locations.CDI_KLINIK_EKSTEN_JENERAL,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
