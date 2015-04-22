@@ -19,8 +19,6 @@ public class ConfigureIdGenerators {
 
     private final LocationService locationService;
 
-    private MirebalaisGlobalProperties mirebalaisGlobalProperties;
-
 	private final MirebalaisHospitalService service;
 	
 	public ConfigureIdGenerators(RuntimeProperties customProperties,
