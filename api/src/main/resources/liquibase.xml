@@ -143,4 +143,45 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20150422-pre-1.10-migration-1" author="mgoodrich">
+        <comment>
+            See UHM-1877. Add the java_class_name and parent columns to the order_type table
+        </comment>
+        <sql>
+            ALTER TABLE `order_type`
+            ADD COLUMN `java_class_name` VARCHAR(255) DEFAULT NULL,
+            ADD COLUMN `parent` INT(11) DEFAULT NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20150422-pre-1.10-migration-2" author="mgoodrich">
+        <comment>
+            See UHM-1877. Add the appropriate values to java_class_name
+        </comment>
+        <sql>
+            UPDATE `order_type` SET java_class_name='org.openmrs.DrugOrder' WHERE name='Drug Order';
+            UPDATE `order_type` SET java_class_name='org.openmrs.module.radiologyapp.RadiologyOrder' WHERE name='Radiology Test Order';
+            UPDATE `order_type` SET java_class_name='org.openmrs.TestOrder' WHERE name='Test';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20150422-pre-1.10-migration-3" author="mgoodrich">
+        <comment>
+            See UHM-1877. Correct name, description and uuid of test order to be consistent with core stands
+        </comment>
+        <sql>
+            UPDATE `order_type` SET uuid='52a447d3-a64a-11e3-9aeb-50e549534c5e', name='Test Order', description='Order type for test orders' WHERE name='Test';
+        </sql>
+    </changeSet>
+
+    <changeSet id="20150422-pre-1.10-migration-4" author="mgoodrich">
+        <comment>
+            See UHM-1877. Set parent of Radiology Order to Test Order
+        </comment>
+        <sql>
+            SET @radiology_parent_id = (select order_type_id FROM order_type WHERE name='Test Order');
+            UPDATE `order_type` SET parent = @radiology_parent_id WHERE name='Radiology Test Order';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
