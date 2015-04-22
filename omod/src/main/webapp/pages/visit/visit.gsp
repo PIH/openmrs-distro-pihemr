@@ -4,6 +4,7 @@
     ui.includeCss("mirebalais", "visit/visit.css")
 
     ui.includeJavascript("uicommons", "angular.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.11.2.min.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "angular-app.js")
@@ -18,6 +19,7 @@
     ui.includeJavascript("mirebalais", "visit/visit-templates.js")
     ui.includeJavascript("mirebalais", "visit/allergies.js")
     ui.includeJavascript("mirebalais", "visit/orders.js")
+    //ui.includeJavascript("mirebalais", "visit/vaccinations.js")
     ui.includeJavascript("mirebalais", "visit/visit.js")
 %>
 
@@ -42,18 +44,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </div>
 
     <div id="visit">
-        <span class="visit-type">
-            {{ visitTemplate.label | omrs.display }}
-        </span>
-        <span class="visit-dates">
-            {{ visit.startDatetime | date:"medium" }}
-            <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | date:"medium" }}</span>
-            <em ng-hide="visit.stopDatetime">...ongoing</em>
-        </span>
-        <span class="visit-location">{{ visit.location | omrs.display }}</span>
-        <span class="actions">
-            <i class="icon-pencil"></i>
-        </span>
+        <visit-details visit="visit"></visit-details>
     </div>
 
     <div ng-repeat="element in visitTemplate.elements">

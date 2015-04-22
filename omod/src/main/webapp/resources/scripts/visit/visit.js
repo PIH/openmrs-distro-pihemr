@@ -78,6 +78,41 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
+    // this is not a reusable directive, and it does not have an isolate scope
+    .directive("visitDetails", [ "Visit", function(Visit) {
+        return {
+            restrict: 'E',
+            controller: function($scope) {
+                $scope.editing = false;
+
+                $scope.startEditing = function() {
+                    $scope.newStartDatetime = $scope.visit.startDatetime;
+                    $scope.newStopDatetime = $scope.visit.stopDatetime;
+                    $scope.editing = true;
+                }
+
+                $scope.apply = function() {
+                    // we only want to edit a few properties
+                    var props = {
+                        uuid: $scope.visit.uuid,
+                        startDatetime: $scope.newStartDatetime,
+                        stopDatetime: $scope.newStopDatetime == '' ? null : $scope.newStopDatetime
+                    };
+                    new Visit(props).$save(function(v) {
+                        $scope.visit.startDatetime = v.startDatetime;
+                        $scope.visit.stopDatetime = v.stopDatetime;
+                    });
+                    $scope.editing = false;
+                }
+
+                $scope.cancel = function() {
+                    $scope.editing = false;
+                }
+            },
+            templateUrl: 'templates/visitDetails.page'
+        }
+    }])
+
     .service("VisitTemplateService", [ "VisitTemplates", "Encounter",
         function(VisitTemplates, Encounter) {
 
@@ -111,7 +146,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisit(visitUuid) {
-                $scope.visit = Visit.get({ uuid: visitUuid, v: "full" });
+                $scope.visit = Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,encounters:default,patient:default)" });
 
                 $scope.visit.$promise.then(function(response) {
                     $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
@@ -149,4 +184,5 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 loadVisit(newVal);
             })
             $scope.visitUuid = getVisitParameter();
+
         }]);
