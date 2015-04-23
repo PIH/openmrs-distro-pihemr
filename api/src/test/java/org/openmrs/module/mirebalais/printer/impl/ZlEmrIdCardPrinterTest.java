@@ -80,7 +80,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         printer.setModel(model);
         printer.setPhysicalLocation(null);
         printer.setIpAddress("127.0.0.1");
-        printer.setPort("9100");
+        printer.setPort("9105");
         printerService.savePrinter(printer);
 
         // Set location for this printer
@@ -94,7 +94,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         pb.address("should be line 2", "should be line 1", "should be line 4", "should be line 5a", "should not exist", "should be line 5b");
         Patient patient = pb.save();
 
-        TestPrinter testPrinter = new TestPrinter("127.0.0.1", 9100, "Windows-1252");
+        TestPrinter testPrinter = new TestPrinter("127.0.0.1", 9105, "Windows-1252");
         testPrinter.start();
 
         zlEmrIdCardPrinter.print(patient, location);
