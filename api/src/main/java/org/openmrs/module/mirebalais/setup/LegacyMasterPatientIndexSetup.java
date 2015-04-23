@@ -12,7 +12,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class LegacyMasterPatientIndexSetup {
         locationMap.put("23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960", Context.getLocationService().getLocationByUuid(MirebalaisConstants.LACOLLINE_LOCATION_UUID));
 
         Map<String, PersonAttributeType> attributeTypeMap = new HashMap<String, PersonAttributeType>();
-        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", MetadataUtils.existing(PersonAttributeType.class, CoreMetadata.PersonAttributeTypes.TELEPHONE_NUMBER));
+        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid()));
 
         RemoteServerConfiguration config = new RemoteServerConfiguration();
         config.setUrl(url);

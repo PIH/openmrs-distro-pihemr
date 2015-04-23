@@ -19,7 +19,7 @@ import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalaismetadata.constants.LocationAttributeTypes;
 import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
@@ -105,7 +105,7 @@ public class ZlEmrIdCardPrinter {
      */
     protected String getTelephoneNumber(Patient patient) {
         String phoneNumber = "";
-        PersonAttributeType type = MetadataUtils.existing(PersonAttributeType.class, CoreMetadata.PersonAttributeTypes.TELEPHONE_NUMBER);
+        PersonAttributeType type = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
         PersonAttribute attr = patient.getAttribute(type);
         if (attr != null) {
             phoneNumber = StringUtils.defaultIfEmpty(attr.getValue(), "");
