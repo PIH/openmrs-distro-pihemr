@@ -116,19 +116,21 @@
                         </p>
                 </fieldset>
 
-                <fieldset id="receipt-number-question">
-                    <legend>
-                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
-                    </legend>
-                    <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
-                    </h3>
+                <includeIf velocityTest="$featureToggles.isFeatureEnabled('receiptNumber')">
+                    <fieldset id="receipt-number-question">
+                        <legend>
+                            <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                        </legend>
+                        <h3>
+                            <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                        </h3>
 
-                    <p class="left">
-                        <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
-                             unitsCssClass="append-to-value" style="dropdown" />
-                    </p>
-                </fieldset>
+                        <p class="left">
+                            <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
+                                 unitsCssClass="append-to-value" style="dropdown" />
+                        </p>
+                    </fieldset>
+                </includeIf>
             </obsgroup>
 
             </section>
