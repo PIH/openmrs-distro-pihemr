@@ -774,7 +774,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui",
                 "appointmentsTab"));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.APPOINTMENTS_TAB), "requestAppointments");
         addFeatureToggleToExtension(findExtensionById(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
 
     }
