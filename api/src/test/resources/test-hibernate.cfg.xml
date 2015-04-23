@@ -19,5 +19,8 @@
 		<mapping resource="ProviderSuggestion.hbm.xml" />
 		<mapping resource="SupervisionSuggestion.hbm.xml" />
 
+		<mapping resource="Printer.hbm.xml"/>
+		<mapping resource="PrinterModel.hbm.xml"/>
+
 	</session-factory>
 </hibernate-configuration>
