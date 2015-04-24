@@ -94,7 +94,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     },
                     {
                         label: "Rougeole/Rubeole",
-                        concept: Concepts.polioVaccination,
+                        concept: Concepts.measlesRubellaVaccination,
                         doses: [ 1 ]
                     },
                     {
