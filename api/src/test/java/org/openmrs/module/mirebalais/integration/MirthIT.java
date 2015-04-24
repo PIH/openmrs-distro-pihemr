@@ -134,7 +134,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		if (patientService.getPatients("2ADMMN").size() > 0) {
 			Patient patient = patientService.getPatients("2ADMMN").get(0);
 			
-			for (Order order : orderService.getOrdersByPatient(patient)) {
+			for (Order order : orderService.getAllOrdersByPatient(patient)) {
 				orderService.purgeOrder(order);
 			}
 			
@@ -209,7 +209,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		order.setPatient(patient);
 		order.setConcept(conceptService.getConceptByUuid("fc6de1c0-1a36-11e2-a310-aa00f871a3e1")); // chest x-ray, one view
 		order.setAccessionNumber("ACCESSION NUMBER");
-		order.setStartDate(new SimpleDateFormat("MM-dd-yyyy").parse("09-09-2012"));
+		order.setDateActivated(new SimpleDateFormat("MM-dd-yyyy").parse("09-09-2012"));
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
 		order.setExamLocation(locationService.getLocation("Mirebalais Hospital"));
