@@ -1,15 +1,18 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
 
+    ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
     ui.includeCss("mirebalais", "visit/visit.css")
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.11.2.min.js")
+    ui.includeJavascript("uicommons", "ngDialog/ngDialog.min.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "angular-app.js")
     ui.includeJavascript("uicommons", "services/visitService.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
+    ui.includeJavascript("uicommons", "services/obsService.js")
     ui.includeJavascript("uicommons", "services/orderService.js")
     ui.includeJavascript("uicommons", "filters/display.js")
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
@@ -19,8 +22,9 @@
     ui.includeJavascript("mirebalais", "visit/visit-templates.js")
     ui.includeJavascript("mirebalais", "visit/allergies.js")
     ui.includeJavascript("mirebalais", "visit/orders.js")
-    //ui.includeJavascript("mirebalais", "visit/vaccinations.js")
+    ui.includeJavascript("mirebalais", "visit/vaccinations.js")
     ui.includeJavascript("mirebalais", "visit/visit.js")
+    ui.includeJavascript("mirebalais", "visit/encounterTransaction.js")
 %>
 
 <script type="text/javascript">

@@ -1,4 +1,26 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "allergies", "orders" ])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap" ])
+
+    .directive("dateWithPopup", [ function() {
+        return {
+            restrict: 'E',
+            scope: {
+                ngModel: '='
+            },
+            controller: function($scope) {
+                $scope.now = new Date();
+                $scope.opened = false;
+                $scope.open = function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $scope.opened = true;
+                }
+            },
+            template: '<span class="angular-datepicker">' +
+                        '<input type="text" is-open="opened" ng-model="ngModel" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" max-date="now" readonly ng-click="open($event)"/>' +
+                        '<i class="icon-calendar small add-on" ng-click="open($event)" ></i>' +
+                        '</span>'
+        }
+    }])
 
     .directive("displayElement", [ "Concepts", "EncounterTypes", function(Concepts, EncounterTypes) {
         return {
@@ -62,8 +84,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                 }
                 else if (element.type === 'include') {
-                    $scope.include = element.include;
-                    $scope.template = "templates/visitElementInclude.page";
+                    if (element.includeRaw) {
+                        $scope.template = element.includeRaw;
+                    } else {
+                        $scope.include = element.include;
+                        $scope.template = "templates/visitElementInclude.page";
+                    }
                 }
                 else {
                     $scope.type = element.type;
@@ -118,7 +144,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             return {
                 determineFor: function(visit) {
-                    return angular.copy(VisitTemplates.standardOutpatient);
+                    var template = visit.patient.person.age < 15 ? "pedsInitialOutpatient" : "adultInitialOutpatient";
+                    return angular.copy(VisitTemplates[template]);
                 },
 
                 applyVisit: function(visitTemplate, visit) {
@@ -146,7 +173,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisit(visitUuid) {
-                $scope.visit = Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,encounters:default,patient:default)" });
+                $scope.visit = Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,encounters:default,patient:default,visitType:ref)" });
 
                 $scope.visit.$promise.then(function(response) {
                     $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);

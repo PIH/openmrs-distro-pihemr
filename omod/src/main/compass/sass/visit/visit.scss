@@ -107,7 +107,7 @@
   }
 
   &.missing {
-    border: 1px solid $lighterGrey;
+    border: none; // 1px solid $lighterGrey;
 
     .header {
       background-color: white;
@@ -124,5 +124,16 @@
   .popup {
     position: absolute;
     right: 0;
+  }
+}
+
+table.vaccination-table {
+  td, th {
+    font-size: 0.9em;
+    text-align: center;
+
+    &.impossible {
+      background-color: $darkerGrey;
+    }
   }
 }

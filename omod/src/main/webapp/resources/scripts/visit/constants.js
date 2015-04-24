@@ -72,6 +72,36 @@ angular.module('constants', [])
         },
         familyHistoryComments: {
             uuid: "160618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        vaccinationHistoryConstruct: {
+            uuid: "74260088-9c83-41d5-b92b-03a41654daaf"
+        },
+        vaccinationGiven: {
+            uuid: "2dc6c690-a5fe-4cc4-97cc-32c70200a2eb"
+        },
+        vaccinationSequenceNumber: {
+            uuid: "ef6b45b4-525e-4d74-bf81-a65a41f3feb9"
+        },
+        vaccinationDate: {
+            uuid: "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        bcgVaccination: {
+            uuid: "3cd4e004-26fe-102b-80cb-0017a47871b2"
+        },
+        polioVaccination: {
+            uuid: "3cd42c36-26fe-102b-80cb-0017a47871b2"
+        },
+        pentavalentVaccination: {
+            uuid: "1423AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        rotavirusVaccination: {
+            uuid: "83531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        measlesRubellaVaccination: {
+            uuid: "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        diptheriaTetanusVaccination: {
+            uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
         }
     })
 
