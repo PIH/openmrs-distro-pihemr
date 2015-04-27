@@ -15,7 +15,8 @@
         "vitals",
         "consult",
         "systemAdministration",
-        "myAccount"
+        "myAccount",
+        "idcardPrinting"
     ],
 
     "globalProperties": {
