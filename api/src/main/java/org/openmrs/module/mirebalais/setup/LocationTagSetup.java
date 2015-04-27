@@ -310,6 +310,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(
             Locations.WOMENS_CLINIC,
             Locations.EMERGENCY,
+            Locations.EMERGENCY_DEPARTMENT_RECEPTION,
             Locations.PRE_OP_PACU,
             Locations.OUTPATIENT_CLINIC,
             Locations.DENTAL,
@@ -342,6 +343,7 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, Arrays.asList(
             Locations.EMERGENCY,
+            Locations.EMERGENCY_DEPARTMENT_RECEPTION,
             Locations.PRE_OP_PACU,
             Locations.OUTPATIENT_CLINIC,
             Locations.DENTAL,
