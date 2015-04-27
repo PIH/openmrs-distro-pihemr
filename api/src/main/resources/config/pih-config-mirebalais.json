@@ -25,7 +25,8 @@
         "myAccount",
         "legacyMpi",
         "legacyPatientRegistration",
-        "lacollinePatientRegistrationEncounterTypes"
+        "lacollinePatientRegistrationEncounterTypes",
+        "idcardPrinting"
     ],
 
     "globalProperties": {

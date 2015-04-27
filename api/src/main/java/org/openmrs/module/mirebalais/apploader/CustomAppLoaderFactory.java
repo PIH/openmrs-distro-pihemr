@@ -2,14 +2,12 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.jackson.node.ObjectNode;
-import org.openmrs.LocationTag;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
 import org.openmrs.module.mirebalaismetadata.constants.Privileges;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
@@ -24,52 +22,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.field;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.option;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.patientRegistrationConfig;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.question;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.section;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
-import static org.openmrs.module.mirebalais.require.RequireUtil.and;
-import static org.openmrs.module.mirebalais.require.RequireUtil.or;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
-import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.*;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.*;
+import static org.openmrs.module.mirebalais.require.RequireUtil.*;
 
 @Component
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
@@ -855,158 +810,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePatientRegistration() {
-
-        ObjectNode addressHierarchyField = objectNode("type", "personAddress",
-                "label", "registrationapp.patient.address.question",
-                "widget", objectNode(
-                        "providerName", "registrationapp",
-                        "fragmentId", "field/personAddressWithHierarchy",
-                        "config", objectNode(
-                                "shortcutFor", "address1",
-                                "manualFields", arrayNode(
-                                        "address2"
-                                ))));
-        ObjectNode addressHierarchyQuestion = question("personAddressQuestion", "Person.address", addressHierarchyField);
-        addressHierarchyQuestion.put("displayTemplate", "{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
-
-        apps.add(addToHomePage(app(Apps.PATIENT_REGISTRATION,
-                "registrationapp.app.registerPatient.label",
-                "icon-user",
-                "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
-                "App: registrationapp.registerPatient",
-                patientRegistrationConfig("registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
-                        MirebalaisConstants.PATIENT_DASHBOARD_LINK,
-                        CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
-                        CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK,
-                        section("demographics",
-                                "",
-                                question("mothersFirstNameLabel",
-                                        "zl.registration.patient.mothersFirstName.label",
-                                        field("mothersFirstName",
-                                                "zl.registration.patient.mothersFirstName.question",
-                                                "personAttribute",
-                                                "8d871d18-c2cc-11de-8d13-0010c6dffd0f",
-                                                "uicommons",
-                                                "field/text",
-                                                "required")
-                                ),
-                                question("birthplaceLabel",
-                                        "zl.registration.patient.birthplace.label",
-                                        field("birthplace",
-                                                "zl.registration.patient.birthplace.question",
-                                                "personAttribute",
-                                                "8d8718c2-c2cc-11de-8d13-0010c6dffd0f",
-                                                "uicommons",
-                                                "field/textarea",
-                                                objectNode("maxlength", "50"),
-                                                "required")
-                                )
-                        ),
-                        section("contactInfo",
-                                "registrationapp.patient.contactInfo.label",
-                                addressHierarchyQuestion,
-                                question("phoneNumberLabel",
-                                        "registrationapp.patient.phone.label",
-                                        field("phoneNumber",
-                                                "registrationapp.patient.phone.question",
-                                                "personAttribute",
-                                                "14d4f066-15f5-102d-96e4-000c29c2a5d7",
-                                                "uicommons",
-                                                "field/text")
-                                )
-                        ),
-                        section("social",
-                                "zl.registration.patient.social.label",
-                                question("civilStatusLabel",
-                                        "zl.registration.patient.civilStatus.label",
-                                        field("obs.PIH:CIVIL STATUS",
-                                                "zl.registration.patient.civilStatus.question",
-                                                "obs",
-                                                "",
-                                                "uicommons",
-                                                "field/dropDown",
-                                                objectNode("expanded", true,
-                                                        "options", arrayNode(option("zl.registration.patient.civilStatus.single.label", "PIH:SINGLE OR A CHILD"),
-                                                                option("zl.registration.patient.civilStatus.married.label", "PIH:MARRIED"),
-                                                                option("zl.registration.patient.civilStatus.livingWithPartner.label", "PIH:LIVING WITH PARTNER"),
-                                                                option("zl.registration.patient.civilStatus.separated.label", "PIH:SEPARATED"),
-                                                                option("zl.registration.patient.civilStatus.divorced.label", "PIH:DIVORCED"),
-                                                                option("zl.registration.patient.civilStatus.widowed.label", "PIH:WIDOWED"))
-                                                )
-                                        )
-                                ),
-                                question("occupationLabel",
-                                        "zl.registration.patient.occupation.label",
-                                        field("obs.PIH:2452",
-                                                "zl.registration.patient.occupation.question",
-                                                "obs",
-                                                "",
-                                                "uicommons",
-                                                "field/text")
-                                ),
-                                question("religionLabel",
-                                        "zl.registration.patient.religion.label",
-                                        field("obs.PIH:Religion",
-                                                "zl.registration.patient.religion.question",
-                                                "obs",
-                                                "",
-                                                "uicommons",
-                                                "field/dropDown",
-                                                objectNode("expanded", true,
-                                                        "options", arrayNode(option("zl.registration.patient.religion.voodoo.label", "PIH:Voodoo"),
-                                                                option("zl.registration.patient.religion.catholic.label", "PIH:Catholic"),
-                                                                option("zl.registration.patient.religion.baptist.label", "PIH:Baptist"),
-                                                                option("zl.registration.patient.religion.islam.label", "PIH:Islam"),
-                                                                option("zl.registration.patient.religion.pentecostal.label", "PIH:Pentecostal"),
-                                                                option("zl.registration.patient.religion.adventist.label", "PIH:Seventh Day Adventist"),
-                                                                option("zl.registration.patient.religion.jehovahsWitness.label", "PIH:Jehovah's Witness"),
-                                                                option("zl.registration.patient.religion.other.label", "PIH:OTHER NON-CODED"))
-                                                )
-                                        )
-                                )
-                        ),
-                        section("contacts",
-                                "zl.registration.patient.contactPerson.label",
-                                question("contactNameLabel",
-                                        "zl.registration.patient.contactPerson.label",
-                                        "zl.registration.patient.contactPerson.question",
-                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT",
-                                                "zl.registration.patient.contactPerson.contactName.question",
-                                                "obsgroup",
-                                                "",
-                                                "uicommons",
-                                                "field/text",
-                                                objectNode("size", "30"),
-                                                "required"
-                                        ),
-                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT",
-                                                "zl.registration.patient.contactPerson.relationships.label",
-                                                "obsgroup",
-                                                "",
-                                                "uicommons",
-                                                "field/text",
-                                                objectNode("size", "30")
-                                        ),
-                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT",
-                                                "zl.registration.patient.contactPerson.contactAddress.label",
-                                                "obsgrup",
-                                                "",
-                                                "uicommons",
-                                                "field/textarea",
-                                                objectNode("maxlength", "50"),
-                                                "required"
-                                        ),
-                                        field("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT",
-                                                "registrationapp.patient.phone.label",
-                                                "obsgroup",
-                                                "",
-                                                "uicommons",
-                                                "field/text"
-                                        )
-                                )
-                        )
-                )
-        )));
+        PatientRegistrationApp app = new PatientRegistrationApp();
+        apps.add(addToHomePage(app.build(config)));
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_REGISTRATION,
                         "mirebalais.mostRecentRegistration.label",
