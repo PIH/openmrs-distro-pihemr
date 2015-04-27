@@ -164,8 +164,8 @@
     </globalProperty>
 
     <globalProperty>
-        <property>mirebalais.nextRadiologyOrderNumberSeed</property>
-        <defaultValue>50</defaultValue>
+        <property>order.nextRadiologyOrderNumberSeed</property>
+        <defaultValue>1</defaultValue>
         <description>
             Seed used for generating radiology order numbers
         </description>
