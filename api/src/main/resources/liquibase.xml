@@ -209,12 +209,12 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20150427-initialize-radiology-order-seed" author="mgoodrich">
+    <changeSet id="20150427-initialize-radiology-order-seed-1a" author="mgoodrich">
         <comment>
             Set the radiology order seed based on the current max order number
         </comment>
         <sql>
-            SET @seed_value = (select MAX(order_id) FROM orders) + 1;
+            SET @seed_value = (select MAX(order_id) + 1 FROM orders);
             UPDATE `global_property` SET property_value = @seed_value WHERE property='order.nextRadiologyOrderNumberSeed';
         </sql>
     </changeSet>
