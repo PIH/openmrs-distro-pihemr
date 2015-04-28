@@ -20,4 +20,11 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
  */
 public interface MirebalaisHospitalDAO {
 
+    /**
+     * Gets the next available radiology order number seed
+     *
+     * @return the order number seed
+     */
+    public Long getNextRadiologyOrderNumberSeedSequenceValue();
+
 }

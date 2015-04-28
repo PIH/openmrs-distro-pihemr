@@ -46,8 +46,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.9.9-SNAPSHOT</openMRSVersion>
-        <openMRSwebVersion>1.9.9-SNAPSHOT</openMRSwebVersion>
+        <openMRSVersion>1.10.1</openMRSVersion>
+        <openMRSwebVersion>1.10.1</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -134,6 +134,7 @@
             <version>${htmlformentryVersion}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentry-api</artifactId>
@@ -141,6 +142,14 @@
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlformentry-api-1.10</artifactId>
+            <version>${htmlformentryVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -248,7 +257,7 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-1.9</artifactId>
+            <artifactId>emrapi-api-1.10</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>

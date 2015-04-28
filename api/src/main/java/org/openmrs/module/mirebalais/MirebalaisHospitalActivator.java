@@ -48,6 +48,7 @@ import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.openmrs.util.OpenmrsConstants;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -161,6 +162,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_DEFAULT_GP);
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNTS_GP);
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_LABELS_GP);
+            }
+
+            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+                updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
             if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work

@@ -22,5 +22,7 @@
 		<mapping resource="Printer.hbm.xml"/>
 		<mapping resource="PrinterModel.hbm.xml"/>
 
+        <mapping resource="RadiologyOrder.hbm.xml"/>
+
 	</session-factory>
 </hibernate-configuration>

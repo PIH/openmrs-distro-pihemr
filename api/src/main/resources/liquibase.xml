@@ -191,4 +191,32 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20150427-migrate-accession-number-to-order-number-1" author="mgoodrich">
+        <comment>
+            Copy the accession number of all orders to the new order_number field
+        </comment>
+        <sql>
+            UPDATE `orders` SET order_number = accession_number;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20150427-migrate-accession-number-to-order-number-2" author="mgoodrich">
+        <comment>
+            Set the accession number column to null
+        </comment>
+        <sql>
+            UPDATE `orders` SET accession_number = NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20150427-initialize-radiology-order-seed-1a" author="mgoodrich">
+        <comment>
+            Set the radiology order seed based on the current max order number
+        </comment>
+        <sql>
+            SET @seed_value = (select MAX(order_id) + 1 FROM orders);
+            UPDATE `global_property` SET property_value = @seed_value WHERE property='order.nextRadiologyOrderNumberSeed';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
