@@ -132,5 +132,7 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="webservices.rest.maxResultsDefault" property_value="" uuid="1145b1be-6f12-11e3-bc0e-c10f06f1a979"/>
     <global_property property="webservices.rest.disableWwwAuthHeader" property_value="" uuid="1145b1be-6666-11e3-bc0e-c10f06f1a979"/>
 
+    <global_property property="order.orderNumberGeneratorBeanId" property_value="" uuid="756101f0-eddb-11e4-b80c-0800200c9a66"/>
+
 
 </dataset>
