@@ -318,6 +318,7 @@ public class LocationTagSetup {
             Locations.WOMENS_TRIAGE,
             Locations.CHEMOTHERAPY,
             Locations.POSTPARTUM_WARD,
+            Locations.FAMILY_PLANNING,
             Locations.CDI_KLINIK_EKSTEN_JENERAL,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
             Locations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
