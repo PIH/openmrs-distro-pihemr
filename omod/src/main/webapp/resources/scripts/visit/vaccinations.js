@@ -69,7 +69,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
         }
     }])
 
-    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", function(Concepts, VaccinationService, ngDialog, groupMemberFilter) {
+    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "$timeout", function(Concepts, VaccinationService, ngDialog, groupMemberFilter, $timeout) {
         return {
             restrict: "E",
             scope: {
@@ -220,6 +220,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                                 $dialogScope.whenVisit = _.findWhere($scope.visits, {uuid: $scope.visit.uuid});
                                 $dialogScope.date = $dialogScope.whenVisit.startDatetime;
                             }
+
+                            $timeout(function() {
+                                $(".dialog-content:visible button.confirm").focus();
+                            }, 10)
                         }]
                     }).then(function(opts) {
                         if (opts.when == 'now') {
@@ -245,6 +249,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             $scope.sequence = sequence;
                             $scope.vaccination = vaccination;
                             $scope.dateObs = groupMemberFilter(existingDose, Concepts.vaccinationDate);
+
+                            $timeout(function() {
+                                $(".dialog-content:visible button.confirm").focus();
+                            }, 10)
                         }],
                         template: "templates/vaccination/confirmDeleteVaccination.page"
                     }).then(function(date) {
