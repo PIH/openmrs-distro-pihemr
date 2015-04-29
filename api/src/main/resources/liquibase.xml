@@ -144,12 +144,12 @@
     </changeSet>
 
 
-    <changeSet id="20150427-migrate-accession-number-to-order-number-1" author="mgoodrich">
+    <changeSet id="20150427-migrate-accession-number-to-order-number-1a" author="mgoodrich">
         <comment>
             Copy the accession number of all orders to the new order_number field
         </comment>
         <sql>
-            UPDATE `orders` SET order_number = accession_number;
+            UPDATE `orders` SET order_number = accession_number WHERE accession_number IS NOT NULL;
         </sql>
     </changeSet>
 
