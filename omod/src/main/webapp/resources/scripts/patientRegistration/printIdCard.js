@@ -35,7 +35,7 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
 
         $scope.printIdCard = function() {
             $scope.printingInProgress = true;
-            $http.get(emr.fragmentActionLink('mirebalais', 'idCard', 'printIdCard', {"patientId": $scope.patientId, "locationId": $scope.locationId}))
+            $http.get(emr.fragmentActionLink('mirebalais', 'patientRegistration/idCard', 'printIdCard', {"patientId": $scope.patientId, "locationId": $scope.locationId}))
                 .then(function(result) {
                     $scope.displayStatus(result.data);
                     $scope.printingInProgress = false;
@@ -43,7 +43,7 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
         }
 
         $scope.recordSuccessfulPrintAttempt = function() {
-            $http.get(emr.fragmentActionLink('mirebalais', 'idCard', 'recordSuccessfulPrintAttempt', {"patientId": $scope.patientId, "identifier": $scope.scannedIdentifier}))
+            $http.get(emr.fragmentActionLink('mirebalais', 'patientRegistration/idCard', 'recordSuccessfulPrintAttempt', {"patientId": $scope.patientId, "identifier": $scope.scannedIdentifier}))
                 .then(function(result) {
                     if (result.data.success) {
                         emr.navigateTo({"url": $scope.returnUrl});
@@ -56,7 +56,7 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
         }
 
         $scope.recordFailedPrintAttempt = function() {
-            $http.get(emr.fragmentActionLink('mirebalais', 'idCard', 'recordFailedPrintAttempt', {"patientId": $scope.patientId}))
+            $http.get(emr.fragmentActionLink('mirebalais', 'patientRegistration/idCard', 'recordFailedPrintAttempt', {"patientId": $scope.patientId}))
                 .then(function(result) {
                     emr.navigateTo({"url": $scope.returnUrl});
                 });

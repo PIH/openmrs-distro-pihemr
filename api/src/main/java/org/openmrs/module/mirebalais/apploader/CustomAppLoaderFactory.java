@@ -253,11 +253,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableCheckIn() {
 
         apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
-                                "mirebalais.app.patientRegistration.checkin.label",
-                                "icon-paste",
-                                "App: mirebalais.checkin",
-                                "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
-                                null),
+                        "mirebalais.app.patientRegistration.checkin.label",
+                        "icon-paste",
+                        "App: mirebalais.checkin",
+                        "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
+                        null),
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
@@ -863,6 +863,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
+
+        if (config.isComponentEnabled("idcardPrinting")) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ID_CARD_PRINTING_STATUS,
+                            "zl.registration.patient.idcard.status",
+                            "icon-barcode",
+                            null,
+                            "App: registrationapp.registerPatient",
+                            null),
+                    "mirebalais",
+                    "patientRegistration/idCardStatus"));
+        }
 
         extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
                 "registrationapp.home",
