@@ -1,7 +1,7 @@
 <div class="header">
     <span class="one-third">
         <span class="title">{{ encounterStub.encounterType | omrs.display }}</span>
-        <span>{{ encounterStub.encounterDatetime | date:dateFormat }}</span>
+        <span>{{ encounterStub.encounterDatetime | date:encounterDateFormat }}</span>
     </span>
     <span class="two-thirds details">
         <span class="one-half">

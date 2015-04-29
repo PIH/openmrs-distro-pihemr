@@ -52,7 +52,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </div>
 
     <div ng-repeat="element in visitTemplate.elements">
-        <display-element visit="visit" visits="visits" element="element" date-format="{{encounterDateFormat}}"></display-element>
+        <display-element></display-element>
     </div>
 
 </div>
