@@ -162,7 +162,25 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20150427-initialize-radiology-order-seed-1b" author="mgoodrich">
+    <changeSet id="20150429-create-radiology-seed-global-property" author="mgoodrich">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM global_property WHERE property='order.nextRadiologyOrderNumberSeed';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Create the radiology order number seed global property
+        </comment>
+        <insert tableName="global_property">
+            <column name="property" value="order.nextRadiologyOrderNumberSeed"/>
+            <column name="property_value" value="0"/>
+            <column name="description" value="Seed used for generating radiology order numbers"/>
+            <column name="uuid" value="decb8a87-4e6a-4810-8cb6-991e15c8d5cd" />
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="20150427-initialize-radiology-order-seed-1d" author="mgoodrich">
         <preConditions onFail="MARK_RAN">
             <not>
                 <sqlCheck expectedResult="0">
