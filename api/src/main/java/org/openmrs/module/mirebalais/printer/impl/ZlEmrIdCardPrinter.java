@@ -16,12 +16,12 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalaismetadata.constants.LocationAttributeTypes;
 import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
 import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
 import org.openmrs.module.paperrecord.PaperRecordService;
-import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
@@ -51,16 +51,26 @@ public class ZlEmrIdCardPrinter {
     @Autowired
     PaperRecordService paperRecordService;
 
+    @Autowired
+    MessageSourceService messageSourceService;
+
     /**
      * Prints a ZL EMR ID Card for the given patient at the given location
      */
-    public void print(Patient patient, Location location) throws UnableToPrintException, UnableToPrintLabelException {
+    public void print(Patient patient, Location location) throws UnableToPrintException {
 
-        Location issuingLocation = paperRecordService.getMedicalRecordLocationAssociatedWith(location);
+        Location issuingLocation;
+        try {
+            issuingLocation = paperRecordService.getMedicalRecordLocationAssociatedWith(location);
+        }
+        catch (Exception e) {
+            throw new UnableToPrintException(getMessage("zl.registration.patient.idcard.locationNotAssociatedWithMedicalRecordLocation", location.getName()));
+        }
+
         Printer printer = printerService.getDefaultPrinter(location, PrinterType.ID_CARD);
 
         if (printer == null) {
-            throw new UnableToPrintLabelException("No default printer specified for location " + location + ". Please contact your system administrator.");
+            throw new UnableToPrintException(getMessage("zl.registration.patient.idcard.noPrinterConfiguredForLocation", location.getName()));
         }
 
         DateFormat df = new SimpleDateFormat("dd/MMM/yyyy", Context.getLocale());
@@ -145,7 +155,7 @@ public class ZlEmrIdCardPrinter {
                             }
                         }
                         catch (Exception e) {
-                            throw new IllegalArgumentException("Invalid address property of " + token.get("codeName") + " configured in address layout template", e);
+                            log.error("Invalid address property of " + token.get("codeName") + " configured in address layout template", e);
                         }
                     }
                 }
@@ -176,5 +186,9 @@ public class ZlEmrIdCardPrinter {
         else {
             return location.getDisplayString();
         }
+    }
+
+    protected String getMessage(String key, String...params) {
+        return messageSourceService.getMessage(key, params, Context.getLocale());
     }
 }
