@@ -56,8 +56,10 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
         }
 
         $scope.recordFailedPrintAttempt = function() {
-            $http.get(emr.fragmentActionLink('mirebalais', 'idCard', 'recordFailedPrintAttempt', {"patientId": $scope.patientId}));
-            emr.navigateTo({"url": $scope.returnUrl});
+            $http.get(emr.fragmentActionLink('mirebalais', 'idCard', 'recordFailedPrintAttempt', {"patientId": $scope.patientId}))
+                .then(function(result) {
+                    emr.navigateTo({"url": $scope.returnUrl});
+                });
         }
 
     }])
