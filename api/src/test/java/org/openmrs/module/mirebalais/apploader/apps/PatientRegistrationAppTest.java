@@ -36,7 +36,7 @@ public class PatientRegistrationAppTest {
         assertThat(d.getUrl(), is("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getRequiredPrivilege(), is("App: registrationapp.registerPatient"));
 
-        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
+        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is(MirebalaisConstants.PATIENT_DASHBOARD_LINK));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK));
