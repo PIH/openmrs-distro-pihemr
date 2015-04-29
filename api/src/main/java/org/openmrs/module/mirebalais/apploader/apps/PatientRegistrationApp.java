@@ -36,7 +36,7 @@ public class PatientRegistrationApp {
         d.setRequiredPrivilege("App: registrationapp.registerPatient");
 
         RegistrationAppConfig c = new RegistrationAppConfig();
-        c.setAfterCreatedUrl("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
+        c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
         c.setRegistrationEncounter(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION, CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);

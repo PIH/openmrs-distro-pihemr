@@ -1,1 +1,1 @@
-<vaccination-table visit="visit"></vaccination-table>
+<vaccination-table visit="visit" visits="visits"></vaccination-table>

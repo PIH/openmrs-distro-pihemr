@@ -4,7 +4,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         return {
             restrict: 'E',
             scope: {
-                ngModel: '='
+                ngModel: '=',
+                minDate: '=',
+                maxDate: '='
             },
             controller: function($scope) {
                 $scope.now = new Date();
@@ -14,9 +16,13 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     event.stopPropagation();
                     $scope.opened = true;
                 }
+                $scope.options = { // for some reason setting this via attribute doesn't work
+                    showWeeks: false
+                }
             },
             template: '<span class="angular-datepicker">' +
-                        '<input type="text" is-open="opened" ng-model="ngModel" show-weeks="false" datepicker-popup="dd-MMMM-yyyy" max-date="now" readonly ng-click="open($event)"/>' +
+                        '<input type="text" is-open="opened" ng-model="ngModel" datepicker-popup="dd-MMM-yyyy" readonly ' +
+                        'datepicker-options="options" min-date="minDate" max-date="maxDate" ng-click="open($event)"/>' +
                         '<i class="icon-calendar small add-on" ng-click="open($event)" ></i>' +
                         '</span>'
         }
@@ -27,6 +33,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             restrict: 'E',
             scope: {
                 visit: '=',
+                visits: '=',
                 element: '&',
                 dateFormat: '@'
             },
@@ -111,6 +118,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             controller: function($scope) {
                 $scope.editing = false;
 
+                $scope.now = new Date();
+
                 $scope.startEditing = function() {
                     $scope.newStartDatetime = $scope.visit.startDatetime;
                     $scope.newStopDatetime = $scope.visit.stopDatetime;
@@ -125,8 +134,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         stopDatetime: $scope.newStopDatetime == '' ? null : $scope.newStopDatetime
                     };
                     new Visit(props).$save(function(v) {
-                        $scope.visit.startDatetime = v.startDatetime;
-                        $scope.visit.stopDatetime = v.stopDatetime;
+                        $scope.reloadVisit();
                     });
                     $scope.editing = false;
                 }
@@ -207,9 +215,14 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 return temp;
             }
 
+            $scope.reloadVisit = function() {
+                loadVisit($scope.visitUuid);
+            }
+
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
+
             $scope.visitUuid = getVisitParameter();
 
         }]);

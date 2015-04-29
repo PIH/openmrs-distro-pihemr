@@ -137,3 +137,46 @@ table.vaccination-table {
     }
   }
 }
+
+.spaced-paragraphs > p {
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+
+.ngdialog-content {
+  width: 750px !important;
+}
+
+
+// ui-bootstrap 0.11.x expects "glyphicion-*" but uicommons only defines "icon-*"
+// Need to research this, since it's hacky to include all this here
+[class^="glyphicon-"],
+[class*=" glyphicon-"] {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  padding: 0.2em;
+
+  /* sprites.less reset */
+  display: inline;
+  width: auto;
+  height: auto;
+  line-height: normal;
+  vertical-align: baseline;
+  background-image: none;
+  background-position: 0% 0%;
+  background-repeat: repeat;
+  margin-top: 0;
+}
+
+[class^="glyphicon-"]:before,
+[class*=" glyphicon-"]:before {
+  text-decoration: inherit;
+  display: inline-block;
+  speak: none;
+}
+
+.glyphicon-chevron-left:before         { content: "\f053"; }
+.glyphicon-chevron-right:before        { content: "\f054"; }

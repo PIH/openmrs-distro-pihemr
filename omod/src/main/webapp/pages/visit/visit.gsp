@@ -30,7 +30,7 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(patient.formattedName) }" },
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
         { label: "${ui.message("coreapps.patientDashBoard.visits")}" }
     ];
 </script>
@@ -52,7 +52,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </div>
 
     <div ng-repeat="element in visitTemplate.elements">
-        <display-element visit="visit" element="element" date-format="{{encounterDateFormat}}"></display-element>
+        <display-element visit="visit" visits="visits" element="element" date-format="{{encounterDateFormat}}"></display-element>
     </div>
 
 </div>
