@@ -105,7 +105,6 @@
 
     </script>
 
-
     <ifMode mode="VIEW" include="false">
         <h2><uimessage code="emr.clinic.consult.title"/></h2>
 
@@ -148,31 +147,30 @@
                 </div>
 
         </includeIf>
-        <!-- all users that don't have retroConsultNote privilege can only edit location when active visit -->
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
         <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
             <div style="display:none">
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now" />
            </div>
             <div id="who-when-where">
                <table id="who-where-when-view">
                   <tr>
-                      <td id="who">
+                      <td>
                         <label><uimessage code="emr.patientDashBoard.provider"/></label>
                         <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
                       </td>
-                      <td id="where">
-                          <label><uimessage code="emr.locationRequired"/></label>
-                          <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                      <td>
+                        <label><uimessage code="emr.location"/></label>
+                        <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
                       </td>
-                      <td id="when">
+                      <td>
                         <label><uimessage code="emr.patientDashBoard.date"/></label>
                           <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
                       </td>
                   </tr>
                </table>
-            </div>
-            <div style="display:none">
-                <encounterDate id="encounterDate" default="now" />
             </div>
         </includeIf>
     </ifMode>
