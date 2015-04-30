@@ -864,7 +864,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        if (config.isComponentEnabled("idcardPrinting")) {
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ID_CARD_PRINTING_STATUS,
                             "zl.registration.patient.idcard.status",
                             "icon-barcode",
@@ -906,6 +906,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "printPaperFormLabel()",
                 "Task: emr.printLabels",
                 null));
+
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
+            extensions.add(overallRegistrationAction(Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,
+                "zl.registration.patient.idcard.label",
+                "icon-barcode",
+                "link",
+                "mirebalais/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
+                "App: registrationapp.registerPatient",
+                null));
+        }
 
         // this provides the javascript the backs the three overall action buttons
         extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,

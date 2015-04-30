@@ -32,6 +32,7 @@ public class CustomAppLoaderConstants {
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
+        public static final String ID_CARD_PRINTING = "idcardPrinting";
     }
 
     public static final class Apps {
@@ -113,6 +114,7 @@ public class CustomAppLoaderConstants {
         public static final String REGISTER_NEW_PATIENT = "registrationapp.registerNewPatient";
         public static final String MERGE_INTO_ANOTHER_PATIENT = "registrationapp.mergePatient";
         public static final String PRINT_PAPER_FORM_LABEL = "registrationapp.printPaperFormLabel";
+        public static final String PRINT_ID_CARD_REGISTRATION_ACTION = "mirebalais.printIdCard";
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 

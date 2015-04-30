@@ -48,7 +48,7 @@ public class PatientRegistrationApp {
         c.addSection(getSocialSection());
         c.addSection(getContactsSection());
 
-        if (config.isComponentEnabled("idcardPrinting")) {
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection());
         }
 
