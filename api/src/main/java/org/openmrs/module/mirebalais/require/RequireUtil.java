@@ -7,11 +7,11 @@ public class RequireUtil {
 
 
     public static String patientHasActiveVisit() {
-        return new String("visit != null && visit.active");
+        return new String("typeof visit !== 'undefined' && visit != null && visit.active");
     }
 
     public static String patientVisitWithinPastThirtyDays() {
-        return new String("visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) < 30");
+        return new String("typeof visit !== 'undefined' && visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) < 30");
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
