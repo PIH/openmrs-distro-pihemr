@@ -28,50 +28,80 @@
         padding-top:50px;
         padding-bottom:50px;
     }
+    #no-printer-available-section {
+        width: 100%;
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 100px;
+        font-weight:bold;
+    }
+    #continue-button-section {
+        padding-top:50px;
+    }
 </style>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
-<div id="print-id-card-app" ng-controller="PrintIdCardCtrl" ng-init="init(${patient.patientId}, ${locationId}, '${returnUrl}')">
+<% if (printerAvailableAtLocation) { %>
 
-    <div id="printing-id-card-section" ng-show="printingInProgress">
+    <div id="print-id-card-app" ng-controller="PrintIdCardCtrl" ng-init="init(${patient.patientId}, ${location.locationId}, '${returnUrl}')">
 
-        ${ ui.message("zl.registration.patient.idcard.printing") }...
+        <div id="printing-id-card-section" ng-show="printingInProgress">
 
-    </div>
+            ${ ui.message("zl.registration.patient.idcard.printing") }...
 
-    <div id="confirm-id-card-section" ng-hide="printingInProgress">
-
-        ${ ui.message("zl.registration.patient.idcard.scanToProceed") }...
-
-        <div id="scan-card-image-section">
-            <img src="${ui.resourceLink("mirebalais", "images/scanCard.png")}">
         </div>
 
-        <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>
+        <div id="confirm-id-card-section" ng-hide="printingInProgress">
 
-        <div>
+            ${ ui.message("zl.registration.patient.idcard.scanToProceed") }...
 
-            <div id="scan-action-instruction-section">
-                ${ui.message("zl.registration.patient.idcard.notPrintedInstructions")}
+            <div id="scan-card-image-section">
+                <img src="${ui.resourceLink("mirebalais", "images/scanCard.png")}">
             </div>
+
+            <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>
 
             <div>
-                <button id="broken-printer-button" ng-click="recordFailedPrintAttempt()">
-                    ${ui.message("zl.registration.patient.idcard.recordFailedPrinting")}
-                </button>
 
-                <button id="reprint-card-button" ng-click="printIdCard()">
-                    ${ui.message("zl.registration.patient.idcard.tryPrintingAgain")}
-                </button>
+                <div id="scan-action-instruction-section">
+                    ${ui.message("zl.registration.patient.idcard.notPrintedInstructions")}
+                </div>
+
+                <div>
+                    <button id="broken-printer-button" ng-click="recordFailedPrintAttempt()">
+                        ${ui.message("zl.registration.patient.idcard.recordFailedPrinting")}
+                    </button>
+
+                    <button id="reprint-card-button" ng-click="printIdCard()">
+                        ${ui.message("zl.registration.patient.idcard.tryPrintingAgain")}
+                    </button>
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
-</div>
+    <script type="text/javascript">
+        angular.bootstrap('#print-id-card-app', [ 'printIdCard' ]);
+    </script>
 
-<script type="text/javascript">
-    angular.bootstrap('#print-id-card-app', [ 'printIdCard' ]);
-</script>
+<% } else { %>
+
+    <div id="no-printer-available-section">
+
+        ${ ui.message("zl.registration.patient.idcard.noPrinterAvailableAtLocation", location.name) }...
+
+        <div id="continue-button-section">
+            <button onclick="document.location.href='${returnUrl}';">
+                ${ui.message("zl.registration.patient.idcard.continue")}
+            </button>
+        </div>
+
+    </div>
+
+
+
+<% } %>
