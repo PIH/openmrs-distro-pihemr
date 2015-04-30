@@ -24,9 +24,9 @@
         width:350px;
         font-size: 25px;
     }
-    #scan-action-button-section {
-        padding-top:100px;
-        text-align: right;
+    #scan-action-instruction-section {
+        padding-top:50px;
+        padding-bottom:50px;
     }
 </style>
 
@@ -50,15 +50,21 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
         <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>
 
-        <div id="scan-action-button-section">
+        <div>
 
-            <button id="broken-printer-button" ng-click="recordFailedPrintAttempt()">
-                ${ui.message("zl.registration.patient.idcard.brokenPrinter")}
-            </button>
+            <div id="scan-action-instruction-section">
+                ${ui.message("zl.registration.patient.idcard.notPrintedInstructions")}
+            </div>
 
-            <button id="reprint-card-button" ng-click="printIdCard()">
-                ${ui.message("zl.registration.patient.idcard.reprint")}
-            </button>
+            <div>
+                <button id="broken-printer-button" ng-click="recordFailedPrintAttempt()">
+                    ${ui.message("zl.registration.patient.idcard.recordFailedPrinting")}
+                </button>
+
+                <button id="reprint-card-button" ng-click="printIdCard()">
+                    ${ui.message("zl.registration.patient.idcard.tryPrintingAgain")}
+                </button>
+            </div>
 
         </div>
 
