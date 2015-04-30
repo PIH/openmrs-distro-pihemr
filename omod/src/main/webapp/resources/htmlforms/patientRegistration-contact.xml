@@ -26,7 +26,7 @@
             <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
 
                 <div>
-                    <h3><uimessage code="zl.registration.patient.contactPerson.label"/></h3>
+                    <h3><uimessage code="zl.registration.patient.contactPerson.contactName.question"/></h3>
                     <p class="left">
                         <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20" />
                     </p>
