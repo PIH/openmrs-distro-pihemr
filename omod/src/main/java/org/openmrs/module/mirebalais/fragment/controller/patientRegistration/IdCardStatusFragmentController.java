@@ -1,0 +1,84 @@
+package org.openmrs.module.mirebalais.fragment.controller.patientRegistration;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.Location;
+import org.openmrs.Obs;
+import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
+import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.deploy.bundle.AdministrativeConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
+import org.openmrs.module.reporting.data.DataUtil;
+import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefinition;
+import org.openmrs.ui.framework.SimpleObject;
+import org.openmrs.ui.framework.UiUtils;
+import org.openmrs.ui.framework.annotation.FragmentParam;
+import org.openmrs.ui.framework.annotation.SpringBean;
+import org.openmrs.ui.framework.fragment.FragmentModel;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Controller providing ajax-friendly methods for id cards
+ */
+public class IdCardStatusFragmentController {
+
+    protected final Log log = LogFactory.getLog(getClass());
+
+    public void controller(FragmentModel model, @FragmentParam("patientId") Patient patient,
+                           @FragmentParam("app") AppDescriptor app,
+                           UiUtils ui) {
+
+        model.addAttribute("app", app);
+        model.addAttribute("status", getPrintHistory(ui, patient));
+    }
+
+    /**
+     * This method takes in a patientId and returns information about their print history in an ajax-friendly format
+     */
+    public SimpleObject getPrintHistory(UiUtils ui, @RequestParam("patientId") Patient patient) {
+
+        int numSuccessful = 0;
+        int numFailed = 0;
+        Date latestAttemptDate = null;
+        Boolean latestAttemptSuccessful = null;
+
+        ObsForPersonDataDefinition d = new ObsForPersonDataDefinition();
+        d.setQuestion(MetadataUtils.existing(Concept.class, AdministrativeConcepts.Concepts.ID_CARD_PRINTING_SUCCESSFUL));
+        List<Obs> found = DataUtil.evaluateForPerson(d, patient, List.class);
+
+        if (found != null) {
+            for (Obs o : found) {
+                boolean mostRecent = latestAttemptDate == null || latestAttemptDate.before(o.getObsDatetime());
+                boolean successful = o.getValueCoded().getUuid().equals(CommonConcepts.Concepts.YES);
+
+                if (mostRecent) {
+                    latestAttemptDate = o.getObsDatetime();
+                    latestAttemptSuccessful = successful;
+                }
+
+                if (successful) {
+                    numSuccessful++;
+                } else {
+                    numFailed++;
+                }
+            }
+        }
+
+        return SimpleObject.create(
+                "numSuccessful", numSuccessful,
+                "numFailed", numFailed,
+                "latestAttemptDate", ui.format(latestAttemptDate),
+                "latestAttemptSuccessful", latestAttemptSuccessful
+        );
+    }
+}

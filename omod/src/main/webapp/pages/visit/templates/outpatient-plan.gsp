@@ -1,4 +1,4 @@
-<fieldset ng-hide="visit.stopDatetime">
+<fieldset ng-show="isLatestVisit">
     <legend>Active Orders</legend>
     <active-orders/>
 </fieldset>

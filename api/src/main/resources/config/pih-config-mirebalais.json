@@ -26,6 +26,7 @@
         "legacyMpi",
         "legacyPatientRegistration",
         "lacollinePatientRegistrationEncounterTypes",
+        "managePrinters",
         "idcardPrinting"
     ],
 

@@ -28,20 +28,15 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
+    // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
     .directive("displayElement", [ "Concepts", "EncounterTypes", function(Concepts, EncounterTypes) {
         return {
             restrict: 'E',
-            scope: {
-                visit: '=',
-                visits: '=',
-                element: '&',
-                dateFormat: '@'
-            },
             controller: function($scope) {
                 $scope.Concepts = Concepts;
                 $scope.EncounterTypes = EncounterTypes;
 
-                var element = $scope.element();
+                var element = $scope.element;
 
                 if (element.type === 'encounter') {
                     $scope.canExpand = function() {
@@ -197,9 +192,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             }
                             return it;
                         });
+
+                        $scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return it.startDatetime }) === $scope.visit.startDatetime;
                     });
 
-                    $scope.encounterDateFormat = sameDate(visit.startDatetime, visit.stopDatetime) ? "HH:mm" : "HH:mm (d-MMM)";
+                    $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "HH:mm" : "HH:mm (d-MMM)";
                 });
             }
 

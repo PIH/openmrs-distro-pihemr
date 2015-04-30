@@ -48,7 +48,7 @@ public class PatientRegistrationApp {
         c.addSection(getSocialSection());
         c.addSection(getContactsSection());
 
-        if (config.isComponentEnabled("idcardPrinting")) {
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection());
         }
 
@@ -247,6 +247,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.relationships.label");
             f.setType("obsgroup");
+            f.setCssClasses(Arrays.asList("required"));
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -255,7 +256,6 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
             f.setType("obsgroup");
-            f.setCssClasses(Arrays.asList("required"));
             f.setWidget(getTextAreaWidget(50));
             q.addField(f);
         }
@@ -264,6 +264,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT");
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
+            f.setCssClasses(Arrays.asList("required"));
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }

@@ -55,6 +55,24 @@ public class ZlEmrIdCardPrinter {
     MessageSourceService messageSourceService;
 
     /**
+     * @return true if ZL ID Card printing is possible at the given location
+     */
+    public boolean isAvailableAtLocation(Location location) {
+
+        // First make sure that the passed location is associated with a medical record location
+        try {
+            paperRecordService.getMedicalRecordLocationAssociatedWith(location);
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+        // Then confirm that a printer is found at this location that is suitable
+        Printer printer = printerService.getDefaultPrinter(location, PrinterType.ID_CARD);
+        return printer != null;
+    }
+
+    /**
      * Prints a ZL EMR ID Card for the given patient at the given location
      */
     public void print(Patient patient, Location location) throws UnableToPrintException {
@@ -87,7 +105,7 @@ public class ZlEmrIdCardPrinter {
         paramMap.put("customCardLabel", "Zanmi Lasante Patient ID Card");
         paramMap.put("addressLines", getAddressLines(patient));
 
-        printerService.print(paramMap, printer, true);
+        printerService.print(paramMap, printer, false);
     }
 
     /**
