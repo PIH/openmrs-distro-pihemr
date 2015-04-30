@@ -15,6 +15,15 @@
         padding-top: 50px;
         font-weight:bold;
     }
+    #printing-id-card-section {
+        padding-bottom:100px;
+    }
+    #printing-response-message {
+        padding-bottom: 20px;
+    }
+    .note-container .note {
+        text-align: center;
+    }
     #scan-card-image-section {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -49,10 +58,18 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         <div id="printing-id-card-section" ng-show="printingInProgress">
 
             ${ ui.message("zl.registration.patient.idcard.printing") }...
+            <br/>
+            <img src="${ ui.resourceLink("uicommons", "images/spinner.gif") }"/>
 
         </div>
 
         <div id="confirm-id-card-section" ng-hide="printingInProgress">
+
+            <div id="printing-response-message" class="note-container">
+                <div class="note {{ printStatus.alertType }}">
+                    {{ printStatus.message }}
+                </div>
+            </div>
 
             ${ ui.message("zl.registration.patient.idcard.scanToProceed") }...
 
@@ -60,7 +77,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <img src="${ui.resourceLink("mirebalais", "images/scanCard.png")}">
             </div>
 
-            <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>
+            <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" focus-me="focusOnScanInput" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>
 
             <div>
 

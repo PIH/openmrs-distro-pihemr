@@ -105,7 +105,7 @@ public class ZlEmrIdCardPrinter {
         paramMap.put("customCardLabel", "Zanmi Lasante Patient ID Card");
         paramMap.put("addressLines", getAddressLines(patient));
 
-        printerService.print(paramMap, printer, true);
+        printerService.print(paramMap, printer, false);
     }
 
     /**

@@ -14,6 +14,25 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
         };
     })
 
+    // Directive which can be applied to an input element to ensure it gains focus when an expression evaluates to true
+    .directive('focusMe', function($timeout, $parse) {
+        return {
+            link: function(scope, element, attrs) {
+                var model = $parse(attrs.focusMe);
+                scope.$watch(model, function(value) {
+                    if(value === true) {
+                        $timeout(function() {
+                            element[0].focus();
+                        });
+                    }
+                });
+                element.bind('blur', function() {
+                    scope.$apply(model.assign(scope, false));
+                });
+            }
+        };
+    })
+
     .controller('PrintIdCardCtrl', [ '$scope', '$http', function($scope, $http) {
 
         $scope.patientId = null;
@@ -29,16 +48,20 @@ angular.module('printIdCard', [ 'ui.bootstrap' ])
         }
 
         $scope.displayStatus = function(data) {
-            var alertType = data.success ? 'success' : 'error';
-            $().toastmessage( 'showToast', { type: alertType, position: 'top-right', text: data.message, close: function() { $("#scan-patient-identifier").focus(); }} );
-        }
+            $scope.printStatus = {
+                "alertType": data.success ? 'success' : 'error',
+                "message": data.message
+            };
+         }
 
         $scope.printIdCard = function() {
+            $scope.focusOnScanInput = false;
             $scope.printingInProgress = true;
             $http.get(emr.fragmentActionLink('mirebalais', 'patientRegistration/idCard', 'printIdCard', {"patientId": $scope.patientId, "locationId": $scope.locationId}))
                 .then(function(result) {
                     $scope.displayStatus(result.data);
                     $scope.printingInProgress = false;
+                    $scope.focusOnScanInput = true;
                 });
         }
 
