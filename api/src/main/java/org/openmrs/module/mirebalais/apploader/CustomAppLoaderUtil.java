@@ -20,8 +20,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.R
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 
-;
-
 
 
 public class CustomAppLoaderUtil {

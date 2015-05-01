@@ -16,8 +16,8 @@ import org.openmrs.module.appframework.service.AppFrameworkServiceImpl;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.contextmodel.VisitContextModel;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
-import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
-import org.openmrs.module.mirebalaismetadata.constants.Privileges;
+import org.openmrs.module.pihcore.metadata.LocationTags;
+import org.openmrs.module.pihcore.metadata.Privileges;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.ui.framework.SimpleObject;
@@ -128,6 +128,7 @@ public class RequireUtilTest {
         when(visit.isActive()).thenReturn(true);
 
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
+
         appContextModel.put("visit", visit);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(patientHasActiveVisit()), appContextModel), is(true));

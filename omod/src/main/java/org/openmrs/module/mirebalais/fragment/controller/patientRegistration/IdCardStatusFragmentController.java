@@ -3,16 +3,10 @@ package org.openmrs.module.mirebalais.fragment.controller.patientRegistration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
-import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
-import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
 import org.openmrs.module.pihcore.deploy.bundle.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 import org.openmrs.module.reporting.data.DataUtil;
@@ -20,7 +14,6 @@ import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefin
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
-import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 

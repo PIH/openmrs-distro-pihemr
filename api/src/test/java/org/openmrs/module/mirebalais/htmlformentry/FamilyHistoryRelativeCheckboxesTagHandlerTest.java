@@ -16,8 +16,8 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.builder.ConceptBuilder;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.pihcore.deploy.bundle.ClinicalConsultationConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.CoreConceptMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends BaseModuleCon
         Concept no = conceptService.getConcept(8);
         Concept unknown = conceptService.getConcept(22);
         yes = conceptService.getConcept(7); // need this to have a different UUID to match our dictionary
-        yes.setUuid(CoreMetadata.Concepts.YES);
+        yes.setUuid(CommonConcepts.Concepts.YES);
         conceptService.saveConcept(yes);
 
         Concept famHxDiagnosis = install(new ConceptBuilder(ClinicalConsultationConcepts.Concepts.FAMILY_HISTORY_DIAGNOSIS)

@@ -11,13 +11,13 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
-import org.openmrs.module.mirebalaismetadata.constants.Locations;
-import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
-import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.AddressBundle;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.LocationBundle;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.PatientIdentifierTypeBundle;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.PersonAttributeTypeBundle;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisLocationsBundle;
+import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZlAddressBundle;
+import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
+import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.PersonAttributeTypeBundle;
+import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.PersonAttributeTypes;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
 import org.openmrs.module.printer.PrinterModuleActivator;
@@ -38,10 +38,10 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     private PrinterService printerService;
 
     @Autowired
-    LocationBundle locationBundle;
+    MirebalaisLocationsBundle locationBundle;
 
     @Autowired
-    AddressBundle addressBundle;
+    ZlAddressBundle addressBundle;
 
     @Autowired
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
@@ -84,7 +84,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         printerService.savePrinter(printer);
 
         // Set location for this printer
-        Location location = MetadataUtils.existing(Location.class, Locations.CLINIC_REGISTRATION.uuid());
+        Location location = MetadataUtils.existing(Location.class, MirebalaisLocations.CLINIC_REGISTRATION.uuid());
         printerService.setDefaultPrinter(location, PrinterType.ID_CARD, printer);
 
         // Create a patient for whom to print an id card

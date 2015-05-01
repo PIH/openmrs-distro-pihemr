@@ -8,13 +8,13 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
-import org.openmrs.module.mirebalaismetadata.constants.LocationTags;
-import org.openmrs.module.mirebalaismetadata.constants.Privileges;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.deploy.bundle.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.LocationTags;
+import org.openmrs.module.pihcore.metadata.Privileges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +22,48 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.*;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.*;
-import static org.openmrs.module.mirebalais.require.RequireUtil.*;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Components;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
+import static org.openmrs.module.mirebalais.require.RequireUtil.and;
+import static org.openmrs.module.mirebalais.require.RequireUtil.or;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 
 @Component
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
@@ -261,6 +300,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
+
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
@@ -268,7 +308,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CHECK_IN,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
                 editSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"), null);
     }
@@ -297,7 +337,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: mirebalais.outpatientVitals",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.VITALS,
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.VITALS,
                                 "editable", Boolean.TRUE,
                                 "edit-provider", "htmlformentryui",
                                 "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
@@ -307,7 +347,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.VITALS,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
                 editSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"), null);
 
@@ -322,13 +362,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CONSULTATION,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CONSULTATION,
                 findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
     }
 
@@ -390,16 +430,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.ADMISSION,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.ADMISSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.CANCEL_ADMISSION,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CANCEL_ADMISSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-ban-circle", true, true, null, null);
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.TRANSFER,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.TRANSFER,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "icon-share", null, true, null, null);
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.EXIT_FROM_CARE,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.EXIT_FROM_CARE,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "icon-signout", null, true, null, null);
     }
 
@@ -475,11 +515,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // TODO change this to use the coreapps find patient app?
         apps.add(addToHomePage(app(Apps.DISPENSING,
-                "dispensing.app.label",
-                "icon-medicine",
-                "dispensing/findPatient.page",
-                "App: dispensing.app.dispense",
-                null),
+                        "dispensing.app.label",
+                        "icon-medicine",
+                        "dispensing/findPatient.page",
+                        "App: dispensing.app.dispense",
+                        null),
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
@@ -490,7 +530,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.dispensing",
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.MEDICATION_DISPENSED,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
@@ -505,7 +545,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.enterSurgicalNote",
                 sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.POST_OPERATIVE_NOTE,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
 
@@ -819,7 +859,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml",
                                 "editable", true,
                                 "edit-icon", "icon-share-alt",
@@ -834,7 +874,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-rs.xml",
                                 "editable", true)),
                 "coreapps",
@@ -846,7 +886,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml",
                                 "editable", true)),
                 "coreapps",
@@ -858,7 +898,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
                                 "definitionUiResource", "mirebalais:htmlforms/patientRegistration-contact.xml",
                                 "editable", true)),
                 "coreapps",
@@ -993,16 +1033,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "icon-register");
 
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PAYMENT,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.PAYMENT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-money");
-        registerTemplateForEncounterType(CoreMetadata.EncounterTypes.PRIMARY_CARE_VISIT,
+        registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.PRIMARY_CARE_VISIT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-calendar");
 
     }

@@ -14,8 +14,8 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalaismetadata.MetadataManager;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.test.SkipBaseSetup;
@@ -81,7 +81,7 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
     }
 
     private void installRequiredMetadata() {
-        System.setProperty(MirebalaisMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
+        System.setProperty(PihMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
         MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
         manager.refresh();
     }
