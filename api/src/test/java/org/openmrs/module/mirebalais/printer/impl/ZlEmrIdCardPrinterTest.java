@@ -14,6 +14,8 @@ import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisLocationsBundle;
 import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZlAddressBundle;
 import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
+import org.openmrs.module.pihcore.deploy.bundle.LocationAttributeTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
@@ -38,7 +40,13 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     private PrinterService printerService;
 
     @Autowired
-    MirebalaisLocationsBundle locationBundle;
+    LocationTagBundle locationTagBundle;
+
+    @Autowired
+    LocationAttributeTypeBundle locationAttributeTypeBundle;
+
+    @Autowired
+    MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
     ZlAddressBundle addressBundle;
@@ -56,7 +64,9 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     public void setup() throws Exception {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
-        locationBundle.install(); // Install Location Metadata for distribution
+        locationTagBundle.install();
+        locationAttributeTypeBundle.install();
+        mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
         patientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
         addressBundle.installAddressTemplate(); // Install address template needed for layout on id card
