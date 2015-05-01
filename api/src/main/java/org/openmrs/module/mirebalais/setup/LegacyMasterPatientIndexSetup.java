@@ -12,7 +12,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.PersonAttributeTypes;
 
 import java.util.HashMap;
 import java.util.Map;

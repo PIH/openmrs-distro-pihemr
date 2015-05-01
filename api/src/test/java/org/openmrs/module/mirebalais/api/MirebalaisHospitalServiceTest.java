@@ -13,37 +13,24 @@
  */
 package org.openmrs.module.mirebalais.api;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
-import org.openmrs.api.PatientService;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MissingMetadataException;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
-import org.openmrs.module.mirebalais.api.impl.MirebalaisHospitalServiceImpl;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
-import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.PatientIdentifierTypeBundle;
-import org.openmrs.module.mirebalaismetadata.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Tests {@link MirebalaisHospitalService}.
@@ -54,7 +41,7 @@ public class MirebalaisHospitalServiceTest extends BaseModuleContextSensitiveTes
 	MirebalaisHospitalService service;
 
 	@Autowired
-	PatientIdentifierTypeBundle patientIdentifierTypeBundle;
+    PatientIdentifierTypeBundle patientIdentifierTypeBundle;
 
 	@Autowired
 	IdentifierSourceService identifierSourceService;

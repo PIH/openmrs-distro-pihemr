@@ -15,7 +15,6 @@ package org.openmrs.module.mirebalais.api.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.OrderType;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -28,7 +27,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
-import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 

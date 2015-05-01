@@ -5,9 +5,10 @@ import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalaismetadata.constants.PersonAttributeTypes;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.deploy.bundle.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.PersonAttributeTypes;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,8 +39,8 @@ public class PatientRegistrationAppTest {
 
         assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is(MirebalaisConstants.PATIENT_DASHBOARD_LINK));
-        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(CoreMetadata.EncounterTypes.PATIENT_REGISTRATION));
-        assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(CoreMetadata.EncounterRoles.ADMINISTRATIVE_CLERK));
+        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION));
+        assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK));
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());

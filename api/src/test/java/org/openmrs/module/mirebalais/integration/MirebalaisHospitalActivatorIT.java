@@ -16,8 +16,8 @@ import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalaismetadata.MetadataManager;
-import org.openmrs.module.mirebalaismetadata.constants.PatientIdentifierTypes;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
+import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
@@ -47,7 +47,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     }
 
 	private void installRequiredMetadata() {
-		System.setProperty(MirebalaisMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
+		System.setProperty(PihMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
 		MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
 		manager.refresh();
 	}

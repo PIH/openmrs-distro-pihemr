@@ -21,9 +21,8 @@ import org.openmrs.module.htmlformentry.widget.ErrorWidget;
 import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.CoreMetadata;
+import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,6 +31,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Usage:
@@ -229,7 +229,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
 
                         Obs presentObs = new Obs();
                         presentObs.setConcept(present);
-                        presentObs.setValueCoded(MetadataUtils.existing(Concept.class, CoreMetadata.Concepts.YES));
+                        presentObs.setValueCoded(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES));
                         group.addGroupMember(presentObs);
 
                         if (StringUtils.isNotBlank(commentsValue)) {
