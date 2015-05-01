@@ -888,7 +888,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-stethoscope",
                 "link",
                 "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
-                "App: patientregistration.edit",
+                "App: coreapps.patientDashboard",
                 null));
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
