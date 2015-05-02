@@ -15,6 +15,10 @@
 
     <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="">
 
+        <ifMode mode="VIEW" include="false">
+            <h2><uimessage code="zl.registration.patient.registration.header"/></h2>
+        </ifMode>
+
         <fieldset class="required">
             <div>
                 <h3>
