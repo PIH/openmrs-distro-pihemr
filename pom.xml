@@ -377,6 +377,14 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>pihcore-api</artifactId>
+            <version>${pihcoreVersion}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>mirebalaismetadata-api</artifactId>
             <version>${mirebalaismetadataVersion}</version>
             <scope>provided</scope>

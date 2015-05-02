@@ -20,15 +20,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.pihcore.deploy.bundle.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
+import org.openmrs.util.DatabaseUpdater;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The legacy patientregistration module used a concept named "PrintingIDCardStatus" to store observations as
- to whether an id card was successfully scanned after printing, or if printing failed.
- We have decided to migrate away from this concept (which models answers as text-obs and does not have a consistent uuid across our servers),
- in favor of a new coded concept with a consistent uuid.  This changeset handles the data migration necessary for this,
- but only should be enabled/run on a given system once we have transitioned to the new patient registration.
+ * to whether an id card was successfully scanned after printing, or if printing failed.
+ * We have decided to migrate away from this concept (which models answers as text-obs and does not have a consistent uuid across our servers),
+ * in favor of a new coded concept with a consistent uuid.  This changeset handles the data migration necessary for this,
+ * but only should be enabled/run on a given system once we have transitioned to the new patient registration.
  */
 public class PrintingIDCardStatusChangeSet implements CustomTaskChange {
 
@@ -51,10 +55,10 @@ public class PrintingIDCardStatusChangeSet implements CustomTaskChange {
 		migrateSuccessful.append("		value_coded =").append(yes).append(", ");
 		migrateSuccessful.append("		value_text = null ");
 		migrateSuccessful.append("where ");
-		migrateSuccessful.append("		concept_id = ").append(oldQuestion).append(", ");
-		migrateSuccessful.append("and     value_text = 'true'");
-		executeSql(migrateSuccessful, database);
-		log.info("Successfully migrated 'print successful' obs");
+		migrateSuccessful.append("		concept_id = ").append(oldQuestion).append(" ");
+		migrateSuccessful.append("and   value_text = 'true'");
+		executeUpdate(migrateSuccessful, database);
+		log.warn("Successfully migrated 'print successful' obs");
 
 		StringBuilder migrateFailed = new StringBuilder();
 		migrateFailed.append("update obs set ");
@@ -62,21 +66,39 @@ public class PrintingIDCardStatusChangeSet implements CustomTaskChange {
 		migrateFailed.append("		value_coded =").append(no).append(", ");
 		migrateFailed.append("		value_text = null ");
 		migrateFailed.append("where ");
-		migrateFailed.append("		concept_id = ").append(oldQuestion).append(", ");
-		migrateFailed.append("and     value_text = 'false'");
-		executeSql(migrateFailed, database);
-		log.info("Successfully migrated 'print failed' obs");
+		migrateFailed.append("		concept_id = ").append(oldQuestion).append(" ");
+		migrateFailed.append("and   value_text = 'false'");
+		executeUpdate(migrateFailed, database);
+		log.warn("Successfully migrated 'print failed' obs");
 
-		// TODO: Implement this
-		// The legacy Obs are being created far more frequently (and for broader reasons) in the legacy module.
-		// We should consider cleaning up these obs if possible
+		// First find the Printing obs with the highest id for the same person, and date.  These are the obs we'll keep.
+		StringBuilder obsToKeep = new StringBuilder();
+		obsToKeep.append("select max_obs.obs_id from (");
+		obsToKeep.append("		select 		max(obs_id) as obs_id, person_id, obs_datetime ");
+		obsToKeep.append("		from		obs ");
+		obsToKeep.append("		where		concept_id = ").append(newQuestion).append(" ");
+		obsToKeep.append("		group by 	person_id, obs_datetime ");
+		obsToKeep.append(") max_obs ");
+
+		// Now, update all other Printing obs as voided
+		StringBuilder voidObs = new StringBuilder();
+		voidObs.append("update obs set ");
+		voidObs.append("		voided = true, ");
+		voidObs.append("		date_voided = now(), ");
+		voidObs.append("		voided_by = ").append(DatabaseUpdater.getAuthenticatedUserId()).append(", ");
+		voidObs.append("		void_reason = 'Superceded by Obs with same concept, person, and datetime, with higher obs_id' ");
+		voidObs.append("where ");
+		voidObs.append("	 	concept_id = ").append(newQuestion).append(" ");
+		voidObs.append("and		obs_id not in ( ").append(obsToKeep.toString()).append(" ) ");
+		executeUpdate(voidObs, database);
+		log.warn("Successfully voided obs which had been superceded by another obs");
 	}
 
 	/**
 	 * Executes a SQL update
 	 * @throws CustomChangeException
 	 */
-	protected void executeSql(StringBuilder sql, Database database) throws CustomChangeException {
+	protected void executeUpdate(StringBuilder sql, Database database) throws CustomChangeException {
 		PreparedStatement s = null;
 		try {
 			JdbcConnection connection = (JdbcConnection) database.getConnection();
