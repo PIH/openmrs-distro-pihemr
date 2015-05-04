@@ -3,7 +3,6 @@ package org.openmrs.module.mirebalais;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -12,22 +11,46 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.htmlformentry.HtmlForm;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
+import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.web.test.BaseModuleWebContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 
 import java.io.InputStream;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 @SkipBaseSetup
-@Ignore
 public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
+
+    @Autowired
+    private MetadataDeployService metadataDeployService;
+
+    private PihCoreActivator pihCoreActivator;
 
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
+
+        // set up metatdata from pih core first
+        pihCoreActivator = new PihCoreActivator();
+        Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        pihCoreActivator.setConfig(config);
+        pihCoreActivator.started();
+
+        // load the test bundle of MDS concepts
+        metadataDeployService.installBundle(Context.getRegisteredComponents(ConceptsFromMetadataSharing.class).get(0));
+
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
     }
 
