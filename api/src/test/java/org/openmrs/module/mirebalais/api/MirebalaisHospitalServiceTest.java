@@ -23,6 +23,7 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
@@ -31,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests {@link MirebalaisHospitalService}.
@@ -72,7 +75,8 @@ public class MirebalaisHospitalServiceTest extends BaseModuleContextSensitiveTes
 	@Test
 	public void shouldGetLocalZlIdentifierSource() throws Exception {
 		patientIdentifierTypeBundle.install();
-		Config config = new Config();
+		Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
 		RuntimeProperties props = new RuntimeProperties();
 		PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, props);
 		IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
