@@ -410,6 +410,13 @@
             <version>${allergyuiVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>dispensing-api</artifactId>
+            <version>${dispensingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- End OpenMRS modules -->
 
         <!-- Begin OpenMRS contrib -->

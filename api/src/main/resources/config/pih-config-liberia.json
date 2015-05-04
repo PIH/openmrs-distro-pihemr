@@ -1,0 +1,22 @@
+{
+
+  "welcomeMessage": "Welcome to the EMR of Pleebo!",
+
+  "country": "LIBERIA",
+  "site": "PLEEBO",
+
+  "components": [
+    "patientRegistration",
+    "checkIn",
+    "systemAdministration",
+    "myAccount"
+  ],
+
+  "globalProperties": {
+    "mirebalais.checkIn.paymentAmounts": "100,75,50,0",
+    "mirebalais.checkIn.paymentAmountLabels": "100,75,50,Exempt",
+    "mirebalais.checkIn.paymentAmountDefault": "75"
+  },
+
+  "scheduleBackupReports": "false"
+}

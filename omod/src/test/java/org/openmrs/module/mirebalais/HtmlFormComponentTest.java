@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -19,6 +20,7 @@ import org.springframework.mock.web.MockHttpSession;
 import java.io.InputStream;
 
 @SkipBaseSetup
+@Ignore
 public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
 
     @Before
@@ -26,10 +28,6 @@ public class HtmlFormComponentTest extends BaseModuleWebContextSensitiveTest {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
-
-
-
-
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
     }
 
