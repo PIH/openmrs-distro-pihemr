@@ -6,8 +6,8 @@ import org.openmrs.ConceptName;
 import org.openmrs.ConceptSource;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihConceptBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
