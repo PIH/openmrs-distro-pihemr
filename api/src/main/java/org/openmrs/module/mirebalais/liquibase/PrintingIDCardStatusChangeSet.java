@@ -18,14 +18,11 @@ import liquibase.exception.ValidationErrors;
 import liquibase.resource.ResourceAccessor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.pihcore.deploy.bundle.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.util.DatabaseUpdater;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The legacy patientregistration module used a concept named "PrintingIDCardStatus" to store observations as

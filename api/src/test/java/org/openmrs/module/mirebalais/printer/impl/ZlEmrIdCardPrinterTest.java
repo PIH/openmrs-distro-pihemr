@@ -11,15 +11,15 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.MirebalaisLocationsBundle;
-import org.openmrs.module.mirebalaismetadata.deploy.bundle.ZlAddressBundle;
-import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
-import org.openmrs.module.pihcore.deploy.bundle.LocationAttributeTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.LocationTagBundle;
-import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.PersonAttributeTypeBundle;
-import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.PersonAttributeTypes;
+import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
+import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
 import org.openmrs.module.printer.PrinterModuleActivator;
@@ -49,7 +49,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
-    ZlAddressBundle addressBundle;
+    HaitiAddressBundle addressBundle;
 
     @Autowired
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
@@ -63,6 +63,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     @Before
     public void setup() throws Exception {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
+
         printerModuleActivator.started(); // Create Location Attribute Types Needed
         locationTagBundle.install();
         locationAttributeTypeBundle.install();

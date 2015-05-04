@@ -25,12 +25,12 @@ import org.openmrs.Patient;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.deploy.bundle.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.AnswerConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.CoreConceptMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.LocationBundle;
-import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.LocationBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.AnswerConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,22 +53,22 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 	private TestDataManager testData;
 
 	@Autowired
-	AdministrativeConcepts administrativeConcepts;
+    AdministrativeConcepts administrativeConcepts;
 
 	@Autowired
-	CoreConceptMetadataBundle coreConceptMetadataBundle;
+    CoreConceptMetadataBundle coreConceptMetadataBundle;
 
 	@Autowired
-	CommonConcepts commonConcepts;
+    CommonConcepts commonConcepts;
 
 	@Autowired
-	AnswerConcepts answerConcepts;
+    AnswerConcepts answerConcepts;
 
 	@Autowired
-	PatientIdentifierTypeBundle patientIdentifierTypeBundle;
+    PatientIdentifierTypeBundle patientIdentifierTypeBundle;
 
 	@Autowired
-	LocationBundle locationBundle;
+    LocationBundle locationBundle;
 
 	@Autowired @Qualifier("adminService")
 	AdministrationService administrationService;

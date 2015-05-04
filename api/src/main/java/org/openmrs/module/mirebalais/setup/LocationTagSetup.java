@@ -3,12 +3,12 @@ package org.openmrs.module.mirebalais.setup;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
 import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
-import org.openmrs.module.pihcore.metadata.LocationTags;
+import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
 import java.util.Arrays;
 import java.util.Collection;

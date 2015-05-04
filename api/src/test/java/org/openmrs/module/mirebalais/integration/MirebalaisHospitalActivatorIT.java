@@ -15,15 +15,18 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
-import org.openmrs.module.mirebalaismetadata.MetadataManager;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
@@ -38,19 +41,21 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         executeDataSet("serializedReportingDataset.xml");
         executeDataSet("fromMirebalaisMetadataModule.xml");
         authenticate();
-		installRequiredMetadata();
+
+        // set up metatdata from pih core first
+        PihCoreActivator pihCoreActivator = new PihCoreActivator();
+        Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        pihCoreActivator.setConfig(config);
+        pihCoreActivator.started();
+
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
         activator.setTestMode(true);
         activator.contextRefreshed();
         activator.started();
         customProperties = new RuntimeProperties();
     }
-
-	private void installRequiredMetadata() {
-		System.setProperty(PihMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
-		MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
-		manager.refresh();
-	}
 
     @AfterClass
     public static void tearDown() {

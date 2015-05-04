@@ -23,9 +23,9 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.PatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
-import org.openmrs.module.pihcore.metadata.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -115,6 +115,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     public void started() {
         try {
 
+            Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+
             MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             AdministrationService administrationService = Context.getAdministrationService();
@@ -124,7 +126,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             LocationService locationService = Context.getLocationService();
             PrinterService printerService = Context.getService(PrinterService.class);
             PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
-            Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
 
             removeOldGlobalProperties();
@@ -133,9 +134,8 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
             LocationTagSetup.setupLocationTags(locationService, config);
 
-            // for now, we install all forms everywhere
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
-            HtmlFormSetup.setupHtmlForms();
+            HtmlFormSetup.setupHtmlForms(config);
 
             // register our custom print handlers
             PrinterSetup.registerPrintHandlers(printerService);

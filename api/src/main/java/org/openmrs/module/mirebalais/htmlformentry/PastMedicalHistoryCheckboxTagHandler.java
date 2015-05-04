@@ -20,7 +20,7 @@ import org.openmrs.module.htmlformentry.widget.CheckboxWidget;
 import org.openmrs.module.htmlformentry.widget.ErrorWidget;
 import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -6,9 +6,9 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.EncounterTypeBundle;
-import org.openmrs.module.pihcore.metadata.PersonAttributeTypes;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 
 import java.util.ArrayList;
 import java.util.Iterator;

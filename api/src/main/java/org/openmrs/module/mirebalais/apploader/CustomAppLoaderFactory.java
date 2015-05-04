@@ -12,9 +12,9 @@ import org.openmrs.module.mirebalaismetadata.deploy.bundle.RadiologyMetadata;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.EncounterTypeBundle;
-import org.openmrs.module.pihcore.metadata.LocationTags;
-import org.openmrs.module.pihcore.metadata.Privileges;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -11,9 +11,9 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
 public class PatientIdentifierSetup {
 
@@ -25,7 +25,9 @@ public class PatientIdentifierSetup {
 
         ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
 
-        createPatientIdGenerator(service, configureIdGenerators);
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            createPatientIdGenerator(service, configureIdGenerators);
+        }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
             createDossierNumberGenerator(service, locationService, configureIdGenerators, config);

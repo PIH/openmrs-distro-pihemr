@@ -1,6 +1,7 @@
 {
-    "welcomeMessage": "Bienvenue dans l'EMR de l'Hôpital Universitaire de Mirebalais",
+  "welcomeMessage": "Bienvenue dans l'EMR de l'Hôpital Universitaire de Mirebalais",
 
+    "country": "HAITI",
     "site": "MIREBALAIS",
 
     "components": [

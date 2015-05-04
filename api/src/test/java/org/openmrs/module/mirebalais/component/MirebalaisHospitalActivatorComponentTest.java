@@ -29,11 +29,12 @@ import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.mirebalaismetadata.MetadataManager;
-import org.openmrs.module.mirebalaismetadata.metadata.MirebalaisLocations;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
+import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.dataset.column.definition.RowPerObjectColumnDefinition;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
@@ -49,6 +50,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
@@ -65,7 +68,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     @Autowired
     private PaperRecordProperties paperRecordProperties;
 
-    private MirebalaisHospitalActivator activator;
+    private MirebalaisHospitalActivator mirebalaisHospitalActivator;
+
+    private PihCoreActivator pihCoreActivator;
 
     @Before
     public void beforeEachTest() throws Exception {
@@ -76,20 +81,22 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         executeDataSet("fromMirebalaisMetadataModule.xml");
         executeDataSet("serializedReportingDataset.xml");
         authenticate();
-		installRequiredMetadata();
-        activator = new MirebalaisHospitalActivator();
-        activator.setTestMode(true);  // TODO: get ReportSetup to work while testing so we no longer need this
-        activator.willRefreshContext();
-        activator.contextRefreshed();
-        activator.willStart();
-        activator.started();
-    }
 
-	private void installRequiredMetadata() {
-		System.setProperty(PihMetadataBundle.SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "true");
-		MetadataManager manager = Context.getRegisteredComponents(MetadataManager.class).get(0);
-		manager.refresh();
-	}
+        // set up metatdata from pih core first
+        pihCoreActivator = new PihCoreActivator();
+        Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        pihCoreActivator.setConfig(config);
+        pihCoreActivator.started();
+
+        mirebalaisHospitalActivator = new MirebalaisHospitalActivator();
+        mirebalaisHospitalActivator.setTestMode(true);  // TODO: get ReportSetup to work while testing so we no longer need this
+        mirebalaisHospitalActivator.willRefreshContext();
+        mirebalaisHospitalActivator.contextRefreshed();
+        mirebalaisHospitalActivator.willStart();
+        mirebalaisHospitalActivator.started();
+    }
 
     @Test
     public void testThatActivatorDoesAllSetup() throws Exception {
