@@ -26,11 +26,11 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AnswerConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,7 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
     AnswerConcepts answerConcepts;
 
 	@Autowired
-    PatientIdentifierTypeBundle patientIdentifierTypeBundle;
+    HaitiPatientIdentifierTypeBundle patientIdentifierTypeBundle;
 
 	@Autowired
     LocationBundle locationBundle;

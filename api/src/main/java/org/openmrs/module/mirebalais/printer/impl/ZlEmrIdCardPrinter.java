@@ -20,8 +20,8 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
@@ -120,7 +120,7 @@ public class ZlEmrIdCardPrinter {
      * @return the patient identifier in the format that it should be displayed on the id cards
      */
     protected String getIdentifier(Patient patient) {
-        PatientIdentifierType idType = MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.ZL_EMR_ID.uuid());
+        PatientIdentifierType idType = MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
         PatientIdentifier pi = patient.getPatientIdentifier(idType);
         if (pi == null || pi.isVoided()) {
             pi = patient.getPatientIdentifier();

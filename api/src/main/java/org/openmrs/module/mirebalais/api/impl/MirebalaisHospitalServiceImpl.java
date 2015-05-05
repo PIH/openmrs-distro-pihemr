@@ -27,8 +27,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
-import org.openmrs.module.pihcore.PihCoreConstants;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,60 +52,6 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	 */
 	public MirebalaisHospitalDAO getDao() {
 		return dao;
-	}
-
-	/**
-	 * @see org.openmrs.module.mirebalais.api.MirebalaisHospitalService#configureZlIdentifierSources()
-	 *
-	 */
-	@Override
-	@Transactional
-	public void configureZlIdentifierSources() {
-		
-	}
-
-    @Override
-    public SequentialIdentifierGenerator getLocalZlIdentifierGenerator() {
-        return getIdentifierSource(PihCoreConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID, SequentialIdentifierGenerator.class);
-    }
-
-	@Override
-	public IdentifierPool getLocalZlIdentifierPool() {
-        return getIdentifierSource(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, IdentifierPool.class);
-	}
-	
-	@Override
-	public RemoteIdentifierSource getRemoteZlIdentifierSource() {
-        return getIdentifierSource(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, RemoteIdentifierSource.class);
-	}
-	
-	@Override
-	public PatientIdentifierType getZlIdentifierType() {
-		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.ZL_EMR_ID.uuid());
-	}
-
-    @Override
-    public PatientIdentifierType getExternalDossierIdentifierType() {
-		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
-    }
-	
-	@Override
-	public SequentialIdentifierGenerator getDossierSequenceGenerator(String identifierSourceUuid) {
-
-		SequentialIdentifierGenerator sequentialIdentifierGenerator = (SequentialIdentifierGenerator) Context.getService(
-		    IdentifierSourceService.class).getIdentifierSourceByUuid(
-		    identifierSourceUuid);
-		
-		if (sequentialIdentifierGenerator == null) {
-			throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
-		}
-		
-		return sequentialIdentifierGenerator;
-	}
-
-	@Override
-	public PatientIdentifierType getDossierIdentifierType() {
-		return MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
 	}
 
     /**

@@ -11,8 +11,8 @@ import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
-import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +32,9 @@ public class LegacyMasterPatientIndexSetup {
         }
 
         Map<String, PatientIdentifierType> identifierTypeMap = new HashMap<String, PatientIdentifierType>();
-        identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", Context.getService(MirebalaisHospitalService.class).getZlIdentifierType());
+        identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()));
         // TODO create PatientIdentifierType for Lacolline KE dossier number
-        identifierTypeMap.put("e66645eb-03a8-4991-b4ce-e87318e37566", Context.getService(MirebalaisHospitalService.class).getExternalDossierIdentifierType());
+        identifierTypeMap.put("e66645eb-03a8-4991-b4ce-e87318e37566", MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid()));
         // TODO create PatientIdentifierType for Lacolline dental dossier number
 
         Map<String, Location> locationMap = new HashMap<String, Location>();

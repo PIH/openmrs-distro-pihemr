@@ -13,11 +13,7 @@
  */
 package org.openmrs.module.mirebalais.api;
 
-import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.idgen.IdentifierPool;
-import org.openmrs.module.idgen.RemoteIdentifierSource;
-import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -32,22 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface MirebalaisHospitalService extends OpenmrsService {
-	
-	void configureZlIdentifierSources();
-	
-	IdentifierPool getLocalZlIdentifierPool();
-
-    SequentialIdentifierGenerator getLocalZlIdentifierGenerator();
-
-	RemoteIdentifierSource getRemoteZlIdentifierSource();
-	
-	PatientIdentifierType getZlIdentifierType();
-
-    PatientIdentifierType getExternalDossierIdentifierType();
-	
-	SequentialIdentifierGenerator getDossierSequenceGenerator(String identifierSourceUuid);
-
-	PatientIdentifierType getDossierIdentifierType();
 
     /**
      * Gets the next available radiology order number seed

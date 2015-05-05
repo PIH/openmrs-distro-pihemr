@@ -4,9 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.api.APIException;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +26,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.V
 
 
 public class CustomAppLoaderUtil {
-
 
     static public AppDescriptor app(String id, String label, String icon, String url, String privilege, ObjectNode config) {
 
@@ -367,7 +369,7 @@ public class CustomAppLoaderUtil {
                         "uuid", uuid,
                         "cssClasses", arrayNode(cssClasses),
                         "widget", objectNode("providerName", widgetProvider,
-                                            "fragmentId", widgetFragment));
+                        "fragmentId", widgetFragment));
 
 
     }
@@ -444,6 +446,37 @@ public class CustomAppLoaderUtil {
         }
 
         return map;
+    }
+
+    static public String determineHtmlFormPath(ResourceFactory resourceFactory, Config config, String formName) {
+        return determineResourcePath(resourceFactory, config, "pihcore", "htmlforms", formName + ".xml");
+    }
+
+    static public String determineResourcePath(ResourceFactory resourceFactory, Config config, String providerName, String prefix, String resource) {
+
+        // first try full path with country and site
+        String resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
+                + "/" + resource;
+
+        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+            return providerName + ":" + resourcePath;
+        }
+
+        // now try just country path
+        resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
+
+        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+            return providerName + ":" + resourcePath;
+        }
+
+        // now the base path
+        resourcePath =  prefix + "/" + resource;
+        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+            return providerName + ":" + resourcePath;
+        }
+
+        throw new APIException("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix);
+
     }
 
 }

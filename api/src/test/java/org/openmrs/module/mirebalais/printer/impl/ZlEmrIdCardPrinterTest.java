@@ -13,12 +13,12 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
@@ -55,7 +55,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
     @Autowired
-    PatientIdentifierTypeBundle patientIdentifierTypeBundle;
+    HaitiPatientIdentifierTypeBundle patientIdentifierTypeBundle;
 
     @Autowired
     PersonAttributeTypeBundle personAttributeTypeBundle;
@@ -100,7 +100,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
         // Create a patient for whom to print an id card
         PatientBuilder pb = testDataManager.patient().birthdate("1948-02-16").gender("M").name("Ringo", "Starr");
-        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, PatientIdentifierTypes.ZL_EMR_ID.uuid()), "X2ECEX", location);
+        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), "X2ECEX", location);
         pb.personAttribute(MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid()), "555-1212");
         pb.address("should be line 2", "should be line 1", "should be line 4", "should be line 5a", "should not exist", "should be line 5b");
         Patient patient = pb.save();

@@ -15,6 +15,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisRadiologyBundle;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +44,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
@@ -72,6 +74,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     @Autowired
     private Config config;
+
+    @Autowired
+    private ResourceFactory resourceFactory;
 
     @Autowired
     private FullDataExportBuilder fullDataExportBuilder;
@@ -310,7 +315,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
-                editSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"), null);
+                editSimpleHtmlFormLink(determineHtmlFormPath(resourceFactory, config, "checkin")), null);
     }
 
     private void enableVitals() {
@@ -1074,6 +1079,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     // used for mocking
     public void setApps(List<AppDescriptor> apps) {
         this.apps = apps;
+    }
+
+    // used for mocking
+    public void setResourceFactory(ResourceFactory resourceFactory) {
+        this.resourceFactory = resourceFactory;
     }
 
     public void setExtensions(List<Extension> extensions) {
