@@ -36,7 +36,6 @@ import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
-import org.openmrs.module.mirebalais.setup.LocationTagSetup;
 import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
 import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
@@ -132,7 +131,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             removeOldPrivileges();
 
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
-            LocationTagSetup.setupLocationTags(locationService, config);
 
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             HtmlFormSetup.setupHtmlForms(config);
@@ -169,8 +167,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             }
 
             if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
-                // must happen after location tags have been configured
-                ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
+                if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS) || config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
+                    // must happen after location tags have been configured
+                    ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
+                }
             }
 
           /*  if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {

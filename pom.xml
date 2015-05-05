@@ -215,6 +215,13 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatadeploy-api-1.10</artifactId>
+            <version>${metadatadeployVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>metadatadeploy-api</artifactId>
             <version>${metadatadeployVersion}</version>
             <scope>provided</scope>
