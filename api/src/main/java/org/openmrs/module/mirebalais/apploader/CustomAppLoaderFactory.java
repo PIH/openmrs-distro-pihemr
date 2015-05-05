@@ -76,10 +76,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Config config;
 
     @Autowired
-    private ResourceFactory resourceFactory;
-
-    @Autowired
     private FullDataExportBuilder fullDataExportBuilder;
+
+    private ResourceFactory resourceFactory;
 
     private List<AppDescriptor> apps;
 
@@ -87,6 +86,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     // TODO have this be set to true on a context refresh?  would also need to trigger another a context refresh
     private Boolean needsRefresh = true;
+
+    public CustomAppLoaderFactory() {
+        resourceFactory = ResourceFactory.getInstance();
+    }
 
     @Override
     public List<AppDescriptor> getAppDescriptors() throws IOException {
