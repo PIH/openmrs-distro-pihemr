@@ -13,7 +13,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -66,7 +66,7 @@ public class IdCardFragmentController {
 
         StatusMessage status = new StatusMessage(false, ui.message("zl.registration.patient.idcard.invalidForPatient", identifier, ui.format(patient.getPersonName())));
         for (PatientIdentifier pi : patient.getIdentifiers()) {
-            if (pi.getIdentifierType().getUuid().equals(PatientIdentifierTypes.ZL_EMR_ID.uuid())) {
+            if (pi.getIdentifierType().getUuid().equals(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid())) {
                 if (pi.getIdentifier().equals(identifier)) {
                     status = new StatusMessage(true, "");
                     savePrintingStatusObs(patient, uiSessionContext.getSessionLocation(), true);
