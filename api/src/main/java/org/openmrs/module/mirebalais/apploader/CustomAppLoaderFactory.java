@@ -304,13 +304,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"),
+                enterSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
-                editSimpleHtmlFormLink("mirebalais:htmlforms/checkin.xml"), null);
+                editSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"), null);
     }
 
     private void enableVitals() {
@@ -327,7 +327,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.vitals.label",
                 "icon-vitals",
                 "link",
-                enterSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"),
+                enterSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"),
                 "Task: emr.enterVitalsNote",
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
@@ -341,7 +341,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "editable", Boolean.TRUE,
                                 "edit-provider", "htmlformentryui",
                                 "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                                "definitionUiResource", "mirebalais:htmlforms/vitals.xml",
+                                "definitionUiResource", "pihcore:htmlforms/vitals.xml",
                                 "returnProvider", "coreapps",
                                 "returnPage", "clinicianfacing/patient")),
                 "coreapps",
@@ -349,7 +349,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
-                editSimpleHtmlFormLink("mirebalais:htmlforms/vitals.xml"), null);
+                editSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"), null);
 
     }
 
@@ -359,7 +359,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.clinic.consult.title",
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
@@ -378,7 +378,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.ed.consult.title",
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
                 null,
                 and(sessionLocationHasTag(LocationTags.ED_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
@@ -407,7 +407,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
                 "Task: emr.enterAdmissionNote",
                 null));
 
@@ -415,7 +415,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "uicommons.cancel",
                 "icon-remove",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
                 "Task: emr.enterAdmissionNote",
                 null));
 
@@ -423,7 +423,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.admit.label",
                 "icon-h-sign",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/admissionNote.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/admissionNote.xml"),
                 null,
                 and(sessionLocationHasTag(LocationTags.ADMISSION_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
@@ -449,7 +449,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.deathCertificate.enter.label",
                 "icon-remove-circle",
                 "link",
-                enterSimpleHtmlFormLink("mirebalais:htmlforms/deathCertificate.xml"),
+                enterSimpleHtmlFormLink("pihcore:htmlforms/deathCertificate.xml"),
                 "Task: mirebalais.enterDeathCertificate",
                 "!patient.person.dead"
         ));
@@ -541,7 +541,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.surgicalOperativeNote.label",
                 "icon-paste",
                 "link",
-                enterStandardHtmlFormLink("mirebalais:htmlforms/surgicalPostOpNote.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/surgicalPostOpNote.xml"),
                 "Task: emr.enterSurgicalNote",
                 sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
@@ -860,7 +860,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration.xml",
+                                "definitionUiResource", "pihcore:htmlforms/patientRegistration.xml",
                                 "editable", true,
                                 "edit-icon", "icon-share-alt",
                                 "edit-provider", "registrationapp",
@@ -875,7 +875,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-rs.xml",
+                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-rs.xml",
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
@@ -887,7 +887,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-social.xml",
+                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-social.xml",
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
@@ -899,7 +899,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "mirebalais:htmlforms/patientRegistration-contact.xml",
+                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-contact.xml",
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));

@@ -31,7 +31,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 query: {
                     patientId: "${ patient.id }",
                     visitId: "${ visit?.id }",
-                    definitionUiResource: "mirebalais:htmlforms/vitals.xml",
+                    definitionUiResource: "pihcore:htmlforms/vitals.xml",
                     returnUrl: "${ ui.escapeJs(ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': appName ])) }",
                     breadcrumbOverride: "${ ui.escapeJs(breadcrumbOverride) }"
                 }

@@ -33,7 +33,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                         patientId: "${ patient.id }",
                         visitId: "${ activeVisit ? activeVisit.visit.id : ''}",
                         createVisit: "${ activeVisit ? 'false' : 'true' }",
-                        definitionUiResource: "mirebalais:htmlforms/liveCheckin.xml",
+                        definitionUiResource: "pihcore:htmlforms/liveCheckin.xml",
                         returnUrl: "${ ui.escapeJs(ui.pageLink("mirebalais", "checkin/requestRecord", [ 'patientId' : patient.id ])) }",
                         breadcrumbOverride: "${ ui.escapeJs(breadcrumbOverride) }"
                     }

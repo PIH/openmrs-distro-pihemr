@@ -24,7 +24,7 @@ angular.module('deathCertificate', ['encounterService']).
                 page: "htmlform/enterHtmlFormWithSimpleUi",
                 query: {
                     patientId: $scope.patientUuid,
-                    definitionUiResource: "mirebalais:htmlforms/deathCertificate.xml",
+                    definitionUiResource: "pihcore:htmlforms/deathCertificate.xml",
                     returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
                 }
             });

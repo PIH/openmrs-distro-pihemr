@@ -56,10 +56,6 @@ public class MirebalaisConstants {
 
     public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
 
-    public static final String HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME = "causeOfDeathList";
-    public static final String HTMLFORMENTRY_PAST_MEDICAL_HISTORY_CHECKBOX_TAG_NAME = "pastMedicalHistoryCheckbox";
-    public static final String HTMLFORMENTRY_FAMILY_HISTORY_RELATIVE_CHECKBOXES_TAG_NAME = "familyHistoryRelativeCheckboxes";
-
     public static final String PATIENT_DASHBOARD_LINK = "registrationapp/registrationSummary.page";
 
     public static final String ID_CARD_DATE_FORMAT = "dd/MMM/yyyy";

@@ -11,7 +11,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Check In",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/checkin.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/checkin.xml&returnUrl={{returnUrl}}"
             },
             defaultState: "short"
         };
@@ -27,7 +27,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Vitals",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/vitals.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}"
             },
             defaultState: "short"
         };
@@ -57,7 +57,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "History (Adult)",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/zl/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
             },
             defaultState: "long"
         };
@@ -71,7 +71,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Exam and Diagnosis (Adult)",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=mirebalais:htmlforms/zl/primary-care-adult-exam-dx.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam-dx.xml&returnUrl={{returnUrl}}"
             },
             defaultState: "long"
         };
