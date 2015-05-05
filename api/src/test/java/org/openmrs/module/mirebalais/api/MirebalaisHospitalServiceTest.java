@@ -21,7 +21,8 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MissingMetadataException;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
-import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
+import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PatientIdentifierTypeBundle;
@@ -78,10 +79,10 @@ public class MirebalaisHospitalServiceTest extends BaseModuleContextSensitiveTes
 		Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
 		RuntimeProperties props = new RuntimeProperties();
-		PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, props);
+		PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
 		IdentifierSource zlIdentifierPool = service.getLocalZlIdentifierPool();
 		assertNotNull(zlIdentifierPool);
-		assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, zlIdentifierPool.getUuid());
+		assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, zlIdentifierPool.getUuid());
 	}
 	
 	@Test(expected = IllegalStateException.class)

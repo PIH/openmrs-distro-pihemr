@@ -36,7 +36,7 @@ import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
-import org.openmrs.module.mirebalais.setup.PatientIdentifierSetup;
+import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -128,8 +128,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             removeOldGlobalProperties();
             removeOldPrivileges();
-
-            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(service, identifierSourceService, locationService, config, customProperties);
 
             // register our custom print handlers
             PrinterSetup.registerPrintHandlers(printerService);

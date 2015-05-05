@@ -27,6 +27,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,17 +67,17 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 
     @Override
     public SequentialIdentifierGenerator getLocalZlIdentifierGenerator() {
-        return getIdentifierSource(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID, SequentialIdentifierGenerator.class);
+        return getIdentifierSource(PihCoreConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID, SequentialIdentifierGenerator.class);
     }
 
 	@Override
 	public IdentifierPool getLocalZlIdentifierPool() {
-        return getIdentifierSource(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, IdentifierPool.class);
+        return getIdentifierSource(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, IdentifierPool.class);
 	}
 	
 	@Override
 	public RemoteIdentifierSource getRemoteZlIdentifierSource() {
-        return getIdentifierSource(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, RemoteIdentifierSource.class);
+        return getIdentifierSource(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, RemoteIdentifierSource.class);
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
@@ -16,8 +17,10 @@ import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.identifier.ConfigureIdGenerators;
 import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -66,10 +69,13 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     @DirtiesContext
     public void testThatActivatorDoesAllSetup() throws Exception {
         MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+        LocationService locationService = Context.getLocationService();
+        ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(identifierSourceService, locationService);
 
         IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
         RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
         PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(PatientIdentifierTypes.ZL_EMR_ID.uuid());
         PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
@@ -80,21 +86,21 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
         assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
 
-        assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
-        assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
-        assertEquals(MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
+        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
+        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
+        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
 
-        assertEquals(MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
-        assertEquals(customProperties.getRemoteZlIdentifierSourceUrl(), remoteZlIdentifierSource.getUrl());
-        assertEquals(customProperties.getRemoteZlIdentifierSourceUsername(), remoteZlIdentifierSource.getUser());
-        assertEquals(customProperties.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
+        assertEquals(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
+        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourceUrl(), remoteZlIdentifierSource.getUrl());
+        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourceUsername(), remoteZlIdentifierSource.getUser());
+        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
 
         assertEquals("A", dossierSequenceGenerator.getPrefix());
         assertEquals(new Integer(7), dossierSequenceGenerator.getMaxLength());
         assertEquals(new Integer(7), dossierSequenceGenerator.getMinLength());
         assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
         assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
-        assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
+        assertEquals(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
         assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
         assertEquals(2, Context.getService(IdentifierSourceService.class).getAutoGenerationOptions(dossierNumberIdentifierType).size());
 

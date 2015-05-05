@@ -38,6 +38,7 @@ import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
+import org.openmrs.module.pihcore.identifier.ConfigureIdGenerators;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -267,9 +268,10 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
         public TestMirebalaisHospitalActivator() {
             super();
             RuntimeProperties properties = mock(RuntimeProperties.class);
-            when(properties.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
-            when(properties.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
-            when(properties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
+            ConfigureIdGenerators configureIdGenerators = mock(ConfigureIdGenerators.class);
+            when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
+            when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
+            when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
 
             setCustomProperties(properties);
         }

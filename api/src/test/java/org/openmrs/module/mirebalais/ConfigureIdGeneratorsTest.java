@@ -25,6 +25,8 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.identifier.ConfigureIdGenerators;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -34,14 +36,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
-import static org.openmrs.module.mirebalais.MirebalaisConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE;
+import static org.openmrs.module.pihcore.PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE;
+import static org.openmrs.module.pihcore.PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
+import static org.openmrs.module.pihcore.PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
+import static org.openmrs.module.pihcore.PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
+import static org.openmrs.module.pihcore.PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
 
 public class ConfigureIdGeneratorsTest {
 	
@@ -66,7 +68,7 @@ public class ConfigureIdGeneratorsTest {
 		patientIdentifierType = new PatientIdentifierType();
 		
 		customProperties = mock(RuntimeProperties.class);
-		configureIdGenerators = new ConfigureIdGenerators(customProperties, identifierSourceService, locationService, service);
+		configureIdGenerators = new ConfigureIdGenerators(identifierSourceService, locationService);
 	}
 	
 	@Test
@@ -74,9 +76,9 @@ public class ConfigureIdGeneratorsTest {
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 		when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
 		
-		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
-		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
-		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+		when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configureIdGenerators
 		        .remoteZlIdentifierSource(patientIdentifierType);
@@ -94,9 +96,9 @@ public class ConfigureIdGeneratorsTest {
 		RemoteIdentifierSource remoteZlIdentifierSource = new RemoteIdentifierSource();
 		when(service.getRemoteZlIdentifierSource()).thenReturn(remoteZlIdentifierSource);
 		
-		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
-		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
-		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
+		when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
 		RemoteIdentifierSource remoteZlIdentifierSourceExpected = configureIdGenerators
 		        .remoteZlIdentifierSource(patientIdentifierType);
@@ -111,12 +113,12 @@ public class ConfigureIdGeneratorsTest {
 	
 	@Test
 	public void shouldConfigureDossierNumberGeneratorWhenThereIsNoConfigurationInDatabase() {
-		when(service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenThrow(IllegalStateException.class);
+		when(service.getDossierSequenceGenerator(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenThrow(IllegalStateException.class);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
 		        .sequentialIdentifierGeneratorForDossier(patientIdentifierType,
-                        MirebalaisConstants.UHM_DOSSIER_NUMBER_PREFIX,
-                        MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+                        PihCoreConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                        PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGeneratorAsExpected = buildSequentialIdentifierGeneratorAsExpected();
 		
@@ -128,18 +130,18 @@ public class ConfigureIdGeneratorsTest {
         assertEquals(new Integer(7), sequentialIdentifierGenerator.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGenerator.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGenerator.getFirstIdentifierBase());
-		assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGenerator.getUuid());
+		assertEquals(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGenerator.getUuid());
 	}
 	
 	@Test
 	public void shouldConfigureDossierNumberGeneratorWhenThereOneConfigurationInDatabase() {
 		SequentialIdentifierGenerator sequentialIdentifierGeneratorAsExpected = buildSequentialIdentifierGeneratorAsExpected();
-		when(service.getDossierSequenceGenerator(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenReturn(sequentialIdentifierGeneratorAsExpected);
+		when(service.getDossierSequenceGenerator(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID)).thenReturn(sequentialIdentifierGeneratorAsExpected);
 		
 		SequentialIdentifierGenerator sequentialIdentifierGenerator = configureIdGenerators
 		        .sequentialIdentifierGeneratorForDossier(patientIdentifierType,
-                        MirebalaisConstants.UHM_DOSSIER_NUMBER_PREFIX,
-                        MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+                        PihCoreConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                        PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 		
 		verify(identifierSourceService, never()).saveIdentifierSource(any(SequentialIdentifierGenerator.class));
 		
@@ -149,7 +151,7 @@ public class ConfigureIdGeneratorsTest {
         assertEquals(new Integer(7), sequentialIdentifierGeneratorAsExpected.getMinLength());
 		assertEquals("0123456789", sequentialIdentifierGeneratorAsExpected.getBaseCharacterSet());
 		assertEquals("000001", sequentialIdentifierGeneratorAsExpected.getFirstIdentifierBase());
-		assertEquals(MirebalaisConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGeneratorAsExpected
+		assertEquals(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, sequentialIdentifierGeneratorAsExpected
 		        .getUuid());
 	}
 	
@@ -170,9 +172,9 @@ public class ConfigureIdGeneratorsTest {
 	public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsNotConfigured() {
 		when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
 		
-		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
-		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
-		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME);
+		when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD);
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn(REMOTE_ZL_IDENTIFIER_SOURCE_URL);
 		
 		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators
 		        .remoteZlIdentifierSource(patientIdentifierType);
@@ -190,9 +192,9 @@ public class ConfigureIdGeneratorsTest {
 	public void shouldCreateRemoteZlIdentifierSourceWhenItDoesNotExistOnDbAndTheCustomPropertiesFileIsConfigured() {
 		when(service.getRemoteZlIdentifierSource()).thenThrow(new IllegalStateException());
 		
-		when(customProperties.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
-		when(customProperties.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
-		when(customProperties.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://localhost");
+		when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn("user_test");
+		when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn("abc123");
 		
 		RemoteIdentifierSource remoteZlIdentifierSource = configureIdGenerators
 		        .remoteZlIdentifierSource(patientIdentifierType);
