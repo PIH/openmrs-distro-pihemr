@@ -318,7 +318,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypeBundle.EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
-                editSimpleHtmlFormLink(determineHtmlFormPath(resourceFactory, config, "checkin")), null);
+                editSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"), null);
     }
 
     private void enableVitals() {
