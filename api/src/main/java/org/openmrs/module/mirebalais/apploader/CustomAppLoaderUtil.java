@@ -9,6 +9,7 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.ArrayList;
@@ -294,11 +295,11 @@ public class CustomAppLoaderUtil {
         ext.setFeatureToggle(featureToggle);
     }
 
-    static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon) {
-        registerTemplateForEncounterType(encounterTypeUuid, template, icon, null, null, null, null);
+    static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon) {
+        registerTemplateForEncounterType(encounterType, template, icon, null, null, null, null);
     }
 
-    static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon,
+    static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon,
                                                         Boolean displayWithHtmlForm, Boolean editable,
                                                         String editUrl,  // note that if editUrl is null/empty, the standard Html Form link is used by default--that's why we don't specify this is most cases
                                                         String primaryEncounterRoleUuid) {
@@ -328,7 +329,7 @@ public class CustomAppLoaderUtil {
             encounterTypeParams.put("primaryEncounterRoleUuid", primaryEncounterRoleUuid);
         }
 
-        ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterTypeUuid, encounterTypeParams);
+        ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterType.uuid(), encounterTypeParams);
     }
 
     static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, String patientDashboardLink, String registrationEncounterType, String registrationEncounterRole, ObjectNode ... sections) {

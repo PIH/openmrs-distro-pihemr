@@ -9,6 +9,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -49,7 +50,7 @@ public class PatientRegistrationApp {
         RegistrationAppConfig c = new RegistrationAppConfig();
         c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
-        c.setRegistrationEncounter(EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION, EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
+        c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(true);
         c.setAllowManualIdentifier(true);

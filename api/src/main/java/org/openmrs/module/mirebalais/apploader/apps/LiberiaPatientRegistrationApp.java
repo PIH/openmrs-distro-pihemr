@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
@@ -15,7 +16,7 @@ public class LiberiaPatientRegistrationApp extends PatientRegistrationApp {
         RegistrationAppConfig c = new RegistrationAppConfig();
         c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
-        c.setRegistrationEncounter(EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION, EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
+        c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(false);
         c.setAllowManualIdentifier(false);

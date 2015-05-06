@@ -9,6 +9,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.io.File;
@@ -260,13 +261,13 @@ public class CustomAppLoaderTest {
         CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
         factory.setExtensions(extensions);
 
-        registerTemplateForEncounterType("encounterTypeUuid", factory.findExtensionById("id"), "icon",
+        registerTemplateForEncounterType(EncounterTypes.PATIENT_REGISTRATION, factory.findExtensionById("id"), "icon",
                 true, false, "someLink", "primaryEncounterRoleUuid");
 
         assertTrue(template.getExtensionParams().containsKey("supportedEncounterTypes"));
-        assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey("encounterTypeUuid"));
+        assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey(EncounterTypes.PATIENT_REGISTRATION.uuid()));
 
-        Map<String,Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get("encounterTypeUuid");
+        Map<String,Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get(EncounterTypes.PATIENT_REGISTRATION.uuid());
         assertThat((String) params.get("icon"), is("icon"));
         assertThat((String) params.get("primaryEncounterRoleUuid"), is("primaryEncounterRoleUuid"));
         assertThat((Boolean) params.get("displayWithHtmlForm"), is(true));
