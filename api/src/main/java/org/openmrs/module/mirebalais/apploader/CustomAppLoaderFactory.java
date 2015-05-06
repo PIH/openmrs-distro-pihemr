@@ -2,15 +2,19 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.APIException;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.mirebalais.apploader.apps.HaitiPatientRegistrationApp;
+import org.openmrs.module.mirebalais.apploader.apps.LiberiaPatientRegistrationApp;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisRadiologyBundle;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
@@ -44,7 +48,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
@@ -858,7 +861,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePatientRegistration() {
-        PatientRegistrationApp app = new PatientRegistrationApp();
+        PatientRegistrationApp app;
+
+        // TODO rather than if/then, dynamically load class based on country name? worth doing?
+        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            app = new LiberiaPatientRegistrationApp();
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            app = new HaitiPatientRegistrationApp();
+        }
+        else {
+            // TODO change test so that we can properly throw exception here and things will stil pass
+            app = new HaitiPatientRegistrationApp();
+            //throw new APIException("Country " + config.getCountry() + " does not support registration");
+        }
+
         apps.add(addToHomePage(app.build(config)));
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_REGISTRATION,

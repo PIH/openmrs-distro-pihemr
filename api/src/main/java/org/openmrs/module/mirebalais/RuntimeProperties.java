@@ -16,7 +16,7 @@ package org.openmrs.module.mirebalais;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.identifier.ConfigureIdGenerators;
+import org.openmrs.module.pihcore.identifier.haiti.ConfigureHaitiIdGenerators;
 
 public class RuntimeProperties {
 
@@ -35,7 +35,7 @@ public class RuntimeProperties {
      * the first identifier base will be 1000, if the prefix is two characters, the first identifier base will be 100, etc
      */
     public String getLocalZlIdentifierGeneratorPrefix() {
-        String property = Context.getRuntimeProperties().getProperty(ConfigureIdGenerators.LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
+        String property = Context.getRuntimeProperties().getProperty(ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
         return property != null ? property : "";
     }
 

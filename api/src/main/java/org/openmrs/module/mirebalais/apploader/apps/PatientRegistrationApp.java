@@ -27,15 +27,25 @@ import java.util.Arrays;
 public class PatientRegistrationApp {
 
     public AppDescriptor build(Config config) {
-        AppDescriptor d = new AppDescriptor();
+        AppDescriptor d = getAppDescriptor();
+        RegistrationAppConfig c = getRegistrationAppConfig();
+        addSections(c, config);
+        d.setConfig(toObjectNode(c));
+        return d;
+    }
 
+    public AppDescriptor getAppDescriptor() {
+        AppDescriptor d = new AppDescriptor();
         d.setId(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setDescription("registrationapp.registerPatient");
         d.setLabel("registrationapp.app.registerPatient.label");
         d.setIcon("icon-user");
         d.setUrl("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setRequiredPrivilege("App: registrationapp.registerPatient");
+        return d;
+    }
 
+    public RegistrationAppConfig getRegistrationAppConfig() {
         RegistrationAppConfig c = new RegistrationAppConfig();
         c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
@@ -43,7 +53,10 @@ public class PatientRegistrationApp {
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(true);
         c.setAllowManualIdentifier(true);
+        return c;
+    }
 
+    public void addSections(RegistrationAppConfig c, Config config) {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
@@ -52,10 +65,6 @@ public class PatientRegistrationApp {
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection());
         }
-
-        d.setConfig(toObjectNode(c));
-
-        return d;
     }
 
     public Section getDemographicsSection() {
@@ -224,11 +233,11 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("contacts");
         s.setLabel("zl.registration.patient.contactPerson.label");
-        s.addQuestion(getContactQuestion());
+        s.addQuestion(getContactQuestion(true));
         return s;
     }
 
-    public Question getContactQuestion() {
+    public Question getContactQuestion(boolean required) {
         Question q = new Question();
         q.setId("contactNameLabel");
         q.setLegend("zl.registration.patient.contactPerson.label");
@@ -239,7 +248,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.contactName.question");
             f.setType("obsgroup");
-            f.setCssClasses(Arrays.asList("required"));
+            if (required) { f.setCssClasses(Arrays.asList("required")); }
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -248,7 +257,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.relationships.label");
             f.setType("obsgroup");
-            f.setCssClasses(Arrays.asList("required"));
+            if (required) { f.setCssClasses(Arrays.asList("required")); }
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -265,7 +274,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT");
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
-            f.setCssClasses(Arrays.asList("required"));
+            if (required) { f.setCssClasses(Arrays.asList("required")); }
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -321,6 +330,14 @@ public class PatientRegistrationApp {
             w.getConfig().setMaxlength(maxLength);
         }
         return toObjectNode(w);
+    }
+
+    protected ObjectNode getPersonAdressWidget() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode personAddressWidget = mapper.createObjectNode();
+        personAddressWidget.put("providerName", "uicommons");
+        personAddressWidget.put("fragmentId", "field/personAddress");
+        return personAddressWidget;
     }
 
     protected ObjectNode toObjectNode(Object o) {
