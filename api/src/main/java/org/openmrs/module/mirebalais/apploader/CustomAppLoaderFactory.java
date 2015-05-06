@@ -133,7 +133,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
-            enableCheckIn();
+            enableCheckIn(config);
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS)) {
@@ -300,18 +300,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableCheckIn() {
+    private void enableCheckIn(Config config) {
 
-        apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
-                        "mirebalais.app.patientRegistration.checkin.label",
-                        "icon-paste",
-                        "App: mirebalais.checkin",
-                        "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
-                        null),
-                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+        // currently, this app is hard-coded to the default check-in form and requires archives room (?)
+        if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
+            apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
+                            "mirebalais.app.patientRegistration.checkin.label",
+                            "icon-paste",
+                            "App: mirebalais.checkin",
+                            "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
+                            null),
+                    sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+        }
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
+                "mirebalais.task.checkin.label",
+                "icon-check-in",
+                "link",
+                enterSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"),
+                "Task: mirebalais.checkinForm",
+                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
+        extensions.add(overallRegistrationAction(Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
@@ -871,7 +881,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             app = new HaitiPatientRegistrationApp();
         }
         else {
-            // TODO change test so that we can properly throw exception here and things will stil pass
+            // TODO change test so that we can properly throw exception here and tests will still pass
             app = new HaitiPatientRegistrationApp();
             //throw new APIException("Country " + config.getCountry() + " does not support registration");
         }
@@ -917,14 +927,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
-                        "zl.registration.patient.contactPerson.label",
+        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
+                        "mirebalais.app.patientRegistration.checkin.label",  // TODO: use a different/better messages.properties
                         "icon-group",
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.PATIENT_REGISTRATION,
-                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-contact.xml",
+                                "encounterTypeUuid", EncounterTypeBundle.EncounterTypes.CHECK_IN,
+                                "definitionUiResource", "pihcore:htmlforms/checkin.xml",
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
@@ -948,14 +958,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: patientregistration.edit",
                 null));
 
-        extensions.add(overallRegistrationAction(Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,
-                "registrationapp.clinicalDashboard",
-                "icon-stethoscope",
-                "link",
-                "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
-                "App: coreapps.patientDashboard",
-                null));
-
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
                 "coreapps.mergePatients.mergeIntoAnotherPatientRecord.button",
                 "icon-group",
@@ -964,13 +966,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: patientregistration.edit",
                 null));
 
-        extensions.add(overallRegistrationAction(Extensions.PRINT_PAPER_FORM_LABEL,
-                "paperrecord.task.printPaperFormLabel.label",
-                "icon-print",
-                "script",
-                "printPaperFormLabel()",
-                "Task: emr.printLabels",
-                null));
+        if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
+            extensions.add(overallRegistrationAction(Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,
+                    "registrationapp.clinicalDashboard",
+                    "icon-stethoscope",
+                    "link",
+                    "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                    "App: coreapps.patientDashboard",
+                    null));
+        }
+
+        if (config.isComponentEnabled(Components.ARCHIVES)) {
+            extensions.add(overallRegistrationAction(Extensions.PRINT_PAPER_FORM_LABEL,
+                    "paperrecord.task.printPaperFormLabel.label",
+                    "icon-print",
+                    "script",
+                    "printPaperFormLabel()",
+                    "Task: emr.printLabels",
+                    null));
+        }
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             extensions.add(overallRegistrationAction(Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,

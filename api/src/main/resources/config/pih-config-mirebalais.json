@@ -8,6 +8,7 @@
         "visitManagement",
         "activeVisits",
         "checkIn",
+        "checkInHomepageApp",
         "vitals",
         "consult",
         "edConsult",

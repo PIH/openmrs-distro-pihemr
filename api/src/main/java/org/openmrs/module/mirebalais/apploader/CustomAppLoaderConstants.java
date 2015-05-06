@@ -9,6 +9,7 @@ public class CustomAppLoaderConstants {
         public static final String VISIT_MANAGEMENT = "visitManagement";
         public static final String ACTIVE_VISITS = "activeVisits";
         public static final String CHECK_IN = "checkIn";
+        public static final String CHECK_IN_HOMEPAGE_APP = "checkInHomepageApp";
         public static final String VITALS = "vitals";
         public static final String CONSULT = "consult";
         public static final String ED_CONSULT = "edConsult";
@@ -65,6 +66,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_SUMMARY = "coreapps.mostRecentRegistrationSummary";
         public static final String MOST_RECENT_REGISTRATION_SOCIAL = "coreapps.mostRecentRegistrationSocial";
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
+        public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
@@ -77,6 +79,7 @@ public class CustomAppLoaderConstants {
     public static final class Extensions {
 
         public static final String CHECK_IN_VISIT_ACTION = "pih.checkin.visitAction";
+        public static final String CHECK_IN_REGISTRATION_ACTION = "pih.checkin.registrationAction";
         public static final String VITALS_CAPTURE_VISIT_ACTION = "pih.form.vitals";
         public static final String CONSULT_NOTE_VISIT_ACTION = "pih.form.consult";
         public static final String ADMISSION_NOTE_VISIT_ACTION = "pih.form.admission";
