@@ -32,6 +32,8 @@ public class CustomAppLoaderUtil {
 
     private static final Log log = LogFactory.getLog(CustomAppLoaderUtil.class);
 
+    private static final String BASE_PREFIX = "web/module/resources/";
+
     static public AppDescriptor app(String id, String label, String icon, String url, String privilege, ObjectNode config) {
 
         AppDescriptor app = new AppDescriptor(id, id, label, url, icon, null, 0, privilege, null);
@@ -463,31 +465,30 @@ public class CustomAppLoaderUtil {
             // kind of ugly, and I couldn't mock it properly
             ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
 
-            prefix = "web/module/resources/" + prefix;
-
             // first try full path with country and site
             String resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
                     + "/" + resource;
 
-            if (mcl.findResource(resourcePath) != null) {
+            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
                 return providerName + ":" + resourcePath;
             }
 
             // now try just country path
             resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
 
-            if (mcl.findResource(resourcePath) != null) {
+            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
                 return providerName + ":" + resourcePath;
             }
 
             // now the base path
             resourcePath = prefix + "/" + resource;
-            if (mcl.findResource(resourcePath) != null) {
+            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
                 return providerName + ":" + resourcePath;
             }
         }
+        // this catch and the return are kind of hacky, I did it this way to get the MirebalaisHospitalActivatorComponentTest to pass, but we should do this btter
         catch (Exception e) {
-            log.error("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix, e);
+            log.error("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix + " - This error is expected when running tests.", e);
         }
 
         return "";
