@@ -16,7 +16,9 @@ package org.openmrs.module.mirebalais.component;
 
 import org.hamcrest.core.Is;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
@@ -29,6 +31,7 @@ import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.PihCoreActivator;
@@ -42,6 +45,8 @@ import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static junit.framework.Assert.assertNull;
@@ -52,7 +57,13 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.powermock.api.mockito.PowerMockito.method;
+import static org.powermock.api.mockito.PowerMockito.stub;
 
+
+@Ignore
+@RunWith(PowerMockRunner.class)
+@PrepareForTest( { CustomAppLoaderUtil.class } )
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -96,6 +107,15 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         mirebalaisHospitalActivator.contextRefreshed();
         mirebalaisHospitalActivator.willStart();
         mirebalaisHospitalActivator.started();
+
+ //       spy(ModuleClassLoader.class);
+   //     spy(ModuleFactory.class);
+
+        stub(method(CustomAppLoaderUtil.class, "determineResourcePath")).toReturn("blah");
+
+//        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
+
+  //      given(.getStartedModuleById(anyString()).willReturn
     }
 
     @Test

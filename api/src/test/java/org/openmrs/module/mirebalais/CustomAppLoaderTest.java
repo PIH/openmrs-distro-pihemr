@@ -10,9 +10,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.ui.framework.resource.ResourceFactory;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +19,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
@@ -30,12 +26,7 @@ public class CustomAppLoaderTest {
 
     @Test
     public void shouldSetUpAppsAndExtensions() throws Exception {
-        // TODO implement--right now we are just testing to make sure there are no runtime errors
         CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
-        ResourceFactory resourceFactory = mock(ResourceFactory.class);
-        when(resourceFactory.getResource("pihcore","htmlforms/checkin.xml")).thenReturn(mock(File.class));
-        factory.setResourceFactory(resourceFactory);
-
         factory.setConfig(new Config());
         factory.getExtensions();
         factory.getAppDescriptors();

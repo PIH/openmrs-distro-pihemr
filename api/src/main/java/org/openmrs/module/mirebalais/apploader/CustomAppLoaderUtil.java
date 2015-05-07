@@ -5,12 +5,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.APIException;
+import org.openmrs.module.ModuleClassLoader;
+import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
-import org.openmrs.ui.framework.resource.ResourceFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -449,30 +450,35 @@ public class CustomAppLoaderUtil {
         return map;
     }
 
-    static public String determineHtmlFormPath(ResourceFactory resourceFactory, Config config, String formName) {
-        return determineResourcePath(resourceFactory, config, "pihcore", "htmlforms", formName + ".xml");
+    static public String determineHtmlFormPath(Config config, String formName) {
+        return determineResourcePath(config, "pihcore", "htmlforms", formName + ".xml");
     }
 
-    static public String determineResourcePath(ResourceFactory resourceFactory, Config config, String providerName, String prefix, String resource) {
+    static public String determineResourcePath(Config config, String providerName, String prefix, String resource) {
+
+        // kind of ugly, and I couldn't mock it properly
+        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
+
+        prefix = "web/module/resources/" + prefix;
 
         // first try full path with country and site
         String resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
                 + "/" + resource;
 
-        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+        if (mcl.findResource(resourcePath) != null) {
             return providerName + ":" + resourcePath;
         }
 
         // now try just country path
         resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
 
-        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+        if (mcl.findResource(resourcePath)  != null) {
             return providerName + ":" + resourcePath;
         }
 
         // now the base path
         resourcePath =  prefix + "/" + resource;
-        if (resourceFactory.getResource(providerName, resourcePath) != null) {
+        if (mcl.findResource(resourcePath) != null) {
             return providerName + ":" + resourcePath;
         }
 

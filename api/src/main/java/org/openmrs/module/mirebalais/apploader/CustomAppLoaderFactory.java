@@ -46,6 +46,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
@@ -77,9 +78,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Config config;
 
     @Autowired
-    private FullDataExportBuilder fullDataExportBuilder;
-
-    private ResourceFactory resourceFactory;
+    private FullDataExportBuilder fullDataExportBuilder;;
 
     private List<AppDescriptor> apps;
 
@@ -87,10 +86,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     // TODO have this be set to true on a context refresh?  would also need to trigger another a context refresh
     private Boolean needsRefresh = true;
-
-    public CustomAppLoaderFactory() {
-        resourceFactory = ResourceFactory.getInstance();
-    }
 
     @Override
     public List<AppDescriptor> getAppDescriptors() throws IOException {
@@ -315,21 +310,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"),
-                "Task: mirebalais.checkinForm",
-                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")),
+                        "Task: mirebalais.checkinForm",
+                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         extensions.add(overallRegistrationAction(Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"),
+                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
-                editSimpleHtmlFormLink("pihcore:htmlforms/checkin.xml"), null);
+                editSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")), null);
     }
 
     private void enableVitals() {
@@ -1111,11 +1106,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     // used for mocking
     public void setApps(List<AppDescriptor> apps) {
         this.apps = apps;
-    }
-
-    // used for mocking
-    public void setResourceFactory(ResourceFactory resourceFactory) {
-        this.resourceFactory = resourceFactory;
     }
 
     public void setExtensions(List<Extension> extensions) {
