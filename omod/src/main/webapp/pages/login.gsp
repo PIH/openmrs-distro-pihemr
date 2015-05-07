@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${ ui.message("mirebalais.login.welcomeHeading") }</title>
+    <title>${ welcomeMessage }</title>
     <link rel="shortcut icon" type="image/ico" href="/${ ui.contextPath() }/images/openmrs-favicon.ico"/>
     <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
     ${ ui.resourceLinks() }

@@ -927,7 +927,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
-                                "definitionUiResource", "pihcore:htmlforms/checkin.xml",
+                                "definitionUiResource", determineHtmlFormPath(config, "checkin"),
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
