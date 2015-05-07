@@ -61,9 +61,6 @@ import static org.powermock.api.mockito.PowerMockito.method;
 import static org.powermock.api.mockito.PowerMockito.stub;
 
 
-@Ignore
-@RunWith(PowerMockRunner.class)
-@PrepareForTest( { CustomAppLoaderUtil.class } )
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -111,7 +108,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
  //       spy(ModuleClassLoader.class);
    //     spy(ModuleFactory.class);
 
-        stub(method(CustomAppLoaderUtil.class, "determineResourcePath")).toReturn("blah");
+        //stub(method(CustomAppLoaderUtil.class, "determineResourcePath")).toReturn("blah");
 
 //        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
 

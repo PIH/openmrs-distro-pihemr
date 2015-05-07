@@ -1,10 +1,11 @@
 package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
-import org.openmrs.api.APIException;
 import org.openmrs.module.ModuleClassLoader;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
@@ -28,6 +29,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.V
 
 
 public class CustomAppLoaderUtil {
+
+    private static final Log log = LogFactory.getLog(CustomAppLoaderUtil.class);
 
     static public AppDescriptor app(String id, String label, String icon, String url, String privilege, ObjectNode config) {
 
@@ -456,34 +459,38 @@ public class CustomAppLoaderUtil {
 
     static public String determineResourcePath(Config config, String providerName, String prefix, String resource) {
 
-        // kind of ugly, and I couldn't mock it properly
-        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
+        try {
+            // kind of ugly, and I couldn't mock it properly
+            ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
 
-        prefix = "web/module/resources/" + prefix;
+            prefix = "web/module/resources/" + prefix;
 
-        // first try full path with country and site
-        String resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
-                + "/" + resource;
+            // first try full path with country and site
+            String resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
+                    + "/" + resource;
 
-        if (mcl.findResource(resourcePath) != null) {
-            return providerName + ":" + resourcePath;
+            if (mcl.findResource(resourcePath) != null) {
+                return providerName + ":" + resourcePath;
+            }
+
+            // now try just country path
+            resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
+
+            if (mcl.findResource(resourcePath) != null) {
+                return providerName + ":" + resourcePath;
+            }
+
+            // now the base path
+            resourcePath = prefix + "/" + resource;
+            if (mcl.findResource(resourcePath) != null) {
+                return providerName + ":" + resourcePath;
+            }
+        }
+        catch (Exception e) {
+            log.error("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix, e);
         }
 
-        // now try just country path
-        resourcePath =  prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
-
-        if (mcl.findResource(resourcePath)  != null) {
-            return providerName + ":" + resourcePath;
-        }
-
-        // now the base path
-        resourcePath =  prefix + "/" + resource;
-        if (mcl.findResource(resourcePath) != null) {
-            return providerName + ":" + resourcePath;
-        }
-
-        throw new APIException("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix);
-
+        return "";
     }
 
 }
