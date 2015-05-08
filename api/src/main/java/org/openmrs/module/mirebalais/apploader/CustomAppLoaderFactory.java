@@ -114,7 +114,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps = new ArrayList<AppDescriptor>();
         extensions = new ArrayList<Extension>();
 
-        configureHeader();
+        configureHeader(config);
         setupDefaultEncounterTemplates();
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_MANAGEMENT)) {
@@ -220,8 +220,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         needsRefresh = false;
     }
 
-    private void configureHeader(){
-        extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
+    private void configureHeader(Config config){
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
+        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_hands_only_logo.png"));
+        }
+
     }
 
     private void setupDefaultEncounterTemplates() {
