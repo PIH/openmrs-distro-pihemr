@@ -971,7 +971,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
-                "coreapps.mergePatients.mergeIntoAnotherPatientRecord.button",
+                "patientregistration.mergePatients",
                 "icon-group",
                 "link",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
