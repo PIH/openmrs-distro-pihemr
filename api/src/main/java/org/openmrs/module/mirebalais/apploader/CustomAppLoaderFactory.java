@@ -888,7 +888,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", "pihcore:htmlforms/patientRegistration.xml",
+                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration.xml"),
                                 "editable", true,
                                 "edit-icon", "icon-share-alt",
                                 "edit-provider", "registrationapp",
@@ -903,7 +903,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-rs.xml",
+                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-rs"),
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
@@ -915,10 +915,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", "pihcore:htmlforms/patientRegistration-social.xml",
+                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-social"),
                                 "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
+
+
+        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
+                        "zl.registration.patient.contactPerson.label",
+                        "icon-user",
+                        null,
+                        "App: registrationapp.registerPatient",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-contact"),
+                                "editable", true)),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
+
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
                         "mirebalais.app.patientRegistration.checkin.label",  // TODO: use a different/better messages.properties
