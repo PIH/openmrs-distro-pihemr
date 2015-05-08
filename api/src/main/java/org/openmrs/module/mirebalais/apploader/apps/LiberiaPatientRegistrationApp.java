@@ -4,6 +4,7 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.registrationapp.model.Field;
+import org.openmrs.module.registrationapp.model.PersonAddressWithHierarchyWidget;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
@@ -28,10 +29,16 @@ public class LiberiaPatientRegistrationApp extends PatientRegistrationApp {
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
         q.setDisplayTemplate("{{nvl field.[5] '-'}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
+
         Field f = new Field();
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
-        f.setWidget(getPersonAdressWidget());
+
+        PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+        w.getConfig().setShortcutFor("cityVillage");
+        w.getConfig().addManualField("address1");
+        f.setWidget(toObjectNode(w));
+
         q.addField(f);
         return q;
     }
