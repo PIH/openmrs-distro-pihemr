@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.apploader.apps;
 
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -28,7 +27,7 @@ public class LiberiaPatientRegistrationApp extends PatientRegistrationApp {
         Question q = new Question();
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
-        //q.setDisplayTemplate("{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
+        q.setDisplayTemplate("{{nvl field.[5] '-'}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
         Field f = new Field();
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
