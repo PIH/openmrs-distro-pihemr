@@ -947,7 +947,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "checkin"),
-                                "editable", true)),
+                                "editable", true,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/enterHtmlFormWithSimpleUi")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -974,7 +976,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "patientregistration.mergePatients",
                 "icon-group",
                 "link",
-                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
+                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}&returnUrl=registrationapp.registrationSummary",
                 "App: patientregistration.edit",
                 null));
 
