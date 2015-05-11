@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
@@ -60,10 +61,11 @@ public class HomePageController {
 		model.addAttribute("extensions", extensions);
         model.addAttribute("privilegeSearchForPatients", MirebalaisConstants.PRIVILEGE_SEARCH_FOR_PATIENTS);
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+        if (StringUtils.isNotBlank(config.getDashboardUrl())) {
+            model.addAttribute("dashboardUrl", config.getDashboardUrl());
+        }else if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
             model.addAttribute("dashboardUrl", "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=" + CustomAppLoaderConstants.Apps.CLINICIAN_DASHBOARD);
-        }
-        else {
+        }else {
             model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");
         }
 	}

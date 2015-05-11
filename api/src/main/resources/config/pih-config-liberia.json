@@ -18,5 +18,6 @@
     "mirebalais.checkIn.paymentAmountDefault": "75"
   },
 
-  "scheduleBackupReports": "false"
+  "scheduleBackupReports": "false",
+  "dashboardUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}"
 }
