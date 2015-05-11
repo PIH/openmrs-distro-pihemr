@@ -14,7 +14,7 @@ public class LiberiaPatientRegistrationApp extends PatientRegistrationApp {
     @Override
     public RegistrationAppConfig getRegistrationAppConfig() {
         RegistrationAppConfig c = new RegistrationAppConfig();
-        c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
+        c.setAfterCreatedUrl("registrationapp/registrationSummary.page?patientId={{patientId}}");
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
