@@ -63,8 +63,6 @@ public class HomePageController {
 
         if (StringUtils.isNotBlank(config.getDashboardUrl())) {
             model.addAttribute("dashboardUrl", config.getDashboardUrl());
-        }else if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
-            model.addAttribute("dashboardUrl", "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=" + CustomAppLoaderConstants.Apps.CLINICIAN_DASHBOARD);
         }else {
             model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");
         }

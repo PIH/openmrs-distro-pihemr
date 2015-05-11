@@ -105,7 +105,7 @@ public class PatientRegistrationApp {
         f.setType("personAttribute");
         f.setUuid(PersonAttributeTypes.BIRTHPLACE.uuid());
         f.setCssClasses(Arrays.asList("required"));
-        f.setWidget(getTextAreaWidget(50));
+        f.setWidget(getTextAreaWidget(250));
 
         q.addField(f);
         return q;
