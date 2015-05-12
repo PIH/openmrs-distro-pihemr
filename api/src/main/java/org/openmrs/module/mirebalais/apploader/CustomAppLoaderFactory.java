@@ -7,8 +7,6 @@ import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.mirebalais.apploader.apps.HaitiPatientRegistrationApp;
-import org.openmrs.module.mirebalais.apploader.apps.LiberiaPatientRegistrationApp;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
@@ -17,7 +15,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -869,20 +866,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePatientRegistration() {
-        PatientRegistrationApp app;
-
-        // TODO rather than if/then, dynamically load class based on country name? worth doing?
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            app = new LiberiaPatientRegistrationApp();
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            app = new HaitiPatientRegistrationApp();
-        }
-        else {
-            // TODO change test so that we can properly throw exception here and tests will still pass
-            app = new HaitiPatientRegistrationApp();
-            //throw new APIException("Country " + config.getCountry() + " does not support registration");
-        }
+        PatientRegistrationApp app = new PatientRegistrationApp();
 
         apps.add(addToHomePage(app.build(config)));
 

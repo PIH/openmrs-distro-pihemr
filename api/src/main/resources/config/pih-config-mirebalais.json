@@ -4,7 +4,7 @@
     "country": "HAITI",
     "site": "MIREBALAIS",
 
-    "components": [
+  "components": [
         "visitManagement",
         "activeVisits",
         "checkIn",
@@ -30,13 +30,18 @@
         "lacollinePatientRegistrationEncounterTypes",
         "managePrinters",
         "idcardPrinting"
-    ],
+  ],
 
-    "globalProperties": {
+  "globalProperties": {
         "mirebalais.checkIn.paymentAmounts": "50,0",
         "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
         "mirebalais.checkIn.paymentAmountDefault": "50"
-    },
+  },
 
-    "scheduleBackupReports": "false"
+  "scheduleBackupReports": "false",
+
+  "registrationConfig": {
+    "allowUnknownPatients": true,
+    "allowManualEntryOfPrimaryIdentifier": true
+  }
 }
