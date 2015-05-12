@@ -133,15 +133,17 @@ public class PatientRegistrationApp {
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
+        PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+
         if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            f.setWidget(getPersonAdressWidget());
+            w.getConfig().setShortcutFor("cityVillage");
+            w.getConfig().addManualField("address1");
         }
         else {
-            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
             w.getConfig().setShortcutFor("address1");
             w.getConfig().addManualField("address2");
-            f.setWidget(toObjectNode(w));
         }
+        f.setWidget(toObjectNode(w));
 
         q.addField(f);
         return q;
