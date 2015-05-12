@@ -3,6 +3,9 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
@@ -22,6 +25,9 @@ import org.openmrs.module.registrationapp.model.TextFieldWidget;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class to help defining PatientRegistrationApp
@@ -116,36 +122,47 @@ public class PatientRegistrationApp {
         return s;
     }
 
-    /**
-     * TODO: Replace the conditional logic around Liberia with actual configuration parameters in Config
-     */
     public Question getAddressQuestion(Config config) {
         Question q = new Question();
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            q.setDisplayTemplate("{{nvl field.[5] '-'}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
-        }
-        else {
-            q.setDisplayTemplate("{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
-        }
-
         Field f = new Field();
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
-        PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            w.getConfig().setShortcutFor("cityVillage");
-            w.getConfig().addManualField("address1");
+        // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+
+        List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+        if (levels != null && levels.size() > 0) {
+
+            // We want the display template to hide country, and show a dash if the lowest free-text level is missing
+            // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
+            StringBuilder displayTemplate = new StringBuilder();
+            displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
+            for (int i = levels.size() - 1; i >= 2; i--) {
+                displayTemplate.append(", {{field.[" + i + "]}}");
+            }
+            q.setDisplayTemplate(displayTemplate.toString());
+
+            // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
+
+            String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
+            String manualField = levels.get(levels.size()-1).getAddressField().getName();
+
+            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+            w.getConfig().setShortcutFor(shortCutFor);
+            w.getConfig().addManualField(manualField);
+            
+            f.setWidget(toObjectNode(w));
         }
         else {
-            w.getConfig().setShortcutFor("address1");
-            w.getConfig().addManualField("address2");
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("providerName", "uicommons");
+            m.put("fragmentId", "field/personAddress");
+            f.setWidget(toObjectNode(m));
         }
-        f.setWidget(toObjectNode(w));
 
         q.addField(f);
         return q;
@@ -348,14 +365,6 @@ public class PatientRegistrationApp {
             w.getConfig().setMaxlength(maxLength);
         }
         return toObjectNode(w);
-    }
-
-    protected ObjectNode getPersonAdressWidget() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode personAddressWidget = mapper.createObjectNode();
-        personAddressWidget.put("providerName", "uicommons");
-        personAddressWidget.put("fragmentId", "field/personAddress");
-        return personAddressWidget;
     }
 
     protected ObjectNode toObjectNode(Object o) {
