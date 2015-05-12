@@ -41,23 +41,13 @@ public class PatientRegistrationApp {
 
     public RegistrationAppConfig getRegistrationAppConfig(Config config) {
         RegistrationAppConfig c = new RegistrationAppConfig();
-
-        // TODO: Find a better way to configure this in Config that doesn't hard-code conditional country logic
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            c.setAfterCreatedUrl("registrationapp/registrationSummary.page?patientId={{patientId}}");
-        }
-        else {
-            c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
-        }
-
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
         c.setAllowManualIdentifier(config.getRegistrationConfig().isAllowManualEntryOfPrimaryIdentifier());
-
+        c.setAfterCreatedUrl(config.getRegistrationConfig().getAfterCreatedUrl());
         addSections(c, config);
-
         return c;
     }
 

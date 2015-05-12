@@ -23,6 +23,7 @@
 
   "registrationConfig": {
     "allowUnknownPatients": false,
-    "allowManualEntryOfPrimaryIdentifier": false
+    "allowManualEntryOfPrimaryIdentifier": false,
+    "afterCreatedUrl": "registrationapp/registrationSummary.page?patientId={{patientId}}"
   }
 }
