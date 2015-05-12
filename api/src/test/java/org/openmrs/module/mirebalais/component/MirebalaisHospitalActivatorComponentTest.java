@@ -46,6 +46,8 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Properties;
+
 import static junit.framework.Assert.assertNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -58,6 +60,13 @@ import static org.mockito.Mockito.when;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "mirebalais");
+        return p;
+    }
 
     @Autowired
     private AccountService accountService;

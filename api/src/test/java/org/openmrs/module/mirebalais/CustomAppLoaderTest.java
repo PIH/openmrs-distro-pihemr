@@ -10,10 +10,12 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -22,8 +24,15 @@ import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
-public class CustomAppLoaderTest {
+public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
 
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "pihcore");
+        return p;
+    }
+    
     @Test
     public void shouldSetUpAppsAndExtensions() throws Exception {
         CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
@@ -31,8 +40,6 @@ public class CustomAppLoaderTest {
         factory.getExtensions();
         factory.getAppDescriptors();
     }
-
-
 
     @Test
     public void shouldCreateHeader() {

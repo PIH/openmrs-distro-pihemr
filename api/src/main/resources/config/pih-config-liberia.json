@@ -19,5 +19,10 @@
   },
 
   "scheduleBackupReports": "false",
-  "dashboardUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}"
+  "dashboardUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}",
+
+  "registrationConfig": {
+    "allowUnknownPatients": false,
+    "allowManualEntryOfPrimaryIdentifier": false
+  }
 }

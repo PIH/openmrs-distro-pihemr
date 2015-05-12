@@ -7,8 +7,8 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
@@ -29,7 +29,7 @@ public class PatientRegistrationApp {
 
     public AppDescriptor build(Config config) {
         AppDescriptor d = getAppDescriptor();
-        RegistrationAppConfig c = getRegistrationAppConfig();
+        RegistrationAppConfig c = getRegistrationAppConfig(config);
         addSections(c, config);
         d.setConfig(toObjectNode(c));
         return d;
@@ -46,22 +46,30 @@ public class PatientRegistrationApp {
         return d;
     }
 
-    public RegistrationAppConfig getRegistrationAppConfig() {
+    public RegistrationAppConfig getRegistrationAppConfig(Config config) {
         RegistrationAppConfig c = new RegistrationAppConfig();
-        c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
+
+        // TODO: Find a better way to configure this in Config that doesn't hard-code conditional country logic
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+            c.setAfterCreatedUrl("registrationapp/registrationSummary.page?patientId={{patientId}}");
+        }
+        else {
+            c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
+        }
+
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
-        c.setAllowUnknownPatients(true);
-        c.setAllowManualIdentifier(true);
+        c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
+        c.setAllowManualIdentifier(config.getRegistrationConfig().isAllowManualEntryOfPrimaryIdentifier());
         return c;
     }
 
     public void addSections(RegistrationAppConfig c, Config config) {
         c.addSection(getDemographicsSection());
-        c.addSection(getContactInfoSection());
-        c.addSection(getSocialSection());
-        c.addSection(getContactsSection());
+        c.addSection(getContactInfoSection(config));
+        c.addSection(getSocialSection(config));
+        c.addSection(getContactsSection(config));
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection());
@@ -111,29 +119,43 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Section getContactInfoSection() {
+    public Section getContactInfoSection(Config config) {
         Section s = new Section();
         s.setId("contactInfo");
         s.setLabel("registrationapp.patient.contactInfo.label");
-        s.addQuestion(getAddressQuestion());
+        s.addQuestion(getAddressQuestion(config));
         s.addQuestion(getTelephoneNumberQuestion());
         return s;
     }
 
-    public Question getAddressQuestion() {
+    /**
+     * TODO: Replace the conditional logic around Liberia with actual configuration parameters in Config
+     */
+    public Question getAddressQuestion(Config config) {
         Question q = new Question();
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
-        q.setDisplayTemplate("{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
+
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+            q.setDisplayTemplate("{{nvl field.[5] '-'}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
+        }
+        else {
+            q.setDisplayTemplate("{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
+        }
 
         Field f = new Field();
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
-        PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
-        w.getConfig().setShortcutFor("address1");
-        w.getConfig().addManualField("address2");
-        f.setWidget(toObjectNode(w));
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+            f.setWidget(getPersonAdressWidget());
+        }
+        else {
+            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+            w.getConfig().setShortcutFor("address1");
+            w.getConfig().addManualField("address2");
+            f.setWidget(toObjectNode(w));
+        }
 
         q.addField(f);
         return q;
@@ -155,13 +177,15 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Section getSocialSection() {
+    public Section getSocialSection(Config config) {
         Section s = new Section();
         s.setId("social");
         s.setLabel("zl.registration.patient.social.label");
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getOccupationQuestion());
-        s.addQuestion(getReligionQuestion());
+        if (config.getCountry() == ConfigDescriptor.Country.HAITI) { // TODO: Replace this with property in RegistrationConfig
+            s.addQuestion(getReligionQuestion());
+        }
         return s;
     }
 
@@ -230,11 +254,14 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Section getContactsSection() {
+    public Section getContactsSection(Config config) {
         Section s = new Section();
         s.setId("contacts");
         s.setLabel("zl.registration.patient.contactPerson.label");
-        s.addQuestion(getContactQuestion(true));
+
+        boolean required = config.getCountry() == ConfigDescriptor.Country.HAITI; // TODO: Replace with property in RegistrationConfig
+
+        s.addQuestion(getContactQuestion(required));
         return s;
     }
 
@@ -267,7 +294,7 @@ public class PatientRegistrationApp {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
             f.setType("obsgroup");
-            f.setWidget(getTextAreaWidget(50));
+            f.setWidget(getTextAreaWidget(250));
             q.addField(f);
         }
         {

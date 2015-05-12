@@ -7,13 +7,14 @@ import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -23,7 +24,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests the configuration of the patient registration app
  */
-public class PatientRegistrationAppTest {
+public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "mirebalais");
+        return p;
+    }
 
     @Test
     public void shouldCreateAppDescriptor() throws Exception {

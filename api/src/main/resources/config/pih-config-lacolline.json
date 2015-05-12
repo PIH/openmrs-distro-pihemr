@@ -29,5 +29,10 @@
     },
 
     "scheduleBackupReports": "false",
-    "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
+    "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
+
+    "registrationConfig": {
+        "allowUnknownPatients": true,
+        "allowManualEntryOfPrimaryIdentifier": true
+    }
 }
