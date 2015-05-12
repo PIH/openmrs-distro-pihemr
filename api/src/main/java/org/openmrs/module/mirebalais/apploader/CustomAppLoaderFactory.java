@@ -924,11 +924,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
-                        "mirebalais.app.patientRegistration.checkin.label",  // TODO: use a different/better messages.properties
+                        "pihcore.mostRecentCheckin.label",
                         "icon-group",
                         null,
                         "App: registrationapp.registerPatient",
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                        objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "checkin"),
                                 "editable", true,
