@@ -27,15 +27,7 @@ import java.util.Arrays;
  */
 public class PatientRegistrationApp {
 
-    public AppDescriptor build(Config config) {
-        AppDescriptor d = getAppDescriptor();
-        RegistrationAppConfig c = getRegistrationAppConfig(config);
-        addSections(c, config);
-        d.setConfig(toObjectNode(c));
-        return d;
-    }
-
-    public AppDescriptor getAppDescriptor() {
+    public AppDescriptor getAppDescriptor(Config config) {
         AppDescriptor d = new AppDescriptor();
         d.setId(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setDescription("registrationapp.registerPatient");
@@ -43,6 +35,7 @@ public class PatientRegistrationApp {
         d.setIcon("icon-user");
         d.setUrl("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setRequiredPrivilege("App: registrationapp.registerPatient");
+        d.setConfig(toObjectNode(getRegistrationAppConfig(config)));
         return d;
     }
 
@@ -62,6 +55,9 @@ public class PatientRegistrationApp {
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
         c.setAllowManualIdentifier(config.getRegistrationConfig().isAllowManualEntryOfPrimaryIdentifier());
+
+        addSections(c, config);
+
         return c;
     }
 

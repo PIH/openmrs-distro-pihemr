@@ -37,7 +37,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
     public void shouldCreateAppDescriptor() throws Exception {
 
         PatientRegistrationApp app = new PatientRegistrationApp();
-        AppDescriptor d = app.build(new Config());
+        AppDescriptor d = app.getAppDescriptor(new Config());
 
         assertThat(d.getId(), is(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getDescription(), is("registrationapp.registerPatient"));
