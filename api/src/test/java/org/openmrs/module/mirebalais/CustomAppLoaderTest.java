@@ -11,6 +11,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.regist
 
 public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
 
+    @Autowired
+    CustomAppLoaderFactory factory;
+
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
@@ -35,7 +39,6 @@ public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
     
     @Test
     public void shouldSetUpAppsAndExtensions() throws Exception {
-        CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
         factory.setConfig(new Config());
         factory.getExtensions();
         factory.getAppDescriptors();
@@ -256,7 +259,6 @@ public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
         Extension template = CustomAppLoaderUtil.encounterTemplate("id", "provider", "fragment");
         extensions.add(template);
 
-        CustomAppLoaderFactory factory = new CustomAppLoaderFactory();
         factory.setExtensions(extensions);
 
         registerTemplateForEncounterType(EncounterTypes.PATIENT_REGISTRATION, factory.findExtensionById("id"), "icon",

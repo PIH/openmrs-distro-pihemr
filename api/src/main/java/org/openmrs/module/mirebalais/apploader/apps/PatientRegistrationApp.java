@@ -19,12 +19,14 @@ import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 import org.openmrs.module.registrationapp.model.TextAreaWidget;
 import org.openmrs.module.registrationapp.model.TextFieldWidget;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 /**
  * Helper class to help defining PatientRegistrationApp
  */
+@Component
 public class PatientRegistrationApp {
 
     public AppDescriptor getAppDescriptor(Config config) {
