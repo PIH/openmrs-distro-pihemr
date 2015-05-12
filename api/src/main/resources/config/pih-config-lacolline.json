@@ -33,6 +33,7 @@
 
     "registrationConfig": {
         "allowUnknownPatients": true,
-        "allowManualEntryOfPrimaryIdentifier": true
+        "allowManualEntryOfPrimaryIdentifier": true,
+        "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"
     }
 }

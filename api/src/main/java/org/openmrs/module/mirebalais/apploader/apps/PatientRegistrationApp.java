@@ -3,6 +3,9 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
@@ -19,23 +22,20 @@ import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 import org.openmrs.module.registrationapp.model.TextAreaWidget;
 import org.openmrs.module.registrationapp.model.TextFieldWidget;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class to help defining PatientRegistrationApp
  */
+@Component
 public class PatientRegistrationApp {
 
-    public AppDescriptor build(Config config) {
-        AppDescriptor d = getAppDescriptor();
-        RegistrationAppConfig c = getRegistrationAppConfig(config);
-        addSections(c, config);
-        d.setConfig(toObjectNode(c));
-        return d;
-    }
-
-    public AppDescriptor getAppDescriptor() {
+    public AppDescriptor getAppDescriptor(Config config) {
         AppDescriptor d = new AppDescriptor();
         d.setId(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setDescription("registrationapp.registerPatient");
@@ -43,25 +43,19 @@ public class PatientRegistrationApp {
         d.setIcon("icon-user");
         d.setUrl("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setRequiredPrivilege("App: registrationapp.registerPatient");
+        d.setConfig(toObjectNode(getRegistrationAppConfig(config)));
         return d;
     }
 
     public RegistrationAppConfig getRegistrationAppConfig(Config config) {
         RegistrationAppConfig c = new RegistrationAppConfig();
-
-        // TODO: Find a better way to configure this in Config that doesn't hard-code conditional country logic
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            c.setAfterCreatedUrl("registrationapp/registrationSummary.page?patientId={{patientId}}");
-        }
-        else {
-            c.setAfterCreatedUrl("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}");
-        }
-
         c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
         c.setAllowManualIdentifier(config.getRegistrationConfig().isAllowManualEntryOfPrimaryIdentifier());
+        c.setAfterCreatedUrl(config.getRegistrationConfig().getAfterCreatedUrl());
+        addSections(c, config);
         return c;
     }
 
@@ -128,33 +122,46 @@ public class PatientRegistrationApp {
         return s;
     }
 
-    /**
-     * TODO: Replace the conditional logic around Liberia with actual configuration parameters in Config
-     */
     public Question getAddressQuestion(Config config) {
         Question q = new Question();
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            q.setDisplayTemplate("{{nvl field.[5] '-'}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
-        }
-        else {
-            q.setDisplayTemplate("{{nvl field.[6] '-'}}, {{field.[5]}}, {{field.[4]}}, {{field.[3]}}, {{field.[2]}}");
-        }
-
         Field f = new Field();
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            f.setWidget(getPersonAdressWidget());
+
+        // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+
+        List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+        if (levels != null && levels.size() > 0) {
+
+            // We want the display template to hide country, and show a dash if the lowest free-text level is missing
+            // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
+            StringBuilder displayTemplate = new StringBuilder();
+            displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
+            for (int i = levels.size() - 1; i >= 2; i--) {
+                displayTemplate.append(", {{field.[" + i + "]}}");
+            }
+            q.setDisplayTemplate(displayTemplate.toString());
+
+            // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
+
+            String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
+            String manualField = levels.get(levels.size()-1).getAddressField().getName();
+
+            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+            w.getConfig().setShortcutFor(shortCutFor);
+            w.getConfig().addManualField(manualField);
+            
+            f.setWidget(toObjectNode(w));
         }
         else {
-            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
-            w.getConfig().setShortcutFor("address1");
-            w.getConfig().addManualField("address2");
-            f.setWidget(toObjectNode(w));
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("providerName", "uicommons");
+            m.put("fragmentId", "field/personAddress");
+            f.setWidget(toObjectNode(m));
         }
 
         q.addField(f);
@@ -358,14 +365,6 @@ public class PatientRegistrationApp {
             w.getConfig().setMaxlength(maxLength);
         }
         return toObjectNode(w);
-    }
-
-    protected ObjectNode getPersonAdressWidget() {
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode personAddressWidget = mapper.createObjectNode();
-        personAddressWidget.put("providerName", "uicommons");
-        personAddressWidget.put("fragmentId", "field/personAddress");
-        return personAddressWidget;
     }
 
     protected ObjectNode toObjectNode(Object o) {

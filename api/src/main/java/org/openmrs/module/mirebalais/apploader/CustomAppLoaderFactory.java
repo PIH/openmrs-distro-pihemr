@@ -75,6 +75,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Config config;
 
     @Autowired
+    private PatientRegistrationApp patientRegistrationApp;
+
+    @Autowired
     private FullDataExportBuilder fullDataExportBuilder;;
 
     private List<AppDescriptor> apps;
@@ -866,9 +869,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePatientRegistration() {
-        PatientRegistrationApp app = new PatientRegistrationApp();
 
-        apps.add(addToHomePage(app.build(config)));
+        apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config)));
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_REGISTRATION,
                         "mirebalais.mostRecentRegistration.label",

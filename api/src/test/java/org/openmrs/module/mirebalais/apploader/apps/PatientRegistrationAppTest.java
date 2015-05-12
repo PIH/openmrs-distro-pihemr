@@ -10,6 +10,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,6 +27,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
+    @Autowired
+    PatientRegistrationApp patientRegistrationApp;
+
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
@@ -36,8 +40,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
     @Test
     public void shouldCreateAppDescriptor() throws Exception {
 
-        PatientRegistrationApp app = new PatientRegistrationApp();
-        AppDescriptor d = app.build(new Config());
+        AppDescriptor d = patientRegistrationApp.getAppDescriptor(new Config());
 
         assertThat(d.getId(), is(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getDescription(), is("registrationapp.registerPatient"));
