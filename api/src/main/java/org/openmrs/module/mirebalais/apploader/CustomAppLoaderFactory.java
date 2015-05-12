@@ -949,7 +949,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "definitionUiResource", determineHtmlFormPath(config, "checkin"),
                                 "editable", true,
                                 "edit-provider", "htmlformentryui",
-                                "edit-fragment", "htmlform/enterHtmlFormWithSimpleUi")),
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
