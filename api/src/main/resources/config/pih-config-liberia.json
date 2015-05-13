@@ -9,7 +9,8 @@
     "patientRegistration",
     "checkIn",
     "systemAdministration",
-    "myAccount"
+    "myAccount",
+    "dataExports"
   ],
 
   "globalProperties": {

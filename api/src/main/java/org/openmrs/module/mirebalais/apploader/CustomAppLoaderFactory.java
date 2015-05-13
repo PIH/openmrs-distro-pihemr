@@ -78,7 +78,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private PatientRegistrationApp patientRegistrationApp;
 
     @Autowired
-    private FullDataExportBuilder fullDataExportBuilder;;
+    private FullDataExportBuilder fullDataExportBuilder;
 
     private List<AppDescriptor> apps;
 
@@ -653,35 +653,39 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 9999,
                 null));
 
-        extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
-                "mirebalaisreports.userAndProviders.name",
-                MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
-                "App: mirebalaisreports.dataexports",
-                "mirebalaisreports-usersAndProvidersReport-link"));
+        // TODO: Replace this with property configuration in config
+        if (config.getCountry() != ConfigDescriptor.Country.LIBERIA) {
 
-        // custom data export report LQAS report report
-        extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
-                "mirebalaisreports.lqasdiagnoses.name",
-                null,
-                "link",
-                "mirebalaisreports/lqasDiagnoses.page",
-                "App: mirebalaisreports.dataexports",
-                null,
-                ExtensionPoints.REPORTING_DATA_EXPORT,
-                REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
-                map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
+            extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
+                    "mirebalaisreports.userAndProviders.name",
+                    MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
+                    "App: mirebalaisreports.dataexports",
+                    "mirebalaisreports-usersAndProvidersReport-link"));
 
-        extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
-                "mirebalaisreports.allpatientswithids.name",
-                MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
-                "App: mirebalaisreports.dataexports",
-                "mirebalaisreports-allPatientsWithIdsReport-link"));
+            // custom data export report LQAS report report
+            extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
+                    "mirebalaisreports.lqasdiagnoses.name",
+                    null,
+                    "link",
+                    "mirebalaisreports/lqasDiagnoses.page",
+                    "App: mirebalaisreports.dataexports",
+                    null,
+                    ExtensionPoints.REPORTING_DATA_EXPORT,
+                    REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
+                    map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
 
-        extensions.add(dataExport(Extensions.APPOINTMENTS_DATA_EXPORT,
-                "mirebalaisreports.appointments.name",
-                MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID,
-                "App: mirebalaisreports.dataexports",
-                "mirebalaisreports-appointments-link"));
+            extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
+                    "mirebalaisreports.allpatientswithids.name",
+                    MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
+                    "App: mirebalaisreports.dataexports",
+                    "mirebalaisreports-allPatientsWithIdsReport-link"));
+
+            extensions.add(dataExport(Extensions.APPOINTMENTS_DATA_EXPORT,
+                    "mirebalaisreports.appointments.name",
+                    MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID,
+                    "App: mirebalaisreports.dataexports",
+                    "mirebalaisreports-appointments-link"));
+        }
 
         addFeatureToggleToExtension(findExtensionById(Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
 

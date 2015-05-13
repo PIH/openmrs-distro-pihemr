@@ -17,6 +17,7 @@ import org.openmrs.module.mirebalaisreports.definitions.InpatientStatsMonthlyRep
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.UsersAndProvidersReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.helper.DailyIndicatorByLocationReportDefinition;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportRequest;
@@ -37,9 +38,12 @@ public class ReportSetup {
                                        Config config) {
 
         setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-        setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-        setupBackupReports(reportService, reportDefinitionService, config);
 
+        // TODO: Pull report configuration out into a better configuration file
+        if (config.getCountry() != ConfigDescriptor.Country.LIBERIA) {
+            setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            setupBackupReports(reportService, reportDefinitionService, config);
+        }
     }
 
 
