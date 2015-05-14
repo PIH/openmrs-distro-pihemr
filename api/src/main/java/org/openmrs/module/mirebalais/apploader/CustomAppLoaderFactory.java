@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
@@ -814,14 +815,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: emr.systemAdministration",
                 null)));
 
-        apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
-                "coreapps.mergePatientsLong",
-                "icon-group",
-                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
-                "App: emr.systemAdministration",
-                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
-                        objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
-                        objectNode("label", "coreapps.mergePatientsLong"))))));
+        String dashboardUrl = config.getDashboardUrl();
+        if (StringUtils.isNotBlank(dashboardUrl)) {
+            apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
+                    "coreapps.mergePatientsLong",
+                    "icon-group",
+                    "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
+                    "App: emr.systemAdministration",
+                    objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                            objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
+                            objectNode("label", "coreapps.mergePatientsLong")),
+                            "dashboardUrl", dashboardUrl))));
+        } else {
+            apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
+                    "coreapps.mergePatientsLong",
+                    "icon-group",
+                    "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
+                    "App: emr.systemAdministration",
+                    objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                            objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
+                            objectNode("label", "coreapps.mergePatientsLong"))))));
+        }
 
         apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
                 "emr.testPatient.registration",
@@ -966,7 +980,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "patientregistration.mergePatients",
                 "icon-group",
                 "link",
-                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}&returnUrl=registrationapp.registrationSummary",
+                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
                 "App: patientregistration.edit",
                 null));
 
