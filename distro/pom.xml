@@ -339,6 +339,13 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>orderentryui-omod</artifactId>
+                    <version>${orderentryuiVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
                 <!-- temporarily adding the groovy module -->
                 <!--
                 <dependency>
