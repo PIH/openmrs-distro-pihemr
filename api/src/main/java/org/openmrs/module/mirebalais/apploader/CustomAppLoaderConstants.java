@@ -126,6 +126,8 @@ public class CustomAppLoaderConstants {
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
 
         // Reports
+        public static final String REGISTRATION_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.registrationsByAge";
+
         public static final String DAILY_REGISTRATIONS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyRegistrations";
         public static final String DAILY_CHECK_INS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyCheckIns";
         public static final String DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyClinicalEncounters";

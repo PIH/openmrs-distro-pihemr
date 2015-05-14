@@ -581,52 +581,68 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null)));
         }
 
-        extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
-                "mirebalaisreports.dailyRegistrations.name",
-                MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
-                "App: reportingui.reports",
-                "mirebalaisreports-dailyRegistrationsReport-link"));
+        // TODO: Get rid of this hack in favor of proper configuration
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+            extensions.add(extension(Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,
+                    "mirebalaisreports.registrationoverview.title",
+                    null,
+                    "link",
+                    "mirebalaisreports/registrationsByAge.page",
+                    "App: reportingui.reports",
+                    null,
+                    ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
+                    1,
+                    map("linkId", "mirebalaisreports-registrationoverview-link")));
+        }
+        else {
 
-        extensions.add(dailyReport(Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
-                "mirebalaisreports.dailyCheckInEncounters.name",
-                MirebalaisReportsProperties.DAILY_CHECK_INS_REPORT_DEFINITION_UUID,
-                "App: reportingui.reports",
-                "mirebalaisreports-dailyCheckInsReport-link"));
+            extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
+                    "mirebalaisreports.dailyRegistrations.name",
+                    MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
+                    "App: reportingui.reports",
+                    "mirebalaisreports-dailyRegistrationsReport-link"));
 
-        extensions.add(dailyReport(Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
-                "mirebalaisreports.dailyClinicalEncounters.name",
-                MirebalaisReportsProperties.DAILY_CLINICAL_ENCOUNTERS_REPORT_DEFINITION_UUID,
-                "App: reportingui.reports",
-                "mirebalaisreports-dailyClinicalEncountersReport-link"));
+            extensions.add(dailyReport(Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
+                    "mirebalaisreports.dailyCheckInEncounters.name",
+                    MirebalaisReportsProperties.DAILY_CHECK_INS_REPORT_DEFINITION_UUID,
+                    "App: reportingui.reports",
+                    "mirebalaisreports-dailyCheckInsReport-link"));
 
-        // custom overview report
-        extensions.add(extension(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
-                "mirebalaisreports.inpatientStatsDailyReport.name",
-                null,
-                "link",
-                "mirebalaisreports/inpatientStatsDailyReport.page",
-                "App: reportingui.reports",
-                null,
-                ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
-                REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT),
-                map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
+            extensions.add(dailyReport(Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
+                    "mirebalaisreports.dailyClinicalEncounters.name",
+                    MirebalaisReportsProperties.DAILY_CLINICAL_ENCOUNTERS_REPORT_DEFINITION_UUID,
+                    "App: reportingui.reports",
+                    "mirebalaisreports-dailyClinicalEncountersReport-link"));
 
-        extensions.add(overviewReport(Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT,
-                "mirebalaisreports.inpatientStatsMonthlyReport.name",
-                MirebalaisReportsProperties.INPATIENT_STATS_MONTHLY_REPORT_DEFINITION_UUID,
-                "App: reportingui.reports",
-                "mirebalaisreports-inpatientMonthlyReport-link"));
+            // custom overview report
+            extensions.add(extension(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
+                    "mirebalaisreports.inpatientStatsDailyReport.name",
+                    null,
+                    "link",
+                    "mirebalaisreports/inpatientStatsDailyReport.page",
+                    "App: reportingui.reports",
+                    null,
+                    ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
+                    REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT),
+                    map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
 
-        extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
-                "mirebalaisreports.noncodeddiagnoses.name",
-                null,
-                "link",
-                "mirebalaisreports/nonCodedDiagnoses.page",
-                "App: reportingui.reports",
-                null,
-                ExtensionPoints.REPORTING_DATA_QUALITY,
-                0,
-                map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
+            extensions.add(overviewReport(Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT,
+                    "mirebalaisreports.inpatientStatsMonthlyReport.name",
+                    MirebalaisReportsProperties.INPATIENT_STATS_MONTHLY_REPORT_DEFINITION_UUID,
+                    "App: reportingui.reports",
+                    "mirebalaisreports-inpatientMonthlyReport-link"));
+
+            extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
+                    "mirebalaisreports.noncodeddiagnoses.name",
+                    null,
+                    "link",
+                    "mirebalaisreports/nonCodedDiagnoses.page",
+                    "App: reportingui.reports",
+                    null,
+                    ExtensionPoints.REPORTING_DATA_QUALITY,
+                    0,
+                    map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
+        }
     }
 
     private void enableDataExports() {
