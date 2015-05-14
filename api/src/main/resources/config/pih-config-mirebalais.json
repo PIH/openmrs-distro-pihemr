@@ -39,6 +39,7 @@
   },
 
   "scheduleBackupReports": "false",
+  "providerIdentifierPrefix": "M",
 
   "registrationConfig": {
     "allowUnknownPatients": true,

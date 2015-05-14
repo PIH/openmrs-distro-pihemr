@@ -21,6 +21,7 @@
 
   "scheduleBackupReports": "false",
   "dashboardUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}",
+  "providerIdentifierPrefix": "PL",
 
   "registrationConfig": {
     "allowUnknownPatients": false,
