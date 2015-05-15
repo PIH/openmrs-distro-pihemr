@@ -6,43 +6,16 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
-public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
-
-    @Autowired
-    CustomAppLoaderFactory factory;
-
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-    
-    @Test
-    public void shouldSetUpAppsAndExtensions() throws Exception {
-        factory.setConfig(new Config());
-        factory.getExtensions();
-        factory.getAppDescriptors();
-    }
+public class CustomAppLoaderTest  {
 
     @Test
     public void shouldCreateHeader() {
@@ -250,30 +223,6 @@ public class CustomAppLoaderTest extends BaseModuleContextSensitiveTest {
         assertThat((String) extension.getExtensionParams().get("templateFragmentProviderName"), is("provider"));
         assertThat((String) extension.getExtensionParams().get("templateFragmentId"), is("fragment"));
         assertThat((String) extension.getExtensionParams().get("templateFragmentProviderName"), is("provider"));
-    }
-
-    @Test
-    public void shouldRegisterTemplateForEncounterType() {
-
-        List<Extension> extensions = new ArrayList<Extension>();
-        Extension template = CustomAppLoaderUtil.encounterTemplate("id", "provider", "fragment");
-        extensions.add(template);
-
-        factory.setExtensions(extensions);
-
-        registerTemplateForEncounterType(EncounterTypes.PATIENT_REGISTRATION, factory.findExtensionById("id"), "icon",
-                true, false, "someLink", "primaryEncounterRoleUuid");
-
-        assertTrue(template.getExtensionParams().containsKey("supportedEncounterTypes"));
-        assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey(EncounterTypes.PATIENT_REGISTRATION.uuid()));
-
-        Map<String,Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get(EncounterTypes.PATIENT_REGISTRATION.uuid());
-        assertThat((String) params.get("icon"), is("icon"));
-        assertThat((String) params.get("primaryEncounterRoleUuid"), is("primaryEncounterRoleUuid"));
-        assertThat((Boolean) params.get("displayWithHtmlForm"), is(true));
-        assertThat((Boolean) params.get("editable"), is(false));
-        assertThat((String) params.get("editUrl"), is("someLink"));
-
     }
 
     @Test
