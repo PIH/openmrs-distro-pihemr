@@ -3,13 +3,16 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -25,10 +28,17 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests the configuration of the patient registration app
  */
+@SkipBaseSetup
 public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     PatientRegistrationApp patientRegistrationApp;
+
+    @Autowired
+    MetadataDeployService deployService;
+
+    @Autowired
+    private SocioEconomicConcepts socioEconomicConcepts;
 
     @Override
     public Properties getRuntimeProperties() {
@@ -39,6 +49,10 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void shouldCreateAppDescriptor() throws Exception {
+
+        executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
+        authenticate();
+        deployService.installBundle(socioEconomicConcepts);
 
         AppDescriptor d = patientRegistrationApp.getAppDescriptor(new Config());
 
@@ -67,7 +81,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
         JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 3);
         assertObsQuestionFound(socialSection, 0, "obs.PIH:CIVIL STATUS");
-        assertObsQuestionFound(socialSection, 1, "obs.PIH:2452");
+        assertObsQuestionFound(socialSection, 1, "obs.PIH:Occupation");
         assertObsQuestionFound(socialSection, 2, "obs.PIH:Religion");
 
         assertSectionFound(d.getConfig(), 3, "contacts", "zl.registration.patient.contactPerson.label", 1);
@@ -97,10 +111,11 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertEquals(cssClasses != null && cssClasses.get(0).getTextValue().equals("required"), required);
     }
 
-    private void assertObsQuestionFound(JsonNode section, int questionNumber, String concept) {
+    private JsonNode assertObsQuestionFound(JsonNode section, int questionNumber, String concept) {
         JsonNode field = assertSingleFieldQuestion(section, questionNumber, "obs");
         assertThat(field.get("type").getTextValue(), is("obs"));
         assertThat(field.get("formFieldName").getTextValue(), is(concept));
+        return field;
     }
 
     private List<JsonNode> getNodeList(JsonNode node, String elementName) {

@@ -3,6 +3,9 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
@@ -22,9 +25,13 @@ import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 import org.openmrs.module.registrationapp.model.TextAreaWidget;
 import org.openmrs.module.registrationapp.model.TextFieldWidget;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +41,9 @@ import java.util.Map;
  */
 @Component
 public class PatientRegistrationApp {
+
+    @Autowired
+    private ConceptService conceptService;
 
     public AppDescriptor getAppDescriptor(Config config) {
         AppDescriptor d = new AppDescriptor();
@@ -226,10 +236,20 @@ public class PatientRegistrationApp {
         q.setLegend("zl.registration.patient.occupation.label");
 
         Field f = new Field();
-        f.setFormFieldName("obs.PIH:2452");
+        f.setFormFieldName("obs.PIH:Occupation");
         f.setLabel("zl.registration.patient.occupation.question");
         f.setType("obs");
-        f.setWidget(getTextFieldWidget());
+
+        DropdownWidget w = new DropdownWidget();
+        populateDropdownWithConceptAnswers(w, conceptService.getConceptByMapping("Occupation", "PIH"));
+/*        w.getConfig().addOption("CIEL:162944", "pihcore.registration.socioeconomic.occupation.civilServant");
+        w.getConfig().addOption("PIH:Farmer", "pihcore.registration.socioeconomic.occupation.farmer");
+        w.getConfig().addOption("CIEL:159674", "pihcore.registration.socioeconomic.occupation.fisherman");
+        w.getConfig().addOption("PIH:HEALTH CARE WORKER", "pihcore.registration.socioeconomic.occupation.healthCareWorker");
+        w.getConfig().addOption("CIEL:162945", "pihcore.registration.socioeconomic.occupation.marketVendor");
+        w.getConfig().addOption("CIEL:162945", "pihcore.registration.socioeconomic.occupation.marketVendor");*/
+        w.getConfig().setExpanded(true);
+        f.setWidget(toObjectNode(w));
         q.addField(f);
 
         return q;
@@ -345,6 +365,23 @@ public class PatientRegistrationApp {
 
         q.addField(f);
         return q;
+    }
+
+    protected void populateDropdownWithConceptAnswers(DropdownWidget d, Concept questionConcept) {
+
+        List<ConceptAnswer> conceptAnswers = new ArrayList<ConceptAnswer>(questionConcept.getAnswers());
+
+        Collections.sort(conceptAnswers, new Comparator<ConceptAnswer>() {
+            @Override
+            public int compare(ConceptAnswer answer1, ConceptAnswer answer2) {
+                return answer1.getAnswerConcept().getName().toString().compareTo(answer2.getAnswerConcept().getName().toString());
+            }
+        });
+
+        for (ConceptAnswer conceptAnswer : conceptAnswers) {
+            d.getConfig().addOption(conceptAnswer.getAnswerConcept().getId().toString(), conceptAnswer.getAnswerConcept().getName().toString());
+        }
+
     }
 
     protected ObjectNode getTextFieldWidget() {
