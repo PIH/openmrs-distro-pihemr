@@ -7,14 +7,17 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertNotNull;
@@ -26,6 +29,12 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
 
     private RuntimeProperties customProperties;
 
+    @Autowired
+    private MetadataDeployService deployService;
+
+    @Autowired
+    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
+
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
@@ -34,6 +43,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         executeDataSet("serializedReportingDataset.xml");
         executeDataSet("fromMirebalaisMetadataModule.xml");
         authenticate();
+
+        deployService.installBundle(conceptsFromMetadataSharing);
 
         // set up metatdata from pih core first
         PihCoreActivator pihCoreActivator = new PihCoreActivator();
