@@ -30,6 +30,7 @@ public class CustomAppLoaderConstants {
         public static final String CLINICIAN_DASHBOARD = "clinicianDashboard";
         public static final String VISIT_NOTE = "visitNote";
         public static final String ALLERGIES = "allergies";
+        public static final String PRESCRIPTIONS = "prescriptions";
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
@@ -125,6 +126,8 @@ public class CustomAppLoaderConstants {
 
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
 
+        public static final String CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS = "orderentryui.patientDashboard.activeDrugOrders";
+
         // Reports
         public static final String REGISTRATION_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.registrationsByAge";
 
@@ -200,7 +203,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
-            Extensions. REQUEST_PAPER_RECORD_OVERALL_ACTION,
+            Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
             Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
             Extensions.PRINT_ID_CARD_OVERALL_ACTION,
             Extensions.PRINT_WRISTBAND_OVERALL_ACTION,
@@ -240,4 +243,8 @@ public class CustomAppLoaderConstants {
             Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
             Extensions.APPOINTMENTS_DATA_EXPORT);
 
+    public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN = Arrays.asList();
+
+    public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN = Arrays.asList(
+            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS);
 }

@@ -1,4 +1,23 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap" ])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry" ])
+
+    .config(function ($stateProvider, $urlRouterProvider) {
+
+        $urlRouterProvider.otherwise("overview");
+
+        $stateProvider
+            .state("overview", {
+                url: "/overview",
+                templateUrl: "templates/overview.page"
+            })
+            .state("visitList", {
+                url: "/visitList",
+                templateUrl: "templates/visitList.page"
+            })
+            .state("drugOrders", {
+                url: "/drugOrders",
+                templateUrl: "templates/orders/drugOrders.page"
+            });
+    })
 
     .directive("dateWithPopup", [ function() {
         return {
@@ -168,8 +187,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
         }])
 
-    .controller("VisitController", [ "$scope", "Visit", "VisitTemplateService",
-        function($scope, Visit, VisitTemplateService) {
+    .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "OrderContext",
+        function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, OrderContext) {
 
             function sameDate(d1, d2) {
                 return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
@@ -178,7 +197,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             function loadVisit(visitUuid) {
                 $scope.visit = Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,encounters:default,patient:default,visitType:ref)" });
 
-                $scope.visit.$promise.then(function(response) {
+                $q.all([$scope.visit.$promise, $scope.careSettings.$promise]).then(function(response) {
+                    OrderContext.setCareSetting(_.findWhere($scope.careSettings.results, { careSettingType: "OUTPATIENT" }));
+                    OrderContext.setPatient($scope.visit.patient);
+
                     $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
                     VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
 
@@ -193,7 +215,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             return it;
                         });
 
-                        $scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return it.startDatetime }) === $scope.visit.startDatetime;
+                        $scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
                     });
 
                     $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "HH:mm" : "HH:mm (d-MMM)";
@@ -209,17 +231,45 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 if (index > 0) {
                     temp = temp.substring(0, index);
                 }
+                index = temp.indexOf("#");
+                if (index > 0) {
+                    temp = temp.substring(0, index);
+                }
                 return temp;
             }
+
+            //$rootScope.$on('$stateChangeStart', function(event, toState) {
+            //    if (toState.name === "newPrescription") {
+            //        $scope.newDraftDrugOrder = OpenMRS.createEmptyDraftOrder(OrderContext.get().careSetting);
+            //    }
+            //});
+
+            $scope.$on('visit-changed', function(event, visit) {
+                if ($scope.visitUuid == visit.uuid) {
+                    $scope.reloadVisit();
+                }
+            });
+
+            $scope.careSettings = CareSetting.query({v:"default"});
 
             $scope.reloadVisit = function() {
                 loadVisit($scope.visitUuid);
             }
 
+            $scope.goToVisit = function(visit) {
+                $scope.visitUuid = visit.uuid;
+                $state.go("overview");
+            }
+
+            // TODO figure out if we can get rid of this function
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
 
             $scope.visitUuid = getVisitParameter();
+
+            $scope.hasDraftOrders = function() {
+                return OrderContext.get().draftOrders.length > 0;
+            }
 
         }]);

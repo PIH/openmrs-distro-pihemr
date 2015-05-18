@@ -9,6 +9,7 @@
         "clinicianDashboard",
         "visitNote",
         "allergies",
+        "prescriptions",
         "patientRegistration",
         "visitManagement",
         "activeVisits",

@@ -3,6 +3,7 @@
 </div>
 <ul>
     <li ng-repeat="order in orderList()">
-        {{ order.drug ? order.drug : order.concept | omrs.display }}
+        {{ order.dateActivated | serverDate:dateFormat }}
+        {{ order | orderInstructions }}
     </li>
 </ul>
