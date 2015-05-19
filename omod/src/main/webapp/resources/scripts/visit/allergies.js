@@ -11,7 +11,9 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 patient: "="
             },
             controller: ["$scope", function($scope) {
-                $scope.allergies = Allergies.get({uuid: $scope.patient.uuid});
+                if ($scope.patient) {
+                    $scope.allergies = Allergies.get({uuid: $scope.patient.uuid});
+                }
             }],
             templateUrl: "templates/allergiesList.page"
         }

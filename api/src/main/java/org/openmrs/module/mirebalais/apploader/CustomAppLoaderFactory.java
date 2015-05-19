@@ -1066,14 +1066,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableClinicianDashboard() {
-        apps.add(app(Apps.CLINICIAN_DASHBOARD,
+        AppDescriptor app = app(Apps.CLINICIAN_DASHBOARD,
                 "mirebalais.app.clinicianDashboard.label",
                 "icon-medkit",
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
                         "visitUrl", "mirebalais/visit/visit.page?visit={{visit.uuid}}"
-                )));
+                ));
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
+            // TODO figure out how to add icon-pill to this
+            addToClinicianDashboardSecondColumn(app, "orderentryui", "patientdashboard/activeDrugOrders");
+        }
+        apps.add(app);
     }
 
     private void enableAllergies() {

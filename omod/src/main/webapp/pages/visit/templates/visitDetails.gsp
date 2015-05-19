@@ -9,11 +9,17 @@
         <em ng-hide="visit.stopDatetime">...ongoing</em>
     </span>
     <span ng-show="editing">
+        <br/>
         Start:
-        <input type="text" size="20" ng-model="newStartDatetime"/>
+        <br/>
+        <date-with-popup ng-model="newStartDatetime" max-date="newStopDatetime || now"></date-with-popup>
+        <timepicker ng-model="newStartDatetime"></timepicker>
 
+        <br/>
         Stop:
-        <input type="text" size="20" ng-model="newStopDatetime"/>
+        <br/>
+        <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="newStartDatetime" max-date="now"></date-with-popup>
+        <timepicker ng-model="newStopDatetime"></timepicker>
     </span>
 </span>
 

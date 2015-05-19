@@ -16,9 +16,7 @@ package org.openmrs.module.mirebalais.component;
 
 import org.hamcrest.core.Is;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Person;
@@ -29,6 +27,7 @@ import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstan
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
@@ -36,6 +35,7 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.dataset.column.definition.RowPerObjectColumnDefinition;
@@ -84,6 +84,12 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     private PihCoreActivator pihCoreActivator;
 
+    @Autowired
+    private MetadataDeployService deployService;
+
+    @Autowired
+    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
+
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
@@ -93,6 +99,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         executeDataSet("fromMirebalaisMetadataModule.xml");
         executeDataSet("serializedReportingDataset.xml");
         authenticate();
+
+        deployService.installBundle(conceptsFromMetadataSharing);
 
         // set up metatdata from pih core first
         pihCoreActivator = new PihCoreActivator();

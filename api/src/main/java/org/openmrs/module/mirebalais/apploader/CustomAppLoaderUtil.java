@@ -16,9 +16,12 @@ import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_FIRST_COLUMN;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
@@ -232,9 +235,20 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension clinicianDashboardFirstColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, int order, Map<String,Object> extensionParams) {
+        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_FIRST_COLUMN, extensionParams);
+    }
+
+    static public Extension clinicianDashboardSecondColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, Map<String,Object> extensionParams) {
+        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_SECOND_COLUMN, extensionParams);
+    }
+
+    static public Extension fragmentExtension(String id, String label, String icon, String privilege, String require, String extensionPointId, String provider, String fragment, List<String> orderFromList, Map<String,Object> extensionParams) {
+        if (extensionParams == null) {
+            extensionParams = new HashMap<String, Object>();
+        }
         extensionParams.put("provider", provider);
         extensionParams.put("fragment", fragment);
-        return extension(id, label, icon, "link", null, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, order, extensionParams);
+        return extension(id, label, icon, "fragment", null, privilege, require, extensionPointId, orderFromList == null ? Integer.MIN_VALUE : orderFromList.indexOf(id), extensionParams);
     }
 
     static public Extension extension(String id, String label, String icon, String type, String urlOrScript, String privilege, String require, String extensionPoint, int order, Map<String,Object> extensionParams) {
@@ -250,6 +264,9 @@ public class CustomAppLoaderUtil {
         }
         else if (type.equals("script")) {
             extension.setScript(urlOrScript);
+        }
+        else if (type.equals("fragment")) {
+            // don't use urlOrScript
         }
         else {
             throw new IllegalStateException("Invalid type: " + type);

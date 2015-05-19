@@ -147,6 +147,12 @@ table.vaccination-table {
   width: 750px !important;
 }
 
+.visit-dates {
+  table {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
 
 // ui-bootstrap 0.11.x expects "glyphicion-*" but uicommons only defines "icon-*"
 // Need to research this, since it's hacky to include all this here
@@ -180,3 +186,5 @@ table.vaccination-table {
 
 .glyphicon-chevron-left:before         { content: "\f053"; }
 .glyphicon-chevron-right:before        { content: "\f054"; }
+.glyphicon-chevron-up:before           { content: "\f077"; }
+.glyphicon-chevron-down:before         { content: "\f078"; }
