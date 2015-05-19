@@ -7,6 +7,7 @@ import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
@@ -141,31 +142,11 @@ public class PatientRegistrationApp {
         f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
-
         // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
-
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
-
-            // We want the display template to hide country, and show a dash if the lowest free-text level is missing
-            // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
-            StringBuilder displayTemplate = new StringBuilder();
-            displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
-            for (int i = levels.size() - 1; i >= 2; i--) {
-                displayTemplate.append(", {{field.[" + i + "]}}");
-            }
-            q.setDisplayTemplate(displayTemplate.toString());
-
-            // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
-
-            String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
-            String manualField = levels.get(levels.size()-1).getAddressField().getName();
-
-            PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
-            w.getConfig().setShortcutFor(shortCutFor);
-            w.getConfig().addManualField(manualField);
-            
-            f.setWidget(toObjectNode(w));
+            q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+            f.setWidget(getAddressHierarchyWidget(levels, null));
         }
         else {
             Map<String, String> m = new HashMap<String, String>();
@@ -288,11 +269,11 @@ public class PatientRegistrationApp {
 
         boolean required = config.getCountry() == ConfigDescriptor.Country.HAITI; // TODO: Replace with property in RegistrationConfig
 
-        s.addQuestion(getContactQuestion(required));
+        s.addQuestion(getContactQuestion(config, required));
         return s;
     }
 
-    public Question getContactQuestion(boolean required) {
+    public Question getContactQuestion(Config config, boolean required) {
         Question q = new Question();
         q.setId("contactNameLabel");
         q.setLegend("zl.registration.patient.contactPerson.label");
@@ -316,7 +297,28 @@ public class PatientRegistrationApp {
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
-        {
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            Field f = new Field();
+            //f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+            f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
+            f.setType("personAddress");
+
+            // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+            List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+            if (levels != null && levels.size() > 0) {
+                //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config)));
+            }
+            else {
+                Map<String, String> m = new HashMap<String, String>();
+                m.put("providerName", "uicommons");
+                m.put("fragmentId", "field/personAddress");
+                f.setWidget(toObjectNode(m));
+            }
+            q.addField(f);
+        }
+        else{
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
@@ -324,6 +326,7 @@ public class PatientRegistrationApp {
             f.setWidget(getTextAreaWidget(250));
             q.addField(f);
         }
+
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT");
@@ -382,6 +385,43 @@ public class PatientRegistrationApp {
             d.getConfig().addOption(conceptAnswer.getAnswerConcept().getId().toString(), conceptAnswer.getAnswerConcept().getName().toString());
         }
 
+    }
+
+    protected String getAddressHierarchyDisplayTemplate(List<AddressHierarchyLevel> levels) {
+        // We want the display template to hide country, and show a dash if the lowest free-text level is missing
+        // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
+        StringBuilder displayTemplate = new StringBuilder();
+        displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
+        for (int i = levels.size() - 1; i >= 2; i--) {
+            displayTemplate.append(", {{field.[" + i + "]}}");
+        }
+
+        return displayTemplate.toString();
+    }
+
+    protected ObjectNode getAddressHierarchyWidget(List<AddressHierarchyLevel> levels, Map<String,String> fieldMappings) {
+        // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
+        String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
+        String manualField = levels.get(levels.size()-1).getAddressField().getName();
+
+        PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
+        w.getConfig().setShortcutFor(shortCutFor);
+        w.getConfig().addManualField(manualField);
+        w.getConfig().setFieldMappings(fieldMappings);
+
+        return toObjectNode(w);
+    }
+
+    // TODO: this needs to be customized based on country
+    protected Map<String,String> getContactAddressFieldMappings(Config config) {
+        Map<String,String> fieldMappings = new HashMap<String, String>();
+        fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        return fieldMappings;
     }
 
     protected ObjectNode getTextFieldWidget() {
