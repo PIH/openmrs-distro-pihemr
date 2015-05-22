@@ -38,6 +38,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToH
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
@@ -324,7 +325,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")),
+                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")) + andCreateVisit(),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
@@ -1006,6 +1007,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "icon-stethoscope",
                     "link",
                     "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                    "App: coreapps.patientDashboard",
+                    null));
+        }
+
+        if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
+            extensions.add(overallRegistrationAction(Extensions.VISITS_DASHBOARD,
+                    "pihcore.visitDashboard",
+                    "icon-user",
+                    "link",
+                    "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}",
                     "App: coreapps.patientDashboard",
                     null));
         }

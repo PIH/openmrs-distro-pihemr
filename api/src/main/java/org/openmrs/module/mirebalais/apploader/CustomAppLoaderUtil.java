@@ -310,6 +310,10 @@ public class CustomAppLoaderUtil {
         return "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=" + definitionUiResource;
     }
 
+    static public String andCreateVisit() {
+        return "&createVisit=true";
+    }
+
     static public void addFeatureToggleToApp(AppDescriptor app, String featureToggle) {
         app.setFeatureToggle(featureToggle);
     }

@@ -119,6 +119,7 @@ public class CustomAppLoaderConstants {
         public static final String MERGE_INTO_ANOTHER_PATIENT = "registrationapp.mergePatient";
         public static final String PRINT_PAPER_FORM_LABEL = "registrationapp.printPaperFormLabel";
         public static final String PRINT_ID_CARD_REGISTRATION_ACTION = "mirebalais.printIdCard";
+        public static final String VISITS_DASHBOARD = "coreapps.visitsDashboard";
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 

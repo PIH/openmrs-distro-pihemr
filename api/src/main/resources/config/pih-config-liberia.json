@@ -8,6 +8,7 @@
   "components": [
     "patientRegistration",
     "checkIn",
+    "visitManagement",
     "systemAdministration",
     "myAccount",
     "overviewReports",
