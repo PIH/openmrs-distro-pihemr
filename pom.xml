@@ -612,12 +612,12 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[1.9.0,1.10.0-!)</version>
+                            <version>[1.10.1]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[1.9.0,1.10.0-!)</version>
+                            <version>[1.10.1]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
