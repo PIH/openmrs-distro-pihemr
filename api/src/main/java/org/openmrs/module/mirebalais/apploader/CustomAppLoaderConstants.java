@@ -131,6 +131,7 @@ public class CustomAppLoaderConstants {
 
         // Reports
         public static final String REGISTRATION_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.registrationsByAge";
+        public static final String CHECK_IN_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.checkinsByAge";
 
         public static final String DAILY_REGISTRATIONS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyRegistrations";
         public static final String DAILY_CHECK_INS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyCheckIns";

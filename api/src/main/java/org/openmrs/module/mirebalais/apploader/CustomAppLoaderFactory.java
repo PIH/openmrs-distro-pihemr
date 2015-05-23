@@ -594,6 +594,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
                     1,
                     map("linkId", "mirebalaisreports-registrationoverview-link")));
+
+            extensions.add(extension(Extensions.CHECK_IN_SUMMARY_BY_AGE_REPORT,
+                    "mirebalaisreports.checkinoverview.title",
+                    null,
+                    "link",
+                    "mirebalaisreports/checkInsByAge.page",
+                    "App: reportingui.reports",
+                    null,
+                    ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
+                    1,
+                    map("linkId", "mirebalaisreports-checkinoverview-link")));
         }
         else {
 
