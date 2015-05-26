@@ -71,18 +71,18 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
 
-        JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 2);
+        JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
         assertPersonAttributeQuestionFound(demographicsSection, 0, PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid(), true);
-        assertPersonAttributeQuestionFound(demographicsSection, 1, PersonAttributeTypes.BIRTHPLACE.uuid(), true);
 
         JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
         assertPersonAttributeQuestionFound(contactInfoSection, 1, PersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
 
-        JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 3);
-        assertObsQuestionFound(socialSection, 0, "obs.PIH:CIVIL STATUS");
-        assertObsQuestionFound(socialSection, 1, "obs.PIH:Occupation");
-        assertObsQuestionFound(socialSection, 2, "obs.PIH:Religion");
+        JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 4);
+        assertObsQuestionFound(socialSection, 0, "obs.PIH:PLACE OF BIRTH");
+        assertObsQuestionFound(socialSection, 1, "obs.PIH:CIVIL STATUS");
+        assertObsQuestionFound(socialSection, 2, "obs.PIH:Occupation");
+        assertObsQuestionFound(socialSection, 3, "obs.PIH:Religion");
 
         assertSectionFound(d.getConfig(), 3, "contacts", "zl.registration.patient.contactPerson.label", 1);
     }
