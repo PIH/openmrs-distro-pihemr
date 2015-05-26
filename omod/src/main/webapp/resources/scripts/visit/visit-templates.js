@@ -1,6 +1,62 @@
 angular.module("visit-templates", ["constants"])
 
     .factory("VisitTemplates", [ "EncounterTypes", function(EncounterTypes) {
+        var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
+        var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
+
+        var encounterTypeConfig = {
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/defaultEncounterShort.page",
+                longTemplate: "templates/defaultEncounterLong.page"
+            }
+        };
+        encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/checkInShort.page",
+            longTemplate: "templates/defaultEncounterLong.page",
+            icon: "icon-check-in",
+            editUrl: hfeSimpleEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.vitals.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/vitalsShort.page",
+            longTemplate: "templates/vitalsLong.page",
+            icon: "icon-vitals",
+            editUrl: hfeSimpleEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.consultation.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/clinicConsultShort.page",
+            longTemplate: "templates/clinicConsultLong.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/defaultEncounterShort.page",
+            longTemplate: "templates/primaryCareAdultHistoryLong.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/defaultEncounterShort.page",
+            longTemplate: "templates/defaultEncounterLong.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl
+        };
+
+        var visitActions = {
+            type: "include",
+            include: "templates/visitActions.page"
+        };
+
+        var reverseChronologicalEncounters = {
+            type: "include",
+            include: "templates/reverseChronologicalEncounters.page"
+        };
+
         var checkIn = {
             type: "encounter",
             encounter: {
@@ -12,12 +68,12 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "Check In",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/checkin.xml&returnUrl={{returnUrl}}"
-            },
-            defaultState: "short"
+            }
         };
 
         var vitals = {
             type: "encounter",
+            allowMultiple: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
@@ -28,24 +84,19 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "Vitals",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}"
-            },
-            defaultState: "short"
+            }
         };
-
-        var firstTimeHistory = [
-
-        ]
 
         var reviewAllergies = {
             type: "include",
-            include: {
+            includeAsVisitElement: {
                 label: "Review Allergies",
                 template: "templates/reviewAllergies.page"
             }
         };
         var vaccinations = {
             type: "include",
-            includeRaw: "templates/vaccinations.page"
+            include: "templates/vaccinations.page"
         };
         var primaryCareAdultHistory = {
             type: "encounter",
@@ -58,8 +109,7 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "History (Adult)",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
-            },
-            defaultState: "long"
+            }
         };
         var primaryCareExam = {
             type: "encounter",
@@ -72,29 +122,31 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "Exam and Diagnosis (Adult)",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam-dx.xml&returnUrl={{returnUrl}}"
-            },
-            defaultState: "long"
+            }
         };
         var outpatientPlan = {
             type: "include",
-            include: {
-                //label: "Conduite a tenir",
-                template: "templates/outpatient-plan.page"
-            }
+            include: "templates/outpatient-plan.page"
         };
 
-        return {
-            standardOutpatient: {
-                label: "Standard Outpatient Visit",
+        var allowedForAll = function(visit) {
+            return true;
+        };
+
+        var ret = {
+            timeline: {
+                label: "Visit (Generic)",
+                encounterTypeConfig: encounterTypeConfig,
+                allowedFor: allowedForAll,
                 elements: [
-                    checkIn,
-                    vitals,
-                    primaryCareExam,
-                    outpatientPlan
+                    visitActions,
+                    reverseChronologicalEncounters
                 ]
             },
             adultInitialOutpatient: {
                 label: "Adult Initial Outpatient Visit",
+                allowedFor: allowedForAll,
+                encounterTypeConfig: encounterTypeConfig,
                 elements: [
                     checkIn,
                     vitals,
@@ -106,6 +158,8 @@ angular.module("visit-templates", ["constants"])
             },
             pedsInitialOutpatient: {
                 label: "Peds Initial Outpatient Visit",
+                allowedFor: allowedForAll,
+                encounterTypeConfig: encounterTypeConfig,
                 elements: [
                     checkIn,
                     vaccinations,
@@ -117,4 +171,8 @@ angular.module("visit-templates", ["constants"])
                 ]
             }
         };
+        _.each(ret, function(it, key) {
+            it.name = key;
+        });
+        return ret;
     }]);

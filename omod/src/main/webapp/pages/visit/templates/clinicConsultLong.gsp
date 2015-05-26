@@ -7,5 +7,13 @@
         {{ diag | obs:"value" }}
     </div>
 
+    <div ng-show="orders">
+        <h4>Orders</h4>
+        <p ng-repeat="order in orders | orderBy:'dateActivated'" class="aligned">
+            {{ order.dateActivated | serverDate:dateFormat }}
+            {{ order | orderInstructions }}
+        </p>
+    </div>
+
     {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | groupMember:Concepts.disposition | obs }}
 </div>

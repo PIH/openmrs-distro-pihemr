@@ -27,10 +27,10 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                 return "";
             }
             if (order.action == 'DISCONTINUE') {
-                return emr.message("orderentryui.action.DISCONTINUE") + " " + (order.drug ? order.drug : order.concept ).display;
+                return emr.message("orderentryui.action.DISCONTINUE") + ": " + (order.drug ? order.drug : order.concept ).display;
             }
             else {
-                var text = "(" + emr.message("orderentryui.action." + order.action) + ") ";
+                var text = emr.message("orderentryui.action." + order.action) + ": ";
                 text += order.getDosingType().format(order);
                 if (order.quantity) {
                     text += ' #' + order.quantity + ' ' + order.quantityUnits.display;

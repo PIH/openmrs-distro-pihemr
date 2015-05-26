@@ -125,3 +125,9 @@ angular.module('constants', [])
             uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
         }
     })
+
+    .value('VisitAttributeTypes', {
+        visitTemplate: {
+            uuid: "f7b07c80-27c3-49de-8830-cb9e3e805eeb"
+        }
+    })

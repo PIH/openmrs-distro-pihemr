@@ -6,4 +6,11 @@
         <label>{{ obs.concept | omrs.display }}</label>
         <span class="value">{{ obs | obs:"value" }}</span>
     </p>
+    <div ng-show="orders && orders.length">
+        <h4>Orders</h4>
+        <p ng-repeat="order in orders | orderBy:'dateActivated'" class="aligned">
+            {{ order.dateActivated | serverDate:dateFormat }}
+            {{ order | orderInstructions }}
+        </p>
+    </div>
 </div>

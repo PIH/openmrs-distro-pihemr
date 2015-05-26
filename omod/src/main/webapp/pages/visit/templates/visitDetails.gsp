@@ -1,14 +1,12 @@
-<span class="visit-type">
-    {{ visitTemplate.label | omrs.display }}
-</span>
-
 <span class="visit-dates">
     <span ng-hide="editing">
-        {{ visit.startDatetime | date:"medium" }}
-        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | date:"medium" }}</span>
+        <i class="icon-time small"></i>
+        {{ visit.startDatetime | serverDate:"medium" }}
+        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:"medium" }}</span>
         <em ng-hide="visit.stopDatetime">...ongoing</em>
     </span>
     <span ng-show="editing">
+        <h3>This is broken</h3>
         <br/>
         Start:
         <br/>

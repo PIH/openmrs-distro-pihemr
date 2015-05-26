@@ -1,6 +1,20 @@
 @import "customVariables";
 @import "fragments/status-container";
 
+.selectable {
+  cursor: pointer;
+}
+
+#visit-list {
+  tr:hover {
+    background-color: $link;
+    color: white;
+  }
+  tr.selected-visit {
+    font-family: $primaryBoldFont;
+  }
+}
+
 #visit {
 
   @include status-container(#f9f9f9);
@@ -10,22 +24,37 @@
     display: inline-block;
   }
 
-  .visit-type {
-    width: 30%;
-  }
-
   .visit-dates {
-    width: 30%;
+    margin-right: 15px;
   }
 
   .visit-location {
-    width: 20%;
+    margin-right: 15px;
   }
+}
+
+#active-visit-template {
+  display: inline-block;
+  margin-right: 15px;
 
   .actions {
     float: right;
   }
+}
 
+.new-encounter-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  &.add-multiple-encounter a {
+    margin-left: 2em;
+  }
+}
+
+.actions {
+  a {
+    cursor: pointer;
+  }
 }
 
 .visit-element {
@@ -80,7 +109,7 @@
       width: 25%;
     }
 
-    .actions {
+    .overall-actions {
       float: right;
     }
   }
@@ -115,6 +144,39 @@
     }
   }
 
+}
+
+.visit-actions {
+  text-align: left;
+  padding: 10px 0;
+  padding-left: 10px;
+  padding-bottom: 0;
+  border: 1px solid #CCC;
+  @include border-radius(2px);
+
+  &.past-visit {
+    color: $alert;
+    background: white;
+  }
+
+  .label {
+    text-align: left;
+    padding-bottom: 5px;
+    font-size: 0.9em;
+  }
+
+}
+
+.visit-actions, .spaced {
+  a {
+    margin-right: 6px;
+    margin-bottom: 4px;
+
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
 
 #choose-another-visit {
