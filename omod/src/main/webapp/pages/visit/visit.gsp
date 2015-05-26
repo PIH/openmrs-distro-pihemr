@@ -24,7 +24,6 @@
     ui.includeJavascript("uicommons", "model/visit-model.js")
     ui.includeJavascript("uicommons", "filters/display.js")
     ui.includeJavascript("uicommons", "filters/serverDate.js")
-    ui.includeJavascript("uicommons", "filters/appFramework.js")
     ui.includeJavascript("uicommons", "directives/select-drug.js")
     ui.includeJavascript("uicommons", "directives/select-concept-from-list.js")
     ui.includeJavascript("uicommons", "directives/select-order-frequency.js")

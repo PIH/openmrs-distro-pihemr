@@ -220,6 +220,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.$watch("visit", function() {
                     $scope.selectedTemplate = $scope.visit.getAttributeValue(VisitAttributeTypes.visitTemplate);
                     $scope.newVisitTemplate = _.findWhere($scope.availableTemplates, {name: $scope.selectedTemplate});
+                    $scope.activeTemplate = VisitTemplateService.getCurrent();
                 });
 
                 $scope.choosingTemplate = false;

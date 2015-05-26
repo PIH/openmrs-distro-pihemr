@@ -216,6 +216,26 @@ table.vaccination-table {
   }
 }
 
+#plan-heading {
+  > * {
+    display: inline-block;
+    margin-right: 40px;
+  }
+}
+
+#draft-plan {
+  border: 1px $darkerGrey solid;
+  background-color: $lighterGrey;
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  .signature {
+    text-align: right;
+    color: $subtleText;
+  }
+}
+
 // ui-bootstrap 0.11.x expects "glyphicion-*" but uicommons only defines "icon-*"
 // Need to research this, since it's hacky to include all this here
 [class^="glyphicon-"],
