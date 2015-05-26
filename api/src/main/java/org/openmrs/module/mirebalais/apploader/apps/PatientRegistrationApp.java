@@ -86,7 +86,6 @@ public class PatientRegistrationApp {
         s.setId("demographics");
         s.setLabel("");
         s.addQuestion(getMothersNameQuestion());
-        s.addQuestion(getBirthplaceQuestion());
         return s;
     }
 
@@ -104,23 +103,6 @@ public class PatientRegistrationApp {
         f.setCssClasses(Arrays.asList("required"));
         q.addField(f);
 
-        return q;
-    }
-
-    public Question getBirthplaceQuestion() {
-        Question q = new Question();
-        q.setId("birthplaceLabel");
-        q.setLegend("zl.registration.patient.birthplace.label");
-
-        Field f = new Field();
-        f.setFormFieldName("birthplace");
-        f.setLabel("zl.registration.patient.birthplace.question");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.BIRTHPLACE.uuid());
-        f.setCssClasses(Arrays.asList("required"));
-        f.setWidget(getTextAreaWidget(50));
-
-        q.addField(f);
         return q;
     }
 
@@ -179,12 +161,28 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("social");
         s.setLabel("zl.registration.patient.social.label");
+        s.addQuestion(getBirthplaceQuestion());
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getOccupationQuestion());
         if (config.getCountry() == ConfigDescriptor.Country.HAITI) { // TODO: Replace this with property in RegistrationConfig
             s.addQuestion(getReligionQuestion());
         }
         return s;
+    }
+
+    public Question getBirthplaceQuestion() {
+        Question q = new Question();
+        q.setId("birthplaceLabel");
+        q.setLegend("zl.registration.patient.birthplace.label");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.PIH:PLACE OF BIRTH");
+        f.setLabel("zl.registration.patient.birthplace.question");
+        f.setType("obs");
+        f.setWidget(getTextFieldWidget(50));
+
+        q.addField(f);
+        return q;
     }
 
     public Question getCivilStatusQuestion() {

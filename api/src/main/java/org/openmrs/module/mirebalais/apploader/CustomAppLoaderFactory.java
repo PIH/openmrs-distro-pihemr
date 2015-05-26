@@ -269,7 +269,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: coreapps.mergeVisits",
                 null));
 
-        // this provides the javascript the backs the three overall action buttons
+        // this provides the javascript the backs the overall action buttons
         extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
                 "coreapps",
                 "patientdashboard/visitIncludes",
@@ -325,7 +325,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")) + andCreateVisit(),
+                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "liveCheckin")) + andCreateVisit(),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
