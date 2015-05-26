@@ -21,7 +21,10 @@
     </span>
 </span>
 
-<span class="visit-location">{{ visit.location | omrs.display }}</span>
+<span class="visit-location">
+    <i class="icon-hospital small"></i>
+    {{ visit.location | omrs.display }}
+</span>
 
 <span class="actions">
     <i class="icon-pencil edit-action" ng-click="startEditing()" ng-hide="editing"></i>
