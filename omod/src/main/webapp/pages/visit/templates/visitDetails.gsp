@@ -3,7 +3,9 @@
         <i class="icon-time small"></i>
         {{ visit.startDatetime | serverDate:"medium" }}
         <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:"medium" }}</span>
-        <em ng-hide="visit.stopDatetime">...ongoing</em>
+        <span ng-hide="visit.stopDatetime" class="lozenge active">
+            active
+        </span>
     </span>
     <span ng-show="editing">
         <h3>This is broken</h3>

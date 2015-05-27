@@ -1,6 +1,8 @@
 @import "customVariables";
 @import "fragments/status-container";
 
+$green: #51A351;
+
 .selectable {
   cursor: pointer;
 }
@@ -15,31 +17,29 @@
   }
 }
 
-#visit {
+#visit-type {
+  font-size: 1.5em;
+  display: inline-block;
+  margin-right: 20px;
 
-  @include status-container(#f9f9f9);
-  width: 80%;
-
-  > span {
-    display: inline-block;
-  }
-
-  .visit-dates {
-    margin-right: 15px;
-  }
-
-  .visit-location {
-    margin-right: 15px;
+  .actions {
+    font-size: 0.7em;
   }
 }
 
-#active-visit-template {
+#visit-details {
   display: inline-block;
-  margin-right: 15px;
+}
 
-  .actions {
-    float: right;
-  }
+.visit-dates {
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 10px;
+}
+
+.visit-location {
+  display: inline-block;
+  font-size: 0.8em;
 }
 
 .new-encounter-button {
@@ -233,6 +233,21 @@ table.vaccination-table {
   .signature {
     text-align: right;
     color: $subtleText;
+  }
+}
+
+.lozenge {
+  display: inline-block;
+  padding: 0px 8px;
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 0.7em;
+  text-transform: uppercase;
+
+  &.active {
+    color: $white;
+    background: $green;
+    border-color: $green;
   }
 }
 
