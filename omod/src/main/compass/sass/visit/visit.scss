@@ -46,6 +46,11 @@ $green: #51A351;
   margin-top: 5px;
   margin-bottom: 5px;
 
+  a.button {
+    width: 200px;
+    text-align: center;
+  }
+
   &.add-multiple-encounter a {
     background: $white;
   }

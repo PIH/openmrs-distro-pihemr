@@ -7,6 +7,6 @@
 
     <a ng-repeat="action in visitActions | allowedWithContext" class="button task" ng-click="visitAction(action)">
         <i class="{{ action.icon }}"></i>
-        {{ action.label }}
+        {{ action.label | omrs.display }}
     </a>
 </div>

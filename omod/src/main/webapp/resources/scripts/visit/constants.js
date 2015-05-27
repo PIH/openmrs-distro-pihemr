@@ -108,6 +108,9 @@ angular.module('constants', [])
         },
         hematocrit: {
             uuid: "3cd69a98-26fe-102b-80cb-0017a47871b2"
+        },
+        clinicalManagementPlanComment: {
+            uuid: "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
     })
 

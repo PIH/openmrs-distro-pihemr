@@ -1,7 +1,7 @@
 <span class="visit-dates">
     <span ng-hide="editing">
         <i class="icon-time small"></i>
-        {{ visit.startDatetime | serverDate:"medium" }}
+        {{ visit.startDatetime | serverDate }}
         <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:"medium" }}</span>
         <span ng-hide="visit.stopDatetime" class="lozenge active">
             active

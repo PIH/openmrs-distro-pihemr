@@ -36,7 +36,7 @@ angular.module("visit-templates", ["constants"])
             defaultState: "long",
             shortTemplate: "templates/defaultEncounterShort.page",
             longTemplate: "templates/primaryCareAdultHistoryLong.page",
-            icon: "icon-stethoscope",
+            icon: "icon-file-alt",
             editUrl: hfeStandardEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
@@ -46,11 +46,18 @@ angular.module("visit-templates", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl
         };
+        encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/defaultEncounterShort.page",
+            longTemplate: "templates/defaultEncounterLong.page",
+            icon: "icon-list-ul",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/defaultEncounterShort.page",
             longTemplate: "templates/defaultEncounterLong.page",
-            icon: "icon-stethoscope",
+            icon: "icon-list-ol",
             editUrl: null
         };
 
@@ -74,6 +81,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Check In",
+                icon: "icon-check-in",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/checkin.xml&returnUrl={{returnUrl}}"
             }
         };
@@ -90,6 +98,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Vitals",
+                icon: "icon-vitals",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}"
             }
         };
@@ -115,6 +124,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "History (Adult)",
+                icon: "icon-file-alt",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
             }
         };
@@ -128,6 +138,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Exam (Adult)",
+                icon: "icon-stethoscope",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
             }
         };
@@ -142,6 +153,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Diagnosis",
+                icon: "icon-list-ul",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-dx.xml&returnUrl={{returnUrl}}"
             }
         };

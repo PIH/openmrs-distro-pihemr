@@ -82,7 +82,7 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                     }
 
                     $scope.signAndSaveDraftOrders = function() {
-                        var saved = OrderEntryService.signAndSaveDrugOrders($scope.orderContext.draftOrders, {
+                        var saved = OrderEntryService.signAndSave($scope.orderContext, {
                             patient: $scope.orderContext.patient,
                             encounterType: EncounterTypes.consultationPlan,
                             location: SessionInfo.get().sessionLocation,

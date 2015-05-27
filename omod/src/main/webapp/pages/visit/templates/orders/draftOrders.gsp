@@ -32,11 +32,11 @@
                 <a ng-click="cancelDraft(order)"><i class="icon-remove delete-action"></i></a>
             </span>
         </li>
-    </table>
+    </ul>
 
     <div class="form">
-        <h5>Additional plan comments</h5>
-        <textarea placeholder="This is not yet saved to the DB -- we're looking for the concept."></textarea>
+        <h5>Plan (non-coded)</h5>
+        <textarea ng-model="orderContext.draftPlanText"></textarea>
     </div>
 
     <div class="actions">
