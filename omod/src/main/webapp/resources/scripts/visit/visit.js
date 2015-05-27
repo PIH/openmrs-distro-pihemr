@@ -16,6 +16,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             .state("drugOrders", {
                 url: "/drugOrders",
                 templateUrl: "templates/orders/drugOrders.page"
+            })
+            .state("addLabOrders", {
+                url: "/addLabOrders",
+                templateUrl: "templates/orders/addLabOrdersState.page"
             });
     })
 
@@ -126,6 +130,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             $promise.then(function(encounter) {
                                 $scope.encounter = encounter;
                             });
+                        $scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
                     }
 
                     $scope.encounter = $scope.encounterStub;
@@ -157,7 +162,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.expand = function() {
                         // Get the latest representation when we expand, in case things have been edited
                         loadFullEncounter();
-                        $scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
                         VisitDisplayModel.expand($scope.encounterStub);
                     }
                     $scope.contract = function() {

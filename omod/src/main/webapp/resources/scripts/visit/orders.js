@@ -31,9 +31,18 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
             }
             else {
                 var text = emr.message("orderentryui.action." + order.action) + ": ";
-                text += order.getDosingType().format(order);
-                if (order.quantity) {
-                    text += ' #' + order.quantity + ' ' + order.quantityUnits.display;
+                if (order.type == "drugorder") {
+                    text += order.getDosingType().format(order);
+                    if (order.quantity) {
+                        text += ' #' + order.quantity + ' ' + order.quantityUnits.display;
+                    }
+                }
+                else if (order.type == "testorder") {
+                    text += order.concept.display;
+                    text += " (Test)";
+                }
+                else {
+                    text += "unknown order type: " + order.type;
                 }
                 return text;
             }
@@ -75,7 +84,7 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                     $scope.signAndSaveDraftOrders = function() {
                         var saved = OrderEntryService.signAndSaveDrugOrders($scope.orderContext.draftOrders, {
                             patient: $scope.orderContext.patient,
-                            encounterType: EncounterTypes.consultation,
+                            encounterType: EncounterTypes.consultationPlan,
                             location: SessionInfo.get().sessionLocation,
                             visit: $scope.visit
                         });
@@ -194,6 +203,52 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                 }
             },
             templateUrl: "templates/orders/orderSheet.page"
+        }
+    }])
+
+    .directive("addLabOrders", [ "$state", "OrderContext", "Concepts", function($state, OrderContext, Concepts) {
+        return {
+            restrict: "E",
+            scope: {},
+            controller: function($scope) {
+                $scope.labs = [
+                    {
+                        label: "Hematology",
+                        labs: [
+                            {
+                                label: "Hemoglobin",
+                                concept: Concepts.hemoglobin
+                            },
+                            {
+                                label: "Hematocrit",
+                                concept: Concepts.hematocrit
+                            }
+                        ]
+                    }
+                ];
+
+                $scope.orderLabs = {};
+                _.each(_.flatten(_.pluck($scope.labs, "labs")), function(it) {
+                    $scope.orderLabs[it.concept.uuid] = { concept: it.concept, label: it.label, selected: false };
+                });
+
+                $scope.anySelected = function() {
+                    return _.findWhere($scope.orderLabs, {selected:true});
+                }
+
+                $scope.apply = function() {
+                    _.each($scope.orderLabs, function(it) {
+                        if (it.selected) {
+                            var ord = OpenMRS.newTestOrder(OrderContext.get());
+                            ord.concept = angular.copy(it.concept);
+                            ord.concept.display = it.label;
+                            OrderContext.addDraftOrder(ord);
+                        }
+                    });
+                    $state.go("drugOrders");
+                }
+            },
+            templateUrl: "templates/orders/addLabOrders.page"
         }
     }])
 
