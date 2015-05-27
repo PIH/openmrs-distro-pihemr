@@ -127,10 +127,25 @@ angular.module("visit-templates", ["constants"])
                 longTemplate: "templates/defaultEncounterLong.page"
             },
             action: {
-                label: "Exam and Diagnosis (Adult)",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam-dx.xml&returnUrl={{returnUrl}}"
+                label: "Exam (Adult)",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
             }
         };
+
+        var primaryCareDx = {
+            type: "encounter",
+            encounter: {
+                encounterType: {
+                    uuid: EncounterTypes.primaryCareDx.uuid
+                },
+                longTemplate: "templates/defaultEncounterLong.page"
+            },
+            action: {
+                label: "Diagnosis",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-dx.xml&returnUrl={{returnUrl}}"
+            }
+        };
+
         var outpatientPlan = {
             type: "include",
             include: "templates/outpatient-plan.page"
@@ -160,6 +175,7 @@ angular.module("visit-templates", ["constants"])
                     reviewAllergies,
                     primaryCareAdultHistory,
                     primaryCareExam,
+                    primaryCareDx,
                     outpatientPlan
                 ]
             },
@@ -174,6 +190,7 @@ angular.module("visit-templates", ["constants"])
                     reviewAllergies,
                     primaryCareAdultHistory,
                     primaryCareExam,
+                    primaryCareDx,
                     outpatientPlan
                 ]
             }

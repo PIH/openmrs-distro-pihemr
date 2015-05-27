@@ -124,6 +124,9 @@ angular.module('constants', [])
         primaryCareExam: {
             uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
         },
+        primaryCareDx: {
+            uuid: "09febbd8-03f1-11e5-8418-1697f925ec7b"
+        },
         consultation: {
             uuid: "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"
         },
