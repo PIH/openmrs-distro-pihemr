@@ -102,6 +102,12 @@ angular.module('constants', [])
         },
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
+        },
+        hemoglobin: {
+            uuid: "3ccc7158-26fe-102b-80cb-0017a47871b2"
+        },
+        hematocrit: {
+            uuid: "3cd69a98-26fe-102b-80cb-0017a47871b2"
         }
     })
 

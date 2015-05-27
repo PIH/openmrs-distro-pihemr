@@ -3,6 +3,9 @@
         <label>Write a prescription:</label>
         <select-drug ng-model="newOrderForDrug" placeholder="Drug" size="20"></select-drug>
     </p>
+    <button ui-sref="addLabOrders">
+        Request lab order
+    </button>
     <button ui-sref="overview">
         Back to Visit
     </button>
@@ -25,7 +28,7 @@
                 For: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
             </span>
             <span class="actions">
-                <a ng-click="editDraftDrugOrder(order)" ng-hide="order.action == 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
+                <a ng-click="editDraftDrugOrder(order)" ng-hide="order.action != 'drugorder' || order.action == 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
                 <a ng-click="cancelDraft(order)"><i class="icon-remove delete-action"></i></a>
             </span>
         </li>

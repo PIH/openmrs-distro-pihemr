@@ -29,7 +29,7 @@
     ui.includeJavascript("uicommons", "directives/select-order-frequency.js")
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
     ui.includeJavascript("uicommons", "moment.min.js")
-    ui.includeJavascript("orderentryui", "drugOrderModel.js")
+    ui.includeJavascript("orderentryui", "order-model.js")
     ui.includeJavascript("orderentryui", "order-entry.js")
     ui.includeJavascript("mirebalais", "visit/constants.js")
     ui.includeJavascript("mirebalais", "visit/filters.js")

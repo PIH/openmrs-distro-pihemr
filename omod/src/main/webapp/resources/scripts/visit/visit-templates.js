@@ -46,6 +46,13 @@ angular.module("visit-templates", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl
         };
+        encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/defaultEncounterShort.page",
+            longTemplate: "templates/defaultEncounterLong.page",
+            icon: "icon-stethoscope",
+            editUrl: null
+        };
 
         var visitActions = {
             type: "include",
