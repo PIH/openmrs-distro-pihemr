@@ -613,12 +613,10 @@
                         <property>
                             <name>openMRSVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
-                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
-                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>htmlwidgetsVersion</name>
