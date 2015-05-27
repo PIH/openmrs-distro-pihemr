@@ -88,7 +88,6 @@ angular.module("visit-templates", ["constants"])
 
         var vitals = {
             type: "encounter",
-            allowMultiple: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
@@ -186,6 +185,19 @@ angular.module("visit-templates", ["constants"])
                     vitals,
                     reviewAllergies,
                     primaryCareAdultHistory,
+                    primaryCareExam,
+                    primaryCareDx,
+                    outpatientPlan
+                ]
+            },
+            adultFollowupOutpatient: {
+                label: "Adult Followup Outpatient Visit",
+                allowedFor: allowedForAll,
+                encounterTypeConfig: encounterTypeConfig,
+                elements: [
+                    checkIn,
+                    vitals,
+                    reviewAllergies,
                     primaryCareExam,
                     primaryCareDx,
                     outpatientPlan
