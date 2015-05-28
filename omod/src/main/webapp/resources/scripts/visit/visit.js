@@ -13,9 +13,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
             })
-            .state("drugOrders", {
-                url: "/drugOrders",
-                templateUrl: "templates/orders/drugOrders.page"
+            .state("editPlan", {
+                url: "/editPlan",
+                templateUrl: "templates/orders/editPlan.page"
             })
             .state("addLabOrders", {
                 url: "/addLabOrders",
