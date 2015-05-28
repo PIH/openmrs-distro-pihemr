@@ -69,6 +69,21 @@ $green: #51A351;
   margin-top: 10px;
   margin-bottom: 10px;
 
+  .one-third {
+    width: 30%;
+    display: inline-block;
+  }
+
+  .one-half {
+    width: 46%;
+    display: inline-block;
+  }
+
+  .two-thirds {
+    width: 63%;
+    display: inline-block;
+  }
+
   .header {
     background-color: $lighterGrey;
     padding: 5px;
@@ -76,21 +91,6 @@ $green: #51A351;
     > span {
       display: inline-block;
       vertical-align: top;
-    }
-
-    .one-third {
-      width: 30%;
-      display: inline-block;
-    }
-
-    .one-half {
-      width: 46%;
-      display: inline-block;
-    }
-
-    .two-thirds {
-      width: 63%;
-      display: inline-block;
     }
 
     .title {
