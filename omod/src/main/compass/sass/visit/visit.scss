@@ -117,6 +117,10 @@ $green: #51A351;
 
     .overall-actions {
       float: right;
+
+      a {
+        cursor: pointer;
+      }
     }
   }
 

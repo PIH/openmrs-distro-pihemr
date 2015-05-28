@@ -59,6 +59,10 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                 controller: function($scope) {
                     $scope.orderContext = OrderContext.get();
 
+                    $scope.getDraftOrdersByType = function(type) {
+                        return _.where($scope.orderContext.draftOrders, {type: type});
+                    }
+
                     $scope.$watch("newOrderForDrug", function(newVal) {
                         if (newVal) {
                             var draftOrder = OpenMRS.createEmptyDraftOrder($scope.orderContext);
@@ -72,6 +76,14 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                         }
                     })
 
+                    $scope.focusEdit = function() {
+                        console.log("here...");
+                        $timeout(function() {
+                            var jq = $('.editing-draft-order').find("input:first")
+                            jq.focus();
+                        }, 10);
+                    }
+
                     $scope.cancelDraft = function(draftOrder) {
                         OrderContext.cancelDraftOrder(draftOrder);
                     }
@@ -82,12 +94,16 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                     }
 
                     $scope.signAndSaveDraftOrders = function() {
-                        var saved = OrderEntryService.signAndSave($scope.orderContext, {
+                        var encounterContext = {
                             patient: $scope.orderContext.patient,
                             encounterType: EncounterTypes.consultationPlan,
                             location: SessionInfo.get().sessionLocation,
                             visit: $scope.visit
-                        });
+                        };
+                        if ($scope.visit.startDatetime) {
+                            encounterContext.encounterDatetime = $scope.visit.stopDatetime;
+                        }
+                        var saved = OrderEntryService.signAndSave($scope.orderContext, encounterContext);
 
                         $scope.loading = true;
                         saved.$promise.then(function(result) {
