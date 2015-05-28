@@ -1,5 +1,6 @@
 <div id="plan-heading">
     <button ui-sref="overview">
+        <i class="icon-arrow-left"></i>
         Back to Visit
     </button>
 </div>

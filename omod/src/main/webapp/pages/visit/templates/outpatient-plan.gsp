@@ -1,4 +1,4 @@
-<div ng-repeat="encounter in visit.encounters|filter:{voided:false}|with:'encounterType':EncounterTypes.consultationPlan">
+<div ng-repeat="encounter in visit.encounters | filter:{voided:false} | with:'encounterType':EncounterTypes.consultationPlan | orderBy:'encounterDatetime'">
     <encounter encounter="encounter"></encounter>
 </div>
 

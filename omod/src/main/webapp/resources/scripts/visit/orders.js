@@ -1,5 +1,6 @@
 angular.module("orders", [ "orderService", "encounterService", "ngResource", "orderEntry", "uicommons.filters", 'drugService',
-    "uicommons.widget.select-drug", "uicommons.widget.select-concept-from-list", "uicommons.widget.select-order-frequency" ])
+    "uicommons.widget.select-drug", "uicommons.widget.select-concept-from-list", "uicommons.widget.select-order-frequency",
+    "ngDialog"])
 
     .filter('orderDates', ['serverDateFilter', function(serverDateFilter) {
         return function(order) {
@@ -49,8 +50,8 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
         }
     }])
 
-    .directive("draftOrders", [ "OrderContext", "SessionInfo", "OrderEntryService", "EncounterTypes", "$state", "$timeout", "Drug",
-        function(OrderContext, SessionInfo, OrderEntryService, EncounterTypes, $state, $timeout, Drug) {
+    .directive("draftOrders", [ "OrderContext", "SessionInfo", "OrderEntryService", "EncounterTypes", "$state", "$timeout", "Drug", "ngDialog",
+        function(OrderContext, SessionInfo, OrderEntryService, EncounterTypes, $state, $timeout, Drug, ngDialog) {
             return {
                 restrict: "E",
                 scope: {
@@ -94,24 +95,28 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                     }
 
                     $scope.signAndSaveDraftOrders = function() {
-                        var encounterContext = {
-                            patient: $scope.orderContext.patient,
-                            encounterType: EncounterTypes.consultationPlan,
-                            location: SessionInfo.get().sessionLocation,
-                            visit: $scope.visit
-                        };
-                        if ($scope.visit.startDatetime) {
-                            encounterContext.encounterDatetime = $scope.visit.stopDatetime;
-                        }
-                        var saved = OrderEntryService.signAndSave($scope.orderContext, encounterContext);
+                        ngDialog.openConfirm({
+                            template: "templates/orders/confirmSignature.page"
+                        }).then(function() {
+                            var encounterContext = {
+                                patient: $scope.orderContext.patient,
+                                encounterType: EncounterTypes.consultationPlan,
+                                location: SessionInfo.get().sessionLocation,
+                                visit: $scope.visit
+                            };
+                            if ($scope.visit.startDatetime) {
+                                encounterContext.encounterDatetime = $scope.visit.stopDatetime;
+                            }
+                            var saved = OrderEntryService.signAndSave($scope.orderContext, encounterContext);
 
-                        $scope.loading = true;
-                        saved.$promise.then(function(result) {
-                            $scope.orderContext.draftOrders = [];
-                            $state.go("overview");
-                        }, function(errorResponse) {
-                            emr.errorMessage(errorResponse.data.error.message);
-                            $scope.loading = false;
+                            $scope.loading = true;
+                            saved.$promise.then(function(result) {
+                                $scope.orderContext.draftOrders = [];
+                                $state.go("overview");
+                            }, function(errorResponse) {
+                                emr.errorMessage(errorResponse.data.error.message);
+                                $scope.loading = false;
+                            });
                         });
                     }
 
