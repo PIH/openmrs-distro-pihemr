@@ -142,6 +142,9 @@ angular.module('constants', [])
         primaryCareHistory: {
             uuid: "ffa148de-2c88-4828-833e-f3788991543d"
         },
+        labResults: {
+            uuid: "4d77916a-0620-11e5-a6c0-1697f925ec7b"
+        },
         primaryCareExam: {
             uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
         },

@@ -39,6 +39,13 @@ angular.module("visit-templates", ["constants"])
             icon: "icon-file-alt",
             editUrl: hfeStandardEditUrl
         };
+        encounterTypeConfig[EncounterTypes.labResults.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/defaultEncounterShort.page",
+            longTemplate: "templates/defaultEncounterLong.page",
+            icon: "icon-beaker",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/defaultEncounterShort.page",
@@ -154,6 +161,21 @@ angular.module("visit-templates", ["constants"])
             }
         };
 
+        var labResults = {
+            type: "encounter",
+            encounter: {
+                encounterType: {
+                    uuid: EncounterTypes.labResults.uuid
+                },
+                longTemplate: "templates/defaultEncounterLong.page"
+            },
+            action: {
+                label: "Lab results",
+                icon: "icon-list-ul",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/lab-results.xml&returnUrl={{returnUrl}}"
+            }
+        };
+
         var outpatientPlan = {
             type: "include",
             include: "templates/outpatient-plan.page"
@@ -181,6 +203,7 @@ angular.module("visit-templates", ["constants"])
                     checkIn,
                     vitals,
                     reviewAllergies,
+                    labResults,
                     primaryCareAdultHistory,
                     primaryCareExam,
                     primaryCareDx,
@@ -209,6 +232,7 @@ angular.module("visit-templates", ["constants"])
                     vaccinations,
                     vitals,
                     reviewAllergies,
+                    labResults,
                     primaryCareAdultHistory,
                     primaryCareExam,
                     primaryCareDx,
