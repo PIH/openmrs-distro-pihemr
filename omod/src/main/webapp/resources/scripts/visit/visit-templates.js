@@ -104,10 +104,7 @@ angular.module("visit-templates", ["constants"])
 
         var reviewAllergies = {
             type: "include",
-            includeAsVisitElement: {
-                label: "Review Allergies",
-                template: "templates/reviewAllergies.page"
-            }
+            include: "templates/reviewAllergies.page"
         };
         var vaccinations = {
             type: "include",
