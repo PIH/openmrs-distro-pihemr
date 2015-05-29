@@ -13,9 +13,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
             })
-            .state("drugOrders", {
-                url: "/drugOrders",
-                templateUrl: "templates/orders/drugOrders.page"
+            .state("editPlan", {
+                url: "/editPlan",
+                templateUrl: "templates/orders/editPlan.page"
             })
             .state("addLabOrders", {
                 url: "/addLabOrders",
@@ -222,9 +222,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.availableTemplates = VisitTemplateService.getAllowedVisitTemplates($scope.visit);
                 $scope.activeTemplate = VisitTemplateService.getCurrent();
                 $scope.$watch("visit", function() {
-                    $scope.selectedTemplate = $scope.visit.getAttributeValue(VisitAttributeTypes.visitTemplate);
-                    $scope.newVisitTemplate = _.findWhere($scope.availableTemplates, {name: $scope.selectedTemplate});
-                    $scope.activeTemplate = VisitTemplateService.getCurrent();
+                    if ($scope.visit) {
+                        $scope.selectedTemplate = $scope.visit.getAttributeValue(VisitAttributeTypes.visitTemplate);
+                        $scope.newVisitTemplate = _.findWhere($scope.availableTemplates, {name: $scope.selectedTemplate});
+                        $scope.activeTemplate = VisitTemplateService.getCurrent();
+                    }
                 });
 
                 $scope.choosingTemplate = false;
@@ -494,6 +496,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         patient: $scope.visit.patient
                     });
                     emr.navigateTo({ applicationUrl: "/" + url });
+                }
+            }
+
+            window.onbeforeunload = function() {
+                if (OrderContext.hasUnsavedData()) {
+                    return "You have unsaved changes, are you sure you want to discard them?";
                 }
             }
 

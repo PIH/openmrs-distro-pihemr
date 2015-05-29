@@ -20,4 +20,6 @@
             {{ \$last ? "" : "," }}
         </span>
     </p>
+
+    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
 </div>

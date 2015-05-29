@@ -9,8 +9,9 @@
     <div ng-show="orders && orders.length">
         <h4>Orders</h4>
         <p ng-repeat="order in orders | orderBy:'dateActivated'" class="aligned">
-            {{ order.dateActivated | serverDate:dateFormat }}
             {{ order | orderInstructions }}
         </p>
     </div>
+
+    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
 </div>

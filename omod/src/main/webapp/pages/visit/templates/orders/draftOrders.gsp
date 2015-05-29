@@ -1,26 +1,16 @@
 <div id="plan-heading">
-    <p>
-        <label>Write a prescription:</label>
-        <select-drug ng-model="newOrderForDrug" placeholder="Drug" size="20"></select-drug>
-    </p>
-    <button ui-sref="addLabOrders">
-        Request lab order
-    </button>
     <button ui-sref="overview">
+        <i class="icon-arrow-left"></i>
         Back to Visit
     </button>
 </div>
 
 <div id="draft-plan">
-    <h2>Plan</h2>
-    <div class="editing-draft-order" ng-repeat="draftOrder in orderContext.draftOrders | filter:{editing:true}">
-        <edit-draft-order draft-order="draftOrder"></edit-draft-order>
-    </div>
-
-    <h5>Orders</h5>
-    <span ng-hide="orderContext.draftOrders.length">None</span>
-    <ul ng-show="orderContext.draftOrders.length">
-        <li class="draft-order" ng-repeat="order in orderContext.draftOrders | filter:{editing:false}">
+    <h5 class="orders-category">
+        Prescriptions
+    </h5>
+    <ul>
+        <li class="draft-order" ng-repeat="order in getDraftOrdersByType('drugorder') | filter:{editing:false}">
             {{ order | orderDates }}
             {{ order | orderInstructions }}
             <span ng-show="order.action == 'DISCONTINUE'">
@@ -28,15 +18,51 @@
                 For: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
             </span>
             <span class="actions">
-                <a ng-click="editDraftDrugOrder(order)" ng-hide="order.action != 'drugorder' || order.action == 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
+                <a ng-click="editDraftDrugOrder(order)" ng-show="order.action == 'drugorder' && order.action != 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
                 <a ng-click="cancelDraft(order)"><i class="icon-remove delete-action"></i></a>
             </span>
         </li>
     </ul>
 
+    <div class="editing-draft-order" ng-repeat="draftOrder in orderContext.draftOrders | filter:{editing:true}">
+        <edit-draft-order draft-order="draftOrder"></edit-draft-order>
+    </div>
+    <div>
+        <label><i class="icon-plus"></i> Add:</label>
+        <select-drug ng-model="newOrderForDrug" placeholder="Drug" size="20" on-select-callback="focusEdit()"></select-drug>
+    </div>
+
+
+    <h5 class="orders-category">
+        Test Orders
+    </h5>
+    <ul>
+        <li class="draft-order" ng-repeat="order in getDraftOrdersByType('testorder') | filter:{editing:false}">
+            {{ order | orderDates }}
+            {{ order | orderInstructions }}
+            <span ng-show="order.action == 'DISCONTINUE'">
+                <br/>
+                For: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
+            </span>
+            <span class="actions">
+                <a ng-click="editDraftDrugOrder(order)" ng-show="order.action == 'drugorder' && order.action != 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
+                <a ng-click="cancelDraft(order)"><i class="icon-remove delete-action"></i></a>
+            </span>
+        </li>
+        <li>
+            <a class="add-orders" ui-sref="addLabOrders">
+                <i class="icon-plus"></i> Add
+            </a>
+        </li>
+    </ul>
+
+
     <div class="form">
-        <h5>Plan (non-coded)</h5>
-        <textarea ng-model="orderContext.draftPlanText"></textarea>
+        <h5>Clinical management plan</h5>
+        <textarea ng-model="orderContext.draftData.clinicalManagementPlanComment" placeholder="optional"></textarea>
+
+        <label>Return Visit Date</label>
+        <date-with-popup ng-model="orderContext.draftData.returnVisitDate" min-date="tomorrow"></date-with-popup>
     </div>
 
     <div class="actions">
@@ -49,4 +75,4 @@
 
         <div style="clear:both"></div>
     </div>
-</fieldset>
+</div>

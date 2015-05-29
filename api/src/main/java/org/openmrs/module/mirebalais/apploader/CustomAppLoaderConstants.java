@@ -68,6 +68,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_SOCIAL = "coreapps.mostRecentRegistrationSocial";
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
+        public static final String ALLERGY_SUMMARY="allergyui.allergySummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
@@ -245,8 +246,8 @@ public class CustomAppLoaderConstants {
             Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
             Extensions.APPOINTMENTS_DATA_EXPORT);
 
-    public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN = Arrays.asList();
+    public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList();
 
-    public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN = Arrays.asList(
-            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS);
+    public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
+            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS, Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn", Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
 }

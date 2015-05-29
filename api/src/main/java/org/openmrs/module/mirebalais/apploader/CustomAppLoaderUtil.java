@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_FIRST_COLUMN;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
@@ -234,12 +234,12 @@ public class CustomAppLoaderUtil {
                 order, privilege, map("linkId", linkId));
     }
 
-    static public Extension clinicianDashboardFirstColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, int order, Map<String,Object> extensionParams) {
-        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_FIRST_COLUMN, extensionParams);
+    static public Extension clinicianDashboardFirstColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, Map<String,Object> extensionParams) {
+        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER, extensionParams);
     }
 
     static public Extension clinicianDashboardSecondColumn(String id, String label, String icon, String privilege, String require, String provider, String fragment, Map<String,Object> extensionParams) {
-        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_SECOND_COLUMN, extensionParams);
+        return fragmentExtension(id, label, icon, privilege, require, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN, provider, fragment, CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER, extensionParams);
     }
 
     static public Extension fragmentExtension(String id, String label, String icon, String privilege, String require, String extensionPointId, String provider, String fragment, List<String> orderFromList, Map<String,Object> extensionParams) {

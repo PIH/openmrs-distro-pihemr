@@ -16,4 +16,6 @@
     </div>
 
     {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | groupMember:Concepts.disposition | obs }}
+
+    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
 </div>

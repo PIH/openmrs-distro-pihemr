@@ -925,7 +925,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration.xml"),
+                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration"),
                                 "editable", true,
                                 "edit-icon", "icon-share-alt",
                                 "edit-provider", "registrationapp",
@@ -1099,13 +1099,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
             // TODO figure out how to add icon-pill to this
+            // TODO we should actually define an app here, not use the existing app
             addToClinicianDashboardSecondColumn(app, "orderentryui", "patientdashboard/activeDrugOrders");
         }
+
         apps.add(app);
     }
 
     private void enableAllergies() {
-        // TODO
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.ALLERGY_SUMMARY,
+                                                "allergyui.allergies",
+                                                "icon-medical",
+                                                null,
+                                                null,
+                                                null),
+                                        "allergyui", "allergies"));
     }
 
     private void enableLegacyPatientRegistration() {

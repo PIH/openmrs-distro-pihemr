@@ -95,7 +95,6 @@ angular.module("visit-templates", ["constants"])
 
         var vitals = {
             type: "encounter",
-            allowMultiple: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
@@ -112,10 +111,7 @@ angular.module("visit-templates", ["constants"])
 
         var reviewAllergies = {
             type: "include",
-            includeAsVisitElement: {
-                label: "Review Allergies",
-                template: "templates/reviewAllergies.page"
-            }
+            include: "templates/reviewAllergies.page"
         };
         var vaccinations = {
             type: "include",
@@ -209,6 +205,19 @@ angular.module("visit-templates", ["constants"])
                     reviewAllergies,
                     labResults,
                     primaryCareAdultHistory,
+                    primaryCareExam,
+                    primaryCareDx,
+                    outpatientPlan
+                ]
+            },
+            adultFollowupOutpatient: {
+                label: "Adult Followup Outpatient Visit",
+                allowedFor: allowedForAll,
+                encounterTypeConfig: encounterTypeConfig,
+                elements: [
+                    checkIn,
+                    vitals,
+                    reviewAllergies,
                     primaryCareExam,
                     primaryCareDx,
                     outpatientPlan

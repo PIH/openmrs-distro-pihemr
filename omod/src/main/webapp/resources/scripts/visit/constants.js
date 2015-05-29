@@ -46,6 +46,21 @@ angular.module('constants', [])
         temperature: {
             uuid: "3ce939d2-26fe-102b-80cb-0017a47871b2"
         },
+        height: {
+            uuid: "3ce93cf2-26fe-102b-80cb-0017a47871b2"
+        },
+        weight: {
+            uuid: "3ce93b62-26fe-102b-80cb-0017a47871b2"
+        },
+        heartRate: {
+            uuid: "3ce93824-26fe-102b-80cb-0017a47871b2"
+        },
+        respiratoryRate: {
+            uuid: "3ceb11f8-26fe-102b-80cb-0017a47871b2"
+        },
+        oxygenSaturation: {
+            uuid: "3ce9401c-26fe-102b-80cb-0017a47871b2"
+        },
         pastMedicalHistoryConstruct: {
             uuid: "1633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -111,6 +126,9 @@ angular.module('constants', [])
         },
         clinicalManagementPlanComment: {
             uuid: "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        returnVisitDate: {
+            uuid: "3ce94df0-26fe-102b-80cb-0017a47871b2"
         }
     })
 

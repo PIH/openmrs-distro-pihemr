@@ -47,8 +47,9 @@ $green: #51A351;
   margin-bottom: 5px;
 
   a.button {
-    width: 200px;
-    text-align: center;
+    width: 160px;
+    text-align: left;
+    padding-left: 40px;
   }
 
   &.add-multiple-encounter a {
@@ -65,31 +66,32 @@ $green: #51A351;
 .visit-element {
 
   border: 1px solid $darkerGrey;
+  border-radius: 3px;
   margin-top: 10px;
   margin-bottom: 10px;
 
+  .one-third {
+    width: 30%;
+    display: inline-block;
+  }
+
+  .one-half {
+    width: 46%;
+    display: inline-block;
+  }
+
+  .two-thirds {
+    width: 63%;
+    display: inline-block;
+  }
+
   .header {
-    background-color: $lighterGrey;
-    padding: 5px;
+    background-color: #F9F9F9;
+    padding: 3px;
 
     > span {
       display: inline-block;
-      vertical-align: top;
-    }
-
-    .one-third {
-      width: 30%;
-      display: inline-block;
-    }
-
-    .one-half {
-      width: 46%;
-      display: inline-block;
-    }
-
-    .two-thirds {
-      width: 63%;
-      display: inline-block;
+      vertical-align: middle;
     }
 
     .title {
@@ -103,19 +105,19 @@ $green: #51A351;
 
     .encounter-type {
       font-family: $primaryBoldFont;
-      width: 25%;
+      padding-right: 20px;
     }
 
-    .encounter-datetime {
-      width: 25%;
-    }
-
-    .encounter-location {
-      width: 25%;
+    .encounter-provider {
+      font-size: 0.8em;
     }
 
     .overall-actions {
       float: right;
+
+      a {
+        cursor: pointer;
+      }
     }
   }
 
@@ -129,6 +131,10 @@ $green: #51A351;
       width: 48%;
     }
 
+    .align-top {
+      vertical-align: top;
+    }
+
     p.aligned {
       label {
         width: 300px;
@@ -137,6 +143,12 @@ $green: #51A351;
         margin-right: 10px;
         font-size: 0.9em;
       }
+    }
+
+    .book-keeping {
+      text-align: right;
+      color: $darkerGrey;
+      font-size: 0.9em;
     }
   }
 

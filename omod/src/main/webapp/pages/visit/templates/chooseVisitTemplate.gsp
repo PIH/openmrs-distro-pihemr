@@ -10,7 +10,7 @@
     </form>
 
     <div ng-show="selectedTemplate && !choosingTemplate">
-        <strong>{{ activeTemplate.label }}</strong>
+        <strong>{{ activeTemplate.label | omrs.display }}</strong>
         <span class="actions">
             <a ng-click="choosingTemplate = true"><i class="icon-pencil edit-action"></i></a>
         </span>
