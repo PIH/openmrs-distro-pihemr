@@ -171,7 +171,7 @@ angular.module("visit-templates", ["constants"])
             },
             action: {
                 label: "Lab results",
-                icon: "icon-list-ul",
+                icon: "icon-beaker",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/lab-results.xml&returnUrl={{returnUrl}}"
             }
         };
