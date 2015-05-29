@@ -126,6 +126,9 @@ angular.module('constants', [])
         },
         clinicalManagementPlanComment: {
             uuid: "162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        returnVisitDate: {
+            uuid: "3ce94df0-26fe-102b-80cb-0017a47871b2"
         }
     })
 

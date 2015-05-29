@@ -50,8 +50,26 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
         }
     }])
 
-    .directive("draftOrders", [ "OrderContext", "SessionInfo", "OrderEntryService", "EncounterTypes", "$state", "$timeout", "Drug", "ngDialog",
-        function(OrderContext, SessionInfo, OrderEntryService, EncounterTypes, $state, $timeout, Drug, ngDialog) {
+    .directive("draftOrders", [ "OrderContext", "SessionInfo", "OrderEntryService", "EncounterTypes", "$state", "$timeout", "Drug", "ngDialog", "Concepts",
+        function(OrderContext, SessionInfo, OrderEntryService, EncounterTypes, $state, $timeout, Drug, ngDialog, Concepts) {
+
+            function mapDataToObs(draftData) {
+                var ret = [];
+                if (draftData.returnVisitDate) {
+                    ret.push({
+                        concept: Concepts.returnVisitDate,
+                        value: draftData.returnVisitDate
+                    });
+                }
+                if (draftData.clinicalManagementPlanComment) {
+                    ret.push({
+                        concept: Concepts.clinicalManagementPlanComment,
+                        value: draftData.clinicalManagementPlanComment
+                    });
+                }
+                return ret;
+            }
+
             return {
                 restrict: "E",
                 scope: {
@@ -59,6 +77,12 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                 },
                 controller: function($scope) {
                     $scope.orderContext = OrderContext.get();
+                    $scope.orderContext.draftData = {
+                        clinicalManagementPlanComment: "",
+                        returnVisitDate: null
+                    };
+
+                    $scope.tomorrow = moment().add(1, 'days').startOf('day');
 
                     $scope.getDraftOrdersByType = function(type) {
                         return _.where($scope.orderContext.draftOrders, {type: type});
@@ -107,11 +131,18 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                             if ($scope.visit.startDatetime) {
                                 encounterContext.encounterDatetime = $scope.visit.stopDatetime;
                             }
-                            var saved = OrderEntryService.signAndSave($scope.orderContext, encounterContext);
+
+                            var obsToSave = mapDataToObs($scope.orderContext.draftData);
+
+                            var saved = OrderEntryService.signAndSave($scope.orderContext, encounterContext, obsToSave);
 
                             $scope.loading = true;
                             saved.$promise.then(function(result) {
                                 $scope.orderContext.draftOrders = [];
+                                $scope.orderContext.draftData = {
+                                    clinicalManagementPlanComment: "",
+                                    returnVisitDate: null
+                                };
                                 $state.go("overview");
                             }, function(errorResponse) {
                                 emr.errorMessage(errorResponse.data.error.message);
@@ -130,7 +161,6 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                     }
 
                     $scope.$on('added-dc-order', function(dcOrder) {
-                        console.log(dcOrder);
                         $timeout(function() {
                             angular.element('#draft-orders input.dc-reason').last().focus();
                         });

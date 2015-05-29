@@ -59,7 +59,10 @@
 
     <div class="form">
         <h5>Clinical management plan</h5>
-        <textarea ng-model="orderContext.draftPlanText" placeholder="optional"></textarea>
+        <textarea ng-model="orderContext.draftData.clinicalManagementPlanComment" placeholder="optional"></textarea>
+
+        <label>Return Visit Date</label>
+        <date-with-popup ng-model="orderContext.draftData.returnVisitDate" min-date="tomorrow"></date-with-popup>
     </div>
 
     <div class="actions">
