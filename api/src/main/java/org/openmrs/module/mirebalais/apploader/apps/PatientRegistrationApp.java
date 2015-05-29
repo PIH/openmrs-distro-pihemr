@@ -128,7 +128,7 @@ public class PatientRegistrationApp {
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-            f.setWidget(getAddressHierarchyWidget(levels, null));
+            f.setWidget(getAddressHierarchyWidget(levels, null, false));
         }
         else {
             Map<String, String> m = new HashMap<String, String>();
@@ -161,7 +161,7 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("social");
         s.setLabel("zl.registration.patient.social.label");
-        s.addQuestion(getBirthplaceQuestion());
+        s.addQuestion(getBirthplaceQuestion(config));
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getOccupationQuestion());
         if (config.getCountry() == ConfigDescriptor.Country.HAITI) { // TODO: Replace this with property in RegistrationConfig
@@ -170,18 +170,41 @@ public class PatientRegistrationApp {
         return s;
     }
 
-    public Question getBirthplaceQuestion() {
+    public Question getBirthplaceQuestion(Config config) {
         Question q = new Question();
         q.setId("birthplaceLabel");
+        q.setHeader("zl.registration.patient.birthplace.question");
         q.setLegend("zl.registration.patient.birthplace.label");
 
-        Field f = new Field();
-        f.setFormFieldName("obs.PIH:PLACE OF BIRTH");
-        f.setLabel("zl.registration.patient.birthplace.question");
-        f.setType("obs");
-        f.setWidget(getTextFieldWidget(50));
 
-        q.addField(f);
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            Field f = new Field();
+            //f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+            f.setLabel("zl.registration.patient.birthplace.label");
+            f.setType("personAddress");
+
+            // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+            List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+            if (levels != null && levels.size() > 0) {
+                //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+                f.setWidget(getAddressHierarchyWidget(levels, getPlaceOfBirthAddressFieldMappings(config), true));
+            }
+            else {
+                Map<String, String> m = new HashMap<String, String>();
+                m.put("providerName", "uicommons");
+                m.put("fragmentId", "field/personAddress");
+                f.setWidget(toObjectNode(m));
+            }
+            q.addField(f);
+        }
+        else{
+            Field f = new Field();
+            f.setFormFieldName("obs.PIH:PLACE OF BIRTH");
+            f.setLabel("zl.registration.patient.birthplace.question");
+            f.setType("obs");
+            f.setWidget(getTextFieldWidget(50));
+            q.addField(f);
+        }
         return q;
     }
 
@@ -267,15 +290,18 @@ public class PatientRegistrationApp {
 
         boolean required = config.getCountry() == ConfigDescriptor.Country.HAITI; // TODO: Replace with property in RegistrationConfig
 
-        s.addQuestion(getContactQuestion(config, required));
+        s.addQuestion(getContactNameAndRelationship(config, required));
+        s.addQuestion(getContactAddress(config));
+        s.addQuestion(getContactPhoneNumber(config, required));
+
         return s;
     }
 
-    public Question getContactQuestion(Config config, boolean required) {
+    public Question getContactNameAndRelationship(Config config, boolean required) {
         Question q = new Question();
         q.setId("contactNameLabel");
-        q.setLegend("zl.registration.patient.contactPerson.label");
-        q.setHeader("zl.registration.patient.contactPerson.question");
+        q.setLegend("zl.registration.patient.contactPerson.name.label");
+        q.setHeader("zl.registration.patient.contactPerson.name.question");
 
         {
             Field f = new Field();
@@ -296,6 +322,16 @@ public class PatientRegistrationApp {
             q.addField(f);
         }
 
+        return q;
+    }
+
+    public Question getContactAddress(Config config) {
+
+        Question q = new Question();
+        q.setId("contactQuestionLabel");
+        q.setHeader("zl.registration.patient.contactPerson.address.question");
+        q.setLegend("zl.registration.patient.contactPerson.address.label");
+
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             Field f = new Field();
             //f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
@@ -306,7 +342,7 @@ public class PatientRegistrationApp {
             List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
             if (levels != null && levels.size() > 0) {
                 //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config)));
+                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config), false));
             }
             else {
                 Map<String, String> m = new HashMap<String, String>();
@@ -324,6 +360,16 @@ public class PatientRegistrationApp {
             f.setWidget(getTextAreaWidget(250));
             q.addField(f);
         }
+
+        return q;
+    }
+
+    public Question getContactPhoneNumber(Config config, Boolean required) {
+
+        Question q = new Question();
+        q.setId("contactPhoneNumberQuestionLabel");
+        q.setHeader("zl.registration.patient.contactPerson.phonenumber.question");
+        q.setLegend("zl.registration.patient.contactPerson.phonenumber.label");
 
         {
             Field f = new Field();
@@ -397,7 +443,7 @@ public class PatientRegistrationApp {
         return displayTemplate.toString();
     }
 
-    protected ObjectNode getAddressHierarchyWidget(List<AddressHierarchyLevel> levels, Map<String,String> fieldMappings) {
+    protected ObjectNode getAddressHierarchyWidget(List<AddressHierarchyLevel> levels, Map<String,String> fieldMappings, Boolean required) {
         // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
         String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
         String manualField = levels.get(levels.size()-1).getAddressField().getName();
@@ -406,11 +452,12 @@ public class PatientRegistrationApp {
         w.getConfig().setShortcutFor(shortCutFor);
         w.getConfig().addManualField(manualField);
         w.getConfig().setFieldMappings(fieldMappings);
+        w.getConfig().setRequired(required);
 
         return toObjectNode(w);
     }
 
-    // TODO: this needs to be customized based on country
+    // TODO: this needs to be customized based on country, and updated with full concepts
     protected Map<String,String> getContactAddressFieldMappings(Config config) {
         Map<String,String> fieldMappings = new HashMap<String, String>();
         fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
@@ -421,6 +468,19 @@ public class PatientRegistrationApp {
         fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
         return fieldMappings;
     }
+
+    // TODO: this needs to be customized based on country, and update with full concepts
+    protected Map<String,String> getPlaceOfBirthAddressFieldMappings(Config config) {
+        Map<String,String> fieldMappings = new HashMap<String, String>();
+        fieldMappings.put(AddressField.COUNTRY.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obs.PIH:PLACE OF BIRTH");
+        return fieldMappings;
+    }
+
 
     protected ObjectNode getTextFieldWidget() {
         return getTextFieldWidget(null);
