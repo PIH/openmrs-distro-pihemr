@@ -93,10 +93,10 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("mothersFirstNameLabel");
         q.setLegend("zl.registration.patient.mothersFirstName.label");
+        q.setHeader("zl.registration.patient.mothersFirstName.question");
 
         Field f = new Field();
         f.setFormFieldName("mothersFirstName");
-        f.setLabel("zl.registration.patient.mothersFirstName.question");
         f.setType("personAttribute");
         f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
         f.setWidget(getTextFieldWidget());
@@ -119,9 +119,9 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("personAddressQuestion");
         q.setLegend("Person.address");
+        q.setHeader("registrationapp.patient.address.question");
 
         Field f = new Field();
-        f.setLabel("registrationapp.patient.address.question");
         f.setType("personAddress");
 
         // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
@@ -145,10 +145,10 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("phoneNumberLabel");
         q.setLegend("registrationapp.patient.phone.label");
+        q.setHeader("registrationapp.patient.phone.question");
 
         Field f = new Field();
         f.setFormFieldName("phoneNumber");
-        f.setLabel("registrationapp.patient.phone.question");
         f.setType("personAttribute");
         f.setUuid(PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
         f.setWidget(getTextFieldWidget());
@@ -176,7 +176,6 @@ public class PatientRegistrationApp {
         q.setHeader("zl.registration.patient.birthplace.question");
         q.setLegend("zl.registration.patient.birthplace.label");
 
-
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             Field f = new Field();
             //f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
@@ -200,7 +199,6 @@ public class PatientRegistrationApp {
         else{
             Field f = new Field();
             f.setFormFieldName("obs.PIH:PLACE OF BIRTH");
-            f.setLabel("zl.registration.patient.birthplace.question");
             f.setType("obs");
             f.setWidget(getTextFieldWidget(50));
             q.addField(f);
@@ -211,11 +209,11 @@ public class PatientRegistrationApp {
     public Question getCivilStatusQuestion() {
         Question q = new Question();
         q.setId("civilStatusLabel");
+        q.setHeader("zl.registration.patient.civilStatus.question");
         q.setLegend("zl.registration.patient.civilStatus.label");
 
         Field f = new Field();
         f.setFormFieldName("obs.PIH:CIVIL STATUS");
-        f.setLabel("zl.registration.patient.civilStatus.question");
         f.setType("obs");
 
         DropdownWidget w = new DropdownWidget();
@@ -236,10 +234,10 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("occupationLabel");
         q.setLegend("zl.registration.patient.occupation.label");
+        q.setHeader("zl.registration.patient.occupation.question");
 
         Field f = new Field();
         f.setFormFieldName("obs.PIH:Occupation");
-        f.setLabel("zl.registration.patient.occupation.question");
         f.setType("obs");
 
         DropdownWidget w = new DropdownWidget();
@@ -261,10 +259,10 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("religionLabel");
         q.setLegend("zl.registration.patient.religion.label");
+        q.setHeader("zl.registration.patient.religion.question");
 
         Field f = new Field();
         f.setFormFieldName("obs.PIH:Religion");
-        f.setLabel("zl.registration.patient.religion.question");
         f.setType("obs");
 
         DropdownWidget w = new DropdownWidget();
