@@ -394,10 +394,10 @@ public class PatientRegistrationApp {
         Question q = new Question();
         q.setId("idcardLabel");
         q.setLegend("zl.registration.patient.idcard.label");
+        q.setHeader("zl.registration.patient.idcard.question");
 
         Field f = new Field();
         f.setFormFieldName("obs.PIH:ID Card Printing Requested");
-        f.setLabel("zl.registration.patient.idcard.question");
         f.setType("obs");
 
         DropdownWidget w = new DropdownWidget();
