@@ -1,25 +1,11 @@
 <span class="visit-dates">
-    <span ng-hide="editing">
+    <span>
         <i class="icon-time small"></i>
-        {{ visit.startDatetime | serverDate }}
-        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:"medium" }}</span>
+        {{ visit.startDatetime | serverDate:dateFormat }}
+        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:dateFormat }}</span>
         <span ng-hide="visit.stopDatetime" class="lozenge active">
             active
         </span>
-    </span>
-    <span ng-show="editing">
-        <h3>This is broken</h3>
-        <br/>
-        Start:
-        <br/>
-        <date-with-popup ng-model="newStartDatetime" max-date="newStopDatetime || now"></date-with-popup>
-        <timepicker ng-model="newStartDatetime"></timepicker>
-
-        <br/>
-        Stop:
-        <br/>
-        <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="newStartDatetime" max-date="now"></date-with-popup>
-        <timepicker ng-model="newStopDatetime"></timepicker>
     </span>
 </span>
 
@@ -29,7 +15,5 @@
 </span>
 
 <span class="actions">
-    <i class="icon-pencil edit-action" ng-click="startEditing()" ng-hide="editing"></i>
-    <i class="icon-save edit-action" ng-click="apply()" ng-show="editing"></i>
-    <i class="icon-remove delete-action" ng-click="cancel()" ng-show="editing"></i>
+    <i class="icon-pencil edit-action" ng-click="edit()" ng-hide="editing"></i>
 </span>

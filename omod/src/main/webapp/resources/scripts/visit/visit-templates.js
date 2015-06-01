@@ -80,6 +80,7 @@ angular.module("visit-templates", ["constants"])
 
         var checkIn = {
             type: "encounter",
+            addInline: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.checkIn.uuid
@@ -95,6 +96,7 @@ angular.module("visit-templates", ["constants"])
 
         var vitals = {
             type: "encounter",
+            addInline: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
@@ -177,9 +179,22 @@ angular.module("visit-templates", ["constants"])
         };
 
         var outpatientPlan = {
-            type: "include",
-            include: "templates/outpatient-plan.page"
+            type: "encounter",
+            allowMultiple: true,
+            encounter: {
+                encounterType: EncounterTypes.consultationPlan
+            },
+            action: {
+                label: "Plan",
+                icon: "icon-list-ol",
+                sref: "editPlan"
+            }
         };
+
+        var addExpectedEncounters = {
+            type: "include",
+            include: "templates/add-expected-encounters.page"
+        }
 
         var allowedForAll = function(visit) {
             return true;
@@ -207,7 +222,8 @@ angular.module("visit-templates", ["constants"])
                     primaryCareAdultHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
+                    outpatientPlan,
+                    addExpectedEncounters
                 ]
             },
             adultFollowupOutpatient: {
@@ -220,7 +236,8 @@ angular.module("visit-templates", ["constants"])
                     reviewAllergies,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
+                    outpatientPlan,
+                    addExpectedEncounters
                 ]
             },
             pedsInitialOutpatient: {
@@ -236,7 +253,8 @@ angular.module("visit-templates", ["constants"])
                     primaryCareAdultHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
+                    outpatientPlan,
+                    addExpectedEncounters
                 ]
             }
         };

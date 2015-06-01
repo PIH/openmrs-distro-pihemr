@@ -52,19 +52,35 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
-    .directive("displayElement", [ "Concepts", "EncounterTypes", "VisitDisplayModel", function(Concepts, EncounterTypes, VisitDisplayModel) {
+    .directive("displayElement", [ "Concepts", "EncounterTypes", "VisitDisplayModel", "VisitTemplateService", function(Concepts, EncounterTypes, VisitDisplayModel, VisitTemplateService) {
         return {
             restrict: 'E',
             controller: function($scope) {
                 $scope.Concepts = Concepts;
                 $scope.EncounterTypes = EncounterTypes;
 
+                    $scope.getExpectedEncounterActions = function() {
+                    return VisitTemplateService.getExpectedEncounterActions();
+                }
+
                 var element = $scope.element;
+
+                $scope.eval = function(template) {
+                    if (!template) {
+                        return null;
+                    }
+                    var compiled = Handlebars.compile(template);
+                    return compiled({
+                        contextPath: OPENMRS_CONTEXT_PATH,
+                        returnUrl: location.href,
+                        visit: $scope.visit
+                    });
+                }
 
                 if (element.type === 'encounter') {
                     $scope.action = element.action;
                     $scope.encounterStubs = element.encounterStubs;
-                    $scope.canAdd = element.encounterStubs.length == 0 || element.allowMultiple;
+                    $scope.canAdd = element.addInline && (element.encounterStubs.length == 0 || element.allowMultiple);
 
                     $scope.encounterTemplate = function() {
                         if ($scope.encounterStub) {
@@ -78,18 +94,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         else {
                             return "templates/action.page";
                         }
-                    }
-
-                    $scope.eval = function(template) {
-                        if (!template) {
-                            return null;
-                        }
-                        var compiled = Handlebars.compile(template);
-                        return compiled({
-                            contextPath: OPENMRS_CONTEXT_PATH,
-                            returnUrl: location.href,
-                            visit: $scope.visit
-                        });
                     }
 
                     $scope.template = "templates/visitElementEncounter.page";
@@ -179,35 +183,47 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // this is not a reusable directive, and it does not have an isolate scope
-    .directive("visitDetails", [ "Visit", function(Visit) {
+    .directive("visitDetails", [ "Visit", "ngDialog", function(Visit, ngDialog) {
+
+        // handles Date or String as input
+        function toServerDateTime(clientDateTime) {
+            if (!clientDateTime) {
+                return null;
+            }
+            if (typeof clientDateTime == "object") {
+                clientDateTime = clientDateTime.toISOString();
+            }
+            return clientDateTime.substring(0, 23);
+        }
+
         return {
             restrict: 'E',
             controller: function($scope) {
-                $scope.editing = false;
-
-                $scope.now = new Date();
-
-                $scope.startEditing = function() {
-                    $scope.newStartDatetime = $scope.visit.startDatetime;
-                    $scope.newStopDatetime = $scope.visit.stopDatetime;
-                    $scope.editing = true;
-                }
-
-                $scope.apply = function() {
-                    // we only want to edit a few properties
-                    var props = {
-                        uuid: $scope.visit.uuid,
-                        startDatetime: $scope.newStartDatetime,
-                        stopDatetime: $scope.newStopDatetime == '' ? null : $scope.newStopDatetime
-                    };
-                    new Visit(props).$save(function(v) {
-                        $scope.reloadVisit();
+                $scope.edit = function() {
+                    ngDialog.openConfirm({
+                        showClose: true,
+                        closeByEscape: true,
+                        closeByDocument: false, // in case they accidentally click the background to close a datepicker
+                        controller: [ "$scope", function($dialogScope) {
+                            $dialogScope.now = new Date();
+                            $dialogScope.visit = $scope.visit;
+                            $dialogScope.newStartDatetime = $scope.visit.startDatetime;
+                            $dialogScope.newStopDatetime = $scope.visit.stopDatetime;
+                            $dialogScope.newLocation = $scope.visit.location;
+                        }],
+                        template: "templates/visitDetailsEdit.page"
+                    }).then(function(opts) {
+                        // TODO this logic doesn't do the right thing if the client is in a different time zone than the server
+                        opts.start = toServerDateTime(opts.start);
+                        opts.stop = toServerDateTime(opts.stop);
+                        new Visit({
+                            uuid: $scope.visit.uuid,
+                            startDatetime: opts.start,
+                            stopDatetime: opts.stop == '' ? null : opts.stop
+                        }).$save(function(v) {
+                            $scope.reloadVisit();
+                        });
                     });
-                    $scope.editing = false;
-                }
-
-                $scope.cancel = function() {
-                    $scope.editing = false;
                 }
             },
             templateUrl: 'templates/visitDetails.page'
@@ -254,6 +270,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 };
             },
             templateUrl: 'templates/chooseVisitTemplate.page'
+        }
+    }])
+
+    .directive("chooseDisposition", [ function() {
+        return {
+
         }
     }])
 
@@ -315,6 +337,18 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         }
                         VisitDisplayModel.encounterStates[it.uuid] = config.defaultState;
                     });
+                },
+
+                getExpectedEncounterActions: function() {
+                    if (!currentTemplate) {
+                        return []
+                    };
+                    var elements = _.filter(currentTemplate.elements, function (element) {
+                        return element.type == 'encounter'
+                            && !element.addInline
+                            && (element.encounterStubs.length == 0 || element.allowMultiple);
+                    });
+                    return _.pluck(elements, "action");
                 }
             }
         }])
@@ -360,7 +394,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService",
         function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext, VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService) {
-
+            $scope.dateFormat = "d-MMM-yy (hh:mm a)";
             $scope.VisitDisplayModel = VisitDisplayModel;
 
             AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
@@ -375,7 +409,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default,patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
                         $scope.visit = new OpenMRS.VisitModel(visit);
-                        $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "HH:mm" : "HH:mm (d-MMM)";
+                        $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
                         // get other visits
                         Visit.get({patient: $scope.visit.patient.uuid, v: "default"}).$promise.then(function(response) {
