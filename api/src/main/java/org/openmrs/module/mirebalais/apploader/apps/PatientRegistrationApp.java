@@ -335,7 +335,7 @@ public class PatientRegistrationApp {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             Field f = new Field();
             //f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-            f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
+            f.setLabel("zl.registration.patient.contactPerson.address.label");
             f.setType("personAddress");
 
             // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
@@ -355,7 +355,7 @@ public class PatientRegistrationApp {
         else{
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-            f.setLabel("zl.registration.patient.contactPerson.contactAddress.label");
+            f.setLabel("zl.registration.patient.contactPerson.address.label");
             f.setType("obsgroup");
             f.setWidget(getTextAreaWidget(250));
             q.addField(f);
