@@ -91,6 +91,7 @@ public class CustomAppLoaderConstants {
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
         public static final String ORDER_ULTRASOUND_VISIT_ACTION = "radiologyapp.orderUS";
+        public static final String REGISTRATION_SUMMARY_OVERALL_ACTION = "registrationapp.registrationSummary.link";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
@@ -213,6 +214,7 @@ public class CustomAppLoaderConstants {
             Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
             Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
             Extensions.MERGE_VISITS_OVERALL_ACTION,
+            Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
             Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
             Extensions.EDIT_PATIENT_CONTACT_INFO);

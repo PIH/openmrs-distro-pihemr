@@ -920,20 +920,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config)));
 
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_REGISTRATION,
-                        "mirebalais.mostRecentRegistration.label",
-                        "icon-user",
-                        null,
-                        "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "editable", true,
-                                "edit-icon", "icon-share-alt",
-                                "edit-provider", "registrationapp",
-                                "edit-fragment", "registrationSummary")),
-                "coreapps",
-                "encounter/mostRecentEncounter"));
-
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
                         "mirebalais.mostRecentRegistration.label",
                         "icon-user",
@@ -1021,6 +1007,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
                     "App: coreapps.patientDashboard",
+                    null));
+
+            extensions.add(overallAction(Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
+                    "registrationapp.patient.registrationSummary",
+                    "icon-user",
+                    "link",
+                    "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                    "App: patientregistration.edit",
                     null));
         }
 
