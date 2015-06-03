@@ -128,7 +128,7 @@ public class PatientRegistrationApp {
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-            f.setWidget(getAddressHierarchyWidget(levels, null, false));
+            f.setWidget(getAddressHierarchyWidget(levels, null, true));
         }
         else {
             Map<String, String> m = new HashMap<String, String>();
