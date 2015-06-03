@@ -63,7 +63,9 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.regist
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
@@ -251,7 +253,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "script",
                 "visit.showQuickVisitCreationDialog({{patient.patientId}})",
                 "Task: coreapps.createVisit",
-                "!visit && !patient.person.dead"));
+                and(patientDoesNotActiveVisit(), patientNotDead())));
 
         extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
                 "coreapps.task.createRetrospectiveVisit.label",

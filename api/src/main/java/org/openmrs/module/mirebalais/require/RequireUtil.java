@@ -10,6 +10,10 @@ public class RequireUtil {
         return new String("typeof visit !== 'undefined' && visit != null && visit.active");
     }
 
+    public static String patientDoesNotActiveVisit() {
+        return new String("typeof visit == 'undefined' || !visit || !visit.active");
+    }
+
     public static String patientVisitWithinPastThirtyDays() {
         return new String("typeof visit !== 'undefined' && visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) < 30");
     }
@@ -20,6 +24,10 @@ public class RequireUtil {
 
     public static String sessionLocationHasTag(LocationTagDescriptor descriptor) {
         return new String("util.hasMemberWithProperty(sessionLocation.get('tags'),'display','" + descriptor.name() + "')");
+    }
+
+    public static String patientNotDead() {
+        return new String("!patient.person.dead");
     }
 
     public static String and(String ... args) {
