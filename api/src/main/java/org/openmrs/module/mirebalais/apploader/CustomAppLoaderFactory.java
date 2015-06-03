@@ -927,7 +927,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: registrationapp.registerPatient",  // TODO: should this have it's own privilege?
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration"),
                                 "editable", true,
                                 "edit-icon", "icon-share-alt",
                                 "edit-provider", "registrationapp",
@@ -943,7 +942,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-rs"),
-                                "editable", true)),
+                                "editable", true,
+                                "creatable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
