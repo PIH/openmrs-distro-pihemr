@@ -32,11 +32,11 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
-import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -160,17 +160,19 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
-            if (!testMode) {   // super hack to ignore ReportSetup when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
+            if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
+
                 if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS) || config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
                     // must happen after location tags have been configured
                     ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
                 }
+
+                // do app and extension configuration
+                Context.getRegisteredComponent("customAppLoaderFactory", CustomAppLoaderFactory.class).setReadyForRefresh(true);
+                ModuleFactory.getStartedModuleById("appframework").getModuleActivator().contextRefreshed();
+
             }
 
-          /*  if (featureToggleProperties.isFeatureEnabled("cdi") && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-                migratePaperRecordLocation(paperRecordProperties);
-            }
-*/
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
             ModuleFactory.stopModule(mod);

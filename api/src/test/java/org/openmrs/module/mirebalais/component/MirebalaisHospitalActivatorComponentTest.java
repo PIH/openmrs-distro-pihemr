@@ -102,7 +102,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
         deployService.installBundle(conceptsFromMetadataSharing);
 
-        // set up metatdata from pih core first
+        // set up metadata from pih core first
         pihCoreActivator = new PihCoreActivator();
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);

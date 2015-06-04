@@ -70,7 +70,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWith
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 
-@Component
+@Component("customAppLoaderFactory")
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private final Log log = LogFactory.getLog(getClass());
@@ -84,16 +84,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     @Autowired
     private FullDataExportBuilder fullDataExportBuilder;
 
-    private List<AppDescriptor> apps;
+    private List<AppDescriptor> apps = new ArrayList<AppDescriptor>();
 
-    private List<Extension> extensions;
+    private List<Extension> extensions = new ArrayList<Extension>();
 
-    // TODO have this be set to true on a context refresh?  would also need to trigger another a context refresh
-    private Boolean needsRefresh = true;
+    private Boolean readyForRefresh = false;
 
     @Override
     public List<AppDescriptor> getAppDescriptors() throws IOException {
-        if (needsRefresh) {
+        if (readyForRefresh) {
             loadAppsAndExtensions();
         }
         return apps;
@@ -101,7 +100,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     @Override
     public List<Extension> getExtensions() throws IOException {
-        if (needsRefresh) {
+        if (readyForRefresh) {
             loadAppsAndExtensions();
         }
         return extensions;
@@ -114,9 +113,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
     private void loadAppsAndExtensions() {
-
-        apps = new ArrayList<AppDescriptor>();
-        extensions = new ArrayList<Extension>();
 
         configureHeader(config);
         setupDefaultEncounterTemplates();
@@ -221,7 +217,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableAllergies();
         }
 
-        needsRefresh = false;
+        readyForRefresh = false;
     }
 
     private void configureHeader(Config config){
@@ -1172,8 +1168,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         return null;
     }
 
-    public void setNeedsRefresh(Boolean needsRefresh) {
-        this.needsRefresh = needsRefresh;
+    public void setReadyForRefresh(Boolean readyForRefresh) {
+        this.readyForRefresh = readyForRefresh;
     }
 
     // used for mocking
