@@ -171,6 +171,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 Context.getRegisteredComponent("customAppLoaderFactory", CustomAppLoaderFactory.class).setReadyForRefresh(true);
                 ModuleFactory.getStartedModuleById("appframework").getModuleActivator().contextRefreshed();
 
+                // on first startup, these modules may not have been able to configure their global propertes correctly because
+                // all metadata was not loaded; we call the started method here to complete setup
+                ModuleFactory.getStartedModuleById("allergyapi").getModuleActivator().started();
+                ModuleFactory.getStartedModuleById("registrationapp").getModuleActivator().started();
             }
 
         } catch (Exception e) {
