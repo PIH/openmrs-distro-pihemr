@@ -248,8 +248,10 @@ public class CustomAppLoaderConstants {
             Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
             Extensions.APPOINTMENTS_DATA_EXPORT);
 
-    public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList();
+    public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
+            Apps.ALLERGY_SUMMARY + ".clinicianDashboardFirstColumn", Apps.MOST_RECENT_VITALS + ".clinicianDashboardFirstColumn"
+    );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
-            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS, Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn", Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
+            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS, Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
 }

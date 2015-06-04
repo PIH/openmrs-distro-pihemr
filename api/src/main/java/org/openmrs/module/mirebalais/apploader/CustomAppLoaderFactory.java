@@ -1099,7 +1099,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableAllergies() {
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.ALLERGY_SUMMARY,
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.ALLERGY_SUMMARY,
                                                 "allergyui.allergies",
                                                 "icon-medical",
                                                 null,

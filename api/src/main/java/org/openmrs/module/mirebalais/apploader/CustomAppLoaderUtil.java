@@ -115,14 +115,15 @@ public class CustomAppLoaderUtil {
 
 
     static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        appExtension(app, app.getId() + ".clinicianDashboardFirstColumn",
+        String appId = app.getId() + ".clinicianDashboardFirstColumn";
+        appExtension(app, appId,
                 app.getLabel(),
                 app.getIcon(),
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 null,
-                1,  // TODO; create array to set order like others in CustomAppLoaderConstants
+                CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER.indexOf(appId),
                 CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN)
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
@@ -130,14 +131,15 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToClinicianDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        appExtension(app, app.getId() + ".clinicianDashboardSecondColumn",
+        String appId = app.getId() + ".clinicianDashboardSecondColumn";
+        appExtension(app, appId ,
                 app.getLabel(),
                 app.getIcon(),
                 "link",
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 null,
-                1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
+                CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER.indexOf(appId),
                 CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN)
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
