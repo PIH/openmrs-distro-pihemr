@@ -91,7 +91,7 @@ public class ZlEmrIdCardPrinter {
             throw new UnableToPrintException(getMessage("zl.registration.patient.idcard.noPrinterConfiguredForLocation", location.getName()));
         }
 
-        DateFormat df = new SimpleDateFormat("dd/MMM/yyyy", Context.getLocale());
+        DateFormat df = new SimpleDateFormat("dd MMM yyyy", Context.getLocale());
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("name", getName(patient));
