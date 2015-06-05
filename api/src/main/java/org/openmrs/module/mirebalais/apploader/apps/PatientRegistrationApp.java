@@ -455,27 +455,27 @@ public class PatientRegistrationApp {
         return toObjectNode(w);
     }
 
-    // TODO: this needs to be customized based on country, and updated with full concepts
     protected Map<String,String> getContactAddressFieldMappings(Config config) {
+        // Haiti-specific
         Map<String,String> fieldMappings = new HashMap<String, String>();
-        fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
-        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT");
+        fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Country");
+        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:State Province");
+        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:City Village");
+        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address3");
+        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address1");
+        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2");
         return fieldMappings;
     }
 
-    // TODO: this needs to be customized based on country, and update with full concepts
     protected Map<String,String> getPlaceOfBirthAddressFieldMappings(Config config) {
+        // Haiti-specific
         Map<String,String> fieldMappings = new HashMap<String, String>();
-        fieldMappings.put(AddressField.COUNTRY.getName(), "obs.PIH:PLACE OF BIRTH");
-        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obs.PIH:PLACE OF BIRTH");
-        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obs.PIH:PLACE OF BIRTH");
-        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obs.PIH:PLACE OF BIRTH");
-        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obs.PIH:PLACE OF BIRTH");
-        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obs.PIH:PLACE OF BIRTH");
+        fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:Country");
+        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:State Province");
+        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:City Village");
+        fieldMappings.put(AddressField.ADDRESS_3.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:Address3");
+        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:Address1");
+        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:Birthplace address construct.obs.PIH:Address2");
         return fieldMappings;
     }
 
