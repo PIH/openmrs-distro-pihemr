@@ -152,6 +152,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlformentry19ext-api</artifactId>
+            <version>${htmlformentry19extVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.1</version>
