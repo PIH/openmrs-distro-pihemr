@@ -28,8 +28,8 @@
         "legacyMpi",
         "legacyPatientRegistration",
         "lacollinePatientRegistrationEncounterTypes",
-        "managePrinters",
-        "idcardPrinting"
+        "idcardPrinting",
+        "patientRegistration"
   ],
 
   "globalProperties": {
