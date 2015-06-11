@@ -914,7 +914,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePatientRegistration() {
 
-        apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config)));
+        apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config),
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
                         "mirebalais.mostRecentRegistration.label",
