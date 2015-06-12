@@ -29,6 +29,7 @@
         "legacyPatientRegistration",
         "lacollinePatientRegistrationEncounterTypes",
         "idcardPrinting",
+        "oncology",
         "patientRegistration"
   ],
 

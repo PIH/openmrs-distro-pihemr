@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.EncounterRole;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -159,6 +160,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.SURGERY)) {
             enableSurgery();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ONCOLOGY)) {
+            enableOncology();
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
@@ -347,7 +352,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-vitals",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"),
-                "Task: emr.enterVitalsNote",
+                Privileges.TASK_EMR_ENTER_VITALS_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
@@ -561,7 +566,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-paste",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/surgicalPostOpNote.xml"),
-                "Task: emr.enterSurgicalNote",
+                Privileges.TASK_EMR_ENTER_SURGICAL_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
         registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
@@ -1108,6 +1113,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 null),
                                         "allergyui", "allergies"));
     }
+
+    private void enableOncology() {
+
+        extensions.add(visitAction(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
+                "pih.task.oncologyConsultNote.label",
+                "icon-paste",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/oncologyConsult.xml"),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),  // TODO do we want an oncology-specific location?
+                        // TODO is this the right privilege set?
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION), "oncologyNote");
+
+        registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+    }
+
 
     private void enableLegacyPatientRegistration() {
 
