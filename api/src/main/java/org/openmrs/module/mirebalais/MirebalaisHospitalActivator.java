@@ -22,6 +22,7 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
@@ -35,6 +36,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
+import org.openmrs.module.mirebalais.setup.NameTemplateSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
@@ -79,6 +81,15 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // Reload configuration based on runtime properties values, defaulting to mirebalais if nothing found
             String configs = Context.getRuntimeProperties().getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
             config.reload(ConfigLoader.load(configs));
+
+            // configure name template (don't do this in Mirebalais yet)
+            if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+                NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
+
+                // hack: configure both name support beans, since two actually exist (?)
+                NameTemplateSetup.configureNameTemplate(nameSupport);
+                NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
+            }
 
             log.info("Mirebalais Hospital Module refreshed");
         }
