@@ -963,7 +963,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
                         "pihcore.mostRecentCheckin.label",
-                        "icon-group",
+                        "icon-ok",
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
