@@ -931,6 +931,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-rs"),
                                 "editable", true,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                                 "creatable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
@@ -943,7 +945,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-social"),
-                                "editable", true)),
+                                "editable", true,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -956,14 +960,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
                                 "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
                                 "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-contact"),
-                                "editable", true)),
+                                "editable", true,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
                         "pihcore.mostRecentCheckin.label",
-                        "icon-group",
+                        "icon-ok",
                         null,
                         "App: registrationapp.registerPatient",
                         objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
