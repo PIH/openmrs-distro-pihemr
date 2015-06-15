@@ -83,13 +83,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             config.reload(ConfigLoader.load(configs));
 
             // configure name template (don't do this in Mirebalais yet)
-           // if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+           if (!config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
 
                 // hack: configure both name support beans, since two actually exist (?)
                 NameTemplateSetup.configureNameTemplate(nameSupport);
                 NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
-            //}
+            }
 
             log.info("Mirebalais Hospital Module refreshed");
         }
