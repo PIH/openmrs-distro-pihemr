@@ -104,33 +104,33 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 <div id="request-paper-record-dialog" class="dialog" style="display: none">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>
-        <h3>${ ui.message("emr.patientDashBoard.requestPaperRecord.title") }</h3>
+        <h3>${ ui.message("paperrecord.patientDashBoard.requestPaperRecord.title") }</h3>
     </div>
     <div class="dialog-content">
-        <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.requestPaperRecord.confirmTitle") }</p>
+        <p class="dialog-instructions">${ ui.message("paperrecord.patientDashBoard.requestPaperRecord.confirmTitle") }</p>
         <ul>
             <li class="info">
-                <span>${ ui.message("emr.patient") }</span>
+                <span>${ ui.message("uicommons.patient") }</span>
                 <h5>${ ui.format(patient) }</h5>
             </li>
             <li class="info">
-                <span>${ ui.message("emr.location") }</span>
+                <span>${ ui.message("uicommons.location") }</span>
                 <h5 data-bind="text: text"></h5>
             </li>
         </ul>
 
-        <button class="confirm right">${ ui.message("emr.yes") }</button>
-        <button class="cancel">${ ui.message("emr.no") }</button>
+        <button class="confirm right">${ ui.message("uicommons.yes") }</button>
+        <button class="cancel">${ ui.message("uicommons.no") }</button>
     </div>
 </div>
 <%} else { // if not pull, then create %>
 <div id="create-paper-record-dialog" class="dialog" style="display: none">
     <div class="dialog-header">
         <i class="icon-folder-open"></i>
-        <h3>${ ui.message("emr.patientDashBoard.createPaperRecord.title") }</h3>
+        <h3>${ ui.message("paperrecord.patientDashBoard.createPaperRecord.title") }</h3>
     </div>
     <div class="dialog-content">
-        <p class="dialog-instructions">${ ui.message("emr.patientDashBoard.createPaperRecord.where") }</p>
+        <p class="dialog-instructions">${ ui.message("paperrecord.patientDashBoard.createPaperRecord.where") }</p>
 
         <button class="confirm right no-color">${ ui.format(sessionContext.sessionLocation) }</button>
         <button class="cancel no-color">${ ui.format(associatedArchivesLocation) }</button>

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// TODO should be able to remove this once we retire the old cyclical check-in app
+
 /**
  * The Check-In app is an implementation of the core apps find patient app
  * After the user finds a patient he/she is redirected to this page, which

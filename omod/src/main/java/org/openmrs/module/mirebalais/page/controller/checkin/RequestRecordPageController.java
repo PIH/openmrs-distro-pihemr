@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+// TODO should be able to remove this once we retire the old cyclical check-in app (a version of this fragment been moved to the paper record module)
+
 /**
  * This controller handles prompting the user to confirm that they want to request a paper
  * record (or create a new one if necessary). The user is redirected here after filling out
