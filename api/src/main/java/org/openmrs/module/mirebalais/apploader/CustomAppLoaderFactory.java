@@ -8,6 +8,7 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
@@ -80,6 +81,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Config config;
 
     @Autowired
+    private FeatureToggleProperties featureToggles;
+
+    @Autowired
     private PatientRegistrationApp patientRegistrationApp;
 
     @Autowired
@@ -127,7 +131,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
-            enableCheckIn(config);
+            enableCheckIn(config, featureToggles);
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS)) {
@@ -303,17 +307,30 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableCheckIn(Config config) {
+    private void enableCheckIn(Config config, FeatureToggleProperties featureToggles) {
 
         // currently, this app is hard-coded to the default check-in form and requires archives room (?)
+        // TODO we will remove the old CHECK_IN app at some point when we start using the registration flow (below) for this
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
-            apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
-                            "mirebalais.app.patientRegistration.checkin.label",
-                            "icon-paste",
-                            "App: mirebalais.checkin",
-                            "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
-                            null),
-                    sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+
+            if (featureToggles.isFeatureEnabled("newCheckin")) {
+                apps.add(addToHomePage(app(Apps.CHECK_IN_NEW,
+                                "mirebalais.app.patientRegistration.checkin.label",
+                                "icon-paste",
+                                "/registrationapp/findPatient.page?appId=registrationapp.registerPatient",
+                                "App: mirebalais.checkin",
+                                null),
+                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+            }
+            else {
+                apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
+                                "mirebalais.app.patientRegistration.checkin.label",
+                                "icon-paste",
+                                "App: mirebalais.checkin",
+                                "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
+                                null),
+                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+            }
         }
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
@@ -329,8 +346,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "liveCheckin")) + andCreateVisit(),
-                "Task: mirebalais.checkinForm",
-                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,

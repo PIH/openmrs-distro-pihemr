@@ -43,6 +43,7 @@ public class CustomAppLoaderConstants {
         // TODO would be nice to rename this to "pih.checkin"
         // TODO for checkin would need to fix requestRecord.gsp:69
         public static final String CHECK_IN = "mirebalais.liveCheckin";
+        public static final String CHECK_IN_NEW = "pih.liveCheckin";  // TODO rename this to just CHECK_IN after we remove the old one
         public static final String VITALS = "pih.app.vitals";
         public static final String AWAITING_ADMISSION = "coreapps.app.awaitingAdmission";
         public static final String ACTIVE_VISITS = "pih.app.activeVisits";
