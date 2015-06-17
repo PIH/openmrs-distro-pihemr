@@ -314,11 +314,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
 
             if (featureToggles.isFeatureEnabled("newCheckin")) {
-                apps.add(addToHomePage(app(Apps.CHECK_IN_NEW,
+                apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
                                 "mirebalais.app.patientRegistration.checkin.label",
                                 "icon-paste",
-                                "/registrationapp/findPatient.page?appId=registrationapp.registerPatient",
                                 "App: mirebalais.checkin",
+                                "/registrationapp/registrationSummary.page?patientId={{patientId}}",
                                 null),
                         sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
             }
