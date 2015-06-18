@@ -51,6 +51,7 @@ public class CustomAppLoaderUtil {
     static public AppDescriptor findPatientTemplateApp(String id, String label, String icon, String privilege, String afterSelectedUrl, ArrayNode breadcrumbs) {
 
         AppDescriptor app = new AppDescriptor(id, id, label, "coreapps/findpatient/findPatient.page?app=" + id, icon, null, 0, privilege, null);
+        app.setInstanceOf("coreapps.template.findPatient");
 
         app.setConfig(objectNode(
                 "afterSelectedUrl", afterSelectedUrl,
@@ -67,7 +68,7 @@ public class CustomAppLoaderUtil {
                 app.getLabel(),
                 app.getIcon(),
                 "link",
-                app.getUrl(),
+                "pihcore/router/appEntryRouter.page?app=" + app.getId(),  // NOTE THAT WE ARE NOW ROUTING ALL HOME PAGE APPS VIA THE APP ENTRY ROUTER!
                 app.getRequiredPrivilege(),
                 require,
                 HOME_PAGE_APPS_ORDER.indexOf(app.getId()),

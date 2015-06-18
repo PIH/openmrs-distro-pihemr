@@ -40,7 +40,7 @@ public class CustomAppLoaderConstants {
 
     public static final class Apps {
 
-        // TODO would be nice to rename this to "pih.checkin"
+        // TODO would be nice to rename this to "pih.checkin"--would need to change CheckInAppWorkflowController in pihcore
         // TODO for checkin would need to fix requestRecord.gsp:69
         public static final String CHECK_IN = "mirebalais.liveCheckin";
         public static final String VITALS = "pih.app.vitals";
