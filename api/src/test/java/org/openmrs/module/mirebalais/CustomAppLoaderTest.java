@@ -72,7 +72,7 @@ public class CustomAppLoaderTest  {
         assertThat(app.getExtensions().get(0).getId(), is("id.appLink"));
         assertThat(app.getExtensions().get(0).getType(), is("link"));
         assertThat(app.getExtensions().get(0).getLabel(), is("label"));
-        assertThat(app.getExtensions().get(0).getUrl(), is("url"));
+        assertThat(app.getExtensions().get(0).getUrl(), is("pihcore/router/appEntryRouter.page?app=id")); // we go through the app router now
         assertThat(app.getExtensions().get(0).getIcon(), is("icon"));
         assertThat(app.getExtensions().get(0).getRequiredPrivilege(), is("privilege"));
         assertThat(app.getExtensions().get(0).getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE));
