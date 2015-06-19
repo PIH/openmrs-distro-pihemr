@@ -289,7 +289,7 @@ public class PatientRegistrationApp {
         boolean required = config.getCountry() == ConfigDescriptor.Country.HAITI; // TODO: Replace with property in RegistrationConfig
 
         s.addQuestion(getContactNameAndRelationship(config, required));
-        s.addQuestion(getContactAddress(config));
+        s.addQuestion(getContactAddress(config, required));
         s.addQuestion(getContactPhoneNumber(config, required));
 
         return s;
@@ -323,7 +323,7 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Question getContactAddress(Config config) {
+    public Question getContactAddress(Config config, boolean required) {
 
         Question q = new Question();
         q.setId("contactQuestionLabel");
@@ -340,13 +340,14 @@ public class PatientRegistrationApp {
             List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
             if (levels != null && levels.size() > 0) {
                 //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config), false));
+                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config), true));
             }
             else {
                 Map<String, String> m = new HashMap<String, String>();
                 m.put("providerName", "uicommons");
                 m.put("fragmentId", "field/personAddress");
                 f.setWidget(toObjectNode(m));
+                if (required) { f.setCssClasses(Arrays.asList("required")); }
             }
             q.addField(f);
         }
@@ -356,6 +357,7 @@ public class PatientRegistrationApp {
             f.setLabel("zl.registration.patient.contactPerson.address.label");
             f.setType("obsgroup");
             f.setWidget(getTextAreaWidget(250));
+            if (required) { f.setCssClasses(Arrays.asList("required")); }
             q.addField(f);
         }
 
