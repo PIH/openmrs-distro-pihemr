@@ -37,6 +37,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFea
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
@@ -329,7 +330,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "App: mirebalais.checkin",
                                 "/mirebalais/checkin/checkin.page?patientId={{patientId}}",
                                 null),
-                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)) );
             }
         }
 
@@ -1094,12 +1095,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     // legacy MPI used in Mirebalais to connect to Lacolline
     private void enableLegacyMPI() {
-        apps.add(addToHomePage(app(Apps.LEGACY_MPI,
+        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_MPI,
                 "mirebalais.mpi.title",
                 "icon-zoom-in",
                 "mirebalais/mpi/findPatient.page",
                 "App: mirebalais.mpi",
-                null)));
+                null)) );
     }
 
     private void enableClinicianDashboard() {
@@ -1154,23 +1155,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableLegacyPatientRegistration() {
 
-        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION,
+        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_REGISTRATION,
                 "mirebalais.app.patientRegistration.registration.label",
                 "icon-register",
                 "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
                 "App: patientregistration.main",
                 null),
-                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)) );
 
-        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
+        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
                 "mirebalais.app.patientRegistration.emergencyCheckin.label",
                 "icon-hospital",
                 "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
                 "App: patientregistration.main",
                 null),
-                sessionLocationHasTag(LocationTags.ED_REGISTRATION_LOCATION)));
+                sessionLocationHasTag(LocationTags.ED_REGISTRATION_LOCATION)) );
 
-        apps.add(addToHomePage(app(Apps.LEGACY_PATIENT_LOOKUP,
+        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_LOOKUP,
                 "mirebalais.app.patientRegistration.patientLookup.label",
                 "icon-edit",
                 "mirebalais/patientRegistration/appRouter.page?task=patientLookup",

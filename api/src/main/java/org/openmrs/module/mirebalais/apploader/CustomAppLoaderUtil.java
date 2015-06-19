@@ -76,8 +76,27 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
+    // there's a problem with redirecting when the provider is the same as the app name (which happens in mirebalais with the "mirebalais" provider)
+    // so we have this legacy method that avoids the router
+    static public AppDescriptor addToHomePageWithoutUsingRouter(AppDescriptor app, String require) {
+        appExtension(app, app.getId() + ".appLink",
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                require,
+                HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
+                CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
+        return app;
+    }
+
     static public AppDescriptor addToHomePage(AppDescriptor app) {
         return addToHomePage(app, null);
+    }
+
+    static public AppDescriptor addToHomePageWithoutUsingRouter(AppDescriptor app) {
+        return addToHomePageWithoutUsingRouter(app, null) ;
     }
 
     static public AppDescriptor addToOverallActions(AppDescriptor app, String label, String require) {
