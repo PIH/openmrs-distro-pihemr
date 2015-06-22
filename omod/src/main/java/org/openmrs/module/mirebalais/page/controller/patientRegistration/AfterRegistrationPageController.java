@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.page.controller.patientRegistration;
 
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
+import org.openmrs.Patient;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class AfterRegistrationPageController {
 
-    public String controller(@RequestParam("patientId") Integer patientId,
+    public String controller(@RequestParam("patientId") Patient patient,
                              @RequestParam("encounterId") Encounter encounter,
                              UiUtils ui) {
 
@@ -21,7 +22,7 @@ public class AfterRegistrationPageController {
 
         if (idCardPrintingRequested(encounter)) {
             Integer locationId = encounter.getLocation().getLocationId();
-            Map<String, Object> m = ObjectUtil.toMap("patientId", patientId, "locationId", locationId, "returnUrl", returnUrl);
+            Map<String, Object> m = ObjectUtil.toMap("patientId", patient.getId(), "locationId", locationId, "returnUrl", returnUrl);
             return "redirect:" + ui.pageLink("mirebalais", "patientRegistration/printIdCard", m);
         }
         else {

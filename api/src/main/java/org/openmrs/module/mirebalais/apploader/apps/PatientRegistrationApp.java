@@ -163,7 +163,7 @@ public class PatientRegistrationApp {
         s.setLabel("zl.registration.patient.social.label");
         s.addQuestion(getBirthplaceQuestion(config));
         s.addQuestion(getCivilStatusQuestion());
-        s.addQuestion(getOccupationQuestion());
+        s.addQuestion(getOccupationQuestion(config));
         if (config.getCountry() == ConfigDescriptor.Country.HAITI) { // TODO: Replace this with property in RegistrationConfig
             s.addQuestion(getReligionQuestion());
         }
@@ -230,7 +230,7 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Question getOccupationQuestion() {
+    public Question getOccupationQuestion(Config config) {
         Question q = new Question();
         q.setId("occupationLabel");
         q.setLegend("zl.registration.patient.occupation.label");
@@ -241,13 +241,58 @@ public class PatientRegistrationApp {
         f.setType("obs");
 
         DropdownWidget w = new DropdownWidget();
-        populateDropdownWithConceptAnswers(w, conceptService.getConceptByMapping("Occupation", "PIH"));
-/*        w.getConfig().addOption("CIEL:162944", "pihcore.registration.socioeconomic.occupation.civilServant");
-        w.getConfig().addOption("PIH:Farmer", "pihcore.registration.socioeconomic.occupation.farmer");
-        w.getConfig().addOption("CIEL:159674", "pihcore.registration.socioeconomic.occupation.fisherman");
-        w.getConfig().addOption("PIH:HEALTH CARE WORKER", "pihcore.registration.socioeconomic.occupation.healthCareWorker");
-        w.getConfig().addOption("CIEL:162945", "pihcore.registration.socioeconomic.occupation.marketVendor");
-        w.getConfig().addOption("CIEL:162945", "pihcore.registration.socioeconomic.occupation.marketVendor");*/
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            // ordered alphabetically in French, with Unemployed and Other last
+            w.getConfig().addOption("PIH:SHEPHERD", "zl.registration.patient.occupation.shepherd.label");
+            w.getConfig().addOption("PIH:BREWER", "zl.registration.patient.occupation.brewer.label");
+            w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");
+            w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");
+            w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");
+            w.getConfig().addOption("CIEL:162944", "zl.registration.patient.occupation.civilServant.label");
+            w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");
+            w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");
+            w.getConfig().addOption("PIH:MINER", "zl.registration.patient.occupation.miner.label");
+            w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
+            w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
+            w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");
+            w.getConfig().addOption("PIH:Teacher", "zl.registration.patient.occupation.teacher.label");
+            w.getConfig().addOption("PIH:PROFESSIONAL", "zl.registration.patient.occupation.professional.label");
+            w.getConfig().addOption("PIH:SHOP OWNER", "zl.registration.patient.occupation.shopOwner.label");
+            w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");
+            w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
+            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER,", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
+            w.getConfig().addOption("CIEL:162945", "zl.registration.patient.occupation.marketVendor.label");
+            w.getConfig().addOption("PIH:STUDENT", "zl.registration.patient.occupation.student.label");
+            w.getConfig().addOption("PIH:UNEMPLOYED", "zl.registration.patient.occupation.unemployed.label");
+            w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            // ordered alphabetically in English, with Unemployed and Other last
+            w.getConfig().addOption("PIH:BREWER", "zl.registration.patient.occupation.brewer.label");
+            w.getConfig().addOption("CIEL:162944", "zl.registration.patient.occupation.civilServant.label");
+            w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");
+            w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");
+            w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");
+            w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");
+            w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");
+            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER,", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
+            w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");
+            w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
+            w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
+            w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");
+            w.getConfig().addOption("CIEL:162945", "zl.registration.patient.occupation.marketVendor.label");
+            w.getConfig().addOption("PIH:MINER", "zl.registration.patient.occupation.miner.label");
+            w.getConfig().addOption("PIH:PROFESSIONAL", "zl.registration.patient.occupation.professional.label");
+            w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
+            w.getConfig().addOption("PIH:SHEPHERD", "zl.registration.patient.occupation.shepherd.label");
+            w.getConfig().addOption("PIH:SHOP OWNER", "zl.registration.patient.occupation.shopOwner.label");
+            w.getConfig().addOption("PIH:STUDENT", "zl.registration.patient.occupation.student.label");
+            w.getConfig().addOption("PIH:Teacher", "zl.registration.patient.occupation.teacher.label");
+            w.getConfig().addOption("PIH:UNEMPLOYED", "zl.registration.patient.occupation.unemployed.label");
+            w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
+        }
+
         w.getConfig().setExpanded(true);
         f.setWidget(toObjectNode(w));
         q.addField(f);
