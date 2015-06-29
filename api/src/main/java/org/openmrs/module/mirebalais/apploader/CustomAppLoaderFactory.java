@@ -319,7 +319,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalais.app.patientRegistration.checkin.label",
                                 "icon-paste",
                                 "App: mirebalais.checkin",
-                                "/registrationapp/registrationSummary.page?patientId={{patientId}}",
+                                "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
                                 null),
                         sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
             }
