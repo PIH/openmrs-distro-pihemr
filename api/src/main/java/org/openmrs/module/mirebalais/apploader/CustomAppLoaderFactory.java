@@ -932,7 +932,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr/account/myAccount.page",
                 null, null)));
 
-        addFeatureToggleToApp(findAppById(Apps.MY_ACCOUNT), "myAccountFeature");
     }
 
     private void enablePatientRegistration() {
