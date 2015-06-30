@@ -112,7 +112,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         ${ ui.message("zl.registration.patient.idcard.noPrinterAvailableAtLocation", location.name) }...
 
         <div id="continue-button-section">
-            <button onclick="document.location.href='${returnUrl}';">
+            <button onclick="document.location.href='${ui.escapeJs(returnUrl)}';">
                 ${ui.message("zl.registration.patient.idcard.continue")}
             </button>
         </div>
