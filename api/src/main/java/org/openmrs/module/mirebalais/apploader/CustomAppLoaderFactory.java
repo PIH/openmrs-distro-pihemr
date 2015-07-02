@@ -1009,7 +1009,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION + "&search={{search}}",
                 "App: patientregistration.edit",
-                null));
+                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
                 "patientregistration.mergePatients",
