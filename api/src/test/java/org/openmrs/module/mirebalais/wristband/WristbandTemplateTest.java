@@ -149,7 +149,7 @@ public class WristbandTemplateTest {
         name.setFamilyName("Starr");
         patient.addName(name);
 
-        when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn("74 an(s)");
+        when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn("75 an(s)");
 
         String output = wristbandTemplate.generateWristband(patient, visitLocation);
 
