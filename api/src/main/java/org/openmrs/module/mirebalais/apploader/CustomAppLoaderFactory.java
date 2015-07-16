@@ -790,7 +790,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-print",
                 "script",
                 "printWristband()",
-                "Task: emr.printLabels",
+                "Task: emr.printWristband",
                 null));
 
         // this provides the javascript the backs the overall action button
