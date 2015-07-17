@@ -593,7 +593,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableOverviewReports() {
 
-        // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
+        // both overviewReports and dataExports define this, so make sure if both are turned on we don't config it twice
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
                     "reportingui.reportsapp.home.title",

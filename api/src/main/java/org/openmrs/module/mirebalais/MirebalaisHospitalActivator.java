@@ -41,6 +41,7 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
+import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
@@ -120,6 +121,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             // register our custom print handlers
             PrinterSetup.registerPrintHandlers(printerService);
+
+            // set up html forms--this must happen *after* MDS packages are installed, so that forms defined in code/github
+            // take precedent over any in MDS packages; therefore we still do this in the Mirebalais module, not PIH Core
+            HtmlFormSetup.setupHtmlForms(config);
 
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
                 LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);
