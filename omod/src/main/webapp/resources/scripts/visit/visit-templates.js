@@ -51,7 +51,7 @@ angular.module("visit-templates", ["constants"])
             shortTemplate: "templates/defaultEncounterShort.page",
             longTemplate: "templates/defaultEncounterLong.page",
             icon: "icon-stethoscope",
-            editUrl: hfeStandardEditUrl
+            editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
@@ -144,7 +144,7 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "Exam (Adult)",
                 icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
             }
         };
 
