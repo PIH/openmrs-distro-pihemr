@@ -290,7 +290,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         String url;
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
-            url = "/mirebalais/visit/visit.page?visit={{visit.uuid}}";
+            url = "/pihcore/visit/visit.page?visit={{visit.uuid}}";
         }
         else if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
             url = "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}";

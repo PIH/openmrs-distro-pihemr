@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("appui", "standardEmrPage")
 
-    ui.includeCss("mirebalais", "home.css")
+    ui.includeCss("pihcore", "home.css")
 
     def htmlSafeId = { extension ->
         "${ extension.id.replace(".", "-") }-app"

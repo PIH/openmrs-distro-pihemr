@@ -5,7 +5,7 @@
 
     ui.decorateWith("appui", "standardEmrPage")
 
-    ui.includeCss("mirebalais", "masterPatientIndex.css")
+    ui.includeCss("pihcore", "masterPatientIndex.css")
 
     def genderOptions = [ [label: ui.message("emr.gender.M"), value: 'M'],
             [label: ui.message("emr.gender.F"), value: 'F'] ]

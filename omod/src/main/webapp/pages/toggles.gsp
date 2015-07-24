@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("appui", "standardEmrPage")
     ui.includeFragment("appui", "standardEmrIncludes")
-    ui.includeCss("mirebalais", "toggles.css")
+    ui.includeCss("pihcore", "toggles.css")
 %>
 
 <div id="toggles-container">
