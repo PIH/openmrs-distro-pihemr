@@ -1109,7 +1109,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
-                        "visitUrl", "mirebalais/visit/visit.page?visit={{visit.uuid}}"
+                        "visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
                 ));
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
