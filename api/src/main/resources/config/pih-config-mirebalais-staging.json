@@ -1,0 +1,36 @@
+{
+
+  "components": [
+    "visitManagement",
+    "activeVisits",
+    "checkIn",
+    "checkInHomepageApp",
+    "vitals",
+    "consult",
+    "edConsult",
+    "adt",
+    "deathCertificate",
+    "radiology",
+    "dispensing",
+    "surgery",
+    "overviewReports",
+    "dataExports",
+    "archives",
+    "wristbands",
+    "appointmentScheduling",
+    "systemAdministration",
+    "managePrinters",
+    "myAccount",
+    "legacyMpi",
+    "legacyPatientRegistration",
+    "lacollinePatientRegistrationEncounterTypes",
+    "idcardPrinting",
+    "oncology",
+    "patientRegistration",
+
+    "clinicianDashboard"
+  ],
+
+  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
+
+}

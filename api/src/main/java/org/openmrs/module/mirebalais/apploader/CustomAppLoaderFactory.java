@@ -1109,8 +1109,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
-                        "visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
+                    "visitUrl", "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.uuid}}&visitId={{visit.id}}"
                 ));
+
+        // link for new pihcore visit view
+        //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
             // TODO figure out how to add icon-pill to this
