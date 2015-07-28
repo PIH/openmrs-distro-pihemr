@@ -373,7 +373,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_VITALS_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.MOST_RECENT_VITALS,
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_VITALS,
                         "mirebalais.mostRecentVitals.label",
                         "icon-vitals",
                         null,
@@ -804,12 +804,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableAppointmentScheduling() {
 
-        apps.add(addToHomePage(app(Apps.APPOINTMENT_SCHEDULING_HOME,
+        AppDescriptor apppointmentScheduling = app(Apps.APPOINTMENT_SCHEDULING_HOME,
                 "appointmentschedulingui.home.title",
                 "icon-calendar",
                 "appointmentschedulingui/home.page",
                 "App: appointmentschedulingui.home",
-                null)));
+                null);
+
+        apps.add(addToHomePage(apppointmentScheduling));
 
         apps.add(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
                 "appointmentschedulingui.scheduleAppointment.buttonTitle",
@@ -842,8 +844,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui",
                 "appointmentsTab"));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
+        if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
+            addToClinicianDashboardFirstColumn(apppointmentScheduling,
+                    "appointmentschedulingui", "miniPatientAppointments");
+        }
 
+        addFeatureToggleToExtension(findExtensionById(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
     }
 
     private void enableSystemAdministration() {
@@ -1103,35 +1109,43 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableClinicianDashboard() {
-        AppDescriptor app = app(Apps.CLINICIAN_DASHBOARD,
+
+        apps.add(app(Apps.CLINICIAN_DASHBOARD,
                 "mirebalais.app.clinicianDashboard.label",
                 "icon-medkit",
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
                     "visitUrl", "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.uuid}}&visitId={{visit.id}}"
-                ));
+                )));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.VISITS_SUMMARY,
+                        "coreapps.clinicianfacing.visits",
+                        "icon-calendar",
+                        null,
+                        null,
+                        null),
+                "coreapps", "clinicianfacing/visitsSection"));
 
         // link for new pihcore visit view
         //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
+     /*   if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
             // TODO figure out how to add icon-pill to this
             // TODO we should actually define an app here, not use the existing app
             addToClinicianDashboardSecondColumn(app, "orderentryui", "patientdashboard/activeDrugOrders");
         }
-
-        apps.add(app);
+*/
     }
 
     private void enableAllergies() {
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.ALLERGY_SUMMARY,
-                                                "allergyui.allergies",
-                                                "icon-medical",
-                                                null,
-                                                null,
-                                                null),
-                                        "allergyui", "allergies"));
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.ALLERGY_SUMMARY,
+                        "allergyui.allergies",
+                        "icon-medical",
+                        null,
+                        null,
+                        null),
+                "allergyui", "allergies"));
     }
 
     private void enableOncology() {

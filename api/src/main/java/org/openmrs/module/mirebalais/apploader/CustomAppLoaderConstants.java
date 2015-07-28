@@ -56,6 +56,7 @@ public class CustomAppLoaderConstants {
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
         public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
+        public static final String VISITS_SUMMARY = "coreapps.clinicianfacing.visits";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -252,9 +253,12 @@ public class CustomAppLoaderConstants {
             Extensions.APPOINTMENTS_DATA_EXPORT);
 
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
-            Apps.ALLERGY_SUMMARY + ".clinicianDashboardFirstColumn", Apps.MOST_RECENT_VITALS + ".clinicianDashboardFirstColumn"
+            Apps.VISITS_SUMMARY + ".clinicianDashboardFirstColumn",
+            Apps.APPOINTMENT_SCHEDULING_HOME + ".clinicianDashboardFirstColumn"
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
-            Extensions.CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS, Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
+            Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn",
+            Apps.MOST_RECENT_VITALS + ".clinicianDashboardSecondColumn",
+            Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
 }
