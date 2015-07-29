@@ -293,11 +293,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
             url = "/pihcore/visit/visit.page?visit={{visit.uuid}}";
         }
-        else if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
-            url = "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}";
-        }
         else {
-            url = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}";
+            url = config.getDashboardUrl();
         }
 
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS,
