@@ -51,7 +51,6 @@ public class CustomAppLoaderUtil {
     static public AppDescriptor findPatientTemplateApp(String id, String label, String icon, String privilege, String afterSelectedUrl, ArrayNode breadcrumbs) {
 
         AppDescriptor app = new AppDescriptor(id, id, label, "coreapps/findpatient/findPatient.page?app=" + id, icon, null, 0, privilege, null);
-        app.setInstanceOf("coreapps.template.findPatient");
 
         app.setConfig(objectNode(
                 "afterSelectedUrl", afterSelectedUrl,
@@ -535,6 +534,15 @@ public class CustomAppLoaderUtil {
         }
 
         return "";
+    }
+
+    static public Boolean containsExtension(List<Extension> extensions, String extensionId) {
+        for (Extension e : extensions) {
+            if (e.getId().equals(extensionId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

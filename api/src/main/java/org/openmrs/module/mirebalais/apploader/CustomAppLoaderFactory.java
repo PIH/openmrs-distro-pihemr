@@ -45,6 +45,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCre
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
@@ -774,13 +775,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.printLabels",
                 null));
 
-        // this provides the javascript the backs the three overall action buttons
-        extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,
-                "paperrecord",
-                "patientdashboard/overallActionsIncludes",
-                null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
-
+        addPaperRecordActionsIncludesIfNeeded();
     }
 
     public void enableWristbands() {
@@ -1073,12 +1068,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
         }
 
-        // this provides the javascript the backs the three overall action buttons
-        extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,
-                "paperrecord",
-                "patientdashboard/overallActionsIncludes",
-                null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+        addPaperRecordActionsIncludesIfNeeded();
 
        /* extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
                 "mirebalais.overallAction.editDemographics",
@@ -1116,7 +1106,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
-                    "visitUrl", "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.uuid}}&visitId={{visit.id}}"
+                        "visitUrl", "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.uuid}}&visitId={{visit.id}}"
                 )));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.VISITS_SUMMARY,
@@ -1168,7 +1158,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
     }
 
-
     private void enableLegacyPatientRegistration() {
 
         apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_REGISTRATION,
@@ -1207,6 +1196,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         registerTemplateForEncounterType(EncounterTypes.PRIMARY_CARE_VISIT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-calendar");
 
+    }
+
+    private void addPaperRecordActionsIncludesIfNeeded() {
+
+        // this provides the javascript the backs the three overall action buttons
+        // we need to make sure we don't add it twice
+        if (! containsExtension(extensions, Extensions.PAPER_RECORD_ACTIONS_INCLUDES)) {
+            extensions.add(fragmentExtension(Extensions.PAPER_RECORD_ACTIONS_INCLUDES,
+                    "paperrecord",
+                    "patientdashboard/overallActionsIncludes",
+                    null,
+                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+        }
     }
 
     public AppDescriptor findAppById(String id) {
