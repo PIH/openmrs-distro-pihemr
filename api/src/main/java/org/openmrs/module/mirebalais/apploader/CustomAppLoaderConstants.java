@@ -36,6 +36,7 @@ public class CustomAppLoaderConstants {
         public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String ID_CARD_PRINTING = "idcardPrinting";
+        public static final String CHART_SEARCH = "chartSearch";
     }
 
     public static final class Apps {
@@ -109,6 +110,7 @@ public class CustomAppLoaderConstants {
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
+        public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -220,7 +222,8 @@ public class CustomAppLoaderConstants {
             Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
             Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
-            Extensions.EDIT_PATIENT_CONTACT_INFO);
+            Extensions.EDIT_PATIENT_CONTACT_INFO,
+            Extensions.CHART_SEARCH_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,

@@ -228,6 +228,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableAllergies();
         }
 
+        if (config.isComponentEnabled(Components.CHART_SEARCH)) {
+            enableChartSearch();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1157,6 +1161,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
     }
+
+    private void enableChartSearch() {
+        extensions.add(overallAction(Extensions.CHART_SEARCH_OVERALL_ACTION,
+                "pihcore.chartSearch.label",
+                "icon-search",
+                "link",
+                "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(), // TODO correct permission!
+                null));
+    }
+
 
     private void enableLegacyPatientRegistration() {
 

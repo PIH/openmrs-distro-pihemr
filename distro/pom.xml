@@ -341,6 +341,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>chartsearch-omod</artifactId>
+                    <version>${chartsearchVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>orderentryui-omod</artifactId>
                     <version>${orderentryuiVersion}</version>
                     <scope>provided</scope>

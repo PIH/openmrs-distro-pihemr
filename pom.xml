@@ -92,6 +92,7 @@
         <printerVersion>1.2-SNAPSHOT</printerVersion>
         <allergyapiVersion>1.4-SNAPSHOT</allergyapiVersion>
         <allergyuiVersion>1.2-SNAPSHOT</allergyuiVersion>
+        <chartsearchVersion>1.4-SNAPSHOT</chartsearchVersion>
         <orderentryuiVersion>1.0-SNAPSHOT</orderentryuiVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -430,6 +431,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>dispensing-api</artifactId>
             <version>${dispensingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>chartsearch-api</artifactId>
+            <version>${chartsearchVersion}</version>
             <scope>provided</scope>
         </dependency>
         <!-- End OpenMRS modules -->

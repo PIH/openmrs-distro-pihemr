@@ -29,7 +29,8 @@
     "patientRegistration",
 
     "allergies",
-    "clinicianDashboard"
+    "clinicianDashboard",
+    "chartSearch"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
