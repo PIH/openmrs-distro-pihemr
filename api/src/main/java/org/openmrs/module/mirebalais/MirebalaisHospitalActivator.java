@@ -153,7 +153,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
-            if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalCompotentTest; TODO is to fix and get this to work
+            if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalComponentTest; TODO is to fix and get this to work
 
                 if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS) || config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
                     // must happen after location tags have been configured
