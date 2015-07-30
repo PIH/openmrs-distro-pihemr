@@ -118,7 +118,7 @@ public class PatientRegistrationApp {
     public Question getAddressQuestion(Config config) {
         Question q = new Question();
         q.setId("personAddressQuestion");
-        q.setLegend("Person.address");
+        q.setLegend("registrationapp.patient.address");
         q.setHeader("registrationapp.patient.address.question");
 
         Field f = new Field();
