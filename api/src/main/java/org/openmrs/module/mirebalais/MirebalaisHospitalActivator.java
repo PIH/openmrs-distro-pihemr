@@ -126,6 +126,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // take precedent over any in MDS packages; therefore we still do this in the Mirebalais module, not PIH Core
             HtmlFormSetup.setupHtmlForms(config);
 
+            // configure default dashboard in coreapps
+            updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());
+
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
                 LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);
             }
@@ -138,10 +141,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.APPOINTMENT_SCHEDULING)) {
                 AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
-            }
-
-            if (!config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
-                updateGlobalProperty(CoreAppsConstants.GP_DEFAULT_DASHBOARD, "visits");
             }
 
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {

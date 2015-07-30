@@ -42,6 +42,8 @@
   "scheduleBackupReports": "false",
   "providerIdentifierPrefix": "M",
 
+  "dashboardUrl": "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}",
+
   "registrationConfig": {
     "allowUnknownPatients": true,
     "allowManualEntryOfPrimaryIdentifier": true,
