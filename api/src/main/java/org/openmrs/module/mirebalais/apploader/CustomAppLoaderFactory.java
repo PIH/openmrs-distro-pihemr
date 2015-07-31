@@ -399,7 +399,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.clinic.consult.title",
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/outpatientConsult.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/outpatientConsult.xml"),
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
@@ -418,7 +418,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "emr.ed.consult.title",
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/edNote.xml&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/edNote.xml"),
                 null,
                 and(sessionLocationHasTag(LocationTags.ED_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
@@ -818,7 +818,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.scheduleAppointment.title",
                 "icon-calendar",
                 "link",
-                "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
                 "Task: appointmentschedulingui.bookAppointments",
                 null));
 
@@ -826,7 +826,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "appointmentschedulingui.requestAppointment.label",
                 "icon-calendar",
                 "link",
-                "appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}&returnProvider=coreapps&returnPage=patientdashboard/patientDashboard",
+                "appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}",
                 "Task: appointmentschedulingui.requestAppointments",
                 null));
 
