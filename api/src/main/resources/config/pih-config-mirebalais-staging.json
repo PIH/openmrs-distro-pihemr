@@ -26,6 +26,7 @@
     "lacollinePatientRegistrationEncounterTypes",
     "idcardPrinting",
     "oncology",
+    "labResults",
     "patientRegistration",
 
     "allergies",

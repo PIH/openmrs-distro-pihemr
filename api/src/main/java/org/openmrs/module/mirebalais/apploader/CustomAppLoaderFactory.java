@@ -172,6 +172,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableOncology();
         }
 
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LAB_RESULTS)) {
+            enableLabResults();
+        }
+
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
@@ -1153,6 +1157,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+    }
+
+    private void enableLabResults() {
+
+        extensions.add(visitAction(Extensions.LAB_RESULTS_VISIT_ACTION,
+                "pih.task.labResults.label",
+                "icon-beaker",
+                "link",
+                enterSimpleHtmlFormLink("pihcore:htmlforms/labResults.xml"),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privileges later
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        // TODO is this the right privilege set?
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.LAB_RESULTS_VISIT_ACTION), "oncologyNote");
+
+        registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
     }
 
     private void enableLegacyPatientRegistration() {
