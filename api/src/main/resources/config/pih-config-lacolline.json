@@ -22,6 +22,14 @@
         "idcardPrinting"
     ],
 
+    "visitTemplates": [
+      "timeline",
+      "adultInitialOutpatient",
+      "adultFollowupOutpatient",
+      "pedsInitialOutpatient",
+      ""
+    ],
+
     "globalProperties": {
         "mirebalais.checkIn.paymentAmounts": "100,75,50,0",
         "mirebalais.checkIn.paymentAmountLabels": "100,75,50,Exempt",

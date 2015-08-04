@@ -29,7 +29,12 @@
     "patientRegistration",
 
     "allergies",
-    "clinicianDashboard"
+    "clinicianDashboard",
+    "visitNote"
+  ],
+
+  "visitTemplates": [
+    "timeline"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
