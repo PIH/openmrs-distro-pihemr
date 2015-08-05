@@ -490,7 +490,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableDeathCertificate() {
 
         extensions.add(overallAction(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
-                "mirebalais.deathCertificate.enter.label",
+                "mirebalais.deathCertificate.death_certificate",
                 "icon-remove-circle",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/deathCertificate.xml"),
@@ -801,7 +801,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableAppointmentScheduling() {
 
         AppDescriptor apppointmentScheduling = app(Apps.APPOINTMENT_SCHEDULING_HOME,
-                "appointmentschedulingui.home.title",
+                "appointmentschedulingui.scheduleAppointment.new.title",
                 "icon-calendar",
                 "appointmentschedulingui/home.page",
                 "App: appointmentschedulingui.home",
