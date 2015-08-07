@@ -30,6 +30,7 @@
         "lacollinePatientRegistrationEncounterTypes",
         "idcardPrinting",
         "oncology",
+        "ncd",
         "labResults",
         "patientRegistration"
   ],
