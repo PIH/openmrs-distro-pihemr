@@ -827,7 +827,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
 
         extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
-                "appointmentschedulingui.scheduleAppointment.title",
+                "appointmentschedulingui.scheduleAppointment.new.title",
                 "icon-calendar",
                 "link",
                 "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
