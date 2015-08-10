@@ -189,6 +189,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableLabResults();
         }
 
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.NCD)) {
+            enableNCDs();
+        }
+
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
@@ -839,7 +843,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
 
         extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
-                "appointmentschedulingui.scheduleAppointment.title",
+                "appointmentschedulingui.scheduleAppointment.new.title",
                 "icon-calendar",
                 "link",
                 "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
@@ -1188,6 +1192,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+    }
+
+    private void enableNCDs() {
+
+        extensions.add(visitAction(Extensions.NCD_VISIT_ACTION,
+                "pih.task.ncd.label",
+                "icon-heart",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/ncdConsult.xml"),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privileges later
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        // TODO is this the right privilege set?
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.NCD_VISIT_ACTION), "oncologyNote");
+
+        registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO: correct this with the proper encounter role
     }
 
     private void enableChartSearch() {
