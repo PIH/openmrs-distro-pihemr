@@ -30,9 +30,7 @@
     "labResults",
     "patientRegistration",
     "allergies",
-    "clinicianDashboard",
-    "visitNote",
-    "chartSearch"
+    "clinicianDashboard"
   ],
 
   "visitTemplates": [
