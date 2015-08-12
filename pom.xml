@@ -92,7 +92,7 @@
         <printerVersion>1.2-SNAPSHOT</printerVersion>
         <allergyapiVersion>1.4-SNAPSHOT</allergyapiVersion>
         <allergyuiVersion>1.2-SNAPSHOT</allergyuiVersion>
-        <chartsearchVersion>1.4-SNAPSHOT</chartsearchVersion>
+        <chartsearchVersion>1.4</chartsearchVersion>
         <orderentryuiVersion>1.0-SNAPSHOT</orderentryuiVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
