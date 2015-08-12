@@ -30,13 +30,15 @@
     "labResults",
     "patientRegistration",
     "allergies",
-    "chartSearch"
+    "clinicianDashboard",
+    "chartSearch",
+    "visitNote"
   ],
 
   "visitTemplates": [
     "timeline"
-  ]
+  ],
 
-
+  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
 
 }
