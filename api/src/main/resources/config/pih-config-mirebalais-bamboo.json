@@ -31,8 +31,7 @@
     "patientRegistration",
     "allergies",
     "clinicianDashboard",
-    "chartSearch",
-    "visitNote"
+    "chartSearch"
   ],
 
   "visitTemplates": [
