@@ -646,6 +646,18 @@
                             <name>logicVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>chartsearchVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>metadatadeployVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>idgenVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
