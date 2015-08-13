@@ -129,8 +129,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // determine whether we are using the new visit note
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
-            patientVisitsPageUrl = "/pihcore/visit/visit.page?&patient={{patient.uuid}}";
-            patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visit={{visit.uuid}}";
+            patientVisitsPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList";
+            patientVisitsPageWithSpecificVisitUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview";
         }
         else {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
