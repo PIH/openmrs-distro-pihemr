@@ -1169,8 +1169,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION), "oncologyNote");
-
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
@@ -1190,8 +1188,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.LAB_RESULTS_VISIT_ACTION), "oncologyNote");
-
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
@@ -1210,8 +1206,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.NCD_VISIT_ACTION), "oncologyNote");
 
         registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO: correct this with the proper encounter role
