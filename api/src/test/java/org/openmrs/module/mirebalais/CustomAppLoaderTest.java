@@ -13,6 +13,7 @@ import java.util.Map;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 
 public class CustomAppLoaderTest  {
@@ -184,11 +185,12 @@ public class CustomAppLoaderTest  {
 
     @Test
     public void shouldCreateFragmentExtension() {
-        Extension extension = CustomAppLoaderUtil.fragmentExtension("id", "provider", "fragment", "privilege", "extensionPoint");
+        Extension extension = CustomAppLoaderUtil.fragmentExtension("id", "provider", "fragment", "privilege", "extensionPoint", map("config", "config"));
 
         assertThat(extension.getId(), is ("id"));
         assertThat((String) extension.getExtensionParams().get("provider"), is("provider"));
         assertThat((String) extension.getExtensionParams().get("fragment"), is("fragment"));
+        assertThat((String) ((Map<String,Object>) extension.getExtensionParams().get("fragmentConfig")).get("config"), is("config"));
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
         assertThat(extension.getExtensionPointId(), is("extensionPoint"));
     }

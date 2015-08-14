@@ -310,7 +310,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
     }
 
@@ -522,7 +523,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais",
                 "deathcertificate/headerLink",
                 "Task: mirebalais.enterDeathCertificate",
-                ExtensionPoints.DEATH_INFO_HEADER));
+                ExtensionPoints.DEATH_INFO_HEADER,
+                null));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION), "deathNote");
         addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION), "deathNote");
@@ -813,12 +815,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.printWristband",
                 null));
 
-        // this provides the javascript the backs the overall action button
+        // this provides the javascript the backs the print wrist action button
         extensions.add(fragmentExtension(Extensions.PRINT_WRISTBAND_ACTION_INCLUDES,
                 "mirebalais",
                 "wristband/printWristband",
                 null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                null));
 
     }
 
@@ -1274,7 +1277,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "paperrecord",
                     "patientdashboard/overallActionsIncludes",
                     null,
-                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                    null));
         }
     }
 
