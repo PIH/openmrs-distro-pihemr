@@ -31,14 +31,11 @@
     "patientRegistration",
     "allergies",
     "clinicianDashboard",
-    "chartSearch",
-    "visitNote"
+    "chartSearch"
   ],
 
   "visitTemplates": [
-    "timeline",
-    "adultInitialOutpatient",
-    "adultFollowupOutpatient"
+    "timeline"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
