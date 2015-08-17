@@ -14,6 +14,7 @@ import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
@@ -1171,7 +1172,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
     private void enableLabResults() {
@@ -1190,7 +1192,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true,
+                editSimpleHtmlFormLink(determineHtmlFormPath(config, "labResults")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+
     }
 
     private void enableNCDs() {
@@ -1208,7 +1212,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
         registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO: correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
     private void enableChartSearch() {
