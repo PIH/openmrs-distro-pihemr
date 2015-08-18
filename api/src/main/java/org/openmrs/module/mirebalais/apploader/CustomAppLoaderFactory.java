@@ -1172,7 +1172,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", false, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
