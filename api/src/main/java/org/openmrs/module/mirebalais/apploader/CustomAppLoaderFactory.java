@@ -170,6 +170,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ONCOLOGY)) {
             enableOncology();
+            enableChemotherapy();
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LAB_RESULTS)) {
@@ -1165,6 +1166,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+    }
+
+    private void enableChemotherapy() {
+
+        extensions.add(visitAction(Extensions.CHEMOTHERAPY_VISIT_ACTION,
+                "pih.task.chemotherapySession.label",
+                "icon-retweet",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/chemotherapyTreatment.xml"),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),  // TODO do we want an oncology-specific location?
+                        // TODO is this the right privilege set?
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.CHEMOTHERAPY_VISIT_ACTION), "chemotherapyTreatment");
+
+        registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
     }
 
     private void enableLabResults() {
