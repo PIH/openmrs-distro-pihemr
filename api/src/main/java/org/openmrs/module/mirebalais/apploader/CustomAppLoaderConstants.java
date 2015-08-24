@@ -21,7 +21,7 @@ public class CustomAppLoaderConstants {
         public static final String DISPENSING = "dispensing";
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";
-        // public static final String CHEMOTHERAPY = "chemotherapy";
+        public static final String CHEMOTHERAPY = "chemotherapy";
         public static final String NCD = "ncd";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";

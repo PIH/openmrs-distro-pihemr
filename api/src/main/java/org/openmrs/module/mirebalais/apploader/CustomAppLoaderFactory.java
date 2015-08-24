@@ -184,6 +184,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ONCOLOGY)) {
             enableOncology();
+        }
+
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHEMOTHERAPY)) {
             enableChemotherapy();
         }
 
@@ -1191,10 +1194,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.CHEMOTHERAPY_VISIT_ACTION), "chemotherapyTreatment");
+        // addFeatureToggleToExtension(findExtensionById(Extensions.CHEMOTHERAPY_VISIT_ACTION), "chemotherapyTreatment");
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
     private void enableLabResults() {
