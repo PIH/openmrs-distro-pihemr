@@ -20,6 +20,8 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.Properties;
+
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -27,7 +29,12 @@ import static org.mockito.Mockito.when;
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 
-    private RuntimeProperties customProperties;
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "mirebalais,mirebalais-production");
+        return p;
+    };
 
     @Autowired
     private MetadataDeployService deployService;
@@ -58,7 +65,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         activator.setTestMode(true);
         activator.contextRefreshed();
         activator.started();
-        customProperties = new RuntimeProperties();
     }
 
     @AfterClass

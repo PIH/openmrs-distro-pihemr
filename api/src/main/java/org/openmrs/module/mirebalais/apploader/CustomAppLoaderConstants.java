@@ -1,5 +1,7 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.openmrs.module.coreapps.CoreAppsConstants;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class CustomAppLoaderConstants {
         // TODO for checkin would need to fix requestRecord.gsp:69
         public static final String CHECK_IN = "mirebalais.liveCheckin";
         public static final String VITALS = "pih.app.vitals";
-        public static final String AWAITING_ADMISSION = "coreapps.app.awaitingAdmission";
+        public static final String AWAITING_ADMISSION = CoreAppsConstants.AWAITING_ADMISSION;
         public static final String ACTIVE_VISITS = "pih.app.activeVisits";
         public static final String ARCHIVES_ROOM = "paperrecord.app.archivesRoom";
         public static final String SYSTEM_ADMINISTRATION = "coreapps.app.systemAdministration";

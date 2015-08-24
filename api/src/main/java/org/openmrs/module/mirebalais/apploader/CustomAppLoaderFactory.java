@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.apploader;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.EncounterRole;
@@ -15,6 +14,7 @@ import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
@@ -97,6 +97,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private Boolean readyForRefresh = false;
 
+    private String patientVisitsPageUrl = "";
+
+    private String patientVisitsPageWithSpecificVisitUrl = "";
+
     @Override
     public List<AppDescriptor> getAppDescriptors() throws IOException {
         if (readyForRefresh) {
@@ -123,6 +127,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureHeader(config);
         setupDefaultEncounterTemplates();
+
+        // determine whether we are using the new visit note
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
+            patientVisitsPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList";
+            patientVisitsPageWithSpecificVisitUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview";
+        }
+        else {
+            patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
+            patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
+        }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
@@ -253,6 +267,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    // TODO will these be needed/used after we switch to the visit note view?
     private void setupDefaultEncounterTemplates() {
 
         extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.DEFAULT,
@@ -265,6 +280,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    // TODO does this need to be modified for the new visit note at all?
     private void enableVisitManagement() {
 
         extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
@@ -296,26 +312,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
     }
 
     private void enableActiveVisits() {
-
-        String url;
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
-            url = "/pihcore/visit/visit.page?visit={{visit.uuid}}";
-        }
-        else {
-            url = config.getDashboardUrl();
-        }
 
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS,
                 "coreapps.activeVisits.app.label",
                 "icon-check-in",
                 "coreapps/activeVisits.page?app=" + Apps.ACTIVE_VISITS,
                 "App: coreapps.activeVisits",
-                objectNode("patientPageUrl", url))));
+                objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
 
     }
 
@@ -361,6 +370,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "Task: mirebalais.checkinForm",
                     sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")), null);
@@ -400,6 +410,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
                 editSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"), null);
@@ -419,8 +430,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.CONSULTATION,
                 findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
     }
@@ -444,9 +457,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.AWAITING_ADMISSION,
                 "coreapps.app.awaitingAdmission.label",
                 "icon-list-ul",
-                "coreapps/adt/awaitingAdmission.page",
+                "coreapps/adt/awaitingAdmission.page?app=" + Apps.AWAITING_ADMISSION,
                 "App: coreapps.awaitingAdmission",
-                objectNode("patientPageUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}"))));
+                objectNode("patientPageUrl", config.getDashboardUrl()))));
 
         apps.add(addToHomePage(app(Apps.INPATIENTS,
                                 "mirebalaisreports.app.inpatients.label",
@@ -483,6 +496,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
+        // TODO will these be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.ADMISSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
 
@@ -511,7 +525,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais",
                 "deathcertificate/headerLink",
                 "Task: mirebalais.enterDeathCertificate",
-                ExtensionPoints.DEATH_INFO_HEADER));
+                ExtensionPoints.DEATH_INFO_HEADER,
+                null));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION), "deathNote");
         addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION), "deathNote");
@@ -544,6 +559,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+
         extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
                 "icon-x-ray",
@@ -554,6 +570,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_ORDER,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
 
@@ -583,6 +600,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.dispensing",
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
@@ -598,6 +616,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_SURGICAL_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
+        // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
@@ -798,12 +817,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.printWristband",
                 null));
 
-        // this provides the javascript the backs the overall action button
+        // this provides the javascript the backs the print wrist action button
         extensions.add(fragmentExtension(Extensions.PRINT_WRISTBAND_ACTION_INCLUDES,
                 "mirebalais",
                 "wristband/printWristband",
                 null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                null));
 
     }
 
@@ -875,27 +895,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: emr.systemAdministration",
                 null)));
 
-        String dashboardUrl = config.getDashboardUrl();
-        if (StringUtils.isNotBlank(dashboardUrl)) {
-            apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
-                    "coreapps.mergePatientsLong",
-                    "icon-group",
-                    "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
-                    "App: emr.systemAdministration",
-                    objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
-                            objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
-                            objectNode("label", "coreapps.mergePatientsLong")),
-                            "dashboardUrl", dashboardUrl))));
-        } else {
-            apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
-                    "coreapps.mergePatientsLong",
-                    "icon-group",
-                    "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
-                    "App: emr.systemAdministration",
-                    objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
-                            objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
-                            objectNode("label", "coreapps.mergePatientsLong"))))));
-        }
+        apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
+                "coreapps.mergePatientsLong",
+                "icon-group",
+                "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
+                "App: emr.systemAdministration",
+                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                        objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
+                        objectNode("label", "coreapps.mergePatientsLong")),
+                        "dashboardUrl", config.getDashboardUrl()))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
                 "emr.testPatient.registration",
@@ -1053,7 +1061,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "pihcore.visitDashboard",
                     "icon-user",
                     "link",
-                    "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}",
+                    patientVisitsPageUrl,
                     "App: coreapps.patientDashboard",
                     null));
         }
@@ -1116,7 +1124,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
-                        "visitUrl", "coreapps/patientdashboard/patientDashboard.page?patientId={{patient.uuid}}&visitId={{visit.id}}"
+                        "visitUrl", patientVisitsPageWithSpecificVisitUrl,
+                        "visitsUrl", patientVisitsPageUrl
                 )));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.VISITS_SUMMARY,
@@ -1162,10 +1171,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION), "oncologyNote");
-
+        // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
     private void enableChemotherapy() {
@@ -1202,10 +1211,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.LAB_RESULTS_VISIT_ACTION), "oncologyNote");
-
+        // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true,
+                editSimpleHtmlFormLink(determineHtmlFormPath(config, "labResults")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+
     }
 
     private void enableNCDs() {
@@ -1222,10 +1232,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.NCD_VISIT_ACTION), "oncologyNote");
-
         registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true, null, EncounterRole.UNKNOWN_ENCOUNTER_ROLE_UUID); // TODO: correct this with the proper encounter role
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
     private void enableChartSearch() {
@@ -1288,7 +1297,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "paperrecord",
                     "patientdashboard/overallActionsIncludes",
                     null,
-                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS));
+                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                    null));
         }
     }
 

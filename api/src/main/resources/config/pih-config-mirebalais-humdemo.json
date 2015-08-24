@@ -26,14 +26,11 @@
     "lacollinePatientRegistrationEncounterTypes",
     "idcardPrinting",
     "oncology",
-    "chemotherapy",
     "ncd",
     "labResults",
     "patientRegistration",
     "allergies",
-    "clinicianDashboard",
-    "visitNote",
-    "chartSearch"
+    "clinicianDashboard"
   ],
 
   "visitTemplates": [

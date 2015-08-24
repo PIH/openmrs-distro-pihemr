@@ -64,7 +64,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "mirebalais");
+        p.setProperty("pih.config", "mirebalais,mirebalais-production");
         return p;
     }
 
