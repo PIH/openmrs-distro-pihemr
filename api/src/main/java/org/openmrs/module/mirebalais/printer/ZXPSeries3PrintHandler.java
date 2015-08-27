@@ -245,6 +245,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
 
                 jStatus = device.getJobStatus(jobId);
 
+                // TODO figure out the right way to determine if a job needs to be cancelled or not
                 while (jStatus != null && !jStatus.printStatus.contains("cancelled") && System.currentTimeMillis() < dropDeadTime) {
                     device.cancel(jobId);
                     Thread.sleep(waitToCancelInterval);
