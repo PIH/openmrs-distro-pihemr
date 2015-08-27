@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class ZXPSeries3PrintHandler implements PrintHandler {
 
-    private static final int MAX_RETRY = 3;
+    private static final int MAX_RETRY = 2;
 
     private static final int TIME_BETWEEN_RETRIES_IN_MS = 5000;
 
@@ -65,7 +65,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         ZebraCardPrinter zebraCardPrinter = null;
         ZebraGraphics graphics = null;
         Connection connection = null;
-        List<GraphicsInfo> graphicsData = new ArrayList<GraphicsInfo>();
+        List<GraphicsInfo> graphicsData;
 
         int nameFontSize = 16;
 
@@ -80,11 +80,14 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         int retryCount = 0;
         boolean success = false;
 
+        Integer jobId = null;
+
         while (!success && retryCount < MAX_RETRY) {
 
             try {
                 connection = new TcpCardConnection(printer.getIpAddress(), 9100);
                 zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
+                graphicsData = new ArrayList<GraphicsInfo>();
 
                 GraphicsInfo grInfo = new GraphicsInfo();
                 grInfo.side = CardSide.Front;
@@ -157,14 +160,14 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                 graphics.clear();
                 graphicsData.add(grInfo);
 
-                int jobId = zebraCardPrinter.print(1, graphicsData);
+                jobId = zebraCardPrinter.print(1, graphicsData);
                 success = pollJobStatus(zebraCardPrinter, jobId, printer);
 
             } catch (Exception e) {
                 log.warn("Unable to print to printer " + printer.getName(), e);
-                retryCount++;
             } finally {
-                cleanUp(connection, zebraCardPrinter, graphics);
+                retryCount++;
+                cleanUp(connection, zebraCardPrinter, jobId, graphics, printer, success);
             }
 
             if (!success) {
@@ -200,11 +203,15 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
             if (jStatus.printStatus.contains("done_ok")) {
                 success = true;
                 break;
-            } else if (jStatus.printStatus.contains("alarm_handling")) {
-                log.error("Printer error detected with printer " + printer.getName() + ": " + jStatus.alarmInfo.description);
+            }
+            else if (jStatus.printStatus.contains("error") || jStatus.printStatus.contains("alarm_handling")) {
+                String errorMessage = jStatus.errorInfo != null ? "Err Code: " + jStatus.errorInfo.value + ", " + jStatus.errorInfo.description : "";
+                String alarmMessage = jStatus.alarmInfo != null ? "Alarm Message: "  + jStatus.alarmInfo.description : "";
+                log.error("Printer error detected with printer " + printer.getName() + ".  " + errorMessage + ", " + alarmMessage);
                 success = false;
                 break;
-            } else if (jStatus.printStatus.contains("error") || jStatus.printStatus.contains("cancelled")) {
+            }
+            else if (jStatus.printStatus.contains("cancelled")) {
                 success = false;
                 break;
             }
@@ -225,13 +232,39 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         return success;
     }
 
-    private void cleanUp(Connection connection, ZebraCardPrinter printer, ZebraGraphics graphics) {
+    private void cleanUp(Connection connection, ZebraCardPrinter device, int jobId, ZebraGraphics graphics, Printer printer, boolean success) {
+
+        // need to cancel any jobs before it will allow you to destroy the printer
+        if (!success && device != null) {
+
+            JobStatusInfo jStatus = null;
+
+            try {
+                long waitToCancelInterval = 500;
+                long dropDeadTime = System.currentTimeMillis() + 5000;
+
+                jStatus = device.getJobStatus(jobId);
+
+                while (jStatus != null && !jStatus.printStatus.contains("cancelled") && System.currentTimeMillis() < dropDeadTime) {
+                    device.cancel(jobId);
+                    Thread.sleep(waitToCancelInterval);
+                }
+
+            }
+            catch (ZebraCardException e) {
+                log.error("Error while attempting to cancel job on printer " + printer.getName() + ", Status: " + (jStatus != null ? jStatus.printStatus : ""), e);
+            }
+            catch (InterruptedException e) {
+                log.error("Error while attempting to cancel job on printer " + printer.getName() + ", Status: " + (jStatus != null ? jStatus.printStatus : ""), e);
+            }
+        }
+
         try {
-            if (printer != null) {
-                printer.destroy();
+            if (device != null) {
+                device.destroy();
             }
         } catch (ZebraCardException e) {
-            log.error("Unable to destroy printer object", e);
+            log.error("Unable to destroy printer object for printer " + printer.getName() , e);
         }
 
         if (graphics != null) {
@@ -242,7 +275,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
             try {
                 connection.close();
             } catch (ConnectionException e) {
-                log.error("Unable to close connection with printer", e);
+                log.error("Unable to close connection with printer " + printer.getName(), e);
             }
         }
     }

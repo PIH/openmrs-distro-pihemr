@@ -44,6 +44,7 @@ public class IdCardFragmentController {
         StatusMessage status;
 
         try {
+            // TODO this should actually handle errors!
             printer.print(patient, location);
             status = new StatusMessage(true, ui.message("zl.registration.patient.idcard.successMessage", location.getName()));
         }
