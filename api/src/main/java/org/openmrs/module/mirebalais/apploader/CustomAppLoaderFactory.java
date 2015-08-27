@@ -573,6 +573,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
+        if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
+            apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_APP,
+                    "coreapps.clinicianfacing.radiology",
+                    "icon-camera",
+                    "null",
+                    "Task: org.openmrs.module.radiologyapp.tab",
+                    null),
+                    "radiologyapp", "radiologySection"));
+        }
+
         // TODO will this be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_ORDER,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
