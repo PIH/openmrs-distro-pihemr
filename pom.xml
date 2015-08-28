@@ -51,7 +51,7 @@
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
-        <emrapiVersion>1.9-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.10-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.4-SNAPSHOT</uiframeworkVersion>
