@@ -1,5 +1,4 @@
 {
-
   "components": [
     "visitManagement",
     "activeVisits",
@@ -14,7 +13,6 @@
     "dispensing",
     "surgery",
     "overviewReports",
-    "dataExports",
     "archives",
     "wristbands",
     "appointmentScheduling",
@@ -23,20 +21,8 @@
     "myAccount",
     "legacyMpi",
     "legacyPatientRegistration",
-    "lacollinePatientRegistrationEncounterTypes",
-    "idcardPrinting",
-    "oncology",
-    "ncd",
-    "labResults",
-    "patientRegistration",
-    "allergies",
-    "clinicianDashboard"
-  ],
+    "lacollinePatientRegistrationEncounterTypes"
 
-  "visitTemplates": [
-    "timeline"
-  ],
-
-  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
+  ]
 
 }

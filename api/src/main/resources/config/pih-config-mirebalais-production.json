@@ -21,9 +21,7 @@
         "myAccount",
         "legacyMpi",
         "legacyPatientRegistration",
-        "lacollinePatientRegistrationEncounterTypes",
-        "idcardPrinting",
-        "oncology"
+        "lacollinePatientRegistrationEncounterTypes"
     ],
 
     "scheduleBackupReports": "true"
