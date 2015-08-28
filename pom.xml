@@ -622,10 +622,6 @@
                             <name>calculationVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                     <!--   <property>
-                            <name>idgenVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>-->
                         <property>
                             <name>namephoneticsVersion</name>
                             <banSnapshots>true</banSnapshots>
