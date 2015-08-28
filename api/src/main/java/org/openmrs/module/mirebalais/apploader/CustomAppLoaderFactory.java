@@ -186,10 +186,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableOncology();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHEMOTHERAPY)) {
-            enableChemotherapy();
-        }
-
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LAB_RESULTS)) {
             enableLabResults();
         }
@@ -1188,9 +1184,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
-    }
 
-    private void enableChemotherapy() {
+        extensions.add(visitAction(Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
+                "pih.task.oncologyInitialConsult.label",
+                "icon-paste",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/oncologyIntake.xml"),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
+
+        // will we need this template after we stop using old patient visits view?
+        registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_INITIAL_VISIT,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
         extensions.add(visitAction(Extensions.CHEMOTHERAPY_VISIT_ACTION,
                 "pih.task.chemotherapySession.label",
@@ -1198,13 +1207,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/chemotherapyTreatment.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),  // TODO do we want an oncology-specific location?
-                        // TODO is this the right privilege set?
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
-
-        // addFeatureToggleToExtension(findExtensionById(Extensions.CHEMOTHERAPY_VISIT_ACTION), "chemotherapyTreatment");
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true,
