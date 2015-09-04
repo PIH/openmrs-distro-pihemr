@@ -570,6 +570,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
+            apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_ORDERS_APP,
+                            "radiologyapp.app.orders",
+                            "icon-camera",
+                            "null",
+                            "Task: org.openmrs.module.radiologyapp.tab",
+                            null),
+                    "radiologyapp", "radiologyOrderSection"));
+
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_APP,
                     "coreapps.clinicianfacing.radiology",
                     "icon-camera",

@@ -84,6 +84,7 @@ public class CustomAppLoaderConstants {
         public static final String LEGACY_PATIENT_LOOKUP = "mirebalais.patientRegistration.app.lookup";
 
         public static final String RADIOLOGY_APP = "radiology.app";
+        public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
     }
 
     public static final class Extensions {
@@ -271,6 +272,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.VISITS_SUMMARY + ".clinicianDashboardFirstColumn",
             Apps.APPOINTMENT_SCHEDULING_HOME + ".clinicianDashboardFirstColumn",
+            Apps.RADIOLOGY_ORDERS_APP + ".clinicianDashboardFirstColumn",
             Apps.RADIOLOGY_APP + ".clinicianDashboardFirstColumn"
     );
 
