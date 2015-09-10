@@ -1182,9 +1182,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/oncologyConsult.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),  // TODO do we want an oncology-specific location?
-                        // TODO is this the right privilege set?
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
@@ -1199,8 +1198,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/oncologyIntake.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
@@ -1215,8 +1214,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/chemotherapyTreatment.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                and(sessionLocationHasTag(LocationTags.CHEMOTHERAPY_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
@@ -1232,10 +1231,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-beaker",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/labResults.xml"),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privileges later
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        // TODO is this the right privilege set?
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privilege and location when we roll out to other services
+                and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
@@ -1253,10 +1251,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-heart",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/ncdConsult.xml"),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privileges later
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        // TODO is this the right privilege set?
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(), // ToDo:  change privileges and location to new NCD location and privielge
+                and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))));
 
