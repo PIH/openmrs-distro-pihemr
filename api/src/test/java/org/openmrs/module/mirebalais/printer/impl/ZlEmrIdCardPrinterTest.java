@@ -7,10 +7,13 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
@@ -20,6 +23,7 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocat
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
+import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
 import org.openmrs.module.printer.PrinterModuleActivator;
@@ -27,6 +31,9 @@ import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Test the ZL EMR ID Card Printer functionality
@@ -38,6 +45,9 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private PrinterService printerService;
+
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     LocationTagBundle locationTagBundle;
@@ -72,6 +82,11 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
         addressBundle.installAddressTemplate(); // Install address template needed for layout on id card
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
+
+        Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        LocationTagSetup.setupLocationTags(locationService, config);
     }
 
     @Test
