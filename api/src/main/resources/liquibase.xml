@@ -224,5 +224,17 @@
         </comment>
         <customChange class="org.openmrs.module.mirebalais.liquibase.PrintingIDCardStatusChangeSet"/>
     </changeSet>
+
+
+    <changeSet id="20150911-migrate-patient-identifier-location" author="mgoodrich">
+        <comment>
+            When we opened CDI and migrated location information, we forget to migrate the location the ZL EMR ID
+        </comment>
+        <sql>
+            UPDATE `patient_identifier` SET location_id = (SELECT location_id FROM location WHERE uuid='24bd1390-5959-11e4-8ed6-0800200c9a66')
+            WHERE location_id = (SELECT location_id FROM location WHERE uuid='a084f714-a536-473b-94e6-ec317b152b43')
+            AND identifier_type = (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid='a541af1e-105c-40bf-b345-ba1fd6a59b85');
+        </sql>
+    </changeSet>
     
 </databaseChangeLog>
