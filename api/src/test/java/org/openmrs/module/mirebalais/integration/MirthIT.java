@@ -271,7 +271,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
             ConfigureHaitiIdGenerators configureIdGenerators = mock(ConfigureHaitiIdGenerators.class);
             when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
             when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
-            when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://bamboo.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
+            when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://humci.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
 
             setCustomProperties(properties);
         }
