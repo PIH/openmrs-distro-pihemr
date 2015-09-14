@@ -1,5 +1,7 @@
 {
     "components": [
         "dataExports"
-    ]
+    ],
+
+    "scheduleMonthlyDataExports": true
 }

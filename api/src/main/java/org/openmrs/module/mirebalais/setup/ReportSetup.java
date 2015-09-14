@@ -42,8 +42,10 @@ public class ReportSetup {
         // TODO: Pull report configuration out into a better configuration file
         if (config.getCountry() != ConfigDescriptor.Country.LIBERIA) {
             setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            setupBackupReports(reportService, reportDefinitionService, config);
         }
+
+        scheduleBackupReports(reportService, reportDefinitionService, config);
+        scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
     }
 
 
@@ -85,7 +87,7 @@ public class ReportSetup {
         }
     }
 
-    private static void setupBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
+    private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
         // sets up reports currently only used on Mirebalais production server (as a backup)
         if (config.shouldScheduleBackupReports()) {
 
@@ -123,8 +125,8 @@ public class ReportSetup {
             checkInsDataExportScheduledReportRequest.setReportDefinition(Mapped.map(checkInsDataExportReportDefinition, "startDate=${start_of_today - 7d},endDate=${now}"));
             checkInsDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, checkInsDataExportReportDefinition));
             checkInsDataExportScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
-
             reportService.queueReport(checkInsDataExportScheduledReportRequest);
+
         }
         else {
 
@@ -145,6 +147,31 @@ public class ReportSetup {
 
         }
     }
+
+    private static void scheduleMonthlyExportsReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
+
+        if (config.shouldScheduleMonthlyDataExports()) {
+            // scheduled to run during the morning of the 5th of every month, for the previous month
+            ReportRequest fullDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (fullDataExportScheduledReportRequest == null) {
+                fullDataExportScheduledReportRequest = new ReportRequest();
+            }
+
+            ReportDefinition fullDataExportReportDefinition = reportDefinitionService.getDefinitionByUuid(MirebalaisReportsProperties.FULL_DATA_EXPORT_REPORT_DEFINITION_UUID);
+            fullDataExportScheduledReportRequest.setUuid(MirebalaisReportsProperties.FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            fullDataExportScheduledReportRequest.setReportDefinition(Mapped.map(fullDataExportReportDefinition, "startDate=${start_of_last_month},endDate=${end_of_last_month}"));
+            fullDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, fullDataExportReportDefinition));
+            fullDataExportScheduledReportRequest.setSchedule("0 0 4 5 * ?");  //4am on the 5th of the month
+            reportService.queueReport(fullDataExportScheduledReportRequest);
+        }
+        else {
+            ReportRequest fullDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (fullDataExportScheduledReportRequest != null) {
+                reportService.purgeReportRequest(fullDataExportScheduledReportRequest);
+            }
+        }
+    }
+
 
     /**
      * This is only public for testing

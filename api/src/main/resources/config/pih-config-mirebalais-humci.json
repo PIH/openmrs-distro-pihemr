@@ -38,6 +38,8 @@
     "timeline"
   ],
 
+  "scheduleMonthlyDataExports": true,
+
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
 
 }
