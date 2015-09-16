@@ -20,8 +20,8 @@
         "managePrinters",
         "myAccount",
         "legacyMpi",
-        "legacyPatientRegistration",
-        "lacollinePatientRegistrationEncounterTypes"
+        "lacollinePatientRegistrationEncounterTypes",
+        "patientRegistration"
     ],
 
     "scheduleBackupReports": "true"
