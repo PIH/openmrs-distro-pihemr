@@ -245,7 +245,6 @@ public class PatientRegistrationApp {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             // ordered alphabetically in French, with Unemployed and Other last
             w.getConfig().addOption("PIH:SHEPHERD", "zl.registration.patient.occupation.shepherd.label");
-            w.getConfig().addOption("PIH:BREWER", "zl.registration.patient.occupation.brewer.label");
             w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");
             w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");
             w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");
