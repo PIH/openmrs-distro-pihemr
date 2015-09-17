@@ -21,6 +21,8 @@
         "myAccount",
         "legacyMpi",
         "lacollinePatientRegistrationEncounterTypes",
+        "idcardPrinting",
+        "oncology",
         "patientRegistration"
     ],
 
