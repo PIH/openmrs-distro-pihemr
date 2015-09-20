@@ -23,7 +23,7 @@
         "lacollinePatientRegistrationEncounterTypes",
         "idcardPrinting",
         "oncology",
-        "patientRegistration"
+        "legacyPatientRegistration"
     ],
 
     "scheduleBackupReports": "true"
