@@ -236,5 +236,27 @@
             AND identifier_type = (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid='a541af1e-105c-40bf-b345-ba1fd6a59b85');
         </sql>
     </changeSet>
-    
+
+    <changeSet id="20150921-migrate-printing-history-to-new-concept" author="mgoodrich">
+        <preConditions onFail="CONTINUE">
+            <not>
+                <sqlCheck expectedResult="0">
+                    select count(*) from obs where concept_id = (select concept_id from concept where uuid = '9d1b04df-ee77-11e4-a257-54ee7513a7ff')
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <comment>
+            This is an exact copy of 20150921-migrate-printing-history-to-new-concept as listed above--we need to run again since we rolled back temporarily to the
+            the old patient registration
+
+            The legacy patientregistration module used a concept named "PrintingIDCardStatus" to store observations as
+            to whether an id card was successfully scanned after printing, or if printing failed.
+            We have decided to migrate away from this concept (which models answers as text-obs and does not have a consistent uuid across our servers),
+            in favor of a new coded concept with a consistent uuid.  This changeset handles the data migration necessary for this,
+            but only should be enabled/run on a given system once we have transitioned to the new patient registration.
+        </comment>
+        <customChange class="org.openmrs.module.mirebalais.liquibase.PrintingIDCardStatusChangeSet"/>
+    </changeSet>
+
+
 </databaseChangeLog>
