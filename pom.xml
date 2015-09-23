@@ -440,7 +440,14 @@
             <version>${chartsearchVersion}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- End OpenMRS modules -->
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>registrationcore-api</artifactId>
+            <version>${registrationcoreVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- End OpenMRS modules-->
 
         <!-- Begin OpenMRS contrib -->
 
