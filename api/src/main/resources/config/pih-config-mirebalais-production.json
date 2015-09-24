@@ -24,7 +24,7 @@
         "idcardPrinting",
         "oncology",
         "labResults",
-        "patientRegistration"
+        "legacyPatientRegistration"
     ],
 
     "scheduleBackupReports": "true"
