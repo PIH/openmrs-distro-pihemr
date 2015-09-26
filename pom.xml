@@ -84,10 +84,10 @@
         <registrationcoreVersion>1.2-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.3-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
-        <coreappsVersion>1.7-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>1.7</coreappsVersion>
         <webservicesRestVersion>2.12-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.4</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.0.3-SNAPSHOT</appointmentschedulinguiVersion>
+        <appointmentschedulinguiVersion>1.0.3</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.2-SNAPSHOT</printerVersion>
         <allergyapiVersion>1.4-SNAPSHOT</allergyapiVersion>
