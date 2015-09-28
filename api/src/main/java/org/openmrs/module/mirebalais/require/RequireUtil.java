@@ -7,15 +7,15 @@ public class RequireUtil {
 
 
     public static String patientHasActiveVisit() {
-        return new String("typeof visit !== 'undefined' && visit != null && visit.active");
+        return new String("typeof visit !== 'undefined' && visit != null && (visit.stopDatetime == null)");
     }
 
     public static String patientDoesNotActiveVisit() {
-        return new String("typeof visit == 'undefined' || !visit || !visit.active");
+        return new String("typeof visit == 'undefined' || !visit || (visit.stopDatetime !== null)");
     }
 
     public static String patientVisitWithinPastThirtyDays() {
-        return new String("typeof visit !== 'undefined' && visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) < 30");
+        return new String("typeof visit !== 'undefined' && visit != null && ((((new Date()).getTime() - new Date(visit.stopDatetime).getTime()) / (1000*60*60*24)) < 30 )");
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
