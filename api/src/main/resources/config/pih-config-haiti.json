@@ -42,6 +42,17 @@
     "registrationConfig": {
         "allowUnknownPatients": true,
         "allowManualEntryOfPrimaryIdentifier": true,
-        "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"
+        "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+      "similarPatientsSearch": {
+        "addressFields": {
+          "cityVillage": "1",
+          "address3": "1",
+          "address1": "1"
+        },
+        "personAttributeTypes" : {
+          "Mother's First Name": "3",
+          "Telephone Number": "10"
+        }
+      }
     }
 }
