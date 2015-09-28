@@ -55,7 +55,7 @@
         <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.4</uiframeworkVersion>
-        <appframeworkVersion>2.4-SNAPSHOT</appframeworkVersion>
+        <appframeworkVersion>2.4</appframeworkVersion>
         <metadatasharingVersion>1.1.9</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.5</metadatadeployVersion>
@@ -81,7 +81,7 @@
         <appuiVersion>1.5-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
         <uicommonsVersion>1.8-SNAPSHOT</uicommonsVersion>
-        <registrationcoreVersion>1.2-SNAPSHOT</registrationcoreVersion>
+        <registrationcoreVersion>1.2</registrationcoreVersion>
         <registrationappVersion>1.3-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.8-SNAPSHOT</coreappsVersion>
