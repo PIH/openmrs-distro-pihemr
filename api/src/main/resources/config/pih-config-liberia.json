@@ -28,6 +28,17 @@
   "registrationConfig": {
     "allowUnknownPatients": false,
     "allowManualEntryOfPrimaryIdentifier": false,
-    "afterCreatedUrl": "registrationapp/registrationSummary.page?patientId={{patientId}}"
+    "afterCreatedUrl": "registrationapp/registrationSummary.page?patientId={{patientId}}",
+    "similarPatientsSearch": {
+      "addressFields": {
+        "countyDistrict": "1",
+        "cityVillage": "1",
+        "address1": "1"
+      },
+      "personAttributeTypes" : {
+        "Mother's First Name": "3",
+        "Telephone Number": "10"
+      }
+    }
   }
 }
