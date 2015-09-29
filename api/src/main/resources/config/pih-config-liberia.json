@@ -31,7 +31,6 @@
     "afterCreatedUrl": "registrationapp/registrationSummary.page?patientId={{patientId}}",
     "similarPatientsSearch": {
       "addressFields": {
-        "countyDistrict": "1",
         "cityVillage": "1",
         "address1": "1"
       },
