@@ -1,7 +1,6 @@
 {
     "components": [
-        "dataExports",
-        "patientRegistration"
+        "dataExports"
     ],
 
     "scheduleMonthlyDataExports": true
