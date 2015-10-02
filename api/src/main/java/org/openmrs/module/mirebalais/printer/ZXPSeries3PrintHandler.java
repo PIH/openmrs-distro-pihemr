@@ -89,10 +89,13 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
             try {
                 connection = new TcpCardConnection(printer.getIpAddress(), 9100, 2000); // timeout after 2000 msec
                 connection.open();
+
                 zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
                 graphicsData = new ArrayList<GraphicsInfo>();
 
                 log.info("Connection opened for ID card printing for patient " + patientIdentifier);
+                log.info("Max timeout for read " + connection.getMaxTimeoutForRead());
+                log.info("Time to wait for more data " + connection.getTimeToWaitForMoreData());
 
                 GraphicsInfo grInfo = new GraphicsInfo();
                 grInfo.side = CardSide.Front;
