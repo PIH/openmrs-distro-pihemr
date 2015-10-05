@@ -262,7 +262,7 @@ public class PatientRegistrationApp {
             w.getConfig().addOption("PIH:SHOP OWNER", "zl.registration.patient.occupation.shopOwner.label");
             w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");
             w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
-            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER,", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
+            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
             w.getConfig().addOption("CIEL:162945", "zl.registration.patient.occupation.marketVendor.label");
             w.getConfig().addOption("PIH:STUDENT", "zl.registration.patient.occupation.student.label");
             w.getConfig().addOption("PIH:UNEMPLOYED", "zl.registration.patient.occupation.unemployed.label");
@@ -277,7 +277,7 @@ public class PatientRegistrationApp {
             w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");
             w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");
             w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");
-            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER,", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
+            w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
             w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");
             w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
             w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
