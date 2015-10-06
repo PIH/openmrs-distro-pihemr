@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.require;
 
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;
 
@@ -14,8 +15,12 @@ public class RequireUtil {
         return new String("typeof visit == 'undefined' || !visit || (visit.stopDatetime !== null)");
     }
 
-    public static String patientVisitWithinPastThirtyDays() {
-        return new String("typeof visit !== 'undefined' && visit != null && ((((new Date()).getTime() - new Date(visit.stopDatetime).getTime()) / (1000*60*60*24)) < 30 )");
+    public static String patientVisitWithinPastThirtyDays(Config config) {
+        if (config.isComponentEnabled("visitNote")) {
+            return new String("typeof visit !== 'undefined' && visit != null && ((((new Date()).getTime() - new Date(visit.stopDatetime).getTime()) / (1000*60*60*24)) < 30 )");
+        } else {
+            return new String("typeof visit !== 'undefined' && visit != null && (Date.now () - visit.stopDatetimeInMilliseconds)/(1000 * 60 * 60 * 24) < 30");
+        }
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {

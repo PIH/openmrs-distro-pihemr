@@ -16,6 +16,7 @@ import org.openmrs.module.appframework.service.AppFrameworkServiceImpl;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.contextmodel.VisitContextModel;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
@@ -296,7 +297,10 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(patientVisitWithinPastThirtyDays()), appContextModel), is(true));
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(patientVisitWithinPastThirtyDays(config)), appContextModel), is(true));
     }
 
     @Test
@@ -308,7 +312,10 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(patientVisitWithinPastThirtyDays()), appContextModel), is(false));
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(patientVisitWithinPastThirtyDays(config)), appContextModel), is(false));
     }
 
     @Test
@@ -333,11 +340,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
@@ -363,11 +373,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -394,11 +407,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
@@ -425,11 +441,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -456,11 +475,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -486,11 +508,14 @@ public class RequireUtilTest {
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
         appContextModel.put("visit", visit);
 
+        Config config = mock(Config.class);
+        when(config.isComponentEnabled("visitNote")).thenReturn(false);
+
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays())))),
+                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
