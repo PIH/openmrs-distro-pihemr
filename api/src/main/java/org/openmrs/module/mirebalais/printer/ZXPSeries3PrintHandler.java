@@ -172,7 +172,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                 success = pollJobStatus(zebraCardPrinter, jobId, printer);
 
             } catch (Exception e) {
-                log.error("Unable to print to printer " + printer.getName(), e);
+                log.warn("Unable to print to printer " + printer.getName(), e);
             } finally {
                 retryCount++;
                 cleanUp(connection, zebraCardPrinter, jobId, graphics, printer, success);
