@@ -40,7 +40,7 @@ public class ReportSetup {
         setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
         // TODO: Pull report configuration out into a better configuration file
-        if (config.getCountry() != ConfigDescriptor.Country.LIBERIA) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
         }
 

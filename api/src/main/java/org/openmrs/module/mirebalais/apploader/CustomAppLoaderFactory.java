@@ -260,7 +260,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void configureHeader(Config config){
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_english_name.png"));
         }
 
@@ -651,7 +651,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         // TODO: Get rid of this hack in favor of proper configuration
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
             extensions.add(extension(Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,
                     "mirebalaisreports.registrationoverview.title",
                     null,
@@ -674,7 +674,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     1,
                     map("linkId", "mirebalaisreports-checkinoverview-link")));
         }
-        else {
+        else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
 
             extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
                     "mirebalaisreports.dailyRegistrations.name",
@@ -751,7 +751,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         // TODO: Replace this with property configuration in config
-        if (config.getCountry() != ConfigDescriptor.Country.LIBERIA) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
 
             extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
                     "mirebalaisreports.userAndProviders.name",

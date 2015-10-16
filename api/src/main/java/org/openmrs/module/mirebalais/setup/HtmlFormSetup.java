@@ -58,6 +58,17 @@ public class HtmlFormSetup {
                 );
             }
 
+            else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+                htmlforms = Arrays.asList(
+                        "pihcore:htmlforms/patientRegistration.xml",
+                        "pihcore:htmlforms/patientRegistration-rs.xml",
+                        "pihcore:htmlforms/sierra_leone/checkin.xml",
+                        "pihcore:htmlforms/sierra_leone/liveCheckin.xml",
+                        "pihcore:htmlforms/sierra_leone/patientRegistration-contact.xml",
+                        "pihcore:htmlforms/sierra_leone/patientRegistration-social.xml"
+                );
+            }
+
             if (htmlforms != null) {
                 for (String htmlform : htmlforms) {
                     HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, htmlform);
