@@ -78,9 +78,6 @@ public class CustomAppLoaderConstants {
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
-        public static final String LEGACY_PATIENT_REGISTRATION = "mirebalais.patientRegistration.app.registration";
-        public static final String LEGACY_PATIENT_REGISTRATION_ED = "mirebalais.patientRegistration.app.registration.ed";
-        public static final String LEGACY_PATIENT_LOOKUP = "mirebalais.patientRegistration.app.lookup";
 
         public static final String RADIOLOGY_APP = "radiology.app";
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
@@ -203,9 +200,6 @@ public class CustomAppLoaderConstants {
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
             Apps.REPORTS,
-            Apps.LEGACY_PATIENT_REGISTRATION,
-            Apps.LEGACY_PATIENT_REGISTRATION_ED,
-            Apps.LEGACY_PATIENT_LOOKUP,
             Apps.DISPENSING,
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
