@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.EncounterRole;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -232,10 +231,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
             enableLegacyMPI();
-        }
-
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_PATIENT_REGISTRATION)) {
-            enableLegacyPatientRegistration();
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES)) {
@@ -1044,7 +1039,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-user",
                 "link",
                 "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION + "&search={{search}}",
-                "App: patientregistration.edit",
+                "App: registrationapp.registerPatient",
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
@@ -1052,7 +1047,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-group",
                 "link",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
-                "App: patientregistration.edit",
+                "App: registrationapp.registerPatient",
                 null));
 
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
@@ -1069,7 +1064,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "icon-user",
                     "link",
                     "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
-                    "App: patientregistration.edit",
+                    "App: registrationapp.registerPatient",
                     null));
         }
 
@@ -1104,22 +1099,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         addPaperRecordActionsIncludesIfNeeded();
-
-       /* extensions.add(overallAction(Extensions.EDIT_PATIENT_DEMOGRAPHICS,
-                "mirebalais.overallAction.editDemographics",
-                "icon-edit",
-                "link",
-                "registrationapp/editSection.page?patientId={{patient.patientId}}&sectionId=demographics&appId=" + Apps.PATIENT_REGISTRATION,
-                "App: patientregistration.edit",
-                null));
-
-        extensions.add(overallAction(Extensions.EDIT_PATIENT_CONTACT_INFO,
-                "mirebalais.overallAction.editContactInfo",
-                "icon-edit",
-                "link",
-                "registrationapp/editSection.page?patientId={{patient.patientId}}&sectionId=contactInfo&appId=" + Apps.PATIENT_REGISTRATION,
-                "App: patientregistration.edit",
-                null));*/
 
     }
 
@@ -1270,38 +1249,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(), // TODO correct permission!
                 null));
-    }
-
-
-    private void enableLegacyPatientRegistration() {
-
-        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_REGISTRATION,
-                "mirebalais.app.patientRegistration.registration.label",
-                "icon-register",
-                "mirebalais/patientRegistration/appRouter.page?task=patientRegistration",
-                "App: patientregistration.main",
-                null),
-                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)) );
-
-        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_REGISTRATION_ED,
-                "mirebalais.app.patientRegistration.emergencyCheckin.label",
-                "icon-hospital",
-                "mirebalais/patientRegistration/appRouter.page?task=edCheckIn",
-                "App: patientregistration.main",
-                null),
-                sessionLocationHasTag(LocationTags.ED_REGISTRATION_LOCATION)) );
-
-        apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_PATIENT_LOOKUP,
-                "mirebalais.app.patientRegistration.patientLookup.label",
-                "icon-edit",
-                "mirebalais/patientRegistration/appRouter.page?task=patientLookup",
-                "App: patientregistration.edit",
-                null),
-                sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
-
-        registerTemplateForEncounterType(EncounterTypes.PATIENT_REGISTRATION,
-                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-register");
-
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {

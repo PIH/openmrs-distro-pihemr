@@ -62,9 +62,6 @@
         <require_module version="${registrationcoreVersion}">
             org.openmrs.module.registrationcore
         </require_module>
-        <require_module version="${patientregistrationVersion}">
-            org.openmrs.module.patientregistration
-        </require_module>
         <require_module version="${namephoneticsVersion}">
             org.openmrs.module.namephonetics
         </require_module>

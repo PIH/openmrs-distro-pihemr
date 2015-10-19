@@ -70,7 +70,6 @@
         <serializationxstreamVersion>0.2.9-SNAPSHOT</serializationxstreamVersion>
         <idgenVersion>4.0</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
-        <patientregistrationVersion>2.2-SNAPSHOT</patientregistrationVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.7</addresshierarchyVersion>
         <providermanagementVersion>2.3</providermanagementVersion>
@@ -233,13 +232,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>metadatadeploy-api</artifactId>
             <version>${metadatadeployVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>patientregistration-api</artifactId>
-            <version>${patientregistrationVersion}</version>
             <scope>provided</scope>
         </dependency>
 

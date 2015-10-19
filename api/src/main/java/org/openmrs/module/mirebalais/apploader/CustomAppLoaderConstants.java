@@ -37,7 +37,6 @@ public class CustomAppLoaderConstants {
         public static final String ALLERGIES = "allergies";
         public static final String PRESCRIPTIONS = "prescriptions";
         public static final String LEGACY_MPI = "legacyMpi";
-        public static final String LEGACY_PATIENT_REGISTRATION = "legacyPatientRegistration";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";

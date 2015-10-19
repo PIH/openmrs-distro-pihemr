@@ -37,7 +37,6 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;;
 import org.openmrs.module.pihcore.identifier.haiti.ConfigureHaitiIdGenerators;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
@@ -165,7 +164,7 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		patient.addName(name);
 		
 		PatientIdentifier identifier = new PatientIdentifier();
-		identifier.setIdentifierType(PatientRegistrationGlobalProperties.GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE());
+		identifier.setIdentifierType(emrApiProperties.getPrimaryIdentifierType());
 		identifier.setIdentifier("2ADMMN");
 		identifier.setPreferred(true);
 		identifier.setLocation(locationService.getLocation("Unknown Location"));

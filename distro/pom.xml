@@ -83,13 +83,6 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>patientregistration-omod</artifactId>
-                    <version>${patientregistrationVersion}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
                     <artifactId>pacsintegration-omod</artifactId>
                     <version>${pacsintegrationVersion}</version>
                     <scope>provided</scope>
