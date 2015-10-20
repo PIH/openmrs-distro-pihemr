@@ -440,7 +440,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- we include this just so that the versions updater properly updates rest version numbers -->
+        <!-- we include the rest and reporting rest dependencies just so that the versions updater properly updates rest version numbers -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>reportingrest</artifactId>
+            <version>${reportingrestVersion}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>webservices.rest</artifactId>
@@ -448,6 +455,7 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
+
 
         <!-- End OpenMRS modules-->
 
