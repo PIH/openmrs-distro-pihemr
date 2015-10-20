@@ -11,7 +11,6 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -60,7 +59,7 @@ public class PatientRegistrationApp {
 
     public RegistrationAppConfig getRegistrationAppConfig(Config config) {
         RegistrationAppConfig c = new RegistrationAppConfig();
-        c.setPatientDashboardLink(MirebalaisConstants.PATIENT_DASHBOARD_LINK);
+        c.setPatientDashboardLink("registrationapp/registrationSummary.page");
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());

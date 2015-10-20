@@ -14,14 +14,15 @@
 package org.openmrs.module.mirebalais.page.controller;
 
 import org.apache.commons.lang.StringUtils;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
@@ -59,12 +60,18 @@ public class HomePageController {
 		
 		Collections.sort(extensions);
 		model.addAttribute("extensions", extensions);
-        model.addAttribute("privilegeSearchForPatients", MirebalaisConstants.PRIVILEGE_SEARCH_FOR_PATIENTS);
+        model.addAttribute("privilegeSearchForPatients", Privileges.APP_COREAPPS_FIND_PATIENT.privilege());
 
-        if (StringUtils.isNotBlank(config.getDashboardUrl())) {
-            model.addAttribute("dashboardUrl", config.getDashboardUrl());
-        }else {
-            model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");
+        if (Context.hasPrivilege(CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD)) {
+            if (StringUtils.isNotBlank(config.getDashboardUrl())) {
+                model.addAttribute("dashboardUrl", config.getDashboardUrl());
+            } else {
+                model.addAttribute("dashboardUrl", "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}");
+            }
+        }
+        // if the user doesn't have permission to view patient dashboard, we redirect to registration dashboard
+        else {
+            model.addAttribute("dashboardUrl", "/registrationapp/registrationSummary.page?patientId={{patientId}}");
         }
 	}
 
