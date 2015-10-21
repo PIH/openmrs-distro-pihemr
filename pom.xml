@@ -63,8 +63,8 @@
         <htmlformentry19extVersion>1.7-SNAPSHOT</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.7</reportingVersion>
-        <reportinguiVersion>1.0-SNAPSHOT</reportinguiVersion>
+        <reportingVersion>0.9.8-SNAPSHOT</reportingVersion>
+        <reportinguiVersion>1.1-SNAPSHOT</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.9-SNAPSHOT</serializationxstreamVersion>
@@ -675,10 +675,6 @@
                         </property>
                         <property>
                             <name>idgenVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>reportingVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                   <!--      <property>
