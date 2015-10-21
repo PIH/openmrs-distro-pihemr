@@ -677,14 +677,6 @@
                             <name>idgenVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
-                            <name>reportingVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>reportinguiVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
