@@ -28,7 +28,7 @@
 				<property name="dao">
 					<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateMirebalaisHospitalDAO">
 						<property name="sessionFactory">
-							<ref bean="sessionFactory" />
+							<ref bean="dbSessionFactory" />
 						</property>
 					</bean>
 				</property>

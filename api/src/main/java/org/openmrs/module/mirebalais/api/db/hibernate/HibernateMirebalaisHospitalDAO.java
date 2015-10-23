@@ -22,9 +22,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.APIException;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
-import org.openmrs.util.OpenmrsConstants;
 
 /**
  * Default implementation of {@link MirebalaisHospitalDAO}.
@@ -33,19 +33,19 @@ public class HibernateMirebalaisHospitalDAO implements MirebalaisHospitalDAO {
 
     protected final Log log = LogFactory.getLog(this.getClass());
 
-    private SessionFactory sessionFactory;
+    private DbSessionFactory sessionFactory;
 
     /**
      * @param sessionFactory the sessionFactory to set
      */
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(DbSessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     /**
      * @return the sessionFactory
      */
-    public SessionFactory getSessionFactory() {
+    public DbSessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
