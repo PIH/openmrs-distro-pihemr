@@ -26,7 +26,8 @@
       "timeline",
       "adultInitialOutpatient",
       "adultFollowupOutpatient",
-      "pedsInitialOutpatient"
+      "pedsInitialOutpatient",
+      "pedsFollowupOutpatient"
     ],
 
     "globalProperties": {
