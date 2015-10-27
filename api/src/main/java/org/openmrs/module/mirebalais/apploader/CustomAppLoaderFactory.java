@@ -1043,7 +1043,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
-                "patientregistration.mergePatients",
+                "coreapps.mergePatientsShort",
                 "icon-group",
                 "link",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
