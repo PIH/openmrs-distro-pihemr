@@ -106,7 +106,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
             PrinterService printerService = Context.getService(PrinterService.class);
-            DispositionService dispositionService = Context.getService(DispositionService.class)
+            DispositionService dispositionService = Context.getService(DispositionService.class);
 
             removeOldGlobalProperties();
             removeOldPrivileges();
