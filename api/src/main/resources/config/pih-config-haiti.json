@@ -40,6 +40,8 @@
     "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
     "providerIdentifierPrefix": "L",
 
+    "dispositionConfig": "pih-dispositions-haiti.json",
+
     "registrationConfig": {
         "allowUnknownPatients": true,
         "allowManualEntryOfPrimaryIdentifier": true,
