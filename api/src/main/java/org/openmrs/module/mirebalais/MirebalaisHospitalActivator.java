@@ -18,18 +18,15 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Privilege;
 import org.openmrs.api.AdministrationService;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
+import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
@@ -38,7 +35,6 @@ import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
-import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
@@ -105,19 +101,17 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
 
-            MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
-            IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             AdministrationService administrationService = Context.getAdministrationService();
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
             SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
-            LocationService locationService = Context.getLocationService();
             PrinterService printerService = Context.getService(PrinterService.class);
-            PaperRecordProperties paperRecordProperties = Context.getRegisteredComponent("paperRecordProperties", PaperRecordProperties.class);
-            FeatureToggleProperties featureToggleProperties = Context.getRegisteredComponent("featureToggles", FeatureToggleProperties.class);
+            DispositionService dispositionService = Context.getService(DispositionService.class)
 
             removeOldGlobalProperties();
             removeOldPrivileges();
+
+            setDispositionConfig(config, dispositionService);
 
             // register our custom print handlers
             PrinterSetup.registerPrintHandlers(printerService);
@@ -230,6 +224,13 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
     private void updateGlobalPropertyFromConfig(Config config, String name) {
         updateGlobalProperty(name, config.getGlobalProperty(name));
+    }
+
+    // configure which disposition config to use
+    public void setDispositionConfig(Config config, DispositionService dispositionService) {
+        if (config.getDispositionConfig() != null) {
+            dispositionService.setDispositionConfig(config.getDispositionConfig());
+        }
     }
 
     public void setCustomProperties(RuntimeProperties customProperties) {
