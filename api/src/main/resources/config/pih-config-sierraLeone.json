@@ -18,6 +18,8 @@
 
   "scheduleBackupReports": "false",
   "dashboardUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}",
+  "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
+  "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
   "providerIdentifierPrefix": "W",
 
   "registrationConfig": {

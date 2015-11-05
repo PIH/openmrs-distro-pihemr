@@ -122,6 +122,10 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             // configure default dashboard in coreapps
             updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());
+            // configure default visits page in coreapps
+            updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_URL, config.getVisitPageUrl());
+            // configure default specific visit detail page in coreapps
+            updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
 
             if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
                 LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);

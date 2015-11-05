@@ -39,6 +39,8 @@
 
   "scheduleMonthlyDataExports": true,
 
-  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
+  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
+  "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
+  "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview"
 
 }
