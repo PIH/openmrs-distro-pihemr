@@ -134,5 +134,7 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
 
     <global_property property="order.orderNumberGeneratorBeanId" property_value="" uuid="756101f0-eddb-11e4-b80c-0800200c9a66"/>
     <global_property property="coreapps.dashboardUrl" property_value="" uuid="248f35c0-36d4-11e5-a2cb-0800200c9a66"/>
+    <global_property property="coreapps.visitsPageUrl" property_value="" uuid="70E61B95-B203-4FFD-B939-D2804D6EEA53"/>
+    <global_property property="coreapps.visitsPageWithSpecificVisitUrl" property_value="" uuid="F20E1D59-761D-48E5-84C3-B24F70FB96D3"/>
 
 </dataset>
