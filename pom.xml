@@ -67,7 +67,7 @@
         <reportinguiVersion>1.1-SNAPSHOT</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.10-SNAPSHOT</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.9</serializationxstreamVersion>
         <idgenVersion>4.0</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
@@ -687,6 +687,10 @@
                         </property>
                         <property>
                             <name>allergyuiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>serializationxstreamVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                   <!--      <property>
