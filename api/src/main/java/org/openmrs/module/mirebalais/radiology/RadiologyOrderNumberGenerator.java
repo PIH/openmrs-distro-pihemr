@@ -27,7 +27,7 @@ public class RadiologyOrderNumberGenerator implements OrderNumberGenerator {
 
     @Override
     public String getNewOrderNumber(OrderContext orderContext) {
-        if (orderContext.getOrderType() != null && orderContext.getOrderType().equals(radiologyProperties.getRadiologyTestOrderType())) {
+        if (orderContext!=null && orderContext.getOrderType() != null && orderContext.getOrderType().equals(radiologyProperties.getRadiologyTestOrderType())) {
             String orderNumber = mirebalaisHospitalService.getNextRadiologyOrderNumberSeedSequenceValue().toString();
             orderNumber =  new LuhnMod10IdentifierValidator().getValidIdentifier(orderNumber);  // add check digit
             return StringUtils.leftPad(orderNumber, 10, "0"); // pad to ten digits
