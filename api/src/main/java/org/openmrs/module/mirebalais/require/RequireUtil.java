@@ -1,8 +1,8 @@
 package org.openmrs.module.mirebalais.require;
 
+import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
-import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;
 
 public class RequireUtil {
 

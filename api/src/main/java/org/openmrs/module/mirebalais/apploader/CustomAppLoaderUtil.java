@@ -11,8 +11,8 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
+import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
