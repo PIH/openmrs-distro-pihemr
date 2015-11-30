@@ -56,7 +56,7 @@
         <emrVersion>2.0-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.5-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.5-SNAPSHOT</appframeworkVersion>
-        <metadatasharingVersion>1.1.9</metadatasharingVersion>
+        <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.6</metadatadeployVersion>
         <htmlformentryVersion>2.7-SNAPSHOT</htmlformentryVersion>
@@ -67,7 +67,7 @@
         <reportinguiVersion>1.1-SNAPSHOT</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.9</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
