@@ -75,6 +75,9 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+                        </configuration>
                     </plugin>
                 </plugins>
                 <resources>
