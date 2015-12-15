@@ -49,7 +49,7 @@
         "allowManualEntryOfPrimaryIdentifier": true,
         "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
         "matchingPatientsPropertiesToDisplay" : [
-          "personName", "patientIdentifier.identifier", "gender", "birthdate", "personAddress", "attributeMap['Mother\\'s First Name']", "attributeMap['Telephone Number']"
+          "personName", "patientIdentifier.identifier", "gender", "birthdate", "personAddress", "attributeMap['Mothers First Name']", "attributeMap['Telephone Number']"
         ],
         "maxPatientMatchResults": 50,
         "similarPatientsSearch": {
