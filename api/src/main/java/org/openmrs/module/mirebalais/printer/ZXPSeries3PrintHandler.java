@@ -85,7 +85,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
 
         while (!success && retryCount < MAX_RETRY) {
 
-            log.info("Starting ID card print job for patient " + patientIdentifier);
+            log.info("Starting ID card print job for patient " + patientIdentifier + " on printer " + printer.getName());
 
             try {
                 connection = new TcpCardConnection(printer.getIpAddress(), 9100, 2000); // timeout after 2000 msec
@@ -94,9 +94,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                 zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
                 graphicsData = new ArrayList<GraphicsInfo>();
 
-                log.info("Connection opened for ID card printing for patient " + patientIdentifier);
-                log.info("Max timeout for read " + connection.getMaxTimeoutForRead());
-                log.info("Time to wait for more data " + connection.getTimeToWaitForMoreData());
+                log.info("Connection opened for ID card printing for patient " + patientIdentifier  + " on printer " + printer.getName());
 
                 GraphicsInfo grInfo = new GraphicsInfo();
                 grInfo.side = CardSide.Front;
@@ -181,10 +179,10 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
 
             // TODO remove
             if (success) {
-                log.info("Success printing ID card for patient " + patientIdentifier);
+                log.info("Success printing ID card for patient " + patientIdentifier  + " on printer " + printer.getName());
             }
             else {
-                log.info("Failed printing ID card for patient " + patientIdentifier);
+                log.info("Failed printing ID card for patient " + patientIdentifier  + " on printer " + printer.getName());
             }
 
 
