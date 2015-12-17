@@ -25,7 +25,8 @@ import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.UnableToPrintException;
 import org.openmrs.module.printer.handler.PrintHandler;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
