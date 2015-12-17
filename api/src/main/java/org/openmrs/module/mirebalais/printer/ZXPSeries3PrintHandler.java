@@ -179,7 +179,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
             }
 
             // TODO remove
-            if (success == true) {
+            if (success) {
                 log.info("Success printing ID card for patient " + patientIdentifier);
             }
             else {
@@ -200,7 +200,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
     }
 
 
-    private boolean pollJobStatus(ZebraCardPrinter device, int actionID, Printer printer) throws ZebraCardException {
+    private boolean pollJobStatus(ZebraCardPrinter device, Integer actionID, Printer printer) throws ZebraCardException {
         boolean success = false;
         long dropDeadTime = System.currentTimeMillis() + 40000;
         long pollInterval = 500;
@@ -208,51 +208,51 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         // Poll job status
         JobStatusInfo jStatus = null;
 
-        do {
-            jStatus = device.getJobStatus(actionID);
+        if (actionID != null) {
+            do {
+                jStatus = device.getJobStatus(actionID.intValue());
 
-            // TODO get rid of this eventually?
-            log.info(String.format("Job %d, Status:%s, Card Position:%s, "
-                            + "ReadyForNextJob:%s, Mag Status:%s, Contact Status:%s, Contactless Status:%s, " + "Error Code:%d, Alarm Code:%d", actionID,
-                    jStatus.printStatus, jStatus.cardPosition, jStatus.readyForNextJob, jStatus.magneticEncoding, jStatus.contactSmartCard,
-                    jStatus.contactlessSmartCard, jStatus.errorInfo.value, jStatus.alarmInfo.value));
+                // TODO get rid of this eventually?
+                log.info(String.format("Job %d, Status:%s, Card Position:%s, "
+                                + "ReadyForNextJob:%s, Mag Status:%s, Contact Status:%s, Contactless Status:%s, " + "Error Code:%d, Alarm Code:%d", actionID,
+                        jStatus.printStatus, jStatus.cardPosition, jStatus.readyForNextJob, jStatus.magneticEncoding, jStatus.contactSmartCard,
+                        jStatus.contactlessSmartCard, jStatus.errorInfo.value, jStatus.alarmInfo.value));
 
-            if (jStatus.printStatus.contains("done_ok")) {
-                success = true;
-                break;
-            }
-            else if (jStatus.printStatus.contains("error") || jStatus.printStatus.contains("alarm_handling")) {
-                String errorMessage = jStatus.errorInfo != null ? "Err Code: " + jStatus.errorInfo.value + ", " + jStatus.errorInfo.description : "";
-                String alarmMessage = jStatus.alarmInfo != null ? "Alarm Message: "  + jStatus.alarmInfo.description : "";
-                log.error("Printer error detected with printer " + printer.getName() + ".  " + errorMessage + ", " + alarmMessage);
-                success = false;
-                break;
-            }
-            else if (jStatus.printStatus.contains("cancelled")) {
-                success = false;
-                break;
-            }
+                if (jStatus.printStatus.contains("done_ok")) {
+                    success = true;
+                    break;
+                } else if (jStatus.printStatus.contains("error") || jStatus.printStatus.contains("alarm_handling")) {
+                    String errorMessage = jStatus.errorInfo != null ? "Err Code: " + jStatus.errorInfo.value + ", " + jStatus.errorInfo.description : "";
+                    String alarmMessage = jStatus.alarmInfo != null ? "Alarm Message: " + jStatus.alarmInfo.description : "";
+                    log.error("Printer error detected with printer " + printer.getName() + ".  " + errorMessage + ", " + alarmMessage);
+                    success = false;
+                    break;
+                } else if (jStatus.printStatus.contains("cancelled")) {
+                    success = false;
+                    break;
+                }
 
-            if (System.currentTimeMillis() > dropDeadTime) {
-                success = false;
-                break;
-            }
+                if (System.currentTimeMillis() > dropDeadTime) {
+                    success = false;
+                    break;
+                }
 
-            try {
-                Thread.sleep(pollInterval);
-            } catch (InterruptedException e) {
-                log.error("Error while printing to printer " + printer.getName(), e);
-            }
+                try {
+                    Thread.sleep(pollInterval);
+                } catch (InterruptedException e) {
+                    log.error("Error while printing to printer " + printer.getName(), e);
+                }
 
-        } while (true);
+            } while (true);
+        }
 
         return success;
     }
 
-    private void cleanUp(Connection connection, ZebraCardPrinter device, int jobId, ZebraGraphics graphics, Printer printer, boolean success) {
+    private void cleanUp(Connection connection, ZebraCardPrinter device, Integer jobId, ZebraGraphics graphics, Printer printer, boolean success) {
 
         // need to cancel any jobs before it will allow you to destroy the printer
-        if (!success && device != null) {
+        if (!success && device != null && jobId != null) {
 
             JobStatusInfo jStatus = null;
 
@@ -261,11 +261,11 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                 long waitToCancelInterval = 500;
                 long dropDeadTime = System.currentTimeMillis() + 5000;
 
-                jStatus = device.getJobStatus(jobId);
+                jStatus = device.getJobStatus(jobId.intValue());
 
                 // TODO figure out the right way to determine if a job needs to be cancelled or not
                 while (jStatus != null && !jStatus.printStatus.contains("cancelled") && System.currentTimeMillis() < dropDeadTime) {
-                    device.cancel(jobId);
+                    device.cancel(jobId.intValue());
                     Thread.sleep(waitToCancelInterval);
                     log.info("Cancelled job " + jobId);
                 }
