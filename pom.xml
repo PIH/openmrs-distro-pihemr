@@ -686,6 +686,10 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
+                            <name>allergyapiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
                             <name>allergyuiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
