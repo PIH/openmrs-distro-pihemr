@@ -697,6 +697,14 @@
                             <name>serializationxstreamVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>appointmentscheduling</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>appointmentschedulingui</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
