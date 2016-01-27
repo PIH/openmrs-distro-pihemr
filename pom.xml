@@ -90,7 +90,7 @@
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
         <printerVersion>1.2-SNAPSHOT</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
-        <allergyuiVersion>1.4</allergyuiVersion>
+        <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
         <orderentryuiVersion>1.0-SNAPSHOT</orderentryuiVersion>
         <!-- Need to phase this out. -->
