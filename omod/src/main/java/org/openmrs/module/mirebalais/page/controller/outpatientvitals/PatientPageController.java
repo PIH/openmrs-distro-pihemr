@@ -66,7 +66,7 @@ public class PatientPageController {
         model.addAttribute("existingEncounters", existingEncounters);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
-        model.addAttribute("appName", CustomAppLoaderConstants.Apps.VITALS);
+        model.addAttribute("appName", CustomAppLoaderConstants.Apps.UHM_VITALS);
     }
 
 }

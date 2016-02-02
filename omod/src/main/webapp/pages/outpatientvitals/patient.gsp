@@ -6,7 +6,7 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("mirebalais.outpatientVitals.title") }",
-          link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'pih.app.vitals' ] ) }"
+          link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'pih.uhm.app.vitals' ] ) }"
         },
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" ,
           link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'}
@@ -21,7 +21,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             emr.navigateTo({
                 provider: "coreapps",
                 page: "findpatient/findPatient",
-                query: { 'app': 'pih.app.vitals' }
+                query: { 'app': 'pih.uhm.app.vitals' }
             });
         });
         jq('#actions .confirm').click(function() {

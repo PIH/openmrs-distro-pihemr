@@ -12,6 +12,7 @@ public class CustomAppLoaderConstants {
         public static final String ACTIVE_VISITS = "activeVisits";
         public static final String CHECK_IN = "checkIn";
         public static final String CHECK_IN_HOMEPAGE_APP = "checkInHomepageApp";
+        public static final String UHM_VITALS = "uhmVitals";
         public static final String VITALS = "vitals";
         public static final String CONSULT = "consult";
         public static final String ED_CONSULT = "edConsult";
@@ -47,6 +48,7 @@ public class CustomAppLoaderConstants {
         // TODO would be nice to rename this to "pih.checkin"--would need to change CheckInAppWorkflowController in pihcore
         // TODO for checkin would need to fix requestRecord.gsp:69
         public static final String CHECK_IN = "mirebalais.liveCheckin";
+        public static final String UHM_VITALS = "pih.uhm.app.vitals";
         public static final String VITALS = "pih.app.vitals";
         public static final String AWAITING_ADMISSION = CoreAppsConstants.AWAITING_ADMISSION;
         public static final String ACTIVE_VISITS = "pih.app.activeVisits";
@@ -195,7 +197,7 @@ public class CustomAppLoaderConstants {
             Apps.PATIENT_REGISTRATION,
             Apps.CHECK_IN,
             Apps.AWAITING_ADMISSION,
-            Apps.VITALS,
+            Apps.UHM_VITALS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,

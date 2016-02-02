@@ -149,7 +149,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableCheckIn(config, featureToggles);
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS)) {
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.UHM_VITALS) ||
+                config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS) ) {
             enableVitals();
         }
 
@@ -372,13 +373,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableVitals() {
 
-        apps.add(addToHomePage(findPatientTemplateApp(Apps.VITALS,
-                                "mirebalais.outpatientVitals.title",
-                                "icon-vitals",
-                                "App: mirebalais.outpatientVitals",
-                                "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
-                                null),
-                sessionLocationHasTag(LocationTags.VITALS_LOCATION)));
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.UHM_VITALS)) {
+            // custom vitals app used in Mirebalais
+            apps.add(addToHomePage(findPatientTemplateApp(Apps.UHM_VITALS,
+                                    "mirebalais.outpatientVitals.title",
+                                    "icon-vitals",
+                                    "App: mirebalais.outpatientVitals",
+                                    "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
+                                    null),
+                    sessionLocationHasTag(LocationTags.VITALS_LOCATION)));
+        }
+        else {
+            apps.add(addToHomePage(app(Apps.VITALS,
+                    "pihcore.vitalsList.title",
+                    "icon-vitals",
+                    "/pihcore/vitals/vitalsList.page",
+                    "App: mirebalais.outpatientVitals",  // TODO remane this permission to not be mirebalais-specific?
+                    null)));
+
+        }
 
         extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
