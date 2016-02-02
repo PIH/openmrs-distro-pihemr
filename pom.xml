@@ -92,7 +92,6 @@
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
-        <orderentryuiVersion>1.0-SNAPSHOT</orderentryuiVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
