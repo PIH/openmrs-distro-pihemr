@@ -63,9 +63,9 @@
         <htmlformentry19extVersion>1.7-SNAPSHOT</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.9-SNAPSHOT</reportingVersion>
+        <reportingVersion>0.9.8.1</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
-        <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
+        <reportingrestVersion>1.5</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>
@@ -467,7 +467,7 @@
             <version>${webservicesRestVersion}</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency>
+        </dependency
 
 
         <!-- End OpenMRS modules-->
@@ -762,6 +762,14 @@
                         </property>
                         <property>
                             <name>reportinguiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>reportingVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>reportingrestVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
