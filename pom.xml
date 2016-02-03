@@ -88,7 +88,7 @@
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
         <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
-        <printerVersion>1.2-SNAPSHOT</printerVersion>
+        <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
