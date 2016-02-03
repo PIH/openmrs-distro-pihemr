@@ -59,7 +59,7 @@
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
-        <htmlformentryVersion>3.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>2.7</htmlformentryVersion>
         <htmlformentry19extVersion>1.7-SNAPSHOT</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
@@ -774,6 +774,10 @@
                         </property>
                         <property>
                             <name>htmlformentry19extVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>htmlformentry</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
