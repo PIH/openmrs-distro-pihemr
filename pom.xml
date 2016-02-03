@@ -752,11 +752,6 @@
                             <name>dispensingVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
-                            <name>registrationcoreVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-
 
                   <!--      <property>
                             <name>webservicesRestVersion</name>
