@@ -64,7 +64,7 @@
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
         <reportingVersion>0.9.9-SNAPSHOT</reportingVersion>
-        <reportinguiVersion>1.1-SNAPSHOT</reportinguiVersion>
+        <reportinguiVersion>1.0</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
@@ -758,6 +758,10 @@
                         </property>
                         <property>
                             <name>webservicesRestVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>reportinguiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
