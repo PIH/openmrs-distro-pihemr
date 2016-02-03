@@ -82,7 +82,7 @@
         <uicommonsVersion>1.8-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.4-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.5-SNAPSHOT</registrationappVersion>
-        <radiologyappVersion>1.0-SNAPSHOT</radiologyappVersion>
+        <radiologyappVersion>1.0</radiologyappVersion>
         <coreappsVersion>1.10-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.14-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
