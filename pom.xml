@@ -740,6 +740,10 @@
                             <name>uiframeworkVersion></name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>appuiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
