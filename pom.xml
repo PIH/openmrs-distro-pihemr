@@ -52,15 +52,15 @@
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
-        <paperrecordVersion>1.0-SNAPSHOT</paperrecordVersion>
-        <emrVersion>2.0-SNAPSHOT</emrVersion>
+        <paperrecordVersion>1.0</paperrecordVersion>
+        <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.5</uiframeworkVersion>
         <appframeworkVersion>2.4</appframeworkVersion>
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
         <htmlformentryVersion>2.7</htmlformentryVersion>
-        <htmlformentry19extVersion>1.7-SNAPSHOT</htmlformentry19extVersion>
+        <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
         <reportingVersion>0.9.8.1</reportingVersion>
@@ -70,15 +70,15 @@
         <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
-        <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
+        <pacsintegrationVersion>1.1</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
         <eventVersion>2.2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
-        <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
+        <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.4</appuiVersion>
-        <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
+        <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>1.8-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.4-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.5-SNAPSHOT</registrationappVersion>
