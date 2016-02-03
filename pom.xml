@@ -73,7 +73,7 @@
         <pacsintegrationVersion>1.1-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
-        <eventVersion>2.3-SNAPSHOT</eventVersion>
+        <eventVersion>2.2.1</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
@@ -742,6 +742,10 @@
                         </property>
                         <property>
                             <name>appuiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>eventVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                   <!--      <property>
