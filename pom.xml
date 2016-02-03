@@ -777,7 +777,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>htmlformentry</name>
+                            <name>htmlformentryVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
