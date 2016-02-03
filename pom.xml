@@ -764,6 +764,10 @@
                             <name>reportinguiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>htmlformentry19extVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
