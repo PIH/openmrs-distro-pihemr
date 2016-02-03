@@ -736,6 +736,10 @@
                             <name>appframeworkVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>uiframeworkVersion></name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
