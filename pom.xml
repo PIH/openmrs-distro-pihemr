@@ -744,6 +744,10 @@
                             <name>appuiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>htmlformentryVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                   <!--      <property>
                             <name>webservicesRestVersion</name>
                             <banSnapshots>true</banSnapshots>
