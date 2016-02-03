@@ -467,7 +467,7 @@
             <version>${webservicesRestVersion}</version>
             <type>pom</type>
             <scope>provided</scope>
-        </dependency
+        </dependency>
 
 
         <!-- End OpenMRS modules-->
