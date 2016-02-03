@@ -87,7 +87,7 @@
         <webservicesRestVersion>2.14-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
-        <testutilsVersion>1.6-SNAPSHOT</testutilsVersion>
+        <testutilsVersion>1.5</testutilsVersion>
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
@@ -752,6 +752,11 @@
                             <name>dispensingVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>testutilsVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+
 
                   <!--      <property>
                             <name>webservicesRestVersion</name>
