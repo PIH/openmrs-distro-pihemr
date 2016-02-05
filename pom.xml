@@ -55,7 +55,7 @@
         <paperrecordVersion>1.0</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.6-SNAPSHOT</uiframeworkVersion>
-        <appframeworkVersion>2.5</appframeworkVersion>
+        <appframeworkVersion>2.6</appframeworkVersion>
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
