@@ -194,6 +194,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableNCDs();
         }
 
+        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MENTAL_HEALTH)) {
+            enableMentalHealth();
+        }
+
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
@@ -1269,6 +1273,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true,
+                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+    }
+
+    private void enableMentalHealth() {
+
+        extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
+                "pih.task.mentalHealth.label",
+                "icon-user",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/mentalHealth.xml"),
+                Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
+                findExtensionById(EncounterTemplates.DEFAULT), "icon-user", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 

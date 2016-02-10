@@ -23,6 +23,7 @@ public class CustomAppLoaderConstants {
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";
         public static final String NCD = "ncd";
+        public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
         public static final String DATA_EXPORTS = "dataExports";
@@ -100,6 +101,7 @@ public class CustomAppLoaderConstants {
         public static final String CHEMOTHERAPY_VISIT_ACTION = "pih.form.chemotherapy";
         public static final String LAB_RESULTS_VISIT_ACTION = "pih.form.labResults";
         public static final String NCD_VISIT_ACTION = "pih.form.ncdConsult";
+        public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
         public static final String ORDER_ULTRASOUND_VISIT_ACTION = "radiologyapp.orderUS";
@@ -243,6 +245,7 @@ public class CustomAppLoaderConstants {
             Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.LAB_RESULTS_VISIT_ACTION,
             Extensions.NCD_VISIT_ACTION,
+            Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION);
