@@ -42,6 +42,7 @@ public class CustomAppLoaderConstants {
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
+        public static final String WAITING_FOR_CONSULT = "waitingForConsult";
     }
 
     public static final class Apps {
@@ -64,6 +65,7 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
         public static final String VISITS_SUMMARY = "coreapps.clinicianfacing.visits";
+        public static final String WAITING_FOR_CONSULT = "pih.app.waitingForConsult";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -200,6 +202,8 @@ public class CustomAppLoaderConstants {
             Apps.CHECK_IN,
             Apps.AWAITING_ADMISSION,
             Apps.UHM_VITALS,
+            Apps.VITALS,
+            Apps.WAITING_FOR_CONSULT,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,

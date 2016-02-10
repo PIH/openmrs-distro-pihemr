@@ -254,6 +254,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableChartSearch();
         }
 
+        if (config.isComponentEnabled(Components.WAITING_FOR_CONSULT)) {
+            enableWaitingForConsult();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1302,6 +1306,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(), // TODO correct permission!
                 null));
+    }
+
+    private void enableWaitingForConsult() {
+
+        apps.add(addToHomePage(app(Apps.WAITING_FOR_CONSULT,
+                "pihcore.waitingForConsult.title",
+                "icon-stethoscope",
+                "pihcore/visit/waitingForConsult.page",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                null)));
+
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
