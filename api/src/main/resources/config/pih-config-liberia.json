@@ -40,6 +40,11 @@
         "First Name of Mother": "3",
         "Telephone Number": "20"
       }
+    },
+    "demographics": {
+      "mothersName": {
+        "required": true
+      }
     }
   }
 }

@@ -72,7 +72,7 @@ public class PatientRegistrationApp {
     }
 
     public void addSections(RegistrationAppConfig c, Config config) {
-        c.addSection(getDemographicsSection());
+        c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
         c.addSection(getSocialSection(config));
         c.addSection(getContactsSection(config));
@@ -82,15 +82,17 @@ public class PatientRegistrationApp {
         }
     }
 
-    public Section getDemographicsSection() {
+    public Section getDemographicsSection(Config config) {
         Section s = new Section();
         s.setId("demographics");
         s.setLabel("");
-        s.addQuestion(getMothersNameQuestion());
+        if (config.getRegistrationConfig().getDemographics().getMothersName() != null) {
+            s.addQuestion(getMothersNameQuestion(config));
+        }
         return s;
     }
 
-    public Question getMothersNameQuestion() {
+    public Question getMothersNameQuestion(Config config) {
         Question q = new Question();
         q.setId("mothersFirstNameLabel");
         q.setLegend("zl.registration.patient.mothersFirstName.label");
@@ -101,7 +103,9 @@ public class PatientRegistrationApp {
         f.setType("personAttribute");
         f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
         f.setWidget(getTextFieldWidget());
-        f.setCssClasses(Arrays.asList("required"));
+        if (config.getRegistrationConfig().getDemographics().getMothersName().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
         q.addField(f);
 
         return q;

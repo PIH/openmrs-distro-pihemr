@@ -1,27 +1,37 @@
 {
-  "welcomeMessage": "Bienvenue dans l'EMR de l'Hôpital Universitaire de Mirebalais",
 
-    "country": "HAITI",
-    "site": "MIREBALAIS",
+  "welcomeMessage": "Bievenue a le EMR de Santè Mentale",
+
+  "country": "HAITI",
+  "site": "CROSS_SITE",
+
+  "components": [
+    "visitNote",
+    "mentalHealth",
+    "patientRegistration",
+    "visitManagement",
+    "systemAdministration",
+    "myAccount"
+  ],
+
+  "visitTemplates": [
+    "timeline"
+  ],
 
   "globalProperties": {
-        "mirebalais.checkIn.paymentAmounts": "50,0",
-        "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
-        "mirebalais.checkIn.paymentAmountDefault": "50"
   },
 
   "scheduleBackupReports": "false",
-  "providerIdentifierPrefix": "M",
-
-  "dashboardUrl": "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}",
+  "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
   "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
+  "providerIdentifierPrefix": "M",
 
-  "dispositionConfig": "pih-dispositions-mirebalais.json",
+  "dispositionConfig": "",
 
   "registrationConfig": {
-    "allowUnknownPatients": true,
-    "allowManualEntryOfPrimaryIdentifier": true,
+    "allowUnknownPatients": false,
+    "allowManualEntryOfPrimaryIdentifier": false,
     "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
     "matchingPatientsPropertiesToDisplay" : [
       "personName", "patientIdentifier.identifier", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
@@ -39,7 +49,7 @@
     },
     "demographics": {
       "mothersName": {
-        "required": true
+        "required": false
       }
     }
   }

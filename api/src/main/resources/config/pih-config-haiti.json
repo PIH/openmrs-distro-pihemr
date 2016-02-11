@@ -14,7 +14,6 @@
         "checkIn",
         "checkInHomepageApp",
         "vitals",
-        "mentalHealth",
         "systemAdministration",
         "myAccount",
         "managePrinters",
@@ -61,6 +60,11 @@
               "First Name of Mother": "3",
               "Telephone Number": "20"
             }
-      }
+        },
+        "demographics": {
+          "mothersName": {
+            "required": true
+          }
+        }
     }
 }

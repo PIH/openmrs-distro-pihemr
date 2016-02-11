@@ -1030,19 +1030,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
 
-        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
-                        "pihcore.mostRecentCheckin.label",
-                        "icon-ok",
-                        null,
-                        "App: registrationapp.registerPatient",
-                        objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "checkin"),
-                                "editable", true,
-                                "edit-provider", "htmlformentryui",
-                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
-                "coreapps",
-                "encounter/mostRecentEncounter"));
+        if (config.isComponentEnabled(Components.CHECK_IN)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
+                    "pihcore.mostRecentCheckin.label",
+                    "icon-ok",
+                    null,
+                    "App: registrationapp.registerPatient",
+                    objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
+                            "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
+                            "definitionUiResource", determineHtmlFormPath(config, "checkin"),
+                            "editable", true,
+                            "edit-provider", "htmlformentryui",
+                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
+                    "coreapps",
+                    "encounter/mostRecentEncounter"));
+        }
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ID_CARD_PRINTING_STATUS,
