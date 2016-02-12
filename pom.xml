@@ -70,7 +70,7 @@
         <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
-        <pacsintegrationVersion>1.1</pacsintegrationVersion>
+        <pacsintegrationVersion>1.2</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
         <eventVersion>2.2.1</eventVersion>
