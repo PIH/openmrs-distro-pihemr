@@ -52,7 +52,7 @@
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
-        <paperrecordVersion>1.0</paperrecordVersion>
+        <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.6-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.7</appframeworkVersion>
