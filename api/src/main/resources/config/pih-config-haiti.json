@@ -1,9 +1,9 @@
 {
 
-    "welcomeMessage": "Bienvenue dans l'EMR de Lacolline",
+    "welcomeMessage": "Bienvenue dans l'EMR",
 
     "country": "HAITI",
-    "site": "LACOLLINE",
+    "site": "THOMONDE",
 
     "components": [
         "clinicianDashboard",
