@@ -24,11 +24,11 @@ public class RequireUtil {
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
-        return new String("user.get('fn').hasPrivilege('" + privilegeDescriptor.privilege() + "')");
+        return new String("hasMemberWithProperty(user.privileges, 'name', '" + privilegeDescriptor.privilege() + "')");
     }
 
     public static String sessionLocationHasTag(LocationTagDescriptor descriptor) {
-        return new String("util.hasMemberWithProperty(sessionLocation.get('tags'),'display','" + descriptor.name() + "')");
+        return new String("hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
     }
 
     public static String patientNotDead() {
