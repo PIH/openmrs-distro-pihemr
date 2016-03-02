@@ -24,7 +24,7 @@ public class RequireUtil {
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
-        return new String("hasMemberWithProperty(user.privileges, 'name', '" + privilegeDescriptor.privilege() + "')");
+        return new String("hasMemberWithProperty(user.privileges, 'display', '" + privilegeDescriptor.privilege() + "')");
     }
 
     public static String sessionLocationHasTag(LocationTagDescriptor descriptor) {
