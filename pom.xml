@@ -187,6 +187,27 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>serialization.xstream-api-1.9</artifactId>
+            <version>${serializationxstreamVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>serialization.xstream-api-1.10</artifactId>
+            <version>${serializationxstreamVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>serialization.xstream-api-2.0</artifactId>
+            <version>${serializationxstreamVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>calculation-api</artifactId>
             <version>${calculationVersion}</version>
             <scope>provided</scope>
@@ -250,6 +271,20 @@
         <dependency>
             <groupId>org.openmrs</groupId>
             <artifactId>event-api</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api-1.x</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api-2.x</artifactId>
             <version>${eventVersion}</version>
             <scope>provided</scope>
         </dependency>
