@@ -67,13 +67,13 @@
         <reportinguiVersion>1.0</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.2</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
-        <eventVersion>2.2.1</eventVersion>
+        <eventVersion>2.3</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
