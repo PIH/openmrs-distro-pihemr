@@ -30,7 +30,8 @@
     "allergies",
     "clinicianDashboard",
     "chartSearch",
-    "visitNote"
+    "visitNote",
+    "mentalHealth"
   ],
 
   "visitTemplates": [
