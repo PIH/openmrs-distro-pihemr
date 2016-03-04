@@ -146,7 +146,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
-            enableCheckIn(config, featureToggles);
+            enableCheckIn(config);
         }
 
         if (config.isComponentEnabled(CustomAppLoaderConstants.Components.UHM_VITALS) ||
@@ -331,7 +331,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableCheckIn(Config config, FeatureToggleProperties featureToggles) {
+    private void enableCheckIn(Config config) {
 
         // currently, this app is hard-coded to the default check-in form and requires archives room (?)
         // TODO we will remove the old CHECK_IN app at some point when we start using the registration flow (below) for this
@@ -1282,6 +1282,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.MENTAL_HEALTH_VISIT_ACTION), "mentalHealth");
 
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-user", true, true,
