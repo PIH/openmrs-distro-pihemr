@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.printer;
 
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.common.card.comm.CardConnection;
 import com.zebra.sdk.common.card.comm.TcpCardConnection;
 import com.zebra.sdk.common.card.containers.GraphicsInfo;
 import com.zebra.sdk.common.card.containers.JobStatusInfo;
@@ -25,8 +26,7 @@ import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.UnableToPrintException;
 import org.openmrs.module.printer.handler.PrintHandler;
 
-import java.awt.Font;
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +65,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
 
         ZebraCardPrinter zebraCardPrinter = null;
         ZebraGraphics graphics = null;
-        Connection connection = null;
+        CardConnection connection = null;
         List<GraphicsInfo> graphicsData;
 
         int nameFontSize = 16;

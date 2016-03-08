@@ -361,7 +361,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "Task: mirebalais.checkinForm",
                     sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")), null);
@@ -413,7 +413,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
                 editSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"), null);
@@ -433,10 +433,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.CONSULTATION,
                 findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
     }
@@ -591,7 +591,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "radiologyapp", "radiologySection"));
         }
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_ORDER,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
 
@@ -621,7 +621,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.dispensing",
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
@@ -637,7 +637,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_SURGICAL_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.SURGERY_NOTE_LOCATION)));
 
-        // TODO will this be needed after we stop using the old patient visits page view?
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
         }
@@ -1283,6 +1283,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+        // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-user", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);

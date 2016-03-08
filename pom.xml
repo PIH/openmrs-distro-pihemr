@@ -599,13 +599,14 @@
         <dependency>
             <groupId>com.zebra.sdk</groupId>
             <artifactId>zsdk_api</artifactId>
-            <version>2.0.5152</version>
+            <version>2.9.2275</version>
         </dependency>
 
         <dependency>
             <groupId>com.zebra.sdk</groupId>
             <artifactId>zsdk_card_api-beta</artifactId>
-            <version>1.0.2220</version>
+           <!-- <version>1.0.2521</version> -->
+            <version>1.0.2549</version>
         </dependency>
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
