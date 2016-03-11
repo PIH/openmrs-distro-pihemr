@@ -27,7 +27,6 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
@@ -35,6 +34,7 @@ import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
+import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
@@ -127,35 +127,35 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             // configure default specific visit detail page in coreapps
             updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
 
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
+            if (config.isComponentEnabled(Components.LEGACY_MPI)) {
                 LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);
             }
 
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
+            if (config.isComponentEnabled(Components.ARCHIVES)) {
                 ArchivesSetup.setupCloseStaleCreateRequestsTask();
                 ArchivesSetup.setupCloseStalePullRequestsTask();
             }
 
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.APPOINTMENT_SCHEDULING)) {
+            if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
                 AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
             }
 
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
+            if (config.isComponentEnabled(Components.CHECK_IN)) {
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_DEFAULT_GP);
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNTS_GP);
                 updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_LABELS_GP);
             }
 
-            if (config.isComponentEnabled(CustomAppLoaderConstants.Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
             if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalComponentTest; TODO is to fix and get this to work
 
-                if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS) || config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
+                if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
                     // must happen after location tags have been configured
-                    ReportSetup.scheduleReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
+                    ReportSetup.setupReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
                 }
 
                 // do app and extension configuration

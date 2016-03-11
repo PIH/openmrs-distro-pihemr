@@ -12,6 +12,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
@@ -77,7 +78,7 @@ public class PatientRegistrationApp {
         c.addSection(getSocialSection(config));
         c.addSection(getContactsSection(config));
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ID_CARD_PRINTING)) {
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection());
         }
     }

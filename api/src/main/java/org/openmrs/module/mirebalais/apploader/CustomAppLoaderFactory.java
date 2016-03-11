@@ -11,6 +11,7 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Components;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
@@ -128,7 +128,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         setupDefaultEncounterTemplates();
 
         // determine whether we are using the new visit note
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_NOTE)) {
+        if (config.isComponentEnabled(Components.VISIT_NOTE)) {
             patientVisitsPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList";
             patientVisitsPageWithSpecificVisitUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview";
         }
@@ -137,116 +137,116 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.VISIT_MANAGEMENT)) {
+        if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ACTIVE_VISITS)) {
+        if (config.isComponentEnabled(Components.ACTIVE_VISITS)) {
             enableActiveVisits();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CHECK_IN)) {
+        if (config.isComponentEnabled(Components.CHECK_IN)) {
             enableCheckIn(config);
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.UHM_VITALS) ||
-                config.isComponentEnabled(CustomAppLoaderConstants.Components.VITALS) ) {
+        if (config.isComponentEnabled(Components.UHM_VITALS) ||
+                config.isComponentEnabled(Components.VITALS) ) {
             enableVitals();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CONSULT)) {
+        if (config.isComponentEnabled(Components.CONSULT)) {
             enableConsult();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ED_CONSULT)) {
+        if (config.isComponentEnabled(Components.ED_CONSULT)) {
             enableEDConsult();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ADT)) {
+        if (config.isComponentEnabled(Components.ADT)) {
             enableADT();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DEATH_CERTIFICATE)) {
+        if (config.isComponentEnabled(Components.DEATH_CERTIFICATE)) {
             enableDeathCertificate();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.RADIOLOGY)) {
+        if (config.isComponentEnabled(Components.RADIOLOGY)) {
             enableRadiology();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DISPENSING)) {
+        if (config.isComponentEnabled(Components.DISPENSING)) {
             enableDispensing();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.SURGERY)) {
+        if (config.isComponentEnabled(Components.SURGERY)) {
             enableSurgery();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ONCOLOGY)) {
+        if (config.isComponentEnabled(Components.ONCOLOGY)) {
             enableOncology();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LAB_RESULTS)) {
+        if (config.isComponentEnabled(Components.LAB_RESULTS)) {
             enableLabResults();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.NCD)) {
+        if (config.isComponentEnabled(Components.NCD)) {
             enableNCDs();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MENTAL_HEALTH)) {
+        if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealth();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.OVERVIEW_REPORTS)) {
+        if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.DATA_EXPORTS)) {
+        if (config.isComponentEnabled(Components.DATA_EXPORTS)) {
             enableDataExports();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ARCHIVES)) {
+        if (config.isComponentEnabled(Components.ARCHIVES)) {
             enableArchives();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.WRISTBANDS)) {
+        if (config.isComponentEnabled(Components.WRISTBANDS)) {
             enableWristbands();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.APPOINTMENT_SCHEDULING)) {
+        if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
             enableAppointmentScheduling();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.SYSTEM_ADMINISTRATION)) {
+        if (config.isComponentEnabled(Components.SYSTEM_ADMINISTRATION)) {
             enableSystemAdministration();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MANAGE_PRINTERS)) {
+        if (config.isComponentEnabled(Components.MANAGE_PRINTERS)) {
             enableManagePrinters();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.MY_ACCOUNT)) {
+        if (config.isComponentEnabled(Components.MY_ACCOUNT)) {
             enableMyAccount();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PATIENT_REGISTRATION)) {
+        if (config.isComponentEnabled(Components.PATIENT_REGISTRATION)) {
             enablePatientRegistration();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LEGACY_MPI)) {
+        if (config.isComponentEnabled(Components.LEGACY_MPI)) {
             enableLegacyMPI();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES)) {
+        if (config.isComponentEnabled(Components.LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES)) {
             registerLacollinePatientRegistrationEncounterTypes();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.CLINICIAN_DASHBOARD)) {
+        if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             enableClinicianDashboard();
         }
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.ALLERGIES)) {
+        if (config.isComponentEnabled(Components.ALLERGIES)) {
             enableAllergies();
         }
 
@@ -369,7 +369,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableVitals() {
 
-        if (config.isComponentEnabled(CustomAppLoaderConstants.Components.UHM_VITALS)) {
+        if (config.isComponentEnabled(Components.UHM_VITALS)) {
             // custom vitals app used in Mirebalais
             apps.add(addToHomePage(findPatientTemplateApp(Apps.UHM_VITALS,
                                     "mirebalais.outpatientVitals.title",
@@ -755,7 +755,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         // TODO: Replace this with property configuration in config
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
 
             extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
                     "mirebalaisreports.userAndProviders.name",

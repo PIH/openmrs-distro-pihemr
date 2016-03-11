@@ -12,7 +12,8 @@
     "visitManagement",
     "clinicianDashboard",
     "systemAdministration",
-    "myAccount"
+    "myAccount",
+    "dataExports"
   ],
 
   "visitTemplates": [

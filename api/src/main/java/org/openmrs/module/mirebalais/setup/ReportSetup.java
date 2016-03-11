@@ -33,14 +33,14 @@ public class ReportSetup {
 
     protected static Log log = LogFactory.getLog(ReportSetup.class);
 
-    public static void scheduleReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                       AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
-                                       Config config) {
+    public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
+                                    AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
+                                    Config config) {
 
         setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
         // TODO: Pull report configuration out into a better configuration file
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
             setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
         }
 
