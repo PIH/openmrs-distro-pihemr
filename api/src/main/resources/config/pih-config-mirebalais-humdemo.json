@@ -25,7 +25,8 @@
     "idcardPrinting",
     "oncology",
     "labResults",
-    "patientRegistration"
+    "patientRegistration",
+    "mentalHealth"
     ],
 
     "scheduleBackupReports": "true"
