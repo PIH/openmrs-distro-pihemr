@@ -754,14 +754,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 9999,
                 null));
 
-        // TODO: Replace this with property configuration in config
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
 
             extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
                     "mirebalaisreports.userAndProviders.name",
                     MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
                     "App: mirebalaisreports.dataexports",
                     "mirebalaisreports-usersAndProvidersReport-link"));
+
+            extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
+                    "mirebalaisreports.allpatientswithids.name",
+                    MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
+                    "App: mirebalaisreports.dataexports",
+                    "mirebalaisreports-allPatientsWithIdsReport-link"));
+
+        }
+
+        // TODO: Replace this with property configuration in config
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
 
             // custom data export report LQAS report report
             extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
@@ -774,12 +784,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     ExtensionPoints.REPORTING_DATA_EXPORT,
                     REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
                     map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
-
-            extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
-                    "mirebalaisreports.allpatientswithids.name",
-                    MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
-                    "App: mirebalaisreports.dataexports",
-                    "mirebalaisreports-allPatientsWithIdsReport-link"));
 
             extensions.add(dataExport(Extensions.APPOINTMENTS_DATA_EXPORT,
                     "mirebalaisreports.appointments.name",

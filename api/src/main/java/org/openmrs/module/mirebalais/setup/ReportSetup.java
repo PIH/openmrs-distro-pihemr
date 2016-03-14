@@ -38,10 +38,19 @@ public class ReportSetup {
                                     Config config) {
 
         setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+        setupPatientsAndUsersReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
         // TODO: Pull report configuration out into a better configuration file
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-            setupOtherReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+            setupReport(Context.getRegisteredComponents(AppointmentsReportManager.class).get(0),
+                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+            for (DailyIndicatorByLocationReportDefinition manager : Context.getRegisteredComponents(DailyIndicatorByLocationReportDefinition.class)) {
+                setupReport(manager,reportService, reportDefinitionService, administrationService, serializedObjectDAO);;
+            }
+
+            setupInPatientReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
         }
 
         scheduleBackupReports(reportService, reportDefinitionService, config);
@@ -61,11 +70,23 @@ public class ReportSetup {
      * Currently we require these to be white-listed, until we've gone through all ReportManagers, and ensured they are
      * ready to be included here
      */
-    private static void setupOtherReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
+    private static void setupPatientsAndUsersReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
                                           AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
 
         setupReport(Context.getRegisteredComponents(AllPatientsWithIdsReportManager.class).get(0),
                 reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+        setupReport(Context.getRegisteredComponents(UsersAndProvidersReportManager.class).get(0),
+                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+    }
+
+    /**
+     * Currently we require these to be white-listed, until we've gone through all ReportManagers, and ensured they are
+     * ready to be included here
+     */
+    private static void setupInPatientReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
+                                          AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
 
         setupReport(Context.getRegisteredComponents(InpatientStatsDailyReportManager.class).get(0),
                 reportService, reportDefinitionService, administrationService, serializedObjectDAO);
@@ -76,15 +97,6 @@ public class ReportSetup {
         setupReport(Context.getRegisteredComponents(InpatientListReportManager.class).get(0),
                 reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
-        setupReport(Context.getRegisteredComponents(UsersAndProvidersReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        setupReport(Context.getRegisteredComponents(AppointmentsReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        for (DailyIndicatorByLocationReportDefinition manager : Context.getRegisteredComponents(DailyIndicatorByLocationReportDefinition.class)) {
-            setupReport(manager,reportService, reportDefinitionService, administrationService, serializedObjectDAO);;
-        }
     }
 
     private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
