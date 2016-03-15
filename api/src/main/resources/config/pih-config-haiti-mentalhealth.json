@@ -25,6 +25,10 @@
 
   "dispositionConfig": "pih-dispositions-haiti.json",
 
+  "extraIdentifierTypes": [
+    "d9009bd0-eac9-11e5-a837-0800200c9a66"
+  ],
+
   "scheduleBackupReports": "false",
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",

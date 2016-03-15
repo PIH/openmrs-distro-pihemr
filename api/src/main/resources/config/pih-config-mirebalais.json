@@ -19,6 +19,11 @@
 
   "dispositionConfig": "pih-dispositions-mirebalais.json",
 
+  "extraIdentifierTypes": [
+    "e66645eb-03a8-4991-b4ce-e87318e37566",
+    "139766e8-15f5-102d-96e4-000c29c2a5d7"
+  ],
+
   "registrationConfig": {
     "allowUnknownPatients": true,
     "allowManualEntryOfPrimaryIdentifier": true,
