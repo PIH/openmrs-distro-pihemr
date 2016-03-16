@@ -68,7 +68,7 @@
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
-        <idgenVersion>4.2</idgenVersion>
+        <idgenVersion>4.3</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.2</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
