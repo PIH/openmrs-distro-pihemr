@@ -822,6 +822,14 @@
                             <name>htmlformentryuiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>registrationappVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>registrationcoreVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
