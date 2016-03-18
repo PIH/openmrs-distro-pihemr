@@ -1278,7 +1278,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // we only a separate mental health visit action in installations where we don't have mental health visit template
         // (ie, our stand-alone mental health servers have a mental health visit template, while UHM has an action)
-        if (!config.getVisitTemplates().contains("mentalHealth")) {
+        if (config.getVisitTemplates() == null || !config.getVisitTemplates().contains("mentalHealth")) {
             extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                     "pih.task.mentalHealth.label",
                     "icon-user",
