@@ -64,7 +64,7 @@
         <htmlformentryuiVersion>1.5</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
         <reportingVersion>0.9.9-SNAPSHOT</reportingVersion>
-        <reportinguiVersion>1.0</reportinguiVersion>
+        <reportinguiVersion>1.1</reportinguiVersion>
         <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
@@ -91,7 +91,7 @@
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
-        <chartsearchVersion>1.5</chartsearchVersion>
+        <chartsearchVersion>1.6</chartsearchVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
