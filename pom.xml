@@ -56,7 +56,7 @@
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.6</uiframeworkVersion>
         <appframeworkVersion>2.8</appframeworkVersion>
-        <metadatasharingVersion>1.1.10</metadatasharingVersion>
+        <metadatasharingVersion>1.2</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
         <htmlformentryVersion>3.1</htmlformentryVersion>
