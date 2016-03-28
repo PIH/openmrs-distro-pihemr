@@ -110,6 +110,9 @@
         <require_module version="${metadatadeployVersion}">
             org.openmrs.module.metadatadeploy
         </require_module>
+        <require_module version="${pihfingerprintsModule}">
+            org.openmrs.module.pihfingerprints
+        </require_module>
     </require_modules>
 
     <activator>

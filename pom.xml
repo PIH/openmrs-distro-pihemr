@@ -35,6 +35,11 @@
             <name>Modules</name>
             <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
         </repository>
+        <snapshotRepository>
+            <id>openmrs-repo-snapshots</id>
+            <name>OpenMRS Snapshots</name>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <modules>
@@ -51,6 +56,7 @@
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
+        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>
         <emrapiVersion>1.14-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
@@ -485,6 +491,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>registrationcore-api</artifactId>
             <version>${registrationcoreVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pihfingerprints-api</artifactId>
+            <version>${pihfingerprintsModule}</version>
             <scope>provided</scope>
         </dependency>
 
