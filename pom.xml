@@ -497,7 +497,7 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>pihfingerprints-api</artifactId>
-            <version>${pihfingerprintsModule}</version>
+            <version>${pihfingerprintsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
