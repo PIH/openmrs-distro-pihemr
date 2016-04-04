@@ -24,11 +24,11 @@ public class RequireUtil {
     }
 
     public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
-        return new String("hasMemberWithProperty(user.privileges, 'display', '" + privilegeDescriptor.privilege() + "')");
+        return new String("typeof user !== 'undefined' && hasMemberWithProperty(user.privileges, 'display', '" + privilegeDescriptor.privilege() + "')");
     }
 
     public static String sessionLocationHasTag(LocationTagDescriptor descriptor) {
-        return new String("hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
+        return new String("typeof sessionLocation !== 'undefined' && hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
     }
 
     public static String patientNotDead() {
