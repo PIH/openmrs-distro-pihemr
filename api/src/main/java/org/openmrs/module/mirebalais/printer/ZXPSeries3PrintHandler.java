@@ -167,7 +167,9 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                 graphics.clear();
                 graphicsData.add(grInfo);
 
+                log.info("Starting ID card printing for patient " + patientIdentifier  + " on printer " + printer.getName());
                 jobId = zebraCardPrinter.print(1, graphicsData);
+                log.info("Started ID card printing job " +jobId + " for patient " + patientIdentifier  + " on printer " + printer.getName());
                 success = pollJobStatus(zebraCardPrinter, jobId, printer);
 
             } catch (Exception e) {
