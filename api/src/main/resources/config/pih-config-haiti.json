@@ -52,6 +52,9 @@
         "allowUnknownPatients": true,
         "allowManualEntryOfPrimaryIdentifier": true,
         "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+        "afterCreatedActions": [
+          "bean:assignDossierNumber"
+        ],
         "matchingPatientsPropertiesToDisplay" : [
           "personName", "patientIdentifier.identifier", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
         ],

@@ -1,4 +1,5 @@
 {
   "welcomeMessage": "Bienvenue dans l'EMR de Thomonde",
-  "site": "THOMONDE"
+  "site": "THOMONDE",
+  "dossierIdentifierPrefix": "TH"
 }

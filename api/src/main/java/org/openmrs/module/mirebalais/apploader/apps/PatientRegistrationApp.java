@@ -66,6 +66,7 @@ public class PatientRegistrationApp {
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
         c.setAllowManualIdentifier(config.getRegistrationConfig().isAllowManualEntryOfPrimaryIdentifier());
         c.setAfterCreatedUrl(config.getRegistrationConfig().getAfterCreatedUrl());
+        c.setAfterCreatedActions(config.getRegistrationConfig().getAfterCreatedActions());
         c.setMatchingPatientsPropertiesToDisplay(config.getRegistrationConfig().getMatchingPatientsPropertiesToDisplay());
         c.setMaxPatientSearchResults(config.getRegistrationConfig().getMaxPatientMatchResults());
         addSections(c, config);
