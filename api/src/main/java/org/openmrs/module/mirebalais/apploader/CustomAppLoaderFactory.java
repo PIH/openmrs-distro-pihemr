@@ -1264,7 +1264,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/ncdConsult.xml"),
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
