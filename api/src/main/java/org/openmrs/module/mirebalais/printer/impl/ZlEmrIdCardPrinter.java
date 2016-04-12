@@ -18,6 +18,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.mirebalais.printer.template.ZplCardTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
@@ -104,6 +105,15 @@ public class ZlEmrIdCardPrinter {
         paramMap.put("telephoneNumber", getTelephoneNumber(patient));
         paramMap.put("customCardLabel", "Zanmi Lasante Patient ID Card");
         paramMap.put("addressLines", getAddressLines(patient));
+
+        // if this is a ZXP Series 3, then then print handler just takes in the parameters and renders the card
+        // but if it is a GX430t, it's just a simple socket print with raw ZPL code, so we need to generate the data using the label template
+        if (printer.getModel().getPrintHandler().equals("gx430tPrintHandler")) {
+            ZplCardTemplate zlCardTemplate = Context.getRegisteredComponent("zplCardTemplate", ZplCardTemplate.class);
+            paramMap.put("data", zlCardTemplate.generateLabel(paramMap));
+            paramMap.put("encoding", zlCardTemplate.getEncoding());
+            paramMap.put("wait", 500);
+        }
 
         printerService.print(paramMap, printer, false);
     }
