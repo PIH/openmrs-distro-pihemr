@@ -281,7 +281,7 @@ public class FullDataExportReportManagerTest extends EncounterDataSetManagerTest
     public void testDispensingExport() throws Exception {
 
         // simple export that adds drugs to the sample data
-        executeDataSet("org/openmrs/module/mirebalaisreports/dispensingExportTestData.xml");
+        executeDataSet("dispensingExportTestData.xml");
 
         Patient patient = data.randomPatient()
                 .identifier(emrApiProperties.getPrimaryIdentifierType(), "2AA00V", Metadata.lookup(MirebalaisLocations.MIREBALAIS_HOSPITAL))
