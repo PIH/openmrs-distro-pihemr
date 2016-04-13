@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <global_property property="emr.consultEncounterType" property_value="92fd09b4-5335-4f7e-9f63-b2a663fd09a6" uuid="4f55827e-26fe-102b-99cb-0017a47871b4"/>
+    <global_property property="emr.checkInEncounterType" property_value="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" uuid="4f55827e-26fe-102b-99cb-0017a47871b5"/>
+
+    <location location_id="100" name="Outpatient Clinic" description="KE" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="199e7d87-92a0-4398-a0f8-11d012178164"/>
+    <location location_id="200" name="Women Clinic" description="SF" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="9b2066a2-7087-47f6-9b3a-b001037432a3"/>
+
+    <encounter_type encounter_type_id="100" name="Registration" description="Registration Visit" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="873f968a-73a8-4f9c-ac78-9f4778b751b6"/>
+    <encounter_type encounter_type_id="101" name="Vitals" description="Vitals Capture" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="4fb47712-34a6-40d2-8ed3-e153abbd25b7"/>
+    <encounter_type encounter_type_id="102" name="Payment" description="Payment" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="f1c286d0-b83f-4cd4-8348-7ea3c28ead13"/>
+    <encounter_type encounter_type_id="103" name="Check-In" description="Check-In" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"/>
+    <encounter_type encounter_type_id="104" name="Consult" description="Consult" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="92fd09b4-5335-4f7e-9f63-b2a663fd09a6"/>
+
+    <!-- Registration encounter -->
+    <encounter encounter_id="103" encounter_type="100" patient_id="7" location_id="200" encounter_datetime="2012-01-02 09:00:00.0" creator="1" date_created="2012-01-02 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4ac"/>
+
+    <!-- 6 has some other (clinical) encounter type -->
+    <encounter encounter_id="106" encounter_type="1" patient_id="6" location_id="100" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4af"/>
+
+    <!-- 2+7+9 have Vitals -->
+    <encounter encounter_id="104" encounter_type="101" patient_id="2" location_id="100" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4ad"/>
+    <encounter encounter_id="105" encounter_type="101" patient_id="7" location_id="100" encounter_datetime="2012-01-02 09:00:00.0" creator="1" date_created="2012-01-02 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4ae"/>
+    <encounter encounter_id="120" encounter_type="101" patient_id="9" location_id="200" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="1219d653-393b-4118-9c83-a3655b82d4af"/>
+    <encounter encounter_id="121" encounter_type="101" patient_id="7" location_id="200" encounter_datetime="2012-01-02 09:00:00.0" creator="1" date_created="2012-01-02 09:00:00.0" voided="false" uuid="1219d653-393b-4118-9c83-a3655b82d4ag"/>
+
+    <!-- 6,7,8 has a consult/diagnosis -->
+    <encounter encounter_id="113" encounter_type="104" patient_id="9" location_id="100" encounter_datetime="2012-01-02 09:00:00.0" creator="1" date_created="2012-01-02 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4b3"/>
+    <encounter encounter_id="107" encounter_type="104" patient_id="6" location_id="100" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4b0"/>
+    <encounter encounter_id="109" encounter_type="104" patient_id="7" location_id="100" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d412"/>
+    <encounter encounter_id="110" encounter_type="104" patient_id="8" location_id="200" encounter_datetime="2012-01-02 09:00:00.0" creator="1" date_created="2012-01-02 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82as12"/>
+    <encounter encounter_id="112" encounter_type="104" patient_id="9" location_id="200" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82as13"/>
+
+    <!-- 8 has a check-in (non-clinical) -->
+    <encounter encounter_id="108" encounter_type="103" patient_id="8" location_id="100" encounter_datetime="2012-01-01 09:00:00.0" creator="1" date_created="2012-01-01 09:00:00.0" voided="false" uuid="6519d653-393b-4118-9c83-a3655b82d4b1"/>
+
+    <!-- Visits -->
+    <visit visit_id="103" patient_id="7" visit_type_id="1" date_started="2012-01-02 09:00:00.0" date_stopped="2012-01-02 10:30:00.0" creator="1" date_created="2012-01-02 00:00:00.0" voided="0" uuid="b8f93573-2b79-4b32-b0c9-7fe7c74c7a78" />
+    <visit visit_id="105" patient_id="7" visit_type_id="1" date_started="2012-01-01 09:00:00.0" date_stopped="2012-01-01 10:30:00.0" creator="1" date_created="2012-01-01 00:00:00.0" voided="0" uuid="b8f93573-2b79-4b32-b0c9-7fe7c74c7a71" />
+
+    <visit visit_id="101" patient_id="6" visit_type_id="1" date_started="2012-01-02 00:00:00.0" creator="1" date_created="2012-01-02 00:00:00.0" voided="0" uuid="f5a9c8fb-30fa-4927-8198-3bdfb440e578" />
+    <visit visit_id="104" patient_id="6" visit_type_id="1" date_started="2012-01-01 00:00:00.0" creator="1" date_created="2012-01-01 00:00:00.0" voided="0" uuid="f5a9c8fb-30fa-4927-8198-3bdfb440e545" />
+
+    <visit visit_id="102" patient_id="2" visit_type_id="1" date_started="2012-01-02 00:00:00.0" creator="1" date_created="2012-01-02 00:00:00.0" voided="0" uuid="f9baf2fe-05f6-4312-9fcf-a9d5e987eab2" />
+    <visit visit_id="100" patient_id="2" visit_type_id="1" date_started="2012-01-01 00:00:00.0" date_stopped="2012-01-01 18:30:00.0" creator="1" date_created="2012-01-01 00:00:00.0" voided="0" uuid="f9ac1b0d-77eb-4a4a-9af4-e78ea7fec3d7" />
+
+    <!-- one patient created -->
+    <person person_id="100" gender="F" birthdate="1976-08-25 00:00:00.0" birthdate_estimated="1" dead="false" creator="1" date_created="2012-01-02 12:34:56.0" voided="false" uuid="21b0c60c-8c40-11e2-865a-f15cf9ca08c8"/>
+    <patient patient_id="100" creator="1" date_created="2012-01-02 12:34:56.0" voided="false" void_reason=""/>
+
+    <person person_id="101" gender="F" birthdate="1976-08-25 00:00:00.0" birthdate_estimated="1" dead="false" creator="1" date_created="2012-01-01 12:34:56.0" voided="false" uuid="21b0c60c-8c40-11e2-865a-f15cf9ca08c9"/>
+    <patient patient_id="101" creator="1" date_created="2012-01-01 12:34:56.0" voided="false" void_reason=""/>
+
+    <person person_id="9" gender="F" birthdate="1976-08-25 00:00:00.0" birthdate_estimated="1" dead="false" creator="1" date_created="2012-01-01 12:34:56.0" voided="false" uuid="21b0c60c-8c40-11e2-865a-f15cf9ca0810"/>
+    <patient patient_id="9" creator="1" date_created="2012-01-01 12:34:56.0" voided="false" void_reason=""/>
+
+    <person_attribute_type person_attribute_type_id="11" name="Test Patient" description="Flag to describe if the patient was created to a test or not" format="java.lang.Boolean" sort_weight="14"  searchable="0" retired="0" creator="1" date_created="2012-01-02 12:34:56.0"  uuid="4f07985c-88a5-4abd-aa0c-f3ec8324d8e7" />
+</dataset>

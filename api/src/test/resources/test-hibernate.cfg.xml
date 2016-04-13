@@ -28,5 +28,9 @@
 		<mapping resource="AddressHierarchyLevel.hbm.xml"/>
 		<mapping resource="AddressToEntryMap.hbm.xml"/>
 
+
+		<mapping resource="ImportedPackage.hbm.xml" />
+		<mapping resource="ReportDesign.hbm.xml" />
+
 	</session-factory>
 </hibernate-configuration>
