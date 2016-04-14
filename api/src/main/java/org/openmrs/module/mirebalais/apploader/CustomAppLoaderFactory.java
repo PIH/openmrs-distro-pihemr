@@ -258,6 +258,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableWaitingForConsult();
         }
 
+        if (config.isComponentEnabled(Components.PRIMARY_CARE)) {
+            enablePrimaryCare();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1316,6 +1320,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore/visit/waitingForConsult.page",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
                 null)));
+
+    }
+
+    private void enablePrimaryCare() {
+
+        extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
+                "icon-stethoscope",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial-consult")),
+                null,
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
     }
 

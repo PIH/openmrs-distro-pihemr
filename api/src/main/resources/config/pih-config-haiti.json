@@ -18,15 +18,8 @@
         "myAccount",
         "managePrinters",
         "idcardPrinting",
-        "waitingForConsult"
-    ],
-
-    "visitTemplates": [
-      "timeline",
-      "adultInitialOutpatient",
-      "adultFollowupOutpatient",
-      "pedsInitialOutpatient",
-      "pedsFollowupOutpatient"
+        "waitingForConsult",
+        "primaryCare"
     ],
 
     "globalProperties": {
