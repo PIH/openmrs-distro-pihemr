@@ -1280,21 +1280,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMentalHealth() {
 
-        // we only a separate mental health visit action in installations where we don't have mental health visit template
-        // (ie, our stand-alone mental health servers have a mental health visit template, while UHM has an action)
-        if (config.getVisitTemplates() == null || !config.getVisitTemplates().contains("mentalHealth")) {
-            extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
-                    "pih.task.mentalHealth.label",
-                    "icon-user",
-                    "link",
-                    enterStandardHtmlFormLink("pihcore:htmlforms/mentalHealth.xml"),
-                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
-                    and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-        }
+        extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
+                "pih.task.mentalHealth.label",
+                "icon-user",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/mentalHealth.xml"),
+                Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
                 // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
