@@ -338,13 +338,13 @@
                     <version>${chartsearchVersion}</version>
                     <scope>provided</scope>
                 </dependency>
-
+<!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>pihfingerprints-omod</artifactId>
                     <version>${pihfingerprintsVersion}</version>
                     <scope>provided</scope>
-                </dependency>
+                </dependency>-->
 
                 <!-- temporarily adding the groovy module -->
                 <!--
