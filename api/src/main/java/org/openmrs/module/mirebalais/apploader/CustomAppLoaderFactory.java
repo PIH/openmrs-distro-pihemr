@@ -1248,9 +1248,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-beaker",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/labResults.xml"),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
+                Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
+                and(sessionLocationHasTag(LocationTags.LAB_RESULTS_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_LAB_RESULTS), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
