@@ -15,7 +15,9 @@
     "systemAdministration",
     "myAccount",
     "overviewReports",
-    "dataExports"
+    "dataExports",
+    "idcardPrinting",
+    "managePrinters"
   ],
 
   "globalProperties": {
@@ -31,6 +33,9 @@
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
   "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
   "providerIdentifierPrefix": "PL",
+
+  "idCardLabel": "PIH Liberia",
+  "idCardLocale": "en",
 
   "registrationConfig": {
     "allowUnknownPatients": false,

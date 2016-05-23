@@ -22,9 +22,6 @@ public class ZplCardTemplate {
 
     private static int SMALLER_FONT_NAME_MAX_SIZE = 35;
 
-    // TODO make this dynamic if we start supporting other countries\
-    private static Locale locale = new Locale("ht");
-
     @Autowired
     protected MessageSourceService messageSourceService;
 
@@ -43,6 +40,7 @@ public class ZplCardTemplate {
         String issuingLocation = (paramMap.containsKey("issuingLocation") ? (String) paramMap.get("issuingLocation") : null);
         String issuedDate = (String) paramMap.get("issuedDate");
         String customCardLabel = (paramMap.containsKey("customCardLabel") ? (String) paramMap.get("customCardLabel") : null);
+        Locale locale = (paramMap.containsKey("locale") ? (Locale) paramMap.get("locale") : new Locale("ht")); // use Creole by default
 
         // build the command to send to the printer -- written in ZPL
         StringBuilder data = new StringBuilder();

@@ -17,12 +17,13 @@ import org.openmrs.PersonName;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.template.ZplCardTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
@@ -40,6 +41,8 @@ import java.util.Map;
 
 /**
  * Encapsulates the functionality needed to print a ZL EMR ID Card
+ *
+ * TODO: rename? since we are potentially using in Liberia as well
  */
 @Component
 public class ZlEmrIdCardPrinter {
@@ -47,13 +50,19 @@ public class ZlEmrIdCardPrinter {
     protected final Log log = LogFactory.getLog(getClass());
 
     @Autowired
-    PrinterService printerService;
+    private PrinterService printerService;
 
     @Autowired
-    PaperRecordService paperRecordService;
+    private PaperRecordService paperRecordService;
 
     @Autowired
-    MessageSourceService messageSourceService;
+    private MessageSourceService messageSourceService;
+
+    @Autowired
+    private EmrApiProperties emrApiProperties;
+
+    @Autowired
+    private Config config;
 
     /**
      * @return true if ZL ID Card printing is possible at the given location
@@ -103,8 +112,9 @@ public class ZlEmrIdCardPrinter {
         paramMap.put("issuingLocation", getIssuingLocationName(issuingLocation));
         paramMap.put("issuedDate", df.format(new Date()));
         paramMap.put("telephoneNumber", getTelephoneNumber(patient));
-        paramMap.put("customCardLabel", "Zanmi Lasante Patient ID Card");
+        paramMap.put("customCardLabel", config.getIdCardLabel());
         paramMap.put("addressLines", getAddressLines(patient));
+        paramMap.put("locale", config.getIdCardLocale());
 
         // if this is a ZXP Series 3, then then print handler just takes in the parameters and renders the card
         // but if it is a GX430t, it's just a simple socket print with raw ZPL code, so we need to generate the data using the label template
@@ -130,7 +140,7 @@ public class ZlEmrIdCardPrinter {
      * @return the patient identifier in the format that it should be displayed on the id cards
      */
     protected String getIdentifier(Patient patient) {
-        PatientIdentifierType idType = MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
+        PatientIdentifierType idType = emrApiProperties.getPrimaryIdentifierType();
         PatientIdentifier pi = patient.getPatientIdentifier(idType);
         if (pi == null || pi.isVoided()) {
             pi = patient.getPatientIdentifier();
