@@ -18,6 +18,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
@@ -70,6 +71,9 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     @Autowired
     PersonAttributeTypeBundle personAttributeTypeBundle;
 
+    @Autowired
+    HaitiMetadataBundle haitiMetadataBundle;
+
     @Before
     public void setup() throws Exception {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
@@ -77,6 +81,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         printerModuleActivator.started(); // Create Location Attribute Types Needed
         locationTagBundle.install();
         locationAttributeTypeBundle.install();
+        haitiMetadataBundle.install(); // to install primary identifier type
         mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
         patientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
