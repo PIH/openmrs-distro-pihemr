@@ -40,7 +40,7 @@
   "registrationConfig": {
     "allowUnknownPatients": false,
     "allowManualEntryOfPrimaryIdentifier": false,
-    "afterCreatedUrl": "registrationapp/registrationSummary.page?patientId={{patientId}}",
+    "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
     "similarPatientsSearch": {
       "addressFields": {
         "cityVillage": "1",
