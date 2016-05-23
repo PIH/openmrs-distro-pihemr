@@ -69,7 +69,7 @@
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.5</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.10-SNAPSHOT</reportingVersion>
+        <reportingVersion>0.10.0</reportingVersion>
         <reportinguiVersion>1.1</reportinguiVersion>
         <reportingrestVersion>1.6</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
