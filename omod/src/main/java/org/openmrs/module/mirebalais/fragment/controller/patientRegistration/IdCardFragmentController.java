@@ -9,11 +9,11 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -62,12 +62,13 @@ public class IdCardFragmentController {
      * @return a SimpleObject containing a flag indicating success, and a message suitable for display
      */
     public SimpleObject recordSuccessfulPrintAttempt(UiUtils ui, UiSessionContext uiSessionContext,
-                                       @RequestParam("patientId") Patient patient,
-                                       @RequestParam("identifier") String identifier) {
+                                                     @SpringBean EmrApiProperties emrApiProperties,
+                                                     @RequestParam("patientId") Patient patient,
+                                                     @RequestParam("identifier") String identifier) {
 
         StatusMessage status = new StatusMessage(false, ui.message("zl.registration.patient.idcard.invalidForPatient", identifier, ui.format(patient.getPersonName())));
         for (PatientIdentifier pi : patient.getIdentifiers()) {
-            if (pi.getIdentifierType().getUuid().equals(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid())) {
+            if (pi.getIdentifierType().getUuid().equals(emrApiProperties.getPrimaryIdentifierType().getUuid())) {
                 if (pi.getIdentifier().equals(identifier)) {
                     status = new StatusMessage(true, "");
                     savePrintingStatusObs(patient, uiSessionContext.getSessionLocation(), true);
