@@ -69,7 +69,7 @@ public class IdCardFragmentController {
         StatusMessage status = new StatusMessage(false, ui.message("zl.registration.patient.idcard.invalidForPatient", identifier, ui.format(patient.getPersonName())));
         for (PatientIdentifier pi : patient.getIdentifiers()) {
             if (pi.getIdentifierType().getUuid().equals(emrApiProperties.getPrimaryIdentifierType().getUuid())) {
-                if (pi.getIdentifier().equals(identifier)) {
+                if (pi.getIdentifier().equalsIgnoreCase(identifier)) {
                     status = new StatusMessage(true, "");
                     savePrintingStatusObs(patient, uiSessionContext.getSessionLocation(), true);
                 }
