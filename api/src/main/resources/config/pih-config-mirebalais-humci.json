@@ -32,7 +32,8 @@
     "clinicianDashboard",
     "chartSearch",
     "visitNote",
-    "mentalHealth"
+    "mentalHealth",
+    "edTriage"
   ],
 
   "scheduleMonthlyDataExports": true,

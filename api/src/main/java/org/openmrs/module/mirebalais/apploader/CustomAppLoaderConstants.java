@@ -28,6 +28,7 @@ public class CustomAppLoaderConstants {
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
         public static final String VISITS_SUMMARY = "coreapps.clinicianfacing.visits";
         public static final String WAITING_FOR_CONSULT = "pih.app.waitingForConsult";
+        public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -176,6 +177,7 @@ public class CustomAppLoaderConstants {
             Apps.INPATIENTS,
             Apps.REPORTS,
             Apps.DISPENSING,
+            Apps.ED_TRIAGE,
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);

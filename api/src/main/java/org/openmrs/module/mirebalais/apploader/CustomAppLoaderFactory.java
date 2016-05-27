@@ -263,6 +263,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePrimaryCare();
         }
 
+        if (config.isComponentEnabled(Components.ED_TRIAGE)) {
+            enableEDTriage();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1317,6 +1321,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
                 null)));
 
+    }
+
+    private void enableEDTriage() {
+        apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,
+                "edtriage.app.label",
+                "icon-vitals",
+                Privileges.APP_ED_TRIAGE.privilege(),
+                "/edtriageapp/edtriageSummary.page?patientId={{patientId}}",
+                null)));
     }
 
     private void enablePrimaryCare() {

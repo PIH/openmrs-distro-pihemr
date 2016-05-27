@@ -56,6 +56,7 @@
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
+        <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
         <emrapiVersion>1.14-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
@@ -79,7 +80,7 @@
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
-        <eventVersion>2.3</eventVersion>
+        <eventVersion>2.4-SNAPSHOT</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
@@ -502,6 +503,13 @@
             <version>${registrationcoreVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>edtriageapp-api</artifactId>
+            <version>${edtriageappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 <!--
 
         <dependency>
@@ -727,10 +735,10 @@
                             <name>providermanagementVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                     <!--   <property>
+                        <property>
                             <name>eventVersion</name>
                             <banSnapshots>true</banSnapshots>
-                        </property>-->
+                        </property>
                         <property>
                             <name>logicVersion</name>
                             <banSnapshots>true</banSnapshots>
@@ -853,6 +861,10 @@
                         </property>
                         <property>
                             <name>registrationcoreVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>edtriageappVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
