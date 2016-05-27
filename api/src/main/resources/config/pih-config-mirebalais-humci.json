@@ -10,6 +10,7 @@
     "adt",
     "deathCertificate",
     "radiology",
+    "pacsIntegration",
     "dispensing",
     "surgery",
     "overviewReports",
