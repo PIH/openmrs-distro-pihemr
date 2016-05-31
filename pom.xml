@@ -504,12 +504,12 @@
             <scope>provided</scope>
         </dependency>
 
-       <!-- <dependency>
+        <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>edtriageapp-api</artifactId>
             <version>${edtriageappVersion}</version>
             <scope>provided</scope>
-        </dependency>-->
+        </dependency>
 <!--
 
         <dependency>

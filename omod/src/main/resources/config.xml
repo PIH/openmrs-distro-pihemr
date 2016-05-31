@@ -110,9 +110,9 @@
         <require_module version="${metadatadeployVersion}">
             org.openmrs.module.metadatadeploy
         </require_module>
-   <!--     <require_module version="${edtriageappVersion}">
+        <require_module version="${edtriageappVersion}">
             org.openmrs.module.edtriageapp
-        </require_module>-->
+        </require_module>
       <!--  <require_module version="${pihfingerprintsModule}">
             org.openmrs.module.pihfingerprints
         </require_module>-->
