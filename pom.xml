@@ -80,7 +80,7 @@
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
         <addresshierarchyVersion>2.8</addresshierarchyVersion>
         <providermanagementVersion>2.4</providermanagementVersion>
-        <eventVersion>2.4-SNAPSHOT</eventVersion>
+        <eventVersion>2.4</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
