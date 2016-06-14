@@ -1325,8 +1325,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableEDTriage() {
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,
-                "edtriage.app.label",
-                "icon-vitals",
+                "edtriageapp.label",
+                "icon-ambulance",
                 Privileges.APP_ED_TRIAGE.privilege(),
                 "/edtriageapp/edtriageSummary.page?patientId={{patientId}}",
                 null)));
