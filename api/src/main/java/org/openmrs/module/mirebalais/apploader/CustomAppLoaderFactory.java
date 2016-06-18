@@ -1328,7 +1328,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "edtriageapp.label",
                 "icon-ambulance",
                 Privileges.APP_ED_TRIAGE.privilege(),
-                "/edtriageapp/edtriageSummary.page?patientId={{patientId}}",
+                "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE,
                 null)));
     }
 
