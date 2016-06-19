@@ -33,7 +33,8 @@
     "chartSearch",
     "visitNote",
     "mentalHealth",
-    "edTriage"
+    "edTriage",
+    "edTriageQueue"
   ],
 
   "scheduleMonthlyDataExports": true,

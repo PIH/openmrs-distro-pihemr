@@ -266,6 +266,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.ED_TRIAGE)) {
             enableEDTriage();
         }
+        if (config.isComponentEnabled(Components.ED_TRIAGE_QUEUE)) {
+            enableEDTriageQueue();
+        }
 
         readyForRefresh = false;
     }
@@ -1329,6 +1332,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-ambulance",
                 Privileges.APP_ED_TRIAGE.privilege(),
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE,
+                null)));
+    }
+
+    private void enableEDTriageQueue() {
+        apps.add(addToHomePage(app(Apps.ED_TRIAGE_QUEUE,
+                "edtriageapp.queue.label",
+                "icon-plus-sign-alt",
+                "/edtriageapp/edtriageViewQueue.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE_QUEUE,
+                Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
                 null)));
     }
 
