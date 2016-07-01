@@ -1332,7 +1332,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-ambulance",
                 Privileges.APP_ED_TRIAGE.privilege(),
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE,
-                null)));
+                null),
+                sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
+
+        extensions.add(visitAction(Extensions.ED_TRIAGE_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.EMERGENCY_TRIAGE.uuid(),
+                "icon-ambulance",
+                "link",
+                "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=" + Apps.ED_TRIAGE,
+                null,
+                sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
     }
 
     private void enableEDTriageQueue() {
@@ -1341,7 +1350,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-plus-sign-alt",
                 "/edtriageapp/edtriageViewQueue.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE_QUEUE,
                 Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
-                null)));
+                null),
+                sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
     }
 
     private void enablePrimaryCare() {
