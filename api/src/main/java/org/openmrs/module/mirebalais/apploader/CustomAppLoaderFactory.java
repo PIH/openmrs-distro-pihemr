@@ -1341,7 +1341,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=" + Apps.ED_TRIAGE,
                 null,
-                sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION), patientHasActiveVisit())));
     }
 
     private void enableEDTriageQueue() {
