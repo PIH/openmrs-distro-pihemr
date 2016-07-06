@@ -226,7 +226,8 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension header(String id, String logo) {
-        return new Extension(id, null, AppUiExtensions.HEADER_CONFIG_EXTENSION, "config", null, null, 0, null, map("logo-icon-url", logo));
+        Map<String, Object> configs = map("logo-link-url", "/index.htm", "logo-icon-url", logo);
+        return new Extension(id, null, AppUiExtensions.HEADER_CONFIG_EXTENSION, "config", null, null, 0, null, configs);
     }
 
     static public Extension fragmentExtension(String id, String provider, String fragment, String privilege, String extensionPoint, Map<String, Object> config) {
