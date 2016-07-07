@@ -121,7 +121,7 @@ public class WristbandTemplateTest {
 
         Patient patient = new Patient();
         patient.setGender("M");
-        patient.setBirthdate(new DateTime(1940,7,6,5,5,5).toDate());
+        patient.setBirthdate(new DateTime(1940,7,7,5,5,5).toDate());
 
         PatientIdentifier primaryIdentifier = new PatientIdentifier();
         primaryIdentifier.setIdentifier("ZL1234");
@@ -149,14 +149,14 @@ public class WristbandTemplateTest {
         name.setFamilyName("Starr");
         patient.addName(name);
 
-        when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn("75 an(s)");
+        when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn(patient.getAge() + " an(s)");
 
         String output = wristbandTemplate.generateWristband(patient, visitLocation);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
-        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD06 juil. 1940^FS"));
+        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
         assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
         assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A 000005^FS"));
         assertThat(output, containsString("^FO220,200^FB2150,1,0,L,0^AS^FDAvant Eglise Chretienne des perlerlerin de la siant tete de moliere^FS"));
