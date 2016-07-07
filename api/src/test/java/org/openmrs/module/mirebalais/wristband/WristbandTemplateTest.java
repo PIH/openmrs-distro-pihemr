@@ -121,7 +121,7 @@ public class WristbandTemplateTest {
 
         Patient patient = new Patient();
         patient.setGender("M");
-        patient.setBirthdate(new DateTime(1940,7,7,5,5,5).toDate());
+        patient.setBirthdate(new DateTime(1940,7,6,5,5,5).toDate());
 
         PatientIdentifier primaryIdentifier = new PatientIdentifier();
         primaryIdentifier.setIdentifier("ZL1234");
