@@ -279,4 +279,15 @@
         <customChange class="org.openmrs.module.mirebalais.liquibase.PrintingIDCardStatusChangeSet"/>
     </changeSet>
 
+
+    <changeSet id="20160708-mh-encounters-have-proper-form" author="mgoodrich">
+        <comment>
+            Because of a bug, some mental health encounters have form_id=null, see: https://tickets.pih-emr.org/browse/UHM-2524
+        </comment>
+        <sql>
+            UPDATE encounter SET form_id = (SELECT form_id FROM form WHERE encounter_type in (SELECT encounter_type_id FROM encounter_type WHERE uuid='a8584ab8-cc2a-11e5-9956-625662870761'))
+            WHERE encounter_type in (SELECT encounter_type_id FROM encounter_type WHERE uuid='a8584ab8-cc2a-11e5-9956-625662870761') AND form_id is NULL;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
