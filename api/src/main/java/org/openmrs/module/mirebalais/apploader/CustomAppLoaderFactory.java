@@ -1347,7 +1347,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableEDTriageQueue() {
         apps.add(addToHomePage(app(Apps.ED_TRIAGE_QUEUE,
                 "edtriageapp.queue.label",
-                "icon-plus-sign-alt",
+                "icon-list-ol",
                 "/edtriageapp/edtriageViewQueue.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE_QUEUE,
                 Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
                 null),
