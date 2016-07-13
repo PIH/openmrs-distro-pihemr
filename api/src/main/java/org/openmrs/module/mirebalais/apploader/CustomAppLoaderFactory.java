@@ -1348,7 +1348,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.ED_TRIAGE_QUEUE,
                 "edtriageapp.queue.label",
                 "icon-list-ol",
-                "/edtriageapp/edtriageViewQueue.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE_QUEUE,
+                "/edtriageapp/edtriageViewQueue.page?appId=" + Apps.ED_TRIAGE_QUEUE,
                 Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
                 null),
                 sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
