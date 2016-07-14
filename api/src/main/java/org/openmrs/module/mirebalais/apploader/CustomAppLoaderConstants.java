@@ -158,10 +158,12 @@ public class CustomAppLoaderConstants {
         public static final String REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT = "registrationSummary.secondColumnContentFragments";
     }
 
+    // TODO are these still used once we switch to the new visit dashboard?
     public static final class EncounterTemplates {
         public static final String DEFAULT = "defaultEncounterTemplate";
         public static final String CONSULT = "consultEncounterTemplate";
         public static final String NO_DETAILS = "noDetailsEncounterTemplate";
+        public static final String ED_TRIAGE = "edtriageEncounterTemplate";
     }
 
     // order of lists define the order apps and extensions appear

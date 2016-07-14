@@ -293,6 +293,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "patientdashboard/encountertemplate/noDetailsEncounterTemplate"));
 
+        extensions.add(encounterTemplate(EncounterTemplates.ED_TRIAGE,
+                "edtriageapp",
+                "edtriageEncounterTemplate"));
+
     }
 
     // TODO does this need to be modified for the new visit note at all?
@@ -1342,6 +1346,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=" + Apps.ED_TRIAGE,
                 null,
                 and(sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION), patientHasActiveVisit())));
+
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+        registerTemplateForEncounterType(EncounterTypes.EMERGENCY_TRIAGE,
+                findExtensionById(EncounterTemplates.ED_TRIAGE), "icon-ambulance", false, true,
+                "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}&editable=true",
+                null);
     }
 
     private void enableEDTriageQueue() {
