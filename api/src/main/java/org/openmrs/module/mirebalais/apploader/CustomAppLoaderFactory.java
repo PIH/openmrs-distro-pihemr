@@ -350,16 +350,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableCheckIn(Config config) {
 
         // currently, this app is hard-coded to the default check-in form and requires archives room (?)
-        // TODO we will remove the old CHECK_IN app at some point when we start using the registration flow (below) for this
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
                             "mirebalais.app.patientRegistration.checkin.label",
                             "icon-paste",
                             "App: mirebalais.checkin",
-                            "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
+                    "/pihcore/checkin/checkin.page?patientId={{patientId}}",
+                       //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
                             null),
                     sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
-    }
+        }
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
