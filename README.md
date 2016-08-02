@@ -16,83 +16,40 @@ Next, we need to install MySQL.  The OpenMRS SDK uses the H2 database by default
 modules we use, so we must use MySQL, which needs to be configured separately.  You should install MySQL Community 
 Server 5.6 following the instructions for your platform.
 
-Set up platform and modules
----------------------------
+Set up PIH EMR distibution
+----------------------------
 
-Next, set up the OpenMRS platform using the SDK:
+Set up the environment via the following command, chosing the serverId and dbName you want to use, and added
+the DB password for your root user.  Note that the environment will be set up the directory ~/openmrs/[serverId]
 
-mvn openmrs-sdk:setup-platform -DserverId=[serverId] -Dversion=[version] -DdbDriver=mysql
+mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais-api:1.2-SNAPSHOT
+    -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
 
-Where "serverId" will be the name of the subdirectory off $HOME/openmrs where the server will be created, and "version" 
-should be set to the version of OpenMRS that the PIH EMR uses (currently 1.10.4 as of May 2016).
+Then start up the server.  It should run for several minutes, setting up the database, BUT, in the end, it will
+fail.
 
-When prompted, accept the default db URI.  You'll also need to enter the username and password of a MySQL user that 
-has the ability to create new databases.
+mvn openmrs-sdk:run -DserverId=mirebalais
 
-Next, start up the new server (before installing any modules) in order to create your base database as well as the 
-openmrs-runtime.properties file (which you will need to modify in a later step). Go into the subdirectory where the SDK 
-installed the server and:
+After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
 
-mvn openmrs-sdk:run 
+You should add a line to these file specifying which of our configs to use for this server. For instance, to use
+the Mirebalais configuration, add the following to the runtime properties:
 
-Go to http://localhost:8080/openmrs and wait until it finishes creating database (ie., when the installation wizard 
-completes and switches to the OpenMRS login page).
+pih.config=mirebalais-humci,mirebalais
 
-After this is complete, stop OpenMRS from running (you can just use Ctrl-C to kill the process).  We will now install 
-the PIH EMR modules as well as set some configurations in the openmrs-runtime.properties file.
 
-Next, check out the mirebalais module source code, navigate to the top-level directory of the module, and build the 
-PIH EMR distribution:
+Then try starting the server again:
 
-mvn clean install -DskipTests -Pdistribution
+mvn openmrs-sdk:run -DserverId=mirebalais
 
-Then, from the same directory, copy all the OpenMRS modules that the distribution built into the modules directory of 
-your server:
+Updating
+--------
 
-cp distro/target/distro/* ~/openmrs/[serverId]/modules
+Once you have installed the distribution, you should be able to update it with the following command:
 
-Note: it is a good idea to run the two previous commands regularly, to make sure you are always using the same versions 
-of each module that is currently being packaged as part of the PIH EMR.  (TODO: find some way to automate this?)
+mvn openmrs-sdk:deploy -DserverId=serverId
 
-Now you will want to modify your openmrs-runtime.properties file (found in /openmrs/[serverId], but only after you have 
-run OpenMRS at least once) to specify what configuration (TODO: document the different configurations and how they work)
-of the PIH-EMR you want to run.  For example, to run the test version of UHM configuration add the following line:
 
-pih.config=mirebalais,mirebalais-humci
-
-Starting OpenMRS
-----------------
-
-### From the Comand Line
-
-Make sure you've allocated extra memory to Maven. You can do this via setting the MAVEN_OPTS variable:  
-(TODO–pointer to exactly how to set an env variable by platform)
-
-MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m" 
-
-Now start OpenMRS:
-
-mvn openmrs-sdk:run
-
-### From IDEA
-
-Create a new Maven Run Configuration with the working directory set (in the Parameters tab) to you top-level SDK 
-directory (you may have to enter this path manually, unfortunately, since IDEA doesn't seem to recognize it as a valid 
-Maven project), the command line set (also in the Parameters tab) to "openmrs-sdk:run" and the VM options set (in the 
-Runner tab) to -"Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m" 
-
-Accessing OpenMRS
------------------
-
-OpenMRS will take several minutes to start the first time, but when it does you should be able to navigate to 
-http://localhost:8080/openmrs to see the server.  The username/password pair should be admin/[password redacted]
-
-Working on Modules
-------------------
-
-You should now have the full PIH EMR up and running, but if you are planning on doing actual development, you'll want 
-to check out out the source code for the modules you are working on, and tie that into your build. **TO DO–continue to define this**
- 
 Source Code
 -----------
 
