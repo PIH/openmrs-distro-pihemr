@@ -25,10 +25,11 @@ the DB password for your root user.  Note that the environment will be set up th
 mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais-api:1.2-SNAPSHOT
     -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
 
-Then start up the server.  It should run for several minutes, setting up the database, BUT, in the end, it will
-fail.
+Then start up the server:
 
 mvn openmrs-sdk:run -DserverId=mirebalais
+
+It should run for several minutes, setting up the database, BUT, in the end, it will fail.
 
 After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
 
