@@ -1353,6 +1353,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(EncounterTemplates.ED_TRIAGE), "icon-ambulance", false, true,
                 "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}&editable=true",
                 null);
+
+        addFeatureToggleToApp(findAppById(Apps.ED_TRIAGE), "edTriage");
+        addFeatureToggleToExtension(findExtensionById(Extensions.ED_TRIAGE_VISIT_ACTION), "edTriage");
     }
 
     private void enableEDTriageQueue() {
@@ -1364,6 +1367,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
                 null),
                 sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
+
+        addFeatureToggleToApp(findAppById(Apps.ED_TRIAGE_QUEUE), "edTriage");
     }
 
     private void enablePrimaryCare() {

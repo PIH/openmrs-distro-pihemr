@@ -27,6 +27,8 @@
     "ncd",
     "labResults",
     "patientRegistration",
-    "mentalHealth"
+    "mentalHealth",
+    "edTriage",
+    "edTriageQueue"
   ]
 }
