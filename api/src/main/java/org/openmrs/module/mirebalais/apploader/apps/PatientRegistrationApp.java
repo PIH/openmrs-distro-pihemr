@@ -76,6 +76,7 @@ public class PatientRegistrationApp {
     public void addSections(RegistrationAppConfig c, Config config) {
         c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
+        c.addSection(getInsuranceSection(config));
         c.addSection(getSocialSection(config));
         c.addSection(getContactsSection(config));
 
@@ -161,6 +162,59 @@ public class PatientRegistrationApp {
         f.setWidget(getTextFieldWidget());
 
         q.addField(f);
+        return q;
+    }
+
+    public Section getInsuranceSection(Config config) {
+        Section s = new Section();
+        s.setId("insurance");
+        s.setLabel("zl.registration.patient.insurance.label");
+        s.addQuestion(getInsuranceNameAndNumber(config));
+        return s;
+    }
+
+    private Question getInsuranceNameAndNumber(Config config) {
+        Question q = new Question();
+        q.setId("insuranceNameLabel");
+        q.setLegend("zl.registration.patient.insurance.insuranceName.label");
+        q.setHeader("zl.registration.patient.insurance.insuranceName.question");
+
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name");
+            f.setLabel("zl.registration.patient.insurance.insuranceName.question");
+            f.setType("obsgroup");
+            f.setCssClasses(Arrays.asList("required"));
+            f.setWidget(getTextFieldWidget(30));
+
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().setExpanded(true);
+            w.getConfig().setHideEmptyLabel(true);
+            w.getConfig().setInitialValue("PIH:NONE");
+            w.getConfig().addOption("PIH:NONE", "zl.registration.patient.insurance.none.label");
+            w.getConfig().addOption("PIH:AIC","zl.registration.patient.insurance.aic.label");
+            w.getConfig().addOption("PIH:INASSA", "zl.registration.patient.insurance.inassa.label");
+            w.getConfig().addOption("PIH:CAH", "zl.registration.patient.insurance.cah.label");
+            w.getConfig().addOption("PIH:CONAM", "zl.registration.patient.insurance.conam.label");
+            w.getConfig().addOption("PIH:Sogebank Assurance", "zl.registration.patient.insurance.sogebank.label");
+            w.getConfig().addOption("PIH:UniAssurances", "zl.registration.patient.insurance.uniAssurances.label");
+            w.getConfig().addOption("PIH:GMC Henner", "zl.registration.patient.insurance.gmcHenner.label");
+            w.getConfig().addOption("PIH:CIGNA (Vanbreda)", "zl.registration.patient.insurance.cigna.label");
+            w.getConfig().addOption("PIH:OTHER", "zl.registration.patient.insurance.other.label");
+            w.getConfig().addOption("PIH:UNKNOWN", "zl.registration.patient.insurance.unknown.label");
+
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number");
+            f.setLabel("zl.registration.patient.insurance.insuranceNumber.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+
         return q;
     }
 
