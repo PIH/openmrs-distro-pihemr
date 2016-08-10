@@ -71,7 +71,7 @@
         <htmlformentryuiVersion>1.5</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>0.10.1</reportingVersion>
-        <reportinguiVersion>1.1</reportinguiVersion>
+        <reportinguiVersion>1.3-SNAPSHOT</reportinguiVersion>
         <reportingrestVersion>1.6</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
