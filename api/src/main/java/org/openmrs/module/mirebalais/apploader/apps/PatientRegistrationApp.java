@@ -76,7 +76,11 @@ public class PatientRegistrationApp {
     public void addSections(RegistrationAppConfig c, Config config) {
         c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
-        c.addSection(getInsuranceSection(config));
+        if ( config.getSite().equals(ConfigDescriptor.Site.LACOLLINE) ||
+                config.getSite().equals(ConfigDescriptor.Site.THOMONDE) ){
+            c.addSection(getInsuranceSection(config));
+        }
+
         c.addSection(getSocialSection(config));
         c.addSection(getContactsSection(config));
 

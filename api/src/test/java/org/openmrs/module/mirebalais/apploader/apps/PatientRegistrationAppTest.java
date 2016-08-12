@@ -78,13 +78,13 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
         assertPersonAttributeQuestionFound(contactInfoSection, 1, PersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
 
-        JsonNode socialSection = assertSectionFound(d.getConfig(), 3, "social", "zl.registration.patient.social.label", 4);
+        JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 4);
         assertSingleFieldQuestion(socialSection, 0, "personAddress");
         assertObsQuestionFound(socialSection, 1, "obs.PIH:CIVIL STATUS");
         assertObsQuestionFound(socialSection, 2, "obs.PIH:Occupation");
         assertObsQuestionFound(socialSection, 3, "obs.PIH:Religion");
 
-        assertSectionFound(d.getConfig(), 4, "contacts", "zl.registration.patient.contactPerson.label", 3);
+        assertSectionFound(d.getConfig(), 3, "contacts", "zl.registration.patient.contactPerson.label", 3);
     }
 
     private JsonNode assertSectionFound(JsonNode app, int sectionNumber, String id, String label, int numQuestions) {
