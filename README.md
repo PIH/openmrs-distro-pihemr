@@ -46,9 +46,10 @@ mvn openmrs-sdk:run -DserverId=mirebalais
 Updating
 --------
 
-Once you have installed the distribution, you should be able to update it with the following command:
+Once you have installed the distribution, you should be able to update it with the following command *from the base 
+directory of the mirebalais project*:
 
-mvn openmrs-sdk:deploy -DserverId=serverId
+mvn openmrs-sdk:deploy -DserverId=serverId -Ddistro=src/main/resources/openmrs-distro.properties
 
 
 Source Code
