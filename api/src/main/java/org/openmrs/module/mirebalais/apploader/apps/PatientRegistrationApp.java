@@ -530,6 +530,7 @@ public class PatientRegistrationApp {
         w.getConfig().setInitialValue("PIH:YES");
         w.getConfig().addOption("PIH:YES", "emr.yes");
         w.getConfig().addOption("PIH:NO", "emr.no");
+        f.setWidget(toObjectNode(w));
 
         q.addField(f);
         return q;
@@ -619,6 +620,9 @@ public class PatientRegistrationApp {
         return fieldMappings;
     }
 
+    protected ObjectNode getBiometricsEnrollmentWidget() {
+        return toObjectNode(new BiometricsEnrollmentWidget());
+    }
 
     protected ObjectNode getTextFieldWidget() {
         return getTextFieldWidget(null);
@@ -644,9 +648,5 @@ public class PatientRegistrationApp {
         ObjectMapper mapper = new ObjectMapper();
         mapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
         return mapper.convertValue(o, ObjectNode.class);
-    }
-
-    protected ObjectNode getBiometricsEnrollmentWidget() {
-        return toObjectNode(new BiometricsEnrollmentWidget());
     }
 }
