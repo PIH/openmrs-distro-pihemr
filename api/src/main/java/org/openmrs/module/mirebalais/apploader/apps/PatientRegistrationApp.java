@@ -12,6 +12,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.biometrics.BiometricsEnrollmentWidget;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -84,8 +85,8 @@ public class PatientRegistrationApp {
         c.addSection(getSocialSection(config));
         c.addSection(getContactsSection(config));
 
-        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
-            c.addSection(getIdentifierSection());
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING) || config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
+            c.addSection(getIdentifierSection(config));
         }
     }
 
@@ -497,11 +498,19 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Section getIdentifierSection() {
+    public Section getIdentifierSection(Config config) {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-        s.addQuestion(getIdCardPrintQuestion());
+
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
+            s.addQuestion(getIdCardPrintQuestion());
+        }
+
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
+            s.addQuestion(getBiometricsFingerprintsQuestion());
+        }
+
         return s;
     }
 
@@ -521,7 +530,23 @@ public class PatientRegistrationApp {
         w.getConfig().setInitialValue("PIH:YES");
         w.getConfig().addOption("PIH:YES", "emr.yes");
         w.getConfig().addOption("PIH:NO", "emr.no");
-        f.setWidget(toObjectNode(w));
+
+        q.addField(f);
+        return q;
+    }
+
+    public Question getBiometricsFingerprintsQuestion() {
+        Question q = new Question();
+        q.setId("biometrics-fieldset");
+        q.setLegend("zl.registration.patient.biometrics.fingerprints.label");
+        q.setHeader("zl.registration.patient.biometrics.fingerprints.question");
+
+        Field f = new Field();
+        // TODO this should be set on the widget as well, made configurable?
+        f.setFormFieldName("biometrics-enrollment");
+        f.setType("personAttribute");
+        f.setUuid(PersonAttributeTypes.BIOMETRIC_REFERENCE_NUMBER.uuid());
+        f.setWidget(getBiometricsEnrollmentWidget());
 
         q.addField(f);
         return q;
@@ -619,5 +644,9 @@ public class PatientRegistrationApp {
         ObjectMapper mapper = new ObjectMapper();
         mapper.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
         return mapper.convertValue(o, ObjectNode.class);
+    }
+
+    protected ObjectNode getBiometricsEnrollmentWidget() {
+        return toObjectNode(new BiometricsEnrollmentWidget());
     }
 }

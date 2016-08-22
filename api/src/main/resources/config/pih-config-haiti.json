@@ -17,7 +17,8 @@
         "systemAdministration",
         "myAccount",
         "waitingForConsult",
-        "primaryCare"
+        "primaryCare",
+        "biometricsFingerPrints"
     ],
 
     "globalProperties": {
