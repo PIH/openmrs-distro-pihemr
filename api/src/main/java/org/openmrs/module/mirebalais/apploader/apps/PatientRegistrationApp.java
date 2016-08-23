@@ -539,6 +539,7 @@ public class PatientRegistrationApp {
     public Question getBiometricsFingerprintsQuestion() {
         Question q = new Question();
         q.setId("biometrics-fieldset");
+        q.setCssClasses(Collections.singletonList("no-confirmation"));
         q.setLegend("zl.registration.patient.biometrics.fingerprints.label");
         q.setHeader("zl.registration.patient.biometrics.fingerprints.question");
 
