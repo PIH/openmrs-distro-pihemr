@@ -187,7 +187,7 @@ public class PatientRegistrationApp {
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name");
-            f.setLabel("zl.registration.patient.insurance.insuranceName.label");
+            f.setLabel("zl.registration.patient.insurance.insuranceName.question");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(30));
 
