@@ -181,13 +181,13 @@ public class PatientRegistrationApp {
     private Question getInsuranceNameAndNumber(Config config) {
         Question q = new Question();
         q.setId("insuranceNameLabel");
-        q.setLegend("zl.registration.patient.insurance.insuranceName.label");
-        q.setHeader("zl.registration.patient.insurance.insuranceName.question");
+        q.setLegend("zl.registration.patient.insurance.insuranceName.question");
+        q.setHeader("zl.registration.patient.insurance.insuranceName.label");
 
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name");
-            f.setLabel("zl.registration.patient.insurance.insuranceName.question");
+            f.setLabel("zl.registration.patient.insurance.insuranceName.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(30));
 
@@ -219,7 +219,7 @@ public class PatientRegistrationApp {
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)");
-            f.setLabel("zl.registration.patient.insurance.other.label");
+            f.setLabel("zl.registration.patient.insurance.insuranceNameOther.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
