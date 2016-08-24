@@ -97,7 +97,7 @@
         <testutilsVersion>1.5</testutilsVersion>
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
-        <allergyuiVersion>1.5</allergyuiVersion>
+        <allergyuiVersion>1.6-SNAPSHOT</allergyuiVersion>
         <chartsearchVersion>2.0</chartsearchVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
