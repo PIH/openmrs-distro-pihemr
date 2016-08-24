@@ -19,6 +19,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.PersonAddressWithHierarchyWidget;
@@ -546,8 +547,8 @@ public class PatientRegistrationApp {
         Field f = new Field();
         // TODO this should be set on the widget as well, made configurable?
         f.setFormFieldName("biometrics-enrollment");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.BIOMETRIC_REFERENCE_NUMBER.uuid());
+        f.setType("patientIdentifier");
+        f.setUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid());
         f.setWidget(getBiometricsEnrollmentWidget());
 
         q.addField(f);
