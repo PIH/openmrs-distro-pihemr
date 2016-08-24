@@ -269,6 +269,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.ED_TRIAGE_QUEUE)) {
             enableEDTriageQueue();
         }
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
+            enableBiometrics();
+        }
+
 
         readyForRefresh = false;
     }
@@ -1431,6 +1435,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+    }
+
+    private void enableBiometrics() {
+
+        extensions.add(fragmentExtension(Extensions.BIOMETRICS_FIND_PATIENT,
+                "pihcore",
+                "biometrics/biometricsFindPatient",
+                null,
+                ExtensionPoints.REGISTRATION_FIND_PATIENT_FRAGMENTS,
+                null));
 
     }
 

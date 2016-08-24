@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
 import java.util.Arrays;
 import java.util.List;
@@ -109,6 +110,7 @@ public class CustomAppLoaderConstants {
         public static final String PRINT_PAPER_FORM_LABEL = "registrationapp.printPaperFormLabel";
         public static final String PRINT_ID_CARD_REGISTRATION_ACTION = "mirebalais.printIdCard";
         public static final String VISITS_DASHBOARD = "coreapps.visitsDashboard";
+        public static final String BIOMETRICS_FIND_PATIENT = "biometrics.findPatient";
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 
@@ -157,6 +159,7 @@ public class CustomAppLoaderConstants {
         public static final String CLINICIAN_DASHBOARD_SECOND_COLUMN = "patientDashboard.secondColumnFragments";
         public static final String REGISTRATION_SUMMARY_CONTENT = "registrationSummary.contentFragments";
         public static final String REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT = "registrationSummary.secondColumnContentFragments";
+        public static final String REGISTRATION_FIND_PATIENT_FRAGMENTS = RegistrationAppConstants.FIND_PATIENT_FRAGMENTS_EXTENSION_POINT;
     }
 
     // TODO are these still used once we switch to the new visit dashboard?
