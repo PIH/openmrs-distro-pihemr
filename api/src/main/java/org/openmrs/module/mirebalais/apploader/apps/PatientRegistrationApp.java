@@ -204,6 +204,7 @@ public class PatientRegistrationApp {
             w.getConfig().addOption("PIH:GMC Henner", "zl.registration.patient.insurance.gmcHenner.label");
             w.getConfig().addOption("PIH:CIGNA (Vanbreda)", "zl.registration.patient.insurance.cigna.label");
             w.getConfig().addOption("PIH:UNKNOWN", "zl.registration.patient.insurance.unknown.label");
+            w.getConfig().addOption("PIH:OTHER", "zl.registration.patient.insurance.other.label");
 
             f.setWidget(toObjectNode(w));
             q.addField(f);
