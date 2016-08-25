@@ -194,7 +194,6 @@ public class PatientRegistrationApp {
 
             DropdownWidget w = new DropdownWidget();
             w.getConfig().setExpanded(true);
-            w.getConfig().setInitialValue("PIH:NONE");
             w.getConfig().addOption("PIH:NONE", "zl.registration.patient.insurance.none.label");
             w.getConfig().addOption("PIH:AIC","zl.registration.patient.insurance.aic.label");
             w.getConfig().addOption("PIH:INASSA", "zl.registration.patient.insurance.inassa.label");
