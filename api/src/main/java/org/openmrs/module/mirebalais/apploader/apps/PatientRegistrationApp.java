@@ -322,6 +322,7 @@ public class PatientRegistrationApp {
             w.getConfig().addOption("CIEL:162944", "zl.registration.patient.occupation.civilServant.label");
             w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");
             w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");
+            w.getConfig().addOption("PIH:Zanmi Lasante employee", "zl.registration.patient.occupation.zlStaff.label");
             w.getConfig().addOption("PIH:MINER", "zl.registration.patient.occupation.miner.label");
             w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
             w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
