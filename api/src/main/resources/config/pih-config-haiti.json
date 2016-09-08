@@ -3,7 +3,6 @@
     "welcomeMessage": "Bienvenue dans l'EMR",
 
     "country": "HAITI",
-    "site": "THOMONDE",
 
     "components": [
         "clinicianDashboard",
@@ -18,6 +17,8 @@
         "myAccount",
         "waitingForConsult",
         "primaryCare",
+        "overviewReports",
+        "dataExports",
         "biometricsFingerPrints"
     ],
 
