@@ -78,9 +78,10 @@ public class PatientRegistrationApp {
     public void addSections(RegistrationAppConfig c, Config config) {
         c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
-        if ( config.getSite().equals(ConfigDescriptor.Site.LACOLLINE) ||
-                config.getSite().equals(ConfigDescriptor.Site.THOMONDE) ||
-                config.getSite().equals(ConfigDescriptor.Site.ZLTRAINING)){
+
+        // everywhere in Haiti except the cross-site MH laptops
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)){
             c.addSection(getInsuranceSection(config));
         }
 

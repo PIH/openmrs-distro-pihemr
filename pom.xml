@@ -58,10 +58,10 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
-        <emrapiVersion>1.17-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.18-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.7</uiframeworkVersion>
+        <uiframeworkVersion>3.8-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.1</metadatasharingVersion>
         <metadatamappingVersion>1.1.0-alpha1</metadatamappingVersion>
@@ -805,10 +805,6 @@
                         </property>
                         <property>
                             <name>appframeworkVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>uiframeworkVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
