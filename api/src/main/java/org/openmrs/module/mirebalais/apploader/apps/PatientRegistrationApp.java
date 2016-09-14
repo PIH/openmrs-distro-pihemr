@@ -79,7 +79,8 @@ public class PatientRegistrationApp {
         c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
         if ( config.getSite().equals(ConfigDescriptor.Site.LACOLLINE) ||
-                config.getSite().equals(ConfigDescriptor.Site.THOMONDE) ){
+                config.getSite().equals(ConfigDescriptor.Site.THOMONDE) ||
+                config.getSite().equals(ConfigDescriptor.Site.ZLTRAINING)){
             c.addSection(getInsuranceSection(config));
         }
 
