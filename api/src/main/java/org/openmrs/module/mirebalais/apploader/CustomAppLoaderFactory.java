@@ -1018,9 +1018,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
-        if ( config.getSite().equals(ConfigDescriptor.Site.LACOLLINE) ||
-                config.getSite().equals(ConfigDescriptor.Site.THOMONDE) ||
-                config.getSite().equals(ConfigDescriptor.Site.ZLTRAINING) ) {
+        if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "icon-user",
