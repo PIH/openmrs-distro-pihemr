@@ -6,6 +6,10 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.module.mirebalaisreports.definitions.DailyCheckInsReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.DailyClinicalEncountersReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.DailyRegistrationsReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.NonCodedDiagnosesReportManager;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.AllPatientsWithIdsReportManager;
@@ -40,17 +44,26 @@ public class ReportSetup {
         setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
         setupPatientsAndUsersReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
-        // TODO: Pull report configuration out into a better configuration file
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
 
-            setupReport(Context.getRegisteredComponents(AppointmentsReportManager.class).get(0),
+            setupReport(Context.getRegisteredComponents(DailyRegistrationsReportManager.class).get(0),
+                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            setupReport(Context.getRegisteredComponents(DailyCheckInsReportManager.class).get(0),
+                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            setupReport(Context.getRegisteredComponents(NonCodedDiagnosesReportManager.class).get(0),
                     reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
-            for (DailyIndicatorByLocationReportDefinition manager : Context.getRegisteredComponents(DailyIndicatorByLocationReportDefinition.class)) {
-                setupReport(manager,reportService, reportDefinitionService, administrationService, serializedObjectDAO);;
-            }
+            // TODO: Pull report configuration out into a better configuration file
+            if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
 
-            setupInPatientReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+                setupReport(Context.getRegisteredComponents(AppointmentsReportManager.class).get(0),
+                        reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+                setupReport(Context.getRegisteredComponents(DailyClinicalEncountersReportManager.class).get(0),
+                        reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+
+                setupInPatientReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            }
         }
 
         scheduleBackupReports(reportService, reportDefinitionService, config);
