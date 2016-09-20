@@ -87,8 +87,8 @@ public class PatientRegistrationApp {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
                 !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
 
-            // remove toggle once enabled
-            if (featureToggles.isFeatureEnabled("insurance")) {
+            // remove toggle once enabledpi
+            if (featureToggles.isFeatureEnabled("insuranceCollection")) {
                 c.addSection(getInsuranceSection(config));
             }
         }
