@@ -11,6 +11,7 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.biometrics.BiometricsEnrollmentWidget;
 import org.openmrs.module.pihcore.config.Components;
@@ -48,6 +49,9 @@ public class PatientRegistrationApp {
     @Autowired
     private ConceptService conceptService;
 
+    @Autowired
+    private FeatureToggleProperties featureToggles;
+
     public AppDescriptor getAppDescriptor(Config config) {
         AppDescriptor d = new AppDescriptor();
         d.setId(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
@@ -81,8 +85,12 @@ public class PatientRegistrationApp {
 
         // everywhere in Haiti except the cross-site MH laptops
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)){
-            c.addSection(getInsuranceSection(config));
+                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
+
+            // remove toggle once enabled
+            if (featureToggles.isFeatureEnabled("insurance")) {
+                c.addSection(getInsuranceSection(config));
+            }
         }
 
         c.addSection(getSocialSection(config));
