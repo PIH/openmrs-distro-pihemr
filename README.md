@@ -38,6 +38,20 @@ the Mirebalais configuration, add the following to the runtime properties:
 
 pih.config=mirebalais-humci,mirebalais
 
+Create a local identifier source to generate "fake" ZL EMR IDs
+
+- In the legacy admin go to "Manage Patient Identifier Sources"
+- Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
+- Name: ZL Identifier Generator
+- Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
+- First Identifier Base: 1000
+- Prefix: Y
+- Max Length: 6
+- Min Length: 6
+- Link the local generator to the Local Pool of Zl Identifiers
+- Click the Configure Action next to the local pool
+- Set "Pool Identifier Source" to "ZL Identifier Generator"
+- Change "When to fill" to "When you request an identifier"
 
 Then try starting the server again:
 
