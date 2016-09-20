@@ -27,8 +27,11 @@
     "ncd",
     "labResults",
     "patientRegistration",
+    "clinicianDashboard",
     "mentalHealth",
     "edTriage",
     "edTriageQueue"
-  ]
+    ],
+
+    "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
 }

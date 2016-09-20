@@ -24,12 +24,14 @@
     "lacollinePatientRegistrationEncounterTypes",
     "idcardPrinting",
     "oncology",
+    "ncd",
     "labResults",
     "patientRegistration",
+    "clinicianDashboard",
     "mentalHealth",
     "edTriage",
     "edTriageQueue"
     ],
 
-    "scheduleBackupReports": "true"
+    "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard"
 }
