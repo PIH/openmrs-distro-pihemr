@@ -1,5 +1,9 @@
 {
   "welcomeMessage": "Bienvenue dans l'EMR de Lacolline",
   "site": "LACOLLINE",
-  "dossierIdentifierPrefix": "LC"
+  "dossierIdentifierPrefix": "LC",
+
+  "globalProperties": {
+    "coreapps.defaultPatientIdentifierLocation": "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960"
+  }
 }

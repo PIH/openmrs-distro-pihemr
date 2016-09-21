@@ -1,5 +1,9 @@
 {
   "welcomeMessage": "Bienvenue dans l'EMR de Thomonde",
   "site": "THOMONDE",
-  "dossierIdentifierPrefix": "TH"
+  "dossierIdentifierPrefix": "TH",
+
+  "globalProperties": {
+    "coreapps.defaultPatientIdentifierLocation": "376b3e7e-f7c0-4268-a98d-c2bddfee8bcf"
+  }
 }
