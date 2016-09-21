@@ -141,11 +141,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
             }
 
-            if (config.isComponentEnabled(Components.CHECK_IN)) {
-                updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_DEFAULT_GP);
-                updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNTS_GP);
-                updateGlobalPropertyFromConfig(config, MirebalaisConstants.CHECK_IN_PAYMENT_AMOUNT_LABELS_GP);
-            }
 
             if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
