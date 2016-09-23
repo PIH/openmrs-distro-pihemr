@@ -64,7 +64,7 @@
         <uiframeworkVersion>3.8-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
-        <metadatamappingVersion>1.1.0-alpha1</metadatamappingVersion>
+        <metadatamappingVersion>1.2.0</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
         <htmlformentryVersion>3.2</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
