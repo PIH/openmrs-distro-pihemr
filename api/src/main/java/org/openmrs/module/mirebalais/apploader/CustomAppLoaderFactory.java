@@ -251,6 +251,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableAllergies();
         }
 
+        // will need to add chart search module back to distro if we want to use this again
         if (config.isComponentEnabled(Components.CHART_SEARCH)) {
             enableChartSearch();
         }

@@ -98,7 +98,7 @@
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.6-SNAPSHOT</allergyuiVersion>
-        <chartsearchVersion>2.0</chartsearchVersion>
+       <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -490,12 +490,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>chartsearch-api</artifactId>
             <version>${chartsearchVersion}</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
@@ -743,10 +743,10 @@
                             <name>logicVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
+                   <!--     <property>
                             <name>chartsearchVersion</name>
                             <banSnapshots>true</banSnapshots>
-                        </property>
+                        </property>-->
                         <property>
                             <name>metadatadeployVersion</name>
                             <banSnapshots>true</banSnapshots>

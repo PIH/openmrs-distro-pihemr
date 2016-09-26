@@ -332,12 +332,12 @@
                     <scope>provided</scope>
                 </dependency>
 
-                <dependency>
+<!--                <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>chartsearch-omod</artifactId>
                     <version>${chartsearchVersion}</version>
                     <scope>provided</scope>
-                </dependency>
+                </dependency>-->
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
