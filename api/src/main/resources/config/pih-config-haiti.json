@@ -31,6 +31,7 @@
 
     "scheduleBackupReports": "false",
     "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
+    "afterMergeUrl": "/registrationapp/registrationSummary.page?patientId={{patientId}}&app=registrationapp.registerPatient",
     "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
     "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
     "providerIdentifierPrefix": "L",
