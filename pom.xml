@@ -61,7 +61,7 @@
         <emrapiVersion>1.18-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.8-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.9-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.2.0</metadatamappingVersion>
@@ -80,7 +80,7 @@
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
         <addresshierarchyVersion>2.9</addresshierarchyVersion>
         <providermanagementVersion>2.5.0</providermanagementVersion>
-        <eventVersion>2.4</eventVersion>
+        <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
