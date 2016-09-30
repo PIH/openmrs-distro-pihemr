@@ -27,12 +27,13 @@
     "ncd",
     "labResults",
     "patientRegistration",
+    "allergies",
     "clinicianDashboard",
     "visitNote",
     "mentalHealth",
     "edTriage",
     "edTriageQueue"
-    ],
+  ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
