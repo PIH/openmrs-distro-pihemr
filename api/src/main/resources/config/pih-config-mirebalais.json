@@ -7,7 +7,8 @@
   "globalProperties": {
         "mirebalais.checkIn.paymentAmounts": "50,0",
         "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
-        "mirebalais.checkIn.paymentAmountDefault": "50"
+        "mirebalais.checkIn.paymentAmountDefault": "50",
+        "haiti.checkIn.reasonsForVisit":"PIH:CLINICAL,PIH:ID card only,PIH:Lab only,PIH:Pharmacy only,PIH:Procedure only,PIH:Request scheduled appointment,PIH:Social assistance and psychosocial support,PIH:OTHER"
   },
 
   "scheduleBackupReports": "false",
