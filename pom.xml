@@ -58,10 +58,10 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
-        <emrapiVersion>1.18-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.18</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.9-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.2.0</metadatamappingVersion>
@@ -86,7 +86,7 @@
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.7</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
-        <uicommonsVersion>2.1</uicommonsVersion>
+        <uicommonsVersion>2.2-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.6-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.0</radiologyappVersion>
