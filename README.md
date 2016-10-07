@@ -22,7 +22,7 @@ Set up PIH EMR distibution
 Set up the environment via the following command, chosing the serverId and dbName you want to use, and added
 the DB password for your root user.  Note that the environment will be set up the directory ~/openmrs/[serverId]
 
-mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais-api:1.2-SNAPSHOT
+mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
     -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
 
 Then start up the server:
