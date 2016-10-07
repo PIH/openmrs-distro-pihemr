@@ -58,7 +58,7 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
-        <emrapiVersion>1.19-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.18</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
@@ -713,6 +713,10 @@
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>emrapi</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
