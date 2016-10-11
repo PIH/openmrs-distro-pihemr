@@ -27,7 +27,8 @@
         "mirebalais.checkIn.paymentAmounts": "100,75,50,0",
         "mirebalais.checkIn.paymentAmountLabels": "100,75,50,Exempt",
         "mirebalais.checkIn.paymentAmountDefault": "75",
-        "haiti.checkIn.reasonsForVisit":"PIH:EMERGENCY VISIT,PIH:HIV PROGRAM,PIH:TB VISIT,PIH:INFECTIOUS DISEASES CLINIC SERVICE,PIH:Inpatient,PIH:Womens health,PIH:FAMILY PLANNING SERVICES,PIH:Immunization visit,PIH:NUTRITION PROGRAM,PIH:OUTPATIENT CONSULTATION,PIH:Radiology services,PIH:Lab only,PIH:Pharmacy only,PIH:Social assistance and psychosocial support,PIH:Acute diarrhea treatment center,PIH:Education"
+        "haiti.checkIn.reasonsForVisit":"PIH:EMERGENCY VISIT,PIH:HIV PROGRAM,PIH:TB VISIT,PIH:INFECTIOUS DISEASES CLINIC SERVICE,PIH:Inpatient,PIH:Womens health,PIH:FAMILY PLANNING SERVICES,PIH:Immunization visit,PIH:NUTRITION PROGRAM,PIH:OUTPATIENT CONSULTATION,PIH:Radiology services,PIH:Lab only,PIH:Pharmacy only,PIH:Social assistance and psychosocial support,PIH:Acute diarrhea treatment center,PIH:Education",
+        "mirebalaisreports.dailyCheckins.hideCounts": "true"
     },
 
     "scheduleBackupReports": "false",
