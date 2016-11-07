@@ -31,6 +31,7 @@ public class CustomAppLoaderConstants {
         public static final String WAITING_FOR_CONSULT = "pih.app.waitingForConsult";
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
+        public static final String TODAYS_VISITS = "pih.app.todaysVisits";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -179,6 +180,7 @@ public class CustomAppLoaderConstants {
             Apps.UHM_VITALS,
             Apps.VITALS,
             Apps.WAITING_FOR_CONSULT,
+            Apps.TODAYS_VISITS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,

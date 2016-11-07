@@ -20,7 +20,8 @@
         "primaryCare",
         "overviewReports",
         "dataExports",
-        "biometricsFingerPrints"
+        "biometricsFingerPrints",
+        "todaysVisits"
     ],
 
     "globalProperties": {

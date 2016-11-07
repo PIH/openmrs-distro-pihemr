@@ -267,13 +267,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.ED_TRIAGE)) {
             enableEDTriage();
         }
+
         if (config.isComponentEnabled(Components.ED_TRIAGE_QUEUE)) {
             enableEDTriageQueue();
         }
+
         if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
             enableBiometrics();
         }
 
+        if (config.isComponentEnabled(Components.TODAYS_VISITS)) {
+            enableTodaysVisits();
+        }
 
         readyForRefresh = false;
     }
@@ -1347,7 +1352,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.waitingForConsult.title",
                 "icon-stethoscope",
                 "pihcore/visit/waitingForConsult.page",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                Privileges.APP_WAITING_FOR_CONSULT.privilege(),
+                null)));
+
+    }
+
+    private void enableTodaysVisits() {
+
+        apps.add(addToHomePage(app(Apps.TODAYS_VISITS,
+                "pihcore.todaysVisits.title",
+                "icon-check-in",
+                "pihcore/visit/todaysVisits.page",
+                Privileges.APP_TODAYS_VISITS.privilege(),
                 null)));
 
     }
