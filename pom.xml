@@ -98,6 +98,7 @@
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.6</allergyuiVersion>
+        <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -508,6 +509,14 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>edtriageapp-api</artifactId>
             <version>${edtriageappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>labtrackingapp-api</artifactId>
+            <version>${labtrackingappVersion}</version>
             <scope>provided</scope>
         </dependency>
 <!--

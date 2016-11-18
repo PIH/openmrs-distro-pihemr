@@ -345,6 +345,13 @@
                     <version>${edtriageappVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>labtrackingapp-omod</artifactId>
+                    <version>${labtrackingappVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 <!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
