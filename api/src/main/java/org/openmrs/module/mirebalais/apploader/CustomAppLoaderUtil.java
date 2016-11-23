@@ -345,7 +345,7 @@ public class CustomAppLoaderUtil {
     }
 
     static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon) {
-        registerTemplateForEncounterType(encounterType, template, icon, null, null, null, null);
+        registerTemplateForEncounterType(encounterType, template, icon, null, false, null, null);
     }
 
     static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon,
