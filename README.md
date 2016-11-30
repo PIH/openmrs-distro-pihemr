@@ -16,8 +16,8 @@ Next, we need to install MySQL.  The OpenMRS SDK uses the H2 database by default
 modules we use, so we must use MySQL, which needs to be configured separately.  You should install MySQL Community 
 Server 5.6 following the instructions for your platform.
 
-Set up PIH EMR distibution
-----------------------------
+Set up a developement enviroment of a PIH EMR distibution
+---------------------------------------------------------
 
 Set up the environment via the following command, chosing the serverId and dbName you want to use, and added
 the DB password for your root user.  Note that the environment will be set up the directory ~/openmrs/[serverId]
