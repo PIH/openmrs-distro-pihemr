@@ -794,7 +794,7 @@
                         </property>
                         <property>
                             <name>appointmentschedulinguiVersion</name>
-                            <banSnapshots>true</banSnapshots>
+                            <banSnapshots>false</banSnapshots>
                         </property>
                         <property>
                             <name>printerVersion</name>
@@ -826,7 +826,7 @@
                         </property>
                         <property>
                             <name>appuiVersion</name>
-                            <banSnapshots>true</banSnapshots>
+                            <banSnapshots>false</banSnapshots>
                         </property>
                         <property>
                             <name>eventVersion</name>
