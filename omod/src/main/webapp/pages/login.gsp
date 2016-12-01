@@ -106,10 +106,10 @@ ${ ui.includeFragment("appui", "header") }
 
     updateSelectedOption = function() {
         jq('#sessionLocation li').removeClass('selected');
-        jq('#sessionLocation li[value|=' + jq('#sessionLocationInput').val() + ']').addClass('selected');
-
         var sessionLocationVal = jq('#sessionLocationInput').val();
+        
         if(parseInt(sessionLocationVal, 10) > 0){
+            jq('#sessionLocation li[value|=' + sessionLocationVal + ']').addClass('selected');
             jq('#login-button').removeClass('disabled');
             jq('#login-button').removeAttr('disabled');
         }else{

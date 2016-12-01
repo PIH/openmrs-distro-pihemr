@@ -793,10 +793,6 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>appointmentschedulinguiVersion</name>
-                            <banSnapshots>false</banSnapshots>
-                        </property>
-                        <property>
                             <name>printerVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
@@ -823,10 +819,6 @@
                         <property>
                             <name>appframeworkVersion</name>
                             <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>appuiVersion</name>
-                            <banSnapshots>false</banSnapshots>
                         </property>
                         <property>
                             <name>eventVersion</name>
