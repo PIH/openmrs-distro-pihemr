@@ -67,7 +67,6 @@
         <metadatamappingVersion>1.2.0</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
         <htmlformentryVersion>3.3.1</htmlformentryVersion>
-        <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.6.1</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>0.10.6</reportingVersion>
@@ -156,13 +155,6 @@
             <artifactId>htmlformentry-api-1.10</artifactId>
             <version>${htmlformentryVersion}</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentry19ext-api</artifactId>
-            <version>${htmlformentry19extVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -850,10 +842,6 @@
                         </property>
                         <property>
                             <name>reportingrestVersion</name>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <property>
-                            <name>htmlformentry19extVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
