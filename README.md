@@ -60,11 +60,11 @@ mvn openmrs-sdk:run -DserverId=mirebalais
 Updating
 --------
 
+mvn openmrs-sdk:pull
+
 Go to the Mirebalais module, and run:
 
 git pull
-
-mvn openmrs-sdk:pull
 
 Once you have installed the distribution, you should be able to update it with the following command *from the base 
 directory of the mirebalais project*:
