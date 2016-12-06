@@ -88,7 +88,7 @@
         <uicommonsVersion>2.2-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.6</registrationappVersion>
-        <radiologyappVersion>1.2-SNAPSHOT</radiologyappVersion>
+        <radiologyappVersion>1.2</radiologyappVersion>
         <coreappsVersion>1.11.2-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.16</webservicesRestVersion>
         <appointmentschedulingVersion>1.7.0</appointmentschedulingVersion>
@@ -786,6 +786,10 @@
                         </property>
                         <property>
                             <name>printerVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>radiologyappVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
