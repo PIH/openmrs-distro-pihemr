@@ -785,6 +785,10 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
+                            <name>appointmentschedulinguiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
                             <name>printerVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
