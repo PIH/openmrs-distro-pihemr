@@ -62,12 +62,14 @@ Updating
 
 Once you have installed the distribution, you should be able to update it with the following commands... 
 
-If you are watching any modules, first executre "mvn openmrs-sdk:pull" to pull in any changes to these modules via git
+If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git
 
 Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules you aren't watching:
 
 git pull
 mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties
+
+(I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
 
 To run the server: 
 mvn openmrs-sdk:run
