@@ -31,7 +31,7 @@ ${ ui.includeFragment("appui", "header") }
                     ${ ui.message("mirebalais.login.loginHeading") }
                 </legend>
 
-                ${ ui.includeFragment("pihcore", "chromeWarning") }
+                ${ ui.includeFragment("pihcore", "browserWarning") }
                 ${ ui.includeFragment("uicommons", "infoAndErrorMessage") }
 
                 <p class="left">
