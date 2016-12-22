@@ -40,7 +40,6 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/section-history.xml",
                         "pihcore:htmlforms/haiti/section-exam.xml",
                         "pihcore:htmlforms/haiti/section-dx.xml",
-                        "pihcore:htmlforms/haiti/section-disposition.xml",
                         "pihcore:htmlforms/haiti/section-peds-feeding.xml",
                         "pihcore:htmlforms/haiti/section-peds-supplements.xml",
                         "pihcore:htmlforms/haiti/section-plan.xml",
