@@ -37,6 +37,7 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/outpatientConsult.xml",
                         "pihcore:htmlforms/edNote.xml",
                         "pihcore:htmlforms/deathCertificate.xml",
+                        "pihcore:htmlforms/haiti/section-chief-complaint.xml",
                         "pihcore:htmlforms/haiti/section-history.xml",
                         "pihcore:htmlforms/haiti/section-exam.xml",
                         "pihcore:htmlforms/haiti/section-dx.xml",
