@@ -75,6 +75,22 @@ To run the server:
 mvn openmrs-sdk:run
 
 
+Handy aliases
+-------------
+
+(I think you can set the "debug" at project creation time now, so that might not be as necessary.  pihemrDeploy.sh is a utility script I created.)
+
+alias omrs-pull='mvn openmrs-sdk:pull'
+alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/mirebalais && ./pihemrDeploy.sh'
+alias omrs-run='mvn openmrs-sdk:run -Ddebug'
+
+So to do a daily update of the system I run:
+
+omrs-pull
+omrs-deploy
+omrs-run
+
+
 Source Code
 -----------
 
