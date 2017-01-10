@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
@@ -121,6 +122,8 @@ public class CustomAppLoaderConstants {
 
         public static final String CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS = "orderentryui.patientDashboard.activeDrugOrders";
 
+        public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
+
         // Reports
         public static final String REGISTRATION_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.registrationsByAge";
         public static final String CHECK_IN_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.checkinsByAge";
@@ -161,6 +164,7 @@ public class CustomAppLoaderConstants {
         public static final String REGISTRATION_SUMMARY_CONTENT = "registrationSummary.contentFragments";
         public static final String REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT = "registrationSummary.secondColumnContentFragments";
         public static final String REGISTRATION_FIND_PATIENT_FRAGMENTS = RegistrationAppConstants.FIND_PATIENT_FRAGMENTS_EXTENSION_POINT;
+        public static final String ALLERGIES_PAGE_INCLUDE_PAGE = AllergyUIConstants.ALLERGIES_PAGE_INCLUDE_FRAGMENT_EXTENSION_POINT;
     }
 
     // TODO are these still used once we switch to the new visit dashboard?
