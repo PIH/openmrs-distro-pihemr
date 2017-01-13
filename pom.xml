@@ -716,10 +716,10 @@
                             <version>[1.9.0,1.10.0-!)</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
+                       <!-- <property>
                             <name>emrapiVersion</name>
                             <banSnapshots>true</banSnapshots>
-                        </property>
+                        </property>-->
                         <property>
                             <name>htmlwidgetsVersion</name>
                             <banSnapshots>true</banSnapshots>
