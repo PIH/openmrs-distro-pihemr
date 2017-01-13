@@ -33,7 +33,8 @@
     "visitNote",
     "mentalHealth",
     "edTriage",
-    "edTriageQueue"
+    "edTriageQueue",
+    "labTracking"
   ],
 
   "scheduleMonthlyDataExports": true,

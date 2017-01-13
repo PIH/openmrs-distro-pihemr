@@ -280,6 +280,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableTodaysVisits();
         }
 
+        if (config.isComponentEnabled(Components.LAB_TRACKING)) {
+            enableLabTracking();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1473,6 +1477,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 ExtensionPoints.REGISTRATION_FIND_PATIENT_FRAGMENTS,
                 null));
+
+    }
+
+    private void enableLabTracking() {
+
+        apps.add(addToHomePage(app(Apps.LAB_TRACKING,
+                "labtrackingapp.app.label",
+                "icon-list-ol", // TODO fix icon
+                "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.LAB_TRACKING,
+                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
+                null),
+                null));  // TODO restrict by location ?
+
+        extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
+                "labtrackingapp.order.label",
+                "icon-stethoscope",  // TODO fix icon
+                "link",
+                "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
+                null,
+                null));     // TODO restrict by location ?
 
     }
 

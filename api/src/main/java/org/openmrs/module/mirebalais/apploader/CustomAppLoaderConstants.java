@@ -33,6 +33,7 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
+        public static final String LAB_TRACKING = "labtracking.app.monitorOrders";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -81,6 +82,7 @@ public class CustomAppLoaderConstants {
         public static final String PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION = "pih.primaryCare.adultInitial";
         public static final String PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION = "pih.primaryCare.adultFollowup";
         public static final String ED_TRIAGE_VISIT_ACTION = "edtriageapp.edTriageNote";
+        public static final String ORDER_LAB_VISIT_ACTION = "labtrackingapp.orderLab";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
@@ -188,6 +190,7 @@ public class CustomAppLoaderConstants {
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
+            Apps.LAB_TRACKING,
             Apps.REPORTS,
             Apps.DISPENSING,
             Apps.ED_TRIAGE,
@@ -240,7 +243,8 @@ public class CustomAppLoaderConstants {
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
-            Extensions.ORDER_ULTRASOUND_VISIT_ACTION);
+            Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
+            Extensions.ORDER_LAB_VISIT_ACTION);
 
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
