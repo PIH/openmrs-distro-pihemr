@@ -2,14 +2,14 @@ package org.openmrs.module.mirebalais.wristband;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPropertiesAndMappingsBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,9 +40,16 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private PaperRecordProperties paperRecordProperties;
 
+    @Autowired
+    private HaitiPropertiesAndMappingsBundle haitiPropertiesAndMappingsBundle;
+
+    @Autowired
+    private MetadataDeployService metadataDeployService;
+
     @Before
     public void setup() throws Exception {
         executeDataSet("wristbandTestDataset.xml");
+        metadataDeployService.installBundle(haitiPropertiesAndMappingsBundle);
     }
 
     @Test

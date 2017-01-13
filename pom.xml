@@ -58,14 +58,14 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
-        <emrapiVersion>1.20</emrapiVersion>
+        <emrapiVersion>1.21-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.1-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
-        <metadatamappingVersion>1.2.0</metadatamappingVersion>
-        <metadatadeployVersion>1.7</metadatadeployVersion>
+        <metadatamappingVersion>1.2.1</metadatamappingVersion>
+        <metadatadeployVersion>1.8-SNAPSHOT</metadatadeployVersion>
         <htmlformentryVersion>3.3.1</htmlformentryVersion>
         <htmlformentryuiVersion>1.6.2-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
@@ -509,6 +509,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>labtrackingapp-api</artifactId>
             <version>${labtrackingappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatamapping-api</artifactId>
+            <version>${metadatamappingVersion}</version>
             <scope>provided</scope>
         </dependency>
 <!--

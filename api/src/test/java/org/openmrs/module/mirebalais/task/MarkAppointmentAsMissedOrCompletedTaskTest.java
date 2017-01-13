@@ -10,6 +10,8 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPropertiesAndMappingsBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,9 +33,16 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
     @Autowired
     private TestDataManager testDataManager;
 
+    @Autowired
+    private HaitiPropertiesAndMappingsBundle haitiPropertiesAndMappingsBundle;
+
+    @Autowired
+    private MetadataDeployService metadataDeployService;
+
     @Before
     public void before() throws Exception {
         executeDataSet("appointmentTestDataset.xml");
+        metadataDeployService.installBundle(haitiPropertiesAndMappingsBundle);
     }
 
 
@@ -95,7 +104,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
-                        .encounterType(emrApiProperties.getConsultEncounterType())
+                        .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location1)
                         .get())
                 .save();
@@ -109,7 +118,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
-                        .encounterType(emrApiProperties.getConsultEncounterType())
+                        .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location3)
                         .get())
                 .save();

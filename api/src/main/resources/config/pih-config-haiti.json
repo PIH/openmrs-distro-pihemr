@@ -40,11 +40,6 @@
     "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
     "providerIdentifierPrefix": "L",
 
-    "extraIdentifierTypes": [
-      "e66645eb-03a8-4991-b4ce-e87318e37566",
-      "139766e8-15f5-102d-96e4-000c29c2a5d7"
-    ],
-
     "dispositionConfig": "pih-dispositions-haiti.json",
 
     "registrationConfig": {

@@ -11,6 +11,7 @@ import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -18,8 +19,8 @@ import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPropertiesAndMappingsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
@@ -72,20 +73,23 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     PersonAttributeTypeBundle personAttributeTypeBundle;
 
     @Autowired
-    HaitiMetadataBundle haitiMetadataBundle;
+    HaitiPropertiesAndMappingsBundle haitiPropertiesAndMappingsBundle;
+
+    @Autowired
+    MetadataDeployService metadataDeployService;
 
     @Before
     public void setup() throws Exception {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
 
         printerModuleActivator.started(); // Create Location Attribute Types Needed
-        locationTagBundle.install();
-        locationAttributeTypeBundle.install();
-        haitiMetadataBundle.install(); // to install primary identifier type
-        mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
-        patientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
-        personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
-        addressBundle.installAddressTemplate(); // Install address template needed for layout on id card
+        metadataDeployService.installBundle(locationTagBundle);
+        metadataDeployService.installBundle(locationAttributeTypeBundle);
+        metadataDeployService.installBundle(haitiPropertiesAndMappingsBundle); // to install primary identifier type
+        metadataDeployService.installBundle(mirebalaisLocationsBundle); // Install Location Metadata for distribution
+        metadataDeployService.installBundle(patientIdentifierTypeBundle); // Install Patient Identifier Types for distribution
+        metadataDeployService.installBundle(personAttributeTypeBundle); // Install Person Attribute Types for distribution
+        metadataDeployService.installBundle(addressBundle); // Install address template needed for layout on id card
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
 
         Config config = mock(Config.class);
