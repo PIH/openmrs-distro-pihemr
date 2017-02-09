@@ -340,7 +340,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: coreapps.mergeVisits",
                 null));
 
-        // this provides the javascript the backs the overall action buttons
+        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
         extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
                 "coreapps",
                 "patientdashboard/visitIncludes",
