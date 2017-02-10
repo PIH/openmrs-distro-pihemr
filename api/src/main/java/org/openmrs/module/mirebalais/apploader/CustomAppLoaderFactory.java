@@ -1484,7 +1484,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToHomePage(app(Apps.LAB_TRACKING,
                 "labtrackingapp.app.label",
-                "icon-list-ol", // TODO fix icon
+                "icon-beaker",
                 "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.LAB_TRACKING,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
                 null),
@@ -1492,7 +1492,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.order.label",
-                "icon-stethoscope",  // TODO fix icon
+                "icon-beaker",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
                 null,
