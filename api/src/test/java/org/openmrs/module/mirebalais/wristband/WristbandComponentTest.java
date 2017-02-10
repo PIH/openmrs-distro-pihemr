@@ -2,14 +2,18 @@ package org.openmrs.module.mirebalais.wristband;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.api.PatientService;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,6 +24,8 @@ import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
@@ -40,9 +46,23 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private PaperRecordProperties paperRecordProperties;
 
+    @Autowired
+    private MetadataMappingService metadataMappingService;
+
+    @Autowired
+    private PatientService patientService;
+
     @Before
     public void setup() throws Exception {
         executeDataSet("wristbandTestDataset.xml");
+
+        EmrApiActivator emrApiActivator = new EmrApiActivator();
+        emrApiActivator.started();
+
+        Config config = mock(Config.class);
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
     }
 
     @Test

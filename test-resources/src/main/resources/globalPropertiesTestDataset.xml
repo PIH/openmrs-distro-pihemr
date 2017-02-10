@@ -41,13 +41,8 @@
                      uuid="92e516a0-0e66-11e2-b883-bb77234a0748"/>
     <global_property property="emr.principalResultsInterpreterEncounterRole" property_value=""
                      uuid="92e516a0-1166-11e2-b883-bb77234a0748"/>
-    <global_property property="emr.orderingProviderEncounterRole" property_value=""
-                     uuid="92e516a0-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.checkInClerkEncounterRole" property_value=""
-                     uuid="93e516a0-0e66-11e2-b643-bb77234a0748"/>
     <global_property property="emr.radiologyTestOrderType" property_value=""
                      uuid="97c2091c-0e66-11e2-b643-bb77234a0748"/>
-    <global_property property="emr.atFacilityVisitType" property_value="" uuid="f01c54cb-2225-471a-9cd5-d348552c337c"/>
     <global_property property="emr.paperRecordIdentifierType" property_value=""
                      uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
     <global_property property="emr.externalDossierIdentifierType" property_value=""
@@ -60,28 +55,14 @@
                      uuid="6a91f378-1c79-11e2-9b1a-423440a3714c"/>
     <global_property property="emr.ultrasoundOrderablesConcept" property_value=""
                      uuid="6ec1a132-1c79-11e2-9b1a-423440a3714c"/>
-    <global_property property="emr.checkInEncounterType" property_value="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"
-                     uuid="58b07372-3605-44b2-b8ee-c4bb98e4f088"/>
-    <global_property property="emr.primaryIdentifierType" property_value="ZL EMR ID"
-                     description="Primary identifier type for looking up patients, generating barcodes, etc"
-                     uuid="1e384f09-d1e3-4827-b423-1082a1bbccbf"/>
-    <global_property property="emr.consultEncounterType" property_value="" uuid="1fbfbc6c-7bc5-11e2-80c8-0295e7c832a2"/>
-    <global_property property="emr.visitNoteEncounterType" property_value="" uuid="4444bc6c-7bc5-11e2-80c8-0295e7c832a2"/>
-    <global_property property="emr.clinicianEncounterRole" property_value=""
-                     uuid="31460360-7bc5-11e2-80c8-0295e7c832a2"/>
     <global_property property="emr.concept.diagnosisSetOfSets" property_value=""
                      uuid="b9d24768-8a8c-11e2-865a-f15cf9ca08c8"/>
     <global_property property="emr.unknownLocation" property_value="" uuid="b9d24768-8a8c-1332-865a-f15cf9ca08c8"/>
-    <global_property property="emr.unknownProvider" property_value="" uuid="b9d24228-8a8c-11e2-865a-f15cf9ca08c8"/>
 
     <global_property property="emr.paymentAmountConcept" property_value="5d1bc5de-6a35-4195-8631-7322941fe528"/>
     <global_property property="emr.paymentReasonConcept" property_value="36ba7721-fae0-4da4-aef2-7e476cc04bdf"/>
     <global_property property="emr.paymentReceiptNumberConcept" property_value="20438dc7-c5b4-4d9c-8480-e888f4795123"/>
     <global_property property="emr.paymentConstructConcept" property_value="8af62975-330e-4de7-ab85-1cc5ae5da9a8"/>
-
-    <global_property property="emr.admissionForm" property_value="" uuid="12445872-4444-11e2-ad5b-8a6454449764"/>
-    <global_property property="emr.transferWithinHospitalForm" property_value="" uuid="12432172-4444-11e2-ad5b-8a6454449764"/>
-    <global_property property="emr.exitFromInpatientForm" property_value="" uuid="66666666-4444-11e2-ad5b-8a6454449764"/>
 
     <global_property property="coreapps.defaultDashboard" property_value="test" uuid="77766666-4444-11e2-ad5b-8a6454449764"/>
 
@@ -106,10 +87,6 @@ If left blank, no alorithmic transformation will be stored in the db for searchi
     <global_property property="mirebalais.checkIn.paymentAmounts" property_value="" uuid="66660360-7bc5-11e2-81c8-0295e7c832a2"/>
     <global_property property="mirebalais.checkIn.paymentAmountLabels" property_value="" uuid="66660360-7bc5-11e2-82c8-0295e7c832a2"/>
     <global_property property="mirebalais.checkIn.paymentAmountDefault" property_value="" uuid="66660360-7bc5-11e2-83c8-0295e7c832a2"/>
-
-    <global_property property="emr.admissionEncounterType" property_value="" uuid="9080c5f0-bd00-11e2-ad5b-8a6456859764"/>
-    <global_property property="emr.exitFromInpatientEncounterType" property_value="" uuid="a15894e8-bd00-11e2-ad5b-8a6456859764"/>
-    <global_property property="emr.transferWithinHospitalEncounterType" property_value="" uuid="57499872-bdc1-11e2-ad5b-8a6456859764"/>
 
     <global_property property="coreapps.defaultPatientIdentifierLocation" property_value="" uuid="87499872-bdc1-11e2-ad5b-8a6454449764"/>
 

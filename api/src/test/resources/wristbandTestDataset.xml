@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
 
-    <global_property property="emr.primaryIdentifierType" property_value="a541af1e-105c-40bf-b345-ba1fd6a59b85"
-                     description="Primary identifier type for looking up patients, generating barcodes, etc"
-                     uuid="1e384f09-d1e3-4827-b423-1082a1bbccbf"/>
-
     <global_property property="emr.paperRecordIdentifierType" property_value="6e517000-0cf1-11e4-9191-0800200c9a66"
                      uuid="97c2091c-0e66-11e3-b643-bb77234a0748"/>
 

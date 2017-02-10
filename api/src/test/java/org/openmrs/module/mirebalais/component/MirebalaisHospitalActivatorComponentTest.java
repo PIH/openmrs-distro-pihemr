@@ -24,6 +24,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.PatientToAppointmentDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
+import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
@@ -68,6 +69,12 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         return p;
     }
 
+    private MirebalaisHospitalActivator mirebalaisHospitalActivator;
+
+    private PihCoreActivator pihCoreActivator;
+
+    private EmrApiActivator emrApiActivator;
+
     @Autowired
     private AccountService accountService;
 
@@ -79,10 +86,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     @Autowired
     private PaperRecordProperties paperRecordProperties;
-
-    private MirebalaisHospitalActivator mirebalaisHospitalActivator;
-
-    private PihCoreActivator pihCoreActivator;
 
     @Autowired
     private MetadataDeployService deployService;
@@ -101,6 +104,10 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
+
+        // run the emrapi activator
+        emrApiActivator = new EmrApiActivator();
+        emrApiActivator.started();
 
         // set up metadata from pih core first
         pihCoreActivator = new PihCoreActivator();

@@ -5,11 +5,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Visit;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.VisitService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.metadatamapping.MetadataSource;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,16 +36,47 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
     private LocationService locationService;
 
     @Autowired
+    private EncounterService encounterService;
+
+    @Autowired
+    private VisitService visitService;
+
+    @Autowired
     private EmrApiProperties emrApiProperties;
 
     @Autowired
     private TestDataManager testDataManager;
 
+    @Autowired
+    private MetadataDeployService deployService;
+
+    @Autowired
+    private MetadataMappingService metadataMappingService;
+
+    @Autowired
+    private EncounterTypeBundle encounterTypeBundle;
+
+    @Autowired
+    private EncounterRoleBundle encounterRoleBundle;
+
+    @Autowired
+    private VisitTypeBundle visitTypeBundle;
+
     @Before
     public void before() throws Exception {
         executeDataSet("appointmentTestDataset.xml");
+        createEmrApiMappingSource(metadataMappingService);
+        deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(encounterRoleBundle);
+        deployService.installBundle(visitTypeBundle);
+        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
     }
 
+    protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
+        MetadataSource source = new MetadataSource();
+        source.setName(EmrApiConstants.EMR_METADATA_SOURCE_NAME);
+        metadataMappingService.saveMetadataSource(source);
+    }
 
     @Test
     public void shouldMarkPastScheduledAppointmentsAsMissed() {
@@ -95,7 +136,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
-                        .encounterType(emrApiProperties.getConsultEncounterType())
+                        .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location1)
                         .get())
                 .save();
@@ -109,7 +150,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
-                        .encounterType(emrApiProperties.getConsultEncounterType())
+                        .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location3)
                         .get())
                 .save();

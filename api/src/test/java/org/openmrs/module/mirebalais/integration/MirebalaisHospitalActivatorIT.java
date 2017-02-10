@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
@@ -52,6 +52,10 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
+
+        // run the emrapi activator
+        EmrApiActivator emrApiActivator = new EmrApiActivator();
+        emrApiActivator.started();
 
         // set up metatdata from pih core first
         PihCoreActivator pihCoreActivator = new PihCoreActivator();

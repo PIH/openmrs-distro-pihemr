@@ -27,18 +27,24 @@ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebala
 
 Then start up the server:
 
-mvn openmrs-sdk:run -DserverId=mirebalais
+mvn openmrs-sdk:run -DserverId=[serverId]
 
-It should run for several minutes, setting up the database, BUT, in the end, it will fail.
+It should run for several minutes, setting up the database, BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
 
 After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
 
-You should add a line to these file specifying which of our configs to use for this server. For instance, to use
-the Mirebalais configuration, add the following to the runtime properties:
+Add a line to these file specifying which of our configs to use for this server. For instance, to use
+the Mirebalais configuration, add the following nto the runtime properties:
 
 pih.config=mirebalais-humci,mirebalais
 
-Create a local identifier source to generate "fake" ZL EMR IDs
+Then rerun:
+
+mvn openmrs-sdk:run -DserverId=[serverId]
+
+Startup should take several minutes as it loads in all required metadata, etc, for the first time.
+
+After startup, there's one manual configuration you will have to do, create a local identifier source to generate "fake" ZL EMR IDs:
 
 - In the legacy admin go to "Manage Patient Identifier Sources"
 - Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
@@ -53,9 +59,6 @@ Create a local identifier source to generate "fake" ZL EMR IDs
 - Set "Pool Identifier Source" to "ZL Identifier Generator"
 - Change "When to fill" to "When you request an identifier"
 
-Then try starting the server again:
-
-mvn openmrs-sdk:run -DserverId=mirebalais
 
 Updating
 --------

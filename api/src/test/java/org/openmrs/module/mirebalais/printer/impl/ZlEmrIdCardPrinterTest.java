@@ -8,9 +8,12 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.PatientService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
+import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -25,6 +28,7 @@ import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
 import org.openmrs.module.printer.PrinterModuleActivator;
@@ -57,6 +61,12 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     LocationAttributeTypeBundle locationAttributeTypeBundle;
 
     @Autowired
+    PatientService patientService;
+
+    @Autowired
+    MetadataMappingService metadataMappingService;
+
+    @Autowired
     MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
@@ -76,9 +86,13 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
     @Before
     public void setup() throws Exception {
-        PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
 
+        EmrApiActivator emrApiActivator = new EmrApiActivator();
+        emrApiActivator.started();
+
+        PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
+
         locationTagBundle.install();
         locationAttributeTypeBundle.install();
         haitiMetadataBundle.install(); // to install primary identifier type
@@ -92,6 +106,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
         LocationTagSetup.setupLocationTags(locationService, config);
+        MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
     }
 
     @Test

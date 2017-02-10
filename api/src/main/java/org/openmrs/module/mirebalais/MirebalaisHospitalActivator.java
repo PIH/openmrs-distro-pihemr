@@ -25,7 +25,6 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
@@ -108,7 +107,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             PrinterService printerService = Context.getService(PrinterService.class);
             DispositionService dispositionService = Context.getService(DispositionService.class);
 
-            removeOldGlobalProperties();
             removeOldPrivileges();
 
             setDispositionConfig(config, dispositionService);
@@ -184,11 +182,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 	public void stopped() {
 		log.info("Mirebalais Hospital Module stopped");
 	}
-
-    private void removeOldGlobalProperties() {
-        AdministrationService administrationService = Context.getAdministrationService();
-        administrationService.purgeGlobalProperty(administrationService.getGlobalPropertyObject(EmrApiConstants.GP_CONSULT_ENCOUNTER_TYPE));
-    }
 
   /*  private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
 
