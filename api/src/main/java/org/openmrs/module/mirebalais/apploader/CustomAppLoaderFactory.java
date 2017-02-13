@@ -1498,6 +1498,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));     // TODO restrict by location ?
 
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.LAB_SUMMARY,
+                "labtrackingapp.pathology",
+                "icon-beaker",
+                null,
+                null,  // TODO restrict by privilege or location?
+                null),
+                "labtrackingapp", "labtrackingPatientDashboard"));
+
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
