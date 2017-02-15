@@ -32,8 +32,9 @@
     "visitNote",
     "mentalHealth",
     "edTriage",
-    "edTriageQueue"
-    ],
+    "edTriageQueue",
+    "primaryCare"
+  ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",

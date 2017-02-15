@@ -34,7 +34,8 @@
     "mentalHealth",
     "edTriage",
     "edTriageQueue",
-    "labTracking"
+    "labTracking",
+    "primaryCare"
   ],
 
   "scheduleMonthlyDataExports": true,
