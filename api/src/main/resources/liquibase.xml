@@ -290,4 +290,20 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20170217-map-pih-and-ciel-concepts" author="cioan">
+        <comment>
+            UHM-2768, Create concept mapping View at startup
+        </comment>
+        <sql>
+            create view report_mapping as
+            select crm.concept_id, crs.name "source", crt.code
+            from concept_reference_map crm, concept_reference_term crt, concept_reference_source crs
+            where crm.concept_reference_term_id = crt.concept_reference_term_id
+            and crt.concept_source_id = crs.concept_source_id
+            and crt.retired = 0
+            and crs.retired = 0
+            and crs.name in ('PIH','CIEL');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
