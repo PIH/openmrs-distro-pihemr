@@ -295,7 +295,7 @@
             UHM-2768, Create concept mapping View at startup
         </comment>
         <sql>
-            create view report_mapping as
+            create or replace view report_mapping as
             select crm.concept_id, crs.name "source", crt.code
             from concept_reference_map crm, concept_reference_term crt, concept_reference_source crs
             where crm.concept_reference_term_id = crt.concept_reference_term_id
