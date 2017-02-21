@@ -291,6 +291,8 @@
     </changeSet>
 
     <changeSet id="20170217-map-pih-and-ciel-concepts" author="cioan" runAlways="true" runOnChange="true">
+        <validCheckSum>3:b84aeaf4169f7d86e311db84f5afe0d8</validCheckSum> <!-- old checksum with broken sql script -->
+        <validCheckSum>3:66fa79bc2d0078702e57dca3f1601b90</validCheckSum> <!-- new checksum with fixed sql script -->
         <comment>
             UHM-2768, Create concept mapping View at startup
         </comment>
@@ -305,5 +307,6 @@
             and crs.name in ('PIH','CIEL');
         </sql>
     </changeSet>
+
 
 </databaseChangeLog>
