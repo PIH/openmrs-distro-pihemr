@@ -290,7 +290,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20170217-map-pih-and-ciel-concepts" author="cioan">
+    <changeSet id="20170217-map-pih-and-ciel-concepts" author="cioan" runAlways="true" runOnChange="true">
         <comment>
             UHM-2768, Create concept mapping View at startup
         </comment>
