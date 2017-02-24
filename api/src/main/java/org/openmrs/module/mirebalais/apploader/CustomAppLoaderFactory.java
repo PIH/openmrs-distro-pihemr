@@ -1465,6 +1465,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION), "primaryCareNote");
+        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION), "primaryCareNote");
+        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION), "primaryCareNote");
+        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION), "primaryCareNote");
+
+
         // (allergies no longer part of visit note follow)
         // hacky extension to inject a "next" button into the allergies list page to support our functionality to step through the primary care note sections
         /*extensions.add(fragmentExtension(Extensions.ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT,
