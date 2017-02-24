@@ -934,7 +934,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "appointmentschedulingui", "miniPatientAppointments");
         }
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION), "requestAppointments");
     }
 
     private void enableSystemAdministration() {
