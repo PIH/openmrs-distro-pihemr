@@ -43,7 +43,9 @@ public class RequireUtil {
         return new String("patient.person.age < 15");
     }
 
-
+    public static String patientAgeUnknown() {
+        return new String("patient.person.age == null");
+    }
 
     public static String and(String ... args) {
 
