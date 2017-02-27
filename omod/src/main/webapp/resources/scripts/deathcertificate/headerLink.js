@@ -25,7 +25,7 @@ angular.module('deathCertificate', ['encounterService']).
                 query: {
                     patientId: $scope.patientUuid,
                     definitionUiResource: "pihcore:htmlforms/deathCertificate.xml",
-                    returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
+                    returnUrl: emr.pageLink("coreapps", "clinicianfacing/patient", { patientId: $scope.patientUuid, app: "pih.app.clinicianDashboard" })
                 }
             });
         }
@@ -38,7 +38,7 @@ angular.module('deathCertificate', ['encounterService']).
                     encounter: encounterUuid,
                     editStyle: "simple",
                     returnLabel: $scope.returnLabel,
-                    returnUrl: emr.pageLink("coreapps", "patientdashboard/patientDashboard", { patientId: $scope.patientUuid })
+                    returnUrl: emr.pageLink("coreapps", "clinicianfacing/patient", { patientId: $scope.patientUuid, app: "pih.app.clinicianDashboard" })
                 }
             });
         }
