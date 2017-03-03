@@ -143,6 +143,7 @@ public class CustomAppLoaderConstants {
         public static final String LQAS_DATA_EXPORT = "mirebalaisreports.dataExports.lqasDiagnoses";
         public static final String ALL_PATIENTS_WITH_IDS_DATA_EXPORT = "mirebalaisreports.dataExports.allPatientsWithIds";
         public static final String APPOINTMENTS_DATA_EXPORT = "mirebalaisreports.dataExports.appointments";
+        public static final String WEEKLY_MONITORING_DATA_EXPORT = "mirebalaisreports.dataExports.weeklyMonitoring";
 
     }
 

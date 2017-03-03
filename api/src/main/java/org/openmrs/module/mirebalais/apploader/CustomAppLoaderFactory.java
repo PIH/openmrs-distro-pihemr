@@ -803,6 +803,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "App: mirebalaisreports.dataexports",
                     "mirebalaisreports-allPatientsWithIdsReport-link"));
 
+            extensions.add(dataExport(Extensions.WEEKLY_MONITORING_DATA_EXPORT,
+                    "mirebalaisreports.weeklymonitoringdataexport.name",
+                    MirebalaisReportsProperties.WEEKLY_MONITORING_REPORT_DEFINITION_UUID,
+                    "App: mirebalaisreports.dataexports",
+                    "mirebalaisreports-weeklymonitoringdataexport-link"));
+
         }
 
         // TODO: Replace this with property configuration in config

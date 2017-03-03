@@ -6,21 +6,21 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
-import org.openmrs.module.mirebalaisreports.definitions.DailyCheckInsReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.DailyClinicalEncountersReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.DailyRegistrationsReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.NonCodedDiagnosesReportManager;
-import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.AllPatientsWithIdsReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.AppointmentsReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.DailyCheckInsReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.DailyClinicalEncountersReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.DailyRegistrationsReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.mirebalaisreports.definitions.InpatientListReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.InpatientStatsDailyReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.InpatientStatsMonthlyReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.NonCodedDiagnosesReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.UsersAndProvidersReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.helper.DailyIndicatorByLocationReportDefinition;
+import org.openmrs.module.mirebalaisreports.definitions.WeeklyMonitoringReportManager;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -51,6 +51,8 @@ public class ReportSetup {
             setupReport(Context.getRegisteredComponents(DailyCheckInsReportManager.class).get(0),
                     reportService, reportDefinitionService, administrationService, serializedObjectDAO);
             setupReport(Context.getRegisteredComponents(NonCodedDiagnosesReportManager.class).get(0),
+                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            setupReport(Context.getRegisteredComponents(WeeklyMonitoringReportManager.class).get(0),
                     reportService, reportDefinitionService, administrationService, serializedObjectDAO);
 
             // TODO: Pull report configuration out into a better configuration file
