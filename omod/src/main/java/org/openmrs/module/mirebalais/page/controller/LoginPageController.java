@@ -21,9 +21,9 @@ import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.api.db.ContextDAO;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.EmrContext;
-import org.openmrs.module.emr.api.EmrService;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -34,9 +34,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,7 +50,7 @@ public class LoginPageController {
 
 	public String get(
 	        PageModel pageModel,
-	        @SpringBean EmrService emrService,
+			@SpringBean EmrApiProperties emrApiProperties,
             @SpringBean Config config,
 	        @CookieValue(value = EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, required = false) String lastSessionLocationId,
 	        @SpringBean("locationService") LocationService locationService, EmrContext context, UiUtils ui,
@@ -68,7 +68,7 @@ public class LoginPageController {
 			Context.addProxyPrivilege(GET_LOCATIONS);
             Context.addProxyPrivilege(VIEW_LOCATIONS);
 
-            List<Location> loginLocations = emrService.getLoginLocations();
+            List<Location> loginLocations = getLoginLocations(locationService, emrApiProperties);
 
 			pageModel.addAttribute("locations", loginLocations);
 			Location lastSessionLocation = null;
@@ -147,6 +147,14 @@ public class LoginPageController {
 			        .message("mirebalais.login.error.authentication"));
 			return "redirect:" + ui.pageLink("mirebalais", "login");
 		}
+	}
+
+	private List<Location> getLoginLocations(LocationService locationService, EmrApiProperties emrApiProperties) {
+		List<Location> locations = locationService.getLocationsByTag(emrApiProperties.getSupportsLoginLocationTag());
+		if (locations.size() == 0) {
+			locations = locationService.getAllLocations(false);
+		}
+		return locations;
 	}
 	
 }
