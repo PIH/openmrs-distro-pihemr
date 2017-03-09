@@ -779,7 +779,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
-        // TODO: add order to Baser Report Manager?
+        // TODO: add order to Base Report Manager?
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
                 (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
