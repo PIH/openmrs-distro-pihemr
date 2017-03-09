@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -10,6 +11,7 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
@@ -30,7 +32,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
@@ -778,37 +779,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
-        extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
-                "reportingui.adHocAnalysis.label",
-                null,
-                "link",
-                "reportingui/adHocManage.page",
-                "App: reportingui.adHocAnalysis",
-                null,
-                ExtensionPoints.REPORTING_DATA_EXPORT,
-                9999,
-                null));
-
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-
-            extensions.add(dataExport(Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
-                    "mirebalaisreports.userAndProviders.name",
-                    MirebalaisReportsProperties.USERS_AND_PROVIDERS_REPORT_DEFINITION_UUID,
-                    "App: mirebalaisreports.dataexports",
-                    "mirebalaisreports-usersAndProvidersReport-link"));
-
-            extensions.add(dataExport(Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
-                    "mirebalaisreports.allpatientswithids.name",
-                    MirebalaisReportsProperties.ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID,
-                    "App: mirebalaisreports.dataexports",
-                    "mirebalaisreports-allPatientsWithIdsReport-link"));
-
-            extensions.add(dataExport(Extensions.WEEKLY_MONITORING_DATA_EXPORT,
-                    "mirebalaisreports.weeklymonitoringdataexport.name",
-                    MirebalaisReportsProperties.WEEKLY_MONITORING_REPORT_DEFINITION_UUID,
-                    "App: mirebalaisreports.dataexports",
-                    "mirebalaisreports-weeklymonitoringdataexport-link"));
-
+        // TODO: add order to Baser Report Manager?
+        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+            if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
+                (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
+                extensions.add(dataExport("mirebalaisreports.dataExports." + report.getName(),
+                        "mirebalaisreports." + report.getName() + ".name",
+                        report.getUuid(),
+                        "App: mirebalaisreports.dataexports",
+                        "mirebalaisrpeorts-" + report.getName() + "-link"));
+            }
         }
 
         // TODO: Replace this with property configuration in config
@@ -823,15 +803,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "App: mirebalaisreports.dataexports",
                     null,
                     ExtensionPoints.REPORTING_DATA_EXPORT,
-                    REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT) + 100,
+                    105,  // TODO: fix
                     map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
-
-            extensions.add(dataExport(Extensions.APPOINTMENTS_DATA_EXPORT,
-                    "mirebalaisreports.appointments.name",
-                    MirebalaisReportsProperties.APPOINTMENTS_REPORT_DEFINITION_UUID,
-                    "App: mirebalaisreports.dataexports",
-                    "mirebalaisreports-appointments-link"));
         }
+
+        extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
+                "reportingui.adHocAnalysis.label",
+                null,
+                "link",
+                "reportingui/adHocManage.page",
+                "App: reportingui.adHocAnalysis",
+                null,
+                ExtensionPoints.REPORTING_DATA_EXPORT,
+                9999,
+                null));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
 

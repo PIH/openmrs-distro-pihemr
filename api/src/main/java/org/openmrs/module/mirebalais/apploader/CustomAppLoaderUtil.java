@@ -24,7 +24,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
@@ -246,9 +245,8 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension dataExport(String id, String label, String definitionUuid, String privilege, String linkId) {
-        // note the indexOf(id) + 100 to make sure that these reports are ranked below the others defined in mirebalais reports--to do, we want to fix this at some point
         return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(id) + 100, linkId);
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, 100, linkId);
     }
 
     static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {

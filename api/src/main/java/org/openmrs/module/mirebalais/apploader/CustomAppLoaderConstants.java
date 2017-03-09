@@ -139,12 +139,7 @@ public class CustomAppLoaderConstants {
 
         public static final String NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT = "mirebalaisreports.dataQuality.nonCodedDiagnoses";
 
-        public static final String USERS_AND_PROVIDERS_DATA_EXPORT = "mirebalaisreports.dataExports.usersAndProviders";
         public static final String LQAS_DATA_EXPORT = "mirebalaisreports.dataExports.lqasDiagnoses";
-        public static final String ALL_PATIENTS_WITH_IDS_DATA_EXPORT = "mirebalaisreports.dataExports.allPatientsWithIds";
-        public static final String APPOINTMENTS_DATA_EXPORT = "mirebalaisreports.dataExports.appointments";
-        public static final String WEEKLY_MONITORING_DATA_EXPORT = "mirebalaisreports.dataExports.weeklyMonitoring";
-
     }
 
     public static final class ExtensionPoints {
@@ -259,11 +254,11 @@ public class CustomAppLoaderConstants {
             Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
             Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT);
 
-    public static final List<String> REPORTING_DATA_EXPORT_REPORTS_ORDER = Arrays.asList(
+/*    public static final List<String> REPORTING_DATA_EXPORT_REPORTS_ORDER = Arrays.asList(
             Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
             Extensions.LQAS_DATA_EXPORT,
             Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
-            Extensions.APPOINTMENTS_DATA_EXPORT);
+            Extensions.APPOINTMENTS_DATA_EXPORT);*/
 
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.VISITS_SUMMARY + ".clinicianDashboardFirstColumn",

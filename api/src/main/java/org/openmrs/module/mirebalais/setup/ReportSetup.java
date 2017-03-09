@@ -40,6 +40,7 @@ public class ReportSetup {
                 setupReport(report, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
             }
         }
+
         scheduleBackupReports(reportService, reportDefinitionService, config);
         scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
     }
