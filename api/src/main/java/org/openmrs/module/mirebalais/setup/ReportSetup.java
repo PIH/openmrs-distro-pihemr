@@ -7,21 +7,10 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
-import org.openmrs.module.mirebalaisreports.definitions.AllPatientsWithIdsReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.AppointmentsReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.DailyCheckInsReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.DailyClinicalEncountersReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.DailyRegistrationsReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
-import org.openmrs.module.mirebalaisreports.definitions.InpatientListReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.InpatientStatsDailyReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.InpatientStatsMonthlyReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.NonCodedDiagnosesReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.UsersAndProvidersReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.WeeklyMonitoringReportManager;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportRequest;
@@ -41,78 +30,20 @@ public class ReportSetup {
                                     AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
                                     Config config) {
 
-        setupFullDataExports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-        setupPatientsAndUsersReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-
-            setupReport(Context.getRegisteredComponents(DailyRegistrationsReportManager.class).get(0),
-                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            setupReport(Context.getRegisteredComponents(DailyCheckInsReportManager.class).get(0),
-                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            setupReport(Context.getRegisteredComponents(NonCodedDiagnosesReportManager.class).get(0),
-                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            setupReport(Context.getRegisteredComponents(WeeklyMonitoringReportManager.class).get(0),
-                    reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-            // TODO: Pull report configuration out into a better configuration file
-            if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-
-                setupReport(Context.getRegisteredComponents(AppointmentsReportManager.class).get(0),
-                        reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-                setupReport(Context.getRegisteredComponents(DailyClinicalEncountersReportManager.class).get(0),
-                        reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-                setupInPatientReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            }
-        }
-
-        scheduleBackupReports(reportService, reportDefinitionService, config);
-        scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
-    }
-
-
-    private static void setupFullDataExports(ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                             AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
         FullDataExportBuilder fullDataExportBuilder = Context.getRegisteredComponents(FullDataExportBuilder.class).get(0);
         for (ReportManager manager : fullDataExportBuilder.getAllReportManagers()) {
             setupReport(manager, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
         }
+
+        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())) {
+                setupReport(report, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            }
+        }
+        scheduleBackupReports(reportService, reportDefinitionService, config);
+        scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
     }
 
-    /**
-     * Currently we require these to be white-listed, until we've gone through all ReportManagers, and ensured they are
-     * ready to be included here
-     */
-    private static void setupPatientsAndUsersReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                          AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
-
-        setupReport(Context.getRegisteredComponents(AllPatientsWithIdsReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        setupReport(Context.getRegisteredComponents(UsersAndProvidersReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-    }
-
-    /**
-     * Currently we require these to be white-listed, until we've gone through all ReportManagers, and ensured they are
-     * ready to be included here
-     */
-    private static void setupInPatientReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                          AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
-
-        setupReport(Context.getRegisteredComponents(InpatientStatsDailyReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        setupReport(Context.getRegisteredComponents(InpatientStatsMonthlyReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-        setupReport(Context.getRegisteredComponents(InpatientListReportManager.class).get(0),
-                reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-
-    }
 
     private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
         // sets up reports currently only used on Mirebalais production server (as a backup)
