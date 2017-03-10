@@ -32,7 +32,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
@@ -60,6 +59,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPa
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
@@ -77,6 +77,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 @Component("customAppLoaderFactory")
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
@@ -205,6 +206,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
+        }
+
+        if (config.isComponentEnabled(Components.MONITORING_REPORTS)) {
+            enableMonitoringReports();
         }
 
         if (config.isComponentEnabled(Components.DATA_EXPORTS)) {
@@ -688,7 +693,31 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null)));
         }
 
-        // TODO: Get rid of this hack in favor of proper configuration
+        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())) {
+
+                if (report.getCategory() == BaseReportManager.Category.OVERVIEW) {
+                    extensions.add(overviewReport("mirebalaisreports.overview." + report.getName(),
+                            report.getMessageCodePrefix() + "name",
+                            report.getUuid(),
+                            "App: reportingui.reports",
+                            report.getOrder(),
+                            "mirebalaisreports-" + report.getName() + "-link"));
+                }
+                else if (report.getCategory() == BaseReportManager.Category.DAILY) {
+                    extensions.add(dailyReport("mirebalaisreports.dailyReports." + report.getName(),
+                            report.getMessageCodePrefix() + "name",
+                            report.getUuid(),
+                            "App: reportingui.reports",
+                            report.getOrder(),
+                            "mirebalaisreports-" + report.getName() + "-link"));
+                }
+
+            }
+        }
+
+        // TODO: Get rid of these hacked-in reports in favor of proper configuration
+        // quick-and-dirty reports for Liberia
         if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
             extensions.add(extension(Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,
                     "mirebalaisreports.registrationoverview.title",
@@ -713,18 +742,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     map("linkId", "mirebalaisreports-checkinoverview-link")));
 
         } else if ( config.getCountry() == ConfigDescriptor.Country.HAITI ) {
-            extensions.add(dailyReport(Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
-                    "mirebalaisreports.dailyRegistrations.name",
-                    MirebalaisReportsProperties.DAILY_REGISTRATIONS_REPORT_DEFINITION_UUID,
-                    "App: reportingui.reports",
-                    "mirebalaisreports-dailyRegistrationsReport-link"));
-
-            extensions.add(dailyReport(Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
-                    "mirebalaisreports.dailyCheckInEncounters.name",
-                    MirebalaisReportsProperties.DAILY_CHECK_INS_REPORT_DEFINITION_UUID,
-                    "App: reportingui.reports",
-                    "mirebalaisreports-dailyCheckInsReport-link"));
-
+            // special non-coded report in it's own section for Haiti
             extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
                     "mirebalaisreports.noncodeddiagnoses.name",
                     null,
@@ -737,13 +755,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
 
             if (config.getSite() == ConfigDescriptor.Site.MIREBALAIS) {
-                extensions.add(dailyReport(Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
-                        "mirebalaisreports.dailyClinicalEncounters.name",
-                        MirebalaisReportsProperties.DAILY_CLINICAL_ENCOUNTERS_REPORT_DEFINITION_UUID,
-                        "App: reportingui.reports",
-                        "mirebalaisreports-dailyClinicalEncountersReport-link"));
-
-                // custom overview report
+                // TODO in particular, get rid of this hacked in report, seems like it should be easy enough to do?
+                // custom daily inpatients report
                 extensions.add(extension(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
                         "mirebalaisreports.inpatientStatsDailyReport.name",
                         null,
@@ -752,22 +765,42 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: reportingui.reports",
                         null,
                         ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
-                        REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT),
+                        3,
                         map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
-
-                extensions.add(overviewReport(Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT,
-                        "mirebalaisreports.inpatientStatsMonthlyReport.name",
-                        MirebalaisReportsProperties.INPATIENT_STATS_MONTHLY_REPORT_DEFINITION_UUID,
-                        "App: reportingui.reports",
-                        "mirebalaisreports-inpatientMonthlyReport-link"));
             }
 
         }
     }
 
+    private void enableMonitoringReports() {
+
+        // overReports, monitoring reports, and dataExports define this, so make sure if both are turned on we don't config it twice
+        if (findAppById(Apps.REPORTS) == null) {
+            apps.add(addToHomePage(app(Apps.REPORTS,
+                    "reportingui.reportsapp.home.title",
+                    "icon-list-alt",
+                    "reportingui/reportsapp/home.page",
+                    "App: reportingui.reports",
+                    null)));
+        }
+
+        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+            if (report.getCategory() == BaseReportManager.Category.MONITORING &&
+                    (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
+                extensions.add(monitoringReport("mirebalaisreports.monitoring." + report.getName(),
+                        report.getMessageCodePrefix() + "name",
+                        report.getUuid(),
+                        "App: reportingui.reports",
+                        report.getOrder(),
+                        "mirebalaisreports-" + report.getName() + "-link"));
+            }
+        }
+
+    }
+
     private void enableDataExports() {
 
-        // both overReports and dataExports define this, so make sure if both are turned on we don't config it twice
+        // overReports, monitoring reports, and dataExports define this, so make sure if both are turned on we don't config it twice
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
                     "reportingui.reportsapp.home.title",
@@ -779,15 +812,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
-        // TODO: add order to Base Report Manager?
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
                 (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
                 extensions.add(dataExport("mirebalaisreports.dataExports." + report.getName(),
-                        "mirebalaisreports." + report.getName() + ".name",
+                        report.getMessageCodePrefix() + "name",
                         report.getUuid(),
                         "App: mirebalaisreports.dataexports",
-                        "mirebalaisrpeorts-" + report.getName() + "-link"));
+                        report.getOrder(),
+                        "mirebalaisreports-" + report.getName() + "-link"));
             }
         }
 
@@ -803,7 +836,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "App: mirebalaisreports.dataexports",
                     null,
                     ExtensionPoints.REPORTING_DATA_EXPORT,
-                    105,  // TODO: fix
+                    REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(MirebalaisReportsProperties.LQAS_DIAGNOSES_REPORT_DEFINITION_UUID) + 1000,
                     map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
         }
 

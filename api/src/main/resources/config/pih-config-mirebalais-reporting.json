@@ -1,5 +1,6 @@
 {
     "components": [
+        "monitoringReports",
         "dataExports",
         "allDataExports"
     ],

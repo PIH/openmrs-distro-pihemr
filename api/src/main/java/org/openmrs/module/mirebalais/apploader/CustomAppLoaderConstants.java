@@ -131,11 +131,9 @@ public class CustomAppLoaderConstants {
         public static final String REGISTRATION_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.registrationsByAge";
         public static final String CHECK_IN_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.checkinsByAge";
 
-        public static final String DAILY_REGISTRATIONS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyRegistrations";
-        public static final String DAILY_CHECK_INS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyCheckIns";
-        public static final String DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT = "mirebalaisreports.overview.dailyClinicalEncounters";
         public static final String DAILY_INPATIENTS_OVERVIEW_REPORT = "mirebalaisreports.overview.inpatientDaily";
         public static final String MONTHLY_INPATIENTS_OVERVIEW_REPORT = "mirebalaisreports.overview.inpatientMonthly";
+
 
         public static final String NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT = "mirebalaisreports.dataQuality.nonCodedDiagnoses";
 
@@ -156,6 +154,7 @@ public class CustomAppLoaderConstants {
         public static final String REPORTING_DATA_EXPORT = "org.openmrs.module.reportingui.reports.dataexport";
         public static final String REPORTING_OVERVIEW_REPORTS = "org.openmrs.module.reportingui.reports.overview";
         public static final String REPORTING_DATA_QUALITY = "org.openmrs.module.reportingui.reports.dataquality";
+        public static final String REPORTING_MONITORING = "org.openmrs.module.reportingui.reports.monitoring";
         public static final String PATIENT_HEADER_PATIENT_CONTACT_INFO = "patientHeader.editPatientContactInfo";
         public static final String PATIENT_HEADER_PATIENT_DEMOGRAPHICS = "patientHeader.editPatientDemographics";
         public static final String CLINICIAN_DASHBOARD_FIRST_COLUMN = "patientDashboard.firstColumnFragments";
@@ -247,12 +246,12 @@ public class CustomAppLoaderConstants {
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
             Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION);
 
-    public static final List<String> REPORTING_OVERVIEW_REPORTS_ORDER = Arrays.asList(
+/*    public static final List<String> REPORTING_OVERVIEW_REPORTS_ORDER = Arrays.asList(
             Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
             Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
             Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
             Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
-            Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT);
+            Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT);*/
 
 /*    public static final List<String> REPORTING_DATA_EXPORT_REPORTS_ORDER = Arrays.asList(
             Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,

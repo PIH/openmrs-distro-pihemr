@@ -21,6 +21,7 @@
         "primaryCare",
         "overviewReports",
         "dataExports",
+        "monitoringReports",
         "biometricsFingerPrints",
         "todaysVisits"
     ],

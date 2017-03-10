@@ -23,6 +23,7 @@ import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.reporting.data.definition.PatientToAppointmentDataDefinition;
 import org.openmrs.module.appointmentscheduling.reporting.dataset.definition.AppointmentDataSetDefinition;
+import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIActivator;
 import org.openmrs.module.appointmentschedulingui.AppointmentSchedulingUIConstants;
 import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -75,6 +76,8 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
 
     private EmrApiActivator emrApiActivator;
 
+    private AppointmentSchedulingUIActivator appointmentSchedulingUIActivator;
+
     @Autowired
     private AccountService accountService;
 
@@ -108,6 +111,10 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         // run the emrapi activator
         emrApiActivator = new EmrApiActivator();
         emrApiActivator.started();
+
+        // run the appointmentschedulingui manager
+        appointmentSchedulingUIActivator = new AppointmentSchedulingUIActivator();
+        appointmentSchedulingUIActivator.started();
 
         // set up metadata from pih core first
         pihCoreActivator = new PihCoreActivator();

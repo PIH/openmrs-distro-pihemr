@@ -157,13 +157,14 @@ public class CustomAppLoaderTest  {
 
     @Test
     public void shouldCreateOverviewReportExtension() {
-        Extension extension = CustomAppLoaderUtil.overviewReport("id", "label", "uuid", "privilege", "linkId");
+        Extension extension = CustomAppLoaderUtil.overviewReport("id", "label", "uuid", "privilege", 1, "linkId");
 
         assertThat(extension.getId(), is("id"));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getType(), is("link"));
         assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS));
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getOrder(), is(1));
         assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
         assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
 
@@ -171,13 +172,14 @@ public class CustomAppLoaderTest  {
 
     @Test
     public void shouldCreateDataExportExtension() {
-        Extension extension = CustomAppLoaderUtil.dataExport("id", "label", "uuid", "privilege", "linkId");
+        Extension extension = CustomAppLoaderUtil.dataExport("id", "label", "uuid", "privilege",1, "linkId");
 
         assertThat(extension.getId(), is("id"));
         assertThat(extension.getLabel(), is("label"));
         assertThat(extension.getType(), is("link"));
         assertThat(extension.getExtensionPointId(), is(CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT));
         assertThat(extension.getRequiredPrivilege(), is("privilege"));
+        assertThat(extension.getOrder(), is(1));
         assertThat(extension.getUrl(), is("reportingui/runReport.page?reportDefinition=uuid"));
         assertThat((String) extension.getExtensionParams().get("linkId"), is("linkId"));
 

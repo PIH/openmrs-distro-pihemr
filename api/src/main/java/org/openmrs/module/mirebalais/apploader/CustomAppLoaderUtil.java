@@ -24,7 +24,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REPORTING_OVERVIEW_REPORTS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 
@@ -234,19 +233,24 @@ public class CustomAppLoaderUtil {
                 privilege, map("provider", provider, "fragment", fragment, "fragmentConfig", config));
     }
 
-    static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, String linkId) {
+    static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
         return report(id, label, "reportingui", "runReport", definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, order, linkId);
     }
 
-    static public Extension dailyReport(String id, String label, String definitionUuid, String privilege, String linkId) {
+    static public Extension dailyReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
         return report(id, label, "mirebalaisreports", "dailyReport", definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, REPORTING_OVERVIEW_REPORTS_ORDER.indexOf(id), linkId);
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, order, linkId);
     }
 
-    static public Extension dataExport(String id, String label, String definitionUuid, String privilege, String linkId) {
+    static public Extension monitoringReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
         return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, 100, linkId);
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING, order, linkId);
+    }
+
+    static public Extension dataExport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
+        return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
+                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, order, linkId);
     }
 
     static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
