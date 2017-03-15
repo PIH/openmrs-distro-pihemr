@@ -1331,20 +1331,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableNCDs() {
 
-        extensions.add(visitAction(Extensions.NCD_VISIT_ACTION,
-                "pih.task.ncd.label",
+        extensions.add(visitAction(Extensions.NCD_ADULT_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_ADULT_INITIAL_CONSULT.uuid(),
                 "icon-heart",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/ncdConsult.xml"),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        registerTemplateForEncounterType(EncounterTypes.NCD_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-heart", true, true,
-                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+        extensions.add(visitAction(Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_ADULT_FOLLOWUP_CONSULT.uuid(),
+                "icon-heart",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
     }
 
     private void enableMentalHealth() {
