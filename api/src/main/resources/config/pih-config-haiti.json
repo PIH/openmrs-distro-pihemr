@@ -23,7 +23,8 @@
         "dataExports",
         "monitoringReports",
         "biometricsFingerPrints",
-        "todaysVisits"
+        "todaysVisits",
+        "ncd"
     ],
 
     "globalProperties": {
