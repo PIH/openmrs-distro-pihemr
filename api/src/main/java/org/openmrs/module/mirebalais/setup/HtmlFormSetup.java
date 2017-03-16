@@ -44,7 +44,7 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/section-peds-feeding.xml",
                         "pihcore:htmlforms/haiti/section-peds-supplements.xml",
                         "pihcore:htmlforms/haiti/section-plan.xml",
-                        "pihcore:htmlforms/haiti/section-ncd",
+                        "pihcore:htmlforms/haiti/section-ncd.xml",
                         "pihcore:htmlforms/haiti/primary-care-adult-initial.xml",
                         "pihcore:htmlforms/haiti/primary-care-adult-followup.xml",
                         "pihcore:htmlforms/haiti/primary-care-peds-initial.xml",
