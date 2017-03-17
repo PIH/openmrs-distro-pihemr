@@ -24,7 +24,9 @@
         "monitoringReports",
         "biometricsFingerPrints",
         "todaysVisits",
-        "ncd"
+        "ncd",
+        "edTriage",
+        "edTriageQueue"
     ],
 
     "globalProperties": {
