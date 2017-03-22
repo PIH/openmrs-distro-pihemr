@@ -66,8 +66,8 @@
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.3.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
-        <htmlformentryVersion>3.3.2-SNAPSHOT</htmlformentryVersion>
-        <htmlformentryuiVersion>1.6.2-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryVersion>3.3.2</htmlformentryVersion>
+        <htmlformentryuiVersion>1.6.2</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>0.11.1-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.3-SNAPSHOT</reportinguiVersion>
@@ -78,7 +78,7 @@
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.5-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.9</addresshierarchyVersion>
-        <providermanagementVersion>2.5.0</providermanagementVersion>
+        <providermanagementVersion>2.5.1-SNAPSHOT</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
