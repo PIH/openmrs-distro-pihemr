@@ -5,7 +5,6 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
-import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -45,9 +44,6 @@ import java.util.Map;
  */
 @Component
 public class PatientRegistrationApp {
-
-    @Autowired
-    private ConceptService conceptService;
 
     @Autowired
     private FeatureToggleProperties featureToggles;
@@ -94,6 +90,12 @@ public class PatientRegistrationApp {
         }
 
         c.addSection(getSocialSection(config));
+
+        // remove toggle once enabled
+        if (featureToggles.isFeatureEnabled("relationships")) {
+            c.addSection(getRelationshipsSection());
+        }
+
         c.addSection(getContactsSection(config));
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING) || config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
@@ -128,6 +130,29 @@ public class PatientRegistrationApp {
         q.addField(f);
 
         return q;
+    }
+
+    public Section getRelationshipsSection() {
+        Section s = new Section();
+        s.setId("relationshipsInfo");
+        s.setLabel("registrationapp.person.relationship");
+
+        Question q = new Question();
+        q.setId("relationshipsInfoQuestion");
+        q.setLegend("registrationapp.person.relationship.label");
+        q.setHeader("registrationapp.person.relationship.question");
+
+        Field f = new Field();
+        f.setType("personRelationships");
+
+        Map<String, String> m = new HashMap<String, String>();
+        m.put("providerName", "registrationapp");
+        m.put("fragmentId", "field/personRelationship");
+        f.setWidget(toObjectNode(m));
+
+        q.addField(f);
+        s.addQuestion(q);
+        return s;
     }
 
     public Section getContactInfoSection(Config config) {
