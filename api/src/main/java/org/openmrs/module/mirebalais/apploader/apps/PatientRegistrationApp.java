@@ -91,14 +91,9 @@ public class PatientRegistrationApp {
 
         c.addSection(getSocialSection(config));
 
-        // everywhere in Haiti except the cross-site MH laptops
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
-
-            // remove toggle once enabled
-            if (featureToggles.isFeatureEnabled("relationships")) {
-                c.addSection(getRelationshipsSection());
-            }
+        // remove toggle once enabled
+        if (featureToggles.isFeatureEnabled("relationships")) {
+            c.addSection(getRelationshipsSection());
         }
 
         c.addSection(getContactsSection(config));
