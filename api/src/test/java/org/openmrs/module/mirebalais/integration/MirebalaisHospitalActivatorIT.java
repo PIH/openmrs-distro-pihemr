@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiActivator;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypeBundle;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -42,6 +43,9 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     @Autowired
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
+    @Autowired
+    private HaitiPersonAttributeTypeBundle personAttributeTypeBundle;
+
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
@@ -52,6 +56,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
+        personAttributeTypeBundle.install();
 
         // run the emrapi activator
         EmrApiActivator emrApiActivator = new EmrApiActivator();
