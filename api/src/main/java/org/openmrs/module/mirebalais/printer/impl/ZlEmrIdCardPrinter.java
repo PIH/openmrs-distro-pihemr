@@ -18,12 +18,12 @@ import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.template.ZplCardTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
@@ -153,7 +153,7 @@ public class ZlEmrIdCardPrinter {
      */
     protected String getTelephoneNumber(Patient patient) {
         String phoneNumber = "";
-        PersonAttributeType type = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
+        PersonAttributeType type = MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid());
         PersonAttribute attr = patient.getAttribute(type);
         if (attr != null) {
             phoneNumber = StringUtils.defaultIfEmpty(attr.getValue(), "");

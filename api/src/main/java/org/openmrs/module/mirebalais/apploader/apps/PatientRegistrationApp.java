@@ -11,6 +11,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.biometrics.BiometricsEnrollmentWidget;
 import org.openmrs.module.pihcore.config.Components;
@@ -18,7 +19,6 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -122,7 +122,7 @@ public class PatientRegistrationApp {
         Field f = new Field();
         f.setFormFieldName("mothersFirstName");
         f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
+        f.setUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
         f.setWidget(getTextFieldWidget());
         if (config.getRegistrationConfig().getDemographics().getMothersName().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
@@ -199,7 +199,7 @@ public class PatientRegistrationApp {
         Field f = new Field();
         f.setFormFieldName("phoneNumber");
         f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
+        f.setUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid());
         f.setWidget(getTextFieldWidget());
 
         q.addField(f);

@@ -29,6 +29,7 @@ import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypeBundle;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
@@ -94,6 +95,9 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     private MetadataDeployService deployService;
 
     @Autowired
+    private HaitiPersonAttributeTypeBundle haitiPersonAttributeTypeBundle;
+
+    @Autowired
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
     @Before
@@ -107,6 +111,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
+        haitiPersonAttributeTypeBundle.install();
 
         // run the emrapi activator
         emrApiActivator = new EmrApiActivator();

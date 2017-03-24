@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader.apps;
 import org.codehaus.jackson.JsonNode;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
@@ -71,11 +72,11 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
 
         JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
-        assertPersonAttributeQuestionFound(demographicsSection, 0, PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid(), true);
+        assertPersonAttributeQuestionFound(demographicsSection, 0, HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid(), true);
 
         JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
-        assertPersonAttributeQuestionFound(contactInfoSection, 1, PersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
+        assertPersonAttributeQuestionFound(contactInfoSection, 1, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
 
         JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 4);
         assertSingleFieldQuestion(socialSection, 0, "personAddress");

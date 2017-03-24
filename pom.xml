@@ -98,6 +98,7 @@
         <allergyapiVersion>1.5-SNAPSHOT</allergyapiVersion>
         <allergyuiVersion>1.7-SNAPSHOT</allergyuiVersion>
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
+        <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -516,6 +517,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>labtrackingapp-api</artifactId>
             <version>${labtrackingappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>haiticore-api</artifactId>
+            <version>${haiticoreVersion}</version>
             <scope>provided</scope>
         </dependency>
 <!--

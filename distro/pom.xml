@@ -345,6 +345,13 @@
                     <version>${labtrackingappVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>haiticore-omod</artifactId>
+                    <version>${haiticoreVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 <!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
