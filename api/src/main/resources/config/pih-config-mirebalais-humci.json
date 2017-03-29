@@ -36,8 +36,7 @@
     "edTriage",
     "edTriageQueue",
     "labTracking",
-    "primaryCare",
-    "programs"
+    "primaryCare"
   ],
 
   "scheduleMonthlyDataExports": true,
