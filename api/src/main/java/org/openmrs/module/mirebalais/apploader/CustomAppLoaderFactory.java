@@ -48,7 +48,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardWidgetApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
@@ -1559,11 +1558,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePrograms() {
-        apps.add(addToClinicianDashboardSecondColumn(dashboardWidgetApp(Apps.PROGRAMS_SUMMARY,
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_SUMMARY,
                 "coreapps.programsDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
-                null, // TODO restrict by privilege or location
-                "programs"),
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programs",
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.programsDashboardWidget.label"
+                )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 

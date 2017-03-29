@@ -60,19 +60,6 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
-    static public AppDescriptor dashboardWidgetApp(String id, String label, String icon, String privilege, String widget) {
-
-        AppDescriptor app = new AppDescriptor(id, id, label, null, icon, null, 0, privilege, null);
-
-        app.setConfig(objectNode(
-                "widget", widget,
-                "icon", icon,
-                "label", label
-        ));
-
-        return app;
-    }
-
     static public AppDescriptor addToHomePage(AppDescriptor app, String require) {
         appExtension(app, app.getId() + ".appLink",
                 app.getLabel(),
