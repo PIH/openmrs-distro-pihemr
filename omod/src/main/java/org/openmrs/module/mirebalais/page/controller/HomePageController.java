@@ -21,6 +21,7 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -71,7 +72,7 @@ public class HomePageController {
         }
         // if the user doesn't have permission to view patient dashboard, we redirect to registration dashboard
         else {
-            model.addAttribute("dashboardUrl", "/registrationapp/registrationSummary.page?patientId={{patientId}}");
+            model.addAttribute("dashboardUrl", "/registrationapp/registrationSummary.page?patientId={{patientId}}&appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         }
 	}
 

@@ -62,7 +62,7 @@ public class PatientRegistrationApp {
 
     public RegistrationAppConfig getRegistrationAppConfig(Config config) {
         RegistrationAppConfig c = new RegistrationAppConfig();
-        c.setPatientDashboardLink("registrationapp/registrationSummary.page");
+        c.setPatientDashboardLink("registrationapp/registrationSummary.page?appId=" +  CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         c.setRegistrationEncounter(EncounterTypes.PATIENT_REGISTRATION.uuid(), EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
         c.setAllowRetrospectiveEntry(true);
         c.setAllowUnknownPatients(config.getRegistrationConfig().isAllowUnknownPatients());
