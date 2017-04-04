@@ -64,7 +64,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertThat(d.getRequiredPrivilege(), is("App: registrationapp.registerPatient"));
 
         assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
-        assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page"));
+        assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page?appId=registrationapp.registerPatient"));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(EncounterTypes.PATIENT_REGISTRATION.uuid()));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK));
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
