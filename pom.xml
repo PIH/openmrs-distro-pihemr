@@ -65,7 +65,7 @@
         <appframeworkVersion>2.10.0</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.3.1</metadatamappingVersion>
-        <metadatadeployVersion>1.7</metadatadeployVersion>
+        <metadatadeployVersion>1.8.1</metadatadeployVersion>
         <htmlformentryVersion>3.3.2</htmlformentryVersion>
         <htmlformentryuiVersion>1.6.2</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
