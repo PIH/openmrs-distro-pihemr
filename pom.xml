@@ -78,7 +78,7 @@
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.5-SNAPSHOT</pacsintegrationVersion>
         <addresshierarchyVersion>2.9</addresshierarchyVersion>
-        <providermanagementVersion>2.5.1-SNAPSHOT</providermanagementVersion>
+        <providermanagementVersion>2.6.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
