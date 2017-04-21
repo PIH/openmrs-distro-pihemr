@@ -1078,9 +1078,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
+
+            // TODO remove feature toggle after we have launched relationsips
+            addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY), "relationships");
         }
 
-        addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY), "relationships");
 
         if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
                 !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
