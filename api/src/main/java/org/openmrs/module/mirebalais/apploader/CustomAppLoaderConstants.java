@@ -34,7 +34,8 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
         public static final String LAB_TRACKING = "labtracking.app.monitorOrders";
-        public static final String PROGRAMS_SUMMARY = "coreapps.app.programSummary";
+        public static final String PROGRAMS_LIST = "coreapps.app.programsList";
+        public static final String PROGRAM_SUMMARY = "coreapps.app.programSummary";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -273,6 +274,6 @@ public class CustomAppLoaderConstants {
             Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn",
             Apps.MOST_RECENT_VITALS + ".clinicianDashboardSecondColumn",
             Apps.LAB_SUMMARY + ".clinicianDashboardSecondColumn",
-            Apps.PROGRAMS_SUMMARY + ".clinicianDashboardSecondColumn",
+            Apps.PROGRAMS_LIST + ".clinicianDashboardSecondColumn",
             Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
 }

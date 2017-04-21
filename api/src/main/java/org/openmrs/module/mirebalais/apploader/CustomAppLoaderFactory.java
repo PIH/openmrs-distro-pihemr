@@ -1558,7 +1558,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enablePrograms() {
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_SUMMARY,
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
                 "coreapps.programsDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1566,9 +1566,42 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "programs",
                         "icon", "icon-stethoscope",
-                        "label", "coreapps.programsDashboardWidget.label"
+                        "label", "coreapps.programsDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+
+
+        // TODO this won't actually live on the clinical dashboard,just using it here for testing
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAM_SUMMARY,
+                "ui.i18n.Program.name.3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programstatus",
+                        "icon", "icon-stethoscope",
+                        "label", "ui.i18n.Program.name.3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", "3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf"  // TODO should this be programUuid
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+       /* // TODO this won't actually live on the clinical dashboard,just using it here for testing
+        apps.add(addToClinicianDashboardSecondColumn(app("test.test",
+                "ui.i18n.Program.name.312235f0-52f6-4751-9fca-4674aee04b4e",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programstatus",
+                        "icon", "icon-stethoscope",
+                        "label", "ui.i18n.Program.name.312235f0-52f6-4751-9fca-4674aee04b4e",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", "312235f0-52f6-4751-9fca-4674aee04b4e"  // TODO should this be programUuid
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+*/
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
