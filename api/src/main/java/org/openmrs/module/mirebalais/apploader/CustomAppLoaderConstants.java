@@ -34,7 +34,8 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
         public static final String LAB_TRACKING = "labtracking.app.monitorOrders";
-        public static final String PROGRAMS_SUMMARY = "coreapps.app.programSummary";
+        public static final String PROGRAMS_LIST = "coreapps.app.programsList";
+        public static final String PROGRAM_SUMMARY = "coreapps.app.programSummary";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
 
@@ -275,6 +276,6 @@ public class CustomAppLoaderConstants {
             Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn",
             Apps.MOST_RECENT_VITALS + ".clinicianDashboardSecondColumn",
             Apps.LAB_SUMMARY + ".clinicianDashboardSecondColumn",
-            Apps.PROGRAMS_SUMMARY + ".clinicianDashboardSecondColumn",
+            Apps.PROGRAMS_LIST + ".clinicianDashboardSecondColumn",
             Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
 }
