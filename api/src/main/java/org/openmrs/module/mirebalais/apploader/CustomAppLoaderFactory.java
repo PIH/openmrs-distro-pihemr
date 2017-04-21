@@ -296,6 +296,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.PROGRAMS)) {
             enablePrograms();
         }
+        if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
+            enableRelationships();
+        }
+
 
         readyForRefresh = false;
     }
@@ -1058,6 +1062,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
+        if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_SUMMARY,
+                    "pihcore.relationshipsDashboardWidget.label",
+                    "icon-group",
+                    null,
+                    null, // TODO restrict by privilege or location)
+                    objectNode(
+                            "widget", "relationships",
+                            "baseAppPath", "/registrationapp",
+                            "editable", "true",
+                            "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                            "patientPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "icon", "icon-group",
+                            "label", "pihcore.relationshipsDashboardWidget.label"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        }
+
         if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
                 !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
@@ -1567,6 +1590,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "programs",
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programsDashboardWidget.label"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableRelationships() {
+
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.RELATIONSHIPS_SUMMARY,
+                "pihcore.relationshipsDashboardWidget.label",
+                "icon-group",
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "relationships",
+                        "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                        "icon", "icon-group",
+                        "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
