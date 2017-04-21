@@ -34,7 +34,9 @@
     "mentalHealth",
     "edTriage",
     "edTriageQueue",
-    "primaryCare"
+    "labTracking",
+    "primaryCare",
+    "relationships"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",

@@ -91,8 +91,8 @@ public class PatientRegistrationApp {
 
         c.addSection(getSocialSection(config));
 
-        // remove toggle once enabled
-        if (featureToggles.isFeatureEnabled("relationships")) {
+        // remove toggle once enabled everywhere
+        if (config.isComponentEnabled(Components.RELATIONSHIPS) && featureToggles.isFeatureEnabled("relationships")) {
             c.addSection(getRelationshipsSection());
         }
 

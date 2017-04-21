@@ -26,7 +26,8 @@
         "todaysVisits",
         "ncd",
         "edTriage",
-        "edTriageQueue"
+        "edTriageQueue",
+        "relationships"
     ],
 
     "globalProperties": {

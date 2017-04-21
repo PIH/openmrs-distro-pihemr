@@ -1078,8 +1078,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
-
         }
+
+        addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY), "relationships");
 
         if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
                 !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
@@ -1608,6 +1609,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_CLINICAL_SUMMARY), "relationships");
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
