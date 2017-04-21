@@ -1063,7 +1063,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
-            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_SUMMARY,
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
                     "pihcore.relationshipsDashboardWidget.label",
                     "icon-group",
                     null,
@@ -1596,7 +1596,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableRelationships() {
 
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.RELATIONSHIPS_SUMMARY,
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.RELATIONSHIPS_CLINICAL_SUMMARY,
                 "pihcore.relationshipsDashboardWidget.label",
                 "icon-group",
                 null,
