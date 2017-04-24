@@ -11,7 +11,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.biometrics.BiometricsEnrollmentWidget;
 import org.openmrs.module.pihcore.config.Components;
