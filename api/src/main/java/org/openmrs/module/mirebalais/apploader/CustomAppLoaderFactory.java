@@ -13,6 +13,7 @@ import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -1074,6 +1075,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "patientPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD + "," + PihCoreConstants.RELATIONSHIP_AUNT_UNCLE,
                             "icon", "icon-group",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
@@ -1607,6 +1609,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                        "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD + "," + PihCoreConstants.RELATIONSHIP_AUNT_UNCLE,
                         "icon", "icon-group",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
