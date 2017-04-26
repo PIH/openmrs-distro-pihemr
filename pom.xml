@@ -96,7 +96,7 @@
         <testutilsVersion>1.5</testutilsVersion>
         <printerVersion>1.2</printerVersion>
         <allergyapiVersion>1.5-SNAPSHOT</allergyapiVersion>
-        <allergyuiVersion>1.7-SNAPSHOT</allergyuiVersion>
+        <allergyuiVersion>1.7.0</allergyuiVersion>
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
