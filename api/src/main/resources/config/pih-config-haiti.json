@@ -27,7 +27,8 @@
         "ncd",
         "edTriage",
         "edTriageQueue",
-        "relationships"
+        "relationships",
+        "programs"
     ],
 
     "globalProperties": {
