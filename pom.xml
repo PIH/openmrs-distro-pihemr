@@ -58,7 +58,7 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <edtriageappVersion>1.0-SNAPSHOT</edtriageappVersion>
 <!--        <pihfingerprintsVersion>1.0-SNAPSHOT</pihfingerprintsVersion>-->
-        <emrapiVersion>1.21.0</emrapiVersion>
+        <emrapiVersion>1.22.0</emrapiVersion>
         <paperrecordVersion>1.2-SNAPSHOT</paperrecordVersion>
         <emrVersion>2.1-SNAPSHOT</emrVersion>
         <uiframeworkVersion>3.12.0-SNAPSHOT</uiframeworkVersion>
