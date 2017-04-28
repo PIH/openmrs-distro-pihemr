@@ -734,7 +734,6 @@
                         <property>
                             <name>emrapiVersion</name>
                             <banSnapshots>true</banSnapshots>
-                            <version>[1.21.0]</version>
                         </property>
                         <property>
                             <name>htmlwidgetsVersion</name>
