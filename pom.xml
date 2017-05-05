@@ -561,6 +561,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uilibrary</artifactId>
+            <version>${uilibraryVersion}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- End OpenMRS modules-->
 
         <!-- Begin OpenMRS contrib -->
@@ -877,6 +885,10 @@
                         </property>
                         <property>
                             <name>edtriageappVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>uilibraryVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
