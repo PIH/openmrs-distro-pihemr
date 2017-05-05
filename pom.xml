@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.10.4</openMRSVersion>
-        <openMRSwebVersion>1.10.4</openMRSwebVersion>
+        <openMRSVersion>1.10.6-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>1.10.6-SNAPSHOT</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
