@@ -24,9 +24,9 @@ import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
@@ -77,7 +77,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
     @Autowired
-    HaitiPatientIdentifierTypeBundle patientIdentifierTypeBundle;
+    PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
 
     @Autowired
     PersonAttributeTypeBundle personAttributeTypeBundle;
@@ -101,7 +101,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         locationAttributeTypeBundle.install();
         haitiMetadataBundle.install(); // to install primary identifier type
         mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
-        patientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
+        pihHaitiPatientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
         haitiPersonAttributeTypeBundle.install(); // Instal Person Attribute Types provided by Haiti Core
 
@@ -141,7 +141,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
         // Create a patient for whom to print an id card
         PatientBuilder pb = testDataManager.patient().birthdate("1948-02-16").gender("M").name("Ringo", "Starr");
-        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), "X2ECEX", location);
+        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), "X2ECEX", location);
         pb.personAttribute(MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()), "555-1212");
         pb.address("should be line 2", "should be line 1", "should be line 4", "should be line 5a", "should not exist", "should be line 5b");
         Patient patient = pb.save();

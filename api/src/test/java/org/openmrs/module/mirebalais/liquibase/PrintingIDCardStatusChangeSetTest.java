@@ -30,7 +30,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConce
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AnswerConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,7 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
     AnswerConcepts answerConcepts;
 
 	@Autowired
-    HaitiPatientIdentifierTypeBundle patientIdentifierTypeBundle;
+	PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
 
 	@Autowired
     LocationBundle locationBundle;
@@ -87,7 +87,7 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 		commonConcepts.install();
 		answerConcepts.install();
 		administrativeConcepts.install();
-		patientIdentifierTypeBundle.install();
+		pihHaitiPatientIdentifierTypeBundle.install();
 		locationBundle.install();
 
 		oldQuestion = testData.concept().name(Locale.US, "PrintingIDCardStatus").datatype("Text").conceptClass("Misc").save();
