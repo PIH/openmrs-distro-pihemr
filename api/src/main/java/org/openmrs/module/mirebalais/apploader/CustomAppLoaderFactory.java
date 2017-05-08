@@ -1075,7 +1075,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "patientPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
-                            "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD + "," + PihCoreConstants.RELATIONSHIP_AUNT_UNCLE,
+                            "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                             "icon", "icon-group",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
@@ -1629,7 +1629,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                        "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD + "," + PihCoreConstants.RELATIONSHIP_AUNT_UNCLE,
+                        "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD, 
                         "icon", "icon-group",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
