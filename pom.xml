@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.10.4</openMRSVersion>
-        <openMRSwebVersion>1.10.4</openMRSwebVersion>
+        <openMRSVersion>1.10.6-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>1.10.6-SNAPSHOT</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -82,7 +82,7 @@
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
-        <uilibraryVersion>1.5</uilibraryVersion>
+        <uilibraryVersion>2.0.4</uilibraryVersion>
         <appuiVersion>1.9.0-SNAPSHOT</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>2.4.0-SNAPSHOT</uicommonsVersion>
