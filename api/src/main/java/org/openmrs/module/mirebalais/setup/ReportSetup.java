@@ -20,6 +20,7 @@ import org.openmrs.module.reporting.report.renderer.RenderingMode;
 import org.openmrs.module.reporting.report.service.ReportService;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReportSetup {
@@ -43,6 +44,7 @@ public class ReportSetup {
 
         scheduleBackupReports(reportService, reportDefinitionService, config);
         scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
+        cleanupOldReports(reportService);
     }
 
 
@@ -127,6 +129,29 @@ public class ReportSetup {
             ReportRequest fullDataExportScheduledReportRequest = reportService.getReportRequestByUuid(MirebalaisReportsProperties.FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
             if (fullDataExportScheduledReportRequest != null) {
                 reportService.purgeReportRequest(fullDataExportScheduledReportRequest);
+            }
+        }
+    }
+
+    private static void cleanupOldReports(ReportService reportingService) {
+
+        // delete requests more than 6 months old, even if that have been saved--code adapted from deleteOldReportRequests from reporting module
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -6);
+
+        log.debug("Checking for saved reports older than six months Request date before " + cal.getTime());
+
+        List<ReportRequest> oldRequests = reportingService.getReportRequests(null, null, cal.getTime(), null);
+
+        log.debug("Found " + oldRequests.size() + " requests that qualify");
+
+        for (ReportRequest request : oldRequests) {
+            log.info("Request qualifies for deletion.  Deleting: " + request.getUuid());
+            try {
+                reportingService.purgeReportRequest(request);
+            } catch (Exception e) {
+                log.warn("Unable to delete old report request: " + request, e);
             }
         }
     }
