@@ -92,9 +92,10 @@ public class PatientRegistrationApp {
         c.addSection(getSocialSection(config));
 
         // remove toggle once enabled everywhere
-        if (config.isComponentEnabled(Components.RELATIONSHIPS) && featureToggles.isFeatureEnabled("relationships")) {
+        // currently not using the relationship question within the registration flow
+       /* if (config.isComponentEnabled(Components.RELATIONSHIPS) && featureToggles.isFeatureEnabled("relationships")) {
             c.addSection(getRelationshipsSection());
-        }
+        }*/
 
         c.addSection(getContactsSection(config));
 
