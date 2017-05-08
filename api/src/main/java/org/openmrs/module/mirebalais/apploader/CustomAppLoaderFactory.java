@@ -18,6 +18,7 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
@@ -1075,7 +1076,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "patientPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
-                            "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
+                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER + "," + PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                             "icon", "icon-group",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
@@ -1629,7 +1630,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                        "includeRelationshipTypes", PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD, 
+                        "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER + "," + PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                         "icon", "icon-group",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
