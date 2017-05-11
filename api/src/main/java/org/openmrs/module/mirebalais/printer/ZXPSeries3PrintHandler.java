@@ -2,8 +2,7 @@ package org.openmrs.module.mirebalais.printer;
 
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
-import com.zebra.sdk.common.card.comm.CardConnection;
-import com.zebra.sdk.common.card.comm.TcpCardConnection;
+import com.zebra.sdk.comm.TcpConnection;
 import com.zebra.sdk.common.card.containers.GraphicsInfo;
 import com.zebra.sdk.common.card.containers.JobStatusInfo;
 import com.zebra.sdk.common.card.enumerations.CardSide;
@@ -26,7 +25,8 @@ import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.UnableToPrintException;
 import org.openmrs.module.printer.handler.PrintHandler;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +65,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
 
         ZebraCardPrinter zebraCardPrinter = null;
         ZebraGraphics graphics = null;
-        CardConnection connection = null;
+        Connection connection = null;
         List<GraphicsInfo> graphicsData;
 
         int nameFontSize = 16;
@@ -88,7 +88,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
             log.info("Starting ID card print job for patient " + patientIdentifier + " on printer " + printer.getName());
 
             try {
-                connection = new TcpCardConnection(printer.getIpAddress(), 9100, 2000); // timeout after 2000 msec
+                connection = new TcpConnection(printer.getIpAddress(), 9100);
                 connection.open();
 
                 zebraCardPrinter = ZebraCardPrinterFactory.getInstance(connection);
@@ -201,7 +201,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
     }
 
 
-    private boolean pollJobStatus(ZebraCardPrinter device, Integer actionID, Printer printer) throws ZebraCardException {
+    private boolean pollJobStatus(ZebraCardPrinter device, Integer actionID, Printer printer) throws ConnectionException, ZebraCardException {
         boolean success = false;
         long dropDeadTime = System.currentTimeMillis() + 40000;
         long pollInterval = 500;
@@ -250,7 +250,7 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         return success;
     }
 
-    private void cleanUp(Connection connection, ZebraCardPrinter device, Integer jobId, ZebraGraphics graphics, Printer printer, boolean success) {
+    private void cleanUp(Connection connection, ZebraCardPrinter device, Integer jobId, ZebraGraphics graphics, Printer printer, boolean success)  {
 
         // need to cancel any jobs before it will allow you to destroy the printer
         if (!success && device != null && jobId != null) {
@@ -271,6 +271,9 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
                     log.info("Cancelled job " + jobId);
                 }
 
+            }
+            catch (ConnectionException e) {
+                log.error("Error while attempting to cancel job on printer " + printer.getName() + ", Status: " + (jStatus != null ? jStatus.printStatus : ""), e);
             }
             catch (ZebraCardException e) {
                 log.error("Error while attempting to cancel job on printer " + printer.getName() + ", Status: " + (jStatus != null ? jStatus.printStatus : ""), e);
@@ -303,3 +306,5 @@ public class ZXPSeries3PrintHandler implements PrintHandler {
         }
     }
 }
+
+

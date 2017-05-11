@@ -660,7 +660,7 @@
         </dependency>
 
         <!-- added manually to OpenMRS maven repo since this is not currently mavenized -->
-        <dependency>
+    <!--    <dependency>
             <groupId>com.zebra.sdk</groupId>
             <artifactId>zsdk_api</artifactId>
             <version>2.9.2275</version>
@@ -669,9 +669,24 @@
         <dependency>
             <groupId>com.zebra.sdk</groupId>
             <artifactId>zsdk_card_api-beta</artifactId>
-           <!-- <version>1.0.2521</version> -->
-        <!--    <version>1.0.2549</version>-->
+           &lt;!&ndash; <version>1.0.2521</version> &ndash;&gt;
+        &lt;!&ndash;    <version>1.0.2549</version>&ndash;&gt;
             <version>1.0.2550</version>
+        </dependency>-->
+
+        <!-- added manually to OpenMRS maven repo since this is not currently mavenized -->
+        <dependency>
+            <groupId>com.zebra.sdk</groupId>
+            <artifactId>ZSDK_API</artifactId>
+            <version>2.12.3782</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zebra.sdk</groupId>
+            <artifactId>ZSDK_CARD_API</artifactId>
+            <!-- <version>1.0.2521</version> -->
+            <!--    <version>1.0.2549</version>-->
+            <version>2.12.3782</version>
         </dependency>
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
