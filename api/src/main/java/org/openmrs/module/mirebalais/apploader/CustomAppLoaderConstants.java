@@ -170,7 +170,6 @@ public class CustomAppLoaderConstants {
         public static final String ALLERGIES_PAGE_INCLUDE_PAGE = AllergyUIConstants.ALLERGIES_PAGE_INCLUDE_FRAGMENT_EXTENSION_POINT;
     }
 
-
     // TODO are these still used once we switch to the new visit dashboard?
     public static final class EncounterTemplates {
         public static final String DEFAULT = "defaultEncounterTemplate";
