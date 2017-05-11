@@ -22,6 +22,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.PihHaitiPrograms;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToH
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -298,8 +300,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.PROGRAMS)) {
             enablePrograms();
         }
+
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
+        }
+
+        if (config.isComponentEnabled(Components.ZIKA)) {
+            enableZikaProgram();
         }
 
 
@@ -1596,28 +1603,30 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "programs",
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programsDashboardWidget.label",
-                        "dateFormat", "dd MMM yyyy"
+                        "dateFormat", "dd MMM yyyy",
+                        "enableProgramDashboards", "true"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         addFeatureToggleToApp(findAppById(Apps.PROGRAMS_LIST), "programsList");
+    }
 
-        // TODO this won't actually live on the clinical dashboard,just using it here for testing
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAM_SUMMARY,
-                "ui.i18n.Program.name.3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf",
+    private void enableZikaProgram() {
+
+        apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_SUMMARY,
+                "ui.i18n.Program.name." + PihHaitiPrograms.ZIKA.uuid(),
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
-                        "label", "ui.i18n.Program.name.3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf",
+                        "label", "ui.i18n.Program.name." + PihHaitiPrograms.ZIKA.uuid(),
                         "dateFormat", "dd MMM yyyy",
-                        "program", "3dab6f27-7e35-41ac-b44d-5bbcb7c2dfbf"  // TODO should this be programUuid
+                        "program", PihHaitiPrograms.ZIKA.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.PROGRAM_SUMMARY), "programSummary");
     }
 
     private void enableRelationships() {

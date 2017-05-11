@@ -35,9 +35,9 @@ public class CustomAppLoaderConstants {
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
         public static final String LAB_TRACKING = "labtracking.app.monitorOrders";
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
-        public static final String PROGRAM_SUMMARY = "coreapps.app.programSummary";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
+        public static final String ZIKA_PROGRAM_SUMMARY = "coreapps.app.zika.programSummary";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
