@@ -37,7 +37,9 @@
     "edTriageQueue",
     "labTracking",
     "primaryCare",
-    "relationships"
+    "relationships",
+    "programs",
+    "zika"
   ],
 
   "scheduleMonthlyDataExports": true,

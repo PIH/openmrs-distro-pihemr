@@ -13,6 +13,7 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.PihHaitiPrograms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,7 +131,6 @@ public class CustomAppLoaderUtil {
         return addToSystemAdministrationPage(app, null);
     }
 
-
     static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         String appId = app.getId() + ".clinicianDashboardFirstColumn";
         appExtension(app, appId,
@@ -158,6 +158,23 @@ public class CustomAppLoaderUtil {
                 null,
                 CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER.indexOf(appId),
                 CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN)
+                .setExtensionParams(map("provider", provider,
+                        "fragment", fragment));
+        return app;
+    }
+
+    // TODO refactor into a helper method for each dashboard to reduce code duplication
+    static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        String appId = app.getId() + ".zikaDashboardFirstColumn";
+        appExtension(app, appId,
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                null,
+                1, // TODO create order for zika dashboard (if necessary)
+                PihHaitiPrograms.ZIKA.uuid() + ".firstColumnFragments")
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
         return app;
