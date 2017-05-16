@@ -131,8 +131,8 @@ public class CustomAppLoaderUtil {
         return addToSystemAdministrationPage(app, null);
     }
 
-    static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        String appId = app.getId() + ".clinicianDashboardFirstColumn";
+    static public AppDescriptor addToDashboardColumn(AppDescriptor app, String provider, String fragment, String columnExtensionPoint, Integer order) {
+        String appId = app.getId() + ".firstColumn";
         appExtension(app, appId,
                 app.getLabel(),
                 app.getIcon(),
@@ -140,44 +140,28 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 null,
-                CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER.indexOf(appId),
-                CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN)
+                order,
+                columnExtensionPoint)
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
         return app;
+
+    }
+
+    static public AppDescriptor addToClinicianDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+       return addToDashboardColumn(app, provider, fragment, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN, CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER.indexOf(app.getId()));
     }
 
     static public AppDescriptor addToClinicianDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        String appId = app.getId() + ".clinicianDashboardSecondColumn";
-        appExtension(app, appId ,
-                app.getLabel(),
-                app.getIcon(),
-                "link",
-                app.getUrl(),
-                app.getRequiredPrivilege(),
-                null,
-                CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER.indexOf(appId),
-                CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN)
-                .setExtensionParams(map("provider", provider,
-                        "fragment", fragment));
-        return app;
+        return addToDashboardColumn(app, provider, fragment, CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN, CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER.indexOf(app.getId()));
     }
 
-    // TODO refactor into a helper method for each dashboard to reduce code duplication
     static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        String appId = app.getId() + ".zikaDashboardFirstColumn";
-        appExtension(app, appId,
-                app.getLabel(),
-                app.getIcon(),
-                "link",
-                app.getUrl(),
-                app.getRequiredPrivilege(),
-                null,
-                1, // TODO create order for zika dashboard (if necessary)
-                PihHaitiPrograms.ZIKA.uuid() + ".firstColumnFragments")
-                .setExtensionParams(map("provider", provider,
-                        "fragment", fragment));
-        return app;
+        return addToDashboardColumn(app, provider, fragment, PihHaitiPrograms.ZIKA.uuid() + ".firstColumnFragments", 1);  // TODO add order
+    }
+
+    static public AppDescriptor addToZikaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToDashboardColumn(app, provider, fragment, PihHaitiPrograms.ZIKA.uuid() + ".secondColumnFragments", 1);  // TODO add order
     }
 
     static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment) {
