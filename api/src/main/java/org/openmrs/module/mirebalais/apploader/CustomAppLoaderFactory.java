@@ -1629,7 +1629,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PROGRAM_HISTORY_SUMMARY,
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_SUMMARY), "zika");
+
+        apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1639,10 +1641,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "coreapps.programHistoryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
+                        "includeActive", false,
                         "locationTag", LocationTags.VISIT_LOCATION   // TODO what should this be
                 )),
                 "coreapps", "program/programHistory"));
 
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_HISTORY), "zika");
     }
 
     private void enableRelationships() {

@@ -38,7 +38,7 @@ public class CustomAppLoaderConstants {
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
         public static final String ZIKA_PROGRAM_SUMMARY = "coreapps.app.zika.programSummary";
-        public static final String ZIKA_PROGRAM_HISTORY_SUMMARY = "coreapps.app.zika.programHistory";
+        public static final String ZIKA_PROGRAM_HISTORY = "coreapps.app.zika.programHistory";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
