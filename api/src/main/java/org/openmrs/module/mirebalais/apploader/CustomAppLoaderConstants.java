@@ -38,6 +38,7 @@ public class CustomAppLoaderConstants {
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
         public static final String ZIKA_PROGRAM_SUMMARY = "coreapps.app.zika.programSummary";
+        public static final String ZIKA_PROGRAM_HISTORY = "coreapps.app.zika.programHistory";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -266,16 +267,16 @@ public class CustomAppLoaderConstants {
             Extensions.APPOINTMENTS_DATA_EXPORT);*/
 
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
-            Apps.VISITS_SUMMARY + ".clinicianDashboardFirstColumn",
-            Apps.APPOINTMENT_SCHEDULING_HOME + ".clinicianDashboardFirstColumn",
-            Apps.RADIOLOGY_APP + ".clinicianDashboardFirstColumn",
-            Apps.RADIOLOGY_ORDERS_APP + ".clinicianDashboardFirstColumn"
+            Apps.VISITS_SUMMARY,
+            Apps.APPOINTMENT_SCHEDULING_HOME,
+            Apps.RADIOLOGY_APP,
+            Apps.RADIOLOGY_ORDERS_APP
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
-            Apps.ALLERGY_SUMMARY + ".clinicianDashboardSecondColumn",
-            Apps.MOST_RECENT_VITALS + ".clinicianDashboardSecondColumn",
-            Apps.LAB_SUMMARY + ".clinicianDashboardSecondColumn",
-            Apps.PROGRAMS_LIST + ".clinicianDashboardSecondColumn",
-            Apps.MOST_RECENT_REGISTRATION + ".clinicianDashboardSecondColumn");
+            Apps.ALLERGY_SUMMARY,
+            Apps.MOST_RECENT_VITALS,
+            Apps.LAB_SUMMARY,
+            Apps.PROGRAMS_LIST,
+            Apps.MOST_RECENT_REGISTRATION);
 }

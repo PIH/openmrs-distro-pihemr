@@ -45,6 +45,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToR
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -1595,7 +1596,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePrograms() {
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
-                "coreapps.programsDashboardWidget.label",
+                "coreapps.programsListDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
@@ -1614,19 +1615,38 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableZikaProgram() {
 
         apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_SUMMARY,
-                "ui.i18n.Program.name." + PihHaitiPrograms.ZIKA.uuid(),
+                "coreapps.programSummaryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
-                        "label", "ui.i18n.Program.name." + PihHaitiPrograms.ZIKA.uuid(),
+                        "label", "coreapps.programSummaryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.ZIKA.uuid()
+                        "program", PihHaitiPrograms.ZIKA.uuid(),
+                        "locationTag", LocationTags.VISIT_LOCATION   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_SUMMARY), "zika");
+
+        apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PROGRAM_HISTORY,
+                "coreapps.programHistoryDashboardWidget.label",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.programHistoryDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.ZIKA.uuid(),
+                        "includeActive", false,
+                        "locationTag", LocationTags.VISIT_LOCATION   // TODO what should this be
+                )),
+                "coreapps", "program/programHistory"));
+
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_HISTORY), "zika");
     }
 
     private void enableRelationships() {
