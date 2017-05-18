@@ -28,7 +28,8 @@
         "edTriage",
         "edTriageQueue",
         "relationships",
-        "programs"
+        "programs",
+        "zika"
     ],
 
     "globalProperties": {
