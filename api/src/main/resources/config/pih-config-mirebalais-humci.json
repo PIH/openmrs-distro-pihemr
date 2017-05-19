@@ -39,7 +39,8 @@
     "primaryCare",
     "relationships",
     "programs",
-    "zika"
+    "zika",
+    "hiv"
   ],
 
   "scheduleMonthlyDataExports": true,

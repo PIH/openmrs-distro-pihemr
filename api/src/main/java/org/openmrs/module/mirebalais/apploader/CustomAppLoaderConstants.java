@@ -79,6 +79,11 @@ public class CustomAppLoaderConstants {
         public static final String LAB_RESULTS_VISIT_ACTION = "pih.form.labResults";
         public static final String NCD_ADULT_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
+        public static final String HIV_ADULT_INITIAL_VISIT_ACTION = "pih.form.hivAdultInitial";
+        public static final String HIV_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.hivAdultFollowup";
+        public static final String HIV_PEDS_INITIAL_VISIT_ACTION = "pih.form.hivPedsInitial";
+        public static final String HIV_PEDS_FOLLOWUP_VISIT_ACTION = "pih.form.hivPedsFollowup";
+        public static final String HIV_ADHERENCE_VISIT_ACTION = "pih.form.hivAdherence";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
@@ -244,6 +249,11 @@ public class CustomAppLoaderConstants {
             Extensions.NCD_ADULT_INITIAL_VISIT_ACTION,
             Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
+            Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+            Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
+            Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
+            Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
+            Extensions.HIV_ADHERENCE_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,

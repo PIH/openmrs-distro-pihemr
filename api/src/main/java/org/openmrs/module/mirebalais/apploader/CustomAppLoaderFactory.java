@@ -294,6 +294,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableTodaysVisits();
         }
 
+        if (config.isComponentEnabled(Components.HIV)) {
+            enableHIV();
+        }
+
         if (config.isComponentEnabled(Components.LAB_TRACKING)) {
             enableLabTracking();
         }
@@ -1553,6 +1557,59 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 ExtensionPoints.ALLERGIES_PAGE_INCLUDE_PAGE,
                 null));*/
 
+    }
+
+    private void enableHIV() {
+
+        extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntake.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml"),
+                // ToDo: Add privileges and locations
+                null,
+                and(patientIsAdult())));
+
+        extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntake.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml"),
+                // ToDo: Add privileges and locations
+                null,
+                and(patientIsChild())));
+
+        extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
+                "pih.task.hivFollowup.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml"),
+                // ToDo: Add privileges and locations
+                null,
+                and(patientIsAdult())));
+
+        extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
+                "pih.task.hivFollowup.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml"),
+                // ToDo: Add privileges and locations
+                null,
+                and(patientIsChild())));
+
+        extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
+                "pih.task.hivAdherence.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/Adherence.xml"),
+                // ToDo: Add privileges and locations
+                null, null));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
     }
 
     private void enableBiometrics() {

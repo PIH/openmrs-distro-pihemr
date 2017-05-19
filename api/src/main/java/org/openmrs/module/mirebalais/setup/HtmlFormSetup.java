@@ -57,7 +57,12 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/checkin.xml",
                         "pihcore:htmlforms/haiti/liveCheckin.xml",
                         "pihcore:htmlforms/oncologyConsult.xml",
-                        "pihcore:htmlforms/mentalHealth.xml"
+                        "pihcore:htmlforms/mentalHealth.xml",
+                        "pihcore:htmlforms/haiti/hiv/Adherence.xml",
+                        "pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml",
+                        "pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml",
+                        "pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml",
+                        "pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml"
                 );
             }
             else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
