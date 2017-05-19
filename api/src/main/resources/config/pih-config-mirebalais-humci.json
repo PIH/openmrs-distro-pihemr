@@ -40,7 +40,8 @@
     "relationships",
     "programs",
     "zika",
-    "hiv"
+    "hiv",
+    "relationships"
   ],
 
   "scheduleMonthlyDataExports": true,
