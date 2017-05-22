@@ -29,7 +29,11 @@
         "edTriageQueue",
         "relationships",
         "programs",
+<<<<<<< Updated upstream
         "hiv"
+=======
+        "exportPatients"
+>>>>>>> Stashed changes
     ],
 
     "globalProperties": {

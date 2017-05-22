@@ -12,7 +12,8 @@
     "visitManagement",
     "clinicianDashboard",
     "systemAdministration",
-    "dataExports"
+    "dataExports",
+    "exportPatients"
   ],
 
   "globalProperties": {

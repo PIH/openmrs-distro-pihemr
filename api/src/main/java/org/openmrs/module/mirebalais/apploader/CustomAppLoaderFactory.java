@@ -309,6 +309,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
         }
+        if (config.isComponentEnabled(Components.EXPORT_PATIENTS)) {
+            enableExportPatients();
+        }
 
         if (config.isComponentEnabled(Components.ZIKA)) {
             enableZikaProgram();
@@ -1704,6 +1707,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory"));
 
         addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_HISTORY), "zika");
+    }
+
+    private void enableExportPatients() {
+        apps.add(addToSystemAdministrationPage(app(Apps.PATIENT_EXPORT,
+                "pihcore.patient.export",
+                "icon-external-link",
+                "pihcore/export/exportPatients.page",
+                "App: emr.systemAdministration",
+                null)));
     }
 
     private void enableRelationships() {
