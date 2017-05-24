@@ -13,7 +13,8 @@
     "clinicianDashboard",
     "systemAdministration",
     "dataExports",
-    "exportPatients"
+    "exportPatients",
+    "importPatients"
   ],
 
   "globalProperties": {

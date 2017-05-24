@@ -46,6 +46,7 @@ public class CustomAppLoaderConstants {
         public static final String REGISTER_TEST_PATIENT = "emr.testPatient.registration";
         public static final String FEATURE_TOGGLES = "pih.featureToggles";
         public static final String PATIENT_EXPORT = "pih.exportPatients";
+        public static final String PATIENT_IMPORT = "pih.importPatients";
 
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
         public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";

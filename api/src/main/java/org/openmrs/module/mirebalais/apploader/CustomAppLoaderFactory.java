@@ -312,6 +312,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.EXPORT_PATIENTS)) {
             enableExportPatients();
         }
+        if (config.isComponentEnabled(Components.IMPORT_PATIENTS)) {
+            enableImportPatients();
+        }
 
         if (config.isComponentEnabled(Components.ZIKA)) {
             enableZikaProgram();
@@ -1714,6 +1717,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patient.export",
                 "icon-external-link",
                 "pihcore/export/exportPatients.page",
+                "App: emr.systemAdministration",
+                null)));
+    }
+
+    private void enableImportPatients() {
+        apps.add(addToSystemAdministrationPage(app(Apps.PATIENT_IMPORT,
+                "pihcore.patient.import",
+                "icon-signin",
+                "pihcore/export/importPatients.page",
                 "App: emr.systemAdministration",
                 null)));
     }
