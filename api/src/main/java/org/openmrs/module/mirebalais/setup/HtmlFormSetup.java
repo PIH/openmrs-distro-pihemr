@@ -58,11 +58,16 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/liveCheckin.xml",
                         "pihcore:htmlforms/oncologyConsult.xml",
                         "pihcore:htmlforms/mentalHealth.xml",
-                        "pihcore:htmlforms/haiti/hiv/Adherence.xml",
-                        "pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml",
-                        "pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml",
-                        "pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml",
-                        "pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml"
+                        "pihcore:htmlforms/haiti/hiv/zl/hiv-adult-intake.xml",
+                        // "pihcore:htmlforms/haiti/hiv/zl/hiv-adult-followup.xml",
+                        // "pihcore:htmlforms/haiti/hiv/zl/hiv-child-intake.xml",
+                        // "pihcore:htmlforms/haiti/hiv/zl/hiv-child-followup.xml",
+                        "pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml",
+                        "pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
+                        "pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
+                        "pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
+                        "pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
+                        "pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"
                 );
             }
             else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {

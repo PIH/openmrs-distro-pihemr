@@ -1567,38 +1567,49 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableHIV() {
 
-        extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+        // ZL HIV forms
+        extensions.add(visitAction(Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-adult-intake.xml"),
+                // ToDo: Add privileges and locations
+                null,
+                and(patientIsAdult())));
+
+        // iSantePlus forms
+        extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntakeISantePlus.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml"),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsAdult())));
 
         extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
-                "pih.task.hivIntake.label",
+                "pih.task.hivIntakeISantePlus.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml"),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsChild())));
 
         extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
-                "pih.task.hivFollowup.label",
+                "pih.task.hivFollowupISantePlus.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml"),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsAdult())));
 
         extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
-                "pih.task.hivFollowup.label",
+                "pih.task.hivFollowupISantePlus.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsChild())));
@@ -1607,10 +1618,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.hivAdherence.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/Adherence.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
                 // ToDo: Add privileges and locations
                 null, null));
 
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
