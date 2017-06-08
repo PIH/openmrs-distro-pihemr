@@ -1572,7 +1572,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.hivIntake.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-adult-intake.xml"),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-adult-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsAdult())));
