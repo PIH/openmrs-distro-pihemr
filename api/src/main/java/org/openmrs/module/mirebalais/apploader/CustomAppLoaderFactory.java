@@ -1700,7 +1700,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "coreapps.programSummaryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
-                        "locationTag", LocationTags.VISIT_LOCATION   // TODO what should this be
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1717,7 +1717,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
                         "includeActive", false,
-                        "locationTag", LocationTags.VISIT_LOCATION   // TODO what should this be
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "program/programHistory"));
 
