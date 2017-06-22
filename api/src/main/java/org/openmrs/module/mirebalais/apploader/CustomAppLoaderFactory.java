@@ -1631,14 +1631,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableBiometrics() {
-
+/*
         extensions.add(fragmentExtension(Extensions.BIOMETRICS_FIND_PATIENT,
-                "pihcore",
+                "registrationapp",
                 "biometrics/biometricsFindPatient",
                 null,
                 ExtensionPoints.REGISTRATION_FIND_PATIENT_FRAGMENTS,
                 null));
-
+*/
     }
 
     private void enableLabTracking() {
