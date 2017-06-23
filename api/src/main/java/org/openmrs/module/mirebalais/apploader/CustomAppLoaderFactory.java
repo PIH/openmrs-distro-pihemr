@@ -1690,7 +1690,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));  // TODO restrict by location ?
 
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
-                "labtrackingapp.order.label",
+                "labtrackingapp.orderPathology.label",
                 "icon-beaker",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
