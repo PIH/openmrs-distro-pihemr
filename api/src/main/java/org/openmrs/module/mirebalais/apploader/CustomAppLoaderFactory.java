@@ -1569,6 +1569,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableHIV() {
 
+        // dashboard title configured via b1cb1fc1-5190-4f7a-af08-48870975dafc.custom.title=ZIKA PROGRAM message property
+
         // ZL HIV forms
         extensions.add(visitAction(Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
@@ -1726,6 +1728,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableZikaProgram() {
+
+        // dashboard title configured via 3bea593a-9afd-4642-96a6-210b60f5aff2.custom.title=ZIKA PROGRAM message property
 
         apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_SUMMARY,
                 "coreapps.programSummaryDashboardWidget.label",
