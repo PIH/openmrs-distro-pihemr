@@ -39,6 +39,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFea
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
@@ -1628,6 +1630,42 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
+
+        // program dashboard configuration
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PROGRAM_SUMMARY,
+                "coreapps.programSummaryDashboardWidget.label",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programstatus",
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.programSummaryDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.HIV.uuid(),
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.HIV_PROGRAM_SUMMARY), "hiv");
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PROGRAM_HISTORY,
+                "coreapps.programHistoryDashboardWidget.label",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.programHistoryDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.HIV.uuid(),
+                        "includeActive", false,
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                )),
+                "coreapps", "program/programHistory"));
+
+        addFeatureToggleToApp(findAppById(Apps.HIV_PROGRAM_HISTORY), "hiv");
+
     }
 
     private void enableBiometrics() {
