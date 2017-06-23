@@ -14,7 +14,6 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.pihcore.biometrics.BiometricsEnrollmentWidget;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -76,6 +75,11 @@ public class PatientRegistrationApp {
     }
 
     public void addSections(RegistrationAppConfig c, Config config) {
+
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS) && featureToggles.isFeatureEnabled("biometrics")) {
+            c.addSection(getBiometricsSection(config));
+        }
+
         c.addSection(getDemographicsSection(config));
         c.addSection(getContactInfoSection(config));
 
@@ -99,7 +103,7 @@ public class PatientRegistrationApp {
 
         c.addSection(getContactsSection(config));
 
-        if (config.isComponentEnabled(Components.ID_CARD_PRINTING) || config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             c.addSection(getIdentifierSection(config));
         }
     }
@@ -536,19 +540,19 @@ public class PatientRegistrationApp {
         return q;
     }
 
+    public Section getBiometricsSection(Config config) {
+        Section s = new Section();
+        s.setId("patient-biometrics-section");
+        s.setLabel("zl.registration.patient.biometrics.label");
+        s.addQuestion(getBiometricsFingerprintsQuestion(config));
+        return s;
+    }
+
     public Section getIdentifierSection(Config config) {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-
-        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
-            s.addQuestion(getIdCardPrintQuestion());
-        }
-
-        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
-            s.addQuestion(getBiometricsFingerprintsQuestion());
-        }
-
+        s.addQuestion(getIdCardPrintQuestion());
         return s;
     }
 
@@ -574,7 +578,7 @@ public class PatientRegistrationApp {
         return q;
     }
 
-    public Question getBiometricsFingerprintsQuestion() {
+    public Question getBiometricsFingerprintsQuestion(Config config) {
         Question q = new Question();
         q.setId("biometrics-fieldset");
         q.setCssClasses(Collections.singletonList("no-confirmation"));
@@ -582,11 +586,10 @@ public class PatientRegistrationApp {
         q.setHeader("zl.registration.patient.biometrics.fingerprints.question");
 
         Field f = new Field();
-        // TODO this should be set on the widget as well, made configurable?
         f.setFormFieldName("biometrics-enrollment");
         f.setType("patientIdentifier");
         f.setUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid());
-        f.setWidget(getBiometricsEnrollmentWidget());
+        f.setWidget(getBiometricsEnrollmentWidget(config));
 
         q.addField(f);
         return q;
@@ -659,8 +662,10 @@ public class PatientRegistrationApp {
         return fieldMappings;
     }
 
-    protected ObjectNode getBiometricsEnrollmentWidget() {
-        return toObjectNode(new BiometricsEnrollmentWidget());
+    protected ObjectNode getBiometricsEnrollmentWidget(Config config) {
+        // TODO: Making this null now to remove dependency on removed pihcore biometricsWidget
+        // TODO: Once this is moved and committed elsewhere, we will add it back in
+        return null;
     }
 
     protected ObjectNode getTextFieldWidget() {
