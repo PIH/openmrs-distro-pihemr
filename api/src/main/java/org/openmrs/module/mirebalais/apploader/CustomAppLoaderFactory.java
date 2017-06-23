@@ -1635,7 +1635,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // program dashboard configuration
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PROGRAM_SUMMARY,
-                "coreapps.programSummaryDashboardWidget.label",
+                "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
@@ -1732,7 +1732,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // dashboard title configured via 3bea593a-9afd-4642-96a6-210b60f5aff2.custom.title=ZIKA PROGRAM message property
 
         apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_SUMMARY,
-                "coreapps.programSummaryDashboardWidget.label",
+                "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
