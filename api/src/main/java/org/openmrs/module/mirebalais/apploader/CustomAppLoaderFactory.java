@@ -1642,7 +1642,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
-                        "label", "coreapps.programSummaryDashboardWidget.label",
+                        "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.HIV.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
@@ -1739,7 +1739,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
-                        "label", "coreapps.programSummaryDashboardWidget.label",
+                        "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
