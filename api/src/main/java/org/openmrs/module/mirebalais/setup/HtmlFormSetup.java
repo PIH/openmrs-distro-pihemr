@@ -66,6 +66,7 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
                         "pihcore:htmlforms/section-lab-order.xml",
+                        "pihcore:htmlforms/section-family-planning.xml",
                         "pihcore:htmlforms/haiti/section-socio-econ.xml",
                         "pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
                         "pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
