@@ -62,6 +62,7 @@ public class HtmlFormSetup {
                         // "pihcore:htmlforms/haiti/hiv/zl/hiv-adult-followup.xml",
                         // "pihcore:htmlforms/haiti/hiv/zl/hiv-child-intake.xml",
                         // "pihcore:htmlforms/haiti/hiv/zl/hiv-child-followup.xml",
+                        "pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
