@@ -29,7 +29,7 @@ Then start up the server:
 
 mvn openmrs-sdk:run -DserverId=[serverId]
 
-It should run for several minutes, setting up the database, BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
+It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
 
 After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
 
