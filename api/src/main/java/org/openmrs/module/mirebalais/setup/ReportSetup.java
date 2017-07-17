@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.setup;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
@@ -37,7 +38,8 @@ public class ReportSetup {
         }
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
-            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())) {
+            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())
+                    && (StringUtils.isEmpty(report.getComponent()) || config.isComponentEnabled(report.getComponent()))) {
                 setupReport(report, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
             }
         }
