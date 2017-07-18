@@ -1719,7 +1719,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "programs",
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programsDashboardWidget.label",
-                        "dateFormat", "dd-MM-yy",
+                        "dateFormat", "dd MMM yyyy",
                         "enableProgramDashboards", "true"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1740,7 +1740,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
-                        "dateFormat", "dd-MM-yy",
+                        "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
@@ -1756,7 +1756,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
-                        "dateFormat", "dd-MM-yy",
+                        "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.ZIKA.uuid(),
                         "includeActive", false,
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
