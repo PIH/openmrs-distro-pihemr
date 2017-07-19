@@ -398,6 +398,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: coreapps.activeVisits",
                 objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
 
+
+
+        apps.add(addToHomePage(app(Apps.ACTIVE_VISITS_LIST,
+                "PIH-ActiveVisits",
+                "icon-check-in",
+                "mirebalaisreports/activeVisitsList.page",
+                "App: coreapps.activeVisits",
+                objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
     }
 
     private void enableCheckIn(Config config) {

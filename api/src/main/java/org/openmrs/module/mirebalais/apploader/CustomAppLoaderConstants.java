@@ -26,6 +26,7 @@ public class CustomAppLoaderConstants {
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
+        public static final String ACTIVE_VISITS_LIST = "mirebalaisreports.activeVisitsList";
         public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
         public static final String VISITS_SUMMARY = "coreapps.clinicianfacing.visits";
