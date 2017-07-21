@@ -15,6 +15,7 @@ import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -67,6 +68,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
         pihCoreActivator.started();
 
