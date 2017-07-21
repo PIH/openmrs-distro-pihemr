@@ -17,10 +17,12 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
+import org.openmrs.module.registrationapp.model.FingerprintWidget;
 import org.openmrs.module.registrationapp.model.PersonAddressWithHierarchyWidget;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
@@ -76,7 +78,7 @@ public class PatientRegistrationApp {
 
     public void addSections(RegistrationAppConfig c, Config config) {
 
-        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS) && featureToggles.isFeatureEnabled("biometrics")) {
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
             c.addSection(getBiometricsSection(config));
         }
 
@@ -586,10 +588,9 @@ public class PatientRegistrationApp {
         q.setHeader("zl.registration.patient.biometrics.fingerprints.question");
 
         Field f = new Field();
-        f.setFormFieldName("biometrics-enrollment");
-        f.setType("patientIdentifier");
+        f.setType("fingerprint");
         f.setUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid());
-        f.setWidget(getBiometricsEnrollmentWidget(config));
+        f.setWidget(getFingerprintWidget(config));
 
         q.addField(f);
         return q;
@@ -662,10 +663,16 @@ public class PatientRegistrationApp {
         return fieldMappings;
     }
 
-    protected ObjectNode getBiometricsEnrollmentWidget(Config config) {
-        // TODO: Making this null now to remove dependency on removed pihcore biometricsWidget
-        // TODO: Once this is moved and committed elsewhere, we will add it back in
-        return null;
+    protected ObjectNode getFingerprintWidget(Config config) {
+        BiometricsConfigDescriptor biometricsConfig = config.getBiometricsConfig();
+        FingerprintWidget w = new FingerprintWidget();
+        FingerprintWidget.Config c = new FingerprintWidget.Config();
+        c.setFormat(biometricsConfig.getTemplateFormat());
+        c.setScanUrl(biometricsConfig.getScanUrl());
+        c.setDevicesUrl(biometricsConfig.getDevicesUrl());
+        c.addFinger(new FingerprintWidget.FingerprintFormField("leftIndexTemplate", "zl.registration.patient.biometrics.fingerprints.leftIndexLabel", "LEFT_INDEX_FINGER"));
+        w.setConfig(c);
+        return toObjectNode(w);
     }
 
     protected ObjectNode getTextFieldWidget() {

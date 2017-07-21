@@ -41,13 +41,23 @@
     "programs",
     "zika",
     "hiv",
-    "relationships"
+    "relationships",
+    "biometricsFingerPrints"
   ],
 
   "scheduleMonthlyDataExports": true,
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
-  "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview"
+  "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
+
+  "biometricsConfig": {
+    "biometricEngine": "restBiometricEngine",
+    "templateFormat": "PROPRIETARY",
+    "subjectUrl": "http://localhost:9000/subject",
+    "matchUrl": "http://localhost:9000/match",
+    "scanUrl": "http://localhost:9000/fingerprint/scan",
+    "devicesUrl": "http://localhost:9000/fingerprint/devices"
+  }
 
 }

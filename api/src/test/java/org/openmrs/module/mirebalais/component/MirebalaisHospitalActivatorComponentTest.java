@@ -38,6 +38,7 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
@@ -128,6 +129,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
         pihCoreActivator.started();
 
