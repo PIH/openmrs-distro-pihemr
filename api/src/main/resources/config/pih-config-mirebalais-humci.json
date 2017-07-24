@@ -56,8 +56,8 @@
     "templateFormat": "PROPRIETARY",
     "subjectUrl": "http://localhost:9000/subject",
     "matchUrl": "http://localhost:9000/match",
-    "scanUrl": "http://localhost:9000/fingerprint/scan",
-    "devicesUrl": "http://localhost:9000/fingerprint/devices"
+    "scanUrl": "https://localhost:9043/fingerprint/scan",
+    "devicesUrl": "https://localhost:9043/fingerprint/devices"
   }
 
 }
