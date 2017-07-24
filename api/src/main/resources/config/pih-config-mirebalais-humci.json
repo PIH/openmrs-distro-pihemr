@@ -54,10 +54,10 @@
   "biometricsConfig": {
     "biometricEngine": "restBiometricEngine",
     "templateFormat": "PROPRIETARY",
-    "subjectUrl": "http://localhost:9000/subject",
-    "matchUrl": "http://localhost:9000/match",
-    "scanUrl": "https://localhost:9043/fingerprint/scan",
-    "devicesUrl": "https://localhost:9043/fingerprint/devices"
+    "subjectUrl": "https://localhost:9000/subject",
+    "matchUrl": "https://localhost:9000/match",
+    "scanUrl": "https://localhost:9000/fingerprint/scan",
+    "devicesUrl": "https://localhost:9000/fingerprint/devices"
   }
 
 }
