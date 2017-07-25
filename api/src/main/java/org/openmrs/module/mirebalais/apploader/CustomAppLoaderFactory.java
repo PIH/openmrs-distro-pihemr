@@ -1722,7 +1722,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.programsListDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
-                null, // TODO restrict by privilege or location)
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                 objectNode(
                         "widget", "programs",
                         "icon", "icon-stethoscope",
@@ -1743,7 +1743,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
-                null, // TODO restrict by privilege or location)
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                 objectNode(
                         "widget", "programstatus",
                         "icon", "icon-stethoscope",
@@ -1760,7 +1760,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
-                null, // TODO restrict by privilege or location)
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                 objectNode(
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
