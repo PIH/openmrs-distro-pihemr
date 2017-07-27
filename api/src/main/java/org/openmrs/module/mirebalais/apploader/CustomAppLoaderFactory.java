@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
@@ -1743,7 +1744,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programsDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "supportedPrograms", PihHaitiPrograms.ZIKA.uuid(),
+                        "supportedPrograms", StringUtils.join(supportedPrograms, ','),
                         "enableProgramDashboards", "true"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
