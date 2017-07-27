@@ -36,7 +36,10 @@
     "edTriageQueue",
     "labTracking",
     "primaryCare",
-    "relationships"
+    "relationships",
+    "programs",
+    "zika",
+    "hiv"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
