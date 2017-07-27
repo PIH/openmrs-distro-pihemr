@@ -296,16 +296,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableTodaysVisits();
         }
 
-        if (config.isComponentEnabled(Components.HIV)) {
+        // program enabling should now happen within enablePrograms method
+   /*     if (config.isComponentEnabled(Components.HIV)) {
             enableHIV();
-        }
+        }*/
 
         if (config.isComponentEnabled(Components.LAB_TRACKING)) {
             enableLabTracking();
         }
 
         if (config.isComponentEnabled(Components.PROGRAMS)) {
-            enablePrograms();
+            enablePrograms(config, featureToggles);
         }
 
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
@@ -318,9 +319,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableImportPatients();
         }
 
-        if (config.isComponentEnabled(Components.ZIKA)) {
+        // program enabling should now happen within enablePrograms method
+   /*     if (config.isComponentEnabled(Components.ZIKA)) {
             enableZikaProgram();
-        }
+        }*/
 
 
         readyForRefresh = false;
@@ -1717,7 +1719,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enablePrograms() {
+    private void enablePrograms(Config config, FeatureToggleProperties featureToggles) {
+
+        List<String> supportedPrograms = new ArrayList<String>();
+
+        if (config.isComponentEnabled(Components.HIV) && featureToggles.isFeatureEnabled("hiv")) {
+            supportedPrograms.add(PihHaitiPrograms.HIV.uuid());
+            enableHIV();
+        }
+
+        if (config.isComponentEnabled(Components.ZIKA) && featureToggles.isFeatureEnabled("zika")) {
+            supportedPrograms.add(PihHaitiPrograms.ZIKA.uuid());
+            enableZikaProgram();
+        }
+
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
                 "coreapps.programsListDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
@@ -1728,6 +1743,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programsDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
+                        "supportedPrograms", PihHaitiPrograms.ZIKA.uuid(),
                         "enableProgramDashboards", "true"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
