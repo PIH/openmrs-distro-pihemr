@@ -406,7 +406,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS_LIST,
                 "PIH-ActiveVisits",
                 "icon-check-in",
-                "pihcore/reports/activeVisitsList.page",
+                "pihcore/reports/activeVisitsList.page?app=" + Apps.ACTIVE_VISITS,
                 "App: coreapps.activeVisits",
                 objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
     }
