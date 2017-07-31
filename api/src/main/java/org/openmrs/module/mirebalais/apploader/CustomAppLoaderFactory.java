@@ -405,7 +405,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS_LIST,
-                "coreapps.activeVisits.app.lab",
+                "coreapps.activeVisits.app.label",
                 "icon-check-in",
                 "pihcore/reports/activeVisitsList.page?app=" + Apps.ACTIVE_VISITS,
                 "App: coreapps.activeVisits",
