@@ -290,7 +290,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
-            enableBiometrics();
+            enableBiometrics(config);
         }
 
         if (config.isComponentEnabled(Components.TODAYS_VISITS)) {
@@ -1685,15 +1685,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableBiometrics() {
-/*
+    private void enableBiometrics(Config config) {
+
         extensions.add(fragmentExtension(Extensions.BIOMETRICS_FIND_PATIENT,
                 "registrationapp",
-                "biometrics/biometricsFindPatient",
+                "biometrics/fingerprintSearch",
                 null,
-                ExtensionPoints.REGISTRATION_FIND_PATIENT_FRAGMENTS,
-                null));
-*/
+                ExtensionPoints.PATIENT_SEARCH,
+                map("scanUrl", config.getBiometricsConfig().getScanUrl(),
+                        "devicesUrl", config.getBiometricsConfig().getDevicesUrl())));
+
     }
 
     private void enableLabTracking() {

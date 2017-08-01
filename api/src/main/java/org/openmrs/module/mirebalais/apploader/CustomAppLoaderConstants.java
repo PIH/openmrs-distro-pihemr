@@ -185,6 +185,7 @@ public class CustomAppLoaderConstants {
         public static final String REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT = "registrationSummary.secondColumnContentFragments";
         public static final String REGISTRATION_FIND_PATIENT_FRAGMENTS = RegistrationAppConstants.FIND_PATIENT_FRAGMENTS_EXTENSION_POINT;
         public static final String ALLERGIES_PAGE_INCLUDE_PAGE = AllergyUIConstants.ALLERGIES_PAGE_INCLUDE_FRAGMENT_EXTENSION_POINT;
+        public static final String PATIENT_SEARCH = "coreapps.patientSearch.extension";
     }
 
     // TODO are these still used once we switch to the new visit dashboard?
