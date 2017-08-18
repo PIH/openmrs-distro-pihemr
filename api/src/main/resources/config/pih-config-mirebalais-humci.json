@@ -41,7 +41,8 @@
     "programs",
     "zika",
     "hiv",
-    "biometricsFingerPrints"
+    "biometricsFingerPrints",
+    "patientDocuments"
   ],
 
   "scheduleMonthlyDataExports": true,

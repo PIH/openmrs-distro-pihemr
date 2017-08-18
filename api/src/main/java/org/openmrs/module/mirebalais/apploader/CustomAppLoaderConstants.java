@@ -42,6 +42,7 @@ public class CustomAppLoaderConstants {
         public static final String ZIKA_PROGRAM_HISTORY = "coreapps.app.zika.programHistory";
         public static final String HIV_PROGRAM_SUMMARY = "coreapps.app.hiv.programSummary";
         public static final String HIV_PROGRAM_HISTORY = "coreapps.app.hiv.programHistory";
+        public static final String PATIENT_DOCUMENTS = "visitdocumentsui.app.patientDocuments";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -121,6 +122,7 @@ public class CustomAppLoaderConstants {
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
+        public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "visitdocumentsui.patientDocuments.overallAction";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -237,6 +239,7 @@ public class CustomAppLoaderConstants {
             Extensions.MERGE_VISITS_OVERALL_ACTION,
             Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
             Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
+            Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
             Extensions.EDIT_PATIENT_CONTACT_INFO,
             Extensions.CHART_SEARCH_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
@@ -304,5 +307,6 @@ public class CustomAppLoaderConstants {
             Apps.MOST_RECENT_VITALS,
             Apps.LAB_SUMMARY,
             Apps.PROGRAMS_LIST,
+            Apps.PATIENT_DOCUMENTS,
             Apps.MOST_RECENT_REGISTRATION);
 }

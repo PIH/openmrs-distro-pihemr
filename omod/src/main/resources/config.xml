@@ -116,6 +116,9 @@
         <require_module version="${haiticoreVersion}">
             org.openmrs.module.haiticore
         </require_module>
+        <require_module version="${visitdocumentsVersion}">
+            org.openmrs.module.visitdocumentsui
+        </require_module>
       <!--  <require_module version="${pihfingerprintsModule}">
             org.openmrs.module.pihfingerprints
         </require_module>-->

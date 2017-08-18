@@ -352,6 +352,13 @@
                     <version>${haiticoreVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>visitdocumentsui-omod</artifactId>
+                    <version>${visitdocumentsVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 <!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>

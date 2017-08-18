@@ -297,11 +297,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableTodaysVisits();
         }
 
-        // program enabling should now happen within enablePrograms method
-   /*     if (config.isComponentEnabled(Components.HIV)) {
-            enableHIV();
-        }*/
-
         if (config.isComponentEnabled(Components.LAB_TRACKING)) {
             enableLabTracking();
         }
@@ -313,18 +308,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
         }
+
         if (config.isComponentEnabled(Components.EXPORT_PATIENTS)) {
             enableExportPatients();
         }
+
         if (config.isComponentEnabled(Components.IMPORT_PATIENTS)) {
             enableImportPatients();
         }
 
-        // program enabling should now happen within enablePrograms method
-   /*     if (config.isComponentEnabled(Components.ZIKA)) {
-            enableZikaProgram();
-        }*/
-
+        if (config.isComponentEnabled(Components.PATIENT_DOCUMENTS)) {
+            enablePatientDocuments();
+        }
 
         readyForRefresh = false;
     }
@@ -1832,6 +1827,29 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_CLINICAL_SUMMARY), "relationships");
     }
+
+    private void enablePatientDocuments() {
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATIENT_DOCUMENTS,
+                "pihcore.patientDocuments.label",
+                "icon-paper-clip",
+                null,
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                null),
+                "visitdocumentsui", "dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.PATIENT_DOCUMENTS), "patientDocuments");
+
+        extensions.add(overallAction(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
+                "pihcore.patientDocuments.overallAction.label",
+                "icon-paper-clip",
+                "link",
+                "visitdocumentsui/visitDocuments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                null));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION), "patientDocuments");
+    }
+
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
