@@ -1189,7 +1189,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp.home",
                 "icon-user",
                 "link",
-                "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION + "&search={{search}}",
+                "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                 "App: registrationapp.registerPatient",
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
