@@ -101,6 +101,8 @@
         <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
         <visitdocumentsVersion>1.4-SNAPSHOT</visitdocumentsVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
+        <!-- only used for testing, not part of the distro -->
+        <exti18nVersion>1.0.0</exti18nVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -575,6 +577,14 @@
             <version>${uilibraryVersion}</version>
             <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- only used for testing, not actually bundled in distro -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>exti18n-api</artifactId>
+            <version>${exti18nVersion}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- End OpenMRS modules-->
