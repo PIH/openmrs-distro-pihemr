@@ -1690,6 +1690,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 map("scanUrl", config.getBiometricsConfig().getScanUrl(),
                         "devicesUrl", config.getBiometricsConfig().getDevicesUrl())));
 
+
+        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.BIOMETRICS_SUMMARY,
+                "registrationapp.biometrics.summary",
+                "icon-user",
+                null,
+                "App: registrationapp.registerPatient",
+                objectNode("registrationAppId", Apps.PATIENT_REGISTRATION)),
+                "registrationapp",
+                "summary/biometricsSummary"));
+
+
     }
 
     private void enableLabTracking() {

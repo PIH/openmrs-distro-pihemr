@@ -62,6 +62,7 @@ public class CustomAppLoaderConstants {
         public static final String ALLERGY_SUMMARY = "allergyui.allergySummary";
         public static final String LAB_SUMMARY = "labtrackingapp.labSummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
+        public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";
 
         public static final String LEGACY_MPI = "mirebalais.mpi";
 
@@ -309,4 +310,19 @@ public class CustomAppLoaderConstants {
             Apps.PROGRAMS_LIST,
             Apps.PATIENT_DOCUMENTS,
             Apps.MOST_RECENT_REGISTRATION);
+
+    public static final List<String> REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER = Arrays.asList(
+            Apps.MOST_RECENT_REGISTRATION_SUMMARY,
+            Apps.MOST_RECENT_REGISTRATION_INSURANCE,
+            Apps.MOST_RECENT_REGISTRATION_SOCIAL
+    );
+
+    public static final List<String> REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER = Arrays.asList(
+            Apps.MOST_RECENT_REGISTRATION_CONTACT,
+            Apps.BIOMETRICS_SUMMARY,
+            Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
+            Apps.MOST_RECENT_CHECK_IN,
+            Apps.ID_CARD_PRINTING_STATUS
+
+        );
 }

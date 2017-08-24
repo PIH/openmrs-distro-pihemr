@@ -25,6 +25,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
 
@@ -180,7 +182,7 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 null,
-                1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
+                REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_CONTENT)
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
@@ -195,7 +197,7 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 null,
-                1,  // TODO; create array to set order  like others in CustomAppLoaderConstants
+                REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT)
                 .setExtensionParams(map("provider", provider,
                         "fragment", fragment));
