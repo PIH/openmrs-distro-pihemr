@@ -671,6 +671,7 @@ public class PatientRegistrationApp {
         c.setScanUrl(biometricsConfig.getScanUrl());
         c.setDevicesUrl(biometricsConfig.getDevicesUrl());
         c.addFinger(new FingerprintWidget.FingerprintFormField("leftIndexTemplate", "zl.registration.patient.biometrics.fingerprints.leftIndexLabel", "LEFT_INDEX_FINGER"));
+        c.addFinger(new FingerprintWidget.FingerprintFormField("rightIndexTemplate", "zl.registration.patient.biometrics.fingerprints.rightIndexLabel", "RIGHT_INDEX_FINGER"));
         w.setConfig(c);
         return toObjectNode(w);
     }
