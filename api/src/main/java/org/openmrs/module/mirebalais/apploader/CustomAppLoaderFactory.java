@@ -1685,7 +1685,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(fragmentExtension(Extensions.BIOMETRICS_FIND_PATIENT,
                 "registrationapp",
                 "biometrics/fingerprintSearch",
-                null,
+                null,   // shouldn't need a privilege, since this is injected into the patient search
                 ExtensionPoints.PATIENT_SEARCH,
                 map("scanUrl", config.getBiometricsConfig().getScanUrl(),
                         "devicesUrl", config.getBiometricsConfig().getDevicesUrl())));
