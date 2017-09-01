@@ -29,7 +29,7 @@ import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypeBundle;
+import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBundle;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
