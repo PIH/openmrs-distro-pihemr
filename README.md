@@ -46,7 +46,7 @@ Startup should take several minutes as it loads in all required metadata, etc, f
 
 After startup, there's one manual configuration you will have to do, create a local identifier source to generate "fake" ZL EMR IDs:
 
-- In the legacy admin go to "Manage Patient Identifier Sources"
+- In the legacy admin ("http://localhost:8080/openmrs/admin") go to "Manage Patient Identifier Sources"
 - Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
 - Name: ZL Identifier Generator
 - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
