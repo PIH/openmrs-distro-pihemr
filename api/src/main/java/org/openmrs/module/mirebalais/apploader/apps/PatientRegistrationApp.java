@@ -546,6 +546,7 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("patient-biometrics-section");
         s.setLabel("zl.registration.patient.biometrics.label");
+        s.setSkipConfirmation(true);
         s.addQuestion(getBiometricsFingerprintsQuestion(config));
         return s;
     }
