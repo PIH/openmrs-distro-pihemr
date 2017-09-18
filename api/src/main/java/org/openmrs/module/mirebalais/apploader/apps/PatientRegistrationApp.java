@@ -104,10 +104,7 @@ public class PatientRegistrationApp {
         }*/
 
         c.addSection(getContactsSection(config));
-
-        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
-            c.addSection(getIdentifierSection(config));
-        }
+        c.addSection(getIdentifierSection(config));
     }
 
     public Section getDemographicsSection(Config config) {
@@ -555,8 +552,47 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-        s.addQuestion(getIdCardPrintQuestion());
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
+                s.addQuestion(getAdditionalIdentifiers());
+            }
+        }
+
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
+            s.addQuestion(getIdCardPrintQuestion());
+        }
         return s;
+    }
+
+    public Question getAdditionalIdentifiers() {
+        Question q= new Question();
+        q.setId("other-identifiers");
+        q.setLegend("zl.registration.patient.additionalIdentifiers");
+        q.setHeader("zl.registration.patient.additionalIdentifiers");
+        q.addField(getNumeroIdentificationFiscal());
+        q.addField(getCarteDIdentificationNationale());
+        return q;
+    }
+
+    public Field getNumeroIdentificationFiscal() {
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.NIF_ID.uuid());
+        f.setLabel(HaitiPatientIdentifierTypes.NIF_ID.name());
+        f.setUuid(HaitiPatientIdentifierTypes.NIF_ID.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+        return f;
+    }
+
+    public Field getCarteDIdentificationNationale() {
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.CIN_ID.uuid());
+        f.setLabel(HaitiPatientIdentifierTypes.CIN_ID.name());
+        f.setUuid(HaitiPatientIdentifierTypes.CIN_ID.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+        return f;
     }
 
     public Question getIdCardPrintQuestion() {
