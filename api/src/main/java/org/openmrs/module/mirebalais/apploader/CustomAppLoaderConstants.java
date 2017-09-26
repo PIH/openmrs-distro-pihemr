@@ -52,6 +52,7 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_EXPORT = "pih.exportPatients";
         public static final String PATIENT_IMPORT = "pih.importPatients";
 
+        public static final String ADDITIONAL_IDENTIFIERS = "registrationapp.additionalIdentifiers";
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
         public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";
         public static final String MOST_RECENT_REGISTRATION_SUMMARY = "coreapps.mostRecentRegistrationSummary";
@@ -318,6 +319,7 @@ public class CustomAppLoaderConstants {
     );
 
     public static final List<String> REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER = Arrays.asList(
+            Apps.ADDITIONAL_IDENTIFIERS,
             Apps.MOST_RECENT_REGISTRATION_CONTACT,
             Apps.BIOMETRICS_SUMMARY,
             Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,

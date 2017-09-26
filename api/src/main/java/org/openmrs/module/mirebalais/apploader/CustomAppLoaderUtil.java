@@ -174,7 +174,7 @@ public class CustomAppLoaderUtil {
         return addToDashboardColumn(app, provider, fragment, PihHaitiPrograms.HIV.uuid() + ".secondColumnFragments", 1);  // TODO add order
     }
 
-    static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment) {
+    static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {
         appExtension(app, app.getId() + ".registrationSummaryContent",
                 app.getLabel(),
                 app.getIcon(),
@@ -185,11 +185,15 @@ public class CustomAppLoaderUtil {
                 REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_CONTENT)
                 .setExtensionParams(map("provider", provider,
-                        "fragment", fragment));
+                        "fragment", fragment, "fragmentConfig", fragmentConfig));
         return app;
     }
 
-    static public AppDescriptor addToRegistrationSummarySecondColumnContent(AppDescriptor app, String provider, String fragment) {
+    static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment) {
+        return addToRegistrationSummaryContent(app, provider, fragment, null);
+    }
+
+    static public AppDescriptor addToRegistrationSummarySecondColumnContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {
         appExtension(app, app.getId() + ".registrationSummaryContent",
                 app.getLabel(),
                 app.getIcon(),
@@ -200,8 +204,12 @@ public class CustomAppLoaderUtil {
                 REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.REGISTRATION_SUMMARY_SECOND_COLUMN_CONTENT)
                 .setExtensionParams(map("provider", provider,
-                        "fragment", fragment));
+                        "fragment", fragment, "fragmentConfig", fragmentConfig));
         return app;
+    }
+
+    static public AppDescriptor addToRegistrationSummarySecondColumnContent(AppDescriptor app, String provider, String fragment) {
+        return addToRegistrationSummarySecondColumnContent(app, provider, fragment, null);
     }
 
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {

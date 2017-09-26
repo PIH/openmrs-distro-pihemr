@@ -20,6 +20,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.FingerprintWidget;
@@ -555,7 +556,9 @@ public class PatientRegistrationApp {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
-                s.addQuestion(getAdditionalIdentifiers());
+                s.addQuestion(getHivEmrId());
+                s.addQuestion(getNumeroIdentificationFiscal());
+                s.addQuestion(getCarteDIdentificationNationale());
             }
         }
 
@@ -565,34 +568,54 @@ public class PatientRegistrationApp {
         return s;
     }
 
-    public Question getAdditionalIdentifiers() {
-        Question q= new Question();
-        q.setId("other-identifiers");
-        q.setLegend("zl.registration.patient.additionalIdentifiers");
-        q.setHeader("zl.registration.patient.additionalIdentifiers");
-        q.addField(getNumeroIdentificationFiscal());
-        q.addField(getCarteDIdentificationNationale());
+    public Question getHivEmrId() {
+        Question q = new Question();
+        q.setId("hivemr-v1-id");
+        q.setLegend("HIVEMR-V1");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+        f.setUuid(PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+
+        q.addField(f);
         return q;
     }
 
-    public Field getNumeroIdentificationFiscal() {
+    public Question getNumeroIdentificationFiscal() {
+        Question q = new Question();
+        q.setId("numero-identification-fiscal");
+        q.setLegend("NIF");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + HaitiPatientIdentifierTypes.NIF_ID.uuid());
+
         Field f = new Field();
         f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.NIF_ID.uuid());
-        f.setLabel(HaitiPatientIdentifierTypes.NIF_ID.name());
+        //f.setLabel(HaitiPatientIdentifierTypes.NIF_ID.name());
         f.setUuid(HaitiPatientIdentifierTypes.NIF_ID.uuid());
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
-        return f;
+
+        q.addField(f);
+        return q;
     }
 
-    public Field getCarteDIdentificationNationale() {
+    public Question getCarteDIdentificationNationale() {
+        Question q = new Question();
+        q.setId("carte-d-identification-nationale");
+        q.setLegend("CIN");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + HaitiPatientIdentifierTypes.CIN_ID.uuid());
+
         Field f = new Field();
         f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.CIN_ID.uuid());
-        f.setLabel(HaitiPatientIdentifierTypes.CIN_ID.name());
+        //f.setLabel(HaitiPatientIdentifierTypes.CIN_ID.name());
         f.setUuid(HaitiPatientIdentifierTypes.CIN_ID.uuid());
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
-        return f;
+
+        q.addField(f);
+        return q;
     }
 
     public Question getIdCardPrintQuestion() {

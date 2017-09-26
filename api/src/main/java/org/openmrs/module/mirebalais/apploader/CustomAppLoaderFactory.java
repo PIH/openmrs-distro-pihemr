@@ -1081,6 +1081,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config),
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
+           apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ADDITIONAL_IDENTIFIERS,
+                "zl.registration.patient.additionalIdentifiers",
+                "icon-user",
+                null,
+                "App: registrationapp.registerPatient",
+                null),
+            "registrationapp",
+            "summary/section",
+            map("sectionId", "patient-identification-section")));
+
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
                         "mirebalais.mostRecentRegistration.label",
                         "icon-user",
