@@ -105,18 +105,10 @@ public class PatientRegistrationApp {
         }*/
 
         c.addSection(getContactsSection(config));
+        c.addSection(getIdentifierSection(config));
 
-        // everywhere in Haiti except the cross-site MH laptops
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {  // !CROSS_SITE means don't enable on mental health
-            c.addSection(getIdentifierSection(config));
-        }
-
-        // we are moving ID card printing to it's own section once we add additional identifiers
-        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
-            if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
-                c.addSection(getIdCardPrintSection());
-            }
+        if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
+            c.addSection(getIdCardPrintSection());
         }
     }
 
@@ -567,17 +559,15 @@ public class PatientRegistrationApp {
         s.setLabel("registrationapp.patient.identifiers.label");
 
          if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
-            s.addQuestion(getHivEmrId());
-            s.addQuestion(getNumeroIdentificationFiscal());
-            s.addQuestion(getCarteDIdentificationNationale());
-        }
-         // once we enable additional identifiers, we are moving the ID card print to it's own section
-        else {
-             // once we enable additional identifiers, we are moving the ID card print to it's own section
-             if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
-                 s.addQuestion(getIdCardPrintQuestion());
+
+             if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+                     !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {  // !CROSS_SITE means don't enable on mental health laptops
+                 s.addQuestion(getHivEmrId());
+                 s.addQuestion(getNumeroIdentificationFiscal());
+                 s.addQuestion(getCarteDIdentificationNationale());
              }
          }
+
         return s;
     }
 
