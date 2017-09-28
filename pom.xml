@@ -77,7 +77,7 @@
         <idgenVersion>4.4.1</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.5-SNAPSHOT</pacsintegrationVersion>
-        <addresshierarchyVersion>2.11.0-SNAPSHOT</addresshierarchyVersion>
+        <addresshierarchyVersion>2.10.0</addresshierarchyVersion>
         <providermanagementVersion>2.8.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
