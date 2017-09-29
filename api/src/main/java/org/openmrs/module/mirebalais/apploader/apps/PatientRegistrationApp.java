@@ -73,6 +73,7 @@ public class PatientRegistrationApp {
         c.setAfterCreatedActions(config.getRegistrationConfig().getAfterCreatedActions());
         c.setMatchingPatientsPropertiesToDisplay(config.getRegistrationConfig().getMatchingPatientsPropertiesToDisplay());
         c.setMaxPatientSearchResults(config.getRegistrationConfig().getMaxPatientMatchResults());
+        c.setIdentifierTypesToDisplay(config.getRegistrationConfig().getIdentifierTypesToDisplay());
         addSections(c, config);
         return c;
     }

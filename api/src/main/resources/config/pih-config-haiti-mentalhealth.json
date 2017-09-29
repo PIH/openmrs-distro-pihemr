@@ -37,7 +37,17 @@
     "allowManualEntryOfPrimaryIdentifier": false,
     "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
     "matchingPatientsPropertiesToDisplay" : [
-      "personName", "patientIdentifier.identifier", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
+      "personName", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
+    ],
+    "identifierTypesToDisplay": [
+      "a541af1e-105c-40bf-b345-ba1fd6a59b85",
+      "e66645eb-03a8-4991-b4ce-e87318e37566",
+      "9dbea4d4-35a9-4793-959e-952f2a9f5347",
+      "139766e8-15f5-102d-96e4-000c29c2a5d7",
+      "d9009bd0-eac9-11e5-a837-0800200c9a66",
+      "b5d0a5bd-adf3-4fe0-a231-5a488f6d2c61",
+      "e797f826-8e8f-11e7-bb31-be2e44b06b34",
+      "e797face-8e8f-11e7-bb31-be2e44b06b34"
     ],
     "maxPatientMatchResults": 50,
     "similarPatientsSearch": {
