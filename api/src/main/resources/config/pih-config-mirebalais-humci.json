@@ -42,7 +42,8 @@
     "zika",
     "hiv",
     "biometricsFingerPrints",
-    "patientDocuments"
+    "patientDocuments",
+    "chwApp"
   ],
 
   "scheduleMonthlyDataExports": true,

@@ -289,6 +289,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableEDTriageQueue();
         }
 
+        if (config.isComponentEnabled(Components.CHW_APP)) {
+            enableCHWApp();
+        }
+
         if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
             enableBiometrics(config);
         }
@@ -1484,6 +1488,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
     }
+
+
+    private void enableCHWApp() {
+        if (findAppById(Apps.CHW_MGMT) == null) {
+            apps.add(addToHomePage(app(Apps.CHW_MGMT,
+                    "chwapp.label",
+                    "icon-group",
+                    "/coreapps/providermanagement/providerList.page",
+                    Privileges.APP_CHW.privilege(),
+                    null)));
+        }
+
+        addFeatureToggleToApp(findAppById(Apps.CHW_MGMT), "chwApp");
+    }
+
 
     private void enableEDTriage() {
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,

@@ -27,7 +27,8 @@
     "programs",
     "hiv",
     "exportPatients",
-    "importPatients"
+    "importPatients",
+    "chwApp"
   ],
 
   "globalProperties": {
