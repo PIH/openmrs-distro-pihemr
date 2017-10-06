@@ -9,6 +9,7 @@
         "mirebalais.checkIn.paymentAmounts": "50,0",
         "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
         "mirebalais.checkIn.paymentAmountDefault": "50",
+        "providermanagement.restrictedRoles": "68624C4C-9E10-473B-A849-204820D16C45,11C1A56D-82F7-4269-95E8-2B67B9A3D837",
         "haiti.checkIn.reasonsForVisit":"PIH:CLINICAL,PIH:ID card only,PIH:Lab only,PIH:Pharmacy only,PIH:Procedure only,PIH:Request scheduled appointment,PIH:Social assistance and psychosocial support,PIH:OTHER"
   },
 

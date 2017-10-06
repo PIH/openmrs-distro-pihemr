@@ -1125,8 +1125,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "baseAppPath", "/registrationapp",
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                            "patientPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
-                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER + "," + PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
+                            "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
+                                    + "," + PihCoreConstants.RELATIONSHIP_SIBLING
+                                    + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD
+                                    + "," + RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
                             "icon", "icon-group",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
@@ -1865,7 +1868,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                        "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER + "," + PihCoreConstants.RELATIONSHIP_SIBLING + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
+                        "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                        "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
+                                + "," + PihCoreConstants.RELATIONSHIP_SIBLING
+                                + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD
+                                + "," + RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
                         "icon", "icon-group",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
