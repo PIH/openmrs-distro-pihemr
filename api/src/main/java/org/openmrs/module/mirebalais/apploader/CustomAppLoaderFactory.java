@@ -1126,10 +1126,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                             "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
                                     + "," + PihCoreConstants.RELATIONSHIP_SIBLING
-                                    + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD
-                                    + "," + RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                                    + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                             "icon", "icon-group",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
@@ -1869,10 +1869,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                         "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                        "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                         "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
                                 + "," + PihCoreConstants.RELATIONSHIP_SIBLING
-                                + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD
-                                + "," + RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                                + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                         "icon", "icon-group",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
