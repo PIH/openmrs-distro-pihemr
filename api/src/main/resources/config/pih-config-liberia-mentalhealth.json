@@ -1,0 +1,22 @@
+{
+
+  "welcomeMessage": "Mental Health EMR",
+
+  "site": "MENTAL_HEALTH",
+
+  "components": [
+    "visitNote",
+    "mentalHealth",
+    "patientRegistration",
+    "visitManagement",
+    "clinicianDashboard",
+    "systemAdministration",
+    "dataExports"
+  ],
+
+  "globalProperties": {
+  },
+
+  "providerIdentifierPrefix": "M"
+
+}

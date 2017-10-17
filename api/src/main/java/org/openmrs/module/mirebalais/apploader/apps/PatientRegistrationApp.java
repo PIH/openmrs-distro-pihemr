@@ -89,7 +89,7 @@ public class PatientRegistrationApp {
 
         // everywhere in Haiti except the cross-site MH laptops
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
+                !config.getSite().equals(ConfigDescriptor.Site.MENTAL_HEALTH)) {
 
             // remove toggle once enabled
             if (featureToggles.isFeatureEnabled("insuranceCollection")) {
@@ -562,7 +562,7 @@ public class PatientRegistrationApp {
          if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
 
              if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                     !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {  // !CROSS_SITE means don't enable on mental health laptops
+                     !config.getSite().equals(ConfigDescriptor.Site.MENTAL_HEALTH)) {
                  s.addQuestion(getHivEmrId());
                  s.addQuestion(getNumeroIdentificationFiscal());
                  s.addQuestion(getCarteDIdentificationNationale());
