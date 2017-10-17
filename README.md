@@ -36,7 +36,7 @@ After it fails, notice that a openmrs-runtime.properties file should have been c
 Add a line to these file specifying which of our configs to use for this server. For instance, to use
 the Mirebalais configuration, add the following nto the runtime properties:
 
-pih.config=mirebalais-humci,mirebalais
+pih.config=mirebalais,mirebalais-humci
 
 Then rerun:
 
