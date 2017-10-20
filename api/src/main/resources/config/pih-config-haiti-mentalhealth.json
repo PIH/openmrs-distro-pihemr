@@ -3,6 +3,7 @@
   "welcomeMessage": "Bievenue a le EMR de Santè Mentale",
 
   "country": "HAITI",
+  "specialty": "MENTAL_HEALTH",
   "site": "CROSS_SITE",
 
   "components": [

@@ -1086,9 +1086,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag(LocationTags.REGISTRATION_LOCATION)));
 
         if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
-            // we currently only have additioanl identifiers in Haiti, excluding Mental Health (cross-site)
+            // we currently only have additioanl identifiers in Haiti, excluding Mental Health
             if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                    !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
+                    !config.getSite().equals(ConfigDescriptor.Specialty.MENTAL_HEALTH)) {
                 apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ADDITIONAL_IDENTIFIERS,
                         "zl.registration.patient.additionalIdentifiers",
                         "icon-user",
@@ -1141,7 +1141,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
         if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
+                !config.getSite().equals(ConfigDescriptor.Specialty.MENTAL_HEALTH)) {
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "icon-user",

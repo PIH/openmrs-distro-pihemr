@@ -5,6 +5,7 @@
 
   "country": "HAITI",
   "site": "CROSS_SITE",
+  "specialty": "HIV",
   "dossierIdentifierPrefix": "VIH",
 
   "components": [
