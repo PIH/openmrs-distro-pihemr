@@ -39,10 +39,13 @@ public class CustomAppLoaderConstants {
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
-        public static final String ZIKA_PROGRAM_SUMMARY = "coreapps.app.zika.programSummary";
-        public static final String ZIKA_PROGRAM_HISTORY = "coreapps.app.zika.programHistory";
-        public static final String HIV_PROGRAM_SUMMARY = "coreapps.app.hiv.programSummary";
-        public static final String HIV_PROGRAM_HISTORY = "coreapps.app.hiv.programHistory";
+        public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
+        public static final String ZIKA_PATIENT_PROGRAM_SUMMARY = "pih.app.zika.patientProgramSummary";
+        public static final String ZIKA_PATIENT_PROGRAM_HISTORY = "pih.app.zika.patientProgramHistory";
+        public static final String HIV_PATIENT_PROGRAM_SUMMARY = "pih.app.hiv.patientProgramSummary";
+        public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
+        public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
+        public static final String HIV_PROGRAM_SUMMARY = "pih.app.hiv.programSummary";
         public static final String PATIENT_DOCUMENTS = "visitdocumentsui.app.patientDocuments";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
@@ -174,6 +177,7 @@ public class CustomAppLoaderConstants {
         public static final String AWAITING_ADMISSION_ACTIONS = "coreapps.app.awaitingAdmissionActions";
         public static final String ENCOUNTER_TEMPLATE = "org.openmrs.referenceapplication.encounterTemplate";
         public static final String HOME_PAGE = "org.openmrs.referenceapplication.homepageLink";
+        public static final String PROGRAM_SUMMARY_LIST = Apps.PROGRAM_SUMMARY_LIST + ".apps";
         public static final String DEATH_INFO_HEADER = "patientHeader.deathInfo";
         public static final String DASHBOARD_TAB = "patientDashboard.tabs";
         public static final String DASHBOARD_INCLUDE_FRAGMENTS = "patientDashboard.includeFragments";
@@ -215,6 +219,7 @@ public class CustomAppLoaderConstants {
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
             Apps.LAB_TRACKING,
+            Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,
             Apps.DISPENSING,
             Apps.ED_TRIAGE,
@@ -223,6 +228,10 @@ public class CustomAppLoaderConstants {
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);
+
+    public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
+            Apps.HIV_PROGRAM_SUMMARY_DASHBOARD
+    );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
             Apps.MANAGE_ACCOUNTS,

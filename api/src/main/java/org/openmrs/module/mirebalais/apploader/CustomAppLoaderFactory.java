@@ -42,8 +42,10 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToC
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
@@ -1681,8 +1683,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
 
-        // program dashboard configuration
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PROGRAM_SUMMARY,
+        // HIV dashboard configuration
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PATIENT_PROGRAM_SUMMARY,
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1697,9 +1699,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.HIV_PROGRAM_SUMMARY), "hiv");
+        addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_SUMMARY), "hiv");
 
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PROGRAM_HISTORY,
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1714,8 +1716,31 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
-        addFeatureToggleToApp(findAppById(Apps.HIV_PROGRAM_HISTORY), "hiv");
+        addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_HISTORY), "hiv");
 
+        // TODO correct the privilege
+        apps.add(addToProgramSummaryListPage(app(Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
+                "pih.app.hiv.programSummary.dashboard",
+                "icon-list-alt",
+                "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
+                Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                null
+                ),
+                null));
+
+        apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_SUMMARY,
+                "Program Statistcs",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programsummary",
+                        "icon", "icon-stethoscope",
+                        "label", "Program Statistcs",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.HIV.uuid()
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableBiometrics(Config config) {
@@ -1783,20 +1808,32 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableZikaProgram();
         }
 
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
-                "coreapps.programsListDashboardWidget.label",
-                "icon-stethoscope",  // TODO figure out right icon
-                null,
-                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
-                objectNode(
-                        "widget", "programs",
-                        "icon", "icon-stethoscope",
-                        "label", "coreapps.programsDashboardWidget.label",
-                        "dateFormat", "dd MMM yyyy",
-                        "supportedPrograms", StringUtils.join(supportedPrograms, ','),
-                        "enableProgramDashboards", "true"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+        // TODO better/more granular privileges?
+        if (supportedPrograms.size() > 0) {
+
+            apps.add(addToHomePage(app(Apps.PROGRAM_SUMMARY_LIST,
+                    "pih.app.programSummaryList.title",
+                    "icon-list-alt",
+                    "/coreapps/applist/appList.page?app=" + Apps.PROGRAM_SUMMARY_LIST,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                    null),
+                    null));
+
+            apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
+                    "coreapps.programsListDashboardWidget.label",
+                    "icon-stethoscope",  // TODO figure out right icon
+                    null,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                    objectNode(
+                            "widget", "programs",
+                            "icon", "icon-stethoscope",
+                            "label", "coreapps.programsDashboardWidget.label",
+                            "dateFormat", "dd MMM yyyy",
+                            "supportedPrograms", StringUtils.join(supportedPrograms, ','),
+                            "enableProgramDashboards", "true"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
 
         addFeatureToggleToApp(findAppById(Apps.PROGRAMS_LIST), "programsList");
     }
@@ -1805,7 +1842,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // dashboard title configured via 3bea593a-9afd-4642-96a6-210b60f5aff2.custom.title=ZIKA PROGRAM message property
 
-        apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_SUMMARY,
+        apps.add(addToZikaDashboardFirstColumn(app(Apps.ZIKA_PATIENT_PROGRAM_SUMMARY,
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1820,9 +1857,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_SUMMARY), "zika");
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PATIENT_PROGRAM_SUMMARY), "zika");
 
-        apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PROGRAM_HISTORY,
+        apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1837,7 +1874,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_HISTORY), "zika");
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PATIENT_PROGRAM_HISTORY), "zika");
     }
 
     private void enableExportPatients() {

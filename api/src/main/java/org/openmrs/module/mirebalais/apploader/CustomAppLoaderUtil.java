@@ -25,6 +25,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_SUMMARY_LIST_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
@@ -73,6 +74,19 @@ public class CustomAppLoaderUtil {
                 require,
                 HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
                 CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
+        return app;
+    }
+
+    static public AppDescriptor addToProgramSummaryListPage(AppDescriptor app, String require) {
+        appExtension(app, app.getId() + ".appLink",
+                app.getLabel(),
+                app.getIcon(),
+                "link",
+                app.getUrl(),
+                app.getRequiredPrivilege(),
+                require,
+                PROGRAM_SUMMARY_LIST_APPS_ORDER.indexOf(app.getId()),
+                CustomAppLoaderConstants.ExtensionPoints.PROGRAM_SUMMARY_LIST);
         return app;
     }
 
@@ -173,6 +187,11 @@ public class CustomAppLoaderUtil {
     static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
         return addToDashboardColumn(app, provider, fragment, PihHaitiPrograms.HIV.uuid() + ".secondColumnFragments", 1);  // TODO add order
     }
+    static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToDashboardColumn(app, provider, fragment, CustomAppLoaderConstants.Apps.HIV_PROGRAM_SUMMARY_DASHBOARD + ".firstColumnFragments", 1);  // TODO add order
+    }
+
+
 
     static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {
         appExtension(app, app.getId() + ".registrationSummaryContent",
