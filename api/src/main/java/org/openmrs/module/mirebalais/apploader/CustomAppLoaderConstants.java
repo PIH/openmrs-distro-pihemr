@@ -278,7 +278,7 @@ public class CustomAppLoaderConstants {
             Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION,
-            // Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
+            Extensions.HIV_ZL_ADULT_FOLLOWUP_VISIT_ACTION,
             // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
             // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
