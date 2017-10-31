@@ -1735,8 +1735,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-list-alt",
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
-                null
-                ),
+                objectNode(
+                    "program", PihHaitiPrograms.HIV.uuid()
+                )),
                 null));
 
         apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
