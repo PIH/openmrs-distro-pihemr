@@ -92,10 +92,8 @@ public class CustomAppLoaderConstants {
         public static final String NCD_ADULT_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
 
-        public static final String HIV_ZL_ADULT_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
-        public static final String HIV_ZL_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
-        public static final String HIV_ZL_PEDS_INITIAL_VISIT_ACTION = "pih.form.hivZLPedsInitial";
-        public static final String HIV_ZL_PEDS_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLPedsFollowup";
+        public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
+        public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
 
         public static final String HIV_ADULT_INITIAL_VISIT_ACTION = "pih.form.hivAdultInitial";
         public static final String HIV_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.hivAdultFollowup";
@@ -277,8 +275,8 @@ public class CustomAppLoaderConstants {
             Extensions.NCD_ADULT_INITIAL_VISIT_ACTION,
             Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
-            Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION,
-            Extensions.HIV_ZL_ADULT_FOLLOWUP_VISIT_ACTION,
+            Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
+            Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
             // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,

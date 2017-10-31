@@ -1622,20 +1622,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // dashboard title configured via b1cb1fc1-5190-4f7a-af08-48870975dafc.custom.title=ZIKA PROGRAM message property
 
         // ZL HIV forms
-        extensions.add(visitAction(Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-adult-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 // ToDo: Add privileges and locations
                 null,
-                and(patientIsAdult())));
+                null));
 
-        extensions.add(visitAction(Extensions.HIV_ZL_ADULT_FOLLOWUP_VISIT_ACTION,
+        extensions.add(visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowup.label",
                 "icon-asterisk",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-adult-followup.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-followup.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 // ToDo: Add privileges and locations
                 null,
                 and(patientIsAdult())));
@@ -1685,8 +1685,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 // ToDo: Add privileges and locations
                 null, null));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_ADULT_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_INITIAL_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION), "hiv");
 
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
