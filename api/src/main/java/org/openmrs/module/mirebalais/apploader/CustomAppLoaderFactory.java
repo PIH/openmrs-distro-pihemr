@@ -1739,15 +1739,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 ),
                 null));
 
-        apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_SUMMARY,
-                "Program Statistcs",
+        apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
+                "pih.app.hivProgramStatistics.title",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
-                        "widget", "programsummary",
+                        "widget", "programstatistics",
                         "icon", "icon-stethoscope",
-                        "label", "Program Statistcs",
+                        "label", "pih.app.hivProgramStatistics.title",
                         "dateFormat", "dd MMM yyyy",
                         "program", PihHaitiPrograms.HIV.uuid()
                 )),

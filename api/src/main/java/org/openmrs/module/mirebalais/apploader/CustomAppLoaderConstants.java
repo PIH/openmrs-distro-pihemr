@@ -45,7 +45,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_PATIENT_PROGRAM_SUMMARY = "pih.app.hiv.patientProgramSummary";
         public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
         public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
-        public static final String HIV_PROGRAM_SUMMARY = "pih.app.hiv.programSummary";
+        public static final String HIV_PROGRAM_STATISTICS = "pih.app.hiv.programStatistics";
         public static final String PATIENT_DOCUMENTS = "visitdocumentsui.app.patientDocuments";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
