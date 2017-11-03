@@ -187,10 +187,14 @@ public class CustomAppLoaderUtil {
     static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
         return addToDashboardColumn(app, provider, fragment, PihHaitiPrograms.HIV.uuid() + ".secondColumnFragments", 1);  // TODO add order
     }
+
     static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToDashboardColumn(app, provider, fragment, CustomAppLoaderConstants.Apps.HIV_PROGRAM_SUMMARY_DASHBOARD + ".firstColumnFragments", 1);  // TODO add order
     }
 
+    static public AppDescriptor addToZikaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToDashboardColumn(app, provider, fragment, CustomAppLoaderConstants.Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD + ".firstColumnFragments", 1);  // TODO add order
+    }
 
 
     static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {

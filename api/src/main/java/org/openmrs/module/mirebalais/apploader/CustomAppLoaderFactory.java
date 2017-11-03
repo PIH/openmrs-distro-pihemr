@@ -42,7 +42,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToC
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
@@ -51,6 +50,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToR
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
@@ -204,10 +204,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.LAB_RESULTS)) {
             enableLabResults();
-        }
-
-        if (config.isComponentEnabled(Components.NCD)) {
-            enableNCDs();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
@@ -1740,7 +1736,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 null));
 
-        apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
+        apps.add(addToZikaSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
                 "pih.app.hivProgramStatistics.title",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
@@ -1820,6 +1816,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableZikaProgram();
         }
 
+        if (config.isComponentEnabled(Components.NCD)) {
+            if (featureToggles.isFeatureEnabled("ncdProgram")) {
+                //supportedPrograms.add(PihHaitiPrograms.)
+            }
+            enableNCDs();
+        }
+
         // TODO better/more granular privileges?
         if (supportedPrograms.size() > 0) {
 
@@ -1887,6 +1890,35 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory"));
 
         addFeatureToggleToApp(findAppById(Apps.ZIKA_PATIENT_PROGRAM_HISTORY), "zika");
+
+        // TODO correct the privilege
+        apps.add(addToProgramSummaryListPage(app(Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD,
+                "pih.app.zika.programSummary.dashboard",
+                "icon-list-alt",
+                "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD,
+                Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                objectNode(
+                        "program", PihHaitiPrograms.ZIKA.uuid()
+                )),
+                null));
+
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD), "zika");
+
+        apps.add(addToZikaSummaryDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_STATISTICS,
+                "pih.app.zikaProgramStatistics.title",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programstatistics",
+                        "icon", "icon-stethoscope",
+                        "label", "pih.app.zikaProgramStatistics.title",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.ZIKA.uuid()
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_STATISTICS), "zika");
     }
 
     private void enableExportPatients() {

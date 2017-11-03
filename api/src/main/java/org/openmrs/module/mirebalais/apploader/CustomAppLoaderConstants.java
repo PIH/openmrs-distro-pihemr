@@ -42,6 +42,8 @@ public class CustomAppLoaderConstants {
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String ZIKA_PATIENT_PROGRAM_SUMMARY = "pih.app.zika.patientProgramSummary";
         public static final String ZIKA_PATIENT_PROGRAM_HISTORY = "pih.app.zika.patientProgramHistory";
+        public static final String ZIKA_PROGRAM_SUMMARY_DASHBOARD = "pih.app.zika.programSummary.dashboard";
+        public static final String ZIKA_PROGRAM_STATISTICS = "pih.app.zika.programStatistics";
         public static final String HIV_PATIENT_PROGRAM_SUMMARY = "pih.app.hiv.patientProgramSummary";
         public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
         public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
