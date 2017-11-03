@@ -42,6 +42,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToC
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
@@ -1736,7 +1737,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 null));
 
-        apps.add(addToZikaSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
+        apps.add(addToHivSummaryDashboardFirstColumn(app(Apps.HIV_PROGRAM_STATISTICS,
                 "pih.app.hivProgramStatistics.title",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,
