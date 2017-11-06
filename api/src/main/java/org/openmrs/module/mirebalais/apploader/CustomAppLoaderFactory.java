@@ -1785,6 +1785,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 null));  // TODO restrict by location ?
 
+        addFeatureToggleToApp(findAppById(Apps.LAB_TRACKING), "labTracking");
+
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.orderPathology.label",
                 "icon-beaker",
@@ -1793,6 +1795,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));     // TODO restrict by location ?
 
+        addFeatureToggleToExtension(findExtensionById(Extensions.ORDER_LAB_VISIT_ACTION), "labTracking");
+
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.LAB_SUMMARY,
                 "labtrackingapp.pathology",
                 "icon-beaker",
@@ -1800,6 +1804,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,  // TODO restrict by privilege or location?
                 null),
                 "labtrackingapp", "labtrackingPatientDashboard"));
+
+        addFeatureToggleToApp(findAppById(Apps.LAB_SUMMARY), "labTracking");
 
     }
 
