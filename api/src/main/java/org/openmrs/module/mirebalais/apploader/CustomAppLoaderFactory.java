@@ -392,24 +392,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableActiveVisits() {
 
-        apps.add(addToHomePage(app(Apps.ACTIVE_VISITS,
-                "coreapps.activeVisits.app.label",
-                "icon-check-in",
-                "coreapps/activeVisits.page?app=" + Apps.ACTIVE_VISITS,
-                "App: coreapps.activeVisits",
-                objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
-
-        addFeatureToggleToApp(findAppById(Apps.ACTIVE_VISITS), "oldActiveVisits");
-
-
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS_LIST,
                 "coreapps.activeVisits.app.label",
                 "icon-check-in",
                 "pihcore/reports/activeVisitsList.page?app=" + Apps.ACTIVE_VISITS,
                 "App: coreapps.activeVisits",
                 objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
-
-        addFeatureToggleToApp(findAppById(Apps.ACTIVE_VISITS_LIST), "newActiveVisits");
 
     }
 
