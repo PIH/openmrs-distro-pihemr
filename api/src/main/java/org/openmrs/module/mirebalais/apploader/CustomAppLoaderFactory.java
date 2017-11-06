@@ -1766,7 +1766,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.LAB_TRACKING,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
                 null),
-                null));  // TODO restrict by location ?
+                null));
 
         addFeatureToggleToApp(findAppById(Apps.LAB_TRACKING), "labTracking");
 
@@ -1776,7 +1776,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
                 null,
-                null));     // TODO restrict by location ?
+                sessionLocationHasTag(LocationTags.ORDER_PATHOLOGY_LOCATION)));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.ORDER_LAB_VISIT_ACTION), "labTracking");
 
@@ -1784,7 +1784,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "labtrackingapp.pathology",
                 "icon-beaker",
                 null,
-                null,  // TODO restrict by privilege or location?
+                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
                 null),
                 "labtrackingapp", "labtrackingPatientDashboard"));
 
