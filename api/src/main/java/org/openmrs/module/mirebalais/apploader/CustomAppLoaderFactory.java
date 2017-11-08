@@ -45,6 +45,9 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToH
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
@@ -1426,6 +1429,70 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+
+        // NCD patient dashboard
+        apps.add(addToNCDDashboardFirstColumn(app(Apps.NCD_PATIENT_PROGRAM_SUMMARY,
+                "coreapps.currentEnrollmentDashboardWidget.label",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                objectNode(
+                        "widget", "programstatus",
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.currentEnrollmentDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.NCD.uuid(),
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.NCD_PATIENT_PROGRAM_SUMMARY), "ncdProgram");
+
+        apps.add(addToNCDDashboardSecondColumn(app(Apps.NCD_PATIENT_PROGRAM_HISTORY,
+                "coreapps.programHistoryDashboardWidget.label",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                objectNode(
+                        "icon", "icon-stethoscope",
+                        "label", "coreapps.programHistoryDashboardWidget.label",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.NCD.uuid(),
+                        "includeActive", false,
+                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                )),
+                "coreapps", "program/programHistory"));
+
+        addFeatureToggleToApp(findAppById(Apps.NCD_PATIENT_PROGRAM_HISTORY), "ncdProgram");
+
+        // NCD summary dashboard
+        apps.add(addToProgramSummaryListPage(app(Apps.NCD_PROGRAM_SUMMARY_DASHBOARD,
+                "pih.app.ncd.programSummary.dashboard",
+                "icon-list-alt",
+                "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.NCD_PROGRAM_SUMMARY_DASHBOARD,
+                Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                objectNode(
+                        "program", PihHaitiPrograms.NCD.uuid()
+                )),
+                null));
+
+        addFeatureToggleToApp(findAppById(Apps.NCD_PROGRAM_SUMMARY_DASHBOARD), "ncdProgram");
+
+        apps.add(addToNCDSummaryDashboardFirstColumn(app(Apps.NCD_PROGRAM_STATISTICS,
+                "pih.app.ncdProgramStatistics.title",
+                "icon-stethoscope",  // TODO figure out right icon
+                null,
+                null, // TODO restrict by privilege or location)
+                objectNode(
+                        "widget", "programstatistics",
+                        "icon", "icon-stethoscope",
+                        "label", "pih.app.ncdProgramStatistics.title",
+                        "dateFormat", "dd MMM yyyy",
+                        "program", PihHaitiPrograms.NCD.uuid()
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.NCD_PROGRAM_STATISTICS), "ncdProgram");
     }
 
     private void enableMentalHealth() {
@@ -1805,7 +1872,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.NCD)) {
             if (featureToggles.isFeatureEnabled("ncdProgram")) {
-                //supportedPrograms.add(PihHaitiPrograms.)
+                supportedPrograms.add(PihHaitiPrograms.NCD.uuid());
             }
             enableNCDs();
         }

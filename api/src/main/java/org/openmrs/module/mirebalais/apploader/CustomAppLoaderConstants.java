@@ -48,6 +48,10 @@ public class CustomAppLoaderConstants {
         public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
         public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
         public static final String HIV_PROGRAM_STATISTICS = "pih.app.hiv.programStatistics";
+        public static final String NCD_PATIENT_PROGRAM_SUMMARY = "pih.app.ncd.patientProgramSummary";
+        public static final String NCD_PATIENT_PROGRAM_HISTORY = "pih.app.ncd.patientProgramHistory";
+        public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
+        public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
         public static final String PATIENT_DOCUMENTS = "visitdocumentsui.app.patientDocuments";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
