@@ -1688,6 +1688,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
+    // not currently used
     private void enableHIViSantePlus() {
         // iSantePlus forms were added but  should not appear
         extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
@@ -1729,12 +1730,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 null));
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
     }
 
     private void enableBiometrics(Config config) {
