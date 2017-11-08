@@ -1599,8 +1599,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableHIV() {
 
-        // dashboard title configured via b1cb1fc1-5190-4f7a-af08-48870975dafc.custom.title=ZIKA PROGRAM message property
-
         // ZL HIV forms
         extensions.add(visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
@@ -1626,57 +1624,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
 
-        // iSantePlus forms
-        // TODO do these need specific privileges/location restrictions?
-        extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
-                "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml"),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(patientIsAdult())));
-
-        extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
-                "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml"),
-                null,
-                and(patientIsChild())));
-
-        extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
-                "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml"),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(patientIsAdult())));
-
-        extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
-                "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(patientIsChild())));
-
-        extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
-                "pih.task.hivAdherence.label",
-                "icon-asterisk",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                null));
-        // end iSante plus forms
-
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION), "hiv");
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
 
         // HIV dashboard configuration
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PATIENT_PROGRAM_SUMMARY,
@@ -1737,6 +1686,55 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "program", PihHaitiPrograms.HIV.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableHIViSantePlus() {
+        // iSantePlus forms were added but  should not appear
+        extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntakeISantePlus.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml"),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(patientIsAdult())));
+
+        extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntakeISantePlus.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml"),
+                null,
+                and(patientIsChild())));
+
+        extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
+                "pih.task.hivFollowupISantePlus.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml"),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(patientIsAdult())));
+
+        extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
+                "pih.task.hivFollowupISantePlus.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(patientIsChild())));
+
+        extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
+                "pih.task.hivAdherence.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                null));
+
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION), "hiv");
+        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ADHERENCE_VISIT_ACTION), "hiv");
     }
 
     private void enableBiometrics(Config config) {
