@@ -564,12 +564,29 @@ public class PatientRegistrationApp {
              if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
                      !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {  // reversed to make this null safe
                  s.addQuestion(getHivEmrId());
+                 s.addQuestion(getHivDossierNumber());
                  s.addQuestion(getNumeroIdentificationFiscal());
                  s.addQuestion(getCarteDIdentificationNationale());
              }
          }
 
         return s;
+    }
+
+    public Question getHivDossierNumber() {
+        Question q = new Question();
+        q.setId("hivemr-dossier-id");
+        q.setLegend("HIV Dossier");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
+        f.setUuid(PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+
+        q.addField(f);
+        return q;
     }
 
     public Question getHivEmrId() {
