@@ -23,7 +23,9 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.PihHaitiPrograms;
+import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -1441,7 +1443,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.NCD.uuid(),
+                        "program", NCDProgram.NCD.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1457,7 +1459,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.NCD.uuid(),
+                        "program", NCDProgram.NCD.uuid(),
                         "includeActive", false,
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
@@ -1472,7 +1474,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.NCD_PROGRAM_SUMMARY_DASHBOARD,
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                 objectNode(
-                        "program", PihHaitiPrograms.NCD.uuid()
+                        "program", NCDProgram.NCD.uuid()
                 )),
                 null));
 
@@ -1488,7 +1490,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "pih.app.ncdProgramStatistics.title",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.NCD.uuid()
+                        "program", NCDProgram.NCD.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1705,7 +1707,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.HIV.uuid(),
+                        "program", HIVProgram.HIV.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1721,7 +1723,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.HIV.uuid(),
+                        "program", HIVProgram.HIV.uuid(),
                         "includeActive", false,
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
@@ -1736,7 +1738,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                 objectNode(
-                    "program", PihHaitiPrograms.HIV.uuid()
+                    "program", HIVProgram.HIV.uuid()
                 )),
                 null));
 
@@ -1750,7 +1752,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "pih.app.hivProgramStatistics.title",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.HIV.uuid()
+                        "program", HIVProgram.HIV.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
@@ -1861,18 +1863,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         List<String> supportedPrograms = new ArrayList<String>();
 
         if (config.isComponentEnabled(Components.HIV) && featureToggles.isFeatureEnabled("hiv")) {
-            supportedPrograms.add(PihHaitiPrograms.HIV.uuid());
+            supportedPrograms.add(HIVProgram.HIV.uuid());
             enableHIV();
         }
 
         if (config.isComponentEnabled(Components.ZIKA) && featureToggles.isFeatureEnabled("zika")) {
-            supportedPrograms.add(PihHaitiPrograms.ZIKA.uuid());
+            supportedPrograms.add(ZikaProgram.ZIKA.uuid());
             enableZikaProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {
             if (featureToggles.isFeatureEnabled("ncdProgram")) {
-                supportedPrograms.add(PihHaitiPrograms.NCD.uuid());
+                supportedPrograms.add(NCDProgram.NCD.uuid());
             }
             enableNCDs();
         }
@@ -1921,7 +1923,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.ZIKA.uuid(),
+                        "program", ZikaProgram.ZIKA.uuid(),
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1937,7 +1939,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.ZIKA.uuid(),
+                        "program", ZikaProgram.ZIKA.uuid(),
                         "includeActive", false,
                         "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
                 )),
@@ -1952,7 +1954,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD,
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                 objectNode(
-                        "program", PihHaitiPrograms.ZIKA.uuid()
+                        "program", ZikaProgram.ZIKA.uuid()
                 )),
                 null));
 
@@ -1968,7 +1970,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-stethoscope",
                         "label", "pih.app.zikaProgramStatistics.title",
                         "dateFormat", "dd MMM yyyy",
-                        "program", PihHaitiPrograms.ZIKA.uuid()
+                        "program", ZikaProgram.ZIKA.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
