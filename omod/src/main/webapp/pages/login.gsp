@@ -1,13 +1,8 @@
 <!-- This is the login page -->
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
+    ui.includeCss("pihcore", "login.css")
 %>
-
-<style>
-    .location-list-item {
-        vertical-align: top;
-    }
-</style>
 
 <!DOCTYPE html>
 <html>
