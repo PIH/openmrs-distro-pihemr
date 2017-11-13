@@ -295,6 +295,10 @@ public class CustomAppLoaderConstants {
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
             Extensions.ORDER_LAB_VISIT_ACTION);
 
+    public static final List<String> HIV_VISIT_ACTIONS_ORDER = Arrays.asList(
+            Extensions.HIV_ZL_INITIAL_VISIT_ACTION + ".hiv",
+            Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv");
+
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
             Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION);

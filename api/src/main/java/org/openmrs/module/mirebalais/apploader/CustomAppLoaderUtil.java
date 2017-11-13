@@ -25,6 +25,7 @@ import java.util.Map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_SUMMARY_LIST_APPS_ORDER;
@@ -252,6 +253,16 @@ public class CustomAppLoaderUtil {
     static public Extension visitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 CustomAppLoaderConstants.ExtensionPoints.VISIT_ACTIONS, VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
+    static public Extension hivVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                HIVProgram.HIV.uuid() + ".visitActions", HIV_VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
+    static public Extension cloneAsHivVisitAction(Extension ext) {
+        return hivVisitAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
     }
 
     static public Extension overallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {

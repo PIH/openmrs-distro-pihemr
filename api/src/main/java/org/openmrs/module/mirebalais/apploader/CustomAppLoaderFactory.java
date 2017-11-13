@@ -61,6 +61,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCre
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
@@ -1669,8 +1670,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableHIV() {
 
         // ZL HIV forms
-        extensions.add(visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
-                "pih.task.hivIntake.label",
+        Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
+        "pih.task.hivIntake.label",
                 "icon-asterisk",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
@@ -1678,10 +1679,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
+        extensions.add(hivInitial);
+        extensions.add(cloneAsHivVisitAction(hivInitial));
 
-        extensions.add(visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
+        Extension hivFollowup = visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowup.label",
                 "icon-asterisk",
                 "link",
@@ -1690,8 +1693,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
+        extensions.add(hivFollowup);
+        extensions.add(cloneAsHivVisitAction(hivFollowup));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION), "hiv");
