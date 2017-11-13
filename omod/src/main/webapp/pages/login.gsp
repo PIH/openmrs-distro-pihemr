@@ -3,6 +3,12 @@
     ui.includeFragment("appui", "standardEmrIncludes")
 %>
 
+<style>
+    .location-list-item {
+        vertical-align: top;
+    }
+</style>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +63,7 @@ ${ ui.includeFragment("appui", "header") }
                         </label>
                         <ul id="sessionLocation" class="select">
                             <% locations.sort { ui.format(it) }.each { %>
-                                <li value="${it.id}">${ui.format(it)}</li>
+                                <li class="location-list-item" value="${it.id}">${ui.format(it)}</li>
                             <% } %>
                         </ul>
                     </p>
