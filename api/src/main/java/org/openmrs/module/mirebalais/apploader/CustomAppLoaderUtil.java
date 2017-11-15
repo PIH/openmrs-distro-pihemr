@@ -25,6 +25,8 @@ import java.util.Map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.AWAITING_ADMISSION_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_DASHBOARD_FIRST_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
@@ -200,11 +202,11 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, HIVProgram.HIV.uuid() + ".firstColumnFragments", 1);  // TODO add order
+        return addToDashboardColumn(app, provider, fragment, HIVProgram.HIV.uuid() + ".firstColumnFragments", HIV_DASHBOARD_FIRST_COLUMN_ORDER.indexOf(app.getId()));
     }
 
     static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, HIVProgram.HIV.uuid() + ".secondColumnFragments", 1);  // TODO add order
+        return addToDashboardColumn(app, provider, fragment, HIVProgram.HIV.uuid() + ".secondColumnFragments", HIV_DASHBOARD_SECOND_COLUMN_ORDER.indexOf(app.getId()));
     }
 
     static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {

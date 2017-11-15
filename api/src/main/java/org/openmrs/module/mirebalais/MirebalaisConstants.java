@@ -45,4 +45,7 @@ public class MirebalaisConstants {
 
     public static final String RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID = "order.radiologyOrderNumberGenerator";
 
+    public static final String WEIGHT_CONCEPT_UUID = "3ce93b62-26fe-102b-80cb-0017a47871b2";
+    public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
+    public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
 }

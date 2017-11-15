@@ -48,6 +48,9 @@ public class CustomAppLoaderConstants {
         public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
         public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
         public static final String HIV_PROGRAM_STATISTICS = "pih.app.hiv.programStatistics";
+        public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weighGraph";
+        public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
+        public static final String HIV_OBS_CHART = "pih.app.hiv.obsChart";
         public static final String NCD_PATIENT_PROGRAM_SUMMARY = "pih.app.ncd.patientProgramSummary";
         public static final String NCD_PATIENT_PROGRAM_HISTORY = "pih.app.ncd.patientProgramHistory";
         public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
@@ -345,5 +348,16 @@ public class CustomAppLoaderConstants {
             Apps.MOST_RECENT_CHECK_IN,
             Apps.ID_CARD_PRINTING_STATUS
 
-        );
+    );
+
+    public static final List<String> HIV_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
+            Apps.HIV_PATIENT_PROGRAM_SUMMARY,
+            Apps.HIV_OBS_CHART
+    );
+
+    public static final List<String> HIV_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
+            Apps.HIV_CD4_GRAPH,
+            Apps.HIV_WEIGHT_GRAPH,
+            Apps.HIV_PATIENT_PROGRAM_HISTORY
+    );
 }

@@ -10,6 +10,7 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.apps.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
@@ -1719,6 +1720,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_SUMMARY), "hiv");
 
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
+                "pih.app.hivObsChart.title",
+                "icon-list-alt",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.hivObsChart.title",
+                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
+                        "maxResults", "20", // TODO what should this be?
+                        "maxAge", "1y" // TODO what should this be
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.HIV_OBS_CHART), "hiv");
+
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
@@ -1735,6 +1753,40 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory"));
 
         addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_HISTORY), "hiv");
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_CD4_GRAPH,
+                "pih.app.hivcd4Graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.hivcd4Graph.title",
+                        "conceptId", MirebalaisConstants.CD4_COUNT_UUID,
+                        "maxResults", "20", // TODO what should this be?
+                        "maxAge", "1y" // TODO what should this be
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.HIV_CD4_GRAPH), "hiv");
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
+                "pih.app.hivWeightGraph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.hivWeightGraph.title",
+                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                        "maxResults", "20", // TODO what should this be?
+                        "maxAge", "1y" // TODO what should this be
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        addFeatureToggleToApp(findAppById(Apps.HIV_WEIGHT_GRAPH), "hiv");
 
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app(Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
