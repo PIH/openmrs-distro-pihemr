@@ -1730,8 +1730,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-list-alt",
                         "label", "pih.app.hivObsChart.title",
                         "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
-                        "maxResults", "20", // TODO what should this be?
-                        "maxAge", "1y" // TODO what should this be
+                        "maxResults", "20" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1764,8 +1763,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivcd4Graph.title",
                         "conceptId", MirebalaisConstants.CD4_COUNT_UUID,
-                        "maxResults", "20", // TODO what should this be?
-                        "maxAge", "1y" // TODO what should this be
+                        "maxResults", "20" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1781,8 +1779,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivWeightGraph.title",
                         "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
-                        "maxResults", "20", // TODO what should this be?
-                        "maxAge", "1y" // TODO what should this be
+                        "maxResults", "20" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
