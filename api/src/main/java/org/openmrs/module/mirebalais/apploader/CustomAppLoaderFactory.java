@@ -1730,7 +1730,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-list-alt",
                         "label", "pih.app.hivObsChart.title",
                         "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
-                        "maxResults", "20" // TODO what should this be?
+                        "maxResults", "6" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
