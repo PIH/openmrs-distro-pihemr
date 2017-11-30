@@ -38,7 +38,8 @@
     "relationships",
     "programs",
     "zika",
-    "hiv"
+    "hiv",
+    "patientDocuments"
   ],
 
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
