@@ -1958,9 +1958,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "enableProgramDashboards", "true"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
-        }
 
-        addFeatureToggleToApp(findAppById(Apps.PROGRAMS_LIST), "programsList");
+            addFeatureToggleToApp(findAppById(Apps.PROGRAMS_LIST), "programsList");
+        }
     }
 
     private void enableZikaProgram() {
