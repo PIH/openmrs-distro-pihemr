@@ -116,7 +116,7 @@
         <require_module version="${haiticoreVersion}">
             org.openmrs.module.haiticore
         </require_module>
-        <require_module version="${attacmentsVersion}">
+        <require_module version="${attachmentsVersion}">
             org.openmrs.module.attachments
         </require_module>
       <!--  <require_module version="${pihfingerprintsModule}">
