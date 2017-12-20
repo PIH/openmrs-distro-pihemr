@@ -55,7 +55,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_PATIENT_PROGRAM_HISTORY = "pih.app.ncd.patientProgramHistory";
         public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
         public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
-        public static final String PATIENT_DOCUMENTS = "visitdocumentsui.app.patientDocuments";
+        public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -135,7 +135,7 @@ public class CustomAppLoaderConstants {
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
-        public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "visitdocumentsui.patientDocuments.overallAction";
+        public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";

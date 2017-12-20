@@ -355,8 +355,8 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>visitdocumentsui-omod</artifactId>
-                    <version>${visitdocumentsVersion}</version>
+                    <artifactId>attachments-omod</artifactId>
+                    <version>${attacmentsVersion}</version>
                     <scope>provided</scope>
                 </dependency>
 <!--
