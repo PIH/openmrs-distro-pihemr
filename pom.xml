@@ -534,6 +534,13 @@
             <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>attachments-api-1.11</artifactId>
+            <version>${attachmentsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 <!--
 
         <dependency>
