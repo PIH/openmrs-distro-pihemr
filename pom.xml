@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>1.10.6</openMRSVersion>
-        <openMRSwebVersion>1.10.6</openMRSwebVersion>
+        <openMRSVersion>1.11.9-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>1.11.9-SNAPSHOT</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -99,7 +99,7 @@
         <allergyuiVersion>1.8.0</allergyuiVersion>
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
-        <visitdocumentsVersion>1.4-SNAPSHOT</visitdocumentsVersion>
+        <attachmentsVersion>2.0.0-SNAPSHOT</attachmentsVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -330,7 +330,7 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-1.10</artifactId>
+            <artifactId>emrapi-api-1.11</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
@@ -530,8 +530,15 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>visitdocumentsui-api</artifactId>
-            <version>${visitdocumentsVersion}</version>
+            <artifactId>attachments-api</artifactId>
+            <version>${attachmentsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>attachments-api-1.11</artifactId>
+            <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
 <!--
@@ -753,12 +760,12 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[1.10.0,1.11.0-!)</version>
+                            <version>[1.11.0,1.12.0-!)</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[1.10.0,1.11.0-!)</version>
+                            <version>[1.11.0,1.12.0-!)</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>

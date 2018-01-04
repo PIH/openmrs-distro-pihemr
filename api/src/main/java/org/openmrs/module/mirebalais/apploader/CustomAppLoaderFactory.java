@@ -2043,7 +2043,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null),
-                "visitdocumentsui", "dashboardWidget"));
+                "attachments", "dashboardWidget"));
 
         addFeatureToggleToApp(findAppById(Apps.PATIENT_DOCUMENTS), "patientDocuments");
 
@@ -2051,7 +2051,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patientDocuments.overallAction.label",
                 "icon-paper-clip",
                 "link",
-                "visitdocumentsui/visitDocuments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
+                "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null));
 
