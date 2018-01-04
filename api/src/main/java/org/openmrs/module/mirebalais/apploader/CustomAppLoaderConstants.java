@@ -141,6 +141,7 @@ public class CustomAppLoaderConstants {
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
         public static final String VISIT_ACTIONS_INCLUDES = "coreapps.patientDashboard.includes";
+        public static final String HIV_DASHBOARD_VISIT_INCLUDES = "pih.hivPatientDashboard.includes";
 
         public static final String RADIOLOGY_TAB = "radiologyapp.tab";
         public static final String APPOINTMENTS_TAB = "appointmentschedulingui.tab";
