@@ -131,6 +131,7 @@ public class CustomAppLoaderConstants {
         public static final String PRINT_PAPER_FORM_LABEL_OVERALL_ACTION = "paperrecord.printPaperFormLabel";
         public static final String PRINT_WRISTBAND_OVERALL_ACTION = "pih.wristband.print";
         public static final String CREATE_VISIT_OVERALL_ACTION = "coreapps.createVisit";
+        public static final String CREATE_HIV_VISIT_OVERALL_ACTION = "coreapps.hiv.createVisit";
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";

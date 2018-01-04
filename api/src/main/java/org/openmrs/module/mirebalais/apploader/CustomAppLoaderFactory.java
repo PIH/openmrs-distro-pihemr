@@ -39,51 +39,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivSummaryDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToNCDSummaryDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToZikaSummaryDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.*;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
@@ -1784,6 +1740,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         addFeatureToggleToApp(findAppById(Apps.HIV_WEIGHT_GRAPH), "hiv");
+
+        extensions.add(hivOverallAction(Extensions.CREATE_HIV_VISIT_OVERALL_ACTION,
+                "coreapps.task.startVisit.label",
+                "icon-check-in",
+                "script",
+                "visit.showQuickVisitCreationDialog({{patient.patientId}})",
+                "Task: coreapps.createVisit",
+                and(patientDoesNotActiveVisit(), patientNotDead())));
 
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app(Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
