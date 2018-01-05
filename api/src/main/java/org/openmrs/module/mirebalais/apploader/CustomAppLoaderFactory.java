@@ -76,6 +76,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extens
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.hivOverallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
@@ -1699,6 +1700,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(hivFollowup);
         extensions.add(cloneAsHivVisitAction(hivFollowup));
 
+        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
+        extensions.add(fragmentExtension(Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
+                "coreapps",
+                "patientdashboard/visitIncludes",
+                null,
+                HIVProgram.HIV.uuid()+".includeFragments",
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
+
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_INITIAL_VISIT_ACTION), "hiv");
         addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION), "hiv");
 
@@ -1784,6 +1793,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         addFeatureToggleToApp(findAppById(Apps.HIV_WEIGHT_GRAPH), "hiv");
+
+        extensions.add(hivOverallAction(Extensions.CREATE_HIV_VISIT_OVERALL_ACTION,
+                "coreapps.task.startVisit.label",
+                "icon-check-in",
+                "script",
+                "visit.showQuickVisitCreationDialog({{patient.patientId}})",
+                "Task: coreapps.createVisit",
+                and(patientDoesNotActiveVisit(), patientNotDead())));
 
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app(Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,
