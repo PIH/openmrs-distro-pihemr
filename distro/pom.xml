@@ -359,6 +359,13 @@
                     <version>${attachmentsVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>conditionui-omod</artifactId>
+                    <version>${conditionuiVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 <!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>

@@ -43,7 +43,8 @@
     "hiv",
     "biometricsFingerPrints",
     "patientDocuments",
-    "chwApp"
+    "chwApp",
+    "conditionList"
   ],
 
   "scheduleMonthlyDataExports": true,

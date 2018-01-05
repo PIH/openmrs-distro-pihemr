@@ -119,6 +119,9 @@
         <require_module version="${attachmentsVersion}">
             org.openmrs.module.attachments
         </require_module>
+        <require_module version="${conditionuiVersion}">
+            org.openmrs.module.conditionui
+        </require_module>
       <!--  <require_module version="${pihfingerprintsModule}">
             org.openmrs.module.pihfingerprints
         </require_module>-->

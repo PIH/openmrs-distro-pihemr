@@ -332,6 +332,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePatientDocuments();
         }
 
+        if (config.isComponentEnabled(Components.CONDITION_LIST)) {
+            enableConditionList();
+        }
+
         readyForRefresh = false;
     }
 
@@ -2111,6 +2115,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addFeatureToggleToExtension(findExtensionById(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION), "patientDocuments");
     }
 
+
+    private void enableConditionList() {
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.CONDITION_LIST,
+                null, // TODO: add our own label?
+                null,  // TODO: add our own icon?
+                null,
+                Privileges.TASK_MANAGE_CONDITIONS_LIST.privilege(),
+                null),
+                "conditionui", "conditions"));
+
+        addFeatureToggleToApp(findAppById(Apps.CONDITION_LIST), "conditionList");
+    }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure

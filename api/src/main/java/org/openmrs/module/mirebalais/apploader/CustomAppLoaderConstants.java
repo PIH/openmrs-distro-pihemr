@@ -56,6 +56,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
         public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
+        public static final String CONDITION_LIST = "conditionui.conditionList";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -322,6 +323,7 @@ public class CustomAppLoaderConstants {
             Extensions.APPOINTMENTS_DATA_EXPORT);*/
 
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
+            Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.RADIOLOGY_APP,
