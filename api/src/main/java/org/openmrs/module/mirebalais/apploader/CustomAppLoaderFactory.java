@@ -336,6 +336,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableConditionList();
         }
 
+        if (config.isComponentEnabled(Components.VCT)) {
+            enableVCT();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1523,6 +1527,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
+    private void enableVCT() {
+
+        extensions.add(visitAction(Extensions.VCT_VISIT_ACTION,
+                "pih.task.vct.label",
+                "icon-asterisk",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/vct.xml"),
+                Privileges.TASK_EMR_ENTER_VCT.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_VCT), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+                addFeatureToggleToExtension(findExtensionById(Extensions.VCT_VISIT_ACTION), "vct");
+    }
+
     private void enableChartSearch() {
         extensions.add(overallAction(Extensions.CHART_SEARCH_OVERALL_ACTION,
                 "pihcore.chartSearch.label",
@@ -1541,7 +1561,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore/visit/waitingForConsult.page",
                 Privileges.APP_WAITING_FOR_CONSULT.privilege(),
                 null)));
-
     }
 
     private void enableTodaysVisits() {
