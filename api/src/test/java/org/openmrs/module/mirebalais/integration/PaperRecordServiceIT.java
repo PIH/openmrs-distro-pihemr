@@ -38,7 +38,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.NotTransactional;
 
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
@@ -101,7 +100,6 @@ public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	@DirtiesContext
-	@NotTransactional
 	public void shouldCreateTwoDifferentDossierNumbers() throws Exception {
 		authenticate();
 		

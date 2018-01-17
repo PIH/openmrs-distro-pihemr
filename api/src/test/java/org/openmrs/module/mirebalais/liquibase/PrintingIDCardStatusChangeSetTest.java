@@ -19,6 +19,7 @@ import liquibase.database.jvm.JdbcConnection;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.Patient;
@@ -44,6 +45,7 @@ import java.util.Locale;
  * Tests that the change set executes
  */
 @SkipBaseSetup
+@Ignore  // can ignore now that we have finished this migration
 public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiveTest {
 
 	private Database database;

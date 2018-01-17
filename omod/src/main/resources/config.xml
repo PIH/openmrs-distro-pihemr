@@ -122,6 +122,9 @@
         <require_module version="${conditionuiVersion}">
             org.openmrs.module.conditionui
         </require_module>
+        <require_module version="${legacyuiVersion}">
+            org.openmrs.module.legacyui
+        </require_module>
       <!--  <require_module version="${pihfingerprintsModule}">
             org.openmrs.module.pihfingerprints
         </require_module>-->

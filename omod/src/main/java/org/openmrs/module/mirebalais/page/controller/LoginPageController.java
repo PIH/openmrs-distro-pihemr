@@ -103,7 +103,7 @@ public class LoginPageController {
 		Location sessionLocation = null;
 		try {
 			// TODO as above, grant this privilege to Anonymous instead of using a proxy privilege
-			Context.addProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+			Context.addProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
 			
 			if (sessionLocationId != null) {
 				sessionLocation = locationService.getLocation(sessionLocationId);
@@ -123,7 +123,7 @@ public class LoginPageController {
 			request.setCookieValue(EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
 		}
 		finally {
-			Context.removeProxyPrivilege(PrivilegeConstants.VIEW_LOCATIONS);
+			Context.removeProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
 		}
 		
 		try {

@@ -41,7 +41,7 @@ public class ArchivesSetup {
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", new Long(3600));
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
             if (anyChanges) {
-                schedulerService.saveTask(task);
+                schedulerService.saveTaskDefinition(task);
             }
             if (!task.getStarted()) {
                 task.setStarted(true);
@@ -82,7 +82,7 @@ public class ArchivesSetup {
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", new Long(3600));
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
             if (anyChanges) {
-                schedulerService.saveTask(task);
+                schedulerService.saveTaskDefinition(task);
             }
             if (!task.getStarted()) {
                 task.setStarted(true);

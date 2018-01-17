@@ -47,7 +47,7 @@ public class AppointmentSchedulingSetup {
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "repeatInterval", MirebalaisConstants.TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL);  // we can't pass in the constant directly for some reason because it is static
             anyChanges |= GeneralUtils.setPropertyIfDifferent(task, "startOnStartup", true);
             if (anyChanges) {
-                schedulerService.saveTask(task);
+                schedulerService.saveTaskDefinition(task);
             }
             if (!task.getStarted()) {
                 task.setStarted(true);

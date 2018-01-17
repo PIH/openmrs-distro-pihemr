@@ -135,10 +135,11 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .visitType(1)
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
+                        .patient(appt7.getPatient())
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                         .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location1)
-                        .get())
+                        .save())
                 .save();
         appt7.setVisit(visit7);
         appointmentService.saveAppointment(appt7);
@@ -149,10 +150,11 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
                 .visitType(1)
                 .started(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                 .encounter(testDataManager.encounter()
+                        .patient(appt8.getPatient())
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
                         .encounterType(emrApiProperties.getVisitNoteEncounterType())
                         .location(location3)
-                        .get())
+                        .save())
                 .save();
         appt8.setVisit(visit8);
         appointmentService.saveAppointment(appt8);

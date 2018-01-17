@@ -45,7 +45,6 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.NotTransactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -124,7 +123,6 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 
 	@Test
 	@DirtiesContext
-	@NotTransactional
 	public void testMirthChannelIntegration() throws Exception {
 		
 		authenticate();

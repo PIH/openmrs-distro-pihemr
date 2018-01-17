@@ -13,7 +13,9 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 @SkipBaseSetup
 public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
@@ -49,6 +51,8 @@ public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
 
         ReportDefinition reportDefinition = reportDefinitionService.getDefinitionByUuid(dailyRegistrationsReportManager.getUuid());
         assertNotNull(reportDefinition);
+        assertThat(reportDefinition.getName(), is("mirebalaisreports.dailyRegistrations.name"));
+
     }
 
 

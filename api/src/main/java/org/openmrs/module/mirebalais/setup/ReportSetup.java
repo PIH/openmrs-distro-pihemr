@@ -177,8 +177,9 @@ public class ReportSetup {
         if (existing != null) {
             // we need to overwrite the existing, rather than purge-and-recreate, to avoid deleting old ReportRequests
             log.debug("overwriting existing ReportDefinition");
+
             reportDefinition.setId(existing.getId());
-            Context.evictFromSession(existing);
+           // Context.evictFromSession(existing);
         }
         else {
             // incompatible class changes for a serialized object could mean that getting the definition return null
@@ -186,7 +187,7 @@ public class ReportSetup {
             SerializedObject invalidSerializedObject = serializedObjectDAO.getSerializedObjectByUuid(reportDefinition.getUuid());
             if (invalidSerializedObject != null) {
                 reportDefinition.setId(invalidSerializedObject.getId());
-                Context.evictFromSession(invalidSerializedObject);
+               // Context.evictFromSession(invalidSerializedObject);
             }
 //            serializedObjectDAO.purgeObject(invalidSerializedObject.getId());
         }
