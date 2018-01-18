@@ -20,6 +20,7 @@
     "managePrinters"
   ],
 
+  "primaryIdentifierPrefix": "PL",
   "providerIdentifierPrefix": "PL"
 
 }

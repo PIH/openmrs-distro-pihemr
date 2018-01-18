@@ -1,9 +1,9 @@
 {
 
-  "welcomeMessage": "Harper Health Center EMR",
+  "welcomeMessage": "Harper Demo EMR",
   "browserWarning": "Please use the <b>Google Chrome</b> browser",
 
-  "site": "Harper",
+  "site": "PLEEBO",
 
   "components": [
     "clinicianDashboard",
@@ -20,6 +20,7 @@
     "managePrinters"
   ],
 
-  "providerIdentifierPrefix": "HP"
+  "primaryIdentifierPrefix": "ZZ",
+  "providerIdentifierPrefix": "ZZ"
 
 }
