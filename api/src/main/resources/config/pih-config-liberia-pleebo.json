@@ -1,0 +1,25 @@
+{
+
+  "welcomeMessage": "Pleebo Health Center EMR",
+  "browserWarning": "Please use the <b>Google Chrome</b> browser",
+
+  "site": "PLEEBO",
+
+  "components": [
+    "clinicianDashboard",
+    "patientRegistration",
+    "checkIn",
+    "consult",
+    "visitNote",
+    "visitManagement",
+    "systemAdministration",
+    "myAccount",
+    "overviewReports",
+    "dataExports",
+    "idcardPrinting",
+    "managePrinters"
+  ],
+
+  "providerIdentifierPrefix": "PL"
+
+}

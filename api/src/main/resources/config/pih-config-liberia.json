@@ -1,25 +1,6 @@
 {
 
-  "welcomeMessage": "Pleebo Health Center EMR",
-  "browserWarning": "Please use the <b>Google Chrome</b> browser",
-
   "country": "LIBERIA",
-  "site": "PLEEBO",
-
-  "components": [
-    "clinicianDashboard",
-    "patientRegistration",
-    "checkIn",
-    "consult",
-    "visitNote",
-    "visitManagement",
-    "systemAdministration",
-    "myAccount",
-    "overviewReports",
-    "dataExports",
-    "idcardPrinting",
-    "managePrinters"
-  ],
 
   "globalProperties": {
     "mirebalais.checkIn.paymentAmounts": "100,75,50,0",
@@ -33,7 +14,6 @@
   "dashboardUrl": "/coreapps/clinicianfacing/patient.page?patientId={{patientId}}&app=pih.app.clinicianDashboard",
   "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
   "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
-  "providerIdentifierPrefix": "PL",
 
   "idCardLabel": "PIH Liberia",
   "idCardLocale": "en",
