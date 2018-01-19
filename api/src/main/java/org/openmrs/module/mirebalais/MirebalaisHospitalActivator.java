@@ -136,7 +136,9 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
                 AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
-                AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
+                if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                    AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
+                }
             }
 
 
