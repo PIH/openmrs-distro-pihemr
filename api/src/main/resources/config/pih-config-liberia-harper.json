@@ -43,7 +43,7 @@
     "programs",
     "zika",
     "hiv",
-    "biometricsFingerPrints",
+   // "biometricsFingerPrints",
     "patientDocuments",
     "chwApp",
     "conditionList"
