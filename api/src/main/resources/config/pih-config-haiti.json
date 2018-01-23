@@ -96,7 +96,7 @@
             "required": true
           }
         }
-    }
+    },
 
     "biometricsConfig": {
         "biometricEngine": "restBiometricEngine",
