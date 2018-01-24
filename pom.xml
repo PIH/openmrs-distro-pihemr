@@ -699,7 +699,7 @@
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
 
-        <!-- required to fire up the test context -->
+        <!-- required to fire up the test context, used by registration core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
