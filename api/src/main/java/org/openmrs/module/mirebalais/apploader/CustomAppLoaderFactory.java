@@ -2142,7 +2142,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 Privileges.TASK_MANAGE_CONDITIONS_LIST.privilege(),
                 null),
-                "conditionui", "conditions"));
+                "coreapps", "conditionlist/conditions"));
 
         addFeatureToggleToApp(findAppById(Apps.CONDITION_LIST), "conditionList");
     }

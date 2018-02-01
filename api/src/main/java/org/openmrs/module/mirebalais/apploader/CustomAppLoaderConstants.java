@@ -56,7 +56,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
         public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
-        public static final String CONDITION_LIST = "conditionui.conditionList";
+        public static final String CONDITION_LIST = "coreapps.conditionList";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";

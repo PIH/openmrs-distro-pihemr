@@ -89,7 +89,7 @@
         <registrationcoreVersion>1.8.0</registrationcoreVersion>
         <registrationappVersion>1.11.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.3-SNAPSHOT</radiologyappVersion>
-        <coreappsVersion>1.18.0</coreappsVersion>
+        <coreappsVersion>1.19.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.21.0</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.6.1</appointmentschedulinguiVersion>
@@ -99,7 +99,6 @@
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
         <attachmentsVersion>2.0.0-SNAPSHOT</attachmentsVersion>
-        <conditionuiVersion>1.0.0-SNAPSHOT</conditionuiVersion>
         <legacyuiVersion>1.3.3</legacyuiVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
@@ -565,14 +564,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>uilibrary</artifactId>
             <version>${uilibraryVersion}</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>conditionui-api</artifactId>
-            <version>${conditionuiVersion}</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
