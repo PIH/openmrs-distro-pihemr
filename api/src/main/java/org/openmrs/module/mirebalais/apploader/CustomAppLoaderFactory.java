@@ -300,7 +300,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableCHWApp();
         }
 
-        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)
+                && featureToggles.isFeatureEnabled("fingerprints")) {
             enableBiometrics(config);
         }
 
