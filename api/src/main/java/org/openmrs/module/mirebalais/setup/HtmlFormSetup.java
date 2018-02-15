@@ -27,7 +27,7 @@ public class HtmlFormSetup {
 
             // forms installed across all implementations
             List<String> htmlforms = new ArrayList(Arrays.asList(
-                "pihcore:htmlforms/admissionNote.xml",
+                    "pihcore:htmlforms/admissionNote.xml",
                 "pihcore:htmlforms/patientRegistration.xml",
                 "pihcore:htmlforms/patientRegistration-rs.xml",
                 "pihcore:htmlforms/surgicalPostOpNote.xml",
@@ -49,7 +49,7 @@ public class HtmlFormSetup {
                 "pihcore:htmlforms/section-ncd.xml",
                 "pihcore:htmlforms/section-lab-order.xml",
                 "pihcore:htmlforms/section-family-planning.xml",
-                "pihcore:htmlforms/section-socio-econ.xml",
+                "pihcore:htmlforms/socio-econ.xml",
                 "pihcore:htmlforms/primary-care-adult-initial.xml",
                 "pihcore:htmlforms/primary-care-adult-followup.xml",
                 "pihcore:htmlforms/primary-care-peds-initial.xml",
@@ -69,7 +69,6 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/haiti/hiv/zl/hiv-followup.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/vct.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml",
-                        "pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
                         "pihcore:htmlforms/haiti/hiv/zl/section-hiv-oi.xml",
