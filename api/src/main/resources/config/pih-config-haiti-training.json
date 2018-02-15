@@ -1,5 +1,14 @@
 {
   "welcomeMessage": "Bienvenue dans l'EMR de Formation",
   "site": "ZLTRAINING",
-  "dossierIdentifierPrefix": "XX"
+  "dossierIdentifierPrefix": "XX",
+
+  "biometricsConfig": {
+    "biometricEngine": "restBiometricEngine",
+    "templateFormat": "PROPRIETARY",
+    "subjectUrl": "https://localhost:9000/biometrics/subject",
+    "matchUrl": "https://localhost:9000/biometrics/match",
+    "scanUrl": "https://localhost:9443/fingerprint/scan",
+    "devicesUrl": "https://localhost:9443/fingerprint/devices"
+  }
 }
