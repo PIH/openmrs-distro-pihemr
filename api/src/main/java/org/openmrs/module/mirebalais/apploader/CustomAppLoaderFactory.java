@@ -1552,7 +1552,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/socio-econ.xml"),
                 Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
                 sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
-        addFeatureToggleToExtension(findExtensionById(Extensions.SOCIO_ECONOMICS_VISIT_ACTION), "socio_economics");
+        addFeatureToggleToExtension(findExtensionById(Extensions.SOCIO_ECONOMICS_VISIT_ACTION), "socioEconomics");
 
     }
 
