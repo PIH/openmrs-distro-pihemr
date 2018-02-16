@@ -341,6 +341,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableVCT();
         }
 
+        if (config.isComponentEnabled(Components.SOCIO_ECONOMICS)) {
+            enableSocioEconomics();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1536,12 +1540,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/vct.xml"),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_VCT), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+        addFeatureToggleToExtension(findExtensionById(Extensions.VCT_VISIT_ACTION), "vct");
+    }
 
-                addFeatureToggleToExtension(findExtensionById(Extensions.VCT_VISIT_ACTION), "vct");
+    private void enableSocioEconomics() {
+        extensions.add(visitAction(Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
+                "pih.task.socioEcon.label",
+                "icon-home",
+                "link",
+                enterStandardHtmlFormLink("pihcore:htmlforms/socio-econ.xml"),
+                Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
+                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+        addFeatureToggleToExtension(findExtensionById(Extensions.SOCIO_ECONOMICS_VISIT_ACTION), "socio_economics");
+
     }
 
     private void enableChartSearch() {

@@ -34,7 +34,8 @@
         "zika",
         "exportPatients",
         "importPatients",
-        "biometricsFingerPrints"
+        "biometricsFingerPrints",
+        "socioEconomics"
     ],
 
     "globalProperties": {

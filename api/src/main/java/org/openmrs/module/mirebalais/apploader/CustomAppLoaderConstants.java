@@ -112,6 +112,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ADHERENCE_VISIT_ACTION = "pih.form.hivAdherence";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String VCT_VISIT_ACTION = "pih.form.vct";
+        public static final String SOCIO_ECONOMICS_VISIT_ACTION = "pih.form.socioEconomics";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
         public static final String ORDER_ULTRASOUND_VISIT_ACTION = "radiologyapp.orderUS";
@@ -289,6 +290,7 @@ public class CustomAppLoaderConstants {
             Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.VCT_VISIT_ACTION,
+            Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,

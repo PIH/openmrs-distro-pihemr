@@ -44,7 +44,9 @@
     "biometricsFingerPrints",
     "patientDocuments",
     "chwApp",
-    "conditionList"
+    "conditionList",
+    "vct",
+    "socioEconomics"
   ],
 
   "scheduleMonthlyDataExports": true,
