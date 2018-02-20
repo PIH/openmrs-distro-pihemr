@@ -1,0 +1,68 @@
+{
+  "welcomeMessage": "Bienvenue dans l'EMR de l'Hôpital Universitaire de Mirebalais",
+  "browserWarning": "Veuillez utiliser un navigateur <b>Google Chrome</b>",
+
+    "country": "HAITI",
+    "site": "MIREBALAIS",
+
+  "globalProperties": {
+        "mirebalais.checkIn.paymentAmounts": "50,0",
+        "mirebalais.checkIn.paymentAmountLabels": "50,Exempt",
+        "mirebalais.checkIn.paymentAmountDefault": "50",
+        "providermanagement.restrictedRoles": "68624C4C-9E10-473B-A849-204820D16C45,11C1A56D-82F7-4269-95E8-2B67B9A3D837",
+        "haiti.checkIn.reasonsForVisit":"PIH:CLINICAL,PIH:ID card only,PIH:Lab only,PIH:Pharmacy only,PIH:Procedure only,PIH:Request scheduled appointment,PIH:Social assistance and psychosocial support,PIH:OTHER"
+  },
+
+  "scheduleBackupReports": "false",
+  "providerIdentifierPrefix": "M",
+
+  "dashboardUrl": "/coreapps/patientdashboard/patientDashboard.page?patientId={{patientId}}",
+  "visitsPageUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList",
+  "visitsPageWithSpecificUrl": "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview",
+
+  "dispositionConfig": "pih-dispositions-mirebalais.json",
+
+  "extraIdentifierTypes": [
+    "e66645eb-03a8-4991-b4ce-e87318e37566",
+    "139766e8-15f5-102d-96e4-000c29c2a5d7"
+  ],
+
+  "idCardLabel": "Zanmi Lasante Patient ID Card",
+  "idCardLocale": "ht",
+
+  "registrationConfig": {
+    "allowUnknownPatients": true,
+    "allowManualEntryOfPrimaryIdentifier": true,
+    "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+    "matchingPatientsPropertiesToDisplay" : [
+      "personName", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
+    ],
+    "identifierTypesToDisplay": [
+      "a541af1e-105c-40bf-b345-ba1fd6a59b85",
+      "e66645eb-03a8-4991-b4ce-e87318e37566",
+      "9dbea4d4-35a9-4793-959e-952f2a9f5347",
+      "139766e8-15f5-102d-96e4-000c29c2a5d7",
+      "3B954DB1-0D41-498E-A3F9-1E20CCC47323",
+      "d9009bd0-eac9-11e5-a837-0800200c9a66",
+      "b5d0a5bd-adf3-4fe0-a231-5a488f6d2c61",
+      "e797f826-8e8f-11e7-bb31-be2e44b06b34",
+      "e797face-8e8f-11e7-bb31-be2e44b06b34"
+    ],
+    "maxPatientMatchResults": 50,
+    "similarPatientsSearch": {
+      "addressFields": {
+        "address3": "1",
+        "address1": "1"
+      },
+      "personAttributeTypes" : {
+        "First Name of Mother": "3",
+        "Telephone Number": "20"
+      }
+    },
+    "demographics": {
+      "mothersName": {
+        "required": true
+      }
+    }
+  }
+}
