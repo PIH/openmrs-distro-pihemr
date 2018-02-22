@@ -19,6 +19,12 @@ Server 5.6 following the instructions for your platform.
 Set up a development environment of a PIH EMR distibution
 ---------------------------------------------------------
 
+First, you'll need to clone the "mirebalais-puppet" project... the various configuration files that determine
+what applications and options are turned on on different servers are found here and later on in process you
+will need to tell OpenMRS where to find them.
+
+git clone https://github.com/PIH/mirebalais-puppet.git
+
 Set up the environment via the following command, chosing the serverId and dbName you want to use, and added
 the DB password for your root user.  Note that the environment will be set up the directory ~/openmrs/[serverId]
 
@@ -33,10 +39,13 @@ It should run for several minutes, setting up the database, (you may have to go 
 
 After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
 
-Add a line to these file specifying which of our configs to use for this server. For instance, to use
-the Mirebalais configuration, add the following nto the runtime properties:
+You will need to add two lines to these file, one specifying which of our configs to use for this server, and another
+referencing the location of the config files (which you checked out as part of the mirebalais-puppet project above).
+For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
+into your home directory, add the following nto the runtime properties:
 
 pih.config=mirebalais,mirebalais-humci
+pih.config.dir=/home/[your-home-directory]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 
 Then rerun:
 
