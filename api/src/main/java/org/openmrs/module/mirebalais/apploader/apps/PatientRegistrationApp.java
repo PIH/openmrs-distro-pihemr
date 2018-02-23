@@ -680,7 +680,7 @@ public class PatientRegistrationApp {
         Field f = new Field();
         f.setType("fingerprint");
         f.setUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid());
-        f.setWidget(getFingerprintWidget(config));
+        f.setWidget(getFingerprintWidget(config, featureToggles));
 
         q.addField(f);
         return q;
