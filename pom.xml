@@ -73,7 +73,7 @@
         <reportinguiVersion>1.5.0</reportinguiVersion>
         <reportingrestVersion>1.9.0</reportingrestVersion>
         <htmlwidgetsVersion>1.9.0</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.13</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.4.1</idgenVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <pacsintegrationVersion>1.5-SNAPSHOT</pacsintegrationVersion>
