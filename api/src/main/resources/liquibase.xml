@@ -326,4 +326,33 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20180223-reword-question-on-NCD-form" author="ddesimone">
+        <comment>
+            UHM-3267: Reword question on NCD forms: https://tickets.pih-emr.org/browse/UHM-3267
+        </comment>
+        <sql>
+            UPDATE obs
+            set value_coded =
+            (select concept_id from report_mapping where source = 'PIH' and code = 'NO'),
+            comments =
+            (select Concat('updated on ',sysdate(), ' for reworded question') from dual)
+            where concept_id =
+            (select concept_id from report_mapping where source = 'PIH' and code = '10555')
+            and value_coded =
+            (select concept_id from report_mapping where source = 'PIH' and code = 'TRUE')
+            ;
+
+            UPDATE obs
+            set value_coded =
+            (select concept_id from report_mapping where source = 'PIH' and code = 'YES'),
+            comments =
+            (select Concat('updated on ',sysdate(), ' for reworded question') from dual)
+            where concept_id =
+            (select concept_id from report_mapping where source = 'PIH' and code = '10555')
+            and value_coded =
+            (select concept_id from report_mapping where source = 'PIH' and code = 'FALSE')
+            ;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
