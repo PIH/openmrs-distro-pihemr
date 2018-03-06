@@ -340,6 +340,7 @@ public class CustomAppLoaderConstants {
             Apps.LAB_SUMMARY,
             Apps.PROGRAMS_LIST,
             Apps.PATIENT_DOCUMENTS,
+            Apps.RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.MOST_RECENT_REGISTRATION);
 
     public static final List<String> REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER = Arrays.asList(
