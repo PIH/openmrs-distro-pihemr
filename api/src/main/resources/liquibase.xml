@@ -355,4 +355,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20180308-truncate-triage-wait-time" author="ddesimone">
+        <comment>
+            UHM-3288: Review Validation issues that make occur now that API enforces that concepts that don't "allow precise" can't contain decimal
+        </comment>
+        <sql>
+            UPDATE obs SET value_numeric = TRUNCATE(value_numeric,0) WHERE concept_id = (SELECT concept_id FROM concept WHERE uuid='d9a8fc6f-8695-46b8-854f-2c9e818b4568');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
