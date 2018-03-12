@@ -1040,22 +1040,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("label", "coreapps.mergePatientsLong")),
                         "dashboardUrl", (config.getAfterMergeUrl() !=null ) ? (config.getAfterMergeUrl()):(config.getDashboardUrl()) ))));
 
-        apps.add(addToSystemAdministrationPage(app(Apps.REGISTER_TEST_PATIENT,
-                "emr.testPatient.registration",
-                "icon-register",
-                "mirebalais/patientRegistration/appRouter.page?task=patientRegistration&testPatient=true",
-                "App: emr.systemAdministration",
-                null)));
-
         apps.add(addToSystemAdministrationPage(app(Apps.FEATURE_TOGGLES,
                 "emr.advancedFeatures",
                 "icon-search",
                 "mirebalais/toggles.page",
                 "App: emr.systemAdministration",
                 null)));
-
-        addFeatureToggleToApp(findAppById(Apps.REGISTER_TEST_PATIENT), "registerTestPatient");
-
     }
 
     private void enableManagePrinters() {

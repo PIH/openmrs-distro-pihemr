@@ -61,7 +61,6 @@ public class CustomAppLoaderConstants {
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
         public static final String MERGE_PATIENTS = "coreapps.mergePatients";
-        public static final String REGISTER_TEST_PATIENT = "emr.testPatient.registration";
         public static final String FEATURE_TOGGLES = "pih.featureToggles";
         public static final String PATIENT_EXPORT = "pih.exportPatients";
         public static final String PATIENT_IMPORT = "pih.importPatients";
@@ -249,7 +248,6 @@ public class CustomAppLoaderConstants {
             Apps.MANAGE_ACCOUNTS,
             Apps.PRINTER_ADMINISTRATION,
             Apps.MERGE_PATIENTS,
-            Apps.REGISTER_TEST_PATIENT,
             Apps.FEATURE_TOGGLES);
 
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
