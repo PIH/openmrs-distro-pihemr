@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.radiology;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Order;
@@ -72,7 +71,6 @@ public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContex
     }
 
     @Test
-    @Ignore
     // this used to pass, but started to fail after upgrading to build against 1.11.x;
     // it DOES pass if the "LockOptions.UPGRADE" parameter is removed from HibernateMirebalaisHospitalDAO:56
     public void shouldGenerateRadiologyOrderNumber() {
