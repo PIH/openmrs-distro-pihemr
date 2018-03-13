@@ -1,8 +1,8 @@
 package org.openmrs.module.mirebalais.radiology;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.GlobalProperty;
 import org.openmrs.Order;
 import org.openmrs.TestOrder;
 import org.openmrs.api.AdministrationService;
@@ -48,6 +48,14 @@ public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContex
     @Before
     public void setup() throws Exception {
         executeDataSet("radiologyOrderNumberGeneratorTestDataset.xml");
+        // it appears we need to fully commit this in order for it to be properly fetched when called with LockOptions.UPGRADE
+        // (see HibernateMirebalaisHospitalDAO.getNextRadiologyOrderNumberSeedSequenceValue()
+        getConnection().commit();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        deleteAllData();
     }
 
     @Test
@@ -71,11 +79,7 @@ public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContex
     }
 
     @Test
-    // this used to pass, but started to fail after upgrading to build against 1.11.x;
-    // it DOES pass if the "LockOptions.UPGRADE" parameter is removed from HibernateMirebalaisHospitalDAO:56
     public void shouldGenerateRadiologyOrderNumber() {
-
-        GlobalProperty seed = adminService.getGlobalPropertyObject("order.nextRadiologyOrderNumberSeed");
 
         // new test order
         Order order = new RadiologyOrder();
