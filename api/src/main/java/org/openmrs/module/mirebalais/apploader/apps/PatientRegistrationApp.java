@@ -80,8 +80,7 @@ public class PatientRegistrationApp {
 
     public void addSections(RegistrationAppConfig c, Config config) {
 
-        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)
-                && featureToggles.isFeatureEnabled("fingerprints")) {
+        if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
             c.addSection(getBiometricsSection(config));
         }
 
