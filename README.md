@@ -64,9 +64,9 @@ After startup, there's one manual configuration you will have to do, create a lo
 - Max Length: 6
 - Min Length: 6
 - Link the local generator to the Local Pool of Zl Identifiers
-- Click the Configure Action next to the local pool
-- Set "Pool Identifier Source" to "ZL Identifier Generator"
-- Change "When to fill" to "When you request an identifier"
+    - Click the Configure Action next to the local pool
+    - Set "Pool Identifier Source" to "ZL Identifier Generator"
+    - Change "When to fill" to "When you request an identifier"
 
 
 Updating
