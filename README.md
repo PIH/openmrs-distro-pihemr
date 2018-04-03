@@ -44,8 +44,8 @@ referencing the location of the config files (which you checked out as part of t
 For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
 into your home directory, add the following nto the runtime properties:
 
-pih.config=mirebalais,mirebalais-humci
-pih.config.dir=/home/[your-home-directory]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+- pih.config=mirebalais,mirebalais-humci
+- pih.config.dir=/home/[your-home-directory]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 
 Then rerun:
 
@@ -64,9 +64,9 @@ After startup, there's one manual configuration you will have to do, create a lo
 - Max Length: 6
 - Min Length: 6
 - Link the local generator to the Local Pool of Zl Identifiers
-- Click the Configure Action next to the local pool
-- Set "Pool Identifier Source" to "ZL Identifier Generator"
-- Change "When to fill" to "When you request an identifier"
+    - Click the Configure Action next to the local pool
+    - Set "Pool Identifier Source" to "ZL Identifier Generator"
+    - Change "When to fill" to "When you request an identifier"
 
 
 Updating
