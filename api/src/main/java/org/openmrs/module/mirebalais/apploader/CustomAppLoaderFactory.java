@@ -313,7 +313,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.PROGRAMS)) {
-            enablePrograms(config, featureToggles);
+            enablePrograms(config);
         }
 
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
@@ -620,9 +620,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.enterDeathCertificate",
                 ExtensionPoints.DEATH_INFO_HEADER,
                 null));
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION), "deathNote");
-        addFeatureToggleToExtension(findExtensionById(Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION), "deathNote");
     }
 
     private void enableRadiology() {
@@ -1131,9 +1128,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
-
-            // TODO remove feature toggle after we have launched relationsips
-            addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY), "relationships");
         }
 
 
@@ -1453,8 +1447,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.NCD_PATIENT_PROGRAM_SUMMARY), "ncdProgram");
-
         apps.add(addToNCDDashboardSecondColumn(app(Apps.NCD_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
@@ -1470,8 +1462,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
-        addFeatureToggleToApp(findAppById(Apps.NCD_PATIENT_PROGRAM_HISTORY), "ncdProgram");
-
         // NCD summary dashboard
         apps.add(addToProgramSummaryListPage(app(Apps.NCD_PROGRAM_SUMMARY_DASHBOARD,
                 "pih.app.ncd.programSummary.dashboard",
@@ -1482,8 +1472,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "program", NCDProgram.NCD.uuid()
                 )),
                 null));
-
-        addFeatureToggleToApp(findAppById(Apps.NCD_PROGRAM_SUMMARY_DASHBOARD), "ncdProgram");
 
         apps.add(addToNCDSummaryDashboardFirstColumn(app(Apps.NCD_PROGRAM_STATISTICS,
                 "pih.app.ncdProgramStatistics.title",
@@ -1499,7 +1487,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.NCD_PROGRAM_STATISTICS), "ncdProgram");
     }
 
     private void enableMentalHealth() {
@@ -1530,7 +1517,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/vct.xml"),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
                 sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
-        addFeatureToggleToExtension(findExtensionById(Extensions.VCT_VISIT_ACTION), "vct");
     }
 
     private void enableSocioEconomics() {
@@ -1541,8 +1527,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/socio-econ.xml"),
                 Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
                 sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
-        addFeatureToggleToExtension(findExtensionById(Extensions.SOCIO_ECONOMICS_VISIT_ACTION), "socioEconomics");
-
     }
 
     private void enableChartSearch() {
@@ -1732,9 +1716,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 HIVProgram.HIV.uuid()+".includeFragments",
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_INITIAL_VISIT_ACTION), "hiv");
-        addFeatureToggleToExtension(findExtensionById(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION), "hiv");
-
         // HIV dashboard configuration
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_PATIENT_PROGRAM_SUMMARY,
                 "coreapps.currentEnrollmentDashboardWidget.label",
@@ -1751,8 +1732,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_SUMMARY), "hiv");
-
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
                 "pih.app.hivObsChart.title",
                 "icon-list-alt",
@@ -1766,8 +1745,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxResults", "6" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        addFeatureToggleToApp(findAppById(Apps.HIV_OBS_CHART), "hiv");
 
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
@@ -1784,8 +1761,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
-        addFeatureToggleToApp(findAppById(Apps.HIV_PATIENT_PROGRAM_HISTORY), "hiv");
-
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_CD4_GRAPH,
                 "pih.app.hivcd4Graph.title",
                 "icon-bar-chart",
@@ -1800,8 +1775,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.HIV_CD4_GRAPH), "hiv");
-
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
                 "pih.app.hivWeightGraph.title",
                 "icon-bar-chart",
@@ -1815,8 +1788,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxResults", "20" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        addFeatureToggleToApp(findAppById(Apps.HIV_WEIGHT_GRAPH), "hiv");
 
         extensions.add(hivOverallAction(Extensions.CREATE_HIV_VISIT_OVERALL_ACTION,
                 "coreapps.task.startVisit.label",
@@ -1953,24 +1924,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enablePrograms(Config config, FeatureToggleProperties featureToggles) {
+    private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
 
-        if (config.isComponentEnabled(Components.HIV) && featureToggles.isFeatureEnabled("hiv")) {
+        if (config.isComponentEnabled(Components.HIV)) {
             supportedPrograms.add(HIVProgram.HIV.uuid());
             enableHIV();
         }
 
-        if (config.isComponentEnabled(Components.ZIKA) && featureToggles.isFeatureEnabled("zika")) {
+        if (config.isComponentEnabled(Components.ZIKA)) {
             supportedPrograms.add(ZikaProgram.ZIKA.uuid());
             enableZikaProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {
-            if (featureToggles.isFeatureEnabled("ncdProgram")) {
-                supportedPrograms.add(NCDProgram.NCD.uuid());
-            }
+            supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
         }
 
@@ -2023,8 +1992,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PATIENT_PROGRAM_SUMMARY), "zika");
-
         apps.add(addToZikaDashboardSecondColumn(app(Apps.ZIKA_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
@@ -2040,8 +2007,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PATIENT_PROGRAM_HISTORY), "zika");
-
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app(Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD,
                 "pih.app.zika.programSummary.dashboard",
@@ -2052,8 +2017,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "program", ZikaProgram.ZIKA.uuid()
                 )),
                 null));
-
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_SUMMARY_DASHBOARD), "zika");
 
         apps.add(addToZikaSummaryDashboardFirstColumn(app(Apps.ZIKA_PROGRAM_STATISTICS,
                 "pih.app.zikaProgramStatistics.title",
@@ -2069,7 +2032,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.ZIKA_PROGRAM_STATISTICS), "zika");
     }
 
     private void enableExportPatients() {

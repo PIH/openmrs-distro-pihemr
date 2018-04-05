@@ -759,16 +759,8 @@ public class PatientRegistrationApp {
         c.setFormat(biometricsConfig.getTemplateFormat());
         c.setScanUrl(biometricsConfig.getScanUrl());
         c.setDevicesUrl(biometricsConfig.getDevicesUrl());
-
-        // TODO these two toggles can probably be removed, I just added them so we would have a quick way of turning off the collection of either finger if we change our minds again
-        if (!featureToggles.isFeatureEnabled("hideLeftIndex")) {
-            c.addFinger(new FingerprintWidget.FingerprintFormField("leftIndexTemplate", "zl.registration.patient.biometrics.fingerprints.leftIndexLabel", "LEFT_INDEX_FINGER"));
-        }
-
-        if (!featureToggles.isFeatureEnabled("hideRightIndex")) {
-            c.addFinger(new FingerprintWidget.FingerprintFormField("rightIndexTemplate", "zl.registration.patient.biometrics.fingerprints.rightIndexLabel", "RIGHT_INDEX_FINGER"));
-        }
-
+        c.addFinger(new FingerprintWidget.FingerprintFormField("leftIndexTemplate", "zl.registration.patient.biometrics.fingerprints.leftIndexLabel", "LEFT_INDEX_FINGER"));
+        c.addFinger(new FingerprintWidget.FingerprintFormField("rightIndexTemplate", "zl.registration.patient.biometrics.fingerprints.rightIndexLabel", "RIGHT_INDEX_FINGER"));
         w.setConfig(c);
         return toObjectNode(w);
     }
