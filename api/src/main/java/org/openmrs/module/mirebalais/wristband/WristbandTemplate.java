@@ -10,7 +10,6 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyUtil;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;

@@ -1570,8 +1570,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     Privileges.APP_CHW.privilege(),
                     null)));
         }
-
-        addFeatureToggleToApp(findAppById(Apps.CHW_MGMT), "chwApp");
     }
 
 
@@ -1659,22 +1657,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION), "primaryCareNote");
-        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION), "primaryCareNote");
-        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION), "primaryCareNote");
-        addFeatureToggleToExtension(findExtensionById(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION), "primaryCareNote");
-
-
-        // (allergies no longer part of visit note follow)
-        // hacky extension to inject a "next" button into the allergies list page to support our functionality to step through the primary care note sections
-        /*extensions.add(fragmentExtension(Extensions.ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT,
-                "pihcore",
-                "allergyui/addNextButton",
-                null,
-                ExtensionPoints.ALLERGIES_PAGE_INCLUDE_PAGE,
-                null));*/
-
     }
 
     private void enableHIV() {
@@ -1900,8 +1882,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 null));
 
-        addFeatureToggleToApp(findAppById(Apps.LAB_TRACKING), "labTracking");
-
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.orderPathology.label",
                 "icon-beaker",
@@ -1910,8 +1890,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 sessionLocationHasTag(LocationTags.ORDER_PATHOLOGY_LOCATION)));
 
-        addFeatureToggleToExtension(findExtensionById(Extensions.ORDER_LAB_VISIT_ACTION), "labTracking");
-
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.LAB_SUMMARY,
                 "labtrackingapp.pathology",
                 "icon-beaker",
@@ -1919,9 +1897,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
                 null),
                 "labtrackingapp", "labtrackingPatientDashboard"));
-
-        addFeatureToggleToApp(findAppById(Apps.LAB_SUMMARY), "labTracking");
-
     }
 
     private void enablePrograms(Config config) {
@@ -1968,8 +1943,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "enableProgramDashboards", "true"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
-
-            addFeatureToggleToApp(findAppById(Apps.PROGRAMS_LIST), "programsList");
         }
     }
 
@@ -2071,8 +2044,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        addFeatureToggleToApp(findAppById(Apps.RELATIONSHIPS_CLINICAL_SUMMARY), "relationships");
     }
 
     private void enablePatientDocuments() {
@@ -2084,8 +2055,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 "attachments", "dashboardWidget"));
 
-        addFeatureToggleToApp(findAppById(Apps.PATIENT_DOCUMENTS), "patientDocuments");
-
         extensions.add(overallAction(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
                 "pihcore.patientDocuments.overallAction.label",
                 "icon-paper-clip",
@@ -2093,8 +2062,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null));
-
-        addFeatureToggleToExtension(findExtensionById(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION), "patientDocuments");
     }
 
 
@@ -2107,7 +2074,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 "coreapps", "conditionlist/conditions"));
 
-        addFeatureToggleToApp(findAppById(Apps.CONDITION_LIST), "conditionList");
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
