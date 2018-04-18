@@ -90,7 +90,7 @@
         <radiologyappVersion>1.4.0</radiologyappVersion>
         <coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.22.0</webservicesRestVersion>
-        <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
+        <appointmentschedulingVersion>1.10.0-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
         <testutilsVersion>1.6.0</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
