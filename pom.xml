@@ -320,6 +320,13 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>emrapi-api-pre2.2</artifactId>
+            <version>${emrapiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>emrapi-api</artifactId>
             <version>${emrapiVersion}</version>
             <type>test-jar</type>
