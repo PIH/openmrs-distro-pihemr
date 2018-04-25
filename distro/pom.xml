@@ -362,7 +362,7 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>owa</artifactId>
+                    <artifactId>owa-omod</artifactId>
                     <version>${owaVersion}</version>
                     <type>pom</type>
                     <scope>provided</scope>
