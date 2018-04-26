@@ -39,7 +39,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
@@ -97,7 +96,6 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWith
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
-
 @Component("customAppLoaderFactory")
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
@@ -2066,14 +2064,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
     private void enableConditionList() {
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.CONDITION_LIST,
+
+        AppDescriptor conditionList = app(Apps.CONDITION_LIST,
                 null, // TODO: add our own label?
                 null,  // TODO: add our own icon?
                 null,
                 Privileges.TASK_MANAGE_CONDITIONS_LIST.privilege(),
-                null),
-                "coreapps", "conditionlist/conditions"));
+                null);
 
+        addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions");
+        addToHivDashboardSecondColumn(conditionList, "coreapps", "conditionlist/conditions");
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
