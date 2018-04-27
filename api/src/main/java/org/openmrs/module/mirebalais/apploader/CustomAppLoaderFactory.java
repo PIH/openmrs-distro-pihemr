@@ -342,6 +342,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableSocioEconomics();
         }
 
+        if (config.isComponentEnabled(Components.ORDER_ENTRY)) {
+            enableOrderEntry();
+        }
+
+        if (config.isComponentEnabled(Components.COHORT_BUILDER)) {
+            enableCohortBuilder();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1897,6 +1905,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "labtrackingapp", "labtrackingPatientDashboard"));
     }
 
+    private void enableCohortBuilder() {
+
+        apps.add(addToHomePage(app(Apps.COHORT_BUILDER_APP,
+                "pih.app.cohortBuilder.label",
+                "icon-check-in",
+                "owa/cohortbuilder/index.html#/",
+                 Privileges.APP_COHORT_BUILDER.privilege(),null)));
+
+    }
+
+
     private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
@@ -2042,6 +2061,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
+    // TODO we probably will break this down in a different way instead of "order entry"... like perhaps "drugOrders" and "labOrders"... but for demoing starting like this
+    private void enableOrderEntry() {
+
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.ACTIVE_DRUG_ORDERS,
+                "orderentryui.patientdashboard.activeDrugOrders",
+                null,
+                null,
+                null, // TODO restrict by privilege?
+               null),
+                "orderentryui", "patientdashboard/activeDrugOrders"));
+
     }
 
     private void enablePatientDocuments() {

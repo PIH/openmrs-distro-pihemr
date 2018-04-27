@@ -57,6 +57,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
         public static final String CONDITION_LIST = "coreapps.conditionList";
+        public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -82,6 +83,8 @@ public class CustomAppLoaderConstants {
 
         public static final String RADIOLOGY_APP = "radiology.app";
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
+
+        public static final String COHORT_BUILDER_APP = "cohortBuilder.app";
     }
 
     public static final class Extensions {
@@ -236,6 +239,7 @@ public class CustomAppLoaderConstants {
             Apps.ED_TRIAGE,
             Apps.ED_TRIAGE_QUEUE,
             Apps.CHW_MGMT,
+            Apps.COHORT_BUILDER_APP,
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);
@@ -339,7 +343,8 @@ public class CustomAppLoaderConstants {
             Apps.PROGRAMS_LIST,
             Apps.PATIENT_DOCUMENTS,
             Apps.RELATIONSHIPS_CLINICAL_SUMMARY,
-            Apps.MOST_RECENT_REGISTRATION);
+            Apps.MOST_RECENT_REGISTRATION,
+            Apps.ACTIVE_DRUG_ORDERS);
 
     public static final List<String> REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.MOST_RECENT_REGISTRATION_SUMMARY,
