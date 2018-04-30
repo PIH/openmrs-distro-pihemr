@@ -482,7 +482,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "pihcore.vitalsList.title",
                     "icon-vitals",
                     "/pihcore/vitals/vitalsList.page",
-                    "App: mirebalais.outpatientVitals",  // TODO remane this permission to not be mirebalais-specific?
+                    "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
                     null)));
 
         }
@@ -495,7 +495,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_VITALS_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.MOST_RECENT_VITALS,
+        AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
                         "mirebalais.mostRecentVitals.label",
                         "icon-vitals",
                         null,
@@ -507,9 +507,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                                 "definitionUiResource", "pihcore:htmlforms/vitals.xml",
                                 "returnProvider", "coreapps",
-                                "returnPage", "clinicianfacing/patient")),
-                "coreapps",
-                "encounter/mostRecentEncounter"));
+                                "returnPage", "clinicianfacing/patient"));
+
+        apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        apps.add(addToHivDashboardSecondColumn(cloneApp(mostRecentVitals, Apps.HIV_LAST_VITALS), "coreapps", "encounter/mostRecentEncounter"));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
@@ -1315,13 +1316,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "visitsUrl", patientVisitsPageUrl
                 )));
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.VISITS_SUMMARY,
+        AppDescriptor visitSummary = app(Apps.VISITS_SUMMARY,
                         "coreapps.clinicianfacing.visits",
                         "icon-calendar",
                         null,
                         null,
-                        null),
-                "coreapps", "clinicianfacing/visitsSection"));
+                        null);
+        
+        apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
+        apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
 
         // link for new pihcore visit view
         //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
@@ -1698,6 +1701,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(hivFollowup);
         extensions.add(cloneAsHivVisitAction(hivFollowup));
 
+        extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+
         // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
         extensions.add(fragmentExtension(Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
                 "coreapps",
@@ -1736,6 +1741,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
+                "pih.app.hivWeightGraph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.hivWeightGraph.title",
+                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                        "maxResults", "20" // TODO what should this be?
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        // ToDo: Doesn't appear to work (April 2018)
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_PATIENT_PROGRAM_HISTORY,
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
@@ -1751,6 +1771,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "program/programHistory"));
 
+        // ToDo: CD4 graph is not likely use
+        /*
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_CD4_GRAPH,
                 "pih.app.hivcd4Graph.title",
                 "icon-bar-chart",
@@ -1764,21 +1786,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxResults", "20" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+        */
 
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
-                "pih.app.hivWeightGraph.title",
+        // Viral Load
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
+                "pih.app.hivvlGraph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
-                        "label", "pih.app.hivWeightGraph.title",
-                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
-                        "maxResults", "20" // TODO what should this be?
+                        "label", "pih.app.hivvlGraph.title",
+                        "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
+                        "maxResults", "5" // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+        /*
         extensions.add(hivOverallAction(Extensions.CREATE_HIV_VISIT_OVERALL_ACTION,
                 "coreapps.task.startVisit.label",
                 "icon-check-in",
@@ -1786,6 +1811,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "visit.showQuickVisitCreationDialog({{patient.patientId}})",
                 "Task: coreapps.createVisit",
                 and(patientDoesNotActiveVisit(), patientNotDead())));
+                */
 
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app(Apps.HIV_PROGRAM_SUMMARY_DASHBOARD,

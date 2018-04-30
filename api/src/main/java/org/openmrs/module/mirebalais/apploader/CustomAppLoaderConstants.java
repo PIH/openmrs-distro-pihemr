@@ -50,8 +50,11 @@ public class CustomAppLoaderConstants {
         public static final String HIV_PROGRAM_STATISTICS = "pih.app.hiv.programStatistics";
         public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weighGraph";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
+        public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
         public static final String HIV_OBS_CHART = "pih.app.hiv.obsChart";
         public static final String HIV_CONDITION_LIST = "pih.app.hiv.conditionList";
+        public static final String HIV_VISIT_SUMMARY = "pih.app.hiv.visitSummary";
+        public static final String HIV_LAST_VITALS = "pih.app.hiv.lastVitals";
         public static final String NCD_PATIENT_PROGRAM_SUMMARY = "pih.app.ncd.patientProgramSummary";
         public static final String NCD_PATIENT_PROGRAM_HISTORY = "pih.app.ncd.patientProgramHistory";
         public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
@@ -298,10 +301,10 @@ public class CustomAppLoaderConstants {
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
             // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
-            Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
-            Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
-            Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
-            Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
+            // Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
+            // Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
+            // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
+            // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
@@ -310,7 +313,8 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> HIV_VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION + ".hiv",
-            Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv");
+            Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv",
+            Extensions.VITALS_CAPTURE_VISIT_ACTION + ".hiv");
 
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
@@ -364,13 +368,24 @@ public class CustomAppLoaderConstants {
     );
 
     public static final List<String> HIV_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
+            // Add HIV overview
+            // Apps.HIV_PROGRAM_STATISTICS,
             Apps.HIV_PATIENT_PROGRAM_SUMMARY,
+            Apps.HIV_VL_GRAPH,
+            // Add Meds
             Apps.HIV_OBS_CHART
+            // Adverse events & allergies
+            //   Add Apps.ALLERGY_SUMMARY
     );
 
     public static final List<String> HIV_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
-            Apps.HIV_CD4_GRAPH,
+            // Add Alerts
+            // Apps.HIV_PATIENT_PROGRAM_HISTORY broken
+            Apps.CONDITION_LIST,
+            // Add Apps.LAB_SUMMARY
+            // Apps.HIV_CD4_GRAPH,
+            Apps.HIV_VISIT_SUMMARY,
             Apps.HIV_WEIGHT_GRAPH,
-            Apps.HIV_PATIENT_PROGRAM_HISTORY
+            Apps.HIV_LAST_VITALS
     );
 }
