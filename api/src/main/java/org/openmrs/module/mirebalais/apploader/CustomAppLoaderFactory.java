@@ -61,6 +61,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCre
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
@@ -2105,7 +2106,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null);
 
         apps.add(addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions"));
-        apps.add(addToHivDashboardSecondColumn(conditionList, "coreapps", "conditionlist/conditions"));
+        apps.add(addToHivDashboardSecondColumn(cloneApp(conditionList, Apps.HIV_CONDITION_LIST), "coreapps", "conditionlist/conditions"));
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {

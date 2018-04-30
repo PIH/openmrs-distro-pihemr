@@ -55,6 +55,10 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
+    static public AppDescriptor cloneApp(AppDescriptor app, String newId) {
+        return app(newId, app.getLabel(), app.getIcon(), app.getUrl(), app.getRequiredPrivilege(), app.getConfig());
+    }
+
     static public AppDescriptor findPatientTemplateApp(String id, String label, String icon, String privilege, String afterSelectedUrl, ArrayNode breadcrumbs) {
 
         AppDescriptor app = new AppDescriptor(id, id, label, "coreapps/findpatient/findPatient.page?app=" + id, icon, null, 0, privilege, null);
