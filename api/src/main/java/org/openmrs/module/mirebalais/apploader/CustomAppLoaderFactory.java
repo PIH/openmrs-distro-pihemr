@@ -25,6 +25,7 @@ import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.ui.framework.WebConstants;
@@ -1934,6 +1935,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.NCD)) {
             supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
+        }
+
+        if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
+            supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
         }
 
         // TODO better/more granular privileges?
