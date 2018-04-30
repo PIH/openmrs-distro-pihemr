@@ -2104,8 +2104,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_MANAGE_CONDITIONS_LIST.privilege(),
                 null);
 
-        addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions");
-        addToHivDashboardSecondColumn(conditionList, "coreapps", "conditionlist/conditions");
+        apps.add(addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions"));
+        apps.add(addToHivDashboardSecondColumn(conditionList, "coreapps", "conditionlist/conditions"));
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
