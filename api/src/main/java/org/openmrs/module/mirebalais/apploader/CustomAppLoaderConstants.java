@@ -40,14 +40,6 @@ public class CustomAppLoaderConstants {
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
-        public static final String ZIKA_PATIENT_PROGRAM_SUMMARY = "pih.app.zika.patientProgramSummary";
-        public static final String ZIKA_PATIENT_PROGRAM_HISTORY = "pih.app.zika.patientProgramHistory";
-        public static final String ZIKA_PROGRAM_SUMMARY_DASHBOARD = "pih.app.zika.programSummary.dashboard";
-        public static final String ZIKA_PROGRAM_STATISTICS = "pih.app.zika.programStatistics";
-        public static final String HIV_PATIENT_PROGRAM_SUMMARY = "pih.app.hiv.patientProgramSummary";
-        public static final String HIV_PATIENT_PROGRAM_HISTORY = "pih.app.hiv.patientProgramHistory";
-        public static final String HIV_PROGRAM_SUMMARY_DASHBOARD = "pih.app.hiv.programSummary.dashboard";
-        public static final String HIV_PROGRAM_STATISTICS = "pih.app.hiv.programStatistics";
         public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weighGraph";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
@@ -55,10 +47,6 @@ public class CustomAppLoaderConstants {
         public static final String HIV_CONDITION_LIST = "pih.app.hiv.conditionList";
         public static final String HIV_VISIT_SUMMARY = "pih.app.hiv.visitSummary";
         public static final String HIV_LAST_VITALS = "pih.app.hiv.lastVitals";
-        public static final String NCD_PATIENT_PROGRAM_SUMMARY = "pih.app.ncd.patientProgramSummary";
-        public static final String NCD_PATIENT_PROGRAM_HISTORY = "pih.app.ncd.patientProgramHistory";
-        public static final String NCD_PROGRAM_SUMMARY_DASHBOARD = "pih.app.ncd.programSummary.dashboard";
-        public static final String NCD_PROGRAM_STATISTICS = "pih.app.ncd.programStatistics";
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
         public static final String CONDITION_LIST = "coreapps.conditionList";
         public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
@@ -249,7 +237,7 @@ public class CustomAppLoaderConstants {
             Apps.SYSTEM_ADMINISTRATION);
 
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
-            Apps.HIV_PROGRAM_SUMMARY_DASHBOARD
+           // Apps.HIV_PROGRAM_SUMMARY_DASHBOARD
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -370,7 +358,6 @@ public class CustomAppLoaderConstants {
     public static final List<String> HIV_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
             // Add HIV overview
             // Apps.HIV_PROGRAM_STATISTICS,
-            Apps.HIV_PATIENT_PROGRAM_SUMMARY,
             Apps.HIV_VL_GRAPH,
             // Add Meds
             Apps.HIV_OBS_CHART
@@ -387,5 +374,5 @@ public class CustomAppLoaderConstants {
             Apps.HIV_VISIT_SUMMARY,
             Apps.HIV_WEIGHT_GRAPH,
             Apps.HIV_LAST_VITALS
-    );
+    );*/
 }
