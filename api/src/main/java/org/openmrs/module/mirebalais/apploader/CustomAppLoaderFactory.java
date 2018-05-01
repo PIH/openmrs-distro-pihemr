@@ -60,6 +60,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneApp;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
@@ -1645,7 +1646,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsHivVisitAction(hivFollowup));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
 
+        // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
         // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
         extensions.add(fragmentExtension(Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
                 "coreapps",
@@ -1655,7 +1658,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
         // additional columns to add to the HIV Program Dashboard
-
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
                 "pih.app.hivObsChart.title",
                 "icon-list-alt",
@@ -1718,16 +1720,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
         */
 
-
-        /*
-        extensions.add(hivOverallAction(Extensions.CREATE_HIV_VISIT_OVERALL_ACTION,
-                "coreapps.task.startVisit.label",
-                "icon-check-in",
-                "script",
-                "visit.showQuickVisitCreationDialog({{patient.patientId}})",
-                "Task: coreapps.createVisit",
-                and(patientDoesNotActiveVisit(), patientNotDead())));
-                */
     }
 
     // not currently used

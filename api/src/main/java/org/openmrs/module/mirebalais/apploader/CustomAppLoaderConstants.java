@@ -2,10 +2,17 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
+import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomAppLoaderConstants {
 
@@ -237,7 +244,10 @@ public class CustomAppLoaderConstants {
             Apps.SYSTEM_ADMINISTRATION);
 
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
-           // Apps.HIV_PROGRAM_SUMMARY_DASHBOARD
+            "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
+            "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
+            "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
+            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -355,24 +365,44 @@ public class CustomAppLoaderConstants {
 
     );
 
-    public static final List<String> HIV_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
-            // Add HIV overview
-            // Apps.HIV_PROGRAM_STATISTICS,
-            Apps.HIV_VL_GRAPH,
-            // Add Meds
-            Apps.HIV_OBS_CHART
-            // Adverse events & allergies
-            //   Add Apps.ALLERGY_SUMMARY
-    );
+    public static final Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
 
-    public static final List<String> HIV_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
-            // Add Alerts
-            // Apps.HIV_PATIENT_PROGRAM_HISTORY broken
-            Apps.CONDITION_LIST,
-            // Add Apps.LAB_SUMMARY
-            // Apps.HIV_CD4_GRAPH,
-            Apps.HIV_VISIT_SUMMARY,
-            Apps.HIV_WEIGHT_GRAPH,
-            Apps.HIV_LAST_VITALS
-    );*/
+    static {
+        Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
+
+        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
+                Arrays.asList(
+                    // Add HIV overview
+                    // Apps.HIV_PROGRAM_STATISTICS,
+                    Apps.HIV_VL_GRAPH,
+                    // Add Meds
+                    Apps.HIV_OBS_CHART
+                    // Adverse events & allergies
+                    //   Add Apps.ALLERGY_SUMMARY
+                ));
+
+        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP);
+    }
+
+    public static final Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER;
+
+    static {
+        Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
+
+        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
+                Arrays.asList(
+                        // Add Alerts
+                        // Apps.HIV_PATIENT_PROGRAM_HISTORY broken
+                        Apps.CONDITION_LIST,
+                        // Add Apps.LAB_SUMMARY
+                        // Apps.HIV_CD4_GRAPH,
+                        Apps.HIV_VISIT_SUMMARY,
+                        Apps.HIV_WEIGHT_GRAPH,
+                        Apps.HIV_LAST_VITALS,
+                        "pih.app." + HIVProgram.HIV.uuid() + ".patientProgramHistory"
+                ));
+
+        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP);
+    }
+
 }

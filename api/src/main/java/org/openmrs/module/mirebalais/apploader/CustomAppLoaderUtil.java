@@ -29,6 +29,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_SUMMARY_LIST_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER;
@@ -181,11 +183,13 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToProgramDashboardFirstColumn(ProgramDescriptor program, AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, program.uuid() + ".firstColumnFragments", 1);  // TODO add order
+        return addToDashboardColumn(app, provider, fragment, program.uuid() + ".firstColumnFragments",
+                PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER.containsKey(program.uuid()) ? PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER.get(program.uuid()).indexOf(app.getId()) : 0);
     }
 
     static public AppDescriptor addToProgramDashboardSecondColumn(ProgramDescriptor program, AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, program.uuid() + ".secondColumnFragments", 1);  // TODO add order
+        return addToDashboardColumn(app, provider, fragment, program.uuid() + ".secondColumnFragments",
+                PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.containsKey(program.uuid()) ? PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.get(program.uuid()).indexOf(app.getId()) : 0);
     }
 
     static public AppDescriptor addToProgramSummaryDashboardFirstColumn(ProgramDescriptor program, AppDescriptor app, String provider, String fragment) {
@@ -290,6 +294,11 @@ public class CustomAppLoaderUtil {
     static public Extension hivOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 HIVProgram.HIV.uuid() + ".overallActions", 1, null);
+    }
+
+    static public Extension cloneAsHivOverallAction(Extension ext) {
+        return hivOverallAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
     }
 
     static public Extension overallRegistrationAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
