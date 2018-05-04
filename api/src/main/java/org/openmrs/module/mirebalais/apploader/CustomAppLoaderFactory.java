@@ -1672,6 +1672,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+        // additional columns to add to the HIV Program Dashboard
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
+                "pih.app.patientSummary.title",
+                "icon-user-md",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestobsforconceptlist",
+                        "icon", "icon-user-md",
+                        "label", "pih.app.patientSummary.title",
+                        "concepts", MirebalaisConstants.NEXT_RETURN_VISIT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
         // Viral Load
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
