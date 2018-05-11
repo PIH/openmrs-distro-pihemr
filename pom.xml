@@ -70,7 +70,7 @@
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>1.16.0</reportingVersion>
         <reportinguiVersion>1.6.0</reportinguiVersion>
-        <reportingrestVersion>1.9.0</reportingrestVersion>
+        <reportingrestVersion>1.10.0</reportingrestVersion>
         <htmlwidgetsVersion>1.9.0</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.4.1</idgenVersion>
