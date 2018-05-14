@@ -48,6 +48,7 @@ public class CustomAppLoaderConstants {
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
+        public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weighGraph";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
@@ -373,8 +374,8 @@ public class CustomAppLoaderConstants {
 
         PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
                 Arrays.asList(
-                    // Apps.HIV_SUMMARY,
-                    // Apps.HIV_PROGRAM_STATISTICS,
+                    // ToDo:  Move Program enrollment is first?
+                    Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
                     // Add Meds
                     Apps.HIV_OBS_CHART
@@ -392,7 +393,7 @@ public class CustomAppLoaderConstants {
 
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
                 Arrays.asList(
-                        // Add Alerts
+                        Apps.HIV_ALERTS,
                         // Apps.HIV_PATIENT_PROGRAM_HISTORY broken
                         Apps.CONDITION_LIST,
                         // Add Apps.LAB_SUMMARY

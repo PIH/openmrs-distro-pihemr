@@ -1672,6 +1672,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+        // ToDo:  Add alerts using dataIntegrityViolations, alerts, or pentaho table
+        // ToDo:  This is a placeholder
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
+                "pih.app.alerts.title",
+                "icon-exclamation-sign",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestObsForConceptList",
+                        "icon", "icon-exclamation-sign",
+                        "label", "pih.app.alerts.title",
+                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                        "maxResults", "6" // TODO what should this be?
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
                 "pih.app.patientSummary.title",
@@ -1940,12 +1956,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToProgramSummaryDashboardFirstColumn(program,
                 app("pih.app." + program.uuid() + " .programStatistics",
                 "pih.app." + program.uuid() + ".programStatistics.title",
-                "icon-stethoscope",  // TODO figure out right icon
+                "icon-reorder",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
                         "widget", "programstatistics",
-                        "icon", "icon-stethoscope",
+                        "icon", "icon-reorder",
                         "label", "pih.app." + program.uuid() + ".programStatistics.title",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid()
