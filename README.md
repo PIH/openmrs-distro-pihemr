@@ -19,21 +19,34 @@ Server 5.6 following the instructions for your platform.
 Set up a development environment of a PIH EMR distibution
 ---------------------------------------------------------
 
-First, you'll need to clone the "mirebalais-puppet" project... the various configuration files that determine
-what applications and options are turned on on different servers are found here and later on in process you
-will need to tell OpenMRS where to find them.
+### Step 1: Clone the "mirebalais-puppet" project
+The various configuration files that determine what applications and options are turned on on different servers are found here and later on in process you will need to tell OpenMRS where to find them.
 
-git clone https://github.com/PIH/mirebalais-puppet.git
+```
+$ git clone https://github.com/PIH/mirebalais-puppet.git
+```
 
-Set up the environment via the following command, chosing the serverId and dbName you want to use, and added
-the DB password for your root user.  Note that the environment will be set up the directory ~/openmrs/[serverId]
+### Step 2: Ensure that MySQL has a password set up for the root user.
+- If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error, it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
+- Once the root password has been set, you should be able to access the MySQL Monitor by running:  
+  ```$ mysql -u root -p``` followed by entering the password when prompted.  
 
-mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
+### Step 3: Set up the environment
+Set up the environment via the following command, chosing the serverId and dbName you want to use. Specify
+the DB password for your root user as set in Step 2.
+*Note that the environment will be set up the directory ~/openmrs/[serverId]*
+*The convention for dbNames are "openmrs_[some name]"*
+
+```
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
     -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
+```
 
-Then start up the server:
+### Step 4: Start up the server
 
-mvn openmrs-sdk:run -DserverId=[serverId]
+```
+$ mvn openmrs-sdk:run -DserverId=[serverId]
+```
 
 It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
 
@@ -42,32 +55,40 @@ After it fails, notice that a openmrs-runtime.properties file should have been c
 You will need to add two lines to these file, one specifying which of our configs to use for this server, and another
 referencing the location of the config files (which you checked out as part of the mirebalais-puppet project above).
 For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
-into your home directory, add the following nto the runtime properties:
+into your home directory, add the following into the runtime properties:
 
 - pih.config=mirebalais,mirebalais-humci
 - pih.config.dir=/home/[your-home-directory]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 
 Then rerun:
 
-mvn openmrs-sdk:run -DserverId=[serverId]
+```
+$ mvn openmrs-sdk:run -DserverId=[serverId]
+```
 
 Startup should take several minutes as it loads in all required metadata, etc, for the first time.
 
+### Step 5: Create a local identifier source
 After startup, there's one manual configuration you will have to do, create a local identifier source to generate "fake" ZL EMR IDs:
-
-- In the legacy admin ("http://localhost:8080/openmrs/admin") go to "Manage Patient Identifier Sources"
+- Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
+  - Log in with the following details:
+    - Username: admin
+    - Password: Admin123
+  - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
+- Enter the legacy admin page "http://localhost:8080/openmrs/admin"
+- Go to "Manage Patient Identifier Sources" under the header "Patients"
 - Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
-- Name: ZL Identifier Generator
-- Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
-- First Identifier Base: 1000
-- Prefix: Y
-- Suffix: (Leave Blank)
-- Max Length: 6
-- Min Length: 6
+  - Name: ZL Identifier Generator
+  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
+  - First Identifier Base: 1000
+  - Prefix: Y
+  - Suffix: (Leave Blank)
+  - Max Length: 6
+  - Min Length: 6
 - Link the local generator to the Local Pool of Zl Identifiers
-    - Click the Configure Action next to the local pool
-    - Set "Pool Identifier Source" to "ZL Identifier Generator"
-    - Change "When to fill" to "When you request an identifier"
+  - Click the Configure Action next to the local pool
+  - Set "Pool Identifier Source" to "ZL Identifier Generator"
+  - Change "When to fill" to "When you request an identifier"
 
 
 Updating
@@ -79,30 +100,36 @@ If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in
 
 Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules you aren't watching:
 
-- git pull
-- mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties
+```
+$ git pull
+$ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties
+```
 
 (I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
 
 To run the server: 
-- mvn openmrs-sdk:run
-
+```
+$ mvn openmrs-sdk:run
+```
 
 Handy aliases
 -------------
 
 (I think you can set the "debug" at project creation time now, so that might not be as necessary.  pihemrDeploy.sh is a utility script I created.)
 
-- alias omrs-pull='mvn openmrs-sdk:pull'
-- alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/mirebalais && ./pihemrDeploy.sh'
-- alias omrs-run='mvn openmrs-sdk:run -Ddebug'
+```
+$ alias omrs-pull='mvn openmrs-sdk:pull'
+$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/mirebalais && ./pihemrDeploy.sh'
+$ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
+```
 
 So to do a daily update of the system I run:
 
-- omrs-pull
-- omrs-deploy
-- omrs-run
-
+```
+$ omrs-pull
+$ omrs-deploy
+$ omrs-run
+```
 
 Source Code
 -----------
