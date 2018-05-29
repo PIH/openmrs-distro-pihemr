@@ -61,6 +61,7 @@ After startup, there's one manual configuration you will have to do, create a lo
 - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
 - First Identifier Base: 1000
 - Prefix: Y
+- Suffix: (Leave Blank)
 - Max Length: 6
 - Min Length: 6
 - Link the local generator to the Local Pool of Zl Identifiers
