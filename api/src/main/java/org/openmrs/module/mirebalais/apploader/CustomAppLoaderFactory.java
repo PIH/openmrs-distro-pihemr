@@ -1448,7 +1448,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.mentalHealth.label",
                 "icon-user",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mentalHealth.xml"),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth")),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
