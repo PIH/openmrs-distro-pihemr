@@ -1926,7 +1926,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToProgramDashboardSecondColumn(program,
+        apps.add(addToProgramDashboardFirstColumn(program,
                 app("pih.app." + program.uuid() + ".patientProgramHistory",
                 "coreapps.programHistoryDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon

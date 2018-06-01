@@ -6,6 +6,7 @@ import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+// import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
 import java.util.Arrays;
@@ -250,6 +251,7 @@ public class CustomAppLoaderConstants {
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
             "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
+//            "pih.app." + OncologyProgram.ONC.uuid() + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -375,12 +377,12 @@ public class CustomAppLoaderConstants {
         PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
                 Arrays.asList(
                     // ToDo:  Move Program enrollment is first?
+                    "pih.app." + HIVProgram.HIV.uuid() + "patientProgramSummary",
+                    "pih.app." + HIVProgram.HIV.uuid() + ".patientProgramHistory",
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
                     // Add Meds
                     Apps.HIV_OBS_CHART
-                    // Adverse events & allergies
-                    //   Add Apps.ALLERGY_SUMMARY
                 ));
 
         PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP);
@@ -394,14 +396,14 @@ public class CustomAppLoaderConstants {
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
                 Arrays.asList(
                         Apps.HIV_ALERTS,
-                        // Apps.HIV_PATIENT_PROGRAM_HISTORY broken
                         Apps.CONDITION_LIST,
                         // Add Apps.LAB_SUMMARY
                         // Apps.HIV_CD4_GRAPH,
                         Apps.HIV_VISIT_SUMMARY,
                         Apps.HIV_WEIGHT_GRAPH,
-                        Apps.HIV_LAST_VITALS,
-                        "pih.app." + HIVProgram.HIV.uuid() + ".patientProgramHistory"
+                        // Adverse events & allergies
+                        Apps.ALLERGY_SUMMARY,
+                        Apps.HIV_LAST_VITALS
                 ));
 
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP);
