@@ -29,6 +29,7 @@ import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -202,10 +203,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.SURGERY)) {
             enableSurgery();
-        }
-
-        if (config.isComponentEnabled(Components.ONCOLOGY)) {
-            enableOncology();
         }
 
         if (config.isComponentEnabled(Components.LAB_RESULTS)) {
@@ -1346,6 +1343,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableOncology() {
 
+        configureBasicProgramDashboard(OncologyProgram.ONCOLOGY);
+
         extensions.add(visitAction(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
                 "icon-paste",
@@ -1881,6 +1880,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
         }
 
+        if (config.isComponentEnabled(Components.ONCOLOGY)) {
+            supportedPrograms.add(OncologyProgram.ONCOLOGY.uuid());
+            enableOncology();
+        }
+
         // TODO better/more granular privileges?
         if (supportedPrograms.size() > 0) {
 
@@ -1911,7 +1915,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void configureBasicProgramDashboard(ProgramDescriptor program) {
         apps.add(addToProgramDashboardFirstColumn(program,
-                app("pih.app." + program.uuid() + "patientProgramSummary",
+                app("pih.app." + program.uuid() + ".patientProgramSummary",
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "icon-stethoscope",  // TODO figure out right icon
                 null,

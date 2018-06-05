@@ -6,7 +6,7 @@ import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-// import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
 import java.util.Arrays;
@@ -250,8 +250,8 @@ public class CustomAppLoaderConstants {
             "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
-            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
-//            "pih.app." + OncologyProgram.ONC.uuid() + ".programSummary.dashboard"
+            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard",
+            "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -301,12 +301,6 @@ public class CustomAppLoaderConstants {
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
-            // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
-            // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
-            // Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
-            // Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
-            // Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
-            // Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
