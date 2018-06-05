@@ -73,7 +73,7 @@
         <reportingrestVersion>1.10.0</reportingrestVersion>
         <htmlwidgetsVersion>1.9.0</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <idgenVersion>4.4.1</idgenVersion>
+        <idgenVersion>4.5.0</idgenVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <pacsintegrationVersion>1.6.0</pacsintegrationVersion>
         <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
