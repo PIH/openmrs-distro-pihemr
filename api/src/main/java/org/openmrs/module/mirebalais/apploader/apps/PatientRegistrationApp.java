@@ -383,7 +383,9 @@ public class PatientRegistrationApp {
             w.getConfig().addOption("PIH:UNEMPLOYED", "zl.registration.patient.occupation.unemployed.label");
             w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
+                || (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
+                || (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)))) {
             // ordered alphabetically in English, with Unemployed and Other last
             w.getConfig().addOption("PIH:BREWER", "zl.registration.patient.occupation.brewer.label");
             w.getConfig().addOption("CIEL:162944", "zl.registration.patient.occupation.civilServant.label");
