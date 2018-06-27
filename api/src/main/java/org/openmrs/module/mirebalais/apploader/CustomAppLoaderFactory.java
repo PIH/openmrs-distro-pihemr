@@ -352,7 +352,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void configureHeader(Config config){
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
+        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
+                || (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
+                || (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)))) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_english_name.png"));
         }
 
