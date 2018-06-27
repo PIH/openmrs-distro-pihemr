@@ -117,7 +117,8 @@ public class PatientRegistrationApp {
         Section s = new Section();
         s.setId("demographics");
         s.setLabel("");
-        if (config.getRegistrationConfig().getDemographics().getMothersName() != null) {
+        if (config.getRegistrationConfig().getDemographics() != null &&
+            config.getRegistrationConfig().getDemographics().getMothersName() != null) {
             s.addQuestion(getMothersNameQuestion(config));
         }
         return s;
