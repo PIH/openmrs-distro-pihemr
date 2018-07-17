@@ -6,4 +6,5 @@ source_file = api/src/main/resources/messages.properties
 source_lang = en
 trans.fr = api/src/main/resources/messages_fr.properties
 trans.ht = api/src/main/resources/messages_ht.properties
+trans.es = api/src/main/resources/messages_es.properties
 
