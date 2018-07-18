@@ -14,20 +14,22 @@ https://wiki.openmrs.org/display/docs/OpenMRS+SDK#OpenMRSSDK-Installation
 
 Next, we need to install MySQL.  The OpenMRS SDK uses the H2 database by default, but H2 doesn't work with some of the 
 modules we use, so we must use MySQL, which needs to be configured separately.  You should install MySQL Community 
-Server 5.6 following the instructions for your platform.
+Server 5.6 following the instructions for your platform. It must be version 5.6, other versions will not work.
 
 Set up a development environment of a PIH EMR distibution
 ---------------------------------------------------------
 
 ### Step 1: Clone the "mirebalais-puppet" project
-The various configuration files that determine what applications and options are turned on on different servers are found here and later on in process you will need to tell OpenMRS where to find them.
+The various configuration files that determine what applications and options are turned on on different servers are
+found here and later on in process you will need to tell OpenMRS where to find them.
 
 ```
 $ git clone https://github.com/PIH/mirebalais-puppet.git
 ```
 
 ### Step 2: Ensure that MySQL has a password set up for the root user.
-- If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error, it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
+- If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
+it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.  
 
@@ -38,7 +40,7 @@ the DB password for your root user as set in Step 2.
 *The convention for dbNames are "openmrs_[some name]"*
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT \
     -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
 ```
 
@@ -58,7 +60,7 @@ For instance, if you want to set up the Mirebalais CI environment, and you check
 into your home directory, add the following into the runtime properties:
 
 - pih.config=mirebalais,mirebalais-humci
-- pih.config.dir=/home/[your-home-directory]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+- pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 
 Then rerun:
 
@@ -69,7 +71,7 @@ $ mvn openmrs-sdk:run -DserverId=[serverId]
 Startup should take several minutes as it loads in all required metadata, etc, for the first time.
 
 ### Step 5: Create a local identifier source
-After startup, there's one manual configuration you will have to do, create a local identifier source to generate "fake" ZL EMR IDs:
+After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
   - Log in with the following details:
     - Username: admin
@@ -77,6 +79,9 @@ After startup, there's one manual configuration you will have to do, create a lo
   - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
 - Enter the legacy admin page "http://localhost:8080/openmrs/admin"
 - Go to "Manage Patient Identifier Sources" under the header "Patients"
+
+Check if there is an existing local identifier source. If there isn't, you'll
+need to create a local identifier source to generate "fake" ZL EMR IDs:
 - Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
   - Name: ZL Identifier Generator
   - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
@@ -96,9 +101,10 @@ Updating
 
 Once you have installed the distribution, you should be able to update it with the following commands... 
 
-If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git
+If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git.
 
-Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules you aren't watching:
+Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules
+you aren't watching:
 
 ```
 $ git pull
@@ -112,10 +118,13 @@ To run the server:
 $ mvn openmrs-sdk:run
 ```
 
-Handy aliases
--------------
+Making Things Easy
+------------------
 
-(I think you can set the "debug" at project creation time now, so that might not be as necessary.  pihemrDeploy.sh is a utility script I created.)
+### Mark's Aliases
+
+(I think you can set the "debug" at project creation time now, so that might not be as necessary. 
+`pihemrDeploy.sh` is a utility script I created.)
 
 ```
 $ alias omrs-pull='mvn openmrs-sdk:pull'
@@ -131,6 +140,12 @@ $ omrs-deploy
 $ omrs-run
 ```
 
+### Brandon's PyInvoke
+
+There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
+[here](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
+Feel free to make pull requests.
+
 Source Code
 -----------
 
@@ -141,3 +156,14 @@ https://github.com/openmrs
 https://github.com/PIH
 
 The naming convention for a module repo is "openmrs-module-[module_name]".
+
+IDE
+---
+
+We use IntelliJ IDEA as an IDE, so this will probably be the easiest IDE to get set up with.
+
+The only known hiccup in setup is that, at least with `openmrs-module-pihcore`, IntelliJ may want to identify some 
+directories as modules that are not modules,
+and are in fact subdirectories of actual modules. The problem is that these phony modules don't inherit Maven
+dependency information from the parent modules, so IntelliJ will fail to resolve references to those dependencies.
+To fix this, go to Project Structure -> Modules and remove those directories.
