@@ -30,6 +30,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -1885,6 +1886,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
             supportedPrograms.add(OncologyProgram.ONCOLOGY.uuid());
             enableOncology();
+        }
+
+        if (config.isComponentEnabled(Components.MCH)) {
+            supportedPrograms.add(MCHProgram.MCH.uuid());
+            configureBasicProgramDashboard(MCHProgram.MCH);
         }
 
         // TODO better/more granular privileges?

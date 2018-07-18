@@ -5,6 +5,7 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
@@ -251,7 +252,8 @@ public class CustomAppLoaderConstants {
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
             "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard",
-            "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard"
+            "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard",
+            "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
