@@ -488,7 +488,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.vitals.label",
                 "icon-vitals",
                 "link",
-                enterSimpleHtmlFormLink(determineHtmlFormPath(config, "vitals")),
+                enterSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"),
                 Privileges.TASK_EMR_ENTER_VITALS_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
 
@@ -502,7 +502,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "editable", Boolean.TRUE,
                                 "edit-provider", "htmlformentryui",
                                 "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                                "definitionUiResource", determineHtmlFormPath(config, "vitals"),
+                                "definitionUiResource", "pihcore:htmlforms/vitals.xml",
                                 "returnProvider", "coreapps",
                                 "returnPage", "clinicianfacing/patient"));
 
@@ -512,7 +512,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
-                editSimpleHtmlFormLink(determineHtmlFormPath(config, "vitals")), null);
+                editSimpleHtmlFormLink("pihcore:htmlforms/vitals.xml"), null);
 
     }
 
@@ -822,6 +822,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         3,
                         map("linkId", "mirebalaisreports-inpatientDailyReport-link")));
             }
+
         }
     }
 
