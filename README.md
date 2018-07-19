@@ -121,10 +121,10 @@ $ mvn openmrs-sdk:run
 Making Things Easy
 ------------------
 
-### Mark's Aliases
+### Aliases
 
-(I think you can set the "debug" at project creation time now, so that might not be as necessary. 
-`pihemrDeploy.sh` is a utility script I created.)
+(You might be able to set the "debug" flag at project creation time now. 
+`pihemrDeploy.sh` is a utility script created by Mark Goodrich.)
 
 ```
 $ alias omrs-pull='mvn openmrs-sdk:pull'
@@ -132,7 +132,7 @@ $ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/mirebalais && ./pihemrDe
 $ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
 ```
 
-So to do a daily update of the system I run:
+So to do a daily update of the system, run:
 
 ```
 $ omrs-pull
@@ -140,7 +140,7 @@ $ omrs-deploy
 $ omrs-run
 ```
 
-### Brandon's PyInvoke
+### PyInvoke
 
 There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
 [here](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
@@ -157,13 +157,13 @@ https://github.com/PIH
 
 The naming convention for a module repo is "openmrs-module-[module_name]".
 
-IDE
----
+Getting Set Up with IntelliJ
+----------------------------
 
-We use IntelliJ IDEA as an IDE, so this will probably be the easiest IDE to get set up with.
-
-The only known hiccup in setup is that, at least with `openmrs-module-pihcore`, IntelliJ may want to identify some 
+At least with `openmrs-module-pihcore`, IntelliJ may want to identify some 
 directories as modules that are not modules,
 and are in fact subdirectories of actual modules. The problem is that these phony modules don't inherit Maven
 dependency information from the parent modules, so IntelliJ will fail to resolve references to those dependencies.
 To fix this, go to Project Structure -> Modules and remove those directories.
+
+Other than that, this project is more or less plug-and-play in IntelliJ.
