@@ -95,7 +95,7 @@
         <testutilsVersion>1.6.0</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyuiVersion>1.8.1</allergyuiVersion>
-        <labtrackingappVersion>1.0.0</labtrackingappVersion>
+        <labtrackingappVersion>1.1.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <attachmentsVersion>2.0.0-SNAPSHOT</attachmentsVersion>
         <legacyuiVersion>1.3.3</legacyuiVersion>
