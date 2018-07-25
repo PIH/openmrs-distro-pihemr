@@ -16,6 +16,7 @@ import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ONCOLOGY_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER;
@@ -281,6 +283,11 @@ public class CustomAppLoaderUtil {
                 HIVProgram.HIV.uuid() + ".visitActions", HIV_VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
+    static public Extension oncologyVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                OncologyProgram.ONCOLOGY.uuid() + ".overallActions", ONCOLOGY_VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
     static public Extension cloneAsHivVisitAction(Extension ext) {
         return hivVisitAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
@@ -299,6 +306,11 @@ public class CustomAppLoaderUtil {
     static public Extension cloneAsHivOverallAction(Extension ext) {
         return hivOverallAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                OncologyProgram.ONCOLOGY.uuid() + ".overallActions", 1, null);
     }
 
     static public Extension overallRegistrationAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
