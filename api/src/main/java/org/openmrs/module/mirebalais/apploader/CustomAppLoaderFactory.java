@@ -1395,9 +1395,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.orderChemo",
                 "icon-medicine",
                 "link",
-                "owa/openmrs-owa-oncology/index.html",
+                "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}",
                 null, // TODO: add to restrict by privilege
-                null));  // TODO: add locations or other restrictions
+                patientHasActiveVisit()));  // TODO: add locations or other restrictions
 
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
