@@ -128,6 +128,7 @@ public class CustomAppLoaderConstants {
         public static final String PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION = "pih.primaryCare.adultFollowup";
         public static final String ED_TRIAGE_VISIT_ACTION = "edtriageapp.edTriageNote";
         public static final String ORDER_LAB_VISIT_ACTION = "labtrackingapp.orderLab";
+        public static final String ONCOLOGY_ORDERING_VISIT_ACTION = "oncology.orderChemo";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
@@ -314,7 +315,9 @@ public class CustomAppLoaderConstants {
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv",
             Extensions.VITALS_CAPTURE_VISIT_ACTION + ".hiv");
 
-    public static final List<String> ONCOLOGY_VISIT_ACTIONS_ORDER = Arrays.asList(null);
+    public static final List<String> ONCOLOGY_VISIT_ACTIONS_ORDER = Arrays.asList(
+            Extensions.ONCOLOGY_ORDERING_VISIT_ACTION
+    );
 
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,

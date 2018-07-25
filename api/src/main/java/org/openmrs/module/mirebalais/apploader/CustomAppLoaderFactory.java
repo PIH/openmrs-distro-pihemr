@@ -26,11 +26,11 @@ import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,7 +51,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToH
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
@@ -80,6 +79,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.oncologyVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
@@ -1389,6 +1389,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+
+        extensions.add(oncologyVisitAction(Extensions.ONCOLOGY_ORDERING_VISIT_ACTION,
+                "pih.task.orderChemo",
+                "icon-medicine",
+                "link",
+                "owa/openmrs-owa-oncology/index.html",
+                null, // TODO: add to restrict by privilege
+                null));  // TODO: add locations or other restrictions
+
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true,
