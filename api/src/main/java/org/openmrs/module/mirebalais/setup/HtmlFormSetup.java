@@ -55,7 +55,10 @@ public class HtmlFormSetup {
                 "pihcore:htmlforms/primary-care-peds-initial.xml",
                 "pihcore:htmlforms/primary-care-peds-followup.xml",
                 "pihcore:htmlforms/ncd-adult-initial.xml",
-                "pihcore:htmlforms/ncd-adult-followup.xml"));
+                "pihcore:htmlforms/ncd-adult-followup.xml",
+                    "pihcore:htmlforms/ancIntake.xml",
+                    "pihcore:htmlforms/ancFollowup.xml",
+                    "pihcore:htmlforms/delivery.xml"));
 
             // add any country-specific forms
             if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
