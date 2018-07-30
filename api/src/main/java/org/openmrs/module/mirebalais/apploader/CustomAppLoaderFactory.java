@@ -1453,6 +1453,36 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    private void enableMCH() {
+
+        configureBasicProgramDashboard(MCHProgram.MCH);
+
+        // ToDo: Fix privileges and locations for these 3 forms
+        extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                "icon-gift",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake")),
+                Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+
+        extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                "icon-gift",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup")),
+                Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+
+        extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                "icon-gift",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery")),
+                Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+    }
+
     private void enableMentalHealth() {
 
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
@@ -1535,7 +1565,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null)));
         }
     }
-
 
     private void enableEDTriage() {
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,
@@ -1899,7 +1928,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MCH)) {
             supportedPrograms.add(MCHProgram.MCH.uuid());
-            configureBasicProgramDashboard(MCHProgram.MCH);
+            enableMCH();
         }
 
         // TODO better/more granular privileges?
