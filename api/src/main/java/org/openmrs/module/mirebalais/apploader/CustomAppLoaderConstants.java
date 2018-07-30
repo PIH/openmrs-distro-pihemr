@@ -131,7 +131,8 @@ public class CustomAppLoaderConstants {
         public static final String PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION = "pih.primaryCare.adultFollowup";
         public static final String ED_TRIAGE_VISIT_ACTION = "edtriageapp.edTriageNote";
         public static final String ORDER_LAB_VISIT_ACTION = "labtrackingapp.orderLab";
-        public static final String ONCOLOGY_ORDERING_VISIT_ACTION = "oncology.orderChemo";
+        public static final String CHEMO_ORDERING_VISIT_ACTION = "oncology.orderChemo";
+        public static final String CHEMO_RECORDING_VISIT_ACTION = "oncology.recordChemo";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
@@ -279,6 +280,7 @@ public class CustomAppLoaderConstants {
             Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
             Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
             Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
+            Extensions.CHEMO_ORDERING_VISIT_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
             Extensions.EDIT_PATIENT_CONTACT_INFO,
             Extensions.CHART_SEARCH_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
@@ -308,6 +310,7 @@ public class CustomAppLoaderConstants {
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
+            Extensions.CHEMO_RECORDING_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
@@ -319,7 +322,11 @@ public class CustomAppLoaderConstants {
             Extensions.VITALS_CAPTURE_VISIT_ACTION + ".hiv");
 
     public static final List<String> ONCOLOGY_VISIT_ACTIONS_ORDER = Arrays.asList(
-            Extensions.ONCOLOGY_ORDERING_VISIT_ACTION
+            Extensions.CHEMO_RECORDING_VISIT_ACTION + "oncology"
+    );
+
+    public static final List<String> ONCOLOGY_OVERALL_ACTIONS_ORDER = Arrays.asList(
+            Extensions.CHEMO_ORDERING_VISIT_ACTION + ".oncology"
     );
 
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(

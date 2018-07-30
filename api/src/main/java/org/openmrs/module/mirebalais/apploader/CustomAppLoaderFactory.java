@@ -63,6 +63,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaiti
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
@@ -79,7 +81,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.oncologyVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
@@ -1390,15 +1391,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-
-        extensions.add(oncologyVisitAction(Extensions.ONCOLOGY_ORDERING_VISIT_ACTION,
+        Extension chemoOrdering = overallAction(Extensions.CHEMO_ORDERING_VISIT_ACTION,
                 "pih.task.orderChemo",
                 "icon-medicine",
                 "link",
-                "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}",
+                "owa/openmrs-owa-oncology/?patientId={{patient.uuid}}/#physicianDashboard",
                 null, // TODO: add to restrict by privilege
-                patientHasActiveVisit()));  // TODO: add locations or other restrictions
+                null);  // TODO: add locations or other restrictions
 
+        extensions.add(chemoOrdering);
+        extensions.add(cloneAsOncologyOverallAction(chemoOrdering));
+
+        Extension chemoRecording = visitAction(Extensions.CHEMO_RECORDING_VISIT_ACTION,
+                "pih.task.recordChemo",
+                "icon-medicine",
+                "link",
+                "owa/openmrs-owa-oncology/?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
+                null, // TODO: add to restrict by privilege
+                patientHasActiveVisit());  // TODO: add locations or other restrictions
+
+        extensions.add(chemoRecording);
+        extensions.add(cloneAsOncologyVisitAction(chemoRecording));
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true,

@@ -29,6 +29,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.C
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ONCOLOGY_OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ONCOLOGY_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
@@ -293,6 +294,11 @@ public class CustomAppLoaderUtil {
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 
+    static public Extension cloneAsOncologyVisitAction(Extension ext) {
+        return oncologyVisitAction(ext.getId() + ".oncology", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
     static public Extension overallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS, OVERALL_ACTIONS_ORDER.indexOf(id), null);
@@ -303,14 +309,19 @@ public class CustomAppLoaderUtil {
                 HIVProgram.HIV.uuid() + ".overallActions", 1, null);
     }
 
+    static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                OncologyProgram.ONCOLOGY.uuid() + ".overallActions", ONCOLOGY_OVERALL_ACTIONS_ORDER.indexOf(id), null);
+    }
+
     static public Extension cloneAsHivOverallAction(Extension ext) {
         return hivOverallAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 
-    static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
-        return  extension(id, label, icon, type, urlOrScript, privilege, require,
-                OncologyProgram.ONCOLOGY.uuid() + ".overallActions", 1, null);
+    static public Extension cloneAsOncologyOverallAction(Extension ext) {
+        return oncologyOverallAction(ext.getId() + ".oncology", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
     }
 
     static public Extension overallRegistrationAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
