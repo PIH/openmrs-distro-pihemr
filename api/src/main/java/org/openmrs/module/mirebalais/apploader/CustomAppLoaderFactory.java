@@ -1395,7 +1395,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.orderChemo",
                 "icon-medicine",
                 "link",
-                "owa/openmrs-owa-oncology/?patientId={{patient.uuid}}/#physicianDashboard",
+                "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}/#physicianDashboard",
                 null, // TODO: add to restrict by privilege
                 null);  // TODO: add locations or other restrictions
 
@@ -1406,7 +1406,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.recordChemo",
                 "icon-medicine",
                 "link",
-                "owa/openmrs-owa-oncology/?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
+                "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
                 null, // TODO: add to restrict by privilege
                 patientHasActiveVisit());  // TODO: add locations or other restrictions
 
