@@ -108,7 +108,7 @@ you aren't watching:
 
 ```
 $ git pull
-$ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties
+$ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties -U
 ```
 
 (I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
