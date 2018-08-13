@@ -1323,7 +1323,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         null,
                         null);
-        
+
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
 
@@ -1855,25 +1855,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMexicoClinic() {
 
-        log.warn("======= CALF ENABLING MEXICO CLINIC ========");
         extensions.add(visitAction(Extensions.MEXICO_CLINIC_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_INITIAL_VISIT.uuid(),
                 "icon-stethoscope",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-initial.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
 
         extensions.add(visitAction(Extensions.MEXICO_CLINIC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_FOLLOWUP_VISIT.uuid(),
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-initial.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-followup.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
+//                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+//                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+//                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
     }
 
     private void enableBiometrics(Config config) {
