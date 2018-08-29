@@ -44,7 +44,7 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
-        public static final String LAB_TRACKING = "labtracking.app.monitorOrders";
+        public static final String PATHOLOGY_TRACKING = "labtracking.app.monitorOrders";
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
@@ -78,7 +78,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
         public static final String ALLERGY_SUMMARY = "allergyui.allergySummary";
-        public static final String LAB_SUMMARY = "labtrackingapp.labSummary";
+        public static final String PATHOLOGY_SUMMARY = "labtrackingapp.labSummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
         public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";
 
@@ -242,7 +242,7 @@ public class CustomAppLoaderConstants {
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
-            Apps.LAB_TRACKING,
+            Apps.PATHOLOGY_TRACKING,
             Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,
             Apps.DISPENSING,
@@ -359,7 +359,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
             Apps.ALLERGY_SUMMARY,
             Apps.MOST_RECENT_VITALS,
-            Apps.LAB_SUMMARY,
+            Apps.PATHOLOGY_SUMMARY,
             Apps.PROGRAMS_LIST,
             Apps.PATIENT_DOCUMENTS,
             Apps.RELATIONSHIPS_CLINICAL_SUMMARY,

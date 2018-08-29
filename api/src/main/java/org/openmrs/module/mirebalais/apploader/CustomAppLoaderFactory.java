@@ -308,8 +308,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableTodaysVisits();
         }
 
-        if (config.isComponentEnabled(Components.LAB_TRACKING)) {
-            enableLabTracking();
+        if (config.isComponentEnabled(Components.PATHOLOGY_TRACKING)) {
+            enablePathologyTracking();
         }
 
         if (config.isComponentEnabled(Components.PROGRAMS)) {
@@ -1899,12 +1899,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableLabTracking() {
+    private void enablePathologyTracking() {
 
-        apps.add(addToHomePage(app(Apps.LAB_TRACKING,
+        apps.add(addToHomePage(app(Apps.PATHOLOGY_TRACKING,
                 "labtrackingapp.app.label",
                 "icon-beaker",
-                "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.LAB_TRACKING,
+                "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.PATHOLOGY_TRACKING,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
                 null),
                 null));
@@ -1917,7 +1917,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 sessionLocationHasTag(LocationTags.ORDER_PATHOLOGY_LOCATION)));
 
-        apps.add(addToClinicianDashboardSecondColumn(app(Apps.LAB_SUMMARY,
+        apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATHOLOGY_SUMMARY,
                 "labtrackingapp.pathology",
                 "icon-beaker",
                 null,
