@@ -17,6 +17,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -188,7 +189,7 @@ public class PatientRegistrationApp {
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-            f.setWidget(getAddressHierarchyWidget(levels, null, true));
+            f.setWidget(getAddressHierarchyWidget(levels, config, null, true));
         }
         else {
             Map<String, String> m = new HashMap<String, String>();
@@ -303,7 +304,7 @@ public class PatientRegistrationApp {
             List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
             if (levels != null && levels.size() > 0) {
                 //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-                f.setWidget(getAddressHierarchyWidget(levels, getPlaceOfBirthAddressFieldMappings(config), true));
+                f.setWidget(getAddressHierarchyWidget(levels, config, getPlaceOfBirthAddressFieldMappings(config), true));
             }
             else {
                 Map<String, String> m = new HashMap<String, String>();
@@ -504,7 +505,7 @@ public class PatientRegistrationApp {
             List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
             if (levels != null && levels.size() > 0) {
                 //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-                f.setWidget(getAddressHierarchyWidget(levels, getContactAddressFieldMappings(config), true));
+                f.setWidget(getAddressHierarchyWidget(levels, config, getContactAddressFieldMappings(config), true));
             }
             else {
                 Map<String, String> m = new HashMap<String, String>();
@@ -717,14 +718,21 @@ public class PatientRegistrationApp {
         return displayTemplate.toString();
     }
 
-    protected ObjectNode getAddressHierarchyWidget(List<AddressHierarchyLevel> levels, Map<String,String> fieldMappings, Boolean required) {
-        // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
-        String shortCutFor = levels.get(levels.size()-2).getAddressField().getName();
-        String manualField = levels.get(levels.size()-1).getAddressField().getName();
-
+    protected ObjectNode getAddressHierarchyWidget(List<AddressHierarchyLevel> levels, Config config,
+                                                   Map<String,String> fieldMappings, Boolean required) {
+        AddressConfigDescriptor addressConfig = config.getAddressConfig();
         PersonAddressWithHierarchyWidget w = new PersonAddressWithHierarchyWidget();
-        w.getConfig().setShortcutFor(shortCutFor);
-        w.getConfig().addManualField(manualField);
+        if (addressConfig != null) {
+            w.getConfig().setShortcutFor(addressConfig.getShortcutField());
+            w.getConfig().setManualFields(addressConfig.getManualFields());
+        } else {
+            // Make the lowest level of the hierarchy free-text, and the second-lowest for the shortcut
+            String shortcutFor = levels.get(levels.size() - 2).getAddressField().getName();
+            String manualField = levels.get(levels.size() - 1).getAddressField().getName();
+
+            w.getConfig().setShortcutFor(shortcutFor);
+            w.getConfig().addManualField(manualField);
+        }
         w.getConfig().setFieldMappings(fieldMappings);
         w.getConfig().setRequired(required);
 
