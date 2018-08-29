@@ -312,6 +312,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePathologyTracking();
         }
 
+        if (config.isComponentEnabled(Components.LABS)) {
+           enableLabs();
+        }
+
         if (config.isComponentEnabled(Components.PROGRAMS)) {
             enablePrograms(config);
         }
@@ -1924,6 +1928,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
                 null),
                 "labtrackingapp", "labtrackingPatientDashboard"));
+    }
+
+    private void enableLabs() {
+        apps.add(addToHomePage(app(Apps.LABS,
+        "labs.app.label",
+        "icon-beaker",
+        "/owa/openmrs-owa-oncology/index.html",
+        Privileges.APP_LABS.privilege(),
+        null),
+        null));
     }
 
     private void enableCohortBuilder() {
