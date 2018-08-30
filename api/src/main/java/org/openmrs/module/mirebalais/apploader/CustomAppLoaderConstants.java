@@ -45,7 +45,8 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
         public static final String PATHOLOGY_TRACKING = "labtracking.app.monitorOrders";
-        public static final String LABS = "labs";
+        public static final String LAB_TRACKING = "pih.app.labtracking";
+        public static final String LABS = "pih.app.labs.label";
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
         public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
@@ -243,6 +244,7 @@ public class CustomAppLoaderConstants {
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
+            Apps.LABS,
             Apps.PATHOLOGY_TRACKING,
             Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,

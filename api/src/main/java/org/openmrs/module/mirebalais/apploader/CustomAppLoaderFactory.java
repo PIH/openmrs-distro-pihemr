@@ -1931,13 +1931,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableLabs() {
+        /* this really represents the Labs component, that has a sub-menu linking to multiple apps*/
         apps.add(addToHomePage(app(Apps.LABS,
-        "labs.app.label",
-        "icon-beaker",
-        "/owa/openmrs-owa-oncology/index.html",
-        Privileges.APP_LABS.privilege(),
-        null),
-        null));
+                "pih.app.labs.label",
+                "icon-beaker",
+                "/mirebalais/labs/labs.page",
+                Privileges.APP_LABS.privilege(),
+                null),
+                null));
     }
 
     private void enableCohortBuilder() {
