@@ -1935,7 +1935,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(Apps.LABS,
                 "pih.app.labs.label",
                 "icon-beaker",
-                "mirebalais/labs/labs.page",
+                "pihcore/labs/labs.page",
                 Privileges.APP_LABS.privilege(),
                 null),
                 null));
