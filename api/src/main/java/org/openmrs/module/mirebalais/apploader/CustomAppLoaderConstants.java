@@ -61,6 +61,9 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
         public static final String CONDITION_LIST = "coreapps.conditionList";
         public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
+        public static final String BLOOD_PRESSURE_SYSTOLIC_GRAPH = "pih.app.bloodPressure.systolicGraph";
+        public static final String BLOOD_PRESSURE_DIASTOLIC_GRAPH = "pih.app.bloodPressure.diastolicGraph";
+        public static final String BLOOD_PRESSURE_OBS_TABLE = "pih.app.bloodPressure.obsTable";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";

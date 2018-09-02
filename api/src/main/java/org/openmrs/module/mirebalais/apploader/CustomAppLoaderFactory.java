@@ -215,6 +215,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMentalHealth();
         }
 
+        if (config.isComponentEnabled(Components.HYPERTENSION)) {
+            enableHypertension();
+        }
+
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
@@ -1870,9 +1874,50 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-followup.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
-//                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-//                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-//                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+    }
+
+    private void enableHypertension() {
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_SYSTOLIC_GRAPH,
+                "",  // redundant with concept name
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID,
+                        "maxResults", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_DIASTOLIC_GRAPH,
+                "",  // redundant with concept name
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
+                        "maxResults", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_OBS_TABLE,
+                "pih.app.bloodPressure.obsTable.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.bloodPressure.obsTable.title",
+                        "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
+                                + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
+                        "maxResults", "20"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
 
     }
 
