@@ -360,6 +360,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableCohortBuilder();
         }
 
+        if (config.isComponentEnabled(Components.CHEMOTHERAPY)) {
+            enableChemotherapy();
+        }
+
         readyForRefresh = false;
     }
 
@@ -1402,27 +1406,39 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+    }
 
+    public void enableChemotherapy() {
+
+        // TODO: tweak privileges and restrictions?
         Extension chemoOrdering = overallAction(Extensions.CHEMO_ORDERING_VISIT_ACTION,
                 "pih.task.orderChemo",
                 "icon-medicine",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}/#physicianDashboard",
-                null, // TODO: add to restrict by privilege
-                null);  // TODO: add locations or other restrictions
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(chemoOrdering);
-        extensions.add(cloneAsOncologyOverallAction(chemoOrdering));
 
+        // TODO: tweak privileges and restrictions?
         Extension chemoRecording = visitAction(Extensions.CHEMO_RECORDING_VISIT_ACTION,
                 "pih.task.recordChemo",
                 "icon-medicine",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
-                null, // TODO: add to restrict by privilege
-                patientHasActiveVisit());  // TODO: add locations or other restrictions
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(chemoRecording);
+
+        extensions.add(cloneAsOncologyOverallAction(chemoOrdering));
         extensions.add(cloneAsOncologyVisitAction(chemoRecording));
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
