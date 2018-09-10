@@ -14,10 +14,7 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
-import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -195,20 +192,32 @@ public class CustomAppLoaderUtil {
                 PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.containsKey(program.uuid()) ? PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.get(program.uuid()).indexOf(app.getId()) : 0);
     }
 
+    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(HIVProgram.HIV, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(HIVProgram.HIV, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(HIVProgram.HIV, app, provider, fragment);
+    }
+
     static public AppDescriptor addToProgramSummaryDashboardFirstColumn(ProgramDescriptor program, AppDescriptor app, String provider, String fragment) {
         return addToDashboardColumn(app, provider, fragment, "pih.app." + program.uuid() + ".programSummary.dashboard.firstColumnFragments", 1);  // TODO add order
     }
 
-    static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(ZikaProgram.ZIKA, app, provider, fragment);
+    static public AppDescriptor addToHypertensionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(HypertensionProgram.HYPERTENSION, app, provider, fragment);
     }
 
-    static public AppDescriptor addToZikaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(ZikaProgram.ZIKA, app, provider, fragment);
+    static public AppDescriptor addToHypertensionDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(HypertensionProgram.HYPERTENSION, app, provider, fragment);
     }
 
-    static public AppDescriptor addToZikaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(ZikaProgram.ZIKA, app, provider, fragment);
+    static public AppDescriptor addToHypertensionSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(HypertensionProgram.HYPERTENSION, app, provider, fragment);
     }
 
     static public AppDescriptor addToNCDDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
@@ -223,18 +232,17 @@ public class CustomAppLoaderUtil {
         return addToProgramSummaryDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
     }
 
-    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(HIVProgram.HIV, app, provider, fragment);
+    static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(ZikaProgram.ZIKA, app, provider, fragment);
     }
 
-    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(HIVProgram.HIV, app, provider, fragment);
+    static public AppDescriptor addToZikaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(ZikaProgram.ZIKA, app, provider, fragment);
     }
 
-    static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(HIVProgram.HIV, app, provider, fragment);
+    static public AppDescriptor addToZikaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(ZikaProgram.ZIKA, app, provider, fragment);
     }
-
 
     static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {
         appExtension(app, app.getId() + ".registrationSummaryContent",

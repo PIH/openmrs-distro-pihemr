@@ -26,6 +26,7 @@ import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
@@ -50,6 +51,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToH
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHypertensionDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHypertensionDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
@@ -213,10 +216,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealth();
-        }
-
-        if (config.isComponentEnabled(Components.HYPERTENSION)) {
-            enableHypertension();
         }
 
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
@@ -1896,9 +1895,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
 
-    private void enableHypertension() {
+    private void enableHypertensionProgram() {
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_SYSTOLIC_GRAPH,
+        configureBasicProgramDashboard(HypertensionProgram.HYPERTENSION);
+
+        apps.add(addToHypertensionDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_OBS_TABLE,
+                "pih.app.bloodPressure.obsTable.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.bloodPressure.obsTable.title",
+                        "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
+                                + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
+                        "maxResults", "20"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHypertensionDashboardSecondColumn(app(Apps.BLOOD_PRESSURE_SYSTOLIC_GRAPH,
                 "",  // redundant with concept name
                 "icon-bar-chart",
                 null,
@@ -1911,7 +1927,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_DIASTOLIC_GRAPH,
+        apps.add(addToHypertensionDashboardSecondColumn(app(Apps.BLOOD_PRESSURE_DIASTOLIC_GRAPH,
                 "",  // redundant with concept name
                 "icon-bar-chart",
                 null,
@@ -1921,21 +1937,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
                         "maxResults", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_OBS_TABLE,
-                "pih.app.bloodPressure.obsTable.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
-                        "label", "pih.app.bloodPressure.obsTable.title",
-                        "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
-                                + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
-                        "maxResults", "20"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2016,6 +2017,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
+
+        if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
+            supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());
+            enableHypertensionProgram();
+        }
 
         if (config.isComponentEnabled(Components.HIV)) {
             supportedPrograms.add(HIVProgram.HIV.uuid());
