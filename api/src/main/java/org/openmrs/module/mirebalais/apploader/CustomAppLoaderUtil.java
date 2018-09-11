@@ -14,7 +14,11 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.program.*;
+import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
