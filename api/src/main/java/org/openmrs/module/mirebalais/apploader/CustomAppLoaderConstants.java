@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader;
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -262,11 +263,12 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
             "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
-            "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
+            "pih.app." + HypertensionProgram.HYPERTENSION.uuid() + ".programSummary.dashboard",
+            "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
-            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard",
+            "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
             "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard",
-            "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard"
+            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
