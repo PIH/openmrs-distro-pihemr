@@ -1748,7 +1748,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-list-alt",
                         "label", "pih.app.hivObsChart.title",
                         "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
-                        "maxResults", "6" // TODO what should this be?
+                        "maxRecords", "6"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1760,11 +1760,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null,
                 objectNode(
-                        "widget", "latestObsForConceptList",
+                        "widget", "latestobsforconceptlist",
                         "icon", "icon-exclamation-sign",
                         "label", "pih.app.alerts.title",
-                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
-                        "maxResults", "6" // TODO what should this be?
+                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1793,7 +1792,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivvlGraph.title",
                         "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
-                        "maxResults", "5" // TODO what should this be?
+                        "maxResults", "5"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1808,7 +1807,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivWeightGraph.title",
                         "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
-                        "maxResults", "20" // TODO what should this be?
+                        "maxResults", "20"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -1910,7 +1909,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.bloodPressure.obsTable.title",
                         "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
                                 + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
-                        "maxResults", "20"
+                        "maxRecords", "20"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
