@@ -14,7 +14,6 @@ import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,14 +23,14 @@ import java.util.Map;
 
 public class SectionsHaiti extends SectionsDefault {
 
-    @Autowired
     private FeatureToggleProperties featureToggles;
 
     private Config config;
 
-    public SectionsHaiti(Config config) {
+    public SectionsHaiti(Config config, FeatureToggleProperties featureToggles) {
         super(config);
         this.config = config;
+        this.featureToggles = featureToggles;
     }
 
     @Override
