@@ -45,6 +45,16 @@ public class MirebalaisConstants {
 
     public static final String RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID = "order.radiologyOrderNumberGenerator";
 
+    public static final String GLUCOSE_CONCEPT_UUID = "3cd4e194-26fe-102b-80cb-0017a47871b2";
+    public static final String HBA1C_CONCEPT_UUID = "159644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID = "163080AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String FOOT_EXAM_CONCEPT_UUID = "18ea04b9-239e-43b8-9508-f57949d60361";
+    public static final String URINARY_ALBUMIN_CONCEPT_UUID = "3cd49d88-26fe-102b-80cb-0017a47871b2";
+    public static final String ALCOHOL_USE_CONCEPT_UUID = "3cdbde18-26fe-102b-80cb-0017a47871b2";
+    public static final String TOBACCO_USE_CONCEPT_UUID = "3ce503e4-26fe-102b-80cb-0017a47871b2";
+    public static final String TOTAL_CHOLESTEROL_CONCEPT_UUID = "3cd68c7e-26fe-102b-80cb-0017a47871b2";
+    public static final String HDL_CONCEPT_UUID = "3cd68e18-26fe-102b-80cb-0017a47871b2";
+    public static final String LDL_CONCEPT_UUID = "3cd68fa8-26fe-102b-80cb-0017a47871b2";
     public static final String SYSTOLIC_BP_CONCEPT_UUID = "3ce934fa-26fe-102b-80cb-0017a47871b2";
     public static final String DIASTOLIC_BP_CONCEPT_UUID = "3ce93694-26fe-102b-80cb-0017a47871b2";
     public static final String WEIGHT_CONCEPT_UUID = "3ce93b62-26fe-102b-80cb-0017a47871b2";
