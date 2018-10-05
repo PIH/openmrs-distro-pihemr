@@ -32,6 +32,7 @@ public class HtmlFormSetup {
                 "pihcore:htmlforms/patientRegistration-rs.xml",
                 "pihcore:htmlforms/surgicalPostOpNote.xml",
                 "pihcore:htmlforms/vitals.xml",
+                "pihcore:htmlforms/labResults.xml",
                 "pihcore:htmlforms/transferNote.xml",
                 "pihcore:htmlforms/dischargeNote.xml",
                 "pihcore:htmlforms/outpatientConsult.xml",
@@ -56,9 +57,9 @@ public class HtmlFormSetup {
                 "pihcore:htmlforms/primary-care-peds-followup.xml",
                 "pihcore:htmlforms/ncd-adult-initial.xml",
                 "pihcore:htmlforms/ncd-adult-followup.xml",
-                    "pihcore:htmlforms/ancIntake.xml",
-                    "pihcore:htmlforms/ancFollowup.xml",
-                    "pihcore:htmlforms/delivery.xml"));
+                "pihcore:htmlforms/ancIntake.xml",
+                "pihcore:htmlforms/ancFollowup.xml",
+                "pihcore:htmlforms/delivery.xml"));
 
             // add any country-specific forms
             if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
