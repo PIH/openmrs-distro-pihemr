@@ -1877,19 +1877,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMexicoClinic() {
 
-        extensions.add(visitAction(Extensions.MEXICO_CLINIC_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_INITIAL_VISIT.uuid(),
+        extensions.add(visitAction(Extensions.MEXICO_CLINIC_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_VISIT.uuid(),
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-initial.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
-
-        extensions.add(visitAction(Extensions.MEXICO_CLINIC_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_FOLLOWUP_VISIT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-followup.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-visit.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
