@@ -47,9 +47,6 @@ public class SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        if (config.getRegistrationConfig().getPrograms() != null) {
-            c.addSection(getProgramsSection());
-        }
         c.addSection(getContactsSection(false));
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
@@ -72,6 +69,9 @@ public class SectionsDefault {
             if (demsConfig.getIsIndigenous() != null) {
                 s.addQuestion(getIsIndigenousQuestion());
             }
+            if (demsConfig.getActiveCasefinding() != null) {
+                s.addQuestion(getActiveCasefindingQuestion());
+            }
         }
         return s;
     }
@@ -88,6 +88,25 @@ public class SectionsDefault {
         f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
         f.setWidget(getTextFieldWidget());
         if (config.getRegistrationConfig().getDemographics().getMothersName().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
+    public Question getActiveCasefindingQuestion() {
+        Question q = new Question();
+        q.setId("activeCasefindingLabel");
+        q.setLegend("zl.registration.patient.activeCasefinding.label");
+        q.setHeader("zl.registration.patient.activeCasefinding.question");
+
+        Field f = new Field();
+        f.setFormFieldName("activeCasefinding");
+        f.setType("personAttribute");
+        f.setUuid(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING.uuid());
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getDemographics().getActiveCasefinding().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
         }
         q.addField(f);
@@ -274,36 +293,6 @@ public class SectionsDefault {
 
         return q;
     }
-
-    public Section getProgramsSection() {
-        Section s = new Section();
-        s.setId("programs");
-        s.setLabel("");
-        if (config.getRegistrationConfig().getPrograms().getActiveCasefinding() != null) {
-            s.addQuestion(getActiveCasefindingQuestion());
-        }
-        return s;
-    }
-
-    public Question getActiveCasefindingQuestion() {
-        Question q = new Question();
-        q.setId("activeCasefindingLabel");
-        q.setLegend("zl.registration.patient.activeCasefinding.label");
-        q.setHeader("zl.registration.patient.activeCasefinding.question");
-
-        Field f = new Field();
-        f.setFormFieldName("activeCasefinding");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING.uuid());
-        f.setWidget(getYesNoDropdownWidget());
-        if (config.getRegistrationConfig().getPrograms().getActiveCasefinding().getRequired()) {
-            f.setCssClasses(Arrays.asList("required"));
-        }
-        q.addField(f);
-
-        return q;
-    }
-
 
     public Section getContactsSection(boolean required) {
         Section s = new Section();
