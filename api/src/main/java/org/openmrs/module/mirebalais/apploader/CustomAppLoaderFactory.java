@@ -25,6 +25,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -47,6 +48,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.E
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToDiabetesDashboardFirstColumn;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToDiabetesDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
@@ -1894,6 +1897,134 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
 
+    private void enableDiabetesProgram() {
+
+        configureBasicProgramDashboard(DiabetesProgram.DIABETES);
+
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
+                        "maxRecords", "4"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.FOOT_EXAM_OBS_TABLE,
+                "pih.app.footExamObsTable.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.footExamObsTable.title",
+                        "concepts", MirebalaisConstants.FOOT_EXAM_CONCEPT_UUID,
+                        "maxRecords", "100"  // MEX-127 - should be ten or so rows
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.URINARY_ALBUMIN_OBS_TABLE,
+                "pih.app.urinaryAlbuminObsTable.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.urinaryAlbuminObsTable.title",
+                        "concepts", MirebalaisConstants.URINARY_ALBUMIN_CONCEPT_UUID,
+                        "maxRecords", "10"  // MEX-127 - should be 3 rows
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_LINE,
+                "pih.app.alcoholTobaccoUseLine.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.alcoholTobaccoUseLine.title",
+                        "concepts", MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID + ','
+                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID,
+                        "maxRecords", "5"  // MEX-127 - should be 1 row
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.GLUCOSE_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.GLUCOSE_CONCEPT_UUID,
+                        "maxRecords", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HBA1C_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.HBA1C_CONCEPT_UUID,
+                        "maxRecords", "4"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+
+        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.TOTAL_CHOLESTEROL_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.TOTAL_CHOLESTEROL_CONCEPT_UUID,
+                        "maxRecords", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HDL_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.HDL_CONCEPT_UUID,
+                        "maxRecords", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.LDL_GRAPH,
+                "",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.LDL_CONCEPT_UUID,
+                        "maxRecords", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+    }
+
     private void enableHypertensionProgram() {
 
         configureBasicProgramDashboard(HypertensionProgram.HYPERTENSION);
@@ -1909,7 +2040,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.bloodPressure.obsTable.title",
                         "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
                                 + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
-                        "maxRecords", "20"
+                        "maxRecords", "100"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2016,6 +2147,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
+
+        if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
+            supportedPrograms.add(DiabetesProgram.DIABETES.uuid());
+            enableDiabetesProgram();
+        }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
             supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());

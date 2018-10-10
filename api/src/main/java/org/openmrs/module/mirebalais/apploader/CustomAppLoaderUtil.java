@@ -14,6 +14,7 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
@@ -210,6 +211,18 @@ public class CustomAppLoaderUtil {
 
     static public AppDescriptor addToProgramSummaryDashboardFirstColumn(ProgramDescriptor program, AppDescriptor app, String provider, String fragment) {
         return addToDashboardColumn(app, provider, fragment, "pih.app." + program.uuid() + ".programSummary.dashboard.firstColumnFragments", 1);  // TODO add order
+    }
+
+    static public AppDescriptor addToDiabetesDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(DiabetesProgram.DIABETES, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToDiabetesDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(DiabetesProgram.DIABETES, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToDiabetesSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(DiabetesProgram.DIABETES, app, provider, fragment);
     }
 
     static public AppDescriptor addToHypertensionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
