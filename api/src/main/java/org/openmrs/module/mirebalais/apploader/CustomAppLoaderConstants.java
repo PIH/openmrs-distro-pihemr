@@ -67,6 +67,15 @@ public class CustomAppLoaderConstants {
         public static final String BLOOD_PRESSURE_SYSTOLIC_GRAPH = "pih.app.bloodPressure.systolicGraph";
         public static final String BLOOD_PRESSURE_DIASTOLIC_GRAPH = "pih.app.bloodPressure.diastolicGraph";
         public static final String BLOOD_PRESSURE_OBS_TABLE = "pih.app.bloodPressure.obsTable";
+        public static final String GLUCOSE_GRAPH = "pih.app.glucoseGraph";
+        public static final String HBA1C_GRAPH = "pih.app.hba1cGraph";
+        public static final String ABDOMINAL_CIRCUMFERENCE_GRAPH = "pih.app.abdominalCircumferenceGraph";
+        public static final String FOOT_EXAM_OBS_TABLE = "pih.app.diabetes.footExamObsTable";
+        public static final String URINARY_ALBUMIN_OBS_TABLE = "pih.app.diabetes.urinaryAlbuminObsTable";
+        public static final String ALC_TOBAC_USE_LINE = "pih.app.alcTobacUseLine";
+        public static final String TOTAL_CHOLESTEROL_GRAPH = "pih.app.cholesterol.totalGraph";
+        public static final String HDL_GRAPH = "pih.app.cholesterol.hdlGraph";
+        public static final String LDL_GRAPH = "pih.app.cholesterol.ldlGraph";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
