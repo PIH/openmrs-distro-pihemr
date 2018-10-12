@@ -12,7 +12,7 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.DemographicsDescriptor;
+import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -58,19 +58,10 @@ public class SectionsDefault {
         Section s = new Section();
         s.setId("demographics");
         s.setLabel("");
-        DemographicsDescriptor demsConfig = config.getRegistrationConfig().getDemographics();
+        DemographicsConfigDescriptor demsConfig = config.getRegistrationConfig().getDemographics();
         if (demsConfig != null) {
             if (demsConfig.getMothersName() != null) {
                 s.addQuestion(getMothersNameQuestion());
-            }
-            if (demsConfig.getIsImmigrant() != null) {
-                s.addQuestion(getIsImmigrantQuestion());
-            }
-            if (demsConfig.getIsIndigenous() != null) {
-                s.addQuestion(getIsIndigenousQuestion());
-            }
-            if (demsConfig.getActiveCasefinding() != null) {
-                s.addQuestion(getActiveCasefindingQuestion());
             }
         }
         return s;
@@ -105,7 +96,7 @@ public class SectionsDefault {
         f.setFormFieldName("obs.PIH:Found through active casefinding");
         f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
-        if (config.getRegistrationConfig().getDemographics().getActiveCasefinding().getRequired()) {
+        if (config.getRegistrationConfig().getSocial().getActiveCasefinding().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
         }
         q.addField(f);
@@ -123,7 +114,7 @@ public class SectionsDefault {
         f.setFormFieldName("obs.PIH:Indigenous");
         f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
-        if (config.getRegistrationConfig().getDemographics().getIsIndigenous().getRequired()) {
+        if (config.getRegistrationConfig().getSocial().getIsIndigenous().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
         }
         q.addField(f);
@@ -141,7 +132,7 @@ public class SectionsDefault {
         f.setFormFieldName("obs.PIH:Immigrant");
         f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
-        if (config.getRegistrationConfig().getDemographics().getIsImmigrant().getRequired()) {
+        if (config.getRegistrationConfig().getSocial().getIsImmigrant().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
         }
         q.addField(f);
