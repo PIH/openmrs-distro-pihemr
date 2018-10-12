@@ -102,9 +102,8 @@ public class SectionsDefault {
         q.setHeader("zl.registration.patient.activeCasefinding.question");
 
         Field f = new Field();
-        f.setFormFieldName("activeCasefinding");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING.uuid());
+        f.setFormFieldName("obs.PIH:Found through active casefinding");
+        f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
         if (config.getRegistrationConfig().getDemographics().getActiveCasefinding().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
@@ -121,9 +120,8 @@ public class SectionsDefault {
         q.setHeader("zl.registration.patient.isIndigenous.question");
 
         Field f = new Field();
-        f.setFormFieldName("isIndigenous");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.IS_INDIGENOUS.uuid());
+        f.setFormFieldName("obs.PIH:Indigenous");
+        f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
         if (config.getRegistrationConfig().getDemographics().getIsIndigenous().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
@@ -140,9 +138,8 @@ public class SectionsDefault {
         q.setHeader("zl.registration.patient.isImmigrant.question");
 
         Field f = new Field();
-        f.setFormFieldName("isImmigrant");
-        f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.IS_IMMIGRANT.uuid());
+        f.setFormFieldName("obs.PIH:Immigrant");
+        f.setType("obs");
         f.setWidget(getYesNoDropdownWidget());
         if (config.getRegistrationConfig().getDemographics().getIsImmigrant().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
