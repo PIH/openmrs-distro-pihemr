@@ -639,37 +639,31 @@ public class CustomAppLoaderUtil {
 
     static public String determineResourcePath(Config config, String providerName, String prefix, String resource) {
 
-        try {
-            // kind of ugly, and I couldn't mock it properly
-            ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
+        // kind of ugly, and I couldn't mock it properly
+        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
 
-            // first try full path with country and site
-            String resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
-                    + "/" + resource;
+        // first try full path with country and site
+        String resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
+                + "/" + resource;
 
-            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-                return providerName + ":" + resourcePath;
-            }
-
-            // now try just country path
-            resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
-
-            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-                return providerName + ":" + resourcePath;
-            }
-
-            // now the base path
-            resourcePath = prefix + "/" + resource;
-            if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-                return providerName + ":" + resourcePath;
-            }
-        }
-        // this catch and the return are kind of hacky, I did it this way to get the MirebalaisHospitalActivatorComponentTest to pass, but we should do this btter
-        catch (Exception e) {
-            log.error("Unable to find resource " + resource + " from provider " + providerName + " with prefix " + prefix + " - This error is expected when running tests.", e);
+        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
+            return providerName + ":" + resourcePath;
         }
 
-        return "";
+        // now try just country path
+        resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
+
+        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
+            return providerName + ":" + resourcePath;
+        }
+
+        // now the base path
+        resourcePath = prefix + "/" + resource;
+        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
+            return providerName + ":" + resourcePath;
+        }
+
+        throw new IllegalStateException("Unable to find form" + resource);
     }
 
     static public Boolean containsExtension(List<Extension> extensions, String extensionId) {
