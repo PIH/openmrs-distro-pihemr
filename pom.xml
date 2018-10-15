@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.1.3</openMRSVersion>
-        <openMRSwebVersion>2.1.3</openMRSwebVersion>
+        <openMRSVersion>2.2.0-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>2.2.0-SNAPSHOT</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -61,7 +61,7 @@
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.1.0</emrVersion>
         <uiframeworkVersion>3.13.0</uiframeworkVersion>
-        <appframeworkVersion>2.11.0</appframeworkVersion>
+        <appframeworkVersion>2.12.0-SNAPSHOT</appframeworkVersion>
         <metadatasharingVersion>1.5.0</metadatasharingVersion>
         <metadatamappingVersion>1.3.4</metadatamappingVersion>
         <metadatadeployVersion>1.10.0</metadatadeployVersion>
@@ -92,7 +92,7 @@
         <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
-        <testutilsVersion>1.6.0</testutilsVersion>
+        <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyuiVersion>1.8.1</allergyuiVersion>
         <labtrackingappVersion>1.1.0-SNAPSHOT</labtrackingappVersion>
