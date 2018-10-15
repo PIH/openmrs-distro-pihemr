@@ -3,8 +3,6 @@ package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
-import org.openmrs.Concept;
-import org.openmrs.ConceptAnswer;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
@@ -14,6 +12,7 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -25,10 +24,8 @@ import org.openmrs.module.registrationapp.model.Section;
 import org.openmrs.module.registrationapp.model.TextAreaWidget;
 import org.openmrs.module.registrationapp.model.TextFieldWidget;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,9 +58,11 @@ public class SectionsDefault {
         Section s = new Section();
         s.setId("demographics");
         s.setLabel("");
-        if (config.getRegistrationConfig().getDemographics() != null &&
-                config.getRegistrationConfig().getDemographics().getMothersName() != null) {
-            s.addQuestion(getMothersNameQuestion());
+        DemographicsConfigDescriptor demsConfig = config.getRegistrationConfig().getDemographics();
+        if (demsConfig != null) {
+            if (demsConfig.getMothersName() != null) {
+                s.addQuestion(getMothersNameQuestion());
+            }
         }
         return s;
     }
@@ -80,6 +79,60 @@ public class SectionsDefault {
         f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
         f.setWidget(getTextFieldWidget());
         if (config.getRegistrationConfig().getDemographics().getMothersName().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
+    public Question getActiveCasefindingQuestion() {
+        Question q = new Question();
+        q.setId("activeCasefindingLabel");
+        q.setLegend("zl.registration.patient.activeCasefinding.label");
+        q.setHeader("zl.registration.patient.activeCasefinding.question");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.PIH:Found through active casefinding");
+        f.setType("obs");
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getSocial().getActiveCasefinding().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
+    public Question getIsIndigenousQuestion() {
+        Question q = new Question();
+        q.setId("isIndigenousLabel");
+        q.setLegend("zl.registration.patient.isIndigenous.label");
+        q.setHeader("zl.registration.patient.isIndigenous.question");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.PIH:Indigenous");
+        f.setType("obs");
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getSocial().getIsIndigenous().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
+    public Question getIsImmigrantQuestion() {
+        Question q = new Question();
+        q.setId("isImmigrantLabel");
+        q.setLegend("zl.registration.patient.isImmigrant.label");
+        q.setHeader("zl.registration.patient.isImmigrant.question");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.PIH:Immigrant");
+        f.setType("obs");
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getSocial().getIsImmigrant().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
         }
         q.addField(f);
@@ -344,23 +397,6 @@ public class SectionsDefault {
         return toObjectNode(w);
     }
 
-    protected void populateDropdownWithConceptAnswers(DropdownWidget d, Concept questionConcept) {
-
-        List<ConceptAnswer> conceptAnswers = new ArrayList<ConceptAnswer>(questionConcept.getAnswers());
-
-        Collections.sort(conceptAnswers, new Comparator<ConceptAnswer>() {
-            @Override
-            public int compare(ConceptAnswer answer1, ConceptAnswer answer2) {
-                return answer1.getAnswerConcept().getName().toString().compareTo(answer2.getAnswerConcept().getName().toString());
-            }
-        });
-
-        for (ConceptAnswer conceptAnswer : conceptAnswers) {
-            d.getConfig().addOption(conceptAnswer.getAnswerConcept().getId().toString(), conceptAnswer.getAnswerConcept().getName().toString());
-        }
-
-    }
-
     protected String getAddressHierarchyDisplayTemplate(List<AddressHierarchyLevel> levels) {
         // We want the display template to hide country, and show a dash if the lowest free-text level is missing
         // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
@@ -412,18 +448,11 @@ public class SectionsDefault {
         f.setFormFieldName("obs.PIH:ID Card Printing Requested");
         f.setType("obs");
 
-        DropdownWidget w = new DropdownWidget();
-        w.getConfig().setExpanded(true);
-        w.getConfig().setHideEmptyLabel(true);
-        w.getConfig().setInitialValue("PIH:YES");
-        w.getConfig().addOption("PIH:YES", "emr.yes");
-        w.getConfig().addOption("PIH:NO", "emr.no");
-        f.setWidget(toObjectNode(w));
+        f.setWidget(getYesNoDropdownWidget("PIH:YES"));
 
         q.addField(f);
         return q;
     }
-
 
     protected ObjectNode getTextFieldWidget() {
         return getTextFieldWidget(null);
@@ -442,6 +471,20 @@ public class SectionsDefault {
         if (maxLength != null) {
             w.getConfig().setMaxlength(maxLength);
         }
+        return toObjectNode(w);
+    }
+
+    protected ObjectNode getYesNoDropdownWidget() {
+        return getYesNoDropdownWidget(null);
+    }
+
+    protected ObjectNode getYesNoDropdownWidget(String initialValue) {
+        DropdownWidget w = new DropdownWidget();
+        w.getConfig().setExpanded(true);
+        w.getConfig().setHideEmptyLabel(true);
+        w.getConfig().setInitialValue(initialValue);
+        w.getConfig().addOption("PIH:YES", "emr.yes");
+        w.getConfig().addOption("PIH:NO", "emr.no");
         return toObjectNode(w);
     }
 

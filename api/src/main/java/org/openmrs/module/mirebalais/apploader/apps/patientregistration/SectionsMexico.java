@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -33,6 +35,18 @@ public class SectionsMexico extends SectionsDefault {
         Section s = new Section();
         s.setId("social");
         s.setLabel("zl.registration.patient.social.label");
+        SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
+        if (socConfig != null) {
+            if (socConfig.getIsImmigrant() != null) {
+                s.addQuestion(getIsImmigrantQuestion());
+            }
+            if (socConfig.getIsIndigenous() != null) {
+                s.addQuestion(getIsIndigenousQuestion());
+            }
+            if (socConfig.getActiveCasefinding() != null) {
+                s.addQuestion(getActiveCasefindingQuestion());
+            }
+        }
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getOccupationQuestion());
         return s;
