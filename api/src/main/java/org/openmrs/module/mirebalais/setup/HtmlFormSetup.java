@@ -30,6 +30,7 @@ public class HtmlFormSetup {
                     "pihcore:htmlforms/admissionNote.xml",
                 "pihcore:htmlforms/patientRegistration.xml",
                 "pihcore:htmlforms/patientRegistration-rs.xml",
+                "pihcore:htmlforms/liberia/patientRegistration-contact.xml",
                 "pihcore:htmlforms/surgicalPostOpNote.xml",
                 "pihcore:htmlforms/vitals.xml",
                 "pihcore:htmlforms/labResults.xml",
@@ -88,7 +89,6 @@ public class HtmlFormSetup {
                 htmlforms.addAll(Arrays.asList(
                         "pihcore:htmlforms/liberia/checkin.xml",
                         "pihcore:htmlforms/liberia/liveCheckin.xml",
-                        "pihcore:htmlforms/liberia/patientRegistration-contact.xml",
                         "pihcore:htmlforms/liberia/patientRegistration-social.xml"
                 ));
             }
@@ -99,7 +99,6 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/patientRegistration-rs.xml",
                         "pihcore:htmlforms/sierra_leone/checkin.xml",
                         "pihcore:htmlforms/sierra_leone/liveCheckin.xml",
-                        "pihcore:htmlforms/sierra_leone/patientRegistration-contact.xml",
                         "pihcore:htmlforms/sierra_leone/patientRegistration-social.xml"
                 ));
             }
