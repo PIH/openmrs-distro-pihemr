@@ -30,7 +30,7 @@ public class HtmlFormSetup {
                     "pihcore:htmlforms/admissionNote.xml",
                 "pihcore:htmlforms/patientRegistration.xml",
                 "pihcore:htmlforms/patientRegistration-rs.xml",
-                "pihcore:htmlforms/liberia/patientRegistration-contact.xml",
+                "pihcore:htmlforms/patientRegistration-contact.xml",
                 "pihcore:htmlforms/surgicalPostOpNote.xml",
                 "pihcore:htmlforms/vitals.xml",
                 "pihcore:htmlforms/labResults.xml",
