@@ -1462,7 +1462,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.LABS,
+        registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "labResults")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
