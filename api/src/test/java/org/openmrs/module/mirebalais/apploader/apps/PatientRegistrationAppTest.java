@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.apploader.apps;
 
 import org.codehaus.jackson.JsonNode;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
@@ -45,6 +46,11 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         Properties p = super.getRuntimeProperties();
         p.setProperty("pih.config", "mirebalais");
         return p;
+    }
+
+    @Before
+    public void setup() throws Exception {
+        setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
     }
 
     @Test
