@@ -2128,7 +2128,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.orderLabs.overallAction.label",
                 "icon-beaker",
                 "link",
-                "owa/orderentry/index.html?patient={{patient.uuid}}",
+                "owa/orderentry/index.html?patient={{patient.uuid}}&page=lab",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null));
     }
