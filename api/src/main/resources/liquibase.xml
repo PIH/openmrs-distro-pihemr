@@ -364,9 +364,9 @@
         </sql>
     </changeSet>
 
-    <changeSet id="20181024-add-pathology-order-type" author="mgoodrich">
+    <changeSet id="20181024-add-pathology-order-type-2" author="mgoodrich">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">select count(*) from order_type where uuid = '65c912c2-88cf-46c2-83ae-2b03b1f97d3'</sqlCheck>
+            <sqlCheck expectedResult="0">select count(*) from order_type where uuid = '65c912c2-88cf-46c2-83ae-2b03b1f97d3a'</sqlCheck>
         </preConditions>
         <comment>
             Insert order type for test orders; (we also install this via a bundle, but do this here so it is available
