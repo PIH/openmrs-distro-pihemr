@@ -2333,7 +2333,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patientDocuments.label",
                 "icon-paper-clip",
                 null,
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
                 null),
                 "attachments", "dashboardWidget"));
 
@@ -2342,7 +2342,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-paper-clip",
                 "link",
                 "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
                 null));
     }
 
