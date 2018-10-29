@@ -2131,6 +2131,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null));
+
+        extensions.add(overallAction(Extensions.VIEW_LABS_OVERALL_ACTION,
+                "pihcore.viewLabs.overallAction.label",
+                "icon-beaker",
+                "link",
+                "owa/labworkflow/index.html#/LabResults",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                null));
     }
 
     private void enableCohortBuilder() {
