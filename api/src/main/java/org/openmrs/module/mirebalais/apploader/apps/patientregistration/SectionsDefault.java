@@ -104,6 +104,42 @@ public class SectionsDefault {
         return q;
     }
 
+    public Question getCanReadQuestion() {
+        Question q = new Question();
+        q.setId("canReadLabel");
+        q.setLegend("zl.registration.patient.canRead.label");
+        q.setHeader("zl.registration.patient.canRead.question");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.CIEL:159400");
+        f.setType("obs");
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getSocial().getCanRead().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
+    public Question getIsDisabledQuestion() {
+        Question q = new Question();
+        q.setId("isDisabledLabel");
+        q.setLegend("zl.registration.patient.isDisabled.label");
+        q.setHeader("zl.registration.patient.isDisabled.question");
+
+        Field f = new Field();
+        f.setFormFieldName("obs.CIEL:162558");
+        f.setType("obs");
+        f.setWidget(getYesNoDropdownWidget());
+        if (config.getRegistrationConfig().getSocial().getIsDisabled().getRequired()) {
+            f.setCssClasses(Arrays.asList("required"));
+        }
+        q.addField(f);
+
+        return q;
+    }
+
     public Question getIsIndigenousQuestion() {
         Question q = new Question();
         q.setId("isIndigenousLabel");
