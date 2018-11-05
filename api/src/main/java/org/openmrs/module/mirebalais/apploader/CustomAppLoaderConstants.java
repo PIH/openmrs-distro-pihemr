@@ -148,7 +148,7 @@ public class CustomAppLoaderConstants {
         public static final String ORDER_LAB_VISIT_ACTION = "labtrackingapp.orderLab";
         public static final String CHEMO_ORDERING_VISIT_ACTION = "oncology.orderChemo";
         public static final String CHEMO_RECORDING_VISIT_ACTION = "oncology.recordChemo";
-        public static final String MEXICO_CLINIC_VISIT_ACTION = "pih.mexicoClinic";
+        public static final String MEXICO_CONSULT_ACTION = "pih.mexicoConsult";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
