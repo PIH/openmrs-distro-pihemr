@@ -166,6 +166,8 @@ public class CustomAppLoaderConstants {
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
         public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
+        public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
+        public static final String VIEW_LABS_OVERALL_ACTION = "labworkflowowa.viewLabs";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -288,6 +290,8 @@ public class CustomAppLoaderConstants {
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
+            Extensions.ORDER_LABS_OVERALL_ACTION,
+            Extensions.VIEW_LABS_OVERALL_ACTION,
             Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
             Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
             Extensions.PRINT_ID_CARD_OVERALL_ACTION,

@@ -364,4 +364,44 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20181024-add-pathology-order-type-2" author="mgoodrich">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from order_type where uuid = '65c912c2-88cf-46c2-83ae-2b03b1f97d3a'</sqlCheck>
+        </preConditions>
+        <comment>
+            Insert order type for test orders; (we also install this via a bundle, but do this here so it is available
+            for the migration change set below)
+        </comment>
+        <insert tableName="order_type">
+            <column name="name" value="Pathology Test Order" />
+            <column name="description" value="Order type for pathology test orders" />
+            <column name="java_class_name" value="org.openmrs.TestOrder" />
+            <column name="creator" valueNumeric="1" />
+            <column name="date_created" valueDate="2018-10-24" />
+            <column name="retired" valueNumeric="0" />
+            <column name="uuid" value="65c912c2-88cf-46c2-83ae-2b03b1f97d3a" />
+        </insert>
+    </changeSet>
+
+    <changeSet id="20181024-migrate-pathology-orders-to-new-pathology-order-type" author="mgoodrich">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
+                select count(*) from order_type where uuid='65c912c2-88cf-46c2-83ae-2b03b1f97d3a'
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Migrates existing orders to the Pathology Order Type; should be run once, before Lab Workflow app is rolled out
+            As a hack to preserve humci test data, does not migrate orders without a location
+        </comment>
+        <sql>
+            update orders o, encounter e set o.order_type_id = (select order_type_id from order_type where uuid='65c912c2-88cf-46c2-83ae-2b03b1f97d3a')
+                where o.order_type_id = (select order_type_id from order_type where uuid='52a447d3-a64a-11e3-9aeb-50e549534c5e' )
+                and e.encounter_id=o.encounter_id
+                and e.location_id is not null;
+        </sql>
+
+    </changeSet>
+
+
 </databaseChangeLog>
+

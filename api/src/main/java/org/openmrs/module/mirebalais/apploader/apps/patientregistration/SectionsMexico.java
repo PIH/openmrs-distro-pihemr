@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -25,9 +24,85 @@ public class SectionsMexico extends SectionsDefault {
     public void addSections(RegistrationAppConfig c) {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
+        c.addSection(getInsuranceSection());
         c.addSection(getSocialSection());
         c.addSection(getRelationshipsSection());
         c.addSection(getContactsSection(false));
+    }
+
+    private Section getInsuranceSection() {
+        Section s = new Section();
+        s.setId("insurance");
+        s.setLabel("zl.registration.patient.insurance.label");
+        s.addQuestion(getProsperaInfo());
+        s.addQuestion(getMexicoInsurance());
+        return s;
+    }
+
+    private Question getProsperaInfo() {
+        Question q = new Question();
+        q.setId("prosperaLabel");
+        q.setLegend("zl.registration.patient.insurance.prospera.label");
+
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Prospera Construct.obs.PIH:Has Prospera");
+            f.setLabel("zl.registration.patient.insurance.hasProspera.label");
+            f.setType("obsgroup");
+            f.setWidget(getYesNoDropdownWidget());
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Prospera Construct.obs.PIH:Insurance policy number");
+            f.setLabel("zl.registration.patient.insurance.prosperaNumber.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        return q;
+    }
+
+    private Question getMexicoInsurance() {
+        Question q = new Question();
+        q.setId("insuranceLabel");
+        q.setLegend("zl.registration.patient.insurance.insuranceName.label");
+
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Mexico Insurance Coded");
+            f.setLabel("zl.registration.patient.insurance.insuranceName.question");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().setExpanded(true);
+            w.getConfig().addOption("PIH:Seguro Popular","zl.registration.patient.insurance.seguro_popular.label");
+            w.getConfig().addOption("PIH:Mexican Social Security Institute", "zl.registration.patient.insurance.imss.label");
+            w.getConfig().addOption("PIH:Institute of Social Security of Workers of the State of Chiapas", "zl.registration.patient.insurance.isstech.label");
+            w.getConfig().addOption("PIH:OTHER", "zl.registration.patient.insurance.other.label");
+            w.getConfig().addOption("PIH:NONE", "zl.registration.patient.insurance.none.label");
+
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number");
+            f.setLabel("zl.registration.patient.insurance.insuranceNumber.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)");
+            f.setLabel("zl.registration.patient.insurance.insuranceNameOther.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        return q;
     }
 
     @Override
@@ -42,6 +117,12 @@ public class SectionsMexico extends SectionsDefault {
             }
             if (socConfig.getIsIndigenous() != null) {
                 s.addQuestion(getIsIndigenousQuestion());
+            }
+            if (socConfig.getIsDisabled() != null) {
+                s.addQuestion(getIsDisabledQuestion());
+            }
+            if (socConfig.getCanRead() != null) {
+                s.addQuestion(getCanReadQuestion());
             }
             if (socConfig.getActiveCasefinding() != null) {
                 s.addQuestion(getActiveCasefindingQuestion());

@@ -1155,8 +1155,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
 
-        if ( config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {  // reversed to make this null safe
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) ||
+                (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "icon-user",
@@ -1462,7 +1463,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.LABS,
+        registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "labResults")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
@@ -2123,6 +2124,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.APP_LABS.privilege(),
                 null),
                 null));
+
+        extensions.add(overallAction(Extensions.ORDER_LABS_OVERALL_ACTION,
+                "pihcore.orderLabs.overallAction.label",
+                "icon-beaker",
+                "link",
+                "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                null));
+
+        extensions.add(overallAction(Extensions.VIEW_LABS_OVERALL_ACTION,
+                "pihcore.viewLabs.overallAction.label",
+                "icon-beaker",
+                "link",
+                "owa/labworkflow/index.html#/LabResults",
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                null));
     }
 
     private void enableCohortBuilder() {
@@ -2325,7 +2342,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patientDocuments.label",
                 "icon-paper-clip",
                 null,
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
                 null),
                 "attachments", "dashboardWidget"));
 
@@ -2334,7 +2351,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-paper-clip",
                 "link",
                 "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
                 null));
     }
 
