@@ -32,6 +32,7 @@ public class CustomAppLoaderConstants {
         public static final String SYSTEM_ADMINISTRATION = "coreapps.app.systemAdministration";
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
+        public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
@@ -373,7 +374,8 @@ public class CustomAppLoaderConstants {
             Apps.VISITS_SUMMARY,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.RADIOLOGY_APP,
-            Apps.RADIOLOGY_ORDERS_APP
+            Apps.RADIOLOGY_ORDERS_APP,
+            Apps.DISPENSING_SUMMARY
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
