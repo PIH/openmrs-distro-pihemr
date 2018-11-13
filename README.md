@@ -1,4 +1,22 @@
 
+Temporary steps to deploying custom buil of OpenMRS-Core
+========================================================
+
+We are temporarily running off an unreleased version of OpenMRS Core based off the master branch.
+Once version 2.2.0 is released, we will switch to that branch, but in the meantime we will need
+to check out and manually build the build of OpenMRS core we want to use:
+
+1) If you haven't done so already, clone OpenMRS-Core:
+https://github.com/openmrs/openmrs-core.git
+
+2) Make sure you are "watching" OpenMRS-Core; from the directory where you checked out core run:
+mvn openmrs-sdk:watch
+
+3) Check out the following tag
+git checkout tags/2.2.0-20181112.082045-243
+
+
+
 Setting up a Dev Environment
 ============================
 
