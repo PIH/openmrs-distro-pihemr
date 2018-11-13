@@ -1,5 +1,5 @@
 
-Temporary steps to deploying custom buil of OpenMRS-Core
+Temporary steps to deploying custom build of OpenMRS-Core
 ========================================================
 
 We are temporarily running off an unreleased version of OpenMRS Core based off the master branch.
