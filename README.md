@@ -9,11 +9,11 @@ to check out and manually build the build of OpenMRS core we want to use:
 1) If you haven't done so already, clone OpenMRS-Core:
 https://github.com/openmrs/openmrs-core.git
 
-2) Make sure you are "watching" OpenMRS-Core; from the directory where you checked out core run:
-mvn openmrs-sdk:watch
+2) Make sure you are "watching" OpenMRS-Core; from the directory where you checked out core:
+"mvn openmrs-sdk:watch"
 
-3) Check out the following tag
-git checkout tags/2.2.0-20181112.082045-243
+3) Check out the following tag:
+"git checkout tags/2.2.0-20181112.082045-243"
 
 Troubleshooting
 ---------------
