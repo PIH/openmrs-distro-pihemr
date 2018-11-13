@@ -733,6 +733,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.dispensing",
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.DISPENSING_SUMMARY,
+                "mirebalais.dispensing.title",
+                "icon-medical",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-medical",
+                        "label", "mirebalais.dispensing.title",
+                        "concepts",
+                        MirebalaisConstants.MED_DISPENSED_NAME_UUID + "," + MirebalaisConstants.MED_DISPENSED_FREQ_UUID,
+                        "maxRecords", "12"  // TODO what should this be?
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
@@ -1881,11 +1896,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMexicoClinic() {
 
-        extensions.add(visitAction(Extensions.MEXICO_CLINIC_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CLINIC_VISIT.uuid(),
+        extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
                 "icon-stethoscope",
                 "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/clinic-visit.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
