@@ -15,7 +15,14 @@ mvn openmrs-sdk:watch
 3) Check out the following tag
 git checkout tags/2.2.0-20181112.082045-243
 
+Troubleshooting
+---------------
 
+If you see the following error when building core:
+
+[ERROR] Failed to execute goal com.mycila:license-maven-plugin:3.0:check (default) on project openmrs-test: Execution default of goal com.mycila:license-maven-plugin:3.0:check failed: Cannot read header document license-header.txt. Cause: Resource license-header.txt not found in file system, classpath or URL: no protocol: license-header.txt -> [Help 1]
+
+... then try commenting out the mycila plugin in the main pom of the project
 
 Setting up a Dev Environment
 ============================
