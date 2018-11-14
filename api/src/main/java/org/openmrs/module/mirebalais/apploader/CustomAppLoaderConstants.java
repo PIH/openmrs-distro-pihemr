@@ -120,8 +120,8 @@ public class CustomAppLoaderConstants {
         public static final String ONCOLOGY_INITIAL_VISIT_ACTION = "pih.form.oncologyIntake";
         public static final String CHEMOTHERAPY_VISIT_ACTION = "pih.form.chemotherapy";
         public static final String LAB_RESULTS_VISIT_ACTION = "pih.form.labResults";
-        public static final String NCD_ADULT_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
-        public static final String NCD_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
+        public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
+        public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
 
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
@@ -325,8 +325,8 @@ public class CustomAppLoaderConstants {
             Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
             Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.LAB_RESULTS_VISIT_ACTION,
-            Extensions.NCD_ADULT_INITIAL_VISIT_ACTION,
-            Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
+            Extensions.NCD_INITIAL_VISIT_ACTION,
+            Extensions.NCD_FOLLOWUP_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.VCT_VISIT_ACTION,
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,

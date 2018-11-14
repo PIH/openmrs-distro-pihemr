@@ -1491,8 +1491,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(NCDProgram.NCD);
 
-        extensions.add(visitAction(Extensions.NCD_ADULT_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_ADULT_INITIAL_CONSULT.uuid(),
+        extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_INITIAL_CONSULT.uuid(),
                 "icon-heart",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
@@ -1502,8 +1502,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.NCD_ADULT_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_ADULT_FOLLOWUP_CONSULT.uuid(),
+        extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_FOLLOWUP_CONSULT.uuid(),
                 "icon-heart",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
