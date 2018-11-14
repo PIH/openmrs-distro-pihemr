@@ -508,8 +508,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-vitals",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "vitals")),
-                Privileges.TASK_EMR_ENTER_VITALS_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.VITALS_LOCATION), patientHasActiveVisit())));
+                null,
+                and(sessionLocationHasTag(LocationTags.VITALS_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
                         "mirebalais.mostRecentVitals.label",
