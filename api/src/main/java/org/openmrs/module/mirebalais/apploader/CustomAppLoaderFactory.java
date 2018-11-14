@@ -2152,7 +2152,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.viewLabs.overallAction.label",
                 "icon-beaker",
                 "link",
-                "owa/labworkflow/index.html#/LabResults",
+                "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
                 null));
     }
