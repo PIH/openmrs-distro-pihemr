@@ -1671,9 +1671,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                     or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
@@ -1683,9 +1683,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                     or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
@@ -1695,9 +1695,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                     or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
@@ -1707,9 +1707,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                     or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                             userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                             and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
