@@ -41,6 +41,11 @@ functionality between the the four modules, but generally Mirebalais metadata pr
 provides reports, and Mirebalais and PIH Core provide other metadata and configuration. The mirebalais module runs at
 the top of stack. For reference, "Mirebalais" refers to Hopital Universitaire Mirebalais where the PIH EMR was first installed.)
 
+For deploying the PIH-EMR to our various staging and production servers, we use Puppet (https://puppet.com/)
+
+Our Puppet configuration scripts can be found here: https://github.com/PIH/mirebalais-puppet
+
+
 # Communications and management
 
 There are a few tools that we use extensively and that all PIH devs should have set up:
