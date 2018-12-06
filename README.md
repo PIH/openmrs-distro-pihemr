@@ -80,7 +80,7 @@ version 5.6, other versions will not work.
 An easier approach is likely to install Docker (https://www.docker.com/) and use the OpenMRS SDK to set up an instance of MySQL within a docker container.
 
 
-## Set up a development environment of a PIH EMR distibution
+## Setup
 
 
 ### Step 1: Clone the "mirebalais-puppet" project
