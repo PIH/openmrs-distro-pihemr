@@ -9,22 +9,22 @@ A few links from the OpenMRS wiki that are worth reading:
 
 * Overview of the OpenMRS data model: https://wiki.openmrs.org/display/docs/Data+Model
 
-* Definition of an "OpenMRS distribution" (of which the PIH-EMR is one): https://wiki.openmrs.org/display/docs/OpenMRS+Distributionsehere
+* Definition of an "OpenMRS distribution" (of which the PIH-EMR is one): https://wiki.openmrs.org/display/docs/OpenMRS+Distributions
 
 
 Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but we also have
 several PIH-specific modules as well.  Of those there are four top-level modules that provide most of the PIH-specific configuration:
 
-mirebalais: https://github.com/PIH/openmrs-module-mirebalais
+* mirebalais: https://github.com/PIH/openmrs-module-mirebalais
 
-mirebalaismetadata: https://github.com/PIH/openmrs-module-mirebalaismetadata
+* mirebalaismetadata: https://github.com/PIH/openmrs-module-mirebalaismetadata
 
-mirebalaisreports: https://github.com/PIH/openmrs-module-mirebalaisreports
+* mirebalaisreports: https://github.com/PIH/openmrs-module-mirebalaisreports
 
-pihcore: https://github.com/PIH/openmrs-module-pihcore
+* pihcore: https://github.com/PIH/openmrs-module-pihcore
 
 
-These modules do several things, but there main tasks include:
+These modules do several things, but their main tasks are:
 
 * Providing and setting up PIH-specific metadata (like the forms and concepts we use)
 
@@ -47,7 +47,7 @@ There are a few tools that we use extensively and that all PIH devs should have 
 
 * Telegram for project-specific group chats (https://telegram.org/)
 
-Please install Telegram on your development machine and then ask an existing developer to invite you to the appropriate groups
+Please install Telegram on your development machine and then ask an existing developer to invite you to the appropriate groups.
 
 * JIRA for managing project, bugs, sprints, etc: https://tickets.pih-emr.org/secure/Dashboard.jspa
 
