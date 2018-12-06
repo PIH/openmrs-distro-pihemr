@@ -1,48 +1,82 @@
 
-Temporary steps to deploying custom build of OpenMRS-Core
-========================================================
+# Overview of the PIH-EMR
 
-We are temporarily running off an unreleased version of OpenMRS Core based off the master branch.
-Once version 2.2.0 is released, we will switch to that branch, but in the meantime we will need
-to check out and manually build the build of OpenMRS core we want to use:
+The *PIH-EMR* is a *distribution* of *OpenMRS*, an open-source medical record systems
 
-1) If you haven't done so already, clone OpenMRS-Core:
-https://github.com/openmrs/openmrs-core.git
+A few links from the OpenMRS wiki that are worth reading:
 
-2) Make sure you are "watching" OpenMRS-Core; from the directory where you checked out core:
-"mvn openmrs-sdk:watch"
+* High-level overview of OpenMRS: https://wiki.openmrs.org/display/docs/Introduction+to+OpenMRS
 
-3) Check out the following tag:
-"git checkout tags/2.2.0-20181112.082045-243"
+* Overview of the OpenMRS data model: https://wiki.openmrs.org/display/docs/Data+Model
 
-Troubleshooting
----------------
+* Definition of an "OpenMRS distribution" (of which the PIH-EMR is one): https://wiki.openmrs.org/display/docs/OpenMRS+Distributionsehere
 
-If you see the following error when building core:
 
-[ERROR] Failed to execute goal com.mycila:license-maven-plugin:3.0:check (default) on project openmrs-test: Execution default of goal com.mycila:license-maven-plugin:3.0:check failed: Cannot read header document license-header.txt. Cause: Resource license-header.txt not found in file system, classpath or URL: no protocol: license-header.txt -> [Help 1]
+Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but we also have
+several PIH-specific modules as well.  Of those there are four top-level modules that provide most of the PIH-specific configuration:
 
-... then try commenting out the mycila plugin in the main pom of the project
+mirebalais: https://github.com/PIH/openmrs-module-mirebalais
 
-Setting up a Dev Environment
-============================
+mirebalaismetadata: https://github.com/PIH/openmrs-module-mirebalaismetadata
+
+mirebalaisreports: https://github.com/PIH/openmrs-module-mirebalaisreports
+
+pihcore: https://github.com/PIH/openmrs-module-pihcore
+
+
+These modules do several things, but there main tasks include:
+
+* Providing and setting up PIH-specific metadata (like the forms and concepts we use)
+
+* Configuring exactly what modules are included in the PIH distribution
+(see https://github.com/PIH/openmrs-module-mirebalais/blob/master/pom.xml#L53)
+
+* Allow use to turn and off different functionality based on country and location
+
+* Setting up PIH-specific reports
+
+
+(Due to the organic way the PIH EMR developed, it's there's not always clear guidelines as to the distribution of
+functionality between the the four modules, but generally Mirebalais metadata provides concepts, Mirebalais reports
+provides reports, and Mirebalais and PIH Core provide other metadata and configuration. The mirebalais module runs at
+the top of stack. For reference, "Mirebalais" refers to Hopital Universitaire Mirebalais where the PIH EMR was first installed.)
+
+# Communications and management
+
+There are a few tools that we use extensively and that all PIH devs should have set up:
+
+* Telegram for project-specific group chats (https://telegram.org/)
+
+Please install Telegram on your development machine and then ask an existing developer to invite you to the appropriate groups
+
+* JIRA for managing project, bugs, sprints, etc: https://tickets.pih-emr.org/secure/Dashboard.jspa
+
+Please request an account by asking another PIH developer or emailing medinfo@pih.org
+
+# Setting up a Dev Environment
 
 We are going to set up a development environment using the OpenMRS SDK, with some custom steps to install the set of 40+ 
 modules used by the PIH EMR.
 
-Prerequisites
--------------
+## Prerequisites
+
 
 First, install git, mvn, and the OpenMRS SDK by following the "Installation" instructions here:
 
 https://wiki.openmrs.org/display/docs/OpenMRS+SDK#OpenMRSSDK-Installation
 
-Next, we need to install MySQL.  The OpenMRS SDK uses the H2 database by default, but H2 doesn't work with some of the 
-modules we use, so we must use MySQL, which needs to be configured separately.  You should install MySQL Community 
-Server 5.6 following the instructions for your platform. It must be version 5.6, other versions will not work.
+The OpenMRS SDK uses the H2 database by default, but H2 doesn't work with some of the
+modules we use, so we must use MySQL, which needs to be configured separately. To do this, you can either
+install MySQL directly on your machine, or install mysql within a docker container.
 
-Set up a development environment of a PIH EMR distibution
----------------------------------------------------------
+If installing directly, install MySQL Community Server 5.6 following the instructions for your platform. It must be
+version 5.6, other versions will not work.
+
+An easier approach is likely to install docker and use the OpenMRS SDK to set up an instance of MySQL within a docker container
+
+
+## Set up a development environment of a PIH EMR distibution
+
 
 ### Step 1: Clone the "mirebalais-puppet" project
 The various configuration files that determine what applications and options are turned on on different servers are
@@ -52,14 +86,14 @@ found here and later on in process you will need to tell OpenMRS where to find t
 $ git clone https://github.com/PIH/mirebalais-puppet.git
 ```
 
-### Step 2: Ensure that MySQL has a password set up for the root user.
+### Step 2: (If you are directly installing MySQL on your machine) Ensure that MySQL has a password set up for the root user.
 - If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
 it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.  
 
 ### Step 3: Set up the environment
-Set up the environment via the following command, chosing the serverId and dbName you want to use. Specify
+Set up the environment via the following command, chhosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 *Note that the environment will be set up the directory ~/openmrs/[serverId]*
 *The convention for dbNames are "openmrs_[some name]"*
@@ -164,6 +198,32 @@ $ omrs-pull
 $ omrs-deploy
 $ omrs-run
 ```
+
+Temporary steps to deploying custom build of OpenMRS-Core
+========================================================
+
+We are temporarily running off an unreleased version of OpenMRS Core based off the master branch.
+Once version 2.2.0 is released, we will switch to that branch, but in the meantime we will need
+to check out and manually build the build of OpenMRS core we want to use:
+
+1) If you haven't done so already, clone OpenMRS-Core:
+https://github.com/openmrs/openmrs-core.git
+
+2) Make sure you are "watching" OpenMRS-Core; from the directory where you checked out core:
+"mvn openmrs-sdk:watch"
+
+3) Check out the following tag:
+"git checkout tags/2.2.0-20181112.082045-243"
+
+Troubleshooting
+---------------
+
+If you see the following error when building core:
+
+[ERROR] Failed to execute goal com.mycila:license-maven-plugin:3.0:check (default) on project openmrs-test: Execution default of goal com.mycila:license-maven-plugin:3.0:check failed: Cannot read header document license-header.txt. Cause: Resource license-header.txt not found in file system, classpath or URL: no protocol: license-header.txt -> [Help 1]
+
+... then try commenting out the mycila plugin in the main pom of the project
+
 
 ### PyInvoke
 
