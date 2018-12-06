@@ -60,8 +60,7 @@ Please request an account by asking another PIH developer or emailing medinfo@pi
 
 # Setting up a Dev Environment
 
-We are going to set up a development environment using the OpenMRS SDK, with some custom steps to install the set of 40+ 
-modules used by the PIH EMR.
+The preferred method to set up a development environment is using the OpenMRS SDK, with some custom configuration steps.
 
 ## Prerequisites
 
