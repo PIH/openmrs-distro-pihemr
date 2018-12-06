@@ -104,9 +104,18 @@ the DB password for your root user as set in Step 2.
 *The convention for dbNames are "openmrs_[some name]"*
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT \
-    -DdbUri=jdbc:mysql://localhost:3306/[dbName] -DdbUser=root -DdbPassword=[password]
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
 ```
+
+* When prompted, select the port you'd like to run tomcat on
+
+* When prompted, set the port to debug on (standard is 1044)
+
+* Select which database you'd like to use
+
+* If you are connecting to a MySQL 5.6 instance running on your local machine, specifc the URI, and a username and password to connect to the DB
+
+* Select the JDK to use
 
 ### Step 4: Start up the server
 
@@ -159,9 +168,8 @@ need to create a local identifier source to generate "fake" ZL EMR IDs:
   - Set "Pool Identifier Source" to "ZL Identifier Generator"
   - Change "When to fill" to "When you request an identifier"
 
+## Updating
 
-Updating
---------
 
 Once you have installed the distribution, you should be able to update it with the following commands... 
 
@@ -182,8 +190,7 @@ To run the server:
 $ mvn openmrs-sdk:run
 ```
 
-Making Things Easy
-------------------
+## Making Things Easy
 
 ### Aliases
 
