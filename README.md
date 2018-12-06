@@ -77,7 +77,7 @@ install MySQL directly on your machine, or install mysql within a docker contain
 If installing directly, install MySQL Community Server 5.6 following the instructions for your platform. It must be
 version 5.6, other versions will not work.
 
-An easier approach is likely to install docker and use the OpenMRS SDK to set up an instance of MySQL within a docker container
+An easier approach is likely to install Docker (https://www.docker.com/) and use the OpenMRS SDK to set up an instance of MySQL within a docker container.
 
 
 ## Set up a development environment of a PIH EMR distibution
@@ -211,8 +211,14 @@ $ omrs-deploy
 $ omrs-run
 ```
 
-Temporary steps to deploying custom build of OpenMRS-Core
-========================================================
+### PyInvoke
+
+There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
+[here](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
+Feel free to make pull requests.
+
+
+# Temporary steps to deploying custom build of OpenMRS-Core
 
 We are temporarily running off an unreleased version of OpenMRS Core based off the master branch.
 Once version 2.2.0 is released, we will switch to that branch, but in the meantime we will need
@@ -227,8 +233,7 @@ https://github.com/openmrs/openmrs-core.git
 3) Check out the following tag:
 "git checkout tags/2.2.0-20181112.082045-243"
 
-Troubleshooting
----------------
+### Troubleshooting
 
 If you see the following error when building core:
 
@@ -237,14 +242,8 @@ If you see the following error when building core:
 ... then try commenting out the mycila plugin in the main pom of the project
 
 
-### PyInvoke
+# Source Code
 
-There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
-[here](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
-Feel free to make pull requests.
-
-Source Code
------------
 
 All source code for OpenMRS is stored on Github, in either the OpenMRS organizaiton (for core and community modules) or 
 the PIH organization (for PIH-specific modules).
@@ -254,8 +253,8 @@ https://github.com/PIH
 
 The naming convention for a module repo is "openmrs-module-[module_name]".
 
-Getting Set Up with IntelliJ
-----------------------------
+# Getting Set Up with IntelliJ
+
 
 At least with `openmrs-module-pihcore`, IntelliJ may want to identify some 
 directories as modules that are not modules,
