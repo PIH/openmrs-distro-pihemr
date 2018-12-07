@@ -262,3 +262,25 @@ dependency information from the parent modules, so IntelliJ will fail to resolve
 To fix this, go to Project Structure -> Modules and remove those directories.
 
 Other than that, this project is more or less plug-and-play in IntelliJ.
+
+
+# Troubleshooting Dependency Problems
+
+## OpenMRS seems to be using different code than what I've got here in the module I'm working on!
+
+You probably need to run mvn openmrs-sdk:install from your checked-out module's directory.
+
+## OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
+
+## `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
+
+`cd` out of your module's directory, then run
+
+`mvn openmrs-sdk:deploy -DserverId=<serverId>`
+
+When prompted, respond:
+
+* 1 - module
+* 2 - default (org.openmrs.module)
+* 3 - Bar
+* 4 - choose the latest snapshot version that you need
