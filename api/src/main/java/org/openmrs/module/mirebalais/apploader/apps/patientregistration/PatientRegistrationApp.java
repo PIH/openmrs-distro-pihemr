@@ -53,6 +53,9 @@ public class PatientRegistrationApp {
             case MEXICO:
                 new SectionsMexico(config).addSections(c);
                 break;
+            case LIBERIA:
+                new SectionsLiberia(config).addSections(c);
+                break;
             default:
                 new SectionsDefault(config).addSections(c);
         }
