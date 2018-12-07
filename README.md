@@ -166,6 +166,103 @@ need to create a local identifier source to generate "fake" ZL EMR IDs:
   - Click the Configure Action next to the local pool
   - Set "Pool Identifier Source" to "ZL Identifier Generator"
   - Change "When to fill" to "When you request an identifier"
+  
+# Configuring functionality in a PIH EMR OpenMRS Instance
+
+## Address
+
+Address configuration happens in a few places.
+
+First there is the Address Hierarchy module configuration, which manages the address hierarchy data in MySQL. This is done by extending [pihcore/.../AddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/0c0eb626f7da4be65fc02e60f92775af952bad6c/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/AddressBundle.java), e.g. into [pihcore/.../LiberiaAddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/3d18f1fec0c42dc8623b83cec3f3bbac76bae6dd/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaAddressBundle.java).
+
+Some things are not encoded in the data, and need to be pulled from the config at runtime. Right now these are the shortcut field and the manual fields. These are configured in the addressConfig tree in your config JSON file that lives in mirebalais-puppet. These options are used by [mirebalais/.../PatientRegistrationApp](https://github.com/PIH/openmrs-module-mirebalais/blob/8a565656ff335cd28dcb310c0b1c4de3dcd4d62f/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/PatientRegistrationApp.java). If you don’t provide this configuration, this file provides defaults.
+
+## Apps & Components
+
+The configuration for which components are enabled is in [mirebalais-puppet/.../pih-config-*.json](https://github.com/PIH/mirebalais-puppet/tree/master/mirebalais-modules/openmrs/files/config). Components are defined in [pihcore/.../config/Components.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/config/Components.java). Based on these component selections (and often some other criteria) CALF ([mirebalais/.../CustomAppLoaderFactory.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java)) loads apps and forms. Apps are defined in [mirebalais/.../CustomAppLoaderConstants.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderConstants.java). 
+
+### Registration Summary Dashboard
+
+The RegistrationApp seems to provide, by default, a single widget, which displays the information in the "demographics" section. It only will display patient attributes - concept/observation data added to the demographics section will always show a blank answer in the dashboard widget.
+
+## Forms
+
+Forms live in [openmrs-module-pihcore/omod/src/main/webapp/resources/htmlforms](https://github.com/PIH/openmrs-module-pihcore/tree/master/omod/src/main/webapp/resources/htmlforms) and are edited in code. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out it [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference). Note especially the use of Velocity Expressions, and the content of the default Velocity context.
+
+See this [example of a check-in form](https://github.com/PIH/openmrs-module-pihcore/blob/master/omod/src/main/webapp/resources/htmlforms/haiti/checkin.xml). 
+
+The application logic that specifies when to display forms, and which form files to use, is found in [CALF](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java). This class is responsible for loading forms from code into the database. It doesn’t always succeed in doing this dynamically, however, when forms are being edited, so as a back-up forms are manually loaded in [mirebalais/setup/HtmlFormSetup](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/setup/HtmlFormSetup.java).
+
+Note that this application logic often depends both on which components are enabled (see "Country-specific settings" below) and which location tags are enabled at the active location, which are set in [openmrs-module-pihcore/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java).
+
+To view changes to forms with page refreshes, you need to make sure the query string in the address bar contains `breadcrumbOverride=breadcrumbUiOverride`.
+
+### Adding a New Type of  Form
+
+To add a new type of form is to create a new encounter type. See [pihcore PR #10](https://github.com/PIH/openmrs-module-pihcore/pull/10/commits) and [mirebalais PR #16](https://github.com/PIH/openmrs-module-mirebalais/pull/16/commits/217d8c0cfe2a4f76ca9f78357f4931937d86e7e6) for an example of how to accomplish this, along with creating a corresponding new app.
+
+### Registration Form
+
+The Registration form is produced by RegistrationApp based on the configuration specified in [mirebalais/apploader/apps.patientregistration/](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/patientregistration). This also generates some of the Edit Registration forms, but not all of them. RegistrationApp is able to provide View and Edit UI for sections that do not have concept questions. For sections with concept questions, you will need to create a .xml file (like patientRegistration-contact.xml) to define those views.
+
+## Country-specific settings
+
+Global properties for a country installation are defined in the mirebalais-puppet repo, .e.g., these two are used for Haiti:
+
+[https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais.json](https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais.json)
+
+[https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais-humci.json](https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais-humci.json)
+
+## Locales
+
+Language specific settings are configured in these places:
+
+1. Translation for concepts will be done via the OpenMRS Dictionary UI (do this locally for now, eventually this will be done on the staging server companero.pih-emr.org, and concepts will be packaged using [Metadata Sharing](https://drive.google.com/open?id=1W_83FHL5dB2i9740Zp_n7iMjzRaqSpUb0y-RoFZspo0))
+
+2. OpenMRS settings, allowed locales example: [https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java#L28](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java#L28)
+
+3. Locale specific resource files, e.g.,
+
+    1. [https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/resources/messages_fr.properties](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/resources/messages_fr.properties)
+
+    2. [https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages_ht.properties](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages_ht.properties) 
+
+## Localized String Management
+
+Transifex is used for managing translations. To add new strings, add to the messages.properties file for that project ([mirebalais example](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages.properties)). The localized strings are pulled from Transifex and committed into mirebalais_*.properties files.
+
+Join the "PIH EMR" project on transifex: [https://www.transifex.com](https://www.transifex.com)
+
+Using transifex for locale specific strings: [https://wiki.openmrs.org/display/docs/Localization+and+Languages](https://wiki.openmrs.org/display/docs/Localization+and+Languages)
+
+Notes from Mark Goodrich:
+
+However, we will start needing to create messages_es.properties files for Spanish translating and getting a translator working on them. I don't think any of the modules that PIH owns will have Spanish translations, though the OpenMRS ones may.
+You can see a list of the modules that PIH owns and has in Transifex here (Dominic I just sent you a Transifex invite):
+[https://www.transifex.com/pih/mirebalais/content/](https://www.transifex.com/pih/mirebalais/content/)
+
+
+For each of these modules (with the exception of the legacy Patient Registration module) we should add the messages_es.properties. (Priority can be given to the main modules like PIH Core, Mirebalais Reports, Mirebalais... we won't need translations in Lab Tracking or ED Triage unless we plan on using that functionality in Mexico)
+
+Steps to add a messages_es.properties:
+1) Create the messages_es.properties file in the resources directory of the api project of the module:
+[https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/resources](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/resources)
+
+
+2) Add the locale "es" to the config.xml of the module:
+[https://github.com/PIH/openmrs-module-mirebalais/blob/master/omod/src/main/resources/config.xml#L138](https://github.com/PIH/openmrs-module-mirebalais/blob/master/omod/src/main/resources/config.xml#L138)
+
+
+3) Add the locale "es" to the Transifex configuration file for the module:
+[https://github.com/PIH/openmrs-module-mirebalais/blob/master/.tx/config](https://github.com/PIH/openmrs-module-mirebalais/blob/master/.tx/config)
+
+Of course, after we do this, we need to start having translators edit translations and pull them into the projects.
+
+Documentation can be found here:
+https://wiki.openmrs.org/display/docs/Maintaining+OpenMRS+Module+Translations+via+Transifex
+(In particular see the section 'Updating A Module With New Translations" and how to install the Transifex command line client).
+
+
 
 ## Updating
 
