@@ -736,6 +736,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.dispensing",
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
+        // ToDo:  Add this back when the widget is changes to show all obs groups (not just one) per encounter
+        /*
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
                 "icon-medical",
@@ -750,6 +752,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxRecords", "12"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+                */
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
@@ -1615,7 +1618,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
     }
-
 
     private void enableCHWApp() {
         if (findAppById(Apps.CHW_MGMT) == null) {
