@@ -1626,7 +1626,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "icon-group",
                     "/coreapps/providermanagement/providerList.page",
                     Privileges.APP_CHW.privilege(),
-                    null)));
+                    null),
+                    sessionLocationHasTag(LocationTags.PROVIDER_MANAGEMENT_LOCATION)));
         }
     }
 
