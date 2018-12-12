@@ -402,6 +402,31 @@
 
     </changeSet>
 
+    <changeSet id="20181112-delete-duplicate-radio-concept" author="ball">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
+                select count(*) from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove the radio concept which had a duplicate name on another concept
+        </comment>
+        <sql>
+            delete from concept_answer
+             where concept_id IN (select concept_id from concept where uuid = '159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from concept_name where concept_id IN (select concept_id from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from concept_description where concept_id IN (select concept_id from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from concept_reference_map where concept_id IN (select concept_id from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from obs where concept_id IN (select concept_id from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+        </sql>
+
+    </changeSet>
 
 </databaseChangeLog>
 
