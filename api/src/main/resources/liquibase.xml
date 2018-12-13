@@ -402,7 +402,7 @@
 
     </changeSet>
 
-    <changeSet id="20181112-delete-duplicate-radio-concept" author="ball">
+    <changeSet id="20181213-delete-duplicate-radio-concept" author="ball">
         <preConditions onFail="CONTINUE">
             <sqlCheck expectedResult="1">
                 select count(*) from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
@@ -414,6 +414,9 @@
         <sql>
             delete from concept_answer
              where concept_id IN (select concept_id from concept where uuid = '159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+
+            delete from concept_answer
+            where answer_concept IN (select concept_id from concept where uuid = '159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 
             delete from concept_name where concept_id IN (select concept_id from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
 
