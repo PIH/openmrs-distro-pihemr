@@ -1478,10 +1478,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/labResults.xml"),
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
-                and(sessionLocationHasTag(LocationTags.LAB_RESULTS_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_LAB_RESULTS), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                sessionLocationHasTag(LocationTags.LAB_RESULTS_LOCATION)));
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
@@ -1556,10 +1553,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth")),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
 
                 // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
@@ -2124,7 +2118,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-beaker",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
-                null,
+                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
                 sessionLocationHasTag(LocationTags.ORDER_PATHOLOGY_LOCATION)));
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATHOLOGY_SUMMARY,
