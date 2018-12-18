@@ -1524,7 +1524,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
                 "icon-gift",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake")),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 sessionLocationHasTag(LocationTags.MCH_LOCATION)));
 
@@ -1532,7 +1532,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
                 "icon-gift",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup")),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 sessionLocationHasTag(LocationTags.MCH_LOCATION)));
 
@@ -1540,7 +1540,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
                 "icon-gift",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery")),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 sessionLocationHasTag(LocationTags.MCH_LOCATION)));
     }
