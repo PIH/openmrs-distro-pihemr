@@ -1205,18 +1205,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
 
-        apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
-                        "zl.registration.patient.contactPerson.label",
-                        "icon-user",
-                        null,
-                        "App: registrationapp.registerPatient",
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-contact"),
-                                "editable", true)),
-                "coreapps",
-                "encounter/mostRecentEncounter"));
-
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
+                    "zl.registration.patient.contactPerson.label",
+                    "icon-user",
+                    null,
+                    "App: registrationapp.registerPatient",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                            "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                            "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-contact"),
+                            "editable", true)),
+                    "coreapps",
+                    "encounter/mostRecentEncounter"));
+        }
 
         if (config.isComponentEnabled(Components.CHECK_IN)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
