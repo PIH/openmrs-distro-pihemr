@@ -20,6 +20,7 @@ import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,8 +42,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.R
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VISIT_ACTIONS_ORDER;
-
-
 
 public class CustomAppLoaderUtil {
 
@@ -247,6 +246,18 @@ public class CustomAppLoaderUtil {
 
     static public AppDescriptor addToNCDSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToProgramSummaryDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMHDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMHDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMHSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
     }
 
     static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {

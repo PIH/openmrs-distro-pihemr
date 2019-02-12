@@ -217,10 +217,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableLabResults();
         }
 
-        if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
-            enableMentalHealth();
-        }
-
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
             enableOverviewReports();
         }
@@ -752,7 +748,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxRecords", "12"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
-                */
+        */
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
@@ -1548,13 +1544,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMentalHealth() {
 
+        configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                 "pih.task.mentalHealth.label",
                 "icon-user",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth")),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth")  + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
-                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
                 // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
@@ -2198,9 +2196,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableNCDs();
         }
 
-        if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
+        if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+            enableMentalHealth();
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
