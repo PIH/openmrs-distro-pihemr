@@ -1321,6 +1321,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null,
                     ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
                     null));
+
+            extensions.add(overallAction(Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
+                    "registrationapp.patient.registrationSummary",
+                    "icon-user",
+                    "link",
+                    "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                    "App: registrationapp.registerPatient",
+                    null));
         }
 
 
