@@ -49,19 +49,20 @@ Our Puppet configuration scripts can be found here: https://github.com/PIH/mireb
 
 This repository/implementation supports several different sites.
 
-- Haiti:
--- Mirebalais Hospital / CDI configuration
--- Default Health Center configuration
--- Mental Health laptop configuration
--- HIV cloud system (coming soon!)
+- Haiti
+  - Mirebalais Hospital / CDI configuration
+  - Default Health Center configuration
+  - Mental Health laptop configuration
+  - HIV cloud system (coming soon!)
 
 - Liberia
--- Pleebo Health Center
+  - Pleebo Health Center
 
 - Sierra Leone
--- Wellbody Health Center
+  - Wellbody Health Center
 
-- Mexico: See the [CES EMR documentation](CES-EMR-README.md)
+- Mexico
+  - See the [CES EMR documentation](CES-EMR-README.md)
 
 
 
