@@ -45,6 +45,20 @@ For deploying the PIH-EMR to our various staging and production servers, we use 
 
 Our Puppet configuration scripts can be found here: https://github.com/PIH/mirebalais-puppet
 
+### Sites Supported
+
+This repository/implementation supports several different sites.
+
+- Haiti / Mirebalais Hospital: This is sort of the "default implementation" here
+
+- Haiti / CDI
+
+- Liberia
+
+- Mexico: See the [CES EMR documentation](CES-EMR-README.md)
+
+- Sierra Leone
+
 
 # Communications and management
 
