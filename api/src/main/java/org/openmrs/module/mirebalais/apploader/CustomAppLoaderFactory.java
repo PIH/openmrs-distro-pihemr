@@ -737,13 +737,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
                 "icon-medical",
-                null,
+                "dispensing/patient.page?patientId={{patient.uuid}}",
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
                         "icon", "icon-medical",
                         "label", "mirebalais.dispensing.title",
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
+                        "detailsUrl", "dispensing/patient.page?showConfirmPatient=false&patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID + "," + MirebalaisConstants.MED_DISPENSED_FREQ_UUID,
                         "maxRecords", "5"  // TODO what should this be?
                 )),
