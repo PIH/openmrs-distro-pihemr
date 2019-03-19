@@ -98,7 +98,7 @@
         <labtrackingappVersion>1.1.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <attachmentsVersion>2.1.0</attachmentsVersion>
-        <legacyuiVersion>1.3.3</legacyuiVersion>
+        <legacyuiVersion>1.5.0</legacyuiVersion>
         <owaVersion>1.10.0</owaVersion>
         <orderentryuiVersion>1.1.0-SNAPSHOT</orderentryuiVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
