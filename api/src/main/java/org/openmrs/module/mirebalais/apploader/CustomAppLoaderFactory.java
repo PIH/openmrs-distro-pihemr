@@ -744,7 +744,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-medical",
                         "label", "mirebalais.dispensing.title",
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
-                        "detailsUrl", "dispensing/patient.page?showConfirmPatient=false&patientId={{patient.uuid}}",
+                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID + "," + MirebalaisConstants.MED_DISPENSED_FREQ_UUID,
                         "maxRecords", "5"  // TODO what should this be?
                 )),
