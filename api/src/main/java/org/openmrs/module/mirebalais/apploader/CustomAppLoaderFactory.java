@@ -736,12 +736,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
-                "icon-medical",
+                "icon-medicine",
                 "dispensing/patient.page?patientId={{patient.uuid}}",
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-medical",
+                        "icon", "icon-medicine",
                         "label", "mirebalais.dispensing.title",
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
