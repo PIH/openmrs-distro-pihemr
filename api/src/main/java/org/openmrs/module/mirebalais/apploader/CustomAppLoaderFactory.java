@@ -350,9 +350,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableSocioEconomics();
         }
 
-        if (config.isComponentEnabled(Components.ORDER_ENTRY)) {
-            enableOrderEntry();
-        }
+//        if (config.isComponentEnabled(Components.ORDER_ENTRY)) {
+//            enableOrderEntry();
+//        }
 
         if (config.isComponentEnabled(Components.COHORT_BUILDER)) {
             enableCohortBuilder();
