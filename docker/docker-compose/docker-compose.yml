@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+  db:
+    build: ./openmrs-db
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=openmrs
+      - MYSQL_USER=openmrs
+      - MYSQL_PORT
+      - MYSQL_PASSWORD
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - $OPENMRS_ARTIFACT_DIR/initial-db.sql:/initial-db.sql
+    ports:
+    - "$MYSQL_PORT:3306"
+
+  openmrs:
+    build: ./openmrs-server
+    environment:
+      - MYSQL_PORT
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - OPENMRS_ARTIFACT_DIR
+      - PIH_CONFIG_DIR
+      - PIH_CONFIG
+    volumes:
+      - openmrs-data:/openmrs/data
+      - $OPENMRS_ARTIFACT_DIR:/openmrs/artifacts
+      - $PIH_CONFIG_DIR:/openmrs/pih_config
+    ports:
+    - "$OPENMRS_SERVER_PORT:8080"
+    depends_on:
+      - db
+
+volumes:
+  mysql-data:
+  openmrs-data:
