@@ -58,6 +58,7 @@ public class MirebalaisConstants {
     public static final String SYSTOLIC_BP_CONCEPT_UUID = "3ce934fa-26fe-102b-80cb-0017a47871b2";
     public static final String DIASTOLIC_BP_CONCEPT_UUID = "3ce93694-26fe-102b-80cb-0017a47871b2";
     public static final String WEIGHT_CONCEPT_UUID = "3ce93b62-26fe-102b-80cb-0017a47871b2";
+    public static final String HEIGHT_CONCEPT_UUID = "3ce93cf2-26fe-102b-80cb-0017a47871b2";
     public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_QUAL_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";

@@ -1833,7 +1833,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivWeightGraph.title",
-                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
                         "maxResults", "20"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
