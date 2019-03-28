@@ -1835,6 +1835,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.hivWeightGraph.title",
                         "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
+                        "function", "(bmi, " + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", " + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
                         "maxResults", "20"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
