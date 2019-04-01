@@ -1827,14 +1827,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
-                "pih.app.hivWeightGraph.title",
+                "pih.app.weightHeightGraph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
-                        "label", "pih.app.hivWeightGraph.title",
+                        "label", "pih.app.weightHeightGraph.title",
                         "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
                         "function", "(bmi, " + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", " + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
                         "maxResults", "20"  // TODO what should this be?
