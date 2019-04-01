@@ -47,6 +47,14 @@ public class RequireUtil {
         return new String("patient.person.age == null");
     }
 
+    public static String patientIsFemale() {
+        return new String("patient.person.gender == 'F'");
+    }
+
+    public static String patientIsMale() {
+        return new String("patient.person.gender == 'M'");
+    }
+
     public static String and(String ... args) {
 
         StringBuilder str = new StringBuilder();

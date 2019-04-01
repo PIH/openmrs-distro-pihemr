@@ -99,6 +99,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotAc
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsAdult;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
@@ -1532,7 +1533,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),or(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
@@ -1540,7 +1541,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),or(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
@@ -1548,7 +1549,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),or(patientIsFemale()))));
     }
 
     private void enableMentalHealth() {
