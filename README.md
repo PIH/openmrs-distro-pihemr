@@ -335,9 +335,24 @@ Feel free to make pull requests.
 
 ### Troubleshooting
 
-If you see the following error when building core:
+#### The server isn't reflecting the changes I'm making in code!
 
+Make sure that the module you're working on hasn't come un-watched. Look at the `watched.projects` line of `openmrs-server.properties` in the App Data directory.
+
+#### OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
+#### `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
+
+As of this writing, we use a lot of snapshots. One thing that can happen is that when you `openmrs-sdk:run`, Maven might pull a new snapshot version of some module (here, Foo), but its dependencies may have updated, coming out of sync with the Foo POM you have locally. So the snapshot version of Foo expects BAR 1.2.3-SNAPSHOT, but your local Foo POM still requires Bar 1.2.3.
+
+The thing to do is to pull the latest changes to Foo from master (merging/rebasing into your branch if you're in a branch), and then run `openmrs-sdk:deploy` (or `./pihEmrDeploy.sh` or `invoke deploy`), then try running again.
+
+#### Error about `com.mycila` when building core
+
+If, when building core, you see an error like...
+
+```
 [ERROR] Failed to execute goal com.mycila:license-maven-plugin:3.0:check (default) on project openmrs-test: Execution default of goal com.mycila:license-maven-plugin:3.0:check failed: Cannot read header document license-header.txt. Cause: Resource license-header.txt not found in file system, classpath or URL: no protocol: license-header.txt -> [Help 1]
+```
 
 ... then try commenting out the mycila plugin in the main pom of the project
 
