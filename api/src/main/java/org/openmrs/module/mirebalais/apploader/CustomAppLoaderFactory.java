@@ -1526,7 +1526,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(MCHProgram.MCH);
 
-        // ToDo: Fix privileges for these 3 forms
+        // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
         extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
                 "icon-gift",
