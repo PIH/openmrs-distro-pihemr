@@ -1552,9 +1552,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
     }
 
-    private void enableMentalHealth() {
-
-        configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+    private void enableMentalHealthForm() {
 
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                 "pih.task.mentalHealth.label",
@@ -1564,7 +1562,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
-                // will we need this template after we stop using old patient visits view?
+        // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-user", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
@@ -2209,8 +2207,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
+            enableMentalHealthForm();
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            enableMentalHealth();
+            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+        }
+
+        if (config.isComponentEnabled(Components.MENTAL_HEALTH_FORM)) {
+            enableMentalHealthForm();
+        }
+
+        if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
+            supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
+            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
