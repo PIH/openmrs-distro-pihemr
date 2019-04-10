@@ -25,6 +25,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
@@ -2180,6 +2181,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
+
+        if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
+            supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
+            configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+        }
 
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
             supportedPrograms.add(DiabetesProgram.DIABETES.uuid());
