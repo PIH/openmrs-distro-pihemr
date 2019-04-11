@@ -27,12 +27,7 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
-import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
-import org.openmrs.module.mirebalais.setup.ArchivesSetup;
-import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
-import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
-import org.openmrs.module.mirebalais.setup.PrinterSetup;
-import org.openmrs.module.mirebalais.setup.ReportSetup;
+import org.openmrs.module.mirebalais.setup.*;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -42,12 +37,8 @@ import org.openmrs.module.reporting.report.definition.service.ReportDefinitionSe
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.ui.framework.page.GlobalResourceIncluder;
 import org.openmrs.ui.framework.page.PageFactory;
-import org.openmrs.ui.framework.page.PageModelConfigurator;
 import org.openmrs.ui.framework.resource.Resource;
 import org.openmrs.util.OpenmrsConstants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
