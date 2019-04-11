@@ -27,6 +27,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -2190,6 +2191,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
             supportedPrograms.add(DiabetesProgram.DIABETES.uuid());
             enableDiabetesProgram();
+        }
+
+        if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
+            supportedPrograms.add(EpilepsyProgram.EPILEPSY.uuid());
+            configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
