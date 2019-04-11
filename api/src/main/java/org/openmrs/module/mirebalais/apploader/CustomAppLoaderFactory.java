@@ -1524,9 +1524,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableMCH() {
-
-        configureBasicProgramDashboard(MCHProgram.MCH);
+    private void enableMCHForms() {
 
         // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
         extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
@@ -1552,6 +1550,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
+    }
+
+    private void enableMCHProgram() {
+
+        configureBasicProgramDashboard(MCHProgram.MCH);
+
     }
 
     private void enableMentalHealthForm() {
@@ -2239,8 +2243,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.MCH)) {
+            enableMCHForms();
             supportedPrograms.add(MCHProgram.MCH.uuid());
-            enableMCH();
+            enableMCHProgram();
+        }
+
+        if (config.isComponentEnabled(Components.MCH_FORMS)) {
+            enableMCHForms();
+        }
+
+        if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
+            supportedPrograms.add(MCHProgram.MCH.uuid());
+            enableMCHProgram();
         }
 
         // TODO better/more granular privileges?
