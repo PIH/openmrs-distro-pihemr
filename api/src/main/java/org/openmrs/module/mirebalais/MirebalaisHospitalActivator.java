@@ -43,7 +43,10 @@ import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.ui.framework.page.GlobalResourceIncluder;
 import org.openmrs.ui.framework.page.PageFactory;
 import org.openmrs.ui.framework.resource.Resource;
+import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.openmrs.util.OpenmrsConstants;
+
+import java.io.File;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -180,13 +183,18 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
      * @param config
      */
     private void includeGlobalResources(Config config) {
-        PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
-        GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
         String cssResourcePath = "styles/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_CSS);
-        String jsResourcePath = "scripts/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_JS);
-        globalResourceIncluder.addResource(new Resource(Resource.CATEGORY_CSS, MirebalaisConstants.MIREBALAIS_MODULE_ID, cssResourcePath, -100));
-        globalResourceIncluder.addResource(new Resource(Resource.CATEGORY_JS, MirebalaisConstants.MIREBALAIS_MODULE_ID, jsResourcePath, null));
-        pageFactory.getModelConfigurators().add(globalResourceIncluder);
+        String providerName = MirebalaisConstants.MIREBALAIS_MODULE_ID;
+
+        ResourceFactory resourceFactory = ResourceFactory.getInstance();
+        File resource = resourceFactory.getResource(providerName, cssResourcePath);
+
+        if (resource != null) {
+            PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
+            GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
+            globalResourceIncluder.addResource(new Resource(Resource.CATEGORY_CSS, providerName, cssResourcePath, -100));
+            pageFactory.getModelConfigurators().add(globalResourceIncluder);
+        }
     }
 
     /**
