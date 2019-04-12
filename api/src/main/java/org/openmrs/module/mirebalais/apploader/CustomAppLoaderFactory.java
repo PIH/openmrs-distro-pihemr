@@ -25,7 +25,9 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -1523,9 +1525,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableMCH() {
-
-        configureBasicProgramDashboard(MCHProgram.MCH);
+    private void enableMCHForms() {
 
         // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
         extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
@@ -1551,6 +1551,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
+    }
+
+    private void enableMCHProgram() {
+
+        configureBasicProgramDashboard(MCHProgram.MCH);
+
     }
 
     private void enableMentalHealthForm() {
@@ -2182,9 +2188,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         List<String> supportedPrograms = new ArrayList<String>();
 
+        if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
+            supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
+            configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+        }
+
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
             supportedPrograms.add(DiabetesProgram.DIABETES.uuid());
             enableDiabetesProgram();
+        }
+
+        if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
+            supportedPrograms.add(EpilepsyProgram.EPILEPSY.uuid());
+            configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
@@ -2228,8 +2244,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.MCH)) {
+            enableMCHForms();
             supportedPrograms.add(MCHProgram.MCH.uuid());
-            enableMCH();
+            enableMCHProgram();
+        }
+
+        if (config.isComponentEnabled(Components.MCH_FORMS)) {
+            enableMCHForms();
+        }
+
+        if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
+            supportedPrograms.add(MCHProgram.MCH.uuid());
+            enableMCHProgram();
         }
 
         // TODO better/more granular privileges?
