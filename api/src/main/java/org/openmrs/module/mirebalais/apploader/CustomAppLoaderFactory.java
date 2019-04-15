@@ -31,6 +31,7 @@ import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
@@ -2203,24 +2204,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
         }
 
-        if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
-            supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());
-            enableHypertensionProgram();
-        }
-
         if (config.isComponentEnabled(Components.HIV)) {
             supportedPrograms.add(HIVProgram.HIV.uuid());
             enableHIV();
         }
 
-        if (config.isComponentEnabled(Components.ZIKA)) {
-            supportedPrograms.add(ZikaProgram.ZIKA.uuid());
-            configureBasicProgramDashboard(ZikaProgram.ZIKA);
+        if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
+            supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());
+            enableHypertensionProgram();
         }
 
-        if (config.isComponentEnabled(Components.NCD)) {
-            supportedPrograms.add(NCDProgram.NCD.uuid());
-            enableNCDs();
+        if (config.isComponentEnabled(Components.MALNUTRITION_PROGRAM)) {
+            supportedPrograms.add(MalnutritionProgram.MALNUTRITION.uuid());
+            configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
@@ -2236,6 +2232,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
             configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+        }
+
+        if (config.isComponentEnabled(Components.NCD)) {
+            supportedPrograms.add(NCDProgram.NCD.uuid());
+            enableNCDs();
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
@@ -2256,6 +2257,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
             supportedPrograms.add(MCHProgram.MCH.uuid());
             enableMCHProgram();
+        }
+
+        if (config.isComponentEnabled(Components.ZIKA)) {
+            supportedPrograms.add(ZikaProgram.ZIKA.uuid());
+            configureBasicProgramDashboard(ZikaProgram.ZIKA);
         }
 
         // TODO better/more granular privileges?
