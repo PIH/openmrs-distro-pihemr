@@ -225,6 +225,29 @@ To add a new type of form is to create a new encounter type. See [pihcore PR #10
 
 The Registration form is produced by RegistrationApp based on the configuration specified in [mirebalais/apploader/apps.patientregistration/](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/patientregistration). This also generates some of the Edit Registration forms, but not all of them. RegistrationApp is able to provide View and Edit UI for sections that do not have concept questions. For sections with concept questions, you will need to create a .xml file (like patientRegistration-contact.xml) to define those views.
 
+## Programs
+
+### Enabling a Program
+
+There are a number of programs that come with PIH EMR. Each one has its own component. To enable a program:
+- Enable the component by adding it to `mirebalais-puppet/.../pih-config-mycountry.json`.
+- Ensure the program bundle will be loaded -- check the `@Requires` section of `pihcore/.../MyCountryMetadataToInstallAfterConceptsBundle.java`. If there is no such bundle for your country, you will need to create one.
+    - If you create a `MyCountryMetadataToInstallAfterConceptsBundle`, you will need to call it from `openmrs-module-mirebalaismetadata/.../MirebalaisMetadataActivator.java` in the function `installMetadataBundles`.
+- Ensure you have the concepts required by the program. These are listed in `openmrs-module-pihcore/.../PihCoreConstants.java`. Please see the [MirebalaisMetadata README](https://github.com/PIH/openmrs-module-mirebalaismetadata/blob/master/README.md) for information about concept management.
+
+### Creating a program
+
+1. Create a concept for your program (see the [MirebalaisMetadata README](https://github.com/PIH/openmrs-module-mirebalaismetadata/blob/master/README.md)
+1. Add your new concept, as well as an outcomes concept (the default is fine for most things) to `pihcore/.../PihCoreConstants.java`.
+1. Create a program definition based on `pihcore/.../MentalHealthProgram.java`.
+    1. Be sure to change the name, description, concepts, and UUID.
+1. Create a program bundle based on `pihcore/.../MentalHealthProgramBundle.java`.
+1. Add the bundle to your `mirebalaismetadata/.../MyCountryMetadataToInstallAfterConceptsBundle.java` file (see above, "Enabling a program")
+1. Create a component for your program by adding a line to `pihcore/.../Components.java`.
+1. Document it with the bundle name, your implementation name, and the MDS package name if it's not HUM NCD.
+1. Add a block to CALF (`mirebalais/.../CustomAppLoaderFactory.java`) in the `enablePrograms` function. It should have two lines, one call to `supportedPrograms` and one call to `configureBasicProgramDashboard`.
+1. Enable the component by adding it to `mirebalais-puppet/.../pih-config-mycountry.json`.
+
 ## Country-specific settings
 
 Global properties for a country installation are defined in the mirebalais-puppet repo, .e.g., these two are used for Haiti:
