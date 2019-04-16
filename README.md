@@ -362,9 +362,38 @@ Feel free to make pull requests.
 
 ### Troubleshooting
 
-#### The server isn't reflecting the changes I'm making in code!
+#### I'm getting a NullPointerException immediately on navigating to the EMR
+
+Something like
+```
+UI Framework Error
+Root Error
+java.lang.NullPointerException
+	at org.openmrs.module.appui.fragment.controller.HeaderFragmentController.controller(HeaderFragmentController.java:47)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+...
+```
+
+The error itself is meaningless. What it tells us is that something probably went wrong during initialization. Look at the server logs, probably somewhere between the Liquibase stuff and the error you're seeing.
+
+#### The server isn't reflecting the changes I'm making in code
 
 Make sure that the module you're working on hasn't come un-watched. Look at the `watched.projects` line of `openmrs-server.properties` in the App Data directory.
+
+#### After fixing an error while developing on a metadata bundle, the metadata still isn't updating
+
+When a module fails to start, the next time OpenMRS runs it will not try to start it.
+On realizing this has happened, you may be inclined to start it from the Admin UI. 
+However, there's a problem. Metadata bundles don't load when starting the mirebalais module via the admin
+UI on an already-running server. Therefore you must always make sure that your modules are enabled prior 
+to running the server, especially after running into problems during initialization.
+
+This can be accomplished by logging in to mysql and running
+```
+update global_property set property_value='true' where property like '%started%';
+```
+
+or by running `invoke enable-modules` if you're using [PyInvoke](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
 
 #### OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
 #### `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
