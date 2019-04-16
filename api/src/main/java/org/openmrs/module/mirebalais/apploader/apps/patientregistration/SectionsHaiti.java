@@ -245,15 +245,12 @@ public class SectionsHaiti extends SectionsDefault {
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
 
-        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers")) {
-
-            if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                    !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {  // reversed to make this null safe
+        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
+                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {
                 s.addQuestion(getHivEmrId());
                 s.addQuestion(getHivDossierNumber());
                 s.addQuestion(getNumeroIdentificationFiscal());
                 s.addQuestion(getCarteDIdentificationNationale());
-            }
         }
 
         return s;
