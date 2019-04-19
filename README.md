@@ -151,8 +151,8 @@ referencing the location of the config files (which you checked out as part of t
 For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
 into your home directory, add the following into the runtime properties:
 
-- pih.config=mirebalais,mirebalais-humci
-- pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+- property.pih.config=mirebalais,mirebalais-humci
+- property.pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 
 Then rerun:
 

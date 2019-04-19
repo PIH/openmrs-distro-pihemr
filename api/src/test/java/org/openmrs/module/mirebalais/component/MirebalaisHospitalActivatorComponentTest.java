@@ -67,13 +67,6 @@ import static org.mockito.Mockito.when;
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "mirebalais,mirebalais-production");
-        return p;
-    }
-
     private MirebalaisHospitalActivator mirebalaisHospitalActivator;
 
     private PihCoreActivator pihCoreActivator;

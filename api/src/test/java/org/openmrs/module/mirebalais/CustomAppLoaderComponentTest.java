@@ -35,13 +35,6 @@ public class CustomAppLoaderComponentTest extends BaseModuleContextSensitiveTest
     @Autowired
     private SocioEconomicConcepts socioEconomicConcepts;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();

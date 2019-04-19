@@ -41,13 +41,6 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private SocioEconomicConcepts socioEconomicConcepts;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "mirebalais");
-        return p;
-    }
-
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
@@ -60,7 +53,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         authenticate();
         deployService.installBundle(socioEconomicConcepts);
 
-        AppDescriptor d = patientRegistrationApp.getAppDescriptor(new Config());
+        AppDescriptor d = patientRegistrationApp.getAppDescriptor(new Config("mirebalais"));
 
         assertThat(d.getId(), is(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getDescription(), is("registrationapp.registerPatient"));

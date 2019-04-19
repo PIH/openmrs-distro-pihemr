@@ -31,13 +31,6 @@ import static org.mockito.Mockito.when;
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "mirebalais,mirebalais-production");
-        return p;
-    };
-
     @Autowired
     private MetadataDeployService deployService;
 

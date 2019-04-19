@@ -25,9 +25,13 @@ connection.password=$MYSQL_PASSWORD
 module.allow_web_admin=true
 auto_update_database=false
 application_data_directory=$OPENMRS_DATA_DIR
-pih.config=$PIH_CONFIG
-pih.config.dir=$PIH_CONFIG_DIR
 EOL
+
+cat > $SERVER_PROPERTIES_FILE <<EOL
+property.pih.config=$PIH_CONFIG
+property.pih.config.dir=$PIH_CONFIG_DIR
+EOL
+
 
 cp $ARTIFACTS_DIR/feature_toggles.properties $OPENMRS_DIR
 

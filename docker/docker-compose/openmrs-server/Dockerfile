@@ -4,6 +4,7 @@ ENV MYSQL_PORT="3306"
 ENV OPENMRS_MEMORY_OPTS="-Xmx2048m -Xms1024m -XX:PermSize=256m -XX:MaxPermSize=512m -XX:NewSize=128m"
 ENV OPENMRS_OTHER_OPTS="-server -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.awt.headlesslib=true"
 ENV OPENMRS_RUNTIME_PROPERTIES_FILE="/openmrs/openmrs-runtime.properties"
+ENV OPENMRS_SERVER_PROPERTIES_FILE="/openmrs/openmrs-server.properties"
 
 ADD openmrs-setenv.sh /usr/share/tomcat7/bin/setenv.sh
 
