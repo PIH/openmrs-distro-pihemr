@@ -119,8 +119,10 @@ it means that there is no root password set and you have to set it following the
 ### Step 3: Set up the environment
 Set up the environment via the following command, chhosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
-*Note that the environment will be set up the directory ~/openmrs/[serverId]*
-*The convention for dbNames are "openmrs_[some name]"*
+
+The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
+
+The convention for dbNames are "openmrs_[some name]".
 
 ```
 $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
@@ -136,7 +138,20 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * Select the JDK to use
 
-### Step 4: Start up the server
+### Step 4: Link the configuration directory into the application data directory
+
+Some sites have a configuration directory under
+`mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config`. To use one, symlink it
+in to you application data directory with
+
+```
+cd ~/openmrs/[serverId]  # cd into the application data directory
+ln -s $(realpath ~/path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/[your-site]/configuration) .
+```
+
+You should then have a symlinked directory at `~/openmrs/[serverId]/configuration`.
+
+### Step 5: Start up the server
 
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
@@ -162,7 +177,7 @@ $ mvn openmrs-sdk:run -DserverId=[serverId]
 
 Startup should take several minutes as it loads in all required metadata, etc, for the first time.
 
-### Step 5: Create a local identifier source
+### Step 6: Create a local identifier source
 After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
   - Log in with the following details:
@@ -191,11 +206,25 @@ need to create a local identifier source to generate "fake" ZL EMR IDs:
 
 ## Address
 
-Address configuration happens in a few places.
+There are two parts to address configuration.
 
-First there is the Address Hierarchy module configuration, which manages the address hierarchy data in MySQL. This is done by extending [pihcore/.../AddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/0c0eb626f7da4be65fc02e60f92775af952bad6c/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/AddressBundle.java), e.g. into [pihcore/.../LiberiaAddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/3d18f1fec0c42dc8623b83cec3f3bbac76bae6dd/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaAddressBundle.java).
+First there is the Address Hierarchy module configuration, which manages the address hierarchy
+data in MySQL. This is done by adding
+[AddressHierarchy config files](https://wiki.openmrs.org/display/docs/Address+Hierarchy+Advanced+Features) (see "Activator Loading of Address Configuration & Entries") to the directory
+`mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/<config_dir>/configuration/addresshierarchy/`.
+`config_dir` is specified in your site hieradata file, see e.g.
+[ces-reforma.yaml](https://github.com/PIH/mirebalais-puppet/blob/958cd55a35c4559cd7f4eea0dd0bc416288e1a63/hieradata/ces-reforma.yaml#L4).
 
-Some things are not encoded in the data, and need to be pulled from the config at runtime. Right now these are the shortcut field and the manual fields. These are configured in the addressConfig tree in your config JSON file that lives in mirebalais-puppet. These options are used by [mirebalais/.../PatientRegistrationApp](https://github.com/PIH/openmrs-module-mirebalais/blob/8a565656ff335cd28dcb310c0b1c4de3dcd4d62f/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/PatientRegistrationApp.java). If you don’t provide this configuration, this file provides defaults.
+The old way of configuring AddressHierarchy is to create an address bundle, see e.g.
+[LiberiaAddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/bad14820b7f3e10849b7f9461d84e43d4d49a516/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaAddressBundle.java).
+Now that AddressHierarchy has built-in config file support, this is deprecated.
+
+Then there's the RegistrationApp configuration with respect to addresses. The two settings of note
+here are the shortcut field and the manual (i.e., free-text) fields. These are configured in the
+addressConfig tree in your PIH config file (the ones in 
+`mirebalais-puppet/mirebalais-modules/openmrs/files/config`). These options are handled by 
+[mirebalais/.../PatientRegistrationApp](https://github.com/PIH/openmrs-module-mirebalais/blob/8a565656ff335cd28dcb310c0b1c4de3dcd4d62f/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/PatientRegistrationApp.java).
+If you don’t provide this configuration, this file provides defaults.
 
 ## Apps & Components
 
