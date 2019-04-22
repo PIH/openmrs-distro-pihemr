@@ -130,6 +130,10 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * When prompted, set the port to debug on (standard is 1044)
 
+* When prompted, specify the config files you'd like to use (e.g. `mirebalais,mirebalais-humci`)
+
+* When prompted, specify the path to the directory where the config files are. Something like `/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config`
+
 * Select which database you'd like to use
 
 * If you are connecting to a MySQL 5.6 instance running on your local machine, specifc the URI, and a username and password to connect to the DB
@@ -142,25 +146,9 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 $ mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 
-It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
-
-After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
-
-You will need to add two lines to these file, one specifying which of our configs to use for this server, and another
-referencing the location of the config files (which you checked out as part of the mirebalais-puppet project above).
-For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
-into your home directory, add the following into the runtime properties:
-
-- property.pih.config=mirebalais,mirebalais-humci
-- property.pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
-
-Then rerun:
-
-```
-$ mvn openmrs-sdk:run -DserverId=[serverId]
-```
-
-Startup should take several minutes as it loads in all required metadata, etc, for the first time.
+It should run for several minutes, setting up the database, (you may have to
+go to http://localhost:8080/openmrs to trigger this). It may appear to fail
+eventually -- if this happens, just restart the server.
 
 ### Step 5: Create a local identifier source
 After startup, login
