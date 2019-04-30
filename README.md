@@ -57,6 +57,7 @@ This repository/implementation supports several different sites.
 
 - Liberia
   - Pleebo Health Center
+  - JJ Dossen Health Center
 
 - Sierra Leone
   - Wellbody Health Center
