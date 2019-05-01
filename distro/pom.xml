@@ -374,6 +374,13 @@
                     <version>${orderentryuiVersion}</version>
                     <scope>provided</scope>
                 </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>fhir-omod</artifactId>
+                    <version>${fhirVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
 <!--
                 <dependency>
                     <groupId>org.openmrs.module</groupId>

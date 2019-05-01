@@ -119,6 +119,9 @@
         <require_module version="${attachmentsVersion}">
             org.openmrs.module.attachments
         </require_module>
+        <require_module version="${fhirVersion}">
+            org.openmrs.module.fhir
+        </require_module>
         <require_module version="${legacyuiVersion}">
             org.openmrs.module.legacyui
         </require_module>
