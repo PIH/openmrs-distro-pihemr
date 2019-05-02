@@ -98,7 +98,6 @@
         <labtrackingappVersion>1.1.0-SNAPSHOT</labtrackingappVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <attachmentsVersion>2.1.0</attachmentsVersion>
-        <fhirVersion>1.18.0</fhirVersion>
         <legacyuiVersion>1.5.0</legacyuiVersion>
         <owaVersion>1.10.0</owaVersion>
         <orderentryuiVersion>1.1.0-SNAPSHOT</orderentryuiVersion>
@@ -542,7 +541,6 @@
             <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
-
 <!--
 
         <dependency>
