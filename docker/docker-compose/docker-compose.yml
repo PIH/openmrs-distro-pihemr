@@ -10,9 +10,10 @@ services:
       - MYSQL_USER=openmrs
       - MYSQL_PORT
       - MYSQL_PASSWORD
+      - INITIAL_DB_FILE
     volumes:
       - mysql-data:/var/lib/mysql
-      - $OPENMRS_ARTIFACT_DIR/initial-db.sql:/initial-db.sql
+      - $INITIAL_DB_FILE:/initial-db.sql
     ports:
     - "$MYSQL_PORT:3306"
 
@@ -23,12 +24,17 @@ services:
       - MYSQL_DATABASE
       - MYSQL_USER
       - MYSQL_PASSWORD
-      - OPENMRS_ARTIFACT_DIR
+      - WEBAPP_DIR
+      - MODULES_DIR
       - PIH_CONFIG_DIR
       - PIH_CONFIG
+      - UI_DEV_FOLDER
+      - UI_DEV_MODULES
     volumes:
       - openmrs-data:/openmrs/data
-      - $OPENMRS_ARTIFACT_DIR:/openmrs/artifacts
+      - $WEBAPP_DIR:/openmrs/artifacts/webapps
+      - $MODULES_DIR:/openmrs/artifacts/modules
+      - $UI_DEV_FOLDER:/openmrs/dev_folder
       - $PIH_CONFIG_DIR:/openmrs/pih_config
     ports:
     - "$OPENMRS_SERVER_PORT:8080"
