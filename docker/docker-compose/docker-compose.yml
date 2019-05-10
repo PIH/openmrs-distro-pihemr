@@ -30,12 +30,14 @@ services:
       - PIH_CONFIG
       - UI_DEV_FOLDER
       - UI_DEV_MODULES
+      - DATA_CONFIG_DIR
     volumes:
       - openmrs-data:/openmrs/data
       - $WEBAPP_DIR:/openmrs/artifacts/webapps
       - $MODULES_DIR:/openmrs/artifacts/modules
       - $UI_DEV_FOLDER:/openmrs/dev_folder
       - $PIH_CONFIG_DIR:/openmrs/pih_config
+      - $DATA_CONFIG_DIR:/openmrs/data/configuration
     ports:
     - "$OPENMRS_SERVER_PORT:8080"
     depends_on:
