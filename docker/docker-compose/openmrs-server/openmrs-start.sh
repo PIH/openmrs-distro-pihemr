@@ -27,6 +27,8 @@ auto_update_database=false
 application_data_directory=$OPENMRS_DATA_DIR
 pih.config=$PIH_CONFIG
 pih.config.dir=$PIH_CONFIG_DIR
+uiFramework.developmentFolder=/openmrs/dev_folder
+uiFramework.developmentModules=$UI_DEV_MODULES
 EOL
 
 cp $ARTIFACTS_DIR/feature_toggles.properties $OPENMRS_DIR
