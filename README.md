@@ -149,6 +149,11 @@ in to you application data directory with
 cd ~/openmrs/[serverId]  # cd into the application data directory
 ln -s $(realpath ~/path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/[your-site]/configuration) .
 ```
+On Mac OS
+```
+cd ~/openmrs/[serverId]  # cd into the application data directory
+ln -s /path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/[your-site]/configuration .
+```
 
 You should then have a symlinked directory at `~/openmrs/[serverId]/configuration`.
 
