@@ -1526,6 +1526,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+        // ToDo: Change roles for echo?  Only residents?
+        extensions.add(visitAction(Extensions.ECHO_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.ECHOCARDIOGRAM.uuid(),
+                "icon-heart-empty",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "echocardiogram") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableMCHForms() {
