@@ -122,6 +122,7 @@ public class CustomAppLoaderConstants {
         public static final String LAB_RESULTS_VISIT_ACTION = "pih.form.labResults";
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
+        public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
 
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
