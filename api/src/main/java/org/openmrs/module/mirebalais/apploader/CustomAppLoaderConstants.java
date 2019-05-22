@@ -123,6 +123,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
         public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
+        public static final String VACCINATION_VISIT_ACTION= "pih.form.vaccination";
 
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
@@ -311,29 +312,34 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,
-            Extensions.CONSULT_NOTE_VISIT_ACTION,
-            Extensions.ADMISSION_NOTE_VISIT_ACTION,
             Extensions.VITALS_CAPTURE_VISIT_ACTION,
-            Extensions.ED_TRIAGE_VISIT_ACTION,
+            Extensions.CONSULT_NOTE_VISIT_ACTION,
+            Extensions.ADMISSION_NOTE_VISIT_ACTION, // ToDo:  Don't think this is in use from action list
             Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
             Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
             Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
+            Extensions.VACCINATION_VISIT_ACTION,
+            Extensions.ED_TRIAGE_VISIT_ACTION,
             Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
             Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
-            Extensions.SURGICAL_NOTE_VISIT_ACTION,
-            Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
-            Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
-            Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.LAB_RESULTS_VISIT_ACTION,
+            Extensions.SURGICAL_NOTE_VISIT_ACTION,
             Extensions.NCD_INITIAL_VISIT_ACTION,
             Extensions.NCD_FOLLOWUP_VISIT_ACTION,
+            Extensions.ECHO_VISIT_ACTION,
+            Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+            Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+            Extensions.MCH_DELIVERY_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
-            Extensions.VCT_VISIT_ACTION,
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
+            Extensions.VCT_VISIT_ACTION,
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
+            Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
+            Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
+            Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.CHEMO_RECORDING_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
