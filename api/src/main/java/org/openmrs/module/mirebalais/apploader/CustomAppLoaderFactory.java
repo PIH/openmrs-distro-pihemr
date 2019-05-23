@@ -1568,9 +1568,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCHProgram() {
-
         configureBasicProgramDashboard(MCHProgram.MCH);
+    }
 
+    private void enableVaccinationOnly() {
+        extensions.add(visitAction(Extensions.VACCINATION_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.VACCINATION.uuid(),
+                "icon-umbrella",
+                "link",
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "vaccination-only") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                Privileges.TASK_EMR_ENTER_VACCINATION.privilege(),
+                and(sessionLocationHasTag(LocationTags.VACCINATION_LOCATION))));
     }
 
     private void enableMentalHealthForm() {
@@ -2250,6 +2258,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.NCD)) {
             supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
+        }
+
+        if (config.isComponentEnabled(Components.VACCINATION_FORM)) {
+            enableVaccinationOnly();
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
