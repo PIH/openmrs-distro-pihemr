@@ -246,13 +246,15 @@ Person Attributes should be added to the section with id `demographics`. Other r
 
 ## Forms
 
-Forms live in [openmrs-module-pihcore/omod/src/main/webapp/resources/htmlforms](https://github.com/PIH/openmrs-module-pihcore/tree/master/omod/src/main/webapp/resources/htmlforms) and are edited in code. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out it [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference). Note especially the use of Velocity Expressions, and the content of the default Velocity context.
+Forms live in [pihcore/omod/src/.../resources/htmlforms](https://github.com/PIH/openmrs-module-pihcore/tree/master/omod/src/main/webapp/resources/htmlforms) and are edited in code. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out the [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
 
 See this [example of a check-in form](https://github.com/PIH/openmrs-module-pihcore/blob/master/omod/src/main/webapp/resources/htmlforms/haiti/checkin.xml). 
 
 The application logic that specifies when to display forms, and which form files to use, is found in [CALF](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java). This class is responsible for loading forms from code into the database. It doesn’t always succeed in doing this dynamically, however, when forms are being edited, so as a back-up forms are manually loaded in [mirebalais/setup/HtmlFormSetup](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/setup/HtmlFormSetup.java).
 
 Note that this application logic often depends both on which components are enabled (see "Country-specific settings" below) and which location tags are enabled at the active location, which are set in [openmrs-module-pihcore/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java).
+
+If you want to customize an existing form for your site, copy it into `htmlforms/yoursite`, and make your changes to to copy there. It must have the same name as the default form, and CALF must know that your site has a folder in `htmlforms`.
 
 To view changes to forms with page refreshes, you need to make sure the query string in the address bar contains `breadcrumbOverride=breadcrumbUiOverride`.
 
