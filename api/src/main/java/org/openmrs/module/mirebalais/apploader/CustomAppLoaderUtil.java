@@ -15,6 +15,7 @@ import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
@@ -222,6 +223,18 @@ public class CustomAppLoaderUtil {
 
     static public AppDescriptor addToDiabetesSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToProgramSummaryDashboardFirstColumn(DiabetesProgram.DIABETES, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToEpilepsyDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(EpilepsyProgram.EPILEPSY, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToEpilepsyDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(EpilepsyProgram.EPILEPSY, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToEpilepsySummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(EpilepsyProgram.EPILEPSY, app, provider, fragment);
     }
 
     static public AppDescriptor addToHypertensionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {

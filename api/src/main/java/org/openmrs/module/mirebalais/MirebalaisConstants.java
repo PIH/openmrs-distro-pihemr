@@ -62,6 +62,8 @@ public class MirebalaisConstants {
     public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_QUAL_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String EPI_SEIZURES_BASELINE = "159517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String EPI_SEIZURES = "ba2e9e43-5a9d-423f-a33e-c34765785397";
 
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
