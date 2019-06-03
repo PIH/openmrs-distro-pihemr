@@ -47,7 +47,7 @@ public class RequestMonitoringFilter implements Filter {
 	private static final String NAME = "RequestMonitoringFileAppender";
 	private static final String LOG_FILE_DIR_NAME = "activitylog";
 	private static final String LOG_FILE_NAME = "activity.log";
-	private static final String ENABLED_PROPERTY = "activitylog.enabled";
+	private static final String ENABLED_PROPERTY = "activitylog_enabled";
 
 	private boolean enabled = false;
 
