@@ -49,53 +49,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.A
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToDiabetesDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToDiabetesDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHypertensionDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToHypertensionDashboardSecondColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryDashboardFirstColumn;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToProgramSummaryListPage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummaryContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToRegistrationSummarySecondColumnContent;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToSystemAdministrationPage;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCreateVisit;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.containsExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dailyReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dashboardTab;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.dataExport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.encounterTemplate;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.extension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.fragmentExtension;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.header;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.map;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.monitoringReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overallRegistrationAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.*;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
@@ -2078,6 +2032,38 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    private void enableEpilepsyProgram() {
+
+        configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
+
+        apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SUMMARY,
+                "pih.app.patientSummary.title",
+                "icon-user-md",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestobsforconceptlist",
+                        "icon", "icon-user-md",
+                        "label", "pih.app.patientSummary.title",
+                        "concepts", MirebalaisConstants.EPI_SEIZURES_BASELINE
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SEIZURES,
+                "pih.app.epilepsy.seizureGraph",  // redundant with concept name
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.EPI_SEIZURES,
+                        "maxResults", "10"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+    }
+
     private void enableHypertensionProgram() {
 
         configureBasicProgramDashboard(HypertensionProgram.HYPERTENSION);
@@ -2234,7 +2220,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
             supportedPrograms.add(EpilepsyProgram.EPILEPSY.uuid());
-            configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
+            enableEpilepsyProgram();
         }
 
         if (config.isComponentEnabled(Components.HIV)) {

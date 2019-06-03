@@ -45,6 +45,8 @@ public class CustomAppLoaderConstants {
         public static final String CHW_MGMT = "chw.app.mgmt";
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
+        public static final String EPILEPSY_SUMMARY = "pih.app.epilepsy.summary";
+        public static final String EPILEPSY_SEIZURES = "pih.app.epilepsy.seizures";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
         public static final String PATHOLOGY_TRACKING = "labtracking.app.monitorOrders";
         public static final String LAB_TRACKING = "pih.app.labtracking";
