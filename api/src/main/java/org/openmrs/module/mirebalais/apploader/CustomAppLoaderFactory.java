@@ -25,6 +25,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
@@ -108,6 +109,8 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWith
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
+
+
 @Component("customAppLoaderFactory")
 public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
@@ -166,8 +169,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.VISIT_NOTE)) {
             patientVisitsPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList";
             patientVisitsPageWithSpecificVisitUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview";
-        }
-        else {
+        } else {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
@@ -185,7 +187,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.UHM_VITALS) ||
-                config.isComponentEnabled(Components.VITALS) ) {
+                config.isComponentEnabled(Components.VITALS)) {
             enableVitals();
         }
 
@@ -319,7 +321,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.LABS)) {
-           enableLabs();
+            enableLabs();
         }
 
         if (config.isComponentEnabled(Components.PROGRAMS)) {
@@ -369,7 +371,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         readyForRefresh = false;
     }
 
-    private void configureHeader(Config config){
+    private void configureHeader(Config config) {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
         } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
@@ -451,12 +453,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // currently, this app is hard-coded to the default check-in form and requires archives room (?)
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
-                            "mirebalais.app.patientRegistration.checkin.label",
-                            "icon-paste",
-                            "App: mirebalais.checkin",
+                    "mirebalais.app.patientRegistration.checkin.label",
+                    "icon-paste",
+                    "App: mirebalais.checkin",
                     "/pihcore/checkin/checkin.page?patientId={{patientId}}",
-                       //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
-                            null),
+                    //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
+                    null),
                     sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
         }
 
@@ -465,16 +467,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")),
-                        "Task: mirebalais.checkinForm",
-                        sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+                "Task: mirebalais.checkinForm",
+                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         extensions.add(overallRegistrationAction(Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
                 "icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "liveCheckin")) + andCreateVisit(),
-                    "Task: mirebalais.checkinForm",
-                    sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
+                "Task: mirebalais.checkinForm",
+                sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
@@ -487,14 +489,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.UHM_VITALS)) {
             // custom vitals app used in Mirebalais
             apps.add(addToHomePage(findPatientTemplateApp(Apps.UHM_VITALS,
-                                    "mirebalais.outpatientVitals.title",
-                                    "icon-vitals",
-                                    "App: mirebalais.outpatientVitals",
-                                    "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
-                                    null),
+                    "mirebalais.outpatientVitals.title",
+                    "icon-vitals",
+                    "App: mirebalais.outpatientVitals",
+                    "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
+                    null),
                     sessionLocationHasTag(LocationTags.VITALS_LOCATION)));
-        }
-        else {
+        } else {
             apps.add(addToHomePage(app(Apps.VITALS,
                     "pihcore.vitalsList.title",
                     "icon-vitals",
@@ -516,18 +517,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
-                        "mirebalais.mostRecentVitals.label",
-                        "icon-vitals",
-                        null,
-                        "App: mirebalais.outpatientVitals",
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.VITALS.uuid(),
-                                "editable", Boolean.TRUE,
-                                "edit-provider", "htmlformentryui",
-                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                                "definitionUiResource", determineHtmlFormPath(config, "vitals"),
-                                "returnProvider", "coreapps",
-                                "returnPage", "clinicianfacing/patient"));
+                "mirebalais.mostRecentVitals.label",
+                "icon-vitals",
+                null,
+                "App: mirebalais.outpatientVitals",
+                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                        "encounterTypeUuid", EncounterTypes.VITALS.uuid(),
+                        "editable", Boolean.TRUE,
+                        "edit-provider", "htmlformentryui",
+                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                        "definitionUiResource", determineHtmlFormPath(config, "vitals"),
+                        "returnProvider", "coreapps",
+                        "returnPage", "clinicianfacing/patient"));
 
         apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(mostRecentVitals, Apps.HIV_LAST_VITALS), "coreapps", "encounter/mostRecentEncounter"));
@@ -560,7 +561,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
     }
 
-    private void  enableEDConsult() {
+    private void enableEDConsult() {
 
         extensions.add(visitAction(Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
                 "emr.ed.consult.title",
@@ -584,11 +585,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode("patientPageUrl", config.getDashboardUrl()))));
 
         apps.add(addToHomePage(app(Apps.INPATIENTS,
-                                "mirebalaisreports.app.inpatients.label",
-                                "icon-list-ol",
-                                "mirebalaisreports/inpatientList.page",
-                                "App: emr.inpatients",
-                                null),
+                "mirebalaisreports.app.inpatients.label",
+                "icon-list-ol",
+                "mirebalaisreports/inpatientList.page",
+                "App: emr.inpatients",
+                null),
                 sessionLocationHasTag(LocationTags.INPATIENTS_APP_LOCATION)));
 
         extensions.add(awaitingAdmissionAction(Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
@@ -691,11 +692,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_ORDERS_APP,
-                            "radiologyapp.app.orders",
-                            "icon-camera",
-                            "null",
-                            "Task: org.openmrs.module.radiologyapp.tab",
-                            null),
+                    "radiologyapp.app.orders",
+                    "icon-camera",
+                    "null",
+                    "Task: org.openmrs.module.radiologyapp.tab",
+                    null),
                     "radiologyapp", "radiologyOrderSection"));
 
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_APP,
@@ -722,11 +723,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // TODO change this to use the coreapps find patient app?
         apps.add(addToHomePage(app(Apps.DISPENSING,
-                        "dispensing.app.label",
-                        "icon-medicine",
-                        "dispensing/findPatient.page",
-                        "App: dispensing.app.dispense",
-                        null),
+                "dispensing.app.label",
+                "icon-medicine",
+                "dispensing/findPatient.page",
+                "App: dispensing.app.dispense",
+                null),
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
@@ -775,7 +776,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
-        }
+    }
 
     private void enableOverviewReports() {
 
@@ -790,7 +791,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
-            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())) {
+            if (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite())) {
 
                 if (report.getCategory() == BaseReportManager.Category.OVERVIEW) {
                     extensions.add(overviewReport("mirebalaisreports.overview." + report.getName(),
@@ -799,8 +800,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "App: reportingui.reports",
                             report.getOrder(),
                             "mirebalaisreports-" + report.getName() + "-link"));
-                }
-                else if (report.getCategory() == BaseReportManager.Category.DAILY) {
+                } else if (report.getCategory() == BaseReportManager.Category.DAILY) {
                     extensions.add(dailyReport("mirebalaisreports.dailyReports." + report.getName(),
                             report.getMessageCodePrefix() + "name",
                             report.getUuid(),
@@ -837,7 +837,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     1,
                     map("linkId", "mirebalaisreports-checkinoverview-link")));
 
-        } else if ( config.getCountry() == ConfigDescriptor.Country.HAITI ) {
+        } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
             // special non-coded report in it's own section for Haiti
             extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
                     "mirebalaisreports.noncodeddiagnoses.name",
@@ -881,7 +881,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.MONITORING &&
-                    (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
+                    (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite()))) {
                 extensions.add(monitoringReport("mirebalaisreports.monitoring." + report.getName(),
                         report.getMessageCodePrefix() + "name",
                         report.getUuid(),
@@ -909,7 +909,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
-                (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite()))) {
+                    (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite()))) {
                 extensions.add(dataExport("mirebalaisreports.dataExports." + report.getName(),
                         report.getMessageCodePrefix() + "name",
                         report.getUuid(),
@@ -1081,7 +1081,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong")),
-                        "dashboardUrl", (config.getAfterMergeUrl() !=null ) ? (config.getAfterMergeUrl()):(config.getDashboardUrl()) ))));
+                        "dashboardUrl", (config.getAfterMergeUrl() != null) ? (config.getAfterMergeUrl()) : (config.getDashboardUrl())))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.FEATURE_TOGGLES,
                 "emr.advancedFeatures",
@@ -1131,8 +1131,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         //   - in non-mental-health Haiti if the additionalHaitiIdentifiers feature toggle is enabled
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || (
                 featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
-                config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
+                        config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+                        !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ADDITIONAL_IDENTIFIERS,
                     "zl.registration.patient.additionalIdentifiers",
                     "icon-user",
@@ -1145,15 +1145,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
-                        "mirebalais.mostRecentRegistration.label",
-                        "icon-user",
-                        null,
-                        "App: registrationapp.registerPatient",
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-rs"),
-                                "editable", true,
-                                "creatable", true)),
+                "mirebalais.mostRecentRegistration.label",
+                "icon-user",
+                null,
+                "App: registrationapp.registerPatient",
+                objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                        "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                        "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-rs"),
+                        "editable", true,
+                        "creatable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -1182,7 +1182,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) ||
                 (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
+                        !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "icon-user",
@@ -1197,14 +1197,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
-                        "zl.registration.patient.social.label",
-                        "icon-user",
-                        null,
-                        "App: registrationapp.registerPatient",
-                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                                "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                                "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-social"),
-                                "editable", true)),
+                "zl.registration.patient.social.label",
+                "icon-user",
+                null,
+                "App: registrationapp.registerPatient",
+                objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                        "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                        "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-social"),
+                        "editable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
@@ -1241,11 +1241,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ID_CARD_PRINTING_STATUS,
-                            "zl.registration.patient.idcard.status",
-                            "icon-barcode",
-                            null,
-                            "App: registrationapp.registerPatient",
-                            null),
+                    "zl.registration.patient.idcard.status",
+                    "icon-barcode",
+                    null,
+                    "App: registrationapp.registerPatient",
+                    null),
                     "mirebalais",
                     "patientRegistration/idCardStatus"));
         }
@@ -1306,12 +1306,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             extensions.add(overallRegistrationAction(Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,
-                "zl.registration.patient.idcard.label",
-                "icon-barcode",
-                "link",
-                "mirebalais/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
-                "App: registrationapp.registerPatient",
-                null));
+                    "zl.registration.patient.idcard.label",
+                    "icon-barcode",
+                    "link",
+                    "mirebalais/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
+                    "App: registrationapp.registerPatient",
+                    null));
         }
 
         // TODO hack for Sierra Leone, clean up if we actually use this, make an actual component for for, remove if we don't use it
@@ -1351,7 +1351,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon-zoom-in",
                 "mirebalais/mpi/findPatient.page",
                 "App: mirebalais.mpi",
-                null)) );
+                null)));
     }
 
     private void enableClinicianDashboard() {
@@ -1367,11 +1367,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )));
 
         AppDescriptor visitSummary = app(Apps.VISITS_SUMMARY,
-                        "coreapps.clinicianfacing.visits",
-                        "icon-calendar",
-                        null,
-                        null,
-                        null);
+                "coreapps.clinicianfacing.visits",
+                "icon-calendar",
+                null,
+                null,
+                null);
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
@@ -1389,11 +1389,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableAllergies() {
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.ALLERGY_SUMMARY,
-                        "allergyui.allergies",
-                        "icon-medical",
-                        null,
-                        null,
-                        null),
+                "allergyui.allergies",
+                "icon-medical",
+                null,
+                null,
+                null),
                 "allergyui", "allergies"));
     }
 
@@ -1551,7 +1551,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
@@ -1559,7 +1559,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
@@ -1567,7 +1567,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+    }
+
+    private void enableANCProgram() {
+        configureBasicProgramDashboard(ANCProgram.ANC);
     }
 
     private void enableMCHProgram() {
@@ -1590,7 +1594,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.mentalHealth.label",
                 "icon-user",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth")  + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
@@ -1687,7 +1691,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(EncounterTemplates.ED_TRIAGE), "icon-ambulance", false, true,
                 "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}&editable=true",
                 null);
-        }
+    }
 
     private void enableEDTriageQueue() {
         apps.add(addToHomePage(app(Apps.ED_TRIAGE_QUEUE,
@@ -1708,10 +1712,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                    or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
@@ -1720,10 +1724,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                    or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
@@ -1732,10 +1736,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                    or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
@@ -1744,10 +1748,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 null,
                 and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                    or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableHIV() {
@@ -1756,7 +1760,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // ZL HIV forms
         Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
-        "pih.task.hivIntake.label",
+                "pih.task.hivIntake.label",
                 "icon-asterisk",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
@@ -1792,7 +1796,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                HIVProgram.HIV.uuid()+".includeFragments",
+                HIVProgram.HIV.uuid() + ".includeFragments",
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
         // additional columns to add to the HIV Program Dashboard
@@ -2212,6 +2216,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enablePrograms(Config config) {
 
         List<String> supportedPrograms = new ArrayList<String>();
+
+        if (config.isComponentEnabled(Components.ANC_PROGRAM)) {
+            supportedPrograms.add(ANCProgram.ANC.uuid());
+            enableANCProgram();
+        }
 
         if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
             supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
