@@ -131,8 +131,15 @@
         ${project.parent.groupId}.${project.parent.artifactId}.MirebalaisHospitalActivator
     </activator>
 
-    <mappingFiles>
-    </mappingFiles>
+    <filter>
+        <filter-name>RequestMonitoringFilter</filter-name>
+        <filter-class>org.openmrs.module.mirebalais.RequestMonitoringFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RequestMonitoringFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 
     <!-- All message codes should start with ${project.parent.artifactId}. -->
     <messages>
