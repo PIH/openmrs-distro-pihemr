@@ -18,6 +18,7 @@ import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
@@ -249,16 +250,16 @@ public class CustomAppLoaderUtil {
         return addToProgramSummaryDashboardFirstColumn(HypertensionProgram.HYPERTENSION, app, provider, fragment);
     }
 
-    static public AppDescriptor addToNCDDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
+    static public AppDescriptor addToMalnutritionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(MalnutritionProgram.MALNUTRITION, app, provider, fragment);
     }
 
-    static public AppDescriptor addToNCDDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(NCDProgram.NCD, app, provider, fragment);
+    static public AppDescriptor addToMalnutritionDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(MalnutritionProgram.MALNUTRITION, app, provider, fragment);
     }
 
-    static public AppDescriptor addToNCDSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
+    static public AppDescriptor addToMalnutritionSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(MalnutritionProgram.MALNUTRITION, app, provider, fragment);
     }
 
     static public AppDescriptor addToMHDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
@@ -271,6 +272,18 @@ public class CustomAppLoaderUtil {
 
     static public AppDescriptor addToMHSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToProgramSummaryDashboardFirstColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToNCDDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToNCDDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(NCDProgram.NCD, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToNCDSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(NCDProgram.NCD, app, provider, fragment);
     }
 
     static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
