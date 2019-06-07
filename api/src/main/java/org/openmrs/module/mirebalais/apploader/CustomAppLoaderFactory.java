@@ -2108,6 +2108,38 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxResults", "10"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableMalnutritionProgram() {
+        configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
+
+        apps.add(addToMalnutritionDashboardSecondColumn(app(Apps.MALNUTRITION_BMI_GRAPH,
+                "pih.app.weightHeightGraph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.weightHeightGraph.title",
+                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
+                        "function", "(bmi, " + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", " + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
+                        "maxResults", "12"  // TODO what should this be?
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToMalnutritionDashboardSecondColumn(app(Apps.HEAD_CIRCUMFERENCE_GRAPH,
+                "pih.app.headCircumferenceGraph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.HEAD_CIRC_CONCEPT_UUID,
+                        "maxResults", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
 
     }
 
@@ -2235,7 +2267,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MALNUTRITION_PROGRAM)) {
             supportedPrograms.add(MalnutritionProgram.MALNUTRITION.uuid());
-            configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
+            enableMalnutritionProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
