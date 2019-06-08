@@ -244,6 +244,24 @@ RegistrationApp is configured in `mirebalais/.../apps/patientregistration/`. `Se
   
 Person Attributes should be added to the section with id `demographics`. Other registration components should be added elsewhere. For these, you will also need to edit the corresponding registration form section, `pihcore/.../htmlforms/patientRegistration-<section>.xml`. This XML file is what is used by the registration dashboard to configure the "view" widget, as well as the "edit registration" forms.
 
+## Diagnoses
+
+In OpenMRS, the list of diagnoses to use is the set of all diagnosis concepts contained
+in the concept sets of diagnoses contained in the set of sets of diagnoses named by
+the global property `emr.concept.diagnosisSetOfSets`. Read that carefully.
+
+To break it down a bit:
+1. Create a concept on the Concepts server called something like "MySite primary care diagnosis set" or simply "MySite diagnosis".
+1. Set this concept to be a ConvSet (with datatype NA), and check that it is a set.
+1. Add all the diagnoses you want to it.
+1. Create a concept on the Concepts server called something like "MySite diagnosis set of sets"
+1. Set this concept to be a ConvSet (with datatype NA), and check that it is a set.
+1. Add "MySite primary care diagnosis set" (or whatever you called the other concept) to it.
+1. Export a new version of the MDS package "HUM Clinical Concepts", adding "MySite diagnosis set of sets" to it.
+1. Update that MDS package in mirebalaismetadata.
+1. Add to [pihcore/.../GlobalPropertiesBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/core/GlobalPropertiesBundle.java) a line resembling `public static final String LIBERIA_DIAGNOSIS_SET_OF_SETS = "ed97232b-1a09-4260-b06c-d193107c32a7";`, but with your site name and the UUID of your "MySite diagnosis set of sets" concept.
+1. Add to your site's MetadataBundle file a line like `properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.LIBERIA_DIAGNOSIS_SET_OF_SETS);`, but with the constant that you just added to GlobalPropertiesBundle. See for example [pihcore/.../LiberiaMetadataBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java).
+
 ## Forms
 
 Forms live in [pihcore/omod/src/.../resources/htmlforms](https://github.com/PIH/openmrs-module-pihcore/tree/master/omod/src/main/webapp/resources/htmlforms) and are edited in code. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out the [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
