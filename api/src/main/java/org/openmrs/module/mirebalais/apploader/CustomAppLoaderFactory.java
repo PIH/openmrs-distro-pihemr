@@ -286,6 +286,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableRelationships();
         }
 
+        if (config.isComponentEnabled(Components.PROVIDER_RELATIONSHIPS)) {
+            enableProviderRelationships();
+        }
+
         if (config.isComponentEnabled(Components.EXPORT_PATIENTS)) {
             enableExportPatients();
         }
@@ -1110,6 +1114,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "creatable", true)),
                 "coreapps",
                 "encounter/mostRecentEncounter"));
+
+        if (config.isComponentEnabled(Components.PROVIDER_RELATIONSHIPS)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,
+                    "pihcore.providerRelationshipsDashboardWidget.label",
+                    "icon-group",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "relationships",
+                            "baseAppPath", "/registrationapp",
+                            "editable", "true",
+                            "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                            "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                            "icon", "icon-group",
+                            "label", "pihcore.providerRelationshipsDashboardWidget.label"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
 
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
@@ -2423,6 +2447,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore/export/importPatients.page",
                 "App: emr.systemAdministration",
                 null)));
+    }
+
+    private void enableProviderRelationships() {
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
+                "pihcore.providerRelationshipsDashboardWidget.label",
+                "icon-group",
+                null,
+                null,
+                objectNode(
+                    "widget", "relationships",
+                    "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                    "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                    "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                    "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                    "icon", "icon-group",
+                    "label", "pihcore.providerRelationshipsDashboardWidget.label"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableRelationships() {

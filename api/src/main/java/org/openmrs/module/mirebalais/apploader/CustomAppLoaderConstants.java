@@ -52,8 +52,10 @@ public class CustomAppLoaderConstants {
         public static final String LAB_TRACKING = "pih.app.labtracking";
         public static final String LABS = "pih.app.labs.label";
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
-        public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registration.summary";
-        public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinical.summary";
+        public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registrationSummary";
+        public static final String PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.providers.registrationSummary";
+        public static final String RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.clinicalSummary";
+        public static final String PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.providers.clinicalSummary";
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
@@ -384,6 +386,7 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.APPOINTMENT_SCHEDULING_HOME,
+            Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
             Apps.RADIOLOGY_ORDERS_APP,
             Apps.DISPENSING_SUMMARY
@@ -409,6 +412,7 @@ public class CustomAppLoaderConstants {
             Apps.ADDITIONAL_IDENTIFIERS,
             Apps.MOST_RECENT_REGISTRATION_CONTACT,
             Apps.BIOMETRICS_SUMMARY,
+            Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,
             Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
             Apps.MOST_RECENT_CHECK_IN,
             Apps.ID_CARD_PRINTING_STATUS
