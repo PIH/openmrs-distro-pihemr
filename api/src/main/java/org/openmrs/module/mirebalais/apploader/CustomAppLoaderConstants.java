@@ -2,9 +2,13 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -277,9 +281,17 @@ public class CustomAppLoaderConstants {
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);
 
+    // The idiosyncratic ordering of these items is due to the fact that the ones used
+    // in English and French -speaking places are alphebetized in English and the ones
+    // used in Spanish-speaking places are alphebetized in Spanish.
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
+            "pih.app." + AsthmaProgram.ASTHMA.uuid() + ".programSummary.dashboard",
+            "pih.app." + MalnutritionProgram.MALNUTRITION.uuid() + ".programSummary.dashboard",
+            "pih.app." + DiabetesProgram.DIABETES.uuid() + ".programSummary.dashboard",
+            "pih.app." + EpilepsyProgram.EPILEPSY.uuid() + ".programSummary.dashboard",
             "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
             "pih.app." + HypertensionProgram.HYPERTENSION.uuid() + ".programSummary.dashboard",
+            "pih.app." + ANCProgram.ANC.uuid() + ".programSummary.dashboard",
             "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
@@ -374,6 +386,7 @@ public class CustomAppLoaderConstants {
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
             Apps.RADIOLOGY_ORDERS_APP,
+            Apps.BMI_GRAPH + ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN,
             Apps.DISPENSING_SUMMARY
     );
 

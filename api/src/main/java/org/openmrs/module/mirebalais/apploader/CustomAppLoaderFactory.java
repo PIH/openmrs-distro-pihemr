@@ -1366,6 +1366,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
 
+        if (config.isComponentEnabled(Components.BMI_ON_CLINICIAN_DASHBOARD)) {
+            apps.add(addToClinicianDashboardFirstColumn(
+                    graphs.getBmiGraph(ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN),
+                    "coreapps",
+                    "dashboardwidgets/dashboardWidget"));
+        }
+
         // link for new pihcore visit view
         //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
 
