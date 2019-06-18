@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
@@ -59,7 +60,6 @@ public class CustomAppLoaderConstants {
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
-        public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weighGraph";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
         public static final String HIV_OBS_CHART = "pih.app.hiv.obsChart";
@@ -69,20 +69,17 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
         public static final String CONDITION_LIST = "coreapps.conditionList";
         public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
-        public static final String BLOOD_PRESSURE_SYSTOLIC_GRAPH = "pih.app.bloodPressure.systolicGraph";
-        public static final String BLOOD_PRESSURE_DIASTOLIC_GRAPH = "pih.app.bloodPressure.diastolicGraph";
+        public static final String BLOOD_PRESSURE_GRAPH = "pih.app.bloodPressure.graph";
         public static final String BLOOD_PRESSURE_OBS_TABLE = "pih.app.bloodPressure.obsTable";
         public static final String GLUCOSE_GRAPH = "pih.app.glucoseGraph";
         public static final String HBA1C_GRAPH = "pih.app.hba1cGraph";
         public static final String HEAD_CIRCUMFERENCE_GRAPH = "pih.app.headCircumferenceGraph";
-        public static final String MALNUTRITION_BMI_GRAPH = "pih.app.malnutritionBmiGraph";
+        public static final String BMI_GRAPH = "pih.app.bmiGraph";
         public static final String ABDOMINAL_CIRCUMFERENCE_GRAPH = "pih.app.abdominalCircumferenceGraph";
         public static final String FOOT_EXAM_OBS_TABLE = "pih.app.diabetes.footExamObsTable";
         public static final String URINARY_ALBUMIN_OBS_TABLE = "pih.app.diabetes.urinaryAlbuminObsTable";
         public static final String ALC_TOBAC_USE_LINE = "pih.app.alcTobacUseLine";
-        public static final String TOTAL_CHOLESTEROL_GRAPH = "pih.app.cholesterol.totalGraph";
-        public static final String HDL_GRAPH = "pih.app.cholesterol.hdlGraph";
-        public static final String LDL_GRAPH = "pih.app.cholesterol.ldlGraph";
+        public static final String CHOLESTEROL_GRAPH = "pih.app.cholesterol.graph";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -320,6 +317,7 @@ public class CustomAppLoaderConstants {
             Extensions.CHECK_IN_VISIT_ACTION,
             Extensions.VITALS_CAPTURE_VISIT_ACTION,
             Extensions.CONSULT_NOTE_VISIT_ACTION,
+            Extensions.MEXICO_CONSULT_ACTION,
             Extensions.ADMISSION_NOTE_VISIT_ACTION, // ToDo:  Don't think this is in use from action list
             Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
             Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
@@ -368,19 +366,6 @@ public class CustomAppLoaderConstants {
     public static final List<String> AWAITING_ADMISSION_ACTIONS_ORDER = Arrays.asList(
             Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
             Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION);
-
-/*    public static final List<String> REPORTING_OVERVIEW_REPORTS_ORDER = Arrays.asList(
-            Extensions.DAILY_REGISTRATIONS_OVERVIEW_REPORT,
-            Extensions.DAILY_CHECK_INS_OVERVIEW_REPORT,
-            Extensions.DAILY_CLINICAL_ENCOUNTERS_OVERVIEW_REPORT,
-            Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
-            Extensions.MONTHLY_INPATIENTS_OVERVIEW_REPORT);*/
-
-/*    public static final List<String> REPORTING_DATA_EXPORT_REPORTS_ORDER = Arrays.asList(
-            Extensions.USERS_AND_PROVIDERS_DATA_EXPORT,
-            Extensions.LQAS_DATA_EXPORT,
-            Extensions.ALL_PATIENTS_WITH_IDS_DATA_EXPORT,
-            Extensions.APPOINTMENTS_DATA_EXPORT);*/
 
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.CONDITION_LIST,
@@ -450,7 +435,7 @@ public class CustomAppLoaderConstants {
                         // Add Apps.LAB_SUMMARY
                         // Apps.HIV_CD4_GRAPH,
                         Apps.HIV_VISIT_SUMMARY,
-                        Apps.HIV_WEIGHT_GRAPH,
+                        Apps.BMI_GRAPH,
                         // Adverse events & allergies
                         Apps.ALLERGY_SUMMARY,
                         Apps.HIV_LAST_VITALS
