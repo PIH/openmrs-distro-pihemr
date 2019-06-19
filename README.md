@@ -75,7 +75,7 @@ There are a few tools that we use extensively and that all PIH devs should have 
 
 Please install Telegram on your development machine and then ask an existing developer to invite you to the appropriate groups.
 
-* JIRA for managing project, bugs, sprints, etc: https://tickets.pih-emr.org/secure/Dashboard.jspa
+* JIRA for managing project, bugs, sprints, etc: https://pihemr.atlassian.net/secure/Dashboard.jspa
 
 Please request an account by asking another PIH developer or emailing medinfo@pih.org
 

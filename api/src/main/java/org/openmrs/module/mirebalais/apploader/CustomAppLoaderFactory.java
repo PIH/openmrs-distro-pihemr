@@ -12,6 +12,7 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
@@ -70,16 +71,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private final Log log = LogFactory.getLog(getClass());
 
-    @Autowired
     private Config config;
 
-    @Autowired
     private FeatureToggleProperties featureToggles;
 
-    @Autowired
     private PatientRegistrationApp patientRegistrationApp;
 
-    @Autowired
+    private GraphFactory graphs;
+
     private FullDataExportBuilder fullDataExportBuilder;
 
     private List<AppDescriptor> apps = new ArrayList<AppDescriptor>();
@@ -91,6 +90,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private String patientVisitsPageUrl = "";
 
     private String patientVisitsPageWithSpecificVisitUrl = "";
+
+    @Autowired
+    public CustomAppLoaderFactory(Config config,
+                                  FeatureToggleProperties featureToggles,
+                                  PatientRegistrationApp patientRegistrationApp,
+                                  FullDataExportBuilder fullDataExportBuilder,
+                                  GraphFactory graphs) {
+        this.config = config;
+        this.featureToggles = featureToggles;
+        this.patientRegistrationApp = patientRegistrationApp;
+        this.fullDataExportBuilder = fullDataExportBuilder;
+        this.graphs = graphs;
+    }
 
     @Override
     public List<AppDescriptor> getAppDescriptors() throws IOException {
@@ -284,6 +296,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
+        }
+
+        if (config.isComponentEnabled(Components.PROVIDER_RELATIONSHIPS)) {
+            enableProviderRelationships();
         }
 
         if (config.isComponentEnabled(Components.EXPORT_PATIENTS)) {
@@ -1111,6 +1127,26 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "encounter/mostRecentEncounter"));
 
+        if (config.isComponentEnabled(Components.PROVIDER_RELATIONSHIPS)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,
+                    "pihcore.providerRelationshipsDashboardWidget.label",
+                    "icon-group",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "relationships",
+                            "baseAppPath", "/registrationapp",
+                            "editable", "true",
+                            "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                            "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
+                            "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                            "icon", "icon-group",
+                            "label", "pihcore.providerRelationshipsDashboardWidget.label"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
+
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
                     "pihcore.relationshipsDashboardWidget.label",
@@ -1814,38 +1850,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
 
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_WEIGHT_GRAPH,
-                "pih.app.weightHeightGraph.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "label", "pih.app.weightHeightGraph.title",
-                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
-                        "function", "(bmi, " + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", " + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
-                        "maxResults", "20"  // TODO what should this be?
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-
-        // ToDo: CD4 graph is not likely use
-        /*
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_CD4_GRAPH,
-                "pih.app.hivcd4Graph.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "label", "pih.app.hivcd4Graph.title",
-                        "conceptId", MirebalaisConstants.CD4_COUNT_UUID,
-                        "maxResults", "20" // TODO what should this be?
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-        */
+        apps.add(addToHivDashboardSecondColumn(
+                graphs.getBmiGraph(".hiv"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
 
     }
 
@@ -1990,46 +1998,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-
-        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.TOTAL_CHOLESTEROL_GRAPH,
-                "",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.TOTAL_CHOLESTEROL_CONCEPT_UUID,
-                        "maxRecords", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HDL_GRAPH,
-                "",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.HDL_CONCEPT_UUID,
-                        "maxRecords", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToDiabetesDashboardSecondColumn(app(Apps.LDL_GRAPH,
-                "",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.LDL_CONCEPT_UUID,
-                        "maxRecords", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
+        apps.add(addToDiabetesDashboardSecondColumn(
+                graphs.getCholesterolGraph(".diabetes"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableEpilepsyProgram() {
@@ -2068,6 +2040,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(HypertensionProgram.HYPERTENSION);
 
+        apps.add(addToHypertensionDashboardFirstColumn(
+                graphs.getBloodPressureGraph(".htn"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
+
         apps.add(addToHypertensionDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_OBS_TABLE,
                 "pih.app.bloodPressure.obsTable.title",
                 "icon-bar-chart",
@@ -2083,50 +2060,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToHypertensionDashboardSecondColumn(app(Apps.BLOOD_PRESSURE_SYSTOLIC_GRAPH,
-                "",  // redundant with concept name
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID,
-                        "maxResults", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+        apps.add(addToHypertensionDashboardSecondColumn(
+                graphs.getBmiGraph(".htn"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToHypertensionDashboardSecondColumn(app(Apps.BLOOD_PRESSURE_DIASTOLIC_GRAPH,
-                "",  // redundant with concept name
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
-                        "maxResults", "10"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+        apps.add(addToHypertensionDashboardSecondColumn(
+                graphs.getCholesterolGraph(".htn"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableMalnutritionProgram() {
         configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
 
-        apps.add(addToMalnutritionDashboardSecondColumn(app(Apps.MALNUTRITION_BMI_GRAPH,
-                "pih.app.weightHeightGraph.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
-                        "label", "pih.app.weightHeightGraph.title",
-                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
-                        "function", "(bmi, " + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", " + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
-                        "maxResults", "12"  // TODO what should this be?
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+        apps.add(addToMalnutritionDashboardSecondColumn(
+                graphs.getBmiGraph(".malnutrition"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToMalnutritionDashboardSecondColumn(app(Apps.HEAD_CIRCUMFERENCE_GRAPH,
                 "pih.app.headCircumferenceGraph.title",
@@ -2423,6 +2374,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore/export/importPatients.page",
                 "App: emr.systemAdministration",
                 null)));
+    }
+
+    private void enableProviderRelationships() {
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
+                "pihcore.providerRelationshipsDashboardWidget.label",
+                "icon-group",
+                null,
+                null,
+                objectNode(
+                    "widget", "relationships",
+                    "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
+                    "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                    "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                    "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                    "icon", "icon-group",
+                    "label", "pihcore.providerRelationshipsDashboardWidget.label"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableRelationships() {

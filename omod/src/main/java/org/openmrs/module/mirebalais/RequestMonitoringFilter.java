@@ -77,18 +77,23 @@ public class RequestMonitoringFilter implements Filter {
 		long endTime = System.currentTimeMillis();
 		long totalTime = endTime - startTime;
 		if (enabled && request instanceof HttpServletRequest) {
-			HttpServletRequest httpRequest = (HttpServletRequest) request;
-			HttpSession session = httpRequest.getSession();
-			ISO8601DateFormat dateFormat = new ISO8601DateFormat();
-			SimpleObject logLine = new SimpleObject();
-			logLine.put("timestamp", dateFormat.format(new Date(startTime)));
-			logLine.put("sessionId", session.getId());
-			logLine.put("user", session.getAttribute("username"));
-			logLine.put("loadTime", totalTime);
-			logLine.put("method", httpRequest.getMethod());
-			logLine.put("requestPath", httpRequest.getRequestURI());
-			logLine.put("queryParams", formatRequestParams(httpRequest));
-			logger.info(logLine.toJson());
+			try {
+				HttpServletRequest httpRequest = (HttpServletRequest) request;
+				HttpSession session = httpRequest.getSession();
+				ISO8601DateFormat dateFormat = new ISO8601DateFormat();
+				SimpleObject logLine = new SimpleObject();
+				logLine.put("timestamp", dateFormat.format(new Date(startTime)));
+				logLine.put("sessionId", session.getId());
+				logLine.put("user", session.getAttribute("username"));
+				logLine.put("loadTime", totalTime);
+				logLine.put("method", httpRequest.getMethod());
+				logLine.put("requestPath", httpRequest.getRequestURI());
+				logLine.put("queryParams", formatRequestParams(httpRequest));
+				logger.info(logLine.toJson());
+			}
+			catch (Exception e) {
+				// Do nothing, we don't want this filter to cause any adverse behavior
+			}
 		}
 	}
 
