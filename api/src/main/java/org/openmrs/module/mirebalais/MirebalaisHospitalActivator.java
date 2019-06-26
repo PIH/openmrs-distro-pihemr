@@ -147,9 +147,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 }
             }
 
-
             if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
+            }
+
+            if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+                updateGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_THEME, "orange");
             }
 
             includeGlobalResources(config);
