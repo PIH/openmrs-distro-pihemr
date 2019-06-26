@@ -1926,10 +1926,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.asthma.symptomsObsTable.title",
                         "concepts", MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
                                 + MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
-                                + MirebalaisConstants.ASTHMA_NIGHTTIME_SYMPTOMS + ','
                                 + MirebalaisConstants.ASTHMA_MEDS_TWICE_WEEKLY + ','
                                 + MirebalaisConstants.LIMITATION_OF_ACTIVITY,
-                        "maxRecords", "40"  // MEX-127 - should be 3 rows
+                        "maxRecords", "40"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
