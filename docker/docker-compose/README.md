@@ -1,18 +1,24 @@
 # Deploying the PIHEMR Distribution using Docker Compose
 
-This project contains the relevant files to run the PIHEMR distribution using Docker.  It utilizes docker-compose, which enables connecting several independent
-dockerized services together (in this case MySQL and Tomcat), and maintaining configuration for these within a docker-compose.yml file.
+This project contains the relevant files to run the PIHEMR distribution using Docker.  
+It utilizes docker-compose, which enables connecting several independent
+dockerized services together (in this case MySQL and Tomcat), and maintaining configuration 
+for these within a docker-compose.yml file.
 
-If you haven't already done do, you will need to [Install Docker](https://docs.docker.com/) and [Install Docker Compose](https://docs.docker.com/compose/)
+If you haven't already done do, you will need to [Install Docker](https://docs.docker.com/) 
+and [Install Docker Compose](https://docs.docker.com/compose/)
 
 ### Step 1:  Download the necessary deployment artifacts
 
-This Docker container mounts in several host files/directories to provide the webapps, modules, and initial database script.
+This Docker container mounts in several host files/directories to provide the webapps, modules, 
+and initial database script.
 
 ### Step 2:  Adjust the included configuration files as needed
 
-There is a default ".env" file included with the default values.  Overriding this for a "ces" environment, might look like this:
+There is a default ".env" file included with the default values.  Overriding this for a "ces" 
+environment, might look like this:
 
+```
 COMPOSE_PROJECT_NAME=ces
 MYSQL_ROOT_PASSWORD=root
 MYSQL_PASSWORD=openmrs
@@ -23,13 +29,16 @@ OPENMRS_WEBAPPS_PATH=~/environments/ces/webapps
 OPENMRS_MODULES_PATH=~/environments/ces/modules
 MIREBALAIS_PUPPET_PATH=~/code/mirebalais-puppet
 PIH_CONFIG=mexico,mexico-demo
+```
 
 These parameters should be modified to meet your environment.
 
 You may also override the following defaults that are included:
 
+```
 OPENMRS_MEMORY_OPTS="-Xmx2048m -Xms1024m -XX:PermSize=256m -XX:MaxPermSize=512m -XX:NewSize=128m"
 OPENMRS_OTHER_OPTS="-server -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.awt.headlesslib=true"
+```
 
 ### Step 3:  Build images and run the containers for the first time
 
