@@ -63,8 +63,15 @@ public class MirebalaisConstants {
     public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_QUAL_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY = "cc4681ee-95df-4400-9900-23193cdc6592";
+    public static final String ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY = "3672ee1d-ba8e-4748-8ccc-98d70035857b";
+    public static final String ASTHMA_NIGHTTIME_SYMPTOMS = "148273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String ASTHMA_MEDS_TWICE_WEEKLY = "f813d9fa-0842-4862-ae08-5ed30a068207";
+    public static final String LIMITATION_OF_ACTIVITY = "3cdec1aa-26fe-102b-80cb-0017a47871b2";
     public static final String EPI_SEIZURES_BASELINE = "159517AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String EPI_SEIZURES = "ba2e9e43-5a9d-423f-a33e-c34765785397";
+    public static final String PHQ9 = "165137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String GAD7 = "8b8769a9-a8cc-4166-ba2a-2e61fb081be7";
 
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";

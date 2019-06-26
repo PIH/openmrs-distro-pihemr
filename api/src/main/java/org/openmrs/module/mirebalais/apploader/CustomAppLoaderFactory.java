@@ -1912,17 +1912,40 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
 
+    private void enableAsthmaProgram() {
+        configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+
+        apps.add(addToAsthmaDashboardFirstColumn(app(Apps.ASTHMA_SYMPTOMS_OBS_TABLE,
+                "pih.app.asthma.symptomsObsTable.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.asthma.symptomsObsTable.title",
+                        "concepts", MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
+                                + MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
+                                + MirebalaisConstants.ASTHMA_NIGHTTIME_SYMPTOMS + ','
+                                + MirebalaisConstants.ASTHMA_MEDS_TWICE_WEEKLY + ','
+                                + MirebalaisConstants.LIMITATION_OF_ACTIVITY,
+                        "maxRecords", "40"  // MEX-127 - should be 3 rows
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
     private void enableDiabetesProgram() {
 
         configureBasicProgramDashboard(DiabetesProgram.DIABETES);
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
-                "",
+                "pih.app.abdominalCircumference.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.abdominalCircumference.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
                         "maxRecords", "4"
@@ -1957,28 +1980,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_LINE,
-                "pih.app.alcoholTobaccoUseLine.title",
-                "icon-bar-chart",
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_SUMMARY,
+                "pih.app.patientSummary.title",
+                "icon-user-md",
                 null,
                 null,
                 objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
-                        "label", "pih.app.alcoholTobaccoUseLine.title",
+                        "widget", "latestobsforconceptlist",
+                        "icon", "icon-user-md",
+                        "label", "pih.app.patientSummary.title",
                         "concepts", MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID + ','
-                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID,
-                        "maxRecords", "5"  // MEX-127 - should be 1 row
+                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.GLUCOSE_GRAPH,
-                "",
+                "pih.app.glucose.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.glucose.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.GLUCOSE_CONCEPT_UUID,
                         "maxRecords", "12"
@@ -1986,12 +2009,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HBA1C_GRAPH,
-                "",
+                "pih.app.hba1c.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.hba1c.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.HBA1C_CONCEPT_UUID,
                         "maxRecords", "4"
@@ -2022,15 +2046,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SEIZURES,
-                "pih.app.epilepsy.seizureGraph",  // redundant with concept name
+                "pih.app.epilepsy.seizureGraph",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.epilepsy.seizureGraph",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.EPI_SEIZURES,
-                        "maxResults", "10"
+                        "maxResults", "30"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2069,6 +2094,39 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 graphs.getCholesterolGraph(".htn"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+    }
+
+
+    private void enableMentalHealthProgram() {
+        configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+
+        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.PHQ9_GRAPH,
+                "pih.app.phq9.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "label", "pih.app.phq9.graph.title",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.PHQ9,
+                        "maxResults", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
+                "pih.app.gad7.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "label", "pih.app.gad7.graph.title",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.GAD7,
+                        "maxResults", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableMalnutritionProgram() {
@@ -2193,7 +2251,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
             supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
-            configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+            enableAsthmaProgram();
         }
 
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
@@ -2224,7 +2282,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealthForm();
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+            enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_FORM)) {
@@ -2233,7 +2291,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+            enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {
