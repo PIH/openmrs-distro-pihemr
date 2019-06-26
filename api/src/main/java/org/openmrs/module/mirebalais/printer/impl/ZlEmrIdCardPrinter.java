@@ -20,6 +20,7 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.mirebalais.printer.IdPrinter;
 import org.openmrs.module.mirebalais.printer.template.ZplCardTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.pihcore.config.Config;
@@ -41,11 +42,9 @@ import java.util.Map;
 
 /**
  * Encapsulates the functionality needed to print a ZL EMR ID Card
- *
- * TODO: rename? since we are potentially using in Liberia as well
  */
 @Component
-public class ZlEmrIdCardPrinter {
+public class ZlEmrIdCardPrinter implements IdPrinter {
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -63,6 +62,8 @@ public class ZlEmrIdCardPrinter {
 
     @Autowired
     private Config config;
+
+
 
     /**
      * @return true if ZL ID Card printing is possible at the given location

@@ -1304,7 +1304,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null));
         }
 
-        // TODO hack for Sierra Leone, clean up if we actually use this, make an actual component for for, remove if we don't use it
+        // TODO can we get away from hardcoding this based on country?
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             extensions.add(overallRegistrationAction("printLabel",
                     "Print Label",  // TODO convert to message code
@@ -1318,14 +1318,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "patientRegistration/printLabel",
                     null,
                     ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                    null));
-
-            extensions.add(overallAction(Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
-                    "registrationapp.patient.registrationSummary",
-                    "icon-user",
-                    "link",
-                    "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
-                    "App: registrationapp.registerPatient",
                     null));
         }
 
