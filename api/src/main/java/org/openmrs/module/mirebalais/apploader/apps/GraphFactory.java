@@ -20,9 +20,9 @@ public class GraphFactory {
         this.config = config;
     }
 
-    public AppDescriptor getBloodPressureGraph(String idSuffix) {
+    public AppDescriptor getBloodPressureGraph(String extensionPoint) {
         return app(
-                CustomAppLoaderConstants.Apps.BLOOD_PRESSURE_GRAPH + idSuffix,
+                CustomAppLoaderConstants.Apps.BLOOD_PRESSURE_GRAPH + extensionPoint,
                 "pih.app.bloodPressure.graph.title",
                 "icon-bar-chart",
                 null,
@@ -37,9 +37,9 @@ public class GraphFactory {
                 ));
     }
 
-    public AppDescriptor getBmiGraph(String idSuffix) {
+    public AppDescriptor getBmiGraph(String extensionPoint) {
         return app(
-                CustomAppLoaderConstants.Apps.BMI_GRAPH + idSuffix,
+                CustomAppLoaderConstants.Apps.BMI_GRAPH + extensionPoint,
                 "pih.app.bmiGraph.title",
                 "icon-bar-chart",
                 null,
@@ -57,9 +57,9 @@ public class GraphFactory {
                 ));
     }
 
-    public AppDescriptor getCholesterolGraph(String idSuffix) {
+    public AppDescriptor getCholesterolGraph(String extensionPoint) {
         return app(
-                CustomAppLoaderConstants.Apps.CHOLESTEROL_GRAPH + idSuffix,
+                CustomAppLoaderConstants.Apps.CHOLESTEROL_GRAPH + extensionPoint,
                 "pih.app.cholesterolGraph.title",
                 "icon-bar-chart",
                 null,
