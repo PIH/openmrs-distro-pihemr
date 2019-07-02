@@ -12,10 +12,8 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.IdPrinter;
-import org.openmrs.module.mirebalais.printer.impl.IdLabelPrinter;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.ui.framework.SimpleObject;
@@ -39,18 +37,10 @@ public class IdCardFragmentController {
     public SimpleObject printIdCard(UiUtils ui, UiSessionContext uiSessionContext,
                                     @RequestParam("patientId") Patient patient,
                                     @RequestParam(value = "locationId", required = false) Location location,
-                                    @SpringBean IdLabelPrinter idLabelPrinter,
                                     @SpringBean ZlEmrIdCardPrinter zlEmrIdCardPrinter,
                                     @SpringBean Config config) {
-        // TODO change this so we dynamically wire the correct printer bean in instead of wiring in both and picking using an if/then!
-        IdPrinter printer;
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            printer = idLabelPrinter;
-        }
-        else {
-            printer = zlEmrIdCardPrinter;
-        }
+        IdPrinter printer = zlEmrIdCardPrinter;
 
         if (location == null) {
             location = uiSessionContext.getSessionLocation();

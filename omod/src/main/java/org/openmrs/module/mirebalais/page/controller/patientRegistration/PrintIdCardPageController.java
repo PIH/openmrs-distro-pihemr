@@ -5,10 +5,8 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.mirebalais.printer.IdPrinter;
-import org.openmrs.module.mirebalais.printer.impl.IdLabelPrinter;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -23,17 +21,9 @@ public class PrintIdCardPageController {
                            @RequestParam(value="locationId", required=false) Location location,
                            @RequestParam(value="returnUrl", required=false) String returnUrl,
                            @SpringBean ZlEmrIdCardPrinter zlEmrIdCardPrinter,
-                           @SpringBean IdLabelPrinter idLabelPrinter,
                            @SpringBean Config config) {
 
-        IdPrinter printer;
-
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            printer = idLabelPrinter;
-        }
-        else {
-            printer = zlEmrIdCardPrinter;
-        }
+        IdPrinter printer = zlEmrIdCardPrinter;
 
         if (location == null) {
             location = uiSessionContext.getSessionLocation();

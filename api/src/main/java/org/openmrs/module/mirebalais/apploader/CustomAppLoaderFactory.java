@@ -1304,24 +1304,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null));
         }
 
-        // TODO can we get away from hardcoding this based on country?
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            extensions.add(overallRegistrationAction("printLabel",
-                    "Print Label",  // TODO convert to message code
-                    "icon-print",
-                    "script",
-                    "printLabel()",
-                    "Task: emr.printLabels",
-                    null));
-            extensions.add(fragmentExtension("printLabelIncludes",
-                    "mirebalais",
-                    "patientRegistration/printLabel",
-                    null,
-                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                    null));
-        }
-
-
         addPaperRecordActionsIncludesIfNeeded();
 
     }
