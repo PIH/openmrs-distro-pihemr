@@ -1729,7 +1729,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
                     null,
-                    and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
 
         } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
 
