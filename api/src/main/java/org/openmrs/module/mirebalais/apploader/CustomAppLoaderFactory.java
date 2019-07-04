@@ -88,8 +88,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Boolean readyForRefresh = false;
 
     private String patientVisitsPageUrl = "";
-
-    private String patientVisitsPageWithSpecificVisitUrl = "";
+private String patientVisitsPageWithSpecificVisitUrl = "";
 
     @Autowired
     public CustomAppLoaderFactory(Config config,
@@ -256,10 +255,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.PRIMARY_CARE)) {
             enablePrimaryCare();
-        }
-
-        if (config.isComponentEnabled(Components.MEXICO_CLINIC)) {
-            enableMexicoClinic();
         }
 
         if (config.isComponentEnabled(Components.ED_TRIAGE)) {
@@ -1676,53 +1671,88 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePrimaryCare() {
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
+
+            extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
+                    null,
+                    and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
+
+        } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+
+            extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-initial.xml"
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                    null,
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+
+            extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-followup.xml"
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                    null,
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+
+        }
+
     }
 
     private void enableHIV() {
@@ -1880,17 +1910,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 null));
-    }
-
-    private void enableMexicoClinic() {
-
-        extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
-                null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
     }
 
     private void enableAsthmaProgram() {
