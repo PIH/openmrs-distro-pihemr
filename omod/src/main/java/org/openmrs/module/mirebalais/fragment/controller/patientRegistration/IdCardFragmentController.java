@@ -11,7 +11,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.mirebalais.printer.IdPrinter;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.ui.framework.SimpleObject;
@@ -35,7 +37,10 @@ public class IdCardFragmentController {
     public SimpleObject printIdCard(UiUtils ui, UiSessionContext uiSessionContext,
                                     @RequestParam("patientId") Patient patient,
                                     @RequestParam(value = "locationId", required = false) Location location,
-                                    @SpringBean ZlEmrIdCardPrinter printer) {
+                                    @SpringBean ZlEmrIdCardPrinter zlEmrIdCardPrinter,
+                                    @SpringBean Config config) {
+
+        IdPrinter printer = zlEmrIdCardPrinter;
 
         if (location == null) {
             location = uiSessionContext.getSessionLocation();

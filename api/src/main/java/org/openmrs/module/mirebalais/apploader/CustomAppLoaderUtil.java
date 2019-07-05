@@ -14,6 +14,7 @@ import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
@@ -214,6 +215,18 @@ public class CustomAppLoaderUtil {
         return addToDashboardColumn(app, provider, fragment, "pih.app." + program.uuid() + ".programSummary.dashboard.firstColumnFragments", 1);  // TODO add order
     }
 
+    static public AppDescriptor addToAsthmaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(AsthmaProgram.ASTHMA, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToAsthmaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(AsthmaProgram.ASTHMA, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToAsthmaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(AsthmaProgram.ASTHMA, app, provider, fragment);
+    }
+
     static public AppDescriptor addToDiabetesDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToProgramDashboardFirstColumn(DiabetesProgram.DIABETES, app, provider, fragment);
     }
@@ -248,6 +261,18 @@ public class CustomAppLoaderUtil {
 
     static public AppDescriptor addToHypertensionSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
         return addToProgramSummaryDashboardFirstColumn(HypertensionProgram.HYPERTENSION, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMentalHealthDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardFirstColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMentalHealthDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramDashboardSecondColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
+    }
+
+    static public AppDescriptor addToMentalHealthSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
+        return addToProgramSummaryDashboardFirstColumn(MentalHealthProgram.MENTAL_HEALTH, app, provider, fragment);
     }
 
     static public AppDescriptor addToMalnutritionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {

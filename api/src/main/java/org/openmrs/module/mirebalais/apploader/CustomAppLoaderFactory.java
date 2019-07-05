@@ -88,8 +88,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private Boolean readyForRefresh = false;
 
     private String patientVisitsPageUrl = "";
-
-    private String patientVisitsPageWithSpecificVisitUrl = "";
+private String patientVisitsPageWithSpecificVisitUrl = "";
 
     @Autowired
     public CustomAppLoaderFactory(Config config,
@@ -256,10 +255,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.PRIMARY_CARE)) {
             enablePrimaryCare();
-        }
-
-        if (config.isComponentEnabled(Components.MEXICO_CLINIC)) {
-            enableMexicoClinic();
         }
 
         if (config.isComponentEnabled(Components.ED_TRIAGE)) {
@@ -1304,32 +1299,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null));
         }
 
-        // TODO hack for Sierra Leone, clean up if we actually use this, make an actual component for for, remove if we don't use it
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            extensions.add(overallRegistrationAction("printLabel",
-                    "Print Label",  // TODO convert to message code
-                    "icon-print",
-                    "script",
-                    "printLabel()",
-                    "Task: emr.printLabels",
-                    null));
-            extensions.add(fragmentExtension("printLabelIncludes",
-                    "mirebalais",
-                    "patientRegistration/printLabel",
-                    null,
-                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                    null));
-
-            extensions.add(overallAction(Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
-                    "registrationapp.patient.registrationSummary",
-                    "icon-user",
-                    "link",
-                    "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
-                    "App: registrationapp.registerPatient",
-                    null));
-        }
-
-
         addPaperRecordActionsIncludesIfNeeded();
 
     }
@@ -1365,6 +1334,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
+
+        if (config.isComponentEnabled(Components.BMI_ON_CLINICIAN_DASHBOARD)) {
+            apps.add(addToClinicianDashboardFirstColumn(
+                    graphs.getBmiGraph(ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN),
+                    "coreapps",
+                    "dashboardwidgets/dashboardWidget"));
+        }
 
         // link for new pihcore visit view
         //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
@@ -1695,53 +1671,88 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePrimaryCare() {
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                null,
-                and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
-                        or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    null,
+                    and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
+                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
+
+            extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
+                    null,
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+
+        } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+
+            extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-initial.xml"
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                    null,
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+
+            extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
+                    "icon-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-followup.xml"
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                    null,
+                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+
+        }
+
     }
 
     private void enableHIV() {
@@ -1901,15 +1912,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
     }
 
-    private void enableMexicoClinic() {
+    private void enableAsthmaProgram() {
+        configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
 
-        extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
-                "icon-stethoscope",
-                "link",
-                enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
+        apps.add(addToAsthmaDashboardFirstColumn(app(Apps.ASTHMA_SYMPTOMS_OBS_TABLE,
+                "pih.app.asthma.symptomsObsTable.title",
+                "icon-bar-chart",
                 null,
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION))));
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "icon-list-alt",
+                        "label", "pih.app.asthma.symptomsObsTable.title",
+                        "concepts", MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
+                                + MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
+                                + MirebalaisConstants.ASTHMA_MEDS_TWICE_WEEKLY + ','
+                                + MirebalaisConstants.LIMITATION_OF_ACTIVITY,
+                        "maxRecords", "40"  // MEX-127
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableDiabetesProgram() {
@@ -1917,12 +1938,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         configureBasicProgramDashboard(DiabetesProgram.DIABETES);
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
-                "",
+                "pih.app.abdominalCircumference.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.abdominalCircumference.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
                         "maxRecords", "4"
@@ -1957,28 +1979,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_LINE,
-                "pih.app.alcoholTobaccoUseLine.title",
-                "icon-bar-chart",
+        apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_SUMMARY,
+                "pih.app.patientSummary.title",
+                "icon-user-md",
                 null,
                 null,
                 objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
-                        "label", "pih.app.alcoholTobaccoUseLine.title",
+                        "widget", "latestobsforconceptlist",
+                        "icon", "icon-user-md",
+                        "label", "pih.app.patientSummary.title",
                         "concepts", MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID + ','
-                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID,
-                        "maxRecords", "5"  // MEX-127 - should be 1 row
+                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.GLUCOSE_GRAPH,
-                "",
+                "pih.app.glucose.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.glucose.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.GLUCOSE_CONCEPT_UUID,
                         "maxRecords", "12"
@@ -1986,12 +2008,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HBA1C_GRAPH,
-                "",
+                "pih.app.hba1c.graph.title",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.hba1c.graph.title",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.HBA1C_CONCEPT_UUID,
                         "maxRecords", "4"
@@ -2022,15 +2045,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SEIZURES,
-                "pih.app.epilepsy.seizureGraph",  // redundant with concept name
+                "pih.app.epilepsy.seizureGraph",
                 "icon-bar-chart",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
+                        "label", "pih.app.epilepsy.seizureGraph",
                         "icon", "icon-bar-chart",
                         "conceptId", MirebalaisConstants.EPI_SEIZURES,
-                        "maxResults", "10"
+                        "maxResults", "30"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2069,6 +2093,39 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 graphs.getCholesterolGraph(".htn"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+    }
+
+
+    private void enableMentalHealthProgram() {
+        configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+
+        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.PHQ9_GRAPH,
+                "pih.app.phq9.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "label", "pih.app.phq9.graph.title",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.PHQ9,
+                        "maxResults", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
+                "pih.app.gad7.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "label", "pih.app.gad7.graph.title",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.GAD7,
+                        "maxResults", "12"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableMalnutritionProgram() {
@@ -2193,7 +2250,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
             supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
-            configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+            enableAsthmaProgram();
         }
 
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
@@ -2224,7 +2281,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealthForm();
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+            enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_FORM)) {
@@ -2233,7 +2290,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
             supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
-            configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+            enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {

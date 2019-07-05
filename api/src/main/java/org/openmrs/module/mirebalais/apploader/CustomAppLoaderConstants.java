@@ -2,9 +2,13 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
@@ -71,6 +75,7 @@ public class CustomAppLoaderConstants {
         public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
         public static final String BLOOD_PRESSURE_GRAPH = "pih.app.bloodPressure.graph";
         public static final String BLOOD_PRESSURE_OBS_TABLE = "pih.app.bloodPressure.obsTable";
+        public static final String ASTHMA_SYMPTOMS_OBS_TABLE = "pih.app.asthma.symptomsObsTable";
         public static final String GLUCOSE_GRAPH = "pih.app.glucoseGraph";
         public static final String HBA1C_GRAPH = "pih.app.hba1cGraph";
         public static final String HEAD_CIRCUMFERENCE_GRAPH = "pih.app.headCircumferenceGraph";
@@ -78,8 +83,10 @@ public class CustomAppLoaderConstants {
         public static final String ABDOMINAL_CIRCUMFERENCE_GRAPH = "pih.app.abdominalCircumferenceGraph";
         public static final String FOOT_EXAM_OBS_TABLE = "pih.app.diabetes.footExamObsTable";
         public static final String URINARY_ALBUMIN_OBS_TABLE = "pih.app.diabetes.urinaryAlbuminObsTable";
-        public static final String ALC_TOBAC_USE_LINE = "pih.app.alcTobacUseLine";
+        public static final String ALC_TOBAC_USE_SUMMARY = "pih.app.alcTobacUse.summary";
         public static final String CHOLESTEROL_GRAPH = "pih.app.cholesterol.graph";
+        public static final String PHQ9_GRAPH = "pih.app.phq9.graph";
+        public static final String GAD7_GRAPH = "pih.app.gad7.graph";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -155,6 +162,8 @@ public class CustomAppLoaderConstants {
         public static final String CHEMO_ORDERING_VISIT_ACTION = "oncology.orderChemo";
         public static final String CHEMO_RECORDING_VISIT_ACTION = "oncology.recordChemo";
         public static final String MEXICO_CONSULT_ACTION = "pih.mexicoConsult";
+        public static final String SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION = "pih.sierraLeone.outpatient.initial";
+        public static final String SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION = "pih.sierraLeone.outpatient.followup";
 
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
@@ -277,9 +286,17 @@ public class CustomAppLoaderConstants {
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);
 
+    // The idiosyncratic ordering of these items is due to the fact that the ones used
+    // in English and French -speaking places are alphebetized in English and the ones
+    // used in Spanish-speaking places are alphebetized in Spanish.
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
+            "pih.app." + AsthmaProgram.ASTHMA.uuid() + ".programSummary.dashboard",
+            "pih.app." + MalnutritionProgram.MALNUTRITION.uuid() + ".programSummary.dashboard",
+            "pih.app." + DiabetesProgram.DIABETES.uuid() + ".programSummary.dashboard",
+            "pih.app." + EpilepsyProgram.EPILEPSY.uuid() + ".programSummary.dashboard",
             "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
             "pih.app." + HypertensionProgram.HYPERTENSION.uuid() + ".programSummary.dashboard",
+            "pih.app." + ANCProgram.ANC.uuid() + ".programSummary.dashboard",
             "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard",
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
@@ -374,6 +391,7 @@ public class CustomAppLoaderConstants {
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
             Apps.RADIOLOGY_ORDERS_APP,
+            Apps.BMI_GRAPH + ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN,
             Apps.DISPENSING_SUMMARY
     );
 
