@@ -38,6 +38,8 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -1724,7 +1726,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
 
             extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.MEXICO_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + MexicoEncounterTypes.MEXICO_CONSULT.uuid(),
                     "icon-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
@@ -1734,7 +1736,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
+                    "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
                     "icon-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-initial.xml"
@@ -1743,7 +1745,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
+                    "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
                     "icon-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-followup.xml"
