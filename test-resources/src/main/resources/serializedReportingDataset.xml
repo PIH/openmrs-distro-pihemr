@@ -210,12 +210,10 @@
             &lt;org.openmrs.module.reporting.common.SortCriteria_-SortElement id="107"&gt;
                 &lt;elementName&gt;startTime&lt;/elementName&gt;
                 &lt;direction&gt;ASC&lt;/direction&gt;
-                &lt;outer-class reference="105"/&gt;
             &lt;/org.openmrs.module.reporting.common.SortCriteria_-SortElement&gt;
             &lt;org.openmrs.module.reporting.common.SortCriteria_-SortElement id="108"&gt;
                 &lt;elementName&gt;provider&lt;/elementName&gt;
                 &lt;direction&gt;ASC&lt;/direction&gt;
-                &lt;outer-class reference="105"/&gt;
             &lt;/org.openmrs.module.reporting.common.SortCriteria_-SortElement&gt;
         &lt;/sortElements&gt;
     &lt;/sortCriteria&gt;
