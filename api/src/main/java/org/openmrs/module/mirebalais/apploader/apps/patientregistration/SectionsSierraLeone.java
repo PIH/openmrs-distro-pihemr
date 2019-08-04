@@ -58,7 +58,7 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         DropdownWidget w = new DropdownWidget();
 
-        // ordered alphabetically in Spanish, with Unemployed and Other last
+        // ordered alphabetically with Unemployed and Other last
         w.getConfig().addOption("CIEL:162944", "zl.registration.patient.occupation.civilServant.label");
         w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");
         w.getConfig().addOption("PIH:Commercial bike rider", "zl.registration.patient.occupation.motorcycletaxi");
@@ -70,7 +70,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         w.getConfig().addOption("PIH:FRUIT OR VEGETABLE SELLER", "zl.registration.patient.occupation.fruitOrVegetableVendor.label");
         w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");
         w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
-        w.getConfig().addOption("PIH:PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
+        w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");
         w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");
         w.getConfig().addOption("CIEL:162945", "zl.registration.patient.occupation.marketVendor.label");
         w.getConfig().addOption("PIH:Military", "zl.registration.patient.occupation.military.label");
