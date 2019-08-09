@@ -2208,7 +2208,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToHomePage(app(Apps.LABS,
                 "pih.app.labs.label",
                 "icon-beaker",
-                "pihcore/labs/labs.page",
+                "owa/labworkflow/index.html",
                 Privileges.APP_LABS.privilege(),
                 null),
                 null));
