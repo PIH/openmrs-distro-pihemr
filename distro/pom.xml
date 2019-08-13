@@ -203,14 +203,6 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>logic-omod</artifactId>
-                    <version>${logicVersion}</version>
-                    <type>omod</type>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
                     <artifactId>providermanagement-omod</artifactId>
                     <version>${providermanagementVersion}</version>
                     <scope>provided</scope>

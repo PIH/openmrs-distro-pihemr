@@ -79,7 +79,6 @@
         <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
         <providermanagementVersion>2.10.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
-        <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <appuiVersion>1.9.0</appuiVersion>
