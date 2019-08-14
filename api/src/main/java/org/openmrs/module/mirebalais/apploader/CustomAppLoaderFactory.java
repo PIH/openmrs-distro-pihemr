@@ -2115,19 +2115,21 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
-                "pih.app.gad7.graph.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "label", "pih.app.gad7.graph.title",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.GAD7,
-                        "maxResults", "12"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
+                    "pih.app.gad7.graph.title",
+                    "icon-bar-chart",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "obsgraph",
+                            "label", "pih.app.gad7.graph.title",
+                            "icon", "icon-bar-chart",
+                            "conceptId", MirebalaisConstants.GAD7,
+                            "maxResults", "12"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
     }
 
     private void enableMalnutritionProgram() {
