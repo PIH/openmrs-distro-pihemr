@@ -28,12 +28,10 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
-        //c.addSection(getEbolaScreeningSection());
         c.addSection(getSocialSection());
+        c.addSection(getEbolaScreeningSection());
         c.addSection(getContactsSection(false));
         c.addSection(getIdCardPrintSection());
-      //  c.addSection(getEbolaScreeningSection());
-
     }
     @Override
     public Section getSocialSection() {
@@ -90,47 +88,49 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
-   /*
-    private Section getEbolaScreeningSection() {
+    
+
+     public Section getEbolaScreeningSection() {
         Section s = new Section();
         s.setId("ebolascreening");
         s.setLabel("zl.registration.patient.ebola.label");
+        SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
         s.addQuestion(getEbolaScreeningQuestion());
         return s;
     }
 
-    private Question getEbolaScreeningQuestion() {
+ 
+    public Question getEbolaScreeningQuestion() {
         Question q = new Question();
         q.setId("ebolalabel");
-        s.setLabel("zl.registration.patient.ebolascreening.label");
-        q.setLegend("");
+        q.setLegend("zl.registration.patient.ebolaScreening.label");
 
         {
             Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:Prospera Construct.obs.PIH:Has Prospera");
+            f.setFormFieldName("obs.PIH:12246");
             f.setLabel("zl.registration.patient.ebolaScreening.feverTwoDays.label");
-            f.setType("obsgroup");
+            f.setType("obs");
             f.setWidget(getYesNoDropdownWidget());
             q.addField(f);
         }
         {
             Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:Prospera Construct.obs.PIH:Has Prospera");
+            f.setFormFieldName("obs.PIH:7102");
             f.setLabel("zl.registration.patient.ebolaScreening.bleedingSigns.label");
-            f.setType("obsgroup");
+            f.setType("obs");
             f.setWidget(getYesNoDropdownWidget());
             q.addField(f);
         }
         {
             Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:Prospera Construct.obs.PIH:Insurance policy number");
+            f.setFormFieldName("obs.CIEL:1690");
             f.setLabel("zl.registration.patient.ebolaScreening.clinicalSuspicion.label");
-            f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+            f.setType("obs");
+            f.setWidget(getYesNoDropdownWidget());
             q.addField(f);
         }
         return q;
-    } 
-    */
+    }
+    
    
 }
