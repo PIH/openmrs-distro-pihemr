@@ -90,7 +90,7 @@
         <coreappsVersion>1.23.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.26.0</webservicesRestVersion>
         <appointmentschedulingVersion>1.10.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.8.0-SNAPSHOT</appointmentschedulinguiVersion>
+        <appointmentschedulinguiVersion>1.8.0</appointmentschedulinguiVersion>
         <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyuiVersion>1.8.1</allergyuiVersion>
