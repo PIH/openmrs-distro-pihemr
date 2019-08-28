@@ -83,11 +83,11 @@
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <appuiVersion>1.9.0</appuiVersion>
         <dispensingVersion>1.1-SNAPSHOT</dispensingVersion>
-        <uicommonsVersion>2.7.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.7.0</uicommonsVersion>
         <registrationcoreVersion>1.9.0-SNAPSHOT</registrationcoreVersion>
-        <registrationappVersion>1.13.0</registrationappVersion>
+        <registrationappVersion>1.14.0</registrationappVersion>
         <radiologyappVersion>1.5.0-SNAPSHOT</radiologyappVersion>
-        <coreappsVersion>1.23.0-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>1.23.0</coreappsVersion>
         <webservicesRestVersion>2.26.0</webservicesRestVersion>
         <appointmentschedulingVersion>1.10.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.8.0</appointmentschedulinguiVersion>
