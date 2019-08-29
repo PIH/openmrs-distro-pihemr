@@ -141,6 +141,8 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 ### Step 4: Link the configuration directory into the application data directory
 
+(Only necessary for Mexico at this time)
+
 Some sites have a configuration directory under
 `mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config`. To use one, symlink it
 in to you application data directory with
