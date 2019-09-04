@@ -2101,34 +2101,36 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableMentalHealthProgram() {
         configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
 
-        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.PHQ9_GRAPH,
-                "pih.app.phq9.graph.title",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "label", "pih.app.phq9.graph.title",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.PHQ9,
-                        "maxResults", "12"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
-                    "pih.app.gad7.graph.title",
+        if (!config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.PHQ9_GRAPH,
+                    "pih.app.phq9.graph.title",
                     "icon-bar-chart",
                     null,
                     null,
                     objectNode(
                             "widget", "obsgraph",
-                            "label", "pih.app.gad7.graph.title",
+                            "label", "pih.app.phq9.graph.title",
                             "icon", "icon-bar-chart",
-                            "conceptId", MirebalaisConstants.GAD7,
+                            "conceptId", MirebalaisConstants.PHQ9,
                             "maxResults", "12"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
+
+            if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+                apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
+                        "pih.app.gad7.graph.title",
+                        "icon-bar-chart",
+                        null,
+                        null,
+                        objectNode(
+                                "widget", "obsgraph",
+                                "label", "pih.app.gad7.graph.title",
+                                "icon", "icon-bar-chart",
+                                "conceptId", MirebalaisConstants.GAD7,
+                                "maxResults", "12"
+                        )),
+                        "coreapps", "dashboardwidgets/dashboardWidget"));
+            }
         }
     }
 
