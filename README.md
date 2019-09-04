@@ -195,8 +195,8 @@ After startup, login
 - Enter the legacy admin page "http://localhost:8080/openmrs/admin"
 - Go to "Manage Patient Identifier Sources" under the header "Patients"
 
-Check if there is an existing local identifier source. If there isn't, you'll
-need to create a local identifier source to generate "fake" ZL EMR IDs:
+Check if there is an existing source for "ZL EMR ID" with type "Local Identifier Generator." 
+If there isn't, you'll need to create a local identifier source to generate "fake" ZL EMR IDs:
 - Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
   - Name: ZL Identifier Generator
   - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
