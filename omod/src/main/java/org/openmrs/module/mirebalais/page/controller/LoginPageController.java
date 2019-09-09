@@ -18,6 +18,7 @@ import org.openmrs.Location;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ContextAuthenticationException;
+import org.openmrs.api.context.UsernamePasswordCredentials;
 import org.openmrs.api.db.ContextDAO;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.EmrContext;
@@ -127,7 +128,7 @@ public class LoginPageController {
 		}
 		
 		try {
-			context.getUserContext().authenticate(username, password, contextDao);
+			Context.authenticate(new UsernamePasswordCredentials(username, password));
 			context.setSessionLocation(sessionLocation);
 			
 			// set the locale based on the user's default locale
