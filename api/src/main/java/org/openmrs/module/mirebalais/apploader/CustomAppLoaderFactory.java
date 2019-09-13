@@ -1512,30 +1512,57 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableMCHForms() {
 
-        // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
-        extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
-                "icon-gift",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+        if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
+            // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
+            extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
-        extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
-                "icon-gift",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+            extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
-        extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
-                "icon-gift",
-                "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+            extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+        } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+
+            extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(patientIsFemale())));
+
+            extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(patientIsFemale())));
+
+            extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "icon-gift",
+                    "link",
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(patientIsFemale())));
+        }
     }
 
     private void enableANCProgram() {
