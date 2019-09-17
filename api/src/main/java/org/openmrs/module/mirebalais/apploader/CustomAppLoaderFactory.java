@@ -335,6 +335,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableChemotherapy();
         }
 
+        if (config.isComponentEnabled(Components.MCH_FORMS)) {
+            enableMCHForms();
+        }
+
         readyForRefresh = false;
     }
 
@@ -2317,10 +2321,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableMCHForms();
             supportedPrograms.add(MCHProgram.MCH.uuid());
             enableMCHProgram();
-        }
-
-        if (config.isComponentEnabled(Components.MCH_FORMS)) {
-            enableMCHForms();
         }
 
         if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
