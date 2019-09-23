@@ -172,7 +172,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
         } catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
-            ModuleFactory.stopModule(mod);
+            ModuleFactory.stopModule(mod, false, false);
             throw new RuntimeException("failed to setup the required modules", e);
         }
         log.info("Mirebalais Hospital Module started");
