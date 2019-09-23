@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<module configVersion="1.3">
+<module configVersion="1.2">
 
     <id>${project.parent.artifactId}</id>
     <name>${project.parent.name}</name>
@@ -15,7 +15,6 @@
     <updateURL>
         https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
     </updateURL>
-    <mandatory>true</mandatory>
 
     <!--<require_version>${openMRSVersion}</require_version>-->
     <require_version>1.9.2</require_version>
