@@ -85,7 +85,7 @@
         <dispensingVersion>1.1-SNAPSHOT</dispensingVersion>
         <uicommonsVersion>2.8.0</uicommonsVersion>
         <registrationcoreVersion>1.9.0-SNAPSHOT</registrationcoreVersion>
-        <registrationappVersion>1.14.0</registrationappVersion>
+        <registrationappVersion>1.15.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.5.0-SNAPSHOT</radiologyappVersion>
         <coreappsVersion>1.23.0</coreappsVersion>
         <webservicesRestVersion>2.26.0</webservicesRestVersion>

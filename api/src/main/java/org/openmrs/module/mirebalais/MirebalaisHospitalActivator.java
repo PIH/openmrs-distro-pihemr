@@ -187,25 +187,27 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             String cssResourcePath = "styles/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_CSS);
             String providerName = MirebalaisConstants.MIREBALAIS_MODULE_ID;
 
-            ResourceFactory resourceFactory = ResourceFactory.getInstance();
-            File resource = resourceFactory.getResource(providerName, cssResourcePath);
-
-            if (resource != null) {
-                PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
-                GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
-                globalResourceIncluder.addResource(new Resource(Resource.CATEGORY_CSS, providerName, cssResourcePath, -100));
-                pageFactory.getModelConfigurators().add(globalResourceIncluder);
-            }
+            addGlobalResource(Resource.CATEGORY_CSS, providerName, cssResourcePath);
         }
         // this entire catch is a hack to get component test to pass until we find the proper way to mock this (see HtmlFormSetup where we do something similar)
         catch (Exception e) {
             // this is a hack to get component test to pass until we find the proper way to mock this
             if (ResourceFactory.getInstance().getResourceProviders() == null) {
                 log.error("Unable to load GlobalResourcs--this error is expected when running component tests");
-            }
-            else {
+            } else {
                 throw e;
             }
+        }
+    }
+
+    private void addGlobalResource(String category, String providerName, String resourcePath) {
+        ResourceFactory resourceFactory = ResourceFactory.getInstance();
+        PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
+        File resource = resourceFactory.getResource(providerName, resourcePath);
+        if (resource != null) {
+            GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
+            globalResourceIncluder.addResource(new Resource(category, providerName, resourcePath, -100));
+            pageFactory.getModelConfigurators().add(globalResourceIncluder);
         }
     }
 

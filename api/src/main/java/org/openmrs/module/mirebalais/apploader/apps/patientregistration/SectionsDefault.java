@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
@@ -12,6 +13,7 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
@@ -221,7 +223,15 @@ public class SectionsDefault {
         f.setFormFieldName("phoneNumber");
         f.setType("personAttribute");
         f.setUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid());
-        f.setWidget(getTextFieldWidget());
+
+        ContactInfoConfigDescriptor contactInfoConfig = config.getRegistrationConfig().getContactInfo();
+        if(contactInfoConfig != null && contactInfoConfig.getPhoneNumber() != null
+                && StringUtils.isNotBlank(contactInfoConfig.getPhoneNumber().getRegex())){
+            f.setCssClasses(Arrays.asList("regex"));
+            f.setWidget(getTextFieldWidget(null, contactInfoConfig.getPhoneNumber().getRegex()));
+        } else {
+            f.setWidget(getTextFieldWidget());
+        }
 
         q.addField(f);
         return q;
@@ -498,6 +508,17 @@ public class SectionsDefault {
         TextFieldWidget w = new TextFieldWidget();
         if (size != null) {
             w.getConfig().setSize(size);
+        }
+        return toObjectNode(w);
+    }
+
+    protected ObjectNode getTextFieldWidget(Integer size, String regex) {
+        TextFieldWidget w = new TextFieldWidget();
+        if (size != null) {
+            w.getConfig().setSize(size);
+        }
+        if (StringUtils.isNotBlank(regex)) {
+            w.getConfig().setRegex(regex);
         }
         return toObjectNode(w);
     }
