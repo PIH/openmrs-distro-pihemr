@@ -2154,7 +2154,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
                 }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
                         apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
                                 "pih.app.gad7.graph.title",
                                 "icon-bar-chart",
