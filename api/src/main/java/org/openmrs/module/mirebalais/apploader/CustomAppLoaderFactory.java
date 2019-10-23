@@ -2105,7 +2105,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableMentalHealthProgram() {
         configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
 
-        if (!config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.PHQ9_GRAPH,
                     "pih.app.phq9.graph.title",
                     "icon-bar-chart",
@@ -2119,24 +2119,57 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "maxResults", "12"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
+                }
 
-            if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-                apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
-                        "pih.app.gad7.graph.title",
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.WHODAS_GRAPH,
+                        "pih.app.whodas.graph.title",
                         "icon-bar-chart",
                         null,
                         null,
                         objectNode(
                                 "widget", "obsgraph",
-                                "label", "pih.app.gad7.graph.title",
+                                "label", "pih.app.whodas.graph.title",
                                 "icon", "icon-bar-chart",
-                                "conceptId", MirebalaisConstants.GAD7,
+                                "conceptId", MirebalaisConstants.WHODAS,
                                 "maxResults", "12"
                         )),
                         "coreapps", "dashboardwidgets/dashboardWidget"));
-            }
-        }
-    }
+                }
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                    apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.ZLDSI_GRAPH,
+                            "pih.app.zldsi.graph.title",
+                            "icon-bar-chart",
+                            null,
+                            null,
+                            objectNode(
+                                    "widget", "obsgraph",
+                                    "label", "pih.app.zldsi.graph.title",
+                                    "icon", "icon-bar-chart",
+                                    "conceptId", MirebalaisConstants.ZLDSI,
+                                    "maxResults", "12"
+                            )),
+                            "coreapps", "dashboardwidgets/dashboardWidget"));
+
+                }
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+                        apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
+                                "pih.app.gad7.graph.title",
+                                "icon-bar-chart",
+                                null,
+                                null,
+                                objectNode(
+                                        "widget", "obsgraph",
+                                        "label", "pih.app.gad7.graph.title",
+                                        "icon", "icon-bar-chart",
+                                        "conceptId", MirebalaisConstants.GAD7,
+                                        "maxResults", "12"
+                                )),
+                                "coreapps", "dashboardwidgets/dashboardWidget"));
+                    }
+                }
 
     private void enableMalnutritionProgram() {
         configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
