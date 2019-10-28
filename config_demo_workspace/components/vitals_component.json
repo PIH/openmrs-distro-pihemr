@@ -1,0 +1,119 @@
+{
+  "apps":
+  [
+    {
+      "id": "pih.app.vitals",
+      "description": "",  // TODO by convention include all parameters, even blanks?
+      "label": "pihcore.vitalsList.title",
+      "url": "coreapps/findpatient/findPatient.page?app=pih.uhm.app.vitals",
+      "icon": "icon-vitals",
+      "tinyIcon": "",
+      "order": "",
+      "requiredPrivilege": "App: mirebalais.outpatientVitals",
+      "extensions": [
+        {
+          "id": "pih.app.vitals.appLink",
+          "extensionPointId": "org.openmrs.referenceapplication.homepageLink"
+          "icon": "icon-vitals", // TODO QUESTION does this inherit automatically?
+          "type": "link",
+          "label": "pihcore.vitalsList.title",  // TODO QUESTION does this inherit automatically?
+          "url": "pihcore/router/appEntryRouter.page?app=pih.app.vitals",
+          "order": "", // TODO best way to handle this?
+          "requiredPriviege": "App: mirebalais.outpatientVitals"
+        }
+      ]
+    },
+    {
+      "id": "coreapps.mostRecentVitals",
+      "description": "",  // TODO by convention include all parameters, even blanks?
+      "label": "mirebalais.mostRecentVitals.label",
+      "url": "",
+      "icon": "icon-vitals",
+      "tinyIcon": "",
+      "order": "",
+      "requiredPrivilege": "App: mirebalais.outpatientVitals",
+      "config": {
+        "encounterDateLabel": "mirebalais.mostRecentVitals.encounterDateLabel",
+        "encounterTypeUuid": "4fb47712-34a6-40d2-8ed3-e153abbd25b7",
+        "editable": "true",
+        "edit-provider": "htmlformentryui",
+        "edit-fragment": "htmlform/editHtmlFormWithSimpleUi",
+        // TODO confirm below is correct, also note that we've lost the build-in support for country/site specific configs, how do we get that back?
+        "definitionUiResource": "pihcore:htmlforms/vitals.xml",
+        "returnProvider": "coreapps",
+        "returnPage": "clinicianfacing/patient"
+      },
+      "extensions": [
+        {
+          "id": "pih.app.vitals.appLink",
+          "extensionPointId": "patientDashboard.secondColumnFragments",
+          "icon": "icon-vitals", // TODO QUESTION does this inherit automatically?
+          "type": "link",
+          "label": "mirebalais.mostRecentVitals.label",  // TODO QUESTION does this inherit automatically?
+          "url": "pihcore/router/appEntryRouter.page?app=pih.app.vitals",
+          "order": "", // TODO best way to handle this?
+          "requiredPriviege": "App: mirebalais.outpatientVitals",
+          "extensionParams": {
+            "fragment": "coreapps",
+            "provider": "encounter/mostRecentEncounter"
+          }
+        }
+      ]
+    },
+    // TODO below is incredibly duplicative, is there a reason this couldn't just be one app with to extension points
+    {
+      "id": "pih.app.hiv.lastVitals",
+      "description": "",  // TODO by convention include all parameters, even blanks?
+      "label": "mirebalais.mostRecentVitals.label",
+      "url": "",
+      "icon": "icon-vitals",
+      "tinyIcon": "",
+      "order": "",
+      "requiredPrivilege": "App: mirebalais.outpatientVitals",
+      "config": {
+        "encounterDateLabel": "mirebalais.mostRecentVitals.encounterDateLabel",
+        "encounterTypeUuid": "4fb47712-34a6-40d2-8ed3-e153abbd25b7",
+        "editable": "true",
+        "edit-provider": "htmlformentryui",
+        "edit-fragment": "htmlform/editHtmlFormWithSimpleUi",
+        // TODO confirm below is correct, also note that we've lost the build-in support for country/site specific configs, how do we get that back?
+        "definitionUiResource": "pihcore:htmlforms/vitals.xml",
+        "returnProvider": "coreapps",
+        "returnPage": "clinicianfacing/patient"
+      },
+      "extensions": [
+        {
+          "id": "[TODO_figure_out_what_name_should be]",
+          "extensionPointId": "[some_uuid].secondColumnFragments",
+          "icon": "icon-vitals", // TODO QUESTION does this inherit automatically?
+          "type": "link",
+          "label": "mirebalais.mostRecentVitals.label",  // TODO QUESTION does this inherit automatically?
+          "url": "pihcore/router/appEntryRouter.page?app=pih.app.vitals",
+          "order": "", // TODO best way to handle this?
+          "requiredPriviege": "App: mirebalais.outpatientVitals",
+          "extensionParams": {
+            "fragment": "coreapps",
+            "provider": "encounter/mostRecentEncounter"
+          }
+        }
+      ]
+    }
+  ],
+  "extensions": [
+    {
+      "id": "pih.form.vital",
+      "label": "mirebalais.task.vitals.label",
+      "icon": "icon-vitals",
+      "type": "link",
+      "extensionPointId": "patientDashboard.visitActions",
+      // TODO confirm below is correct, also note that we've lost the build-in support for country/site specific configs, how do we get that back?
+      "url": "/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&visitId={{visitId}}&definitionUiResource=pihcore:htmlforms/vitals.xml",
+      "order": "", // TODO best way to handle this?
+      "requiredPrivilege": "",
+      "required": "[[ a complete expression we'd want to reuse would be here... the whole active visit, 30 days, etc ]]"
+    }
+  ]
+}
+
+
+

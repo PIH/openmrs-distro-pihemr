@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OpenMRS Config",
+  "description": "OpenMRS Config",
+  "type": "object",
+  "properties": {
+    "welcomeMessage": {
+      "description": "Welcome message displayed on Home Page",
+      "type": "string"
+    },
+    "browsingWarning": {
+      "description": "Message displayed if wrong browser is used",
+      "type": "string"
+    },
+    "apps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "app_schema.json"
+      }
+    }
+  },
+  "required": [ "welcomeMessage", "browsingWarning" ]
+}

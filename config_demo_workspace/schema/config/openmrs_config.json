@@ -1,0 +1,12 @@
+{
+  "welcomeMessage": "test",
+  "browsingWarning": "test",
+  "apps": [
+    {
+      "description": "test",
+      "label": "test"
+    }
+  ]
+}
+
+

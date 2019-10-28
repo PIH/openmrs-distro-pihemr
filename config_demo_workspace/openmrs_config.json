@@ -1,0 +1,61 @@
+{
+  "components": [ // new support for a high-level "component" element, defined as a group of apps and extensions?
+
+    {
+      "id": "vitals"// this would mean "load the vitals_component.json as is",
+    },
+    {
+      // OR, alternatively, this would load the vitals_component but override the vitals app
+      // TODO a component end up being more than just a dummy object and provide it's own config parameters, which would map into existing elements?
+      "id": "vitals",
+      "apps": [
+        {
+          "id": "pihapp.vitals",
+          "description": "",
+          // TODO by convention include all parameters, even blanks ??
+          "label": "mirebalais.outpatientVitals.title",
+          "url": "coreapps/findpatient/findPatient.page?app=pih.uhm.app.vitals",
+          "icon": "icon-vitals",
+          "tinyIcon": "",
+          "order": ""
+          "requiredPrivilege": "App: mirebalais.outpatientVitals",
+          "config": {
+            "afterSelectedUrl": "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
+            "label": "mirebalais.outpatientVitals.title",
+            "heading": "mirebalais.outpatientVitals.title",
+            "showLastViewedPatients": "false",
+            "breadcrumbs": ""
+          }
+        }
+      ]
+    }
+  ],
+  "apps": [
+    // any top-level apps defined outside of components, or overrides of existing apps in components
+  ],
+  "extensions": [
+    // any top-level extensions defined outside of components
+  ],
+  // any microfrontend configuration?
+  "globalProperties": {
+    // config module would set all these global properties values on startup
+    "[property]": "[property_value]",
+    ....
+  },
+  "regisrationConfig": {
+    // there are some JSON-mapped classed split between Registration app
+    // and PIH Core, we need to standardize these somehow?
+    // note that behind the scenes, these just set the "Config" on the patient
+    // registration app descriptor
+  },
+  "custom": {
+    // a space where implementations could store custom properti
+    // would be loaded in a nested Map and accessible via the "Config" bean
+    // for us I see the following existing data points that would be migrated here
+    // or perhaps a way for modules to wire in there own coded configurations
+    "welcomeMessage": "" // could become top-level if we switch to Ref App home/login
+    "browserWarning": "" // could become top-level if we switch to Ref App home/login
+
+  }
+
+}
