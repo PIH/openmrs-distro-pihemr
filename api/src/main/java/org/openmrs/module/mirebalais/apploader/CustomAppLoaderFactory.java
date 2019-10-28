@@ -2254,6 +2254,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null),
                 null));
 
+        apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
+                "pih.app.labs.ordering",
+                "icon",
+                Privileges.APP_LABS.privilege(),
+                "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
+                CustomAppLoaderUtil.arrayNode(CustomAppLoaderUtil.objectNode("pih.app.labs.ordering", "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders")
+                )));
+
         extensions.add(overallAction(Extensions.ORDER_LABS_OVERALL_ACTION,
                 "pihcore.orderLabs.overallAction.label",
                 "icon-beaker",

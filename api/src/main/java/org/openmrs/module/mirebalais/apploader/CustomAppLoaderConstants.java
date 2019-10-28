@@ -56,6 +56,7 @@ public class CustomAppLoaderConstants {
         public static final String PATHOLOGY_TRACKING = "labtracking.app.monitorOrders";
         public static final String LAB_TRACKING = "pih.app.labtracking";
         public static final String LABS = "pih.app.labs.label";
+        public static final String ORDER_LABS = "pih.app.labs.ordering";
         public static final String PROGRAMS_LIST = "coreapps.app.programsList";
         public static final String RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.registrationSummary";
         public static final String PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY = "pih.app.relationships.providers.registrationSummary";
