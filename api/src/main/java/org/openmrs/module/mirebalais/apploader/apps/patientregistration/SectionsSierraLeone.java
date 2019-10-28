@@ -11,6 +11,7 @@ import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.Section;
 
+import java.util.Arrays;
 
 
 
@@ -96,18 +97,19 @@ public class SectionsSierraLeone extends SectionsDefault {
         s.setLabel("zl.registration.patient.ebola.label");
         SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
         s.addQuestion(getEbolaScreeningQuestion());
+        s.setLabel("More than one YES selected? Report to clinician in charge");
         return s;
     }
 
- 
+
     public Question getEbolaScreeningQuestion() {
         Question q = new Question();
         q.setId("ebolalabel");
         q.setLegend("zl.registration.patient.ebolaScreening.label");
-
         {
             Field f = new Field();
             f.setFormFieldName("obs.PIH:12246");
+            f.setCssClasses(Arrays.asList("required"));
             f.setLabel("zl.registration.patient.ebolaScreening.feverTwoDays.label");
             f.setType("obs");
             f.setWidget(getYesNoDropdownWidget());
@@ -116,6 +118,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         {
             Field f = new Field();
             f.setFormFieldName("obs.PIH:7102");
+            f.setCssClasses(Arrays.asList("required"));
             f.setLabel("zl.registration.patient.ebolaScreening.bleedingSigns.label");
             f.setType("obs");
             f.setWidget(getYesNoDropdownWidget());
@@ -124,11 +127,13 @@ public class SectionsSierraLeone extends SectionsDefault {
         {
             Field f = new Field();
             f.setFormFieldName("obs.CIEL:1690");
+            f.setCssClasses(Arrays.asList("required"));
             f.setLabel("zl.registration.patient.ebolaScreening.clinicalSuspicion.label");
             f.setType("obs");
             f.setWidget(getYesNoDropdownWidget());
             q.addField(f);
         }
+               
         return q;
     }
     
