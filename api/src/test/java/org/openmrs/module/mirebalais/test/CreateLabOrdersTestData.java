@@ -43,7 +43,6 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
     };
 
     public Concept[] TEST_ORDER_CONCEPTS = null;
-    public Concept COMPLETE_HEMOGRAM_CONCEPT = null;
     public Provider DEFAULT_PROVIDER = null;
     public CareSetting INPATIENT_CARE_SETTING = null;
     public Random generator = new Random();
@@ -84,7 +83,6 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
     @Before
     public void setup() throws Exception {
         authenticate();
-        COMPLETE_HEMOGRAM_CONCEPT = conceptService.getConceptByUuid("d9520d86-6042-4b82-a324-2abf3d4fdfa5");
         DEFAULT_PROVIDER = providerService.getProvider(1);
         INPATIENT_CARE_SETTING = orderService.getCareSettingByUuid("c365e560-c3ec-11e3-9c1a-0800200c9a66");
         ArrayList<Concept> concepts = new ArrayList<Concept>();
@@ -123,7 +121,7 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
         return order;
     }
 
-    protected void createLabOrders(List<Patient> patients, int numberOfOrders, int numberOfDays) throws NoSuchFieldException, IllegalAccessException {
+    protected void createLabOrders(List<Patient> patients, int numberOfOrders, int numberOfDays) throws NoSuchFieldException, IllegalAccessException, SQLException {
 
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
@@ -144,6 +142,7 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
                     encounter.addOrder(createTestOrder(patient, encounterDate));
                 }
                 encounterService.saveEncounter(encounter);
+                getConnection().commit();
             }
         }
 
@@ -163,7 +162,6 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
             List<Patient> patientList = createPatients(Integer.parseInt(numberOfPatients));
             Assert.assertEquals(patientList.size(), Integer.parseInt(numberOfPatients));
             createLabOrders(patientList, Integer.parseInt(numberOfOrders), Integer.parseInt(numberOfDays));
-            getConnection().commit();
         } else {
             Assert.assertNull(numberOfPatients);
         }
