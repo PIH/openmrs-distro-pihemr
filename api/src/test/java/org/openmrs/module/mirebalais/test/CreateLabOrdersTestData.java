@@ -19,6 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Creates a configurable large set of Test Orders for testing the labworkflow app. This test could be run from the command line:
+ * mvn test -DfailIfNoTests=false -Dtest=CreateLabOrdersTestData -DnumberOfPatients=5 -DnumberOfOrders=20 -DnumberOfDays=2
+ * - numberOfPatients = number of test patients to be created
+ * - numberOfOrders = number of Test Orders to be created
+ * - numberOfDays = spread the number of orders per number of days back from current date
+ */
+
 @SkipBaseSetup
 public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
 
