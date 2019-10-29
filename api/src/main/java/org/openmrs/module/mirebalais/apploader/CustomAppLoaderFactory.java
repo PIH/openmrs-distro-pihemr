@@ -2154,6 +2154,23 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
                 }
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.SEIZURE_FREQUENCY_GRAPH,
+                    "pih.app.seizure.frequency.graph.title",
+                    "icon-bar-chart",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "obsgraph",
+                            "label", "pih.app.seizure.frequency.graph.title",
+                            "icon", "icon-bar-chart",
+                            "conceptId", MirebalaisConstants.SEIZURE_FREQUENCY,
+                            "maxResults", "12"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        }
+
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
                         apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.GAD7_GRAPH,
                                 "pih.app.gad7.graph.title",
