@@ -106,13 +106,14 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
         return patients;
     }
 
-    protected TestOrder createTestOrder(Patient patient, Date dateCreated) throws NoSuchFieldException, IllegalAccessException {
+    protected TestOrder createTestOrder(Patient patient, Date dateCreated, Date autoExpireDate) throws NoSuchFieldException, IllegalAccessException {
 
         int randomConceptIndex = generator.nextInt(TEST_ORDER_CONCEPTS.length);
         TestOrder order = new TestOrder();
         order.setConcept(TEST_ORDER_CONCEPTS[randomConceptIndex]);
         order.setPatient(patient);
         order.setDateActivated(dateCreated);
+        order.setAutoExpireDate(autoExpireDate);
         order.setUrgency(Order.Urgency.ROUTINE);
         order.setOrderer(DEFAULT_PROVIDER);
         order.setDateCreated(dateCreated);
@@ -136,10 +137,11 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
 
         for (int day = 1; day < numberOfDays + 1; day++) {
             Date encounterDate = new Date(today.getTime() - day * 24 * 3600 * 1000L ); //Subtract numberOfDays days
+            Date autoExpireDate = new Date(encounterDate.getTime() + 30 * 24 * 3600 * 1000L ); // AutoExpire 30 days from the order activated date
             for (Patient patient : patients) {
                 Encounter encounter = testDataManager.encounter().patient(patient).encounterType(TEST_ORDER_ENCOUNTER_TYPE).location(MAIN_LABORATORY_LOCATION).encounterDatetime(encounterDate).save();
                 for (int j = 0; j < ordersPerDay; j++) {
-                    encounter.addOrder(createTestOrder(patient, encounterDate));
+                    encounter.addOrder(createTestOrder(patient, encounterDate, autoExpireDate));
                 }
                 encounterService.saveEncounter(encounter);
                 getConnection().commit();
