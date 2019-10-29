@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.*;
 import org.openmrs.api.*;
+import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -144,7 +145,8 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
                     encounter.addOrder(createTestOrder(patient, encounterDate, autoExpireDate));
                 }
                 encounterService.saveEncounter(encounter);
-                getConnection().commit();
+                Context.flushSession();
+                Context.clearSession();
             }
         }
 
@@ -164,6 +166,7 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
             List<Patient> patientList = createPatients(Integer.parseInt(numberOfPatients));
             Assert.assertEquals(patientList.size(), Integer.parseInt(numberOfPatients));
             createLabOrders(patientList, Integer.parseInt(numberOfOrders), Integer.parseInt(numberOfDays));
+            getConnection().commit();
         } else {
             Assert.assertNull(numberOfPatients);
         }
