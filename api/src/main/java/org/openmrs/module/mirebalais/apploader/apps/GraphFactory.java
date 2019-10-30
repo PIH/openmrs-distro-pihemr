@@ -107,7 +107,7 @@ public class GraphFactory {
                 ));
     }
 
-    public AppDescriptor getSEIZUREFREQUENCYGraph(String extensionPoint) {
+    public AppDescriptor getSeizureFrequencyGraph(String extensionPoint) {
         return app(
                 CustomAppLoaderConstants.Apps.SEIZURE_FREQUENCY_GRAPH + extensionPoint,
                 "pih.app.seizure.frequency.graph.title",

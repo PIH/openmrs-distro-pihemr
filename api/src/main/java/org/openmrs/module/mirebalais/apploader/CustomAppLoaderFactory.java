@@ -2105,35 +2105,35 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableMentalHealthProgram() {
         configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
 
-        if (config.isComponentEnabled(Components.PHQ9_ON_CLINICIAN_DASHBOARD)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getPHQ9Graph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.isComponentEnabled(Components.WHODAS_ON_CLINICIAN_DASHBOARD)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                 apps.add(addToMentalHealthDashboardSecondColumn(
                         graphs.getWHODASGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                         "coreapps",
                         "dashboardwidgets/dashboardWidget"));
                 }
 
-        if (config.isComponentEnabled(Components.ZLDSI_ON_CLINICIAN_DASHBOARD)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getZLDSIGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.isComponentEnabled(Components.SEIZUREFREQUENCY_ON_CLINICIAN_DASHBOARD)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
-                    graphs.getSEIZUREFREQUENCYGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
+                    graphs.getSeizureFrequencyGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.isComponentEnabled(Components.GAD7_ON_CLINICIAN_DASHBOARD)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getGAD7Graph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
