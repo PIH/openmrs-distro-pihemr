@@ -2137,6 +2137,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "coreapps", "dashboardwidgets/dashboardWidget"));
                 }
 
+
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                     apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.ZLDSI_GRAPH,
                             "pih.app.zldsi.graph.title",
