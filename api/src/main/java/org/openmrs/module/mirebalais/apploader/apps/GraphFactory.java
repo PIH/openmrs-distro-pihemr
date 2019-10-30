@@ -75,4 +75,84 @@ public class GraphFactory {
                 ));
     }
 
+    public AppDescriptor getWHODASGraph(String extensionPoint) {
+        return app(
+                CustomAppLoaderConstants.Apps.WHODAS_GRAPH + extensionPoint,
+                "pih.app.whodas.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.whodas.graph.title",
+                        "conceptId", MirebalaisConstants.WHODAS,
+                        "maxRecords", "12"
+                ));
+    }
+
+    public AppDescriptor getZLDSIGraph(String extensionPoint) {
+        return app(
+                CustomAppLoaderConstants.Apps.ZLDSI_GRAPH + extensionPoint,
+                "pih.app.zldsi.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.zldsi.graph.title",
+                        "conceptId", MirebalaisConstants.ZLDSI,
+                        "maxRecords", "12"
+                ));
+    }
+
+    public AppDescriptor getSEIZUREFREQUENCYGraph(String extensionPoint) {
+        return app(
+                CustomAppLoaderConstants.Apps.SEIZURE_FREQUENCY_GRAPH + extensionPoint,
+                "pih.app.seizure.frequency.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.seizure.frequency.graph.title",
+                        "conceptId", MirebalaisConstants.SEIZURE_FREQUENCY,
+                        "maxRecords", "12"
+                ));
+    }
+
+    public AppDescriptor getPHQ9Graph(String extensionPoint) {
+        return app(
+                CustomAppLoaderConstants.Apps.PHQ9_GRAPH + extensionPoint,
+                "pih.app.phq9.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.phq9.graph.title",
+                        "conceptId", MirebalaisConstants.PHQ9,
+                        "maxRecords", "12"
+                ));
+    }
+
+    public AppDescriptor getGAD7Graph(String extensionPoint) {
+        return app(
+                CustomAppLoaderConstants.Apps.GAD7_GRAPH + extensionPoint,
+                "pih.app.gad7.graph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pih.app.gad7.graph.title",
+                        "conceptId", MirebalaisConstants.GAD7,
+                        "maxRecords", "12"
+                ));
+    }
+
 }
