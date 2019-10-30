@@ -13,3 +13,104 @@ header{
 li.change-location {
     background: #63244b;
 }
+
+.sub-form, .sub-form fieldset{
+    font-size: 14px;
+    padding: 0;
+}
+
+span.obs-field > select {
+    min-width: 0;
+}
+
+.mh-intervention {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+}
+
+.list-inline label, .list-inline input[type="radio"], .list-inline span{
+    display: inline-block;
+    float: none;
+}
+
+.list-inline label:first-child {
+    width: 220px;
+}
+
+span.symptom-present {
+    float: right;
+}
+
+.ep-exposure-row span, .ep-exposure-row label {
+    display: inline-block;
+}
+
+.ep-exposure-row span:first-child label:first-child, .complication-name {
+    width: 150px;
+    padding-left: 5px;
+}
+
+.ep-compexp-duration-span, .ep-compexp-duration-unit{
+    padding-left: 20px;
+}
+
+.ep-exposure-duration-span label:first-child{
+    width: 90px !important;
+}
+
+.ep-pif-sym-find{
+    width: 48%;
+}
+
+.ep-trigger-sym-find{
+    width: 65%;
+}
+
+.ep-mh-sym-find{
+    width: 70%;
+}
+
+.ep-mh-section{
+    display:inline-block;
+    width:100%;
+}
+
+.ep-mh-seizure-type{
+    width:40%;
+    float:left;
+}
+
+.ep-mh-med-history{
+    width:60%;
+    float:right;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.icon-arrow-down {
+    content: "\25bc";
+    float: right;
+    right: 0;
+    background:#847f7f;
+    border-radius: 5px;
+}
+
+.icon-arrow-up {
+    content: "\25b2";
+    float: right;
+    right: 0;
+    background:#847f7f;
+    border-radius: 5px;
+}
+
+#mh-epilepsy-section legend {
+    font-weight: bold;
+}
+
+#mh-epilepsy-section fieldset {
+    border: 1px solid #e5e1e1;
+    padding-bottom: 5px;
+}
