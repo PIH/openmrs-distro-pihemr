@@ -90,6 +90,7 @@ public class CustomAppLoaderConstants {
         public static final String GAD7_GRAPH = "pih.app.gad7.graph";
         public static final String WHODAS_GRAPH = "pih.app.whodas.graph";
         public static final String ZLDSI_GRAPH = "pih.app.zldsi.graph";
+        public static final String SEIZURE_FREQUENCY_GRAPH = "pih.app.seizure.frequency.graph.title";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";

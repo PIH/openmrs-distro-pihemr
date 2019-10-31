@@ -73,6 +73,7 @@ public class MirebalaisConstants {
     public static final String GAD7 = "8b8769a9-a8cc-4166-ba2a-2e61fb081be7";
     public static final String WHODAS = "163226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String ZLDSI = "163225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String SEIZURE_FREQUENCY = "ba2e9e43-5a9d-423f-a33e-c34765785397";
 
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
