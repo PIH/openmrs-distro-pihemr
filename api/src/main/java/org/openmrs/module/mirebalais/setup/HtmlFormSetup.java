@@ -98,7 +98,8 @@ public class HtmlFormSetup {
                         "pihcore:htmlforms/patientRegistration-rs.xml",
                         "pihcore:htmlforms/sierra_leone/checkin.xml",
                         "pihcore:htmlforms/sierra_leone/liveCheckin.xml",
-                        "pihcore:htmlforms/sierra_leone/patientRegistration-social.xml"
+                        "pihcore:htmlforms/sierra_leone/patientRegistration-social.xml",
+                        "pihcore:htmlforms/sierra_leone/patientRegistration-ebolaScreening.xml"
                 ));
             }
 

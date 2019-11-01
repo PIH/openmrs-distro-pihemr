@@ -104,6 +104,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION = "coreapps.mostRecentRegistration";
         public static final String MOST_RECENT_REGISTRATION_SUMMARY = "coreapps.mostRecentRegistrationSummary";
         public static final String MOST_RECENT_REGISTRATION_SOCIAL = "coreapps.mostRecentRegistrationSocial";
+        public static final String MOST_RECENT_REGISTRATION_EBOLA_SCREENING = "mirebalais.mostRecentRegistrationEbolaScreening";
         public static final String MOST_RECENT_REGISTRATION_INSURANCE = "coreapps.mostRecentRegistrationInsurance";
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";

@@ -1186,7 +1186,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "coreapps",
                     "encounter/mostRecentEncounter"));
         }
-
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
                 "zl.registration.patient.social.label",
                 "icon-user",
@@ -1239,6 +1238,20 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null),
                     "mirebalais",
                     "patientRegistration/idCardStatus"));
+        }
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_EBOLA_SCREENING,
+                    "zl.registration.patient.ebolaScreening.label",
+                    "icon-user",
+                    null,
+                    "App: registrationapp.registerPatient",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                            "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                            "definitionUiResource", determineHtmlFormPath(config, "patientRegistration-ebolaScreening"),
+                            "editable", true)),
+                    "coreapps",
+                    "encounter/mostRecentEncounter"));
         }
 
         extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
@@ -2228,7 +2241,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.APP_LABS.privilege(),
-                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders",
+                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&returnUrl=%2Fopenmrs%2Fowa%2Flabworkflow%2Findex.html",
                 null
                 ));
 
