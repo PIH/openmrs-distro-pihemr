@@ -94,10 +94,8 @@ public class SectionsSierraLeone extends SectionsDefault {
      public Section getEbolaScreeningSection() {
         Section s = new Section();
         s.setId("ebolascreening");
-        s.setLabel("zl.registration.patient.ebola.label");
-        SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
         s.addQuestion(getEbolaScreeningQuestion());
-        s.setLabel("More than one YES selected? Report to clinician in charge");
+        s.setLabel("zl.registration.patient.ebolaScreening.header");
         return s;
     }
 
@@ -106,6 +104,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         Question q = new Question();
         q.setId("ebolalabel");
         q.setLegend("zl.registration.patient.ebolaScreening.label");
+        q.setHeader("zl.registration.patient.ebolaScreening.label");
         {
             Field f = new Field();
             f.setFormFieldName("obs.PIH:12246");
@@ -133,7 +132,11 @@ public class SectionsSierraLeone extends SectionsDefault {
             f.setWidget(getYesNoDropdownWidget());
             q.addField(f);
         }
-               
+        StringBuilder displayTemplate = new StringBuilder();
+        displayTemplate.append("{{#if field.[0]}}{{ message 'Fever' }}: {{field.[0]}}, {{/if}}");
+        displayTemplate.append("{{#if field.[1]}}{{ message 'Bleeding' }}: {{field.[1]}}, {{/if}}");
+        displayTemplate.append("{{#if field.[2]}}{{ message 'Clinical Suspicion' }}: {{field.[2]}} {{/if}}");
+        q.setDisplayTemplate(displayTemplate.toString());
         return q;
     }
     
