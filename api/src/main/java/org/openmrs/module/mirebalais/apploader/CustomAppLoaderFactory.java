@@ -2241,7 +2241,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.APP_LABS.privilege(),
-                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&returnUrl=%2Fopenmrs%2Fowa%2Flabworkflow%2Findex.html",
+                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
                 null
                 ));
 
