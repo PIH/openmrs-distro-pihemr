@@ -104,7 +104,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         Question q = new Question();
         q.setId("ebolalabel");
         q.setLegend("zl.registration.patient.ebolaScreening.label");
-        q.setHeader("zl.registration.patient.ebolaScreening.label");
+        q.setHeader("zl.registration.patient.ebolaScreening.alertClinician");
         {
             Field f = new Field();
             f.setFormFieldName("obs.PIH:12246");
