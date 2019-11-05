@@ -60,7 +60,7 @@ span.symptom-present {
 }
 
 .ep-pif-sym-find{
-    width: 48%;
+    width: 50%;
 }
 
 .ep-trigger-sym-find{
@@ -88,22 +88,25 @@ span.symptom-present {
 
 .inline {
     display: inline-block;
+    margin-right: 11px;
 }
 
-.icon-arrow-down {
-    content: "\25bc";
+.icon-arrow-down::before {
+    content: "\f103";
     float: right;
     right: 0;
-    background:#847f7f;
-    border-radius: 5px;
+    bottom: 20px;
+    position: relative;
+    font-size: 32px;
 }
 
-.icon-arrow-up {
-    content: "\25b2";
+.icon-arrow-up::before {
+    content: "\f102";
     float: right;
     right: 0;
-    background:#847f7f;
-    border-radius: 5px;
+    bottom: 20px;
+    position: relative;
+    font-size: 32px;
 }
 
 #mh-epilepsy-section legend {
@@ -113,4 +116,13 @@ span.symptom-present {
 #mh-epilepsy-section fieldset {
     border: 1px solid #e5e1e1;
     padding-bottom: 5px;
+}
+
+.first-label-inline label, .first-label-inline input[type="text"]{
+    display: inline-block;
+}
+
+span.tb-symptom-name {
+    width: 30%;
+    display: inline-block;
 }
