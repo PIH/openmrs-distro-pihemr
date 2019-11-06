@@ -2241,8 +2241,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.APP_LABS.privilege(),
-                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
-                null
+                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
+                arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                        objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
+                        objectNode("label", "coreapps.findPatient.app.label"))
                 ));
 
         extensions.add(overallAction(Extensions.ORDER_LABS_OVERALL_ACTION,
