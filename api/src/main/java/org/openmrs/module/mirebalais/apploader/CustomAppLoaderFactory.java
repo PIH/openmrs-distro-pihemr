@@ -2240,7 +2240,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
-                Privileges.APP_LABS.privilege(),
+                Privileges.TASK_ORDER_LABS.privilege(),
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
                 arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
@@ -2252,7 +2252,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "icon-beaker",
                 "link",
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.TASK_ORDER_LABS.privilege(),
                 null));
 
         extensions.add(overallAction(Extensions.VIEW_LABS_OVERALL_ACTION,
@@ -2260,7 +2260,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "icon-beaker",
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),  // TODO: determine right privilege
+                Privileges.TASK_VIEW_LABS.privilege(),
                 null));
     }
 

@@ -101,6 +101,8 @@
         <owaVersion>1.11.0</owaVersion>
         <orderentryuiVersion>1.1.0</orderentryuiVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
+        <labworkflowOwaVersion>0.2.0</labworkflowOwaVersion>
+        <orderEntryOwaVersion>1.1.0</orderEntryOwaVersion>
        <!-- <chartsearchVersion>2.0</chartsearchVersion>-->
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
