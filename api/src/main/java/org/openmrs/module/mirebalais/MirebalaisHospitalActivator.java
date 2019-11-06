@@ -185,9 +185,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void includeGlobalResources(Config config) throws Exception {
         try {
             String cssResourcePath = "styles/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_CSS);
+            String jsResourcePath = "scripts/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_JS);
+
             String providerName = MirebalaisConstants.MIREBALAIS_MODULE_ID;
 
             addGlobalResource(Resource.CATEGORY_CSS, providerName, cssResourcePath);
+            addGlobalResource(Resource.CATEGORY_JS, providerName, jsResourcePath);
         }
         // this entire catch is a hack to get component test to pass until we find the proper way to mock this (see HtmlFormSetup where we do something similar)
         catch (Exception e) {
