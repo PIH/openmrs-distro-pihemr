@@ -359,13 +359,6 @@
                     <scope>provided</scope>
                 </dependency>
 
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>initializer</artifactId>
-                    <version>${initializerVersion}</version>
-                    <scope>provided</scope>
-                </dependency>
-
             </dependencies>
             <build>
                 <plugins>
