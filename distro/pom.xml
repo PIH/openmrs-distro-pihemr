@@ -310,13 +310,6 @@
                     <scope>provided</scope>
                 </dependency>
 
-<!--                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>chartsearch-omod</artifactId>
-                    <version>${chartsearchVersion}</version>
-                    <scope>provided</scope>
-                </dependency>-->
-
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>edtriageapp-omod</artifactId>
@@ -359,31 +352,12 @@
                     <scope>provided</scope>
                 </dependency>
 
-
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>orderentryui-omod</artifactId>
                     <version>${orderentryuiVersion}</version>
                     <scope>provided</scope>
                 </dependency>
-<!--
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>pihfingerprints-omod</artifactId>
-                    <version>${pihfingerprintsVersion}</version>
-                    <scope>provided</scope>
-                </dependency>-->
-
-                <!-- temporarily adding the groovy module -->
-                <!--
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>groovy-omod</artifactId>
-                    <version>2.2.3</version>
-                    <scope>provided</scope>
-                </dependency>
-                -->
-
 
             </dependencies>
             <build>
