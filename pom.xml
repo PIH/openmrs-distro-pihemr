@@ -51,6 +51,7 @@
     </modules>
 
     <properties>
+        <openMRSVersionForDistro>2.3.0-SNAPSHOT</openMRSVersionForDistro>  <!-- temporary, can be removed once we figure out testing again 2.3.0_-->
         <openMRSVersion>2.2.1-SNAPSHOT</openMRSVersion>
         <openMRSwebVersion>2.2.1-SNAPSHOT</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
