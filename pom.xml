@@ -59,7 +59,7 @@
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.1</allergyuiVersion>
-        <appframeworkVersion>2.13.0</appframeworkVersion>
+        <appframeworkVersion>2.14.0-SNAPSHOT</appframeworkVersion>
         <appointmentschedulingVersion>1.10.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.8.0</appointmentschedulinguiVersion>
         <appuiVersion>1.10.0</appuiVersion>
