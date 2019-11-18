@@ -55,7 +55,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void shouldCreateAppDescriptor() throws Exception {
-
+        dropNotNullConstraint("person", "creator");
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(socioEconomicConcepts);
