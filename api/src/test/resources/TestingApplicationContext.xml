@@ -5,7 +5,7 @@
 
 	<!--
 	From applicationContext-service.xml in openmrs-api
-	Needed to override and add hibernate mappings to the classpath since omod is not packaged yet 
+	Needed to override and add hibernate mappings to the classpath since omod is not packaged yet
 	-->
 	<bean id="sessionFactory" class="org.openmrs.api.db.hibernate.HibernateSessionFactoryBean">
 		<property name="configLocations">
@@ -17,7 +17,12 @@
 		<property name="mappingJarLocations">
 			<ref bean="mappingJarResources" />
 		</property>
+        <property name="packagesToScan">
+            <list>
+                <value>org.openmrs</value>
+            </list>
+        </property>
 		<!--  default properties must be set in the hibernate.default.properties -->
 	</bean>
-	
+
 </beans>
