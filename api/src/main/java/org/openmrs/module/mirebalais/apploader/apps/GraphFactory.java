@@ -32,7 +32,8 @@ public class GraphFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.bloodPressure.graph.title",
                         "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID + ","
-                                + MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID, "maxResults", "10"
+                                + MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID,
+                        "maxResults", "10"
                 ));
     }
 
