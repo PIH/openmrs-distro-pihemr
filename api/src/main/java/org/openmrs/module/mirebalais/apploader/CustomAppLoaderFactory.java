@@ -2050,18 +2050,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SEIZURES,
-                "pih.app.epilepsy.seizureGraph",
-                "icon-bar-chart",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "label", "pih.app.epilepsy.seizureGraph",
-                        "icon", "icon-bar-chart",
-                        "conceptId", MirebalaisConstants.EPI_SEIZURES,
-                        "maxResults", "30"  // MEX-127
-                )),
+        apps.add(addToEpilepsyDashboardSecondColumn(
+                graphs.getSeizureFrequencyGraph(".epilepsy"),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
     }
@@ -2155,20 +2145,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            apps.add(addToMentalHealthDashboardSecondColumn(app(Apps.SEIZURE_FREQUENCY_GRAPH,
-                    "pih.app.seizure.frequency.graph.title",
-                    "icon-bar-chart",
-                    null,
-                    null,
-                    objectNode(
-                            "widget", "obsgraph",
-                            "label", "pih.app.seizure.frequency.graph.title",
-                            "icon", "icon-bar-chart",
-                            "conceptId", MirebalaisConstants.SEIZURE_FREQUENCY,
-                            "maxResults", "12"
-                    )),
+            apps.add(addToMentalHealthDashboardSecondColumn(
+                    graphs.getSeizureFrequencyGraph(".mentalHealth"),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
-
         }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {

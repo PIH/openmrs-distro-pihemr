@@ -32,8 +32,7 @@ public class GraphFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.bloodPressure.graph.title",
                         "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID + ","
-                                + MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID,
-                        "maxResults", "10"
+                                + MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID, "maxResults", "10"
                 ));
     }
 
@@ -72,6 +71,21 @@ public class GraphFactory {
                                 + MirebalaisConstants.HDL_CONCEPT_UUID + ","
                                 + MirebalaisConstants.LDL_CONCEPT_UUID,
                         "maxRecords", "10"
+                ));
+    }
+
+    public AppDescriptor getSeizureFrequencyGraph(String extensionPoint) {
+        return app(CustomAppLoaderConstants.Apps.EPILEPSY_SEIZURES + extensionPoint,
+                "pih.app.epilepsy.seizureGraph.title",
+                "icon-bar-chart",
+                null,
+                null,
+                objectNode(
+                        "widget", "obsgraph",
+                        "label", "pih.app.epilepsy.seizureGraph.numLastMonth",
+                        "icon", "icon-bar-chart",
+                        "conceptId", MirebalaisConstants.EPI_SEIZURES,
+                        "maxResults", "12"
                 ));
     }
 
