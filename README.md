@@ -115,9 +115,21 @@ $ git clone https://github.com/PIH/mirebalais-puppet.git
 - If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
 it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
-  ```$ mysql -u root -p``` followed by entering the password when prompted.  
+  ```$ mysql -u root -p``` followed by entering the password when prompted.
 
-### Step 3: Set up the environment
+### Step 3: Add repositories to Maven settings file
+Find your maven `settings.xml` file. On Linux it should be at `~/.m2/settings.xml`. Add, in the `<repositories>` section,
+```xml
+<repository>  <!-- Mekom repository, for Initializer -->
+    <id>mks-nexus-public</id>
+    <url>https://nexus.mekomsolutions.net/repository/maven-public/</url>
+    <snapshots>
+        <updatePolicy>always</updatePolicy>
+    </snapshots>
+</repository>
+```
+
+### Step 4: Set up the environment
 Set up the environment via the following command, chhosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
@@ -139,7 +151,7 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * Select the JDK to use
 
-### Step 4: Link the configuration directory into the application data directory
+### Step 5: Link the configuration directory into the application data directory
 
 (Only necessary for Mexico at this time)
 
@@ -159,7 +171,7 @@ ln -s /path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-confi
 
 You should then have a symlinked directory at `~/openmrs/[serverId]/configuration`.
 
-### Step 5: Start up the server
+### Step 6: Start up the server
 
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
@@ -185,7 +197,7 @@ $ mvn openmrs-sdk:run -DserverId=[serverId]
 
 Startup should take several minutes as it loads in all required metadata, etc, for the first time.
 
-### Step 6: Create a local identifier source
+### Step 7: Create a local identifier source
 After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
   - Log in with the following details:
