@@ -8,7 +8,7 @@ var omrs = {
     }
 }
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
     $(".icon-arrow-down").click(function () {
         var self = $(this);

@@ -2139,7 +2139,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getSeizureFrequencyGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
