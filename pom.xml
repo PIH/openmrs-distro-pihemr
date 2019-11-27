@@ -583,6 +583,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>legacyui</artifactId>
+            <version>${legacyuiVersion}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+
         <!-- Begin Mekom -->
         <dependency>
             <groupId>org.openmrs.module</groupId>
