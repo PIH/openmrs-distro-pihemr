@@ -68,7 +68,7 @@
         <coreappsVersion>1.23.0</coreappsVersion>
         <dispensingVersion>1.1-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.2.0</edtriageappVersion>
-        <emrVersion>2.1.0</emrVersion>
+        <emrVersion>2.2.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.28.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.5</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
