@@ -287,6 +287,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableLabs();
         }
 
+        if (config.isComponentEnabled(Components.GROWTH_CHART)) {
+            enableGrowthChart();
+        }
+
         if (config.isComponentEnabled(Components.PROGRAMS)) {
             enablePrograms(config);
         }
@@ -2261,6 +2265,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
+                null));
+    }
+
+    private void enableGrowthChart() {
+
+        extensions.add(overallAction(Extensions.VIEW_GROWTH_CHART_ACTION,
+                "pihcore.viewGrowthChart.overallAction.label",
+                "icon-bar-chart",
+                "link",
+                "growthchart/growthCharts.page?patientId={{patient.uuid}}",
+                Privileges.TASK_VIEW_GROWTH_CHARTS.privilege(),
                 null));
     }
 
