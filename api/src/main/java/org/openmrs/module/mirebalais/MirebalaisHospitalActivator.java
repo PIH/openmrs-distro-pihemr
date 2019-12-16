@@ -255,8 +255,12 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
     private void updateGlobalProperty(String name, Object value) {
         AdministrationService administrationService = Context.getAdministrationService();
         GlobalProperty gp = administrationService.getGlobalPropertyObject(name);
-        gp.setPropertyValue(value == null ? "" : value.toString());
-        administrationService.saveGlobalProperty(gp);
+        if (gp == null) {
+            throw new RuntimeException("Failed to get global property object '" + name + "'. Cannot set it to " + value);
+        } else {
+            gp.setPropertyValue(value == null ? "" : value.toString());
+            administrationService.saveGlobalProperty(gp);
+        }
     }
 
     private void updateGlobalPropertyFromConfig(Config config, String name) {
