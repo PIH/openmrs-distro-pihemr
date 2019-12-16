@@ -373,6 +373,13 @@
                     <scope>provided</scope>
                 </dependency>
 
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>spa-omod</artifactId>
+                    <version>${spaVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
             </dependencies>
             <build>
                 <plugins>
