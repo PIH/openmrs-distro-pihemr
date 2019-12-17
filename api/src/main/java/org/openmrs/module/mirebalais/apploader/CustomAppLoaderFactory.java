@@ -508,6 +508,28 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(mostRecentVitals, Apps.HIV_LAST_VITALS), "coreapps", "encounter/mostRecentEncounter"));
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
+                    "mirebalais.mostRecentVitals.label",
+                    "icon-vitals",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "obsacrossencounters",
+                            "icon", "icon-vitals",
+                            "label", "mirebalais.mostRecentVitals.label",
+                            "encounterType", EncounterTypes.VITALS.uuid(),
+                            "detailsUrl", patientVisitsPageUrl,
+                            "concepts", MirebalaisConstants.HEART_RATE_UUID + "," +
+                                    MirebalaisConstants.TEMPERATURE_UUID + "," +
+                                    MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                    MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID  + "," +
+                                    MirebalaisConstants.RESPIRATORY_RATE_UUID,
+                            "maxRecords", "5"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
+
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
                 findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
