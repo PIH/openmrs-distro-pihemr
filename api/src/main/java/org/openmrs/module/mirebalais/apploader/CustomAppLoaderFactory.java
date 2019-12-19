@@ -520,6 +520,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "label", "mirebalais.mostRecentVitals.label",
                             "encounterType", EncounterTypes.VITALS.uuid(),
                             "detailsUrl", patientVisitsPageUrl,
+                            "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
                             "concepts", MirebalaisConstants.HEART_RATE_UUID + "," +
                                     MirebalaisConstants.TEMPERATURE_UUID + "," +
                                     MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
