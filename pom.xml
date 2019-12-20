@@ -61,7 +61,7 @@
         <appframeworkVersion>2.14.0-SNAPSHOT</appframeworkVersion>
         <appointmentschedulingVersion>1.12.0-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.8.0</appointmentschedulinguiVersion>
-        <appuiVersion>1.10.0</appuiVersion>
+        <appuiVersion>1.11.0-SNAPSHOT</appuiVersion>
         <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
         <calculationVersion>1.2</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
