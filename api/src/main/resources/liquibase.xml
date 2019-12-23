@@ -456,5 +456,50 @@
 
     </changeSet>
 
-</databaseChangeLog>
+    <changeSet id="20191223-program-enroll-mh-patients" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*)
+                  from location l, location_tag_map ltm
+                 where l.name like '%belladere%'
+                   and l.location_id = ltm.location_id
+                   and ltm.location_tag_id =
+                        (select lt.location_tag_id
+                           from location_tag lt
+                          where lt.name like 'Login Location')
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            On mental health laptops, enroll patients into mental health program
+            if they have a Mental Health encounter and not already enrolled.
+        </comment>
+        <sql>
+            insert into patient_program
+              (program_id, date_created, uuid,
+               patient_id, location_id, creator, date_enrolled)
+            select (select p.program_id from program p where p.name like 'Mental Health') as programId,
+                   now(), uuid(),
+                   e.patient_id, e.location_id, e.creator, min(e.encounter_datetime)
+            from encounter e
 
+            inner join encounter_type as et
+               on et.name = 'Mental Health Consult'
+              and e.encounter_type = et.encounter_type_id
+
+            where e.voided = 0
+              and e.patient_id IN
+                  (select distinct(active.patient_id) from encounter active
+                   where active.encounter_datetime > '2019-01-01 00:00:00'
+                     and active.voided = 0
+                     and active.encounter_type = et.encounter_type_id)
+
+              and not exists
+                (select 1 from patient_program pp
+                 where pp.patient_id = e.patient_id
+                   and pp.voided = 0
+                   and pp.program_id = (select pr.program_id from program pr where pr.name like 'Mental Health'))
+            group by e.patient_id;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
