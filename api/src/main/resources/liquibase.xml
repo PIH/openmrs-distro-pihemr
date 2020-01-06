@@ -456,9 +456,9 @@
 
     </changeSet>
 
-    <changeSet id="20191223-program-enroll-mh-patients" author="ball">
+    <changeSet id="20200106-program-enroll-mh-patients" author="ball">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
+            <sqlCheck expectedResult="1">
                 select count(*)
                   from location l, location_tag_map ltm
                  where l.name like '%belladere%'
