@@ -81,7 +81,12 @@ Please request an account by asking another PIH developer or emailing medinfo@pi
 
 # Setting up a Dev Environment
 
-The preferred method to set up a development environment is using the OpenMRS SDK, with some custom configuration steps.
+A development environment can be set up with the OpenMRS SDK, with some 
+custom configuration steps, as written below.
+
+Setup can also be done using the 
+[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke),
+for which the instructions are in that README.
 
 ## Prerequisites
 
@@ -127,16 +132,6 @@ Find your maven `settings.xml` file. On Linux it should be at `~/.m2/settings.xm
 </repository>
 ```
 
-### Step 3.9: (If using Invoke) create a .env file
-A `.env` file will tell Invoke which server you are using. You can create multiple files, like
-`.env.foo` and `.env.bar`, and then Invoke will behave according to which one is symlinked
-(`ln -s`) to `.env`.
-
-To get started, copy `.env.sample` to `.env.something`, open it up, and change the values
-as appropriate for your development work. Then run `ln -s .env.something .env`.
-
-Once the initial `.env` file exists, you can change environment with `invoke setenv something`.
-
 ### Step 4: Set up the environment
 Set up the environment via the following command, chhosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
@@ -148,10 +143,6 @@ The convention for dbNames are "openmrs_[some name]".
 ```
 $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
 ```
-or
-```
-$ invoke setup
-```
 
 * When prompted, select the port you'd like to run tomcat on
 
@@ -162,13 +153,13 @@ $ invoke setup
   `serverId` must only contain
   [MySQL Permitted Characters in Unquoted Identifiers](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html).
 
-* If you are connecting to a MySQL 5.6 instance running on your local machine (and not using Invoke) specify the URI, and a username and password to connect to the DB
+* If you are connecting to a MySQL 5.6 instance running on your local machine, specify the URI and a username and password to connect to the DB
 
 * Select the JDK to use (it must be 1.8)
 
 ### Step 5: Link the configuration directory into the application data directory
 
-Only necessary for Mexico at this time. `invoke setup` does this automatically.
+Only necessary for Mexico at this time.
 
 Some sites have a configuration directory under
 `mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config`. To use one, symlink it
@@ -188,27 +179,6 @@ You should then have a symlinked directory at `~/openmrs/[serverId]/configuratio
 
 ### Step 6: Start up the server
 
-#### Using the Invoke file
-```
-$ invoke run -sk
-```
-
-It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
-
-```
-$ invoke configure
-```
-And check that the utput looks okay. If so,
-```
-invoke run -sk
-```
-once again. Startup should take several minutes as it loads in all 
-required metadata, etc, for the first time.
-
-Future runs can be executed with `invoke run`, which automatically
-does a git pull, maven deploy, and enables all modules before running.
-
-#### Manually
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
 ```
