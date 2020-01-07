@@ -102,6 +102,7 @@ An easier approach is likely to install Docker (https://www.docker.com/) and use
 
 ## Setup
 
+Epic for making setting up a dev enviorment easier: https://pihemr.atlassian.net/browse/UHM-424
 
 ### Step 1: Clone the "mirebalais-puppet" project
 The various configuration files that determine what applications and options are turned on on different servers are
