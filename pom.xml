@@ -61,20 +61,21 @@
         <appframeworkVersion>2.14.0-SNAPSHOT</appframeworkVersion>
         <appointmentschedulingVersion>1.12.0-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.8.0</appointmentschedulinguiVersion>
-        <appuiVersion>1.10.0</appuiVersion>
+        <appuiVersion>1.11.0-SNAPSHOT</appuiVersion>
         <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
         <calculationVersion>1.2</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
-        <coreappsVersion>1.23.0</coreappsVersion>
+        <coreappsVersion>1.24.0</coreappsVersion>
         <dispensingVersion>1.1-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.2.0</edtriageappVersion>
-        <emrVersion>2.1.0</emrVersion>
+        <emrVersion>2.2.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.28.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.5</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <htmlformentryVersion>3.10.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>1.9.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
+        <growthChartVersion>2.1.0-SNAPSHOT</growthChartVersion>
         <idgenVersion>4.5.0</idgenVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <initializerVersion>1.2.0-SNAPSHOT</initializerVersion>
@@ -99,8 +100,9 @@
         <reportingrestVersion>1.11.0</reportingrestVersion>
         <reportinguiVersion>1.6.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
+        <spaVersion>1.0.3</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.9.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.9.0</uicommonsVersion>
         <uiframeworkVersion>3.15.0</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
@@ -367,6 +369,13 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>growthchart-api</artifactId>
+            <version>${growthChartVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>addresshierarchy-api</artifactId>
             <version>${addresshierarchyVersion}</version>
             <scope>provided</scope>
@@ -591,6 +600,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>spa</artifactId>
+            <version>${spaVersion}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Begin Mekom -->
         <dependency>

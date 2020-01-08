@@ -38,6 +38,7 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
+        public static final String VITALS_SUMMARY = "pih.app.vitals.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
@@ -188,6 +189,7 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
         public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
         public static final String VIEW_LABS_OVERALL_ACTION = "labworkflowowa.viewLabs";
+        public static final String VIEW_GROWTH_CHART_ACTION = "growthchart.viewChart";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -318,6 +320,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
+            Extensions.VIEW_GROWTH_CHART_ACTION,
             Extensions.ORDER_LABS_OVERALL_ACTION,
             Extensions.VIEW_LABS_OVERALL_ACTION,
             Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
@@ -397,6 +400,7 @@ public class CustomAppLoaderConstants {
             Apps.RADIOLOGY_APP,
             Apps.RADIOLOGY_ORDERS_APP,
             Apps.BMI_GRAPH + ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN,
+            Apps.VITALS_SUMMARY,
             Apps.DISPENSING_SUMMARY
     );
 

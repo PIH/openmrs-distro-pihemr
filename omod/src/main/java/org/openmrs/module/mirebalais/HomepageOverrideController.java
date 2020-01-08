@@ -13,6 +13,10 @@
  */
 package org.openmrs.module.mirebalais;
 
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,15 +26,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class HomepageOverrideController {
-	
-	@RequestMapping("/index.htm")
-	public String showOurHomepage() {
-		return "forward:/mirebalais/home.page";
-	}
-	
-	@RequestMapping("/login.htm")
-	public String showLoginHomepage() {
-		return "forward:/mirebalais/login.page";
-	}
-	
+
+    @Autowired
+    private Config config;
+
+    @RequestMapping("/index.htm")
+    public String showOurHomepage() {
+        return "forward:/mirebalais/home.page";
+    }
+
+    @RequestMapping("/login.htm")
+    public String showLoginHomepage() {
+        if (config.isComponentEnabled(Components.SPA)) {
+            return "redirect:/spa/login";
+        } else {
+            return "forward:/mirebalais/login.page";
+        }
+    }
+
 }

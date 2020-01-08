@@ -132,6 +132,13 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
+                    <artifactId>growthchart-omod</artifactId>
+                    <version>${growthChartVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
                     <artifactId>addresshierarchy-omod</artifactId>
                     <version>${addresshierarchyVersion}</version>
                     <scope>provided</scope>
@@ -363,6 +370,13 @@
                     <groupId>org.openmrs.module</groupId>
                     <artifactId>initializer-omod</artifactId>
                     <version>${initializerVersion}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.openmrs.module</groupId>
+                    <artifactId>spa-omod</artifactId>
+                    <version>${spaVersion}</version>
                     <scope>provided</scope>
                 </dependency>
 
