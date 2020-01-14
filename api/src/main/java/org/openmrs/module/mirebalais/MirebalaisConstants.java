@@ -77,6 +77,9 @@ public class MirebalaisConstants {
 
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
+    public static final String HEART_RATE_UUID = "3ce93824-26fe-102b-80cb-0017a47871b2";
+    public static final String TEMPERATURE_UUID = "3ce939d2-26fe-102b-80cb-0017a47871b2";
+    public static final String RESPIRATORY_RATE_UUID = "3ceb11f8-26fe-102b-80cb-0017a47871b2";
 
     public static final String NEXT_RETURN_VISIT_UUID = "CIEL:5096";
 }

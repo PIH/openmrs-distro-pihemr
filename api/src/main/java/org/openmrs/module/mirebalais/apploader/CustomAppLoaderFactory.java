@@ -9,6 +9,7 @@ import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
@@ -287,6 +288,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableLabs();
         }
 
+        if (config.isComponentEnabled(Components.GROWTH_CHART)) {
+            enableGrowthChart();
+        }
+
         if (config.isComponentEnabled(Components.PROGRAMS)) {
             enablePrograms(config);
         }
@@ -347,11 +352,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
         } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_liberian_seal.png"));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
-                || config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+        } else {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_english_name.png"));
         }
-
     }
 
     // TODO will these be needed/used after we switch to the visit note view?
@@ -503,6 +506,29 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(mostRecentVitals, Apps.HIV_LAST_VITALS), "coreapps", "encounter/mostRecentEncounter"));
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
+                    "mirebalais.mostRecentVitals.label",
+                    "icon-vitals",
+                    null,
+                    null,
+                    objectNode(
+                            "widget", "obsacrossencounters",
+                            "icon", "icon-vitals",
+                            "label", "mirebalais.mostRecentVitals.label",
+                            "encounterType", EncounterTypes.VITALS.uuid(),
+                            "detailsUrl", patientVisitsPageUrl,
+                            "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
+                            "concepts", MirebalaisConstants.HEART_RATE_UUID + "," +
+                                    MirebalaisConstants.TEMPERATURE_UUID + "," +
+                                    MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                    MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID  + "," +
+                                    MirebalaisConstants.RESPIRATORY_RATE_UUID,
+                            "maxRecords", "5"
+                    )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
@@ -2261,6 +2287,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
+                null));
+    }
+
+    private void enableGrowthChart() {
+
+        extensions.add(overallAction(Extensions.VIEW_GROWTH_CHART_ACTION,
+                "pihcore.viewGrowthChart.overallAction.label",
+                "icon-bar-chart",
+                "link",
+                "growthchart/growthCharts.page?patientId={{patient.uuid}}",
+                Privileges.TASK_VIEW_GROWTH_CHARTS.privilege(),
                 null));
     }
 
