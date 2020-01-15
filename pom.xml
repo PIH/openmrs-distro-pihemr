@@ -98,7 +98,7 @@
         <registrationcoreVersion>1.9.0-SNAPSHOT</registrationcoreVersion>
         <reportingVersion>1.19.0</reportingVersion>
         <reportingrestVersion>1.11.0</reportingrestVersion>
-        <reportinguiVersion>1.6.0</reportinguiVersion>
+        <reportinguiVersion>1.7.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <spaVersion>1.0.3</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
