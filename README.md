@@ -81,10 +81,14 @@ Please request an account by asking another PIH developer or emailing medinfo@pi
 
 # Setting up a Dev Environment
 
-The preferred method to set up a development environment is using the OpenMRS SDK, with some custom configuration steps.
+A development environment can be set up with the OpenMRS SDK, with some 
+custom configuration steps, as written below.
+
+Setup can also be done using the 
+[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke),
+for which the instructions are in that README.
 
 ## Prerequisites
-
 
 First, install git, mvn, and the OpenMRS SDK by following the "Installation" instructions here:
 
@@ -146,15 +150,18 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * When prompted, set the port to debug on (standard is 1044)
 
-* Select which database you'd like to use
+* For database selection, select either the option to use locally-installed MySQL, or to use a MySQL docker container.
+  Option "3. Use an existing docker container," does not seem to work at the time of this writing. Your
+  `serverId` must only contain
+  [MySQL Permitted Characters in Unquoted Identifiers](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html).
 
-* If you are connecting to a MySQL 5.6 instance running on your local machine, specifc the URI, and a username and password to connect to the DB
+* If you are connecting to a MySQL 5.6 instance running on your local machine, specify the URI and a username and password to connect to the DB
 
-* Select the JDK to use
+* Select the JDK to use (it must be 1.8)
 
 ### Step 5: Link the configuration directory into the application data directory
 
-(Only necessary for Mexico at this time)
+Only necessary for Mexico at this time.
 
 Some sites have a configuration directory under
 `mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config`. To use one, symlink it
@@ -177,28 +184,31 @@ You should then have a symlinked directory at `~/openmrs/[serverId]/configuratio
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
 ```
-
 It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
 
-After it fails, notice that a openmrs-runtime.properties file should have been created in the ~/openmrs/[serverId]
+A openmrs-runtime.properties file should have been created in `~/openmrs/[serverId]`.
 
 You will need to add two lines to these file, one specifying which of our configs to use for this server, and another
 referencing the location of the config files (which you checked out as part of the mirebalais-puppet project above).
 For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
 into your home directory, add the following into the runtime properties:
 
-- pih.config=mirebalais,mirebalais-humci
-- pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+```
+pih.config=mirebalais,mirebalais-humci
+pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+```
 
-Then rerun:
-
+Then re-run
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 
-Startup should take several minutes as it loads in all required metadata, etc, for the first time.
+Startup should take several minutes as it loads in all 
+required metadata, etc, for the first time.
 
 ### Step 7: Create a local identifier source
+This is only required for some sites.
+
 After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
   - Log in with the following details:
@@ -427,7 +437,7 @@ $ omrs-run
 ### PyInvoke
 
 There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
-[here](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
+[here](https://github.com/PIH/pih-emr-invoke).
 Feel free to make pull requests.
 
 ### Troubleshooting

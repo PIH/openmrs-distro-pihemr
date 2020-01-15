@@ -9,6 +9,7 @@ import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
@@ -351,11 +352,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo.png"));
         } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_liberian_seal.png"));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
-                || config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+        } else {
             extensions.add(header(Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/mirebalais/images/partners_in_health_logo_with_english_name.png"));
         }
-
     }
 
     // TODO will these be needed/used after we switch to the visit note view?
@@ -510,14 +509,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
-                    "mirebalais.mostRecentVitals.label",
+                    "mirebalais.vitalsTrend.label",
                     "icon-vitals",
                     null,
                     null,
                     objectNode(
                             "widget", "obsacrossencounters",
                             "icon", "icon-vitals",
-                            "label", "mirebalais.mostRecentVitals.label",
+                            "label", "mirebalais.vitalsTrend.label",
                             "encounterType", EncounterTypes.VITALS.uuid(),
                             "detailsUrl", patientVisitsPageUrl,
                             "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
