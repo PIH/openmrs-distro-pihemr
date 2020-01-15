@@ -442,7 +442,7 @@ Feel free to make pull requests.
 
 ### Troubleshooting
 
-#### I'm getting a NullPointerException immediately on navigating to the EMR
+#### I'm getting a NullPointerException from HeaderFragmentController immediately on navigating to the EMR
 
 Something like
 ```
@@ -454,7 +454,15 @@ java.lang.NullPointerException
 ...
 ```
 
-The error itself is meaningless. What it tells us is that something probably went wrong during initialization. Look at the server logs, probably somewhere between the Liquibase stuff and the error you're seeing.
+What the error means, interpreted literally, is that the Mirebalais module is
+overriding the header extension, but didn't successfully initialize the override.
+There are two likely reasons:
+
+1. Mirebalais Module is activating correctly, but the code is wrong, in that it's
+   actually not setting up the header extension. Check the code in the [CALF](https://github.com/PIH/openmrs-module-mirebalais/blob/b1fef4a6d523ee21c250a5a4c3326018938badda/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java#L350) to see if it's setting up a header extension for
+   your site. This is likely the reason if you're setting up a new site.
+2. Something went wrong at some point in server initialization before the header
+   extension could be set. Scroll up in the logs and look for an exception.
 
 #### The server isn't reflecting the changes I'm making in code
 
