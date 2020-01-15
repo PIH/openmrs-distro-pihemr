@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+//this is a test
 @Component
 public class LrVelocityContextContentProvider implements VelocityContextContentProvider {
 
@@ -42,6 +42,15 @@ public class LrVelocityContextContentProvider implements VelocityContextContentP
         velocityContext.put("mentalHealthDiagnosesConcepts", mentalHealthDiagnosesConcepts);
         velocityContext.put("patientHasMentalHealthCondition",
                 CollectionUtils.containsAny(mentalHealthDiagnosesConcepts, conditionListConcepts));
+
+
+	//NCD diagnosis concept lists
+        List<Concept> ncdDiagnosesConcepts = getNcdDiagnoses();
+
+        velocityContext.put("ncdDiagnosesConcepts", ncdDiagnosesConcepts);
+	velocityContext.put("patientHasNcdCondition",
+                CollectionUtils.containsAny(ncdDiagnosesConcepts, conditionListConcepts));
+
     }
 
     private List<Concept> getMentalHealthDiagnoses() {
@@ -62,5 +71,20 @@ public class LrVelocityContextContentProvider implements VelocityContextContentP
                 conceptService.getConceptByMapping("DEPRESSION", "PIH"),
                 conceptService.getConceptByMapping("Manic episode", "PIH"),
                 conceptService.getConceptByMapping("Mood disorder", "PIH")));
+    }
+
+
+    //NCD possible diagnosis list
+    private List<Concept> getNcdDiagnoses() {
+        ConceptService conceptService = Context.getConceptService();
+        return new ArrayList<Concept>(Arrays.asList(
+                conceptService.getConceptByMapping("DIABETES", "PIH"),
+                conceptService.getConceptByMapping("HYPERTENSION", "PIH"),
+                conceptService.getConceptByMapping("RENAL FAILURE, CHRONIC", "PIH"),
+                conceptService.getConceptByMapping("CHRONIC HIV LUNG DISEASE", "PIH"),
+                conceptService.getConceptByMapping("EPILEPSY", "PIH"),
+                conceptService.getConceptByMapping("HEART FAILURE", "PIH"),
+                conceptService.getConceptByMapping("LIVER FAILURE", "PIH"),
+                conceptService.getConceptByMapping("SPLENOMEGALY", "PIH")));
     }
 }
