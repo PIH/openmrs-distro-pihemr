@@ -464,6 +464,17 @@ There are two likely reasons:
 2. Something went wrong at some point in server initialization before the header
    extension could be set. Scroll up in the logs and look for an exception.
 
+#### I'm getting an error "viewProvider mirebalais does not have a view named home" immediately on navigating to the EMR
+
+Something like
+```
+ERROR - PageController.handlePath(155) |2020-01-15 09:23:35,714| 
+org.openmrs.ui.framework.UiFrameworkException: viewProvider mirebalais does not have a view named home
+...
+```
+
+The error is itself meaningless. Look up in the logs for an exception trace to find out what went wrong.
+
 #### The server isn't reflecting the changes I'm making in code
 
 Make sure that the module you're working on hasn't come un-watched. Look at the `watched.projects` line of `openmrs-server.properties` in the App Data directory.
