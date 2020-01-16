@@ -1574,7 +1574,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
-                "icon-gift",
+                "fas fa-baby",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
@@ -1619,7 +1619,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.VCT_VISIT_ACTION,
                 "pih.task.vct.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/vct.xml"),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
@@ -1807,7 +1807,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // ZL HIV forms
         Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1821,7 +1821,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         Extension hivFollowup = visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowup.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-followup.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1918,7 +1918,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // iSantePlus forms were added but  should not appear
         extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1926,7 +1926,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml"),
                 null,
@@ -1934,7 +1934,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1942,7 +1942,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1950,7 +1950,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
                 "pih.task.hivAdherence.label",
-                "icon-asterisk",
+                "fas fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
