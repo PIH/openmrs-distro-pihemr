@@ -36,10 +36,10 @@ public class ZplCardTemplate {
         Boolean birthdateEstimated = (Boolean) paramMap.get("birthdateEstimated");
         String patientIdentifier = (String) paramMap.get("patientIdentifier");
         List<String> addressLines = (paramMap.containsKey("addressLines") ? (List<String>) paramMap.get("addressLines") : null);
-        String telephoneNumber =  (paramMap.containsKey("telephoneNumber") ? (String) paramMap.get("telephoneNumber") : null);
-        String issuingLocation = (paramMap.containsKey("issuingLocation") ? (String) paramMap.get("issuingLocation") : null);
+        String telephoneNumber =  (paramMap.containsKey("telephoneNumber") ? (String) paramMap.get("telephoneNumber") : "");
+        String issuingLocation = (paramMap.containsKey("issuingLocation") ? (String) paramMap.get("issuingLocation") : "");
         String issuedDate = (String) paramMap.get("issuedDate");
-        String customCardLabel = (paramMap.containsKey("customCardLabel") ? (String) paramMap.get("customCardLabel") : null);
+        String customCardLabel = (paramMap.containsKey("customCardLabel") ? (String) paramMap.get("customCardLabel") : "");
         Locale locale = (paramMap.containsKey("locale") ? (Locale) paramMap.get("locale") : new Locale("ht")); // use Creole by default
 
         // build the command to send to the printer -- written in ZPL
