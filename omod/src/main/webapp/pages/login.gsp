@@ -20,11 +20,12 @@
 ${ ui.includeFragment("appui", "header") }
 
 <div id="body-wrapper" class="container">
-    <div id="content">
-
-        <h1>${ welcomeMessage }</h1>
+    <div id="login-page">
 
         <form id="login-form" method="post" autocomplete="off">
+
+            <h1>${ welcomeMessage }</h1>
+
             <fieldset>
 
                 <legend>
@@ -109,7 +110,7 @@ ${ ui.includeFragment("appui", "header") }
     updateSelectedOption = function() {
         jq('#sessionLocation li').removeClass('selected');
         var sessionLocationVal = jq('#sessionLocationInput').val();
-        
+
         if(parseInt(sessionLocationVal, 10) > 0){
             jq('#sessionLocation li[value|=' + sessionLocationVal + ']').addClass('selected');
             jq('#login-button').removeClass('disabled');
