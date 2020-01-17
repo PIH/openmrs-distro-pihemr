@@ -387,7 +387,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
                 "coreapps.task.createRetrospectiveVisit.label",
-                "icon-plus",
+                "fas fa-fw fa-plus",
                 "script",
                 "visit.showRetrospectiveVisitCreationDialog()",
                 "Task: coreapps.createRetrospectiveVisit",
@@ -395,7 +395,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.MERGE_VISITS_OVERALL_ACTION,
                 "coreapps.task.mergeVisits.label",
-                "icon-link",
+                "fas fa-fw fa-link",
                 "link",
                 "coreapps/mergeVisits.page?patientId={{patient.uuid}}",
                 "Task: coreapps.mergeVisits",
@@ -428,7 +428,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(Apps.CHECK_IN,
                     "mirebalais.app.patientRegistration.checkin.label",
-                    "icon-paste",
+                    "fas fa-fw fa-paste",
                     "App: mirebalais.checkin",
                     "/pihcore/checkin/checkin.page?patientId={{patientId}}",
                     //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
@@ -464,7 +464,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             // custom vitals app used in Mirebalais
             apps.add(addToHomePage(findPatientTemplateApp(Apps.UHM_VITALS,
                     "mirebalais.outpatientVitals.title",
-                    "icon-vitals",
+                    "fas fa-fw fa-heartbeat",
                     "App: mirebalais.outpatientVitals",
                     "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
                     null),
@@ -472,7 +472,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else {
             apps.add(addToHomePage(app(Apps.VITALS,
                     "pihcore.vitalsList.title",
-                    "icon-vitals",
+                    "fas fa-fw fa-heartbeat",
                     "/pihcore/vitals/vitalsList.page",
                     "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
                     null)));
@@ -481,7 +481,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
-                "icon-vitals",
+                "fas fa-fw fa-heartbeat",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "vitals")),
                 null,
@@ -492,7 +492,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
                 "mirebalais.mostRecentVitals.label",
-                "icon-vitals",
+                "fas fa-fw fa-heartbeat",
                 null,
                 "App: mirebalais.outpatientVitals",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
@@ -510,12 +510,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
                     "mirebalais.vitalsTrend.label",
-                    "icon-vitals",
+                    "fas fa-fw fa-heartbeat",
                     null,
                     null,
                     objectNode(
                             "widget", "obsacrossencounters",
-                            "icon", "icon-vitals",
+                            "icon", "fas fa-fw fa-heartbeat",
                             "label", "mirebalais.vitalsTrend.label",
                             "encounterType", EncounterTypes.VITALS.uuid(),
                             "detailsUrl", patientVisitsPageUrl,
@@ -532,7 +532,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.VITALS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-vitals", null, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-heartbeat", null, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "vitals")), null);
 
     }
@@ -541,7 +541,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
                 "emr.clinic.consult.title",
-                "icon-stethoscope",
+                "fas fa-fw fa-stethoscope",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/outpatientConsult.xml"),
                 null,
@@ -555,14 +555,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.CONSULTATION,
-                findExtensionById(EncounterTemplates.CONSULT), "icon-stethoscope", null, true, null, null);
+                findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
     }
 
     private void enableEDConsult() {
 
         extensions.add(visitAction(Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
                 "emr.ed.consult.title",
-                "icon-stethoscope",
+                "fas fa-fw fa-stethoscope",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/edNote.xml"),
                 null,
@@ -576,14 +576,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.AWAITING_ADMISSION,
                 "coreapps.app.awaitingAdmission.label",
-                "icon-list-ul",
+                "fas fa-fw fa-list-ul",
                 "coreapps/adt/awaitingAdmission.page?app=" + Apps.AWAITING_ADMISSION,
                 "App: coreapps.awaitingAdmission",
                 objectNode("patientPageUrl", config.getDashboardUrl()))));
 
         apps.add(addToHomePage(app(Apps.INPATIENTS,
                 "mirebalaisreports.app.inpatients.label",
-                "icon-list-ol",
+                "fas fa-fw fa-hospital",
                 "mirebalaisreports/inpatientList.page",
                 "App: emr.inpatients",
                 null),
@@ -591,7 +591,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(awaitingAdmissionAction(Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "mirebalais.task.admit.label",
-                "icon-h-sign",
+                "fas fa-fw fa-hospital-symbol",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/admissionNote.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
                 "Task: emr.enterAdmissionNote",
@@ -599,7 +599,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(awaitingAdmissionAction(Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
                 "uicommons.cancel",
-                "icon-remove",
+                "fas fa-fw fa-user-minus",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/cancelAdmission.xml&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
                 "Task: emr.enterAdmissionNote",
@@ -607,7 +607,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ADMISSION_NOTE_VISIT_ACTION,
                 "mirebalais.task.admit.label",
-                "icon-h-sign",
+                "fas fa-fw fa-hospital-symbol",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/admissionNote.xml"),
                 null,
@@ -618,23 +618,23 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will these be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(EncounterTypes.ADMISSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-signin", null, true, null, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-sign-in-alt", null, true, null, null);
 
         registerTemplateForEncounterType(EncounterTypes.CANCEL_ADMISSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-ban-circle", true, true, null, null);
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-ban", true, true, null, null);
 
         registerTemplateForEncounterType(EncounterTypes.TRANSFER,
-                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-share", null, true, null, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "fas fa-fw fa-share", null, true, null, null);
 
         registerTemplateForEncounterType(EncounterTypes.EXIT_FROM_CARE,
-                findExtensionById(EncounterTemplates.NO_DETAILS), "icon-signout", null, true, null, null);
+                findExtensionById(EncounterTemplates.NO_DETAILS), "fas fa-fw fa-sign-out-alt", null, true, null, null);
     }
 
     private void enableDeathCertificate() {
 
         extensions.add(overallAction(Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
                 "mirebalais.deathCertificate.death_certificate",
-                "icon-remove-circle",
+                "fas fa-fw fa-times-circle",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/deathCertificate.xml"),
                 "Task: mirebalais.enterDeathCertificate",
@@ -659,7 +659,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ORDER_XRAY_VISIT_ACTION,
                 "radiologyapp.task.order.CR.label",
-                "icon-x-ray",
+                "fas fa-fw fa-x-ray",
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=CR",
                 null,
@@ -669,7 +669,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
-                "icon-x-ray",
+                "fas fa-fw fa-x-ray",
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=Ct",
                 null,
@@ -679,7 +679,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
-                "icon-x-ray",
+                "fas fa-fw fa-x-ray",
                 "link",
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=US",
                 null,
@@ -690,7 +690,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_ORDERS_APP,
                     "radiologyapp.app.orders",
-                    "icon-camera",
+                    "fas fa-fw fa-camera",
                     "null",
                     "Task: org.openmrs.module.radiologyapp.tab",
                     null),
@@ -698,7 +698,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_APP,
                     "coreapps.clinicianfacing.radiology",
-                    "icon-camera",
+                    "fas fa-fw fa-camera",
                     "null",
                     "Task: org.openmrs.module.radiologyapp.tab",
                     null),
@@ -707,13 +707,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_ORDER,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
 
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_STUDY,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
 
         registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_REPORT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-x-ray");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
     }
 
     private void enableDispensing() {
@@ -721,7 +721,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // TODO change this to use the coreapps find patient app?
         apps.add(addToHomePage(app(Apps.DISPENSING,
                 "dispensing.app.label",
-                "icon-medicine",
+                "fas fa-fw fa-pills",
                 "dispensing/findPatient.page",
                 "App: dispensing.app.dispense",
                 null),
@@ -729,7 +729,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
-                "icon-medicine",
+                "fas fa-fw fa-pills",
                 "link",
                 enterStandardHtmlFormLink("dispensing:htmlforms/dispensing.xml"),
                 "Task: mirebalais.dispensing",
@@ -739,12 +739,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
-                "icon-medicine",
+                "fas fa-fw fa-pills",
                 "dispensing/patient.page?patientId={{patient.uuid}}",
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-medicine",
+                        "icon", "fas fa-fw fa-pills",
                         "label", "mirebalais.dispensing.title",
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
@@ -756,7 +756,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-medicine", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-pills", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
 
@@ -764,7 +764,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.SURGICAL_NOTE_VISIT_ACTION,
                 "mirebalais.task.surgicalOperativeNote.label",
-                "icon-paste",
+                "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/surgicalPostOpNote.xml"),
                 Privileges.TASK_EMR_ENTER_SURGICAL_NOTE.privilege(),
@@ -772,7 +772,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
     }
 
     private void enableOverviewReports() {
@@ -781,7 +781,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
                     "reportingui.reportsapp.home.title",
-                    "icon-list-alt",
+                    "fas fa-fw fa-chart-bar",
                     "reportingui/reportsapp/home.page",
                     "App: reportingui.reports",
                     null)));
@@ -870,7 +870,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
                     "reportingui.reportsapp.home.title",
-                    "icon-list-alt",
+                    "fas fa-fw fa-list-alt",
                     "reportingui/reportsapp/home.page",
                     "App: reportingui.reports",
                     null)));
@@ -896,7 +896,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.REPORTS) == null) {
             apps.add(addToHomePage(app(Apps.REPORTS,
                     "reportingui.reportsapp.home.title",
-                    "icon-list-alt",
+                    "fas fa-fw fa-list-alt",
                     "reportingui/reportsapp/home.page",
                     "App: reportingui.reports",
                     null)));
@@ -951,14 +951,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.ARCHIVES_ROOM,
                 "paperrecord.app.archivesRoom.label",
-                "icon-folder-open",
+                "fas fa-fw fa-folder-open",
                 "paperrecord/archivesRoom.page",
                 "App: emr.archivesRoom",
                 null)));
 
         extensions.add(overallAction(Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
                 "paperrecord.task.requestPaperRecord.label",
-                "icon-folder-open",
+                "fas fa-fw fa-folder-open",
                 "script",
                 "showRequestChartDialog()",
                 "Task: emr.requestPaperRecord",
@@ -966,7 +966,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.PRINT_ID_CARD_OVERALL_ACTION,
                 "paperrecord.task.printIdCardLabel.label",
-                "icon-print",
+                "fas fa-fw fa-print",
                 "script",
                 "printIdCardLabel()",
                 "Task: emr.printLabels",
@@ -974,7 +974,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
                 "paperrecord.task.printPaperFormLabel.label",
-                "icon-print",
+                "fas fa-fw fa-print",
                 "script",
                 "printPaperFormLabel()",
                 "Task: emr.printLabels",
@@ -987,7 +987,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.PRINT_WRISTBAND_OVERALL_ACTION,
                 "mirebalais.printWristband",
-                "icon-print",
+                "fas fa-fw fa-print",
                 "script",
                 "printWristband()",
                 "Task: emr.printWristband",
@@ -1007,7 +1007,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         AppDescriptor apppointmentScheduling = app(Apps.APPOINTMENT_SCHEDULING_HOME,
                 "appointmentschedulingui.scheduleAppointment.new.title",
-                "icon-calendar",
+                "fas fa-fw fa-calendar-alt",
                 "appointmentschedulingui/home.page",
                 "App: appointmentschedulingui.home",
                 null);
@@ -1016,16 +1016,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
                 "appointmentschedulingui.scheduleAppointment.buttonTitle",
-                "icon-calendar",
+                "fas fa-fw fa-calendar-alt",
                 "Task: appointmentschedulingui.bookAppointments",
                 "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
-                arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
                         objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
 
         extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.scheduleAppointment.new.title",
-                "icon-calendar",
+                "fas fa-fw fa-calendar-alt",
                 "link",
                 "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
                 "Task: appointmentschedulingui.bookAppointments",
@@ -1033,7 +1033,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.requestAppointment.label",
-                "icon-calendar",
+                "fas fa-fw fa-calendar-alt",
                 "link",
                 "appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}",
                 "Task: appointmentschedulingui.requestAppointments",
@@ -1057,7 +1057,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
             apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
                     "coreapps.app.system.administration.label",
-                    "icon-cogs",
+                    "fas fa-fw fa-cogs",
                     "coreapps/systemadministration/systemAdministration.page",
                     "App: emr.systemAdministration",
                     null)));
@@ -1065,24 +1065,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToSystemAdministrationPage(app(Apps.MANAGE_ACCOUNTS,
                 "emr.task.accountManagement.label",
-                "icon-book",
+                "fas fa-fw fa-book",
                 "emr/account/manageAccounts.page",
                 "App: emr.systemAdministration",
                 null)));
 
         apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
                 "coreapps.mergePatientsLong",
-                "icon-group",
+                "fas fa-fw fa-users",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
                 "App: emr.systemAdministration",
-                objectNode("breadcrumbs", arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                objectNode("breadcrumbs", arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong")),
                         "dashboardUrl", (config.getAfterMergeUrl() != null) ? (config.getAfterMergeUrl()) : (config.getDashboardUrl())))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.FEATURE_TOGGLES,
                 "emr.advancedFeatures",
-                "icon-search",
+                "fas fa-fw fa-search",
                 "mirebalais/toggles.page",
                 "App: emr.systemAdministration",
                 null)));
@@ -1093,7 +1093,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.SYSTEM_ADMINISTRATION) == null) {
             apps.add(addToHomePage(app(Apps.SYSTEM_ADMINISTRATION,
                     "coreapps.app.system.administration.label",
-                    "icon-cogs",
+                    "fas fa-fw fa-cogs",
                     "coreapps/systemadministration/systemAdministration.page",
                     "App: emr.systemAdministration",
                     null)));
@@ -1101,7 +1101,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToSystemAdministrationPage(app(Apps.PRINTER_ADMINISTRATION,
                 "printer.administration",
-                "icon-print",
+                "fas fa-fw fa-print",
                 "printer/printerAdministration.page",
                 "App: emr.systemAdministration",
                 null)));
@@ -1112,7 +1112,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.MY_ACCOUNT,
                 "emr.app.system.administration.myAccount.label",
-                "icon-cog",
+                "fas fa-fw fa-cog",
                 "emr/account/myAccount.page",
                 null, null)));
 
@@ -1132,7 +1132,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ADDITIONAL_IDENTIFIERS,
                     "zl.registration.patient.additionalIdentifiers",
-                    "icon-user",
+                    "fas fa-fw fa-user",
                     null,
                     "App: registrationapp.registerPatient",
                     null),
@@ -1143,7 +1143,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SUMMARY,
                 "mirebalais.mostRecentRegistration.label",
-                "icon-user",
+                "fas fa-fw fa-user",
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1157,7 +1157,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.PROVIDER_RELATIONSHIPS)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,
                     "pihcore.providerRelationshipsDashboardWidget.label",
-                    "icon-group",
+                    "fas fa-fw fa-users",
                     null,
                     null,
                     objectNode(
@@ -1168,7 +1168,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
                             "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                             "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
-                            "icon", "icon-group",
+                            "icon", "fas fa-fw fa-users",
                             "label", "pihcore.providerRelationshipsDashboardWidget.label"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1177,7 +1177,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
                     "pihcore.relationshipsDashboardWidget.label",
-                    "icon-group",
+                    "fas fa-fw fa-users",
                     null,
                     null, // TODO restrict by privilege or location)
                     objectNode(
@@ -1190,7 +1190,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
                                     + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                     + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
-                            "icon", "icon-group",
+                            "icon", "fas fa-fw fa-users",
                             "label", "pihcore.relationshipsDashboardWidget.label"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1202,7 +1202,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
-                    "icon-user",
+                    "fas fa-fw fa-user",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1214,7 +1214,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
         apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_SOCIAL,
                 "zl.registration.patient.social.label",
-                "icon-user",
+                "fas fa-fw fa-user",
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1228,7 +1228,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_REGISTRATION_CONTACT,
                     "zl.registration.patient.contactPerson.label",
-                    "icon-user",
+                    "fas fa-fw fa-phone",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1242,7 +1242,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.CHECK_IN)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.MOST_RECENT_CHECK_IN,
                     "pihcore.mostRecentCheckin.label",
-                    "icon-ok",
+                    "fas fa-fw fa-check",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
@@ -1258,7 +1258,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ID_CARD_PRINTING_STATUS,
                     "zl.registration.patient.idcard.status",
-                    "icon-barcode",
+                    "fas fa-fw fa-barcode",
                     null,
                     "App: registrationapp.registerPatient",
                     null),
@@ -1269,7 +1269,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_EBOLA_SCREENING,
                     "zl.registration.patient.ebolaScreening.label",
-                    "icon-user",
+                    "fas fa-fw fa-user",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1282,7 +1282,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
                 "registrationapp.home",
-                "icon-user",
+                "fas fa-fw fa-user",
                 "link",
                 "registrationapp/findPatient.page?appId=" + Apps.PATIENT_REGISTRATION,
                 "App: registrationapp.registerPatient",
@@ -1290,7 +1290,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallRegistrationAction(Extensions.MERGE_INTO_ANOTHER_PATIENT,
                 "coreapps.mergePatientsShort",
-                "icon-group",
+                "fas fa-fw fa-users",
                 "link",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
                 "App: registrationapp.registerPatient",
@@ -1299,7 +1299,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             extensions.add(overallRegistrationAction(Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,
                     "registrationapp.clinicalDashboard",
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
                     "App: coreapps.patientDashboard",
@@ -1307,7 +1307,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(overallAction(Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
                     "registrationapp.patient.registrationSummary",
-                    "icon-user",
+                    "fas fa-fw fa-user",
                     "link",
                     "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
                     "App: registrationapp.registerPatient",
@@ -1317,7 +1317,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             extensions.add(overallRegistrationAction(Extensions.VISITS_DASHBOARD,
                     "pihcore.visitDashboard",
-                    "icon-user",
+                    "fas fa-fw fa-user",
                     "link",
                     patientVisitsPageUrl,
                     "App: coreapps.patientDashboard",
@@ -1327,7 +1327,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.ARCHIVES)) {
             extensions.add(overallRegistrationAction(Extensions.PRINT_PAPER_FORM_LABEL,
                     "paperrecord.task.printPaperFormLabel.label",
-                    "icon-print",
+                    "fas fa-fw fa-print",
                     "script",
                     "printPaperFormLabel()",
                     "Task: emr.printLabels",
@@ -1337,7 +1337,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             extensions.add(overallRegistrationAction(Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,
                     "zl.registration.patient.idcard.label",
-                    "icon-barcode",
+                    "fas fa-fw fa-barcode",
                     "link",
                     "mirebalais/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
                     "App: registrationapp.registerPatient",
@@ -1352,7 +1352,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableLegacyMPI() {
         apps.add(addToHomePageWithoutUsingRouter(app(Apps.LEGACY_MPI,
                 "mirebalais.mpi.title",
-                "icon-zoom-in",
+                "fas fa-fw fa-search-plus",
                 "mirebalais/mpi/findPatient.page",
                 "App: mirebalais.mpi",
                 null)));
@@ -1362,7 +1362,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(app(Apps.CLINICIAN_DASHBOARD,
                 "mirebalais.app.clinicianDashboard.label",
-                "icon-medkit",
+                "fas fa-fw fa-medkit",
                 "coreapps/clinicianfacing/patient.page?app=" + Apps.CLINICIAN_DASHBOARD,
                 CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,
                 objectNode(
@@ -1372,7 +1372,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         AppDescriptor visitSummary = app(Apps.VISITS_SUMMARY,
                 "coreapps.clinicianfacing.visits",
-                "icon-calendar",
+                "fas fa-fw fa-calendar-alt",
                 null,
                 null,
                 null);
@@ -1391,7 +1391,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         //"visitUrl", "pihcore/visit/visit.page?visit={{visit.uuid}}"
 
      /*   if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
-            // TODO figure out how to add icon-pill to this
             // TODO we should actually define an app here, not use the existing app
             addToClinicianDashboardSecondColumn(app, "orderentryui", "patientdashboard/activeDrugOrders");
         }
@@ -1401,7 +1400,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableAllergies() {
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.ALLERGY_SUMMARY,
                 "allergyui.allergies",
-                "icon-medical",
+                "fas fa-fw fa-allergies",
                 null,
                 null,
                 null),
@@ -1414,7 +1413,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
-                "icon-paste",
+                "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/oncologyConsult.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
@@ -1425,12 +1424,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
         extensions.add(visitAction(Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
                 "pih.task.oncologyInitialConsult.label",
-                "icon-paste",
+                "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/oncologyIntake.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
@@ -1441,12 +1440,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_INITIAL_VISIT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-paste", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
         extensions.add(visitAction(Extensions.CHEMOTHERAPY_VISIT_ACTION,
                 "pih.task.chemotherapySession.label",
-                "icon-retweet",
+                "fas fa-fw fa-retweet",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/chemotherapyTreatment.xml"),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
@@ -1461,7 +1460,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // TODO: tweak privileges and restrictions?
         Extension chemoOrdering = overallAction(Extensions.CHEMO_ORDERING_VISIT_ACTION,
                 "pih.task.orderChemo",
-                "icon-medicine",
+                "fas fa-fw fa-pills",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}/#physicianDashboard",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
@@ -1475,7 +1474,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // TODO: tweak privileges and restrictions?
         Extension chemoRecording = visitAction(Extensions.CHEMO_RECORDING_VISIT_ACTION,
                 "pih.task.recordChemo",
-                "icon-medicine",
+                "fas fa-fw fa-pills",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
@@ -1490,7 +1489,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         extensions.add(cloneAsOncologyVisitAction(chemoRecording));
 
         registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-retweet", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-retweet", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
@@ -1498,7 +1497,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.LAB_RESULTS_VISIT_ACTION,
                 "pih.task.labResults.label",
-                "icon-beaker",
+                "fas fa-fw fa-vial",
                 "link",
                 enterSimpleHtmlFormLink("pihcore:htmlforms/labResults.xml"),
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
@@ -1506,7 +1505,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-beaker", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-vial", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "labResults")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
     }
@@ -1517,7 +1516,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_INITIAL_CONSULT.uuid(),
-                "icon-heart",
+                "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
@@ -1528,7 +1527,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_FOLLOWUP_CONSULT.uuid(),
-                "icon-heart",
+                "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
@@ -1542,7 +1541,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
          ToDo: Change roles for echo?  Only residents?
         extensions.add(visitAction(Extensions.ECHO_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ECHOCARDIOGRAM.uuid(),
-                "icon-heart-empty",
+                "fas fa-fw fa-heart-beat",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "echocardiogram") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
@@ -1558,7 +1557,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
         extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
-                "icon-gift",
+                "fas fa-fw fa-gift",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancIntake") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
@@ -1566,7 +1565,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
-                "icon-gift",
+                "fas fa-fw fa-gift",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "ancFollowup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
@@ -1574,7 +1573,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
-                "icon-gift",
+                "fas fa-fw fa-baby",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "delivery") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
@@ -1592,7 +1591,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableVaccinationOnly() {
         extensions.add(visitAction(Extensions.VACCINATION_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.VACCINATION.uuid(),
-                "icon-umbrella",
+                "fas fa-fw fa-umbrella",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "vaccination-only") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_VACCINATION.privilege(),
@@ -1603,7 +1602,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                 "pih.task.mentalHealth.label",
-                "icon-user",
+                "fas fa-fw fa-user",
                 "link",
                 enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
@@ -1611,7 +1610,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-user", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-user", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
 
@@ -1619,7 +1618,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.VCT_VISIT_ACTION,
                 "pih.task.vct.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/vct.xml"),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
@@ -1629,7 +1628,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableSocioEconomics() {
         extensions.add(visitAction(Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
                 "pih.task.socioEcon.label",
-                "icon-home",
+                "fas fa-fw fa-home",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/socio-econ.xml"),
                 Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
@@ -1639,7 +1638,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableChartSearch() {
         extensions.add(overallAction(Extensions.CHART_SEARCH_OVERALL_ACTION,
                 "pihcore.chartSearch.label",
-                "icon-search",
+                "fas fa-fw fa-search",
                 "link",
                 "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
                 Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(), // TODO correct permission!
@@ -1650,7 +1649,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.WAITING_FOR_CONSULT,
                 "pihcore.waitingForConsult.title",
-                "icon-stethoscope",
+                "fas fa-fw fa-stethoscope",
                 "pihcore/visit/waitingForConsult.page",
                 Privileges.APP_WAITING_FOR_CONSULT.privilege(),
                 null)));
@@ -1671,7 +1670,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (findAppById(Apps.CHW_MGMT) == null) {
             apps.add(addToHomePage(app(Apps.CHW_MGMT,
                     "chwapp.label",
-                    "icon-group",
+                    "fas fa-fw fa-users",
                     "/coreapps/providermanagement/providerList.page",
                     Privileges.APP_CHW.privilege(),
                     null),
@@ -1682,7 +1681,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableEDTriage() {
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,
                 "edtriageapp.label",
-                "icon-ambulance",
+                "fas fa-fw fa-ambulance",
                 Privileges.APP_ED_TRIAGE.privilege(),
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE
                         + "&dashboardUrl=" + config.getDashboardUrl(),
@@ -1691,7 +1690,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ED_TRIAGE_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.EMERGENCY_TRIAGE.uuid(),
-                "icon-ambulance",
+                "fas fa-fw fa-ambulance",
                 "link",
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=" + Apps.ED_TRIAGE,
                 null,
@@ -1699,7 +1698,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.EMERGENCY_TRIAGE,
-                findExtensionById(EncounterTemplates.ED_TRIAGE), "icon-ambulance", false, true,
+                findExtensionById(EncounterTemplates.ED_TRIAGE), "fas fa-fw fa-ambulance", false, true,
                 "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}&editable=true",
                 null);
     }
@@ -1707,7 +1706,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableEDTriageQueue() {
         apps.add(addToHomePage(app(Apps.ED_TRIAGE_QUEUE,
                 "edtriageapp.queue.label",
-                "icon-list-ol",
+                "fas fa-fw fa-list-ol",
                 "/edtriageapp/edtriageViewQueue.page?appId=" + Apps.ED_TRIAGE_QUEUE,
                 Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
                 objectNode("dashboardUrl", config.getDashboardUrl())),
@@ -1720,7 +1719,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                     null,
@@ -1732,7 +1731,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                     null,
@@ -1744,7 +1743,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                     null,
@@ -1756,7 +1755,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
                     null,
@@ -1770,7 +1769,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
                     "ui.i18n.EncounterType.name." + MexicoEncounterTypes.MEXICO_CONSULT.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/mexico/consult.xml"),
                     null,
@@ -1780,7 +1779,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-initial.xml"
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
@@ -1789,7 +1788,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
-                    "icon-stethoscope",
+                    "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink("pihcore:htmlforms/sierra_leone/outpatient-followup.xml"
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
@@ -1807,7 +1806,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // ZL HIV forms
         Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntake.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-intake.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1821,7 +1820,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         Extension hivFollowup = visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowup.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/zl/hiv-followup.xml&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1848,12 +1847,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
                 "pih.app.hivObsChart.title",
-                "icon-list-alt",
+                "fas fa-fw fa-list-alt",
                 null,
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
+                        "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.hivObsChart.title",
                         "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
                         "maxRecords", "6"  // TODO what should this be?
@@ -1864,12 +1863,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // ToDo:  This is a placeholder
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
                 "pih.app.alerts.title",
-                "icon-exclamation-sign",
+                "fas fa-fw fa-exclamation-circle",
                 null,
                 null,
                 objectNode(
                         "widget", "latestobsforconceptlist",
-                        "icon", "icon-exclamation-sign",
+                        "icon", "fas fa-fw fa-exclamation-circle",
                         "label", "pih.app.alerts.title",
                         "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID
                 )),
@@ -1878,12 +1877,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
                 "pih.app.patientSummary.title",
-                "icon-user-md",
+                "fas fa-fw fa-user-md",
                 null,
                 null,
                 objectNode(
                         "widget", "latestobsforconceptlist",
-                        "icon", "icon-user-md",
+                        "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
                         "concepts", MirebalaisConstants.NEXT_RETURN_VISIT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID
                 )),
@@ -1892,12 +1891,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // Viral Load
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "label", "pih.app.hivvlGraph.title",
                         "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
                         "type", "logarithmic",
@@ -1918,7 +1917,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // iSantePlus forms were added but  should not appear
         extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1926,7 +1925,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
                 "pih.task.hivIntakeISantePlus.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml"),
                 null,
@@ -1934,7 +1933,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1942,7 +1941,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
                 "pih.task.hivFollowupISantePlus.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1950,7 +1949,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
                 "pih.task.hivAdherence.label",
-                "icon-asterisk",
+                "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink("pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml"),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
@@ -1962,12 +1961,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToAsthmaDashboardFirstColumn(app(Apps.ASTHMA_SYMPTOMS_OBS_TABLE,
                 "pih.app.asthma.symptomsObsTable.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
+                        "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.asthma.symptomsObsTable.title",
                         "concepts", MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
                                 + MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
@@ -1984,13 +1983,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
                 "pih.app.abdominalCircumference.graph.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "label", "pih.app.abdominalCircumference.graph.title",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "conceptId", MirebalaisConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
                         "maxRecords", "4"
                 )),
@@ -1998,12 +1997,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.FOOT_EXAM_OBS_TABLE,
                 "pih.app.footExamObsTable.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
+                        "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.footExamObsTable.title",
                         "concepts", MirebalaisConstants.FOOT_EXAM_CONCEPT_UUID,
                         "maxRecords", "100"  // MEX-127 - should be ten or so rows
@@ -2012,12 +2011,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.URINARY_ALBUMIN_OBS_TABLE,
                 "pih.app.urinaryAlbuminObsTable.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
+                        "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.urinaryAlbuminObsTable.title",
                         "concepts", MirebalaisConstants.URINARY_ALBUMIN_CONCEPT_UUID,
                         "maxRecords", "10"  // MEX-127 - should be 3 rows
@@ -2026,12 +2025,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ALC_TOBAC_USE_SUMMARY,
                 "pih.app.patientSummary.title",
-                "icon-user-md",
+                "fas fa-fw fa-user-md",
                 null,
                 null,
                 objectNode(
                         "widget", "latestobsforconceptlist",
-                        "icon", "icon-user-md",
+                        "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
                         "concepts", MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID + ','
                                 + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID
@@ -2040,13 +2039,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.GLUCOSE_GRAPH,
                 "pih.app.glucose.graph.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "label", "pih.app.glucose.graph.title",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "conceptId", MirebalaisConstants.GLUCOSE_CONCEPT_UUID,
                         "maxRecords", "12"
                 )),
@@ -2054,13 +2053,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToDiabetesDashboardSecondColumn(app(Apps.HBA1C_GRAPH,
                 "pih.app.hba1c.graph.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "label", "pih.app.hba1c.graph.title",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "conceptId", MirebalaisConstants.HBA1C_CONCEPT_UUID,
                         "maxRecords", "4"
                 )),
@@ -2078,12 +2077,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SUMMARY,
                 "pih.app.patientSummary.title",
-                "icon-user-md",
+                "fas fa-fw fa-user-md",
                 null,
                 null,
                 objectNode(
                         "widget", "latestobsforconceptlist",
-                        "icon", "icon-user-md",
+                        "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
                         "concepts", MirebalaisConstants.EPI_SEIZURES_BASELINE
                 )),
@@ -2091,13 +2090,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SEIZURES,
                 "pih.app.epilepsy.seizureGraph",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
                         "label", "pih.app.epilepsy.seizureGraph",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "conceptId", MirebalaisConstants.EPI_SEIZURES,
                         "maxResults", "30"  // MEX-127
                 )),
@@ -2116,12 +2115,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHypertensionDashboardFirstColumn(app(Apps.BLOOD_PRESSURE_OBS_TABLE,
                 "pih.app.bloodPressure.obsTable.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
-                        "icon", "icon-list-alt",
+                        "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.bloodPressure.obsTable.title",
                         "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
                                 + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
@@ -2190,12 +2189,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToMalnutritionDashboardSecondColumn(app(Apps.HEAD_CIRCUMFERENCE_GRAPH,
                 "pih.app.headCircumferenceGraph.title",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-bar",
                 null,
                 null,
                 objectNode(
                         "widget", "obsgraph",
-                        "icon", "icon-bar-chart",
+                        "icon", "fas fa-fw fa-chart-bar",
                         "conceptId", MirebalaisConstants.HEAD_CIRC_CONCEPT_UUID,
                         "maxResults", "12"
                 )),
@@ -2216,10 +2215,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.BIOMETRICS_SUMMARY,
                 "registrationapp.biometrics.summary",
-                "icon-user",
+                "fas fa-fingerprint",
                 null,
                 "App: registrationapp.registerPatient",
-                objectNode("registrationAppId", Apps.PATIENT_REGISTRATION)),
+                objectNode(
+                        "registrationAppId", Apps.PATIENT_REGISTRATION,
+                        "icon", "fas fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
 
@@ -2230,7 +2231,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.PATHOLOGY_TRACKING,
                 "labtrackingapp.app.label",
-                "icon-beaker",
+                "fas fa-fw fa-microscope",
                 "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.PATHOLOGY_TRACKING,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
                 null),
@@ -2238,7 +2239,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.orderPathology.label",
-                "icon-beaker",
+                "fas fa-fw fa-microscope",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
@@ -2246,7 +2247,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATHOLOGY_SUMMARY,
                 "labtrackingapp.pathology",
-                "icon-beaker",
+                "fas fa-fw fa-microscope",
                 null,
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
                 null),
@@ -2257,7 +2258,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         /* this really represents the Labs component, that has a sub-menu linking to multiple apps*/
         apps.add(addToHomePage(app(Apps.LABS,
                 "pih.app.labs.label",
-                "icon-beaker",
+                "fas fa-fw fa-vial",
                 "owa/labworkflow/index.html",
                 Privileges.APP_LABS.privilege(),
                 null),
@@ -2268,14 +2269,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "icon",
                 Privileges.TASK_ORDER_LABS.privilege(),
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
-                arrayNode(objectNode("icon", "icon-home", "link", "/index.htm"),
+                arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label"))
                 ));
 
         extensions.add(overallAction(Extensions.ORDER_LABS_OVERALL_ACTION,
                 "pihcore.orderLabs.overallAction.label",
-                "icon-beaker",
+                "fas fa-fw fa-vial",
                 "link",
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
                 Privileges.TASK_ORDER_LABS.privilege(),
@@ -2283,7 +2284,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.VIEW_LABS_OVERALL_ACTION,
                 "pihcore.viewLabs.overallAction.label",
-                "icon-beaker",
+                "fas fa-fw fa-vial",
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
@@ -2294,7 +2295,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.VIEW_GROWTH_CHART_ACTION,
                 "pihcore.viewGrowthChart.overallAction.label",
-                "icon-bar-chart",
+                "fas fa-fw fa-chart-line",
                 "link",
                 "growthchart/growthCharts.page?patientId={{patient.uuid}}",
                 Privileges.TASK_VIEW_GROWTH_CHARTS.privilege(),
@@ -2401,7 +2402,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             apps.add(addToHomePage(app(Apps.PROGRAM_SUMMARY_LIST,
                     "pih.app.programSummaryList.title",
-                    "icon-list-alt",
+                    "fas fa-fw fa-chart-pie",
                     "/coreapps/applist/appList.page?app=" + Apps.PROGRAM_SUMMARY_LIST,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                     null),
@@ -2409,12 +2410,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             apps.add(addToClinicianDashboardSecondColumn(app(Apps.PROGRAMS_LIST,
                     "coreapps.programsListDashboardWidget.label",
-                    "icon-stethoscope",  // TODO figure out right icon
+                    "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                     null,
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                     objectNode(
                             "widget", "programs",
-                            "icon", "icon-stethoscope",
+                            "icon", "fas fa-fw fa-stethoscope",
                             "label", "coreapps.programsDashboardWidget.label",
                             "dateFormat", "dd MMM yyyy",
                             "supportedPrograms", StringUtils.join(supportedPrograms, ','),
@@ -2428,12 +2429,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToProgramDashboardFirstColumn(program,
                 app("pih.app." + program.uuid() + ".patientProgramSummary",
                 "coreapps.currentEnrollmentDashboardWidget.label",
-                "icon-stethoscope",  // TODO figure out right icon
+                "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
                 Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                 objectNode(
                         "widget", "programstatus",
-                        "icon", "icon-stethoscope",
+                        "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
@@ -2444,11 +2445,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToProgramDashboardFirstColumn(program,
                 app("pih.app." + program.uuid() + ".patientProgramHistory",
                 "coreapps.programHistoryDashboardWidget.label",
-                "icon-stethoscope",  // TODO figure out right icon
+                "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
                 Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
                 objectNode(
-                        "icon", "icon-stethoscope",
+                        "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
@@ -2460,7 +2461,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app("pih.app." + program.uuid() + ".programSummary.dashboard",
                 "pih.app." + program.uuid() +".programSummary.dashboard",
-                "icon-list-alt",
+                "fas fa-fw fa-list-alt",
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + program.uuid() + ".programSummary.dashboard",
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                 objectNode(
@@ -2471,12 +2472,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToProgramSummaryDashboardFirstColumn(program,
                 app("pih.app." + program.uuid() + " .programStatistics",
                 "pih.app." + program.uuid() + ".programStatistics.title",
-                "icon-reorder",  // TODO figure out right icon
+                "fas fa-fw fa-bars",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
                         "widget", "programstatistics",
-                        "icon", "icon-reorder",
+                        "icon", "fas fa-fw fa-bars",
                         "label", "pih.app." + program.uuid() + ".programStatistics.title",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid()
@@ -2487,7 +2488,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableExportPatients() {
         apps.add(addToSystemAdministrationPage(app(Apps.PATIENT_EXPORT,
                 "pihcore.patient.export",
-                "icon-external-link",
+                "fas fa-fw fa-external-link-alt",
                 "pihcore/export/exportPatients.page",
                 "App: emr.systemAdministration",
                 null)));
@@ -2496,7 +2497,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableImportPatients() {
         apps.add(addToSystemAdministrationPage(app(Apps.PATIENT_IMPORT,
                 "pihcore.patient.import",
-                "icon-signin",
+                "fas fa-fw fa-sign-in-alt",
                 "pihcore/export/importPatients.page",
                 "App: emr.systemAdministration",
                 null)));
@@ -2506,7 +2507,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
                 "pihcore.providerRelationshipsDashboardWidget.label",
-                "icon-group",
+                "fas fa-fw fa-users",
                 null,
                 null,
                 objectNode(
@@ -2515,7 +2516,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
                     "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                     "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
-                    "icon", "icon-group",
+                    "icon", "fas fa-fw fa-users",
                     "label", "pihcore.providerRelationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2525,7 +2526,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.RELATIONSHIPS_CLINICAL_SUMMARY,
                 "pihcore.relationshipsDashboardWidget.label",
-                "icon-group",
+                "fas fa-fw fa-users",
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
@@ -2536,7 +2537,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
                                 + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                 + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
-                        "icon", "icon-group",
+                        "icon", "fas fa-fw fa-users",
                         "label", "pihcore.relationshipsDashboardWidget.label"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2558,7 +2559,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enablePatientDocuments() {
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATIENT_DOCUMENTS,
                 "pihcore.patientDocuments.label",
-                "icon-paper-clip",
+                "fas fa-fw fa-paperclip",
                 null,
                 Privileges.APP_ATTACHMENTS_PAGE.privilege(),
                 null),
@@ -2566,7 +2567,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
                 "pihcore.patientDocuments.overallAction.label",
-                "icon-paper-clip",
+                "fas fa-fw fa-paperclip",
                 "link",
                 "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
                 Privileges.APP_ATTACHMENTS_PAGE.privilege(),
@@ -2590,9 +2591,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
         registerTemplateForEncounterType(EncounterTypes.PAYMENT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-money");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-money-bill-alt");
         registerTemplateForEncounterType(EncounterTypes.PRIMARY_CARE_VISIT,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-calendar");
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-calendar");
 
     }
 
