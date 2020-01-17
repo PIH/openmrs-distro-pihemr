@@ -1202,7 +1202,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
-                    "fas fa-fw fa-user",
+                    "fas fa-fw fa-address-card",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -2215,12 +2215,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.BIOMETRICS_SUMMARY,
                 "registrationapp.biometrics.summary",
-                "fas fa-fingerprint",
+                "fas fa-fw fa-fingerprint",
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode(
                         "registrationAppId", Apps.PATIENT_REGISTRATION,
-                        "icon", "fas fa-fingerprint")),
+                        "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
 
