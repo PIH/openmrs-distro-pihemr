@@ -65,7 +65,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertThat(d.getId(), is(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getDescription(), is("registrationapp.registerPatient"));
         assertThat(d.getLabel(), is("registrationapp.app.registerPatient.label"));
-        assertThat(d.getIcon(), is("icon-user"));
+        assertThat(d.getIcon(), is("fas fa-fw fa-user"));
         assertThat(d.getUrl(), is("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getRequiredPrivilege(), is("App: registrationapp.registerPatient"));
 

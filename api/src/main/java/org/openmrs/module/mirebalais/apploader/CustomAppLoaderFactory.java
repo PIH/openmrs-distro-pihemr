@@ -379,7 +379,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
                 "coreapps.task.startVisit.label",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "script",
                 "visit.showQuickVisitCreationDialog({{patient.patientId}})",
                 "Task: coreapps.createVisit",
@@ -415,7 +415,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.ACTIVE_VISITS_LIST,
                 "coreapps.activeVisits.app.label",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "pihcore/reports/activeVisitsList.page?app=" + Apps.ACTIVE_VISITS,
                 "App: coreapps.activeVisits",
                 objectNode("patientPageUrl", patientVisitsPageWithSpecificVisitUrl))));
@@ -438,7 +438,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")),
                 "Task: mirebalais.checkinForm",
@@ -446,7 +446,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(overallRegistrationAction(Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(determineHtmlFormPath(config, "liveCheckin")) + andCreateVisit(),
                 "Task: mirebalais.checkinForm",
@@ -454,7 +454,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
-                findExtensionById(EncounterTemplates.DEFAULT), "icon-check-in", true, true,
+                findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw icon-check-in", true, true,
                 editSimpleHtmlFormLink(determineHtmlFormPath(config, "checkin")), null);
     }
 
@@ -1202,7 +1202,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
-                    "fas fa-fw fa-user",
+                    "fas fa-fw fa-address-card",
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
@@ -1659,7 +1659,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.TODAYS_VISITS,
                 "pihcore.todaysVisits.title",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "pihcore/visit/todaysVisits.page",
                 Privileges.APP_TODAYS_VISITS.privilege(),
                 null)));
@@ -2215,12 +2215,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.BIOMETRICS_SUMMARY,
                 "registrationapp.biometrics.summary",
-                "fas fa-fingerprint",
+                "fas fa-fw fa-fingerprint",
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode(
                         "registrationAppId", Apps.PATIENT_REGISTRATION,
-                        "icon", "fas fa-fingerprint")),
+                        "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
 
@@ -2306,7 +2306,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToHomePage(app(Apps.COHORT_BUILDER_APP,
                 "pih.app.cohortBuilder.label",
-                "icon-check-in",
+                "fas fa-fw icon-check-in",
                 "owa/cohortbuilder/index.html#/",
                  Privileges.APP_COHORT_BUILDER.privilege(),null)));
 

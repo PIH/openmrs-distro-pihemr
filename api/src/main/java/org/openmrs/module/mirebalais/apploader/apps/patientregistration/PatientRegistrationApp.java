@@ -27,7 +27,7 @@ public class PatientRegistrationApp {
         d.setId(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setDescription("registrationapp.registerPatient");
         d.setLabel("registrationapp.app.registerPatient.label");
-        d.setIcon("icon-user");
+        d.setIcon("fas fa-fw fa-user");
         d.setUrl("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION);
         d.setRequiredPrivilege("App: registrationapp.registerPatient");
         d.setConfig(toObjectNode(getRegistrationAppConfig(config)));
