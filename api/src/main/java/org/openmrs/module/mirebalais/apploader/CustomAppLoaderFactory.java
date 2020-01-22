@@ -1604,7 +1604,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.task.mentalHealth.label",
                 "fas fa-fw fa-user",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
