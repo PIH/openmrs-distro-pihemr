@@ -1721,7 +1721,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1733,7 +1733,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-peds-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1745,7 +1745,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(determineHtmlFormPath(config, "primary-care-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
