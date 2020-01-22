@@ -233,6 +233,12 @@ If there isn't, you'll need to create a local identifier source to generate "fak
   - Set "Pool Identifier Source" to "ZL Identifier Generator"
   - Change "When to fill" to "When you request an identifier"
   
+## Set up the Single-SPA Frontend
+
+To develop on Microfrontends, you'll need to do some set-up. Follow the instructions in the
+[PIH SPA Frontend README](https://github.com/PIH/spa-frontend#pih-emr-spa-frontend).
+
+
 # Configuring functionality in a PIH EMR OpenMRS Instance
 
 ## Address
@@ -388,7 +394,6 @@ Of course, after we do this, we need to start having translators edit translatio
 Documentation can be found here:
 https://wiki.openmrs.org/display/docs/Maintaining+OpenMRS+Module+Translations+via+Transifex
 (In particular see the section 'Updating A Module With New Translations" and how to install the Transifex command line client).
-
 
 
 ## Updating
