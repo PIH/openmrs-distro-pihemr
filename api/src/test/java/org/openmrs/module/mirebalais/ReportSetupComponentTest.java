@@ -43,7 +43,6 @@ public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
      */
     @Test
     public void testOverwritingInvalidSerializedReport() throws Exception {
-        dropNotNullConstraint("person", "creator");
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         executeDataSet("badReportDefinition.xml");
         authenticate();

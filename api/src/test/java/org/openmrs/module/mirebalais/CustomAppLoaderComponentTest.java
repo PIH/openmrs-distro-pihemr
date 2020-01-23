@@ -44,7 +44,6 @@ public class CustomAppLoaderComponentTest extends BaseModuleContextSensitiveTest
 
     @Before
     public void setup() throws Exception {
-        dropNotNullConstraint("person", "creator");
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
