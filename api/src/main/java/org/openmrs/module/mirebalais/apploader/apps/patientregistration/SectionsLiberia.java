@@ -59,6 +59,13 @@ public class SectionsLiberia extends SectionsDefault {
         w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");
         w.getConfig().addOption("PIH:1404", "zl.registration.patient.occupation.housework.label");
         w.getConfig().addOption("PIH:PROFESSIONAL", "zl.registration.patient.occupation.professional.label");
+        w.getConfig().addOption("CIEL:163714", "pih.registration.patient.occupation.smallChild.label");
+        w.getConfig().addOption("CIEL:165494", "pih.registration.patient.occupation.childNotInSchool.label");
+        w.getConfig().addOption("CIEL:161382", "pih.registration.patient.occupation.selfEmployed.label");
+        w.getConfig().addOption("CIEL:164832", "pih.registration.patient.occupation.cleaner.label");
+        w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.plantationWorker.label");
+        w.getConfig().addOption("PIH:SHOP OWNER", "zl.registration.patient.occupation.shopOwner.label");
+        w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
 
         w.getConfig().setExpanded(true);
         f.setWidget(toObjectNode(w));
