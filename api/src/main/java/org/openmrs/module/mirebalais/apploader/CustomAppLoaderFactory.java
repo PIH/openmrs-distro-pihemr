@@ -407,7 +407,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "patientdashboard/visitIncludes",
                 null,
                 ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
+                        "visitTypeId", getAtFacilityVisitType().getId())));
 
     }
 
@@ -1375,7 +1376,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-calendar-alt",
                 null,
                 null,
-                null);
+                objectNode("visitTypeId", getAtFacilityVisitType().getId().toString()));
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
