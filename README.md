@@ -178,7 +178,8 @@ mvn clean compile -DserverId=pihliberia
 ```
 $ mvn openmrs-sdk:run -DserverId=[serverId]
 ```
-It should run for several minutes (like potentially 15 to 30 minutes), setting up the database, (you will likely have to go to http://localhost:8080/openmrs to trigger this).  
+It should run for several minutes (like potentially 15 to 30 minutes), setting up the database,
+(you will likely have to go to http://localhost:8080/openmrs to trigger this).  
 
 At the end you should have a running PIH EMR instance.
 
