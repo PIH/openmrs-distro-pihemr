@@ -190,7 +190,7 @@ You will likely want to update the configuration for a specific server within th
 
 A openmrs-runtime.properties file should have been created in `~/openmrs/[serverId]`.
 
-You will need to add one line to these file pecifying which of config to use for this server.
+You will need to add a line to this file specifying which config to use for this server.
 
 For instance, if you want to set up the Mirebalais CI environment, add the following into the runtime properties:
 
