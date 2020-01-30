@@ -160,7 +160,9 @@ $ git clone https://github.com/PIH/openmrs-config-pihliberia.git
 ```
 
 ### Step 4: Compile the configuration project and install it
-You'll need to use the OpenMRS Packager Maven plug-in to assemble the configuration and install it in the application
+You'll need to use the
+[OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
+to assemble the configuration and install it in the application
 data directory associated with the server you created in Step 2
 
 Go into the top-level directory of the configuration project you checked out above and run the Maven Plugin.
