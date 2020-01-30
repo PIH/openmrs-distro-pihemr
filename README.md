@@ -117,7 +117,7 @@ it means that there is no root password set and you have to set it following the
 
 
 ### Step 2: Set up the environment
-Set up the environment via the following command, chosing the serverId and dbName you want to use. Specify
+Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
 The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
