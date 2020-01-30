@@ -156,7 +156,7 @@ found here. The configuration distro projects are as follows:
 For instance, for the Liberia configuration the command is:
 
 ```
-$ git clone https://github.com/PIH/openmrs-config-pihliberia.git
+`git clone https://github.com/PIH/openmrs-config-pihliberia.git`
 ```
 
 ### Step 4: Compile the configuration project and install it
