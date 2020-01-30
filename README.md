@@ -108,34 +108,16 @@ An easier approach is likely to install Docker (https://www.docker.com/) and use
 
 Epic for making setting up a dev enviorment easier: https://pihemr.atlassian.net/browse/UHM-4245
 
-### Step 1: Clone the "mirebalais-puppet" project
-The various configuration files that determine what applications and options are turned on on different servers are
-found here and later on in process you will need to tell OpenMRS where to find them.
 
-```
-$ git clone https://github.com/PIH/mirebalais-puppet.git
-```
-
-### Step 2: (If you are directly installing MySQL on your machine) Ensure that MySQL has a password set up for the root user.
+### Step 1: (If you are directly installing MySQL on your machine) Ensure that MySQL has a password set up for the root user.
 - If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
 it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.
 
-### Step 3: Add repositories to Maven settings file
-Find your maven `settings.xml` file. On Linux it should be at `~/.m2/settings.xml`. Add, in the `<repositories>` section,
-```xml
-<repository>  <!-- Mekom repository, for Initializer -->
-    <id>mks-nexus-public</id>
-    <url>https://nexus.mekomsolutions.net/repository/maven-public/</url>
-    <snapshots>
-        <updatePolicy>always</updatePolicy>
-    </snapshots>
-</repository>
-```
 
-### Step 4: Set up the environment
-Set up the environment via the following command, chhosing the serverId and dbName you want to use. Specify
+### Step 2: Set up the environment
+Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
 The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
@@ -159,55 +141,74 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * Select the JDK to use (it must be 1.8)
 
-### Step 5: Link the configuration directory into the application data directory
+### Step 3: Clone the configuration project for the distro you are working
+The various configuration files that determine what applications and options are turned on on different servers are
+found here. The configuration distro projects are as follows:
 
-Only necessary for Mexico at this time.
+|Site|Repo  |
+|---|---|
+|CES|https://github.com/PIH/openmrs-config-ces|
+|Liberia|https://github.com/PIH/openmrs-config-pihliberia|
+|SES|https://github.com/PIH/openmrs-config-ses|
+|Sierra Leone|https://github.com/PIH/openmrs-config-pihsl|
+|ZL|https://github.com/PIH/openmrs-config-zl|
 
-Some sites have a configuration directory under
-`mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config`. To use one, symlink it
-in to you application data directory with
-
-```
-cd ~/openmrs/[serverId]  # cd into the application data directory
-ln -s $(realpath ~/path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/[your-site]/configuration) .
-```
-On Mac OS
-```
-cd ~/openmrs/[serverId]  # cd into the application data directory
-ln -s /path/to/mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/[your-site]/configuration .
-```
-
-You should then have a symlinked directory at `~/openmrs/[serverId]/configuration`.
-
-### Step 6: Start up the server
+For instance, for the Liberia configuration the command is:
 
 ```
-$ mvn openmrs-sdk:run -DserverId=[serverId]
+git clone https://github.com/PIH/openmrs-config-pihliberia.git
 ```
-It should run for several minutes, setting up the database, (you may have to go to http://localhost:8080/openmrs to trigger this) BUT, in the end, it will fail.  You should cancel the current run (Ctrl-C in the terminal window).
+
+### Step 4: Compile the configuration project and install it
+You'll need to use the
+[OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
+to assemble the configuration and install it in the application
+data directory associated with the server you created in Step 2
+
+Go into the top-level directory of the configuration project you checked out above and run the Maven Plugin.
+
+Use the "serverId" you choose in Step 1
+
+```
+cd openmrs-config-liberia
+mvn clean compile -DserverId=pihliberia
+```
+
+
+### Step 5: Start up the server
+
+```
+mvn openmrs-sdk:run -DserverId=[serverId]
+```
+It should run for several minutes (like potentially 15 to 30 minutes), setting up the database,
+(you will likely have to go to http://localhost:8080/openmrs to trigger this).  
+
+At the end you should have a running PIH EMR instance.
+
+## ### Step 6: Tweak the configuration
+
+At this point, the configuration will be set up with the 'default' configuration for your chosen distro.
+
+You will likely want to update the configuration for a specific server within that distro.
 
 A openmrs-runtime.properties file should have been created in `~/openmrs/[serverId]`.
 
-You will need to add two lines to these file, one specifying which of our configs to use for this server, and another
-referencing the location of the config files (which you checked out as part of the mirebalais-puppet project above).
-For instance, if you want to set up the Mirebalais CI environment, and you checked out the mirebalais puppet project
-into your home directory, add the following into the runtime properties:
+You will need to add a line to this file specifying which config to use for this server.
+
+For instance, if you want to set up the Mirebalais CI environment, add the following into the runtime properties:
 
 ```
 pih.config=mirebalais,mirebalais-humci
-pih.config.dir=/[path to]/mirebalais-puppet/mirebalais-modules/openmrs/files/config
 ```
 
 Then re-run
 ```
-$ mvn openmrs-sdk:run -DserverId=[serverId]
+mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 
-Startup should take several minutes as it loads in all 
-required metadata, etc, for the first time.
-
 ### Step 7: Create a local identifier source
-This is only required for some sites.
+
+**This is only required for some sites.**
 
 After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
