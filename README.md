@@ -156,7 +156,7 @@ found here. The configuration distro projects are as follows:
 For instance, for the Liberia configuration the command is:
 
 ```
-`git clone https://github.com/PIH/openmrs-config-pihliberia.git`
+git clone https://github.com/PIH/openmrs-config-pihliberia.git
 ```
 
 ### Step 4: Compile the configuration project and install it
@@ -178,7 +178,7 @@ mvn clean compile -DserverId=pihliberia
 ### Step 5: Start up the server
 
 ```
-$ mvn openmrs-sdk:run -DserverId=[serverId]
+mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 It should run for several minutes (like potentially 15 to 30 minutes), setting up the database,
 (you will likely have to go to http://localhost:8080/openmrs to trigger this).  
@@ -203,7 +203,7 @@ pih.config=mirebalais,mirebalais-humci
 
 Then re-run
 ```
-$ mvn openmrs-sdk:run -DserverId=[serverId]
+mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 
 ### Step 7: Create a local identifier source
