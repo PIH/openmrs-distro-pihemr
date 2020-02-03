@@ -753,8 +753,4 @@ public class CustomAppLoaderUtil {
         return false;
     }
 
-    static public VisitType getAtFacilityVisitType(){
-        return Context.getVisitService().getVisitTypeByUuid(VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT);
-    }
-
 }
