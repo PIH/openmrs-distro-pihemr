@@ -27,35 +27,54 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
 
         List<Concept> mentalHealthDiagnosesConcepts = getMentalHealthDiagnoses();
 
+        List<Concept> ncdDiagnosesConcepts = getNcdDiagnoses();
+
         List<Concept> conditionListConcepts = conditionListVelocityContextContentProvider.getActiveConditionsConcepts(patient);
 
         velocityContext.put("mentalHealthDiagnosesConcepts", mentalHealthDiagnosesConcepts);
+        velocityContext.put("ncdDiagnosesConcepts", ncdDiagnosesConcepts);
         velocityContext.put("patientHasMentalHealthCondition",
                 CollectionUtils.containsAny(mentalHealthDiagnosesConcepts, conditionListConcepts));
+        velocityContext.put("patientHasNcdCondition", CollectionUtils.containsAny(ncdDiagnosesConcepts, conditionListConcepts));
     }
 
-    private List<Concept> getMentalHealthDiagnoses() {
+    private List<Concept> getNcdDiagnoses() {
         List<Concept> concepts = new ArrayList<Concept>();
-        addMentalHealthConceptToList(concepts, "PSYCHOSIS", "PIH");
-        addMentalHealthConceptToList(concepts, "Bipolar disorder", "PIH");
-        addMentalHealthConceptToList(concepts, "SCHIZOPHRENIA", "PIH");
-        addMentalHealthConceptToList(concepts, "Psychosomatic problems", "PIH");
-        addMentalHealthConceptToList(concepts, "Hyperkinetic Behavior", "PIH");
-        addMentalHealthConceptToList(concepts, "Conduct disorder", "PIH");
-        addMentalHealthConceptToList(concepts, "Mental handicap", "PIH");
-        addMentalHealthConceptToList(concepts, "DEMENTIA", "PIH");
-        addMentalHealthConceptToList(concepts, "EPILEPSY", "PIH");
-        addMentalHealthConceptToList(concepts, "ANXIETY DISORDER", "PIH");
-        addMentalHealthConceptToList(concepts, "Post traumatic stress disorder", "PIH");
-        addMentalHealthConceptToList(concepts, "130967", "CIEL");
-        addMentalHealthConceptToList(concepts, "DEPRESSION", "PIH");
-        addMentalHealthConceptToList(concepts, "Manic episode", "PIH");
-        addMentalHealthConceptToList(concepts, "Mood disorder", "PIH");
+
+        addProgramConceptToList(concepts, "DIABETES", "PIH");
+        addProgramConceptToList(concepts, "HYPERTENSION", "PIH");
+        addProgramConceptToList(concepts, "RENAL FAILURE", "PIH");
+        addProgramConceptToList(concepts, "HEART FAILURE", "PIH");
+        addProgramConceptToList(concepts, "LIVER FAILURE", "PIH");
+        addProgramConceptToList(concepts, "ASTHMA", "PIH");
+        addProgramConceptToList(concepts, "CHRONIC OBSTRUCTIVE PULMONARY DISEASE", "PIH");
+        addProgramConceptToList(concepts, "Sickle-Cell Anemia", "PIH");
 
         return concepts;
     }
 
-    private void addMentalHealthConceptToList(List<Concept> concepts, String code, String sourceName) {
+    private List<Concept> getMentalHealthDiagnoses() {
+        List<Concept> concepts = new ArrayList<Concept>();
+        addProgramConceptToList(concepts, "PSYCHOSIS", "PIH");
+        addProgramConceptToList(concepts, "Bipolar disorder", "PIH");
+        addProgramConceptToList(concepts, "SCHIZOPHRENIA", "PIH");
+        addProgramConceptToList(concepts, "Psychosomatic problems", "PIH");
+        addProgramConceptToList(concepts, "Hyperkinetic Behavior", "PIH");
+        addProgramConceptToList(concepts, "Conduct disorder", "PIH");
+        addProgramConceptToList(concepts, "Mental handicap", "PIH");
+        addProgramConceptToList(concepts, "DEMENTIA", "PIH");
+        addProgramConceptToList(concepts, "EPILEPSY", "PIH");
+        addProgramConceptToList(concepts, "ANXIETY DISORDER", "PIH");
+        addProgramConceptToList(concepts, "Post traumatic stress disorder", "PIH");
+        addProgramConceptToList(concepts, "130967", "CIEL");
+        addProgramConceptToList(concepts, "DEPRESSION", "PIH");
+        addProgramConceptToList(concepts, "Manic episode", "PIH");
+        addProgramConceptToList(concepts, "Mood disorder", "PIH");
+
+        return concepts;
+    }
+
+    private void addProgramConceptToList(List<Concept> concepts, String code, String sourceName) {
         ConceptService conceptService = Context.getConceptService();
         Concept concept = conceptService.getConceptByMapping(code, sourceName);
         if (concept != null) {
