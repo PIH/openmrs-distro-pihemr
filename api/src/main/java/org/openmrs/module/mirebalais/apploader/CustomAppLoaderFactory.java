@@ -24,6 +24,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
@@ -407,7 +408,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "patientdashboard/visitIncludes",
                 null,
                 ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
+                        "visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT)));
 
     }
 
@@ -1375,7 +1377,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-calendar-alt",
                 null,
                 null,
-                null);
+                objectNode("visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT));
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));

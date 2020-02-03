@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.3.0-SNAPSHOT</openMRSVersion>
-        <openMRSwebVersion>2.3.0-SNAPSHOT</openMRSwebVersion>
+        <openMRSVersion>2.3.0</openMRSVersion>
+        <openMRSwebVersion>2.3.0</openMRSwebVersion>
         <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -65,26 +65,26 @@
         <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
         <calculationVersion>1.2</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
-        <coreappsVersion>1.25.0</coreappsVersion>
-        <dispensingVersion>1.1-SNAPSHOT</dispensingVersion>
-        <edtriageappVersion>1.3.0-SNAPSHOT</edtriageappVersion>
-        <emrVersion>2.2.0-SNAPSHOT</emrVersion>
+        <coreappsVersion>1.26.0-SNAPSHOT</coreappsVersion>
+        <dispensingVersion>1.1.0</dispensingVersion>
+        <edtriageappVersion>1.3.0</edtriageappVersion>
+        <emrVersion>2.2.0</emrVersion>
         <emrapiVersion>1.28.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.5</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <htmlformentryVersion>3.10.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>1.9.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
-        <growthChartVersion>2.1.0-SNAPSHOT</growthChartVersion>
+        <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.5.0</idgenVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <initializerVersion>1.2.0-SNAPSHOT</initializerVersion>
-        <labtrackingappVersion>1.1.0-SNAPSHOT</labtrackingappVersion>
+        <labtrackingappVersion>1.1.0</labtrackingappVersion>
         <labworkflowOwaVersion>0.2.0</labworkflowOwaVersion>
         <legacyuiVersion>1.6.0</legacyuiVersion>
         <metadatadeployVersion>1.11.0</metadatadeployVersion>
         <metadatamappingVersion>1.3.4</metadatamappingVersion>
-        <metadatasharingVersion>1.6.0-SNAPSHOT</metadatasharingVersion>
+        <metadatasharingVersion>1.6.0</metadatasharingVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <orderEntryOwaVersion>1.1.0</orderEntryOwaVersion>
         <orderentryuiVersion>1.1.0</orderentryuiVersion>
@@ -103,7 +103,7 @@
         <spaVersion>1.0.4</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.10.0</uicommonsVersion>
-        <uiframeworkVersion>3.16.0</uiframeworkVersion>
+        <uiframeworkVersion>3.17.0-SNAPSHOT</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
