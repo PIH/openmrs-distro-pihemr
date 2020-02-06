@@ -49,6 +49,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
@@ -128,6 +130,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         return null;
     }
 
+
+    private String addParametersToUrl(String url, Map<String, String> parameters){
+        String urlParams = null;
+        if ( StringUtils.isNotBlank(url) && parameters != null && parameters.size() > 0) {
+            int separatorIndex = url.indexOf("?");
+            StringBuilder sb = new StringBuilder()
+                    .append(url.substring(0, separatorIndex))
+                    .append("?");
+            for (String param : parameters.keySet()) {
+                String value = parameters.get(param);
+                sb.append(param).append("=").append(value).append("&");
+            }
+            sb.append(url.substring(separatorIndex + 1));
+            urlParams = sb.toString();
+        }
+
+        return urlParams;
+    }
 
     private void loadAppsAndExtensions() {
 
@@ -1371,7 +1391,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "visitUrl", patientVisitsPageWithSpecificVisitUrl,
                         "visitsUrl", patientVisitsPageUrl
                 )));
-
         AppDescriptor visitSummary = app(Apps.VISITS_SUMMARY,
                 "coreapps.clinicianfacing.visits",
                 "fas fa-fw fa-calendar-alt",
@@ -1379,7 +1398,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 objectNode("visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT));
 
+        HashMap<String, String> visitParams = new HashMap<String, String>();
+        visitParams.put("suppressActions", "true");
+        visitParams.put("visitType", VisitTypeBundle.VisitTypes.HOME_VISIT);
+
+        AppDescriptor homeVisitsSummary = app(Apps.HOME_VISITS_SUMMARY,
+                "mirebalais.home.visits",
+                "fas fa-fw fa-calendar-alt",
+                null,
+                null,
+                objectNode(
+                        "visitType", VisitTypeBundle.VisitTypes.HOME_VISIT,
+                        "visitsUrl", addParametersToUrl(patientVisitsPageUrl, visitParams),
+                        "visitUrl",  addParametersToUrl(patientVisitsPageWithSpecificVisitUrl, visitParams),
+                        "showVisitTypeOnPatientHeaderSection", true,
+                        "label", "mirebalais.home.visits"));
+
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
+        apps.add(addToClinicianDashboardFirstColumn(homeVisitsSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
 
         if (config.isComponentEnabled(Components.BMI_ON_CLINICIAN_DASHBOARD)) {
