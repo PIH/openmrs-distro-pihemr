@@ -1516,22 +1516,32 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         configureBasicProgramDashboard(NCDProgram.NCD);
 
+        String definitionUiResource = determineHtmlFormPath(config, "ncd-adult-initial");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+        }
+
         extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_INITIAL_CONSULT.uuid(),
                 "fas fa-fw fa-heart",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+        definitionUiResource = determineHtmlFormPath(config, "ncd-adult-followup");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+        }
+
         extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_FOLLOWUP_CONSULT.uuid(),
                 "fas fa-fw fa-heart",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
@@ -1602,11 +1612,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableMentalHealthForm() {
 
+        String definitionUiResource = determineHtmlFormPath(config, "mentalHealth");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
+        }
+
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                 "pih.task.mentalHealth.label",
                 "fas fa-fw fa-user",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                enterStandardHtmlFormLink(definitionUiResource),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
