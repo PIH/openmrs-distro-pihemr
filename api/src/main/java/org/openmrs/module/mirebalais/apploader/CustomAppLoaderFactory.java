@@ -1398,25 +1398,28 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 objectNode("visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT));
 
-        HashMap<String, String> visitParams = new HashMap<String, String>();
-        visitParams.put("suppressActions", "true");
-        visitParams.put("visitType", VisitTypeBundle.VisitTypes.HOME_VISIT);
-
-        AppDescriptor homeVisitsSummary = app(Apps.HOME_VISITS_SUMMARY,
-                "mirebalais.home.visits",
-                "fas fa-fw fa-calendar-alt",
-                null,
-                null,
-                objectNode(
-                        "visitType", VisitTypeBundle.VisitTypes.HOME_VISIT,
-                        "visitsUrl", addParametersToUrl(patientVisitsPageUrl, visitParams),
-                        "visitUrl",  addParametersToUrl(patientVisitsPageWithSpecificVisitUrl, visitParams),
-                        "showVisitTypeOnPatientHeaderSection", true,
-                        "label", "mirebalais.home.visits"));
-
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
-        apps.add(addToClinicianDashboardFirstColumn(homeVisitsSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
+
+        if (config.isComponentEnabled(Components.HOME_VISITS_ON_CLINICIAN_DASHBOARD)) {
+            HashMap<String, String> visitParams = new HashMap<String, String>();
+            visitParams.put("suppressActions", "true");
+            visitParams.put("visitType", VisitTypeBundle.VisitTypes.HOME_VISIT);
+
+            AppDescriptor homeVisitsSummary = app(Apps.HOME_VISITS_SUMMARY,
+                    "mirebalais.home.visits",
+                    "fas fa-fw fa-calendar-alt",
+                    null,
+                    null,
+                    objectNode(
+                            "visitType", VisitTypeBundle.VisitTypes.HOME_VISIT,
+                            "visitsUrl", addParametersToUrl(patientVisitsPageUrl, visitParams),
+                            "visitUrl",  addParametersToUrl(patientVisitsPageWithSpecificVisitUrl, visitParams),
+                            "showVisitTypeOnPatientHeaderSection", true,
+                            "label", "mirebalais.home.visits"));
+
+            apps.add(addToClinicianDashboardFirstColumn(homeVisitsSummary, "coreapps", "clinicianfacing/visitsSection"));
+        }
 
         if (config.isComponentEnabled(Components.BMI_ON_CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(
@@ -2491,7 +2494,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
-                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2507,7 +2510,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "includeActive", false,
-                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()   // TODO what should this be
                 )),
                 "coreapps", "program/programHistory"));
 
