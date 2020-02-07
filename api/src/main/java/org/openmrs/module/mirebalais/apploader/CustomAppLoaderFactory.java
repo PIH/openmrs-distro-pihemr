@@ -2494,7 +2494,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
-                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2510,7 +2510,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "includeActive", false,
-                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
                 )),
                 "coreapps", "program/programHistory"));
 
