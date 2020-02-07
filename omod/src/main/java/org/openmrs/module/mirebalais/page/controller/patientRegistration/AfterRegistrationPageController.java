@@ -64,7 +64,7 @@ public class AfterRegistrationPageController {
         if (liberiaEmrId != null && liberiaEmrId.startsWith(config.getPrimaryIdentifierPrefix())) {
             redirectUrl += PihCoreUtil.getFormResource("liveCheckin.xml") + "&createVisit=true";
         } else {
-            redirectUrl += "file:configuration/pih/htmlforms/checkin.xml";
+            redirectUrl += PihCoreUtil.getFormResource("checkin.xml");
         }
         return redirectUrl;
     }
