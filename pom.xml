@@ -65,7 +65,7 @@
         <attachmentsVersion>2.2.0</attachmentsVersion>
         <calculationVersion>1.2</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
-        <coreappsVersion>1.26.0</coreappsVersion>
+        <coreappsVersion>1.27.0-SNAPSHOT</coreappsVersion>
         <dispensingVersion>1.1.0</dispensingVersion>
         <edtriageappVersion>1.3.0</edtriageappVersion>
         <emrVersion>2.2.0</emrVersion>
