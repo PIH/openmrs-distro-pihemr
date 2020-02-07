@@ -47,6 +47,7 @@ public class CustomAppLoaderConstants {
         public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
         public static final String VISITS_SUMMARY = "coreapps.clinicianfacing.visits";
+        public static final String HOME_VISITS_SUMMARY = "coreapps.home.visits";
         public static final String WAITING_FOR_CONSULT = "pih.app.waitingForConsult";
         public static final String CHW_MGMT = "chw.app.mgmt";
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
@@ -395,6 +396,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> CLINICIAN_DASHBOARD_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
+            Apps.HOME_VISITS_SUMMARY,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
