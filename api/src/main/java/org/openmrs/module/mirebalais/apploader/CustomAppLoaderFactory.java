@@ -49,6 +49,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
@@ -128,6 +130,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         return null;
     }
 
+
+    private String addParametersToUrl(String url, Map<String, String> parameters){
+        String urlParams = null;
+        if ( StringUtils.isNotBlank(url) && parameters != null && parameters.size() > 0) {
+            int separatorIndex = url.indexOf("?");
+            StringBuilder sb = new StringBuilder()
+                    .append(url.substring(0, separatorIndex))
+                    .append("?");
+            for (String param : parameters.keySet()) {
+                String value = parameters.get(param);
+                sb.append(param).append("=").append(value).append("&");
+            }
+            sb.append(url.substring(separatorIndex + 1));
+            urlParams = sb.toString();
+        }
+
+        return urlParams;
+    }
 
     private void loadAppsAndExtensions() {
 
@@ -1371,7 +1391,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "visitUrl", patientVisitsPageWithSpecificVisitUrl,
                         "visitsUrl", patientVisitsPageUrl
                 )));
-
         AppDescriptor visitSummary = app(Apps.VISITS_SUMMARY,
                 "coreapps.clinicianfacing.visits",
                 "fas fa-fw fa-calendar-alt",
@@ -1381,6 +1400,26 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
+
+        if (config.isComponentEnabled(Components.HOME_VISITS_ON_CLINICIAN_DASHBOARD)) {
+            HashMap<String, String> visitParams = new HashMap<String, String>();
+            visitParams.put("suppressActions", "true");
+            visitParams.put("visitType", VisitTypeBundle.VisitTypes.HOME_VISIT);
+
+            AppDescriptor homeVisitsSummary = app(Apps.HOME_VISITS_SUMMARY,
+                    "mirebalais.home.visits",
+                    "fas fa-fw fa-calendar-alt",
+                    null,
+                    null,
+                    objectNode(
+                            "visitType", VisitTypeBundle.VisitTypes.HOME_VISIT,
+                            "visitsUrl", addParametersToUrl(patientVisitsPageUrl, visitParams),
+                            "visitUrl",  addParametersToUrl(patientVisitsPageWithSpecificVisitUrl, visitParams),
+                            "showVisitTypeOnPatientHeaderSection", true,
+                            "label", "mirebalais.home.visits"));
+
+            apps.add(addToClinicianDashboardFirstColumn(homeVisitsSummary, "coreapps", "clinicianfacing/visitsSection"));
+        }
 
         if (config.isComponentEnabled(Components.BMI_ON_CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(
@@ -1516,22 +1555,32 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         configureBasicProgramDashboard(NCDProgram.NCD);
 
+        String definitionUiResource = determineHtmlFormPath(config, "ncd-adult-initial");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+        }
+
         extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_INITIAL_CONSULT.uuid(),
                 "fas fa-fw fa-heart",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-initial") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+        definitionUiResource = determineHtmlFormPath(config, "ncd-adult-followup");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+        }
+
         extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.NCD_FOLLOWUP_CONSULT.uuid(),
                 "fas fa-fw fa-heart",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "ncd-adult-followup") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
@@ -1602,11 +1651,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableMentalHealthForm() {
 
+        String definitionUiResource = determineHtmlFormPath(config, "mentalHealth");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
+        }
+
         extensions.add(visitAction(Extensions.MENTAL_HEALTH_VISIT_ACTION,
                 "pih.task.mentalHealth.label",
                 "fas fa-fw fa-user",
                 "link",
-                enterStandardHtmlFormLink(determineHtmlFormPath(config, "mentalHealth") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                enterStandardHtmlFormLink(definitionUiResource),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
 
@@ -2166,7 +2220,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getSeizureFrequencyGraph(ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
@@ -2440,7 +2494,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
-                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2456,7 +2510,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "includeActive", false,
-                        "locationTag", LocationTags.VISIT_LOCATION.uuid()   // TODO what should this be
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
                 )),
                 "coreapps", "program/programHistory"));
 

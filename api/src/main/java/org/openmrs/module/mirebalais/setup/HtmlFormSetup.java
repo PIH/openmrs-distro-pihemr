@@ -88,7 +88,10 @@ public class HtmlFormSetup {
                 htmlforms.addAll(Arrays.asList(
                         "pihcore:htmlforms/liberia/checkin.xml",
                         "pihcore:htmlforms/liberia/liveCheckin.xml",
-                        "pihcore:htmlforms/liberia/patientRegistration-social.xml"
+                        "pihcore:htmlforms/liberia/patientRegistration-social.xml",
+                        "pihcore:htmlforms/liberia/mentalHealth.xml",
+                        "pihcore:htmlforms/liberia/ncd-adult-initial.xml",
+                        "pihcore:htmlforms/liberia/ncd-adult-followup.xml"
                 ));
             }
 
