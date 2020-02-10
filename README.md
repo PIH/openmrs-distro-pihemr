@@ -185,7 +185,7 @@ It should run for several minutes (like potentially 15 to 30 minutes), setting u
 
 At the end you should have a running PIH EMR instance.
 
-## ### Step 6: Tweak the configuration
+### Step 6: Tweak the configuration
 
 At this point, the configuration will be set up with the 'default' configuration for your chosen distro.
 
@@ -239,6 +239,62 @@ If there isn't, you'll need to create a local identifier source to generate "fak
 To develop on Microfrontends, you'll need to do some set-up. Follow the instructions in the
 [PIH SPA Frontend README](https://github.com/PIH/spa-frontend#pih-emr-spa-frontend).
 
+# Updating the Configuration for your Distribution
+
+ We are in the process of moving as much "configuration" out of the main PIH EMR code base and into distribution-specific files.  These files can be updated without updating the main PIH EMR code base.
+
+To do this, you'll need to work with two key PIH repos.  First, the "openmrs-config-pihemr" repo:
+
+https://github.com/PIH/openmrs-config-pihemr
+
+This is the "parent" configuration, that contains all configuration shared across all PIH EMR distributions.
+
+Then there is the specific "child" configuration for each distribution.  See Step 3 in "setting up a dev environment" above for the list of repos.
+
+When you make changes to the "child" repo, you need to compile the changes and then "deploy" them to the SDK server you are working on.  This can be done with the following command:
+
+```
+mvn clean compile -DserverId=[serverId]
+```
+
+When you make changes to the "parent" repo, you need to compile that project and install it to your local Maven repo, and then compile and deploy the child repo.  So from the parent project you would run:
+
+```
+mvn clean install
+```
+
+And then once that is complete, compile and "deploy" the child project locally:
+
+```
+mvn clean compile -DserverId=[serverId]
+```
+
+Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing a "reload" of a page should reload the form with your changes.
+
+Also note that if you commit any changes to either the parent or child config property, our CI server should immediately push them out to the relevant staging servers and restart OpenMRS, so, all going well, your changes should be up on the staging servers within 10-15 minutes of pushing your changes.
+
+# Updating the PIH EMR Code
+
+Beyond updating the configuration for your specific distribution you will also want to update the core PIH EMR code, which you can do as follows:
+
+If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git.
+
+Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules
+you aren't watching:
+
+```
+$ git pull
+$ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties -U
+```
+
+(I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
+
+To run the server: 
+```
+$ mvn openmrs-sdk:run
+```
+
+
 
 # Configuring functionality in a PIH EMR OpenMRS Instance
 
@@ -248,10 +304,8 @@ There are two parts to address configuration.
 
 First there is the Address Hierarchy module configuration, which manages the address hierarchy
 data in MySQL. This is done by adding
-[AddressHierarchy config files](https://wiki.openmrs.org/display/docs/Address+Hierarchy+Advanced+Features) (see "Activator Loading of Address Configuration & Entries") to the directory
-`mirebalais-puppet/mirebalais-modules/openmrs/files/app-data-config/<config_dir>/configuration/addresshierarchy/`.
-`config_dir` is specified in your site hieradata file, see e.g.
-[ces-reforma.yaml](https://github.com/PIH/mirebalais-puppet/blob/958cd55a35c4559cd7f4eea0dd0bc416288e1a63/hieradata/ces-reforma.yaml#L4).
+[AddressHierarchy config files](https://wiki.openmrs.org/display/docs/Address+Hierarchy+Advanced+Features) (see "Activator Loading of Address Configuration & Entries") to the
+`configuration/addresshierarchy/` directory in the config project for your distribution.
 
 The old way of configuring AddressHierarchy is to create an address bundle, see e.g.
 [LiberiaAddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/bad14820b7f3e10849b7f9461d84e43d4d49a516/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaAddressBundle.java).
@@ -259,14 +313,32 @@ Now that AddressHierarchy has built-in config file support, this is deprecated.
 
 Then there's the RegistrationApp configuration with respect to addresses. The two settings of note
 here are the shortcut field and the manual (i.e., free-text) fields. These are configured in the
-addressConfig tree in your PIH config file (the ones in 
-`mirebalais-puppet/mirebalais-modules/openmrs/files/config`). These options are handled by 
+addressConfig tree in your PIH config file (found in 
+`configuration/pih` directory of the config project for your distribution). These options are handled by 
 [mirebalais/.../PatientRegistrationApp](https://github.com/PIH/openmrs-module-mirebalais/blob/8a565656ff335cd28dcb310c0b1c4de3dcd4d62f/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/PatientRegistrationApp.java).
 If you don’t provide this configuration, this file provides defaults.
 
 ## Apps & Components
 
-The configuration for which components are enabled is in [mirebalais-puppet/.../pih-config-<site>.json](https://github.com/PIH/mirebalais-puppet/tree/master/mirebalais-modules/openmrs/files/config). Components are defined in [pihcore/.../config/Components.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/config/Components.java). Based on these component selections (and often some other criteria) CALF ([mirebalais/.../CustomAppLoaderFactory.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java)) loads apps and forms. Apps are defined in [mirebalais/.../CustomAppLoaderConstants.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderConstants.java). 
+The configuration for which components are enabled in your PIH Config files (found in `configuration/pih` directory of the config project for your distribution). Which "config" files are activated depends on the "pih.config" property defined in the runtime properties file for your specific server.
+
+For example, if you set pih.config as follows in your runtime.properties file:
+
+```
+pih.config=mirebalais,mirebalais-humci
+```
+
+Then the following two config files will be used
+
+```
+pih-config-mirebalais.json
+pih-config-mirebalais-humci.json
+```
+
+Note that the files will be loaded left to right, with latter config files overridding earlier ones.
+
+
+Components are defined in [pihcore/.../config/Components.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/config/Components.java). Based on these component selections (and often some other criteria) CALF ([mirebalais/.../CustomAppLoaderFactory.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java)) loads apps and forms. Apps are defined in [mirebalais/.../CustomAppLoaderConstants.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderConstants.java). 
 
 ### Registration Summary Dashboard
 
@@ -296,7 +368,7 @@ To break it down a bit:
 
 ## Forms
 
-Forms live in [pihcore/omod/src/.../resources/htmlforms](https://github.com/PIH/openmrs-module-pihcore/tree/master/omod/src/main/webapp/resources/htmlforms) and are edited in code. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out the [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
+Forms live in the `configuration\pih\htmlforms` directory of the "PIH EMR" config project. Distribution-specific forms can be added to the `configuration\pih\htmforms` of your distribution's config project.  Note that you can override form in the main "PIH EMR" config project by providing a form with the same name in your distro's config project. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out the [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
 
 See this [example of a check-in form](https://github.com/PIH/openmrs-module-pihcore/blob/master/omod/src/main/webapp/resources/htmlforms/haiti/checkin.xml). 
 
@@ -396,28 +468,6 @@ Documentation can be found here:
 https://wiki.openmrs.org/display/docs/Maintaining+OpenMRS+Module+Translations+via+Transifex
 (In particular see the section 'Updating A Module With New Translations" and how to install the Transifex command line client).
 
-
-## Updating
-
-
-Once you have installed the distribution, you should be able to update it with the following commands... 
-
-If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git.
-
-Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules
-you aren't watching:
-
-```
-$ git pull
-$ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties -U
-```
-
-(I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
-
-To run the server: 
-```
-$ mvn openmrs-sdk:run
-```
 
 ## Making Things Easy
 
