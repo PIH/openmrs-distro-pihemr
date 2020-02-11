@@ -371,7 +371,13 @@ To break it down a bit:
 
 ## Forms
 
-Forms live in the `configuration\pih\htmlforms` directory of the "PIH EMR" config project. Distribution-specific forms can be added to the `configuration\pih\htmforms` of your distribution's config project.  Note that you can override form in the main "PIH EMR" config project by providing a form with the same name in your distro's config project. The xml files that represent forms are parsed by the HTML FormEntry Module. Check out the [HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
+Forms live in the `configuration/pih/htmlforms` directory of the "PIH EMR" config
+project. Distribution-specific forms can be added to the `configuration/pih/htmforms`
+of your distribution's config project.  Note that you can override form in the main
+"PIH EMR" config project by providing a form with the same name in your distro's
+config project. The xml files that represent forms are parsed by the HTML
+FormEntry Module. Check out the
+[HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
 
 See this [example of a check-in form](https://github.com/PIH/openmrs-module-pihcore/blob/master/omod/src/main/webapp/resources/htmlforms/haiti/checkin.xml). 
 
