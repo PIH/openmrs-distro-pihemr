@@ -287,7 +287,10 @@ $ git pull
 $ mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties -U
 ```
 
-(I have created a shell script shortcut to execute the two commands above, pihemrDeploy.sh)
+Note that some of these steps will be repeated often enough that they warrant 
+creating shortcuts. In particular, we have created a shell script shortcut to execute the two 
+commands above, pihemrDeploy.sh) See [Making things easy](#making-things-easy).
+
 
 To run the server: 
 ```
