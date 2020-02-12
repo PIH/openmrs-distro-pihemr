@@ -125,7 +125,7 @@ The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
 The convention for dbNames are "openmrs_[some name]".
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.2-SNAPSHOT
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mirebalais:1.3.0-SNAPSHOT
 ```
 
 * When prompted, select the port you'd like to run tomcat on
