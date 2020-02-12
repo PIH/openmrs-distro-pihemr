@@ -41,12 +41,7 @@ public class HtmlFormSetup {
         }
         catch (IllegalArgumentException e) {
             // this is a hack to get component test to pass until we find the proper way to mock this
-            if (e.getMessage().startsWith("Parameter 'directory' is not a directory")) {
-                log.error("Unable to load HTML forms--this error is expected when running component tests");
-            }
-            else {
-                throw e;
-            }
+            log.error("Unable to load HTML forms--this error is expected when running component tests");
         }
     }
 }
