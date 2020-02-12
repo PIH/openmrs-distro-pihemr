@@ -121,7 +121,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             // set up html forms--this must happen *after* MDS packages are installed, so that forms defined in code/github
             // take precedent over any in MDS packages; therefore we still do this in the Mirebalais module, not PIH Core
-            HtmlFormSetup.setupHtmlForms(config);
+            HtmlFormSetup.loadHtmlForms();
 
             // configure default dashboard in coreapps
             updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());

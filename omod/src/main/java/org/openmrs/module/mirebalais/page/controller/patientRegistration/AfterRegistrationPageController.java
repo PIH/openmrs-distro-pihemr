@@ -5,6 +5,7 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
@@ -16,8 +17,6 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
-
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.determineHtmlFormPath;
 
 public class AfterRegistrationPageController {
 
@@ -63,9 +62,9 @@ public class AfterRegistrationPageController {
 
         String liberiaEmrId = pi.getIdentifier();
         if (liberiaEmrId != null && liberiaEmrId.startsWith(config.getPrimaryIdentifierPrefix())) {
-            redirectUrl += determineHtmlFormPath(config, "liveCheckin") + "&createVisit=true";
+            redirectUrl += PihCoreUtil.getFormResource("liveCheckin.xml") + "&createVisit=true";
         } else {
-            redirectUrl += determineHtmlFormPath(config, "checkin");
+            redirectUrl += PihCoreUtil.getFormResource("checkin.xml");
         }
         return redirectUrl;
     }
