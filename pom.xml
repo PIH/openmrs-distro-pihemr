@@ -784,7 +784,7 @@
                     <configuration>
                         <runOrder>alphabetical</runOrder>
                         <!-- https://talk.openmrs.org/t/error-could-not-find-or-load-main-class-org-apache-maven-surefire-booter-forkedbooter/20509 -->
-                        <argLine>-Xmx1024m -XX:MaxPermSize=512m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+                        <argLine>-Xmx2048m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                     </configuration>
                 </plugin>
 
