@@ -31,14 +31,14 @@
 
     <distributionManagement>
         <repository>
-            <id>openmrs-repo-modules</id>
+            <id>openmrs-repo-modules-pih</id>
             <name>Modules</name>
-            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules-pih/</url>
         </repository>
         <snapshotRepository>
-            <id>openmrs-repo-snapshots</id>
+            <id>openmrs-repo-modules-pih-snapshots</id>
             <name>OpenMRS Snapshots</name>
-            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+            <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules-pih-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
