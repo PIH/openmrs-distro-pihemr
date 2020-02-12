@@ -271,6 +271,15 @@ mvn clean compile -DserverId=[serverId]
 
 Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing a "reload" of a page should reload the form with your changes.
 
+You also can set up a "watch" on your child project, so that when you make changes to, say, an
+HTML Form, the project is immediately compiled and deployed.  You do so using the "watch" flag:
+
+```
+mvn clean compile -DserverId=[serverId] -Dwatch
+```
+
+Note that there currently isn't "watch" support for the parent project.  You *can* watch the parent project, but the results will likely not be what you are looking for and should be avoided for now.
+
 Also note that if you commit any changes to either the parent or child config property, our CI server should immediately push them out to the relevant staging servers and restart OpenMRS, so, all going well, your changes should be up on the staging servers within 10-15 minutes of pushing your changes.
 
 # Updating the PIH EMR Code
