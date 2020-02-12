@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.db.SerializedObjectDAO;
@@ -18,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 @SkipBaseSetup
+@Ignore
 public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
