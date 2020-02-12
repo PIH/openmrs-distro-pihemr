@@ -1604,7 +1604,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         configureBasicProgramDashboard(NCDProgram.NCD);
 
-        String definitionUiResource = determineHtmlFormPath(config, "ncd-adult-initial");
+        String definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-initial.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
         }
@@ -1620,7 +1620,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        definitionUiResource = determineHtmlFormPath(config, "ncd-adult-followup");
+        definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-followup.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
         }
@@ -1700,7 +1700,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableMentalHealthForm() {
 
-        String definitionUiResource = determineHtmlFormPath(config, "mentalHealth");
+        String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
