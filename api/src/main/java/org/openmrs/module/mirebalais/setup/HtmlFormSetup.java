@@ -27,10 +27,10 @@ public class HtmlFormSetup {
         FormService formService = Context.getFormService();
         HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
 
-        File htmlformDir = new File(OpenmrsUtil.getApplicationDataDirectory() + PihCoreUtil.getFormDirectory());
-        Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
-
         try {
+            File htmlformDir = new File(OpenmrsUtil.getApplicationDataDirectory() + PihCoreUtil.getFormDirectory());
+            Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
+
             for (File file : files) {
                 try {
                     HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
