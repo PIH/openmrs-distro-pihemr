@@ -6,27 +6,21 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
-import org.openmrs.VisitType;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.ModuleClassLoader;
-import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -709,39 +703,6 @@ public class CustomAppLoaderUtil {
         }
 
         return map;
-    }
-
-    static public String determineHtmlFormPath(Config config, String formName) {
-        return determineResourcePath(config, "pihcore", "htmlforms", formName + ".xml");
-    }
-
-    static public String determineResourcePath(Config config, String providerName, String prefix, String resource) {
-
-        // kind of ugly, and I couldn't mock it properly
-        ModuleClassLoader mcl = ModuleFactory.getModuleClassLoader(ModuleFactory.getStartedModuleById(providerName));
-
-        // first try full path with country and site
-        String resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + config.getSite().name().toLowerCase()
-                + "/" + resource;
-
-        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-            return providerName + ":" + resourcePath;
-        }
-
-        // now try just country path
-        resourcePath = prefix + "/" + config.getCountry().name().toLowerCase() + "/" + resource;
-
-        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-            return providerName + ":" + resourcePath;
-        }
-
-        // now the base path
-        resourcePath = prefix + "/" + resource;
-        if (mcl.findResource(BASE_PREFIX + resourcePath) != null) {
-            return providerName + ":" + resourcePath;
-        }
-
-        throw new IllegalStateException("Unable to find form" + resource);
     }
 
     static public Boolean containsExtension(List<Extension> extensions, String extensionId) {

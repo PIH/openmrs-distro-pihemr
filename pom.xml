@@ -5,7 +5,7 @@
 
     <groupId>org.openmrs.module</groupId>
     <artifactId>mirebalais</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Mirebalais Hospital Module</name>
     <description>Custom EMR application for Mirebalais Hospital</description>
@@ -53,7 +53,7 @@
     <properties>
         <openMRSVersion>2.3.0</openMRSVersion>
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
-        <pihcoreVersion>1.0-SNAPSHOT</pihcoreVersion>
+        <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
@@ -784,7 +784,7 @@
                     <configuration>
                         <runOrder>alphabetical</runOrder>
                         <!-- https://talk.openmrs.org/t/error-could-not-find-or-load-main-class-org-apache-maven-surefire-booter-forkedbooter/20509 -->
-                        <argLine>-Xmx1024m -XX:MaxPermSize=512m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+                        <argLine>-Xmx2048m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
                     </configuration>
                 </plugin>
 

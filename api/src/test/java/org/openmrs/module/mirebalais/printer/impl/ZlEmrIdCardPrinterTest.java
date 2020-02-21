@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.printer.impl;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -44,6 +45,7 @@ import static org.mockito.Mockito.when;
 /**
  * Test the ZL EMR ID Card Printer functionality
  */
+@Ignore
 public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
