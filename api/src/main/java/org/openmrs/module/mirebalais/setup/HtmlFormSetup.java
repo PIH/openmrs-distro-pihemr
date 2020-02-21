@@ -9,7 +9,6 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.ui.framework.resource.ResourceFactory;
-import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class HtmlFormSetup {
         HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
 
         try {
-            File htmlformDir = new File(OpenmrsUtil.getApplicationDataDirectory() + PihCoreUtil.getFormDirectory());
+            File htmlformDir = new File(PihCoreUtil.getFormDirectory());
             Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
 
             for (File file : files) {
