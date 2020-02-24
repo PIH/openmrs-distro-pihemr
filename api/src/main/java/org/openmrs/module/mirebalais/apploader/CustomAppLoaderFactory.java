@@ -820,6 +820,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID + "," + MirebalaisConstants.MED_DISPENSED_FREQ_UUID,
+                        "useConceptShortName", "true",
                         "maxRecords", "5"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
