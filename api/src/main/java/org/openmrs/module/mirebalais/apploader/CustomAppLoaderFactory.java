@@ -820,6 +820,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID + "," + MirebalaisConstants.MED_DISPENSED_FREQ_UUID,
+                        "useConceptShortName", "true",
                         "maxRecords", "5"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -1606,7 +1607,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         String definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-initial.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
         extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
@@ -1622,7 +1623,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-followup.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl;
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
         extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
@@ -1659,7 +1660,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
                 "fas fa-fw fa-gift",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
@@ -1667,7 +1668,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
                 "fas fa-fw fa-gift",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
 
@@ -1675,7 +1676,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
                 "fas fa-fw fa-baby",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
     }
@@ -1693,7 +1694,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "ui.i18n.EncounterType.name." + EncounterTypes.VACCINATION.uuid(),
                 "fas fa-fw fa-umbrella",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vaccination-only.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vaccination-only.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_VACCINATION.privilege(),
                 and(sessionLocationHasTag(LocationTags.VACCINATION_LOCATION))));
     }
@@ -1826,7 +1827,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1838,7 +1839,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1850,7 +1851,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1862,7 +1863,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
@@ -1887,7 +1888,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-initial.xml")
-                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
 
@@ -1896,7 +1897,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-followup.xml")
-                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                            + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
 
@@ -1913,7 +1914,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.task.hivIntake.label",
                 "fas fa-fw fa-ribbon",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
@@ -1927,7 +1928,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.task.hivFollowup.label",
                 "fas fa-fw fa-ribbon",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
