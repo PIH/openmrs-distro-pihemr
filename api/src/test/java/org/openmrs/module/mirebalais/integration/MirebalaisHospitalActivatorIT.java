@@ -31,6 +31,7 @@ import static org.mockito.Mockito.when;
 @SkipBaseSetup
 public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
 
+
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
@@ -70,6 +71,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
+        pihCoreActivator.setDisableInstallMetadataBundlesThatDependOnMDSPackages(true);
         pihCoreActivator.started();
 
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
