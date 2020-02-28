@@ -10,10 +10,6 @@ header {
     background: -ms-linear-gradient(top, #003466 50%, #BF0002 50%);
 }
 
-li.change-location {
-    background: #63244b;
-}
-
 .sub-form, .sub-form fieldset {
     font-size: 14px;
     padding: 0;
