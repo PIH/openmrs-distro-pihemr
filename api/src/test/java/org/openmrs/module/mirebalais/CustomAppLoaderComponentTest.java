@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
 @SkipBaseSetup
-@Ignore
 public class CustomAppLoaderComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired

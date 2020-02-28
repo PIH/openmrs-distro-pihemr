@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.apploader.apps;
 
 import org.codehaus.jackson.JsonNode;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
@@ -31,7 +30,6 @@ import static org.junit.Assert.assertTrue;
  * Tests the configuration of the patient registration app
  */
 @SkipBaseSetup
-@Ignore
 public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
     @Autowired

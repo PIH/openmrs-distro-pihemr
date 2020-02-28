@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.task;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Visit;
@@ -28,7 +27,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
 
-@Ignore
 public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContextSensitiveTest {
 
     @Autowired

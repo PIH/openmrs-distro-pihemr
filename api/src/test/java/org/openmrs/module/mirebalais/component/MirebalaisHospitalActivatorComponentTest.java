@@ -16,7 +16,6 @@ package org.openmrs.module.mirebalais.component;
 
 import org.hamcrest.core.Is;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationAttributeType;
@@ -66,7 +65,6 @@ import static org.mockito.Mockito.when;
 
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
-@Ignore
 public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
 
     @Override
