@@ -51,8 +51,8 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.3.1-SNAPSHOT</openMRSVersion>
-        <openMRSwebVersion>2.3.1-SNAPSHOT</openMRSwebVersion>
+        <openMRSVersion>2.3.0</openMRSVersion>
+        <openMRSwebVersion>2.3.0</openMRSwebVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
@@ -83,7 +83,7 @@
         <labworkflowOwaVersion>0.2.0</labworkflowOwaVersion>
         <legacyuiVersion>1.6.0</legacyuiVersion>
         <metadatadeployVersion>1.11.0</metadatadeployVersion>
-        <metadatamappingVersion>1.3.5-SNAPSHOT</metadatamappingVersion>
+        <metadatamappingVersion>1.3.4</metadatamappingVersion>
         <metadatasharingVersion>1.6.0</metadatasharingVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <orderEntryOwaVersion>1.1.0</orderEntryOwaVersion>
