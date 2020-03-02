@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.radiology;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Order;
 import org.openmrs.TestOrder;
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertThat;
 
 ;
 
-@Ignore
 public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
