@@ -41,13 +41,6 @@
 
                 <dependency>
                     <groupId>org.openmrs.module</groupId>
-                    <artifactId>mirebalaismetadata-omod</artifactId>
-                    <version>${mirebalaismetadataVersion}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
                     <artifactId>uiframework-omod</artifactId>
                     <version>${uiframeworkVersion}</version>
                     <scope>provided</scope>
