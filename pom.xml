@@ -105,7 +105,7 @@
         <uicommonsVersion>2.11.0</uicommonsVersion>
         <uiframeworkVersion>3.17.0-SNAPSHOT</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
-        <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.28.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
