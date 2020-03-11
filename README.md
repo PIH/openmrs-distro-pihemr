@@ -307,50 +307,8 @@ $ mvn openmrs-sdk:run
 ```
 
 
-
 # Configuring functionality in a PIH EMR OpenMRS Instance
 
-## Address
-
-There are two parts to address configuration.
-
-First there is the Address Hierarchy module configuration, which manages the address hierarchy
-data in MySQL. This is done by adding
-[AddressHierarchy config files](https://wiki.openmrs.org/display/docs/Address+Hierarchy+Advanced+Features) (see "Activator Loading of Address Configuration & Entries") to the
-`configuration/addresshierarchy/` directory in the config project for your distribution.
-
-The old way of configuring AddressHierarchy is to create an address bundle, see e.g.
-[LiberiaAddressBundle](https://github.com/PIH/openmrs-module-pihcore/blob/bad14820b7f3e10849b7f9461d84e43d4d49a516/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaAddressBundle.java).
-Now that AddressHierarchy has built-in config file support, this is deprecated.
-
-Then there's the RegistrationApp configuration with respect to addresses. The two settings of note
-here are the shortcut field and the manual (i.e., free-text) fields. These are configured in the
-addressConfig tree in your PIH config file (found in 
-`configuration/pih` directory of the config project for your distribution). These options are handled by 
-[mirebalais/.../PatientRegistrationApp](https://github.com/PIH/openmrs-module-mirebalais/blob/8a565656ff335cd28dcb310c0b1c4de3dcd4d62f/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/PatientRegistrationApp.java).
-If you don’t provide this configuration, this file provides defaults.
-
-## Apps & Components
-
-The configuration for which components are enabled in your PIH Config files (found in `configuration/pih` directory of the config project for your distribution). Which "config" files are activated depends on the "pih.config" property defined in the runtime properties file for your specific server.
-
-For example, if you set pih.config as follows in your runtime.properties file:
-
-```
-pih.config=mirebalais,mirebalais-humci
-```
-
-Then the following two config files will be used
-
-```
-pih-config-mirebalais.json
-pih-config-mirebalais-humci.json
-```
-
-Note that the files will be loaded left to right, with latter config files overridding earlier ones.
-
-
-Components are defined in [pihcore/.../config/Components.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/config/Components.java). Based on these component selections (and often some other criteria) CALF ([mirebalais/.../CustomAppLoaderFactory.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java)) loads apps and forms. Apps are defined in [mirebalais/.../CustomAppLoaderConstants.java](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderConstants.java). 
 
 ### Registration Summary Dashboard
 
@@ -378,31 +336,7 @@ To break it down a bit:
 1. Add to [pihcore/.../GlobalPropertiesBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/core/GlobalPropertiesBundle.java) a line resembling `public static final String LIBERIA_DIAGNOSIS_SET_OF_SETS = "ed97232b-1a09-4260-b06c-d193107c32a7";`, but with your site name and the UUID of your "MySite diagnosis set of sets" concept.
 1. Add to your site's MetadataBundle file a line like `properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.LIBERIA_DIAGNOSIS_SET_OF_SETS);`, but with the constant that you just added to GlobalPropertiesBundle. See for example [pihcore/.../LiberiaMetadataBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java).
 
-## Forms
-
-Forms live in the `configuration/pih/htmlforms` directory of the "PIH EMR" config
-project. Distribution-specific forms can be added to the `configuration/pih/htmforms`
-of your distribution's config project.  Note that you can override form in the main
-"PIH EMR" config project by providing a form with the same name in your distro's
-config project. The xml files that represent forms are parsed by the HTML
-FormEntry Module. Check out the
-[HTML/DSL Reference](https://wiki.openmrs.org/display/docs/HTML+Form+Entry+Module+HTML+Reference).
-
-See this [example of a check-in form](https://github.com/PIH/openmrs-module-pihcore/blob/master/omod/src/main/webapp/resources/htmlforms/haiti/checkin.xml). 
-
-The application logic that specifies when to display forms, and which form files to use, is found in [CALF](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java). This class is responsible for loading forms from code into the database. It doesn’t always succeed in doing this dynamically, however, when forms are being edited, so as a back-up forms are manually loaded in [mirebalais/setup/HtmlFormSetup](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/java/org/openmrs/module/mirebalais/setup/HtmlFormSetup.java).
-
-Note that this application logic often depends both on which components are enabled (see "Country-specific settings" below) and which location tags are enabled at the active location, which are set in [openmrs-module-pihcore/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/setup/LocationTagSetup.java).
-
-If you want to customize an existing form for your site, copy it into `htmlforms/yoursite`, and make your changes to to copy there. It must have the same name as the default form, and CALF must know that your site has a folder in `htmlforms`.
-
-To view changes to forms with page refreshes, you need to make sure the query string in the address bar contains `breadcrumbOverride=breadcrumbUiOverride`.
-
-### Adding a New Type of  Form
-
-To add a new type of form is to create a new encounter type. See [pihcore PR #10](https://github.com/PIH/openmrs-module-pihcore/pull/10/commits) and [mirebalais PR #16](https://github.com/PIH/openmrs-module-mirebalais/pull/16/commits/217d8c0cfe2a4f76ca9f78357f4931937d86e7e6) for an example of how to accomplish this, along with creating a corresponding new app.
-
-### Registration Form
+## Registration Form
 
 The Registration form is produced by RegistrationApp based on the configuration specified in [mirebalais/apploader/apps.patientregistration/](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/patientregistration). This also generates some of the Edit Registration forms, but not all of them. RegistrationApp is able to provide View and Edit UI for sections that do not have concept questions. For sections with concept questions, you will need to create a .xml file (like patientRegistration-contact.xml) to define those views.
 
@@ -429,13 +363,6 @@ There are a number of programs that come with PIH EMR. Each one has its own comp
 1. Add a block to CALF (`mirebalais/.../CustomAppLoaderFactory.java`) in the `enablePrograms` function. It should have two lines, one call to `supportedPrograms` and one call to `configureBasicProgramDashboard`.
 1. Enable the component by adding it to `mirebalais-puppet/.../pih-config-mycountry.json`.
 
-## Country-specific settings
-
-Global properties for a country installation are defined in the mirebalais-puppet repo, .e.g., these two are used for Haiti:
-
-[https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais.json](https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais.json)
-
-[https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais-humci.json](https://github.com/PIH/mirebalais-puppet/blob/master/mirebalais-modules/openmrs/files/config/pih-config-mirebalais-humci.json)
 
 ## Locales
 
