@@ -54,7 +54,6 @@
         <openMRSVersion>2.3.0</openMRSVersion>
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
-        <mirebalaismetadataVersion>1.0-SNAPSHOT</mirebalaismetadataVersion>
         <mirebalaisreportsVersion>1.1-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.2</allergyuiVersion>
@@ -66,7 +65,7 @@
         <calculationVersion>1.2</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
         <coreappsVersion>1.28.0-SNAPSHOT</coreappsVersion>
-        <dispensingVersion>1.1.0</dispensingVersion>
+        <dispensingVersion>1.2.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.3.0</edtriageappVersion>
         <emrVersion>2.2.0</emrVersion>
         <emrapiVersion>1.28.0</emrapiVersion>
@@ -103,12 +102,13 @@
         <spaVersion>1.0.4</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.11.0</uicommonsVersion>
-        <uiframeworkVersion>3.17.0-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.17.0</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
-        <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.28.0</webservicesRestVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 
     <dependencies>
@@ -472,13 +472,6 @@
             <version>${pihcoreVersion}</version>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>mirebalaismetadata-api</artifactId>
-            <version>${mirebalaismetadataVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
