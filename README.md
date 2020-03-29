@@ -63,7 +63,7 @@ This repository/implementation supports several different sites.
   - Wellbody Health Center
 
 - Mexico
-  - See the [CES EMR documentation](CES-EMR-README.md)
+  - See the [CES EMR documentation](https://pihemr.atlassian.net/wiki/spaces/PIHEMR/pages/296255489/CES+EMR)
 
 
 
