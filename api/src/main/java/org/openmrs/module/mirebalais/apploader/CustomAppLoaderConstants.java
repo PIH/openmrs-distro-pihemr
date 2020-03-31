@@ -93,6 +93,7 @@ public class CustomAppLoaderConstants {
         public static final String WHODAS_GRAPH = "pih.app.whodas.graph";
         public static final String ZLDSI_GRAPH = "pih.app.zldsi.graph";
         public static final String SEIZURE_FREQUENCY_GRAPH = "pih.app.seizure.frequency.graph.title";
+        public static final String J9_REFERRALS = "pih.app.j9Referrals";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -121,6 +122,7 @@ public class CustomAppLoaderConstants {
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
 
         public static final String COHORT_BUILDER_APP = "cohortBuilder.app";
+
     }
 
     public static final class Extensions {
@@ -290,6 +292,7 @@ public class CustomAppLoaderConstants {
             Apps.ED_TRIAGE_QUEUE,
             Apps.CHW_MGMT,
             Apps.COHORT_BUILDER_APP,
+            Apps.J9_REFERRALS,
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION);

@@ -414,6 +414,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableMCHForms();
         }
 
+        if (config.isComponentEnabled(Components.J9)) {
+            enableJ9();
+        }
+
         readyForRefresh = false;
     }
 
@@ -2685,6 +2689,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(conditionList, Apps.HIV_CONDITION_LIST), "coreapps", "conditionlist/conditions"));
+    }
+
+    private void enableJ9() {
+        apps.add(addToHomePage(app(Apps.J9_REFERRALS,
+                "pih.app.j9Referrals.title",
+                "fa fa-fw fa-baby",
+                "spa/referrals-queue",
+                Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                null)));
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
