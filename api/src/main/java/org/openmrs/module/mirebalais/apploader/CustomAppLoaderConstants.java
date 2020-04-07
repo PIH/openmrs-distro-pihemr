@@ -75,7 +75,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_LAST_VITALS = "pih.app.hiv.lastVitals";
         public static final String PATIENT_DOCUMENTS = "attachments.app.patientDocuments";
         public static final String CONDITION_LIST = "coreapps.conditionList";
-        public static final String ACTIVE_DRUG_ORDERS = "orderentryui.activeDrugOrders";
+        public static final String ACTIVE_DRUG_ORDERS = "coreapps.activeDrugOrders";
         public static final String BLOOD_PRESSURE_GRAPH = "pih.app.bloodPressure.graph";
         public static final String BLOOD_PRESSURE_OBS_TABLE = "pih.app.bloodPressure.obsTable";
         public static final String ASTHMA_SYMPTOMS_OBS_TABLE = "pih.app.asthma.symptomsObsTable";
@@ -217,8 +217,6 @@ public class CustomAppLoaderConstants {
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
 
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
-
-        public static final String CLINICIAN_DASHBOARD_ACTIVE_DRUG_ORDERS = "orderentryui.patientDashboard.activeDrugOrders";
 
         public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
 
