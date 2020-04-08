@@ -1480,7 +1480,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
      /*   if (config.isComponentEnabled(CustomAppLoaderConstants.Components.PRESCRIPTIONS)) {
             // TODO we should actually define an app here, not use the existing app
-            addToClinicianDashboardSecondColumn(app, "orderentryui", "patientdashboard/activeDrugOrders");
+            addToClinicianDashboardSecondColumn(app, "coreapps", "patientdashboard/activeDrugOrders");
         }
 */
     }
@@ -2646,16 +2646,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
-    // TODO we probably will break this down in a different way instead of "order entry"... like perhaps "drugOrders" and "labOrders"... but for demoing starting like this
+    // TODO we probably will break this down in a different way instead of "order entry"... like perhaps "drugOrders" and "labOrders"... but for demoing starting like thist
+    // TODO this widget was also moved from Order Enry UI to Core Apps, we need to test everything is still working before reenabling
     private void enableOrderEntry() {
-
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.ACTIVE_DRUG_ORDERS,
-                "orderentryui.patientdashboard.activeDrugOrders",
+                "coreapps.patientdashboard.activeDrugOrders",
                 null,
                 null,
                 null, // TODO restrict by privilege?
                null),
-                "orderentryui", "patientdashboard/activeDrugOrders"));
+                "coreapps", "patientdashboard/activeDrugOrders"));
 
     }
 
