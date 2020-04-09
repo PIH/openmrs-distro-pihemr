@@ -29,7 +29,6 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
 import org.openmrs.module.mirebalais.setup.ArchivesSetup;
-import org.openmrs.module.mirebalais.setup.HtmlFormSetup;
 import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.mirebalais.setup.ReportSetup;
@@ -118,10 +117,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
             // register our custom print handlers
             PrinterSetup.registerPrintHandlers(printerService);
-
-            // set up html forms--this must happen *after* MDS packages are installed, so that forms defined in code/github
-            // take precedent over any in MDS packages; therefore we still do this in the Mirebalais module, not PIH Core
-            HtmlFormSetup.loadHtmlForms();
 
             // configure default dashboard in coreapps
             updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());
