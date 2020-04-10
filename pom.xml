@@ -98,7 +98,7 @@
         <reportingrestVersion>1.11.0</reportingrestVersion>
         <reportinguiVersion>1.7.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <spaVersion>1.0.5</spaVersion>
+        <spaVersion>1.0.6</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.12.0</uicommonsVersion>
         <uiframeworkVersion>3.17.0</uiframeworkVersion>
