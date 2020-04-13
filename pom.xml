@@ -55,7 +55,7 @@
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
-        <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
+        <addresshierarchyVersion>2.12.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.2</allergyuiVersion>
         <appframeworkVersion>2.14.0</appframeworkVersion>
         <appointmentschedulingVersion>1.12.0</appointmentschedulingVersion>
@@ -98,7 +98,7 @@
         <reportingrestVersion>1.11.0</reportingrestVersion>
         <reportinguiVersion>1.7.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <spaVersion>1.0.5</spaVersion>
+        <spaVersion>1.0.6</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.12.0</uicommonsVersion>
         <uiframeworkVersion>3.17.0</uiframeworkVersion>

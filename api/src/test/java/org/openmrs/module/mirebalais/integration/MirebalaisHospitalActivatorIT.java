@@ -71,7 +71,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
-        pihCoreActivator.setDisableInstallMetadataBundlesThatDependOnMDSPackages(true);
+        pihCoreActivator.setTestingContext(true);
         pihCoreActivator.started();
 
         MirebalaisHospitalActivator activator = new MirebalaisHospitalActivator();
