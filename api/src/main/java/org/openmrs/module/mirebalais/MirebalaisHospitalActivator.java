@@ -39,13 +39,7 @@ import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.service.ReportService;
-import org.openmrs.ui.framework.page.GlobalResourceIncluder;
-import org.openmrs.ui.framework.page.PageFactory;
-import org.openmrs.ui.framework.resource.Resource;
-import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.openmrs.util.OpenmrsConstants;
-
-import java.io.File;
 
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
@@ -146,8 +140,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
-            includeGlobalResources(config);
-
             if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalComponentTest; TODO is to fix and get this to work
 
                 if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
@@ -172,39 +164,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
         log.info("Mirebalais Hospital Module started");
     }
 
-    /**
-     * Include custom styling sheets and scripts
-     * @param config
-     */
-    private void includeGlobalResources(Config config) throws Exception {
-        try {
-            String cssResourcePath = "configuration/pih/styles/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_CSS);
-            String jsResourcePath = "configuration/pih/scripts/".concat(config.getCountry().name().toLowerCase()).concat(".").concat(Resource.CATEGORY_JS);
-
-            addGlobalResource(Resource.CATEGORY_CSS, "file", cssResourcePath);
-            addGlobalResource(Resource.CATEGORY_JS, "file", jsResourcePath);
-        }
-        // this entire catch is a hack to get component test to pass until we find the proper way to mock this (see HtmlFormSetup where we do something similar)
-        catch (Exception e) {
-            // this is a hack to get component test to pass until we find the proper way to mock this
-            if (ResourceFactory.getInstance().getResourceProviders() == null) {
-                log.error("Unable to load GlobalResourcs--this error is expected when running component tests");
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    private void addGlobalResource(String category, String providerName, String resourcePath) {
-        ResourceFactory resourceFactory = ResourceFactory.getInstance();
-        PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
-        File resource = resourceFactory.getResource(providerName, resourcePath);
-        if (resource != null) {
-            GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
-            globalResourceIncluder.addResource(new Resource(category, providerName, resourcePath, -100));
-            pageFactory.getModelConfigurators().add(globalResourceIncluder);
-        }
-    }
 
     /**
 	 * @see ModuleActivator#willStop()
