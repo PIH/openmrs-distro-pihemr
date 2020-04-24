@@ -92,7 +92,7 @@
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.10.0</providermanagementVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
-        <registrationappVersion>1.15.0</registrationappVersion>
+        <registrationappVersion>1.17.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <reportingVersion>1.20.0</reportingVersion>
         <reportingrestVersion>1.11.0</reportingrestVersion>
@@ -791,12 +791,6 @@
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[2.2.1-SNAPSHOT,2.3.0-!)</version>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                        <!-- held because of issue here: https://issues.openmrs.org/browse/RA-452 -->
-                        <property>
-                            <name>registrationappVersion</name>
-                            <version>[1.15.0]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <!-- held until Iniz 2.0.0 is officially released -->
