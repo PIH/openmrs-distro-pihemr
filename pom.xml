@@ -795,9 +795,8 @@
                         </property>
                         <!-- held until Iniz 2.0.0 is officially released -->
                         <property>
-                            <name>registrationappVersion</name>
+                            <name>initializerVersion</name>
                             <version>[1.2.0-SNAPSHOT]</version>
-                            <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
                 </configuration>
