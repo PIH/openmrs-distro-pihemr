@@ -20,8 +20,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ContextAuthenticationException;
 import org.openmrs.api.context.UsernamePasswordCredentials;
 import org.openmrs.api.db.ContextDAO;
-import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.emr.EmrContext;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
@@ -49,14 +48,18 @@ public class LoginPageController {
      // RA-592: don't use PrivilegeConstants.VIEW_LOCATIONS
     private static final String VIEW_LOCATIONS = "View Locations";
 
+    public static final String COOKIE_NAME_LAST_SESSION_LOCATION = "emr.lastSessionLocation";
+
+    public static final String SESSION_ATTRIBUTE_ERROR_MESSAGE = "emr.errorMessage";
+
 	public String get(
-	        PageModel pageModel,
-			@SpringBean EmrApiProperties emrApiProperties,
+            PageModel pageModel,
+            @SpringBean EmrApiProperties emrApiProperties,
             @SpringBean Config config,
-	        @CookieValue(value = EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, required = false) String lastSessionLocationId,
-	        @SpringBean("locationService") LocationService locationService, EmrContext context, UiUtils ui,
-	        PageRequest request) {
-		
+            @CookieValue(value = COOKIE_NAME_LAST_SESSION_LOCATION, required = false) String lastSessionLocationId,
+            @SpringBean("locationService") LocationService locationService, UiSessionContext context, UiUtils ui,
+            PageRequest request) {
+
 		if (context.isAuthenticated()) {
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
@@ -93,58 +96,58 @@ public class LoginPageController {
 		}
         return null;
 	}
-	
+
 	public String post(@RequestParam(value = "username", required = false) String username,
 	        @RequestParam(value = "password", required = false) String password,
 	        @RequestParam(value = "sessionLocation", required = false) Integer sessionLocationId,
 	        @SpringBean ContextDAO contextDao, @SpringBean("locationService") LocationService locationService, UiUtils ui,
-	        EmrContext context, PageRequest request) {
-		
+	        UiSessionContext context, PageRequest request) {
+
 		HttpSession httpSession = request.getRequest().getSession();
 		Location sessionLocation = null;
 		try {
 			// TODO as above, grant this privilege to Anonymous instead of using a proxy privilege
 			Context.addProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
-			
+
 			if (sessionLocationId != null) {
 				sessionLocation = locationService.getLocation(sessionLocationId);
 				if (!sessionLocation.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
 					// the UI shouldn't allow this, but protect against it just in case
-					httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+					httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 					        .message("mirebalais.login.error.invalidLocation"));
 					return "redirect:" + ui.pageLink("mirebalais", "login");
 				}
 			}
 			if (sessionLocation == null) {
-				httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+				httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 				        .message("mirebalais.login.error.locationRequired"));
 				return "redirect:" + ui.pageLink("mirebalais", "login");
 			}
 			// Set a cookie, so next time someone logs in on this machine, we can default to that same location
-			request.setCookieValue(EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
+			request.setCookieValue(COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
 		}
 		finally {
 			Context.removeProxyPrivilege(PrivilegeConstants.GET_LOCATIONS);
 		}
-		
+
 		try {
 			Context.authenticate(new UsernamePasswordCredentials(username, password));
 			context.setSessionLocation(sessionLocation);
-			
+
 			// set the locale based on the user's default locale
-			Locale userLocale = GeneralUtils.getDefaultLocale(context.getUserContext().getAuthenticatedUser());
+			Locale userLocale = GeneralUtils.getDefaultLocale(Context.getAuthenticatedUser());
 			if (userLocale != null) {
-				context.getUserContext().setLocale(userLocale);
-				
+				Context.getUserContext().setLocale(userLocale);
+
 				// these have been taken from the core login servlet, not sure if they are necessary
 				request.getResponse().setLocale(userLocale);
 				new CookieLocaleResolver().setDefaultLocale(userLocale);
 			}
-			
+
 			return "redirect:" + ui.pageLink("mirebalais", "home");
 		}
 		catch (ContextAuthenticationException ex) {
-			httpSession.setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
+			httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 			        .message("mirebalais.login.error.authentication"));
 			return "redirect:" + ui.pageLink("mirebalais", "login");
 		}
@@ -157,5 +160,5 @@ public class LoginPageController {
 		}
 		return locations;
 	}
-	
+
 }
