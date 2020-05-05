@@ -77,7 +77,7 @@
         <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.5.0</idgenVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
-        <initializerVersion>2.0.0</initializerVersion>
+        <initializerVersion>2.1.0-SNAPSHOT</initializerVersion>
         <labtrackingappVersion>1.1.0</labtrackingappVersion>
         <labworkflowOwaVersion>0.3.0</labworkflowOwaVersion>
         <legacyuiVersion>1.6.0</legacyuiVersion>
