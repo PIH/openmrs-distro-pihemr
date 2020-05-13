@@ -147,31 +147,37 @@ found here. The configuration distro projects are as follows:
 
 |Site|Repo  |
 |---|---|
+|PIH EMR "Parent" Config|https://github.com/PIH/openmrs-config-pihemr|
 |CES|https://github.com/PIH/openmrs-config-ces|
 |Liberia|https://github.com/PIH/openmrs-config-pihliberia|
 |SES|https://github.com/PIH/openmrs-config-ses|
 |Sierra Leone|https://github.com/PIH/openmrs-config-pihsl|
 |ZL|https://github.com/PIH/openmrs-config-zl|
 
+You want to clone both the "Parent" config and the specific configuration for the site you are working on:
+
 For instance, for the Liberia configuration the command is:
 
 ```
+git clone https://github.com/PIH/openmrs-config-pihemr
 git clone https://github.com/PIH/openmrs-config-pihliberia.git
 ```
 
+**IMPORTANT** Please check out the two projects under the same top-level directory so that the "install.sh"
+script we will use in the next step can find the "Parent" config relative to the site-specific config.
+
 ### Step 4: Compile the configuration project and install it
-You'll need to use the
+You'll use the
 [OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
 to assemble the configuration and install it in the application
-data directory associated with the server you created in Step 2
+data directory associated with the server you created in Step 2.
 
-Go into the top-level directory of the configuration project you checked out above and run the Maven Plugin.
-
-Use the "serverId" you choose in Step 1
+Go into the top-level directory of the configuration project you checked out above and run the following utility
+script to run the Maven plugin. Use the "serverId" you choose in Step 1.
 
 ```
 cd openmrs-config-liberia
-mvn clean compile -DserverId=pihliberia
+./install.sh [serverId]
 ```
 
 
@@ -208,7 +214,7 @@ mvn openmrs-sdk:run -DserverId=[serverId]
 
 ### Step 7: Create a local identifier source
 
-**This is only required for some sites.**
+**This is only required for some sites, mainly the Haiti sites at this point.**
 
 After startup, login
 - Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
@@ -243,7 +249,8 @@ To develop on Microfrontends, you'll need to do some set-up. Follow the instruct
 
  We are in the process of moving as much "configuration" out of the main PIH EMR code base and into distribution-specific files.  These files can be updated without updating the main PIH EMR code base.
 
-To do this, you'll need to work with two key PIH repos.  First, the "openmrs-config-pihemr" repo:
+To do this, you'll need to work with the "parent" config rep and the repo for your specific site, mentioned 
+in Step 3 of "setting up a dev environment".
 
 https://github.com/PIH/openmrs-config-pihemr
 
@@ -251,34 +258,22 @@ This is the "parent" configuration, that contains all configuration shared acros
 
 Then there is the specific "child" configuration for each distribution.  See Step 3 in "setting up a dev environment" above for the list of repos.
 
-When you make changes to the "child" repo, you need to compile the changes and then "deploy" them to the SDK server you are working on.  This can be done with the following command:
+When you make changes to either the "parent" or "child" repo, you need to compile the changes and then "deploy" them to the SDK server you are working on.  This can be done with the following command shell script (which simply runs the
+Maven packager plugin) found in the top-level of the various config projects:
 
 ```
-mvn clean compile -DserverId=[serverId]
-```
-
-When you make changes to the "parent" repo, you need to compile that project and install it to your local Maven repo, and then compile and deploy the child repo.  So from the parent project you would run:
-
-```
-mvn clean install
-```
-
-And then once that is complete, compile and "deploy" the child project locally:
-
-```
-mvn clean compile -DserverId=[serverId]
+./install.sh
 ```
 
 Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing a "reload" of a page should reload the form with your changes.
 
-You also can set up a "watch" on your child project, so that when you make changes to, say, an
-HTML Form, the project is immediately compiled and deployed.  You do so using the "watch" flag:
+You also can set up a "watch" on both the parent and child project, so that when you make changes to, say, an
+HTML Form, the project is immediately compiled and deployed.  You do so using a "watch" utility script found in the
+top-level of the various config projects:
 
 ```
-mvn clean compile -DserverId=[serverId] -Dwatch
+./watch.sh
 ```
-
-Note that there currently isn't "watch" support for the parent project.  You *can* watch the parent project, but the results will likely not be what you are looking for and should be avoided for now.
 
 Also note that if you commit any changes to either the parent or child config property, our CI server should immediately push them out to the relevant staging servers and restart OpenMRS, so, all going well, your changes should be up on the staging servers within 10-15 minutes of pushing your changes.
 

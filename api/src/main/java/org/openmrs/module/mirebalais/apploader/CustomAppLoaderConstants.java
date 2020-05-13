@@ -142,7 +142,11 @@ public class CustomAppLoaderConstants {
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
         public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
-        public static final String VACCINATION_VISIT_ACTION= "pih.form.vaccination";
+        public static final String VACCINATION_VISIT_ACTION = "pih.form.vaccination";
+
+        public static final String COVID19_INITIAL_VISIT_ACTION = "pih.form.covid19Admission";
+        public static final String COVID19_FOLLOWUP_VISIT_ACTION = "pih.form.covid19Progress";
+        public static final String COVID19_DISCHARGE_VISIT_ACTION = "pih.form.covid19Discharge";
 
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
@@ -372,6 +376,9 @@ public class CustomAppLoaderConstants {
             Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
             Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.CHEMO_RECORDING_VISIT_ACTION,
+            Extensions.COVID19_INITIAL_VISIT_ACTION,
+            Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
+            Extensions.COVID19_DISCHARGE_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
