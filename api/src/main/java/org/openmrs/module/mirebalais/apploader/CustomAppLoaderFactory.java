@@ -40,6 +40,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.ui.framework.WebConstants;
@@ -2530,6 +2531,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.ZIKA)) {
             supportedPrograms.add(ZikaProgram.ZIKA.uuid());
             configureBasicProgramDashboard(ZikaProgram.ZIKA);
+        }
+
+        if (config.isComponentEnabled(Components.COVID19)) {
+            supportedPrograms.add(Covid19Program.COVID19.uuid());
+            configureBasicProgramDashboard(Covid19Program.COVID19);
         }
 
         // TODO better/more granular privileges?

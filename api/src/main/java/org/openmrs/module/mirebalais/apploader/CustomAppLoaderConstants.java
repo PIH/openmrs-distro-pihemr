@@ -13,6 +13,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
@@ -314,6 +315,7 @@ public class CustomAppLoaderConstants {
             "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
             "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
             "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard",
+            "pih.app." + Covid19Program.COVID19.uuid() + ".programSummary.dashboard",
             "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
     );
 
