@@ -1028,7 +1028,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-folder-open",
                 "paperrecord/archivesRoom.page",
                 "App: emr.archivesRoom",
-                null)));
+                null),
+                sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)));
 
         extensions.add(overallAction(Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
                 "paperrecord.task.requestPaperRecord.label",
@@ -1086,7 +1087,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "App: appointmentschedulingui.home",
                 null);
 
-        apps.add(addToHomePage(apppointmentScheduling));
+        apps.add(addToHomePage((apppointmentScheduling),
+                sessionLocationHasTag(LocationTags.APPOINTMENT_LOCATION)));
 
         apps.add(findPatientTemplateApp(Apps.SCHEDULE_APPOINTMENT,
                 "appointmentschedulingui.scheduleAppointment.buttonTitle",
@@ -2028,7 +2030,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-sun",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION))));
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
@@ -2036,7 +2038,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-sun",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Followup.xml")),
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION))));
 
         extensions.add(visitAction(Extensions.COVID19_DISCHARGE_VISIT_ACTION,
@@ -2044,7 +2046,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-sun",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION))));
     }
 
@@ -2359,8 +2361,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
-
-
     }
 
     private void enablePathologyTracking() {
@@ -2371,7 +2371,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.PATHOLOGY_TRACKING,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
                 null),
-                null));
+                sessionLocationHasTag(LocationTags.ORDER_PATHOLOGY_LOCATION)));
 
         extensions.add(visitAction(Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.orderPathology.label",
@@ -2735,7 +2735,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fa fa-fw fa-baby",
                 "spa/referrals-queue",
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                null)));
+                null),
+                sessionLocationHasTag(LocationTags.MCH_LOCATION)));
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
