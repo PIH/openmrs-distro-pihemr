@@ -109,13 +109,40 @@ An easier approach is likely to install Docker (https://www.docker.com/) and use
 Epic for making setting up a dev enviorment easier: https://pihemr.atlassian.net/browse/UHM-4245
 
 
-### Step 1: (If you are directly installing MySQL on your machine) Ensure that MySQL has a password set up for the root user.
+### Step 1: Ensure you have MySQL available
+
+#### If you are directly installing MySQL on your machine 
+
+Ensure that MySQL has a password set up for the root user
+
 - If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
-it means that there is no root password set and you have to set it following the instructions here: https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
+it means that there is no root password set and you have to set it following the instructions here: 
+https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
+
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.
 
+#### If you choose to install MySQL using Docker
 
+- To use MySQL Option 3 in the SDK installation process, you need to have an existing MySQL docker instance available.
+  You can do this by running the following steps
+  
+  * Create a container (example below creates a container named "mysql-mirebalais" that will be available on port 3308):
+  
+  ```shell script
+    docker run --name mysql-mirebalais -d -p 3308:3306 \
+            -e MYSQL_ROOT_PASSWORD=root \
+            mysql:5.6 --character-set-server=utf8 --collation-server=utf8_unicode_ci --max_allowed_packet=1G
+    ``` 
+  
+  * Get a bash shell in the container, and create an empty database to use
+  
+    ```shell script
+       $ docker exec -it mysql-mirebalais bash
+       root@f25c851762df:/# mysql -uroot -proot
+       mysql> create database openmrs default charset utf8;
+      ``` 
+    
 ### Step 2: Set up the environment
 Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
@@ -133,11 +160,17 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 * When prompted, set the port to debug on (standard is 1044)
 
 * For database selection, select either the option to use locally-installed MySQL, or to use a MySQL docker container.
-  Option "3. Use an existing docker container," does not seem to work at the time of this writing. Your
-  `serverId` must only contain
-  [MySQL Permitted Characters in Unquoted Identifiers](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html).
+  Your`serverId` must only contain [MySQL Permitted Characters in Unquoted Identifiers](https://dev.mysql.com/doc/refman/8.0/en/identifiers.html).
 
-* If you are connecting to a MySQL 5.6 instance running on your local machine, specify the URI and a username and password to connect to the DB
+  * If you are connecting to a MySQL 5.6 instance running on your local machine:
+    * Specify the URI and a username and password to connect to the DB
+
+  * If you are connecting to a MySQL database in an existing Docker container (as described above):
+    * Choose option 3
+    * Container ID:  "mysql-mirebalais" or whatever you chose above
+    * DB username:  root
+    * DB password: root
+    * URL: jdbc:mysql://localhost:3308/openmrs (if you used a different port above, will need to reflect that here)
 
 * Select the JDK to use (it must be 1.8)
 
