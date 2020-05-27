@@ -91,7 +91,7 @@
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.11.0</providermanagementVersion>
-        <radiologyappVersion>1.5.0</radiologyappVersion>
+        <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.19.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <reportingVersion>1.20.0</reportingVersion>
