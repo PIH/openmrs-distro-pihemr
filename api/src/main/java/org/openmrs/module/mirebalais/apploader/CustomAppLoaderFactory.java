@@ -1018,7 +1018,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
-
     }
 
     private void enableArchives() {
@@ -1028,8 +1027,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-folder-open",
                 "paperrecord/archivesRoom.page",
                 "App: emr.archivesRoom",
-                null),
-                sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)));
+                null)));
+                // ToDo:  Only for archives location
+                // sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)));
 
         extensions.add(overallAction(Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
                 "paperrecord.task.requestPaperRecord.label",
