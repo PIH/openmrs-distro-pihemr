@@ -41,6 +41,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationH
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 
 // TODO these tests are passing when run through IntelliJ, but failing through maven for some reason, so @Ignoring this for now
+// TODO update: looks like these tests have degraded to the point that they don't work on IntelliJ either
 
 @Ignore
 @RunWith(PowerMockRunner.class)
@@ -61,7 +62,7 @@ public class RequireUtilTest {
 
     @Before
     public void setup() throws Exception {
-        appFrameworkService = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
+        appFrameworkService = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null, null);
 
         doctor = new Role("Doctor");
         admin = new Role("Admin");
