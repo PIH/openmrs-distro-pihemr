@@ -31,6 +31,10 @@ public class RequireUtil {
         return new String("typeof sessionLocation !== 'undefined' && hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
     }
 
+    public static String sessionLocationDoesNotHaveTag(LocationTagDescriptor descriptor) {
+        return new String("typeof sessionLocation !== 'undefined' && !hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
+    };
+
     public static String patientNotDead() {
         return new String("!patient.person.dead");
     }

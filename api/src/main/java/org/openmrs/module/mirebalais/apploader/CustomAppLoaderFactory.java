@@ -1018,7 +1018,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null));
 
         addFeatureToggleToExtension(findExtensionById(Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
-
     }
 
     private void enableArchives() {
@@ -1028,8 +1027,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-folder-open",
                 "paperrecord/archivesRoom.page",
                 "App: emr.archivesRoom",
-                null),
-                sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)));
+                null)));
+                // ToDo:  Only for archives location
+                // sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)));
 
         extensions.add(overallAction(Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
                 "paperrecord.task.requestPaperRecord.label",
@@ -1135,7 +1135,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "coreapps.app.system.administration.label",
                     "fas fa-fw fa-cogs",
                     "coreapps/systemadministration/systemAdministration.page",
-                    "App: emr.systemAdministration",
+                    "App: coreapps.systemAdministration",
                     null)));
         }
 
@@ -1143,14 +1143,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "emr.task.accountManagement.label",
                 "fas fa-fw fa-book",
                 "emr/account/manageAccounts.page",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 null)));
 
         apps.add(addToSystemAdministrationPage(app(Apps.MERGE_PATIENTS,
                 "coreapps.mergePatientsLong",
                 "fas fa-fw fa-users",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 objectNode("breadcrumbs", arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong")),
@@ -1160,7 +1160,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "emr.advancedFeatures",
                 "fas fa-fw fa-search",
                 "mirebalais/toggles.page",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 null)));
     }
 
@@ -1171,7 +1171,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "coreapps.app.system.administration.label",
                     "fas fa-fw fa-cogs",
                     "coreapps/systemadministration/systemAdministration.page",
-                    "App: emr.systemAdministration",
+                    "App: coreapps.systemAdministration",
                     null)));
         }
 
@@ -1179,7 +1179,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "printer.administration",
                 "fas fa-fw fa-print",
                 "printer/printerAdministration.page",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 null)));
 
     }
@@ -2631,7 +2631,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.patient.export",
                 "fas fa-fw fa-external-link-alt",
                 "pihcore/export/exportPatients.page",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 null)));
     }
 
@@ -2640,7 +2640,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.patient.import",
                 "fas fa-fw fa-sign-in-alt",
                 "pihcore/export/importPatients.page",
-                "App: emr.systemAdministration",
+                "App: coreapps.systemAdministration",
                 null)));
     }
 
