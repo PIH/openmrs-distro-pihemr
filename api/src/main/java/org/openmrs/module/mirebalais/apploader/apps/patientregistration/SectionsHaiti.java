@@ -196,7 +196,7 @@ public class SectionsHaiti extends SectionsDefault {
         Section s = new Section();
         s.setId("insurance");
         s.setLabel("zl.registration.patient.insurance.label");
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.COVID_LOCATION)); // hide in COVID locations (because of tablet entry)
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION)); // hide in COVID locations (because of tablet entry)
         s.addQuestion(getInsuranceNameAndNumber());
         return s;
     }
