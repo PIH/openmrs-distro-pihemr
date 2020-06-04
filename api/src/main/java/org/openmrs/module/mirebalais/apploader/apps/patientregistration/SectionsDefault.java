@@ -484,6 +484,7 @@ public class SectionsDefault {
         s.setId("idcardSection");
         s.setLabel("zl.registration.patient.idcard.label");
         s.addQuestion(getIdCardPrintQuestion());
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION));
         return s;
     }
 
