@@ -17,6 +17,8 @@ import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientR
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.mirebalaisreports.definitions.SqlFileReportBuilder;
+import org.openmrs.module.mirebalaisreports.definitions.SqlFileReportManager;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.Components;
@@ -977,6 +979,21 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         extensions.addAll(fullDataExportBuilder.getExtensions());
+
+        SqlFileReportBuilder sfrb = Context.getRegisteredComponents(SqlFileReportBuilder.class).get(0);
+        for (SqlFileReportManager rpt : sfrb.getSqlReportManagers()) {
+            Extension ext = new Extension("mirebalaisreports.dataExports.sqlFile." + rpt.getCode(), // id
+                    null, // appId
+                    "org.openmrs.module.reportingui.reports.dataexport", // extensionPointId
+                    "link", // type
+                    rpt.getMessageCodePrefix() + "name", // label
+                    "/reportingui/runReport.page?reportDefinition=" + rpt.getUuid(), // url
+                    rpt.getOrder(), // order
+                    "App: mirebalaisreports.dataexports", // required privilege
+                    null); // extensionParams
+            // ideally set extensionParams['linkId'] (but this is not a priority)
+            extensions.add(ext);
+        }
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&

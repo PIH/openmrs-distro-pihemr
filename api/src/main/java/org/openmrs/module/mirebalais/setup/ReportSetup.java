@@ -9,6 +9,8 @@ import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.SqlFileReportBuilder;
+import org.openmrs.module.mirebalaisreports.definitions.SqlFileReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
 import org.openmrs.module.pihcore.config.Config;
@@ -35,6 +37,14 @@ public class ReportSetup {
         FullDataExportBuilder fullDataExportBuilder = Context.getRegisteredComponents(FullDataExportBuilder.class).get(0);
         for (ReportManager manager : fullDataExportBuilder.getAllReportManagers()) {
             setupReport(manager, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+        }
+
+        SqlFileReportBuilder sfrb = Context.getRegisteredComponents(SqlFileReportBuilder.class).get(0);
+        for (SqlFileReportManager rm : sfrb.getSqlReportManagers()) {
+            if (rm.isEnabled()) {
+                setupReport(rm, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+            }
+            // TODO: Determine if we want to remove report if no longer enabled
         }
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
