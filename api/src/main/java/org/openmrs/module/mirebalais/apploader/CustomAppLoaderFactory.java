@@ -2425,6 +2425,23 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
                 null));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.RECENT_LAB_RESULTS,
+                "mirebalais.recentLabResults.title",
+                "fas fa-fw fa-pills",
+                "dispensing/patient.page?patientId={{patient.uuid}}",
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-fw fa-pills",
+                        "label", "mirebalais.recentLabResults.title",
+                        "encounterTypes", EncounterTypes.LAB_RESULTS.uuid() + "," + EncounterTypes.COVID19_INTAKE + "," + EncounterTypes.COVID19_FOLLOWUP + "," + EncounterTypes.LAB_SPECIMEN_COLLECTION,
+                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
+                        "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
+                        "maxRecords", "5"  // TODO what should this be?
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
     }
 
     private void enableGrowthChart() {
