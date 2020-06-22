@@ -38,14 +38,17 @@ public class RequireUtil {
 
     // note that Java 8 Nashorn script engine support does not (fully?) support ECMAScript6 so we can't use arrow notation or map, etc
     public static String visitHasEncounterOfType(EncounterTypeDescriptor descriptor) {
-        return new String("visit && visit.encounters && " + 
-          "visit.encounters.some(function(encounter) { " +
-          "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
-          "' })");
+        return new String("visit && visit.encounters && " +
+              "some(visit.encounters, function(encounter) { " +
+              "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
+              "' })");
     }
 
     public static String visitDoesNotHaveEncounterOfType(EncounterTypeDescriptor descriptor) {
-        return new String("typeof visit !== 'undefined' && typeof visit.encounters === 'undefined' || !hasMemberThatEvaluatesTrue(visit.encounters, (function(encounter) { return encounter.encounterType.uuid === '" + descriptor.uuid() + "' } ))");
+        return new String("visit && (!visit.encounters || " +
+            "!some(visit.encounters, (function(encounter) { " +
+            "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
+            "' } )))");
     }
 
     public static String patientNotDead() {
