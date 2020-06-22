@@ -2033,7 +2033,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
-                and(sessionLocationHasTag(LocationTags.COVID_LOCATION), visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+                and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
+                    visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_FOLLOWUP.uuid(),
@@ -2801,5 +2802,4 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         this.config = config;
     }
 }
-
 
