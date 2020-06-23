@@ -119,6 +119,8 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
@@ -2031,7 +2033,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
-                and(sessionLocationHasTag(LocationTags.COVID_LOCATION))));
+                and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
+                    visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_FOLLOWUP.uuid(),
@@ -2039,7 +2042,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Followup.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
-                and(sessionLocationHasTag(LocationTags.COVID_LOCATION))));
+                and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
+                    visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
 
         extensions.add(visitAction(Extensions.COVID19_DISCHARGE_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_DISCHARGE.uuid(),
@@ -2799,5 +2803,3 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         this.config = config;
     }
 }
-
-
