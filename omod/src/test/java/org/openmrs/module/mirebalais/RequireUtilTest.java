@@ -62,7 +62,7 @@ public class RequireUtilTest {
 
     @Before
     public void setup() throws Exception {
-        appFrameworkService = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null, null);
+        appFrameworkService = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 
         doctor = new Role("Doctor");
         admin = new Role("Admin");
