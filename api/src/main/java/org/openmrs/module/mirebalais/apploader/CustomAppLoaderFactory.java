@@ -1515,7 +1515,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
-                        visitHasEncounterOfType(EncounterTypes.ONCOLOGY_CONSULT),
+                        visitHasEncounterOfType(EncounterTypes.ONCOLOGY_INITIAL_VISIT),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
