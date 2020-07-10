@@ -1515,6 +1515,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_CONSULT),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -1531,6 +1532,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntake.xml")),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.ONCOLOGY_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_INITIAL_VISIT),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -1623,6 +1625,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
+                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_INITIAL_CONSULT),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -1639,24 +1642,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
+                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_FOLLOWUP_CONSULT),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-        /* Echo is included in the NCD intake and followup.  This additional form would be used if
-           it's every needed separately.
-         ToDo: Change roles for echo?  Only residents?
-        extensions.add(visitAction(Extensions.ECHO_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ECHOCARDIOGRAM.uuid(),
-                "fas fa-fw fa-heart-beat",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("echocardiogram.xml" + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.NCD_CONSULT_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-        */
     }
 
     private void enableMCHForms() {
@@ -1668,7 +1657,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
+                        and(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
@@ -1676,7 +1667,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                        and(patientIsFemale()))));
 
         extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
@@ -1684,7 +1677,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION), and(patientIsFemale()))));
+                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
+                        and(patientIsFemale()))));
     }
 
     private void enableANCProgram() {
@@ -1718,7 +1713,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
-                sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.MENTAL_HEALTH_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT))));
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
@@ -1734,7 +1730,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/vct.xml")),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
-                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.VCT))));
     }
 
     private void enableSocioEconomics() {
@@ -1744,7 +1741,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("socio-econ.xml")),
                 Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
-                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.SOCIO_ECONOMICS))));
     }
 
     private void enableChartSearch() {
@@ -1836,6 +1834,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -1848,6 +1847,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -1860,6 +1860,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -1872,6 +1873,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag(LocationTags.PRIMARY_CARE_CONSULT_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -1896,7 +1898,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-initial.xml")
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
-                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                    and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL))));
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
@@ -1905,7 +1908,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-followup.xml")
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
-                    sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
+                    and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP))));
 
         }
 
@@ -1923,6 +1927,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -1937,6 +1942,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
