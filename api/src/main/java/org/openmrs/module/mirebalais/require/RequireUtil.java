@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.require;
 
+import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
@@ -34,6 +35,21 @@ public class RequireUtil {
     public static String sessionLocationDoesNotHaveTag(LocationTagDescriptor descriptor) {
         return new String("typeof sessionLocation !== 'undefined' && !hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
     };
+
+    // note that Java 8 Nashorn script engine support does not (fully?) support ECMAScript6 so we can't use arrow notation or map, etc
+    public static String visitHasEncounterOfType(EncounterTypeDescriptor descriptor) {
+        return new String("visit && visit.encounters && " +
+              "some(visit.encounters, function(encounter) { " +
+              "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
+              "' })");
+    }
+
+    public static String visitDoesNotHaveEncounterOfType(EncounterTypeDescriptor descriptor) {
+        return new String("visit && (!visit.encounters || " +
+            "!some(visit.encounters, (function(encounter) { " +
+            "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
+            "' } )))");
+    }
 
     public static String patientNotDead() {
         return new String("!patient.person.dead");
