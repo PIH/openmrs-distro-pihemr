@@ -2449,19 +2449,18 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_VIEW_LABS.privilege(),
                 null));
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.RECENT_LAB_RESULTS,
-                "mirebalais.recentLabResults.title",
-                "fas fa-fw fa-pills",
-                "dispensing/patient.page?patientId={{patient.uuid}}",
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
+                "pihcore.labResults.covid",
+                "fas fa-fw fa-sun",
+                "owa/orderentry/index.html?patientId={{patient.uuid}}", // ToDo: Add link to all lab results
                 null,
                 objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "fas fa-fw fa-pills",
-                        "label", "mirebalais.recentLabResults.title",
-                        "encounterTypes", EncounterTypes.LAB_RESULTS.uuid() + "," + EncounterTypes.COVID19_INTAKE + "," + EncounterTypes.COVID19_FOLLOWUP + "," + EncounterTypes.LAB_SPECIMEN_COLLECTION,
-                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
+                        "widget", "latestObsForConceptList",
+                        "icon", "fas fa-fw fa-sun",
+                        "label", "pihcore.labResults.covid",
                         "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
-                        "maxRecords", "5"  // TODO what should this be?
+                        "useConceptShortName", "true", // ToDo:  Add this configuration
+                        "maxRecords", "4"  // TODO what should this be?
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
