@@ -30,6 +30,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
@@ -40,18 +41,19 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
+import org.openmrs.module.reporting.config.ReportDescriptor;
+import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
@@ -119,8 +121,8 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
@@ -978,6 +980,28 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null)));
         }
 
+        // reports defined through Reporting Config (move to PIH Core at some point?)
+        List<ReportDescriptor> reportDescriptors =  ReportLoader.loadReportDescriptors();
+        if (reportDescriptors != null) {
+            for (ReportDescriptor reportDescriptor : reportDescriptors) {
+                if (reportDescriptor.getConfig() != null) {
+                    String component = reportDescriptor.getConfig().containsKey("component") ? reportDescriptor.getConfig().get("component").toString() : null;
+                    Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
+                    if (component != null && config.isComponentEnabled(component)) {
+                        extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
+                                reportDescriptor.getName(),
+                                reportDescriptor.getUuid(),
+                                "App: mirebalaisreports.dataexports",
+                                order,
+                                "mirebalaisreports-" + reportDescriptor.getKey() + "-link"));
+                    }
+                }
+            }
+        }
+
+        // TODO: review what this does as compared to below
+        // TODO: hopefully we can remove some or all of this once we migrate Reports to config
+        // legacy reports defined through BaseReportManagers and Full Data Export Builder
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
