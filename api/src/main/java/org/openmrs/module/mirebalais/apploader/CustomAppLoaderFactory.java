@@ -2453,15 +2453,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
                 "pihcore.labResults.covid",
                 "fas fa-fw fa-sun",
-                "owa/orderentry/index.html?patientId={{patient.uuid}}", // ToDo: Add link to all lab results
+                "owa/orderentry/index.html?patientId={{patient.uuid}}",
                 null,
                 objectNode(
                         "widget", "latestObsForConceptList",
                         "icon", "fas fa-fw fa-sun",
                         "label", "pihcore.labResults.covid",
                         "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
-                        "useConceptShortName", "true", // ToDo:  Add this configuration
-                        "maxRecords", "4"  // TODO what should this be?
+                        "conceptNameType", "shortName",
+                        "maxRecords", "4"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
