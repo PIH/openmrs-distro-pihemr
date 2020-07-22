@@ -2070,7 +2070,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE))));
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
+                        visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
     }
 
     // not currently used
