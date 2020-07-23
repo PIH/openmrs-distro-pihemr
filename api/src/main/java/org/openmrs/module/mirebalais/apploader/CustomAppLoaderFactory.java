@@ -2453,7 +2453,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
                 "pihcore.labResults.covid",
                 "fas fa-fw fa-sun",
-                "owa/orderentry/index.html?patientId={{patient.uuid}}",
+                null,
                 null,
                 objectNode(
                         "widget", "latestObsForConceptList",
