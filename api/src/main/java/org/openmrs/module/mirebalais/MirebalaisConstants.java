@@ -19,7 +19,7 @@ package org.openmrs.module.mirebalais;
 public class MirebalaisConstants {
 
 	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
-	
+
 	public static final String RADIOLOGY_ORDERABLE_CONCEPTS_GP = "mirebalais.radiology.orderableConcepts";
 	public static final String RADIOLOGY_ORDERTYPE_GP = "radiology-order-type";
 
@@ -74,7 +74,10 @@ public class MirebalaisConstants {
     public static final String WHODAS = "163226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String ZLDSI = "163225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SEIZURE_FREQUENCY = "ba2e9e43-5a9d-423f-a33e-c34765785397";
-
+    public static final String SARS_COV2_ANTIBODY_TEST = "165853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String SARS_COV2_ANTIGEN_TEST = "165852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String SARS_COV2_RT_PCR_TEST = "165840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String SARS_COV2_XPERT_TEST = "423edcfa-a5a6-4bc4-a43a-b19644252dc6";
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
     public static final String HEART_RATE_UUID = "3ce93824-26fe-102b-80cb-0017a47871b2";

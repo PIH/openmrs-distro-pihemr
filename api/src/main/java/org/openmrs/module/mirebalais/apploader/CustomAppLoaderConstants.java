@@ -95,6 +95,7 @@ public class CustomAppLoaderConstants {
         public static final String ZLDSI_GRAPH = "pih.app.zldsi.graph";
         public static final String SEIZURE_FREQUENCY_GRAPH = "pih.app.seizure.frequency.graph.title";
         public static final String J9_REFERRALS = "pih.app.j9Referrals";
+        public static final String COVID_LAB_RESULTS = "pih.app.covidLabResults";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -407,6 +408,7 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
+            Apps.COVID_LAB_RESULTS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,

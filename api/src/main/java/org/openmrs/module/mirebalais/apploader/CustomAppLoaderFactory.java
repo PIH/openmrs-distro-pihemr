@@ -2070,7 +2070,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE))));
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
+                        visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
     }
 
     // not currently used
@@ -2448,6 +2449,22 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
                 null));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
+                "pihcore.labResults.covid",
+                "fas fa-fw fa-sun",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestObsForConceptList",
+                        "icon", "fas fa-fw fa-sun",
+                        "label", "pihcore.labResults.covid",
+                        "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
+                        "conceptNameType", "shortName",
+                        "maxRecords", "4"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
     }
 
     private void enableGrowthChart() {
