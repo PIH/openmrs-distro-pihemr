@@ -8,10 +8,14 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.openmrs.module.mirebalaisreports.MirebalaisReportsUtil;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.SqlFileDataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportRequest;
@@ -28,7 +32,7 @@ public class ReportSetup {
 
     protected static Log log = LogFactory.getLog(ReportSetup.class);
 
-    public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
+    public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, DataSetDefinitionService dataSetDefinitionService,
                                     AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
                                     Config config) {
 
@@ -44,11 +48,27 @@ public class ReportSetup {
             }
         }
 
+        applyMetadataReplacements(dataSetDefinitionService);
         scheduleBackupReports(reportService, reportDefinitionService, config);
         scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
         cleanupOldReports(reportService);
     }
 
+
+    private static void applyMetadataReplacements(DataSetDefinitionService dataSetDefinitionService) {
+        // hack to apply the legacy metadata replacements in legacy SQL reports
+        // eventually we should replace the legacy reports with a function-based approach\
+        // TODO: doesn't work, likely needs to be replaced with reviewing all report definitions and nested DSD
+        for (DataSetDefinition dsd : dataSetDefinitionService.getAllDefinitions(false)) {
+            if (dsd instanceof SqlFileDataSetDefinition) {
+                String sql = ((SqlFileDataSetDefinition) dsd).getSql();
+                sql = MirebalaisReportsUtil.applyMetadataReplacements(sql);
+                ((SqlFileDataSetDefinition) dsd).setSql(sql);
+                dataSetDefinitionService.saveDefinition(dsd);
+            }
+        }
+
+    }
 
     private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
         // sets up reports currently only used on Mirebalais production server (as a backup)
