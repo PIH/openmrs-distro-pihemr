@@ -102,7 +102,6 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             AdministrationService administrationService = Context.getAdministrationService();
             ReportService reportService = Context.getService(ReportService.class);
             ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
-            DataSetDefinitionService dataSetDefinitionService = Context.getService(DataSetDefinitionService.class);
             SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
             PrinterService printerService = Context.getService(PrinterService.class);
             DispositionService dispositionService = Context.getService(DispositionService.class);
@@ -146,7 +145,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
 
                 if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
                     // must happen after location tags have been configured
-                    ReportSetup.setupReports(reportService, reportDefinitionService, dataSetDefinitionService, administrationService, serializedObjectDAO, config);
+                    ReportSetup.setupReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
                 }
 
                 // do app and extension configuration
