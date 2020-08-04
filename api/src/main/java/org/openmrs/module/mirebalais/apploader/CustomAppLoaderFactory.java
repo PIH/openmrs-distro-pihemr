@@ -989,7 +989,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     String category = reportDescriptor.getConfig().containsKey("category") ? reportDescriptor.getConfig().get("category").toString() : null;
                     List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
                     Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
-                    if (category != null && category.equalsIgnoreCase("dataExport") && (components == null || config.anyComponentEnabled(components))) {
+                    List<String> sites = reportDescriptor.getConfig().containsKey("sites") ? (List<String>) reportDescriptor.getConfig().get("sites") : null;
+                    if (category != null && category.equalsIgnoreCase("dataExport") &&
+                            (components == null || config.anyComponentEnabled(components)) &&
+                            (sites == null || sites.contains(config.getSite().toString()))) {
                         extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
