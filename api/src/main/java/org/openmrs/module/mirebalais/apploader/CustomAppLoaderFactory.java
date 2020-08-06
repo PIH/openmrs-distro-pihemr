@@ -1004,11 +1004,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             }
         }
 
-        // TODO: review what this does as compared to below
-        // TODO: hopefully we can remove some or all of this once we migrate Reports to config
-        // legacy reports defined through BaseReportManagers and Full Data Export Builder
+
+        // legacy reports defined through Full Data Export Builder
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
+        // legacy reports defined through BaseReportManagers
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
                     (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite()))) {
