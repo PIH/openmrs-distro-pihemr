@@ -986,9 +986,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (reportDescriptors != null) {
             for (ReportDescriptor reportDescriptor : reportDescriptors) {
                 if (reportDescriptor.getConfig() != null) {
-                    String component = reportDescriptor.getConfig().containsKey("component") ? reportDescriptor.getConfig().get("component").toString() : null;
+                    String category = reportDescriptor.getConfig().containsKey("category") ? reportDescriptor.getConfig().get("category").toString() : null;
+                    List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
                     Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
-                    if (component != null && config.isComponentEnabled(component)) {
+                    List<String> sites = reportDescriptor.getConfig().containsKey("sites") ? (List<String>) reportDescriptor.getConfig().get("sites") : null;
+                    if (category != null && category.equalsIgnoreCase("dataExport") &&
+                            (components == null || config.anyComponentEnabled(components)) &&
+                            (sites == null || sites.contains(config.getSite().toString()))) {
                         extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
@@ -1000,11 +1004,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             }
         }
 
-        // TODO: review what this does as compared to below
-        // TODO: hopefully we can remove some or all of this once we migrate Reports to config
-        // legacy reports defined through BaseReportManagers and Full Data Export Builder
+
+        // legacy reports defined through Full Data Export Builder
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
+        // legacy reports defined through BaseReportManagers
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
                     (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite()))) {
