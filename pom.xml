@@ -69,7 +69,7 @@
         <edtriageappVersion>1.3.0</edtriageappVersion>
         <emrVersion>2.2.0</emrVersion>
         <emrapiVersion>1.29.0</emrapiVersion>
-        <eventVersion>2.5</eventVersion>
+        <eventVersion>2.8.0</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <htmlformentryVersion>3.10.0</htmlformentryVersion>
         <htmlformentryuiVersion>1.11.2</htmlformentryuiVersion>
@@ -291,13 +291,6 @@
         <dependency>
             <groupId>org.openmrs</groupId>
             <artifactId>event-api</artifactId>
-            <version>${eventVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs</groupId>
-            <artifactId>event-api-2.x</artifactId>
             <version>${eventVersion}</version>
             <scope>provided</scope>
         </dependency>
