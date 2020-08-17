@@ -159,6 +159,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ADHERENCE_VISIT_ACTION = "pih.form.hivAdherence";
         public static final String MCH_ANC_INTAKE_VISIT_ACTION = "pih.form.ancIntake";
         public static final String MCH_ANC_FOLLOWUP_VISIT_ACTION = "pih.form.ancFollowup";
+        public static final String MCH_PEDS_ACTION = "pih.form.peds";
         public static final String MCH_DELIVERY_VISIT_ACTION = "pih.form.delivery";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String VCT_VISIT_ACTION = "pih.form.vct";
