@@ -123,7 +123,6 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
