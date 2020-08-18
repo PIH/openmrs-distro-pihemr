@@ -30,6 +30,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
 import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
@@ -44,15 +45,17 @@ import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
+import org.openmrs.module.reporting.config.ReportDescriptor;
+import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
@@ -122,6 +125,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationH
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
@@ -826,7 +830,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
-                        "maxRecords", "5"  // TODO what should this be?
+                        "useConceptNameForDrugValues", true,
+                        "maxRecords", "5"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -979,8 +984,34 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null)));
         }
 
+        // reports defined through Reporting Config (move to PIH Core at some point?)
+        List<ReportDescriptor> reportDescriptors =  ReportLoader.loadReportDescriptors();
+        if (reportDescriptors != null) {
+            for (ReportDescriptor reportDescriptor : reportDescriptors) {
+                if (reportDescriptor.getConfig() != null) {
+                    String category = reportDescriptor.getConfig().containsKey("category") ? reportDescriptor.getConfig().get("category").toString() : null;
+                    List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
+                    Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
+                    List<String> sites = reportDescriptor.getConfig().containsKey("sites") ? (List<String>) reportDescriptor.getConfig().get("sites") : null;
+                    if (category != null && category.equalsIgnoreCase("dataExport") &&
+                            (components == null || config.anyComponentEnabled(components)) &&
+                            (sites == null || sites.contains(config.getSite().toString()))) {
+                        extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
+                                reportDescriptor.getName(),
+                                reportDescriptor.getUuid(),
+                                "App: mirebalaisreports.dataexports",
+                                order,
+                                "mirebalaisreports-" + reportDescriptor.getKey() + "-link"));
+                    }
+                }
+            }
+        }
+
+
+        // legacy reports defined through Full Data Export Builder
         extensions.addAll(fullDataExportBuilder.getExtensions());
 
+        // legacy reports defined through BaseReportManagers
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT &&
                     (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite()))) {
@@ -2096,7 +2127,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE))));
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
+                        visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
     }
 
     // not currently used
@@ -2474,6 +2506,22 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                 Privileges.TASK_VIEW_LABS.privilege(),
                 null));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
+                "pihcore.labResults.covid",
+                "fas fa-fw fa-sun",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestObsForConceptList",
+                        "icon", "fas fa-fw fa-sun",
+                        "label", "pihcore.labResults.covid",
+                        "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
+                        "conceptNameType", "shortName",
+                        "maxRecords", "4"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
     }
 
     private void enableGrowthChart() {

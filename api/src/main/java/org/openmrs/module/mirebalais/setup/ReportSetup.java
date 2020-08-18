@@ -49,7 +49,6 @@ public class ReportSetup {
         cleanupOldReports(reportService);
     }
 
-
     private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
         // sets up reports currently only used on Mirebalais production server (as a backup)
         if (config.shouldScheduleBackupReports()) {
