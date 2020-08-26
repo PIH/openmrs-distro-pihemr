@@ -1991,6 +1991,20 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         extensions.add(hivFollowup);
         extensions.add(cloneAsHivVisitAction(hivFollowup));
 
+        Extension hivDispensing = visitAction(Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
+                "pihcore.hivDispensing.short",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/zl/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+
+        extensions.add(hivDispensing);
+        extensions.add(cloneAsHivVisitAction(hivDispensing));
+
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
 
