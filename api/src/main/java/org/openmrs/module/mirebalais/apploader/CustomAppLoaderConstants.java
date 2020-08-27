@@ -152,6 +152,7 @@ public class CustomAppLoaderConstants {
 
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
+        public static final String HIV_ZL_DISPENSING_VISIT_ACTION = "pih.form.hivZLDispensing";
 
         public static final String HIV_ADULT_INITIAL_VISIT_ACTION = "pih.form.hivAdultInitial";
         public static final String HIV_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.hivAdultFollowup";
@@ -375,6 +376,7 @@ public class CustomAppLoaderConstants {
             Extensions.VCT_VISIT_ACTION,
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
+            Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
             Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
             Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
@@ -391,6 +393,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> HIV_VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION + ".hiv",
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv",
+            Extensions.HIV_ZL_DISPENSING_VISIT_ACTION + ".hiv",
             Extensions.VITALS_CAPTURE_VISIT_ACTION + ".hiv");
 
     public static final List<String> ONCOLOGY_VISIT_ACTIONS_ORDER = Arrays.asList(
