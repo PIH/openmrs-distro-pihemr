@@ -540,6 +540,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableVitals() {
 
+        String definitionUiResource = PihCoreUtil.getFormResource("patientVitals.xml");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
+        }
+
         if (config.isComponentEnabled(Components.UHM_VITALS)) {
             // custom vitals app used in Mirebalais
             apps.add(addToHomePage(findPatientTemplateApp(Apps.UHM_VITALS,
@@ -563,7 +568,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "mirebalais.task.vitals.label",
                 "fas fa-fw fa-heartbeat",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                enterSimpleHtmlFormLink(definitionUiResource),
                 null,
                 and(sessionLocationHasTag(LocationTags.VITALS_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
@@ -619,11 +624,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableConsult() {
 
+        String definitionUiResource = PihCoreUtil.getFormResource("consultNote.xml");
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
+        }
+
         extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
                 "emr.clinic.consult.title",
                 "fas fa-fw fa-stethoscope",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
+                enterStandardHtmlFormLink(definitionUiResource),
                 null,
                 and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
