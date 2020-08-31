@@ -41,6 +41,8 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
+import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.module.reporting.config.ReportDescriptor;
@@ -1681,38 +1683,74 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableMCHForms() {
 
-        // ToDo: Fix privileges for these 3 forms.  Not every user should have privileges.
-        extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
-                "fas fa-fw fa-gift",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
-                    and(patientIsFemale()))));
+        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
 
-        extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
-                "fas fa-fw fa-gift",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
-                    and(patientIsFemale()))));
+            extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-initial.xml")),
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            and(patientIsFemale()))));
 
-        extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
-                "fas fa-fw fa-baby",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
-                and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
-                    and(patientIsFemale()))));
+            extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-followup.xml")),
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            and(patientIsFemale()))));
+
+            extensions.add(visitAction(Extensions.MCH_PEDS_ACTION,
+                    "ui.i18n.EncounterType.name." + LiberiaEncounterTypes.PEDS.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("peds.xml")),
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            and(patientIsFemale()))));
+        } else {
+
+            extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            and(patientIsFemale()))));
+
+            extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            and(patientIsFemale()))));
+
+            extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
+                            and(patientIsFemale()))));
+
+        }
+
     }
 
     private void enableANCProgram() {
