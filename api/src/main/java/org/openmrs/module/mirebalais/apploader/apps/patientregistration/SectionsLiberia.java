@@ -23,6 +23,7 @@ public class SectionsLiberia extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
+        c.addSection(getIdentifierSection());
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             c.addSection(getIdCardPrintSection());

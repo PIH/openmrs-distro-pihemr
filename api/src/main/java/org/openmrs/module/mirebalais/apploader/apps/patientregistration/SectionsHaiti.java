@@ -192,6 +192,23 @@ public class SectionsHaiti extends SectionsDefault {
         return q;
     }
 
+    @Override
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+
+        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
+                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {
+            s.addQuestion(getHivEmrId());
+            s.addQuestion(getHivDossierNumber());
+            s.addQuestion(getNumeroIdentificationFiscal());
+            s.addQuestion(getCarteDIdentificationNationale());
+        }
+
+        return s;
+    }
+
     private Section getInsuranceSection() {
         Section s = new Section();
         s.setId("insurance");
@@ -286,22 +303,6 @@ public class SectionsHaiti extends SectionsDefault {
 
         q.addField(f);
         return q;
-    }
-
-    private Section getIdentifierSection() {
-        Section s = new Section();
-        s.setId("patient-identification-section");
-        s.setLabel("registrationapp.patient.identifiers.label");
-
-        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
-                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {
-                s.addQuestion(getHivEmrId());
-                s.addQuestion(getHivDossierNumber());
-                s.addQuestion(getNumeroIdentificationFiscal());
-                s.addQuestion(getCarteDIdentificationNationale());
-        }
-
-        return s;
     }
 
     private Question getHivDossierNumber() {

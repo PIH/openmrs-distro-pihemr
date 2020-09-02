@@ -446,6 +446,13 @@ public class SectionsDefault {
         return toObjectNode(w);
     }
 
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+        return s;
+    }
+
     protected String getAddressHierarchyDisplayTemplate(List<AddressHierarchyLevel> levels) {
         // We want the display template to hide country, and show a dash if the lowest free-text level is missing
         // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?

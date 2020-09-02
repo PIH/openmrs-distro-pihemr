@@ -32,7 +32,8 @@ public class SectionsMexico extends SectionsDefault {
         c.addSection(getContactsSection(false));
     }
 
-    private Section getIdentifierSection() {
+    @Override
+    public Section getIdentifierSection() {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
