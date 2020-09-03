@@ -41,7 +41,6 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
@@ -2042,6 +2041,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(hivDispensing);
         extensions.add(cloneAsHivVisitAction(hivDispensing));
+
+        // circular app for dispensiing
+        apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
+                "pihcore.hivDispensing.short",
+                "fas fa-fw fa-ribbon",
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/zl/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING,
+                null),
+                sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
