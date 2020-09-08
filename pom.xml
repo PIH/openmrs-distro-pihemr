@@ -55,10 +55,10 @@
         <openMRSwebVersion>2.3.1</openMRSwebVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
-        <addresshierarchyVersion>2.13.0</addresshierarchyVersion>
+        <addresshierarchyVersion>2.14.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.3</allergyuiVersion>
-        <appframeworkVersion>2.16.0-SNAPSHOT</appframeworkVersion>
-        <appointmentschedulingVersion>1.12.0</appointmentschedulingVersion>
+        <appframeworkVersion>2.16.0</appframeworkVersion>
+        <appointmentschedulingVersion>1.13.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.9.0</appointmentschedulinguiVersion>
         <appuiVersion>1.13.0</appuiVersion>
         <attachmentsVersion>2.3.0</attachmentsVersion>
@@ -68,7 +68,7 @@
         <dispensingVersion>1.2.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.4.0</edtriageappVersion>
         <emrVersion>2.2.0</emrVersion>
-        <emrapiVersion>1.29.0</emrapiVersion>
+        <emrapiVersion>1.30.0</emrapiVersion>
         <eventVersion>2.8.0</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <htmlformentryVersion>3.10.0</htmlformentryVersion>
@@ -98,7 +98,7 @@
         <reportingrestVersion>1.11.0</reportingrestVersion>
         <reportinguiVersion>1.7.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <spaVersion>1.0.6</spaVersion>
+        <spaVersion>1.0.7</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.14.0</uicommonsVersion>
         <uiframeworkVersion>3.18.0</uiframeworkVersion>
