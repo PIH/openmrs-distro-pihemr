@@ -172,7 +172,7 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentry-api-2.2</artifactId>
+            <artifactId>htmlformentry-api-2.3</artifactId>
             <version>${htmlformentryVersion}</version>
             <scope>test</scope>
         </dependency>
