@@ -62,7 +62,7 @@
         <appointmentschedulinguiVersion>1.9.0</appointmentschedulinguiVersion>
         <appuiVersion>1.13.0</appuiVersion>
         <attachmentsVersion>2.3.0</attachmentsVersion>
-        <calculationVersion>1.2</calculationVersion>
+        <calculationVersion>1.2.1</calculationVersion>
         <cohortBuilderOwaVersion>1.0.0</cohortBuilderOwaVersion>
         <coreappsVersion>1.30.0-SNAPSHOT</coreappsVersion>
         <dispensingVersion>1.2.0-SNAPSHOT</dispensingVersion>
