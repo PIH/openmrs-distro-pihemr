@@ -786,11 +786,6 @@
                             <version>[2.3.1]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <property>
-                            <name>metadatadeployVersion</name>
-                            <version>[1.11.0]</version>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
                     </properties>
                 </configuration>
             </plugin>
