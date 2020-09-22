@@ -100,7 +100,7 @@
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <spaVersion>1.0.7</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.15.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.15.0</uicommonsVersion>
         <uiframeworkVersion>3.19.0</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <webservicesRestVersion>2.29.0-SNAPSHOT</webservicesRestVersion>
