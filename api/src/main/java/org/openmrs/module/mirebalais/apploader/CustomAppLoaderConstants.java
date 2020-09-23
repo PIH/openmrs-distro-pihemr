@@ -202,6 +202,7 @@ public class CustomAppLoaderConstants {
         public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
         public static final String VIEW_LABS_OVERALL_ACTION = "labworkflowowa.viewLabs";
         public static final String VIEW_GROWTH_CHART_ACTION = "growthchart.viewChart";
+        public static final String MARK_PATIENT_DEAD_OVERALL_ACTION = "coreapps.markPatientDied";
 
         public static final String PAPER_RECORD_ACTIONS_INCLUDES = "paperrecord.patientDashboard.includes";
         public static final String PRINT_WRISTBAND_ACTION_INCLUDES = "pih.wristband.patientDashboard.includes";
@@ -349,7 +350,8 @@ public class CustomAppLoaderConstants {
             Extensions.CHEMO_ORDERING_VISIT_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
             Extensions.EDIT_PATIENT_CONTACT_INFO,
-            Extensions.CHART_SEARCH_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
+            Extensions.CHART_SEARCH_OVERALL_ACTION,
+            Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,

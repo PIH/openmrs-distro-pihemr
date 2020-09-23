@@ -428,6 +428,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableCovid19();
         }
 
+        if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
+            enableMarkPatientDead();
+        }
+
         readyForRefresh = false;
     }
 
@@ -2161,6 +2165,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
                         visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
                         visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+    }
+
+    private void enableMarkPatientDead() {
+
+        extensions.add(overallAction(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,
+                "coreapps.markPatientDead.label",
+                "icon-plus-sign-alt",
+                "link",
+                "coreapps/markPatientDead.page?patientId={{patient.uuid}}",
+                Privileges.TASK_MARK_PATIENT_DEAD.privilege(),
+               null));
     }
 
     // not currently used
