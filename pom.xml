@@ -778,12 +778,12 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.1]</version>
+                            <version>[2.3.2]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.1]</version>
+                            <version>[2.3.2]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
