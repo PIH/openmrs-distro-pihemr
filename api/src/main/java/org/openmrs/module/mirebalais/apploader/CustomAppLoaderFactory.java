@@ -368,10 +368,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableGrowthChart();
         }
 
-        if (config.isComponentEnabled(Components.PROGRAMS)) {
-            enablePrograms(config);
-        }
-
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
         }
@@ -430,6 +426,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
             enableMarkPatientDead();
+        }
+
+        if (config.isComponentEnabled(Components.PROGRAMS)) {
+            enablePrograms(config);
         }
 
         readyForRefresh = false;
@@ -2056,8 +2056,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
-        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
-        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
 
         // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
         // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
@@ -2133,6 +2131,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 graphs.getBmiGraph(".hiv"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
 
     }
 
