@@ -2133,7 +2133,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "dashboardwidgets/dashboardWidget"));
 
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
-        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
+        if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
+            extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
+        }
 
     }
 
