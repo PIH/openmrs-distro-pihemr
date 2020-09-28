@@ -97,6 +97,7 @@ public class CustomAppLoaderConstants {
         public static final String SEIZURE_FREQUENCY_GRAPH = "pih.app.seizure.frequency.graph.title";
         public static final String J9_REFERRALS = "pih.app.j9Referrals";
         public static final String COVID_LAB_RESULTS = "pih.app.covidLabResults";
+        public static final String ADD_LAB_RESULTS = "pih.app.addLabResults";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -141,7 +142,7 @@ public class CustomAppLoaderConstants {
         public static final String ONCOLOGY_CONSULT_NOTE_VISIT_ACTION = "pih.form.oncologyNote";
         public static final String ONCOLOGY_INITIAL_VISIT_ACTION = "pih.form.oncologyIntake";
         public static final String CHEMOTHERAPY_VISIT_ACTION = "pih.form.chemotherapy";
-        public static final String LAB_RESULTS_VISIT_ACTION = "pih.form.labResults";
+        public static final String LAB_RESULTS_OVERALL_ACTION = "pih.form.labResults";
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
         public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
@@ -294,6 +295,7 @@ public class CustomAppLoaderConstants {
             Apps.HIV_DISPENSING,
             Apps.LABS,
             Apps.PATHOLOGY_TRACKING,
+            Apps.ADD_LAB_RESULTS,
             Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,
             Apps.DISPENSING,
@@ -337,6 +339,7 @@ public class CustomAppLoaderConstants {
             Extensions.VIEW_GROWTH_CHART_ACTION,
             Extensions.ORDER_LABS_OVERALL_ACTION,
             Extensions.VIEW_LABS_OVERALL_ACTION,
+            Extensions.LAB_RESULTS_OVERALL_ACTION,
             Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,
             Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,
             Extensions.PRINT_ID_CARD_OVERALL_ACTION,
@@ -367,7 +370,6 @@ public class CustomAppLoaderConstants {
             Extensions.ED_TRIAGE_VISIT_ACTION,
             Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
             Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
-            Extensions.LAB_RESULTS_VISIT_ACTION,
             Extensions.SURGICAL_NOTE_VISIT_ACTION,
             Extensions.NCD_INITIAL_VISIT_ACTION,
             Extensions.NCD_FOLLOWUP_VISIT_ACTION,
