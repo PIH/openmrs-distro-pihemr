@@ -368,10 +368,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableGrowthChart();
         }
 
-        if (config.isComponentEnabled(Components.PROGRAMS)) {
-            enablePrograms(config);
-        }
-
         if (config.isComponentEnabled(Components.RELATIONSHIPS)) {
             enableRelationships();
         }
@@ -430,6 +426,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
             enableMarkPatientDead();
+        }
+
+        if (config.isComponentEnabled(Components.PROGRAMS)) {
+            enablePrograms(config);
         }
 
         readyForRefresh = false;
@@ -2056,7 +2056,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
-        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
 
         // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
         // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
@@ -2133,6 +2132,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
 
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
+
     }
 
     private void enableCovid19() {
@@ -2173,7 +2175,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps.markPatientDead.label",
                 "icon-plus-sign-alt",
                 "link",
-                "coreapps/markPatientDead.page?patientId={{patient.uuid}}",
+                "coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true",
                 Privileges.TASK_MARK_PATIENT_DEAD.privilege(),
                null));
     }
@@ -2723,7 +2725,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
-                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid(),
+                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                        "dashboard", program.uuid()   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2739,7 +2743,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "includeActive", false,
-                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid()
+                        "locationTag", LocationTags.PROGRAM_LOCATION.uuid(),
+                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                        "dashboard", program.uuid()   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "program/programHistory"));
 
