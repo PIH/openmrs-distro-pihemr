@@ -1629,7 +1629,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableLabResults() {
 
         extensions.add(overallAction(Extensions.LAB_RESULTS_OVERALL_ACTION,
-                "pih.task.labResults.label",
+                "pih.task.addPastLabResults.label",
                 "fas fa-fw fa-vial",
                 "link",
                 enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")),
@@ -1638,7 +1638,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // circular app for lab results
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ADD_LAB_RESULTS,
-                "pih.task.labResults.label",
+                "pih.app.pastLabResults",
                 "fas fa-fw fa-vial",
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
                 "/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("labResults.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.ADD_LAB_RESULTS,
