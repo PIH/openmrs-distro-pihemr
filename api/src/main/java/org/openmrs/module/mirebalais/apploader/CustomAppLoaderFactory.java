@@ -2055,13 +2055,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(hivDispensing);
         extensions.add(cloneAsHivVisitAction(hivDispensing));
-
         // circular app for dispensiing
         apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/zl/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING,
+                "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/zl/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
                 null),
                 sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
 
