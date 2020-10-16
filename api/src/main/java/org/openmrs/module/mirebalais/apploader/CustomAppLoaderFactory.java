@@ -997,7 +997,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     List<String> sites = reportDescriptor.getConfig().containsKey("sites") ? (List<String>) reportDescriptor.getConfig().get("sites") : null;
                     if (category != null && category.equalsIgnoreCase("dataExport") &&
                             (components == null || config.anyComponentEnabled(components)) &&
-                            (sites == null || sites.contains(config.getSite().toString()))) {
+                            (sites == null || sites.contains(config.getSite()))) {
                         extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
