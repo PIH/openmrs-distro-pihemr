@@ -68,7 +68,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         PihCoreActivator pihCoreActivator = new PihCoreActivator();
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getSite()).thenReturn("MIREBALAIS");
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
         pihCoreActivator.setTestingContext(true);

@@ -136,7 +136,7 @@ public class MirebalaisHospitalActivator implements ModuleActivator {
             }
 
 
-            if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equalsIgnoreCase("MIREBALAIS")) {
                 updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
             }
 
