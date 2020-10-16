@@ -112,7 +112,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getSite()).thenReturn("MIREBALAIS");
         LocationTagSetup.setupLocationTags(locationService, config);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
     }

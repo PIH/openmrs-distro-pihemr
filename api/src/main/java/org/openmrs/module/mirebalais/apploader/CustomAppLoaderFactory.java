@@ -931,7 +931,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     0,
                     map("linkId", "mirebalaisreports-nonCodedDiagnosesReport-link")));
 
-            if (config.getSite() == ConfigDescriptor.Site.MIREBALAIS) {
+            if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
                 // TODO in particular, get rid of this hacked in report, seems like it should be easy enough to do?
                 // custom daily inpatients report
                 extensions.add(extension(Extensions.DAILY_INPATIENTS_OVERVIEW_REPORT,
@@ -1027,7 +1027,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         // TODO: Replace this with property configuration in config
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
 
             // custom data export report LQAS report report
             extensions.add(extension(Extensions.LQAS_DATA_EXPORT,

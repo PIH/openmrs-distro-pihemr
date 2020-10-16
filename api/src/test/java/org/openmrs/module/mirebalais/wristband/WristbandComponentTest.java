@@ -62,7 +62,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getSite()).thenReturn("MIREBALAIS");
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
     }
 
