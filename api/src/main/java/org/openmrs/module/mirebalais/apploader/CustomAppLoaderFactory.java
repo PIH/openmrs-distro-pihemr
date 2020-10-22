@@ -51,6 +51,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -204,7 +206,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         return urlParams;
     }
 
-    private void loadAppsAndExtensions() {
+    private void loadAppsAndExtensions() throws UnsupportedEncodingException {
 
         configureHeader(config);
         setupDefaultEncounterTemplates();
@@ -2531,7 +2533,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "labtrackingapp", "labtrackingPatientDashboard"));
     }
 
-    private void enableLabs() {
+    private void enableLabs() throws UnsupportedEncodingException {
         /* this really represents the Labs component, that has a sub-menu linking to multiple apps*/
         apps.add(addToHomePage(app(Apps.LABS,
                 "pih.app.labs.label",
@@ -2541,11 +2543,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null),
                 null));
 
+        // note that this only only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAdOrderUrl are both hardcoded below for this
         apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.TASK_ORDER_LABS.privilege(),
-                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl=%2F" + WebConstants.CONTEXT_PATH + "%2Fowa%2Flabworkflow%2Findex.html",
+                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
+                        + "&afterAddOrderUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label"))
