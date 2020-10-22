@@ -2548,7 +2548,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.TASK_ORDER_LABS.privilege(),
-                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl=+ " + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8") + "&afterAddOrderUrl=" + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8"),
+                "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
+                        + "&afterAddOrderUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label"))
