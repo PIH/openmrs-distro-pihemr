@@ -165,6 +165,7 @@ public class CustomAppLoaderConstants {
         public static final String MCH_ANC_FOLLOWUP_VISIT_ACTION = "pih.form.ancFollowup";
         public static final String MCH_PEDS_ACTION = "pih.form.peds";
         public static final String MCH_DELIVERY_VISIT_ACTION = "pih.form.delivery";
+        public static final String OB_GYN_VISIT_ACTION = "pih.form.obGyn";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String VCT_VISIT_ACTION = "pih.form.vct";
         public static final String SOCIO_ECONOMICS_VISIT_ACTION = "pih.form.socioEconomics";
@@ -377,6 +378,7 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
             Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
             Extensions.MCH_DELIVERY_VISIT_ACTION,
+            Extensions.OB_GYN_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
             Extensions.VCT_VISIT_ACTION,

@@ -1766,6 +1766,18 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         }
 
+        if (config.isComponentEnabled(Components.OBGYN)) {
+            extensions.add(visitAction(Extensions.OB_GYN_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.OB_GYN.uuid(),
+                    "fas fa-fw fa-female",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            and(patientIsFemale()))));
+
+        }
+
     }
 
     private void enableANCProgram() {
