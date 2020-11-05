@@ -469,7 +469,31 @@ There's an [Invoke](http://www.pyinvoke.org/) file for doing local development o
 [here](https://github.com/PIH/pih-emr-invoke).
 Feel free to make pull requests.
 
-### Troubleshooting
+## Troubleshooting
+
+#### The login screen looks funny, and just gives me errors
+
+If you're seeing a login screen that looks like this
+
+![MicrosoftTeams-image](https://user-images.githubusercontent.com/1031876/98297904-0244f480-1f6a-11eb-9da5-b8a7841bca66.png)
+
+it means that the Mirebalais module has failed to load. Look in the logs to find out why.
+Try searching the log for `mirebalais`.
+
+#### OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
+#### `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
+
+As of this writing, we use a lot of snapshots. One thing that can happen is that when
+you `openmrs-sdk:run`, Maven might pull a new snapshot version of some module (here, Foo),
+but its dependencies may have updated, coming out of sync with the Foo POM you have 
+locally. So the snapshot version of Foo expects BAR 1.2.3-SNAPSHOT, but your local 
+Foo POM still requires Bar 1.2.3.
+
+To resolve
+1. Pull the latest changes to Foo from master (merging/rebasing 
+    into your branch if you're in a branch)
+2. Run `./pihEmrDeploy.sh` in `openmrs-module-mirebalais`, or run `invoke deploy`
+3. Re-run your server
 
 #### I'm getting a NullPointerException from HeaderFragmentController immediately on navigating to the EMR
 
@@ -522,13 +546,6 @@ update global_property set property_value='true' where property like '%started%'
 ```
 
 or by running `invoke enable-modules` if you're using [PyInvoke](https://github.com/brandones/pih-emr-workspace/blob/master/tasks.py).
-
-#### OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
-#### `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
-
-As of this writing, we use a lot of snapshots. One thing that can happen is that when you `openmrs-sdk:run`, Maven might pull a new snapshot version of some module (here, Foo), but its dependencies may have updated, coming out of sync with the Foo POM you have locally. So the snapshot version of Foo expects BAR 1.2.3-SNAPSHOT, but your local Foo POM still requires Bar 1.2.3.
-
-The thing to do is to pull the latest changes to Foo from master (merging/rebasing into your branch if you're in a branch), and then run `openmrs-sdk:deploy` (or `./pihEmrDeploy.sh` or `invoke deploy`), then try running again.
 
 #### Error about `com.mycila` when building core
 
