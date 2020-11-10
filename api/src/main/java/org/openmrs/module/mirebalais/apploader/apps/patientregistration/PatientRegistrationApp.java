@@ -50,11 +50,14 @@ public class PatientRegistrationApp {
             case HAITI:
                 new SectionsHaiti(config, featureToggles).addSections(c);
                 break;
+            case LIBERIA:
+                new SectionsLiberia(config).addSections(c);
+                break;
             case MEXICO:
                 new SectionsMexico(config).addSections(c);
                 break;
-            case LIBERIA:
-                new SectionsLiberia(config).addSections(c);
+            case PERU:
+                new SectionsPeru(config).addSections(c);
                 break;
             case SIERRA_LEONE:
                 new SectionsSierraLeone(config).addSections(c);
