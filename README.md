@@ -71,9 +71,7 @@ This repository/implementation supports several different sites.
 
 There are a few tools that we use extensively and that all PIH devs should have set up:
 
-* Telegram for project-specific group chats (https://telegram.org/)
-
-Please install Telegram on your development machine and then ask an existing developer to invite you to the appropriate groups.
+* Microsoft Teams (you will need an @pih.org email address)
 
 * JIRA for managing project, bugs, sprints, etc: https://pihemr.atlassian.net/secure/Dashboard.jspa
 
