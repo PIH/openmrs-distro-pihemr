@@ -426,6 +426,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableCovid19();
         }
 
+        if (config.isComponentEnabled(Components.OVC)) {
+            enableOvc();
+        }
+
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
             enableMarkPatientDead();
         }
@@ -2192,6 +2196,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
                         visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
                         visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+    }
+
+    private void enableOvc() {
+        extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
+                "fas fa-fw fa-child",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
+                null,
+                visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE)));
+
+        extensions.add(visitAction(Extensions.OVC_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_FOLLOWUP.uuid(),
+                "fas fa-fw fa-child",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
+                null,
+                visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP)));
     }
 
     private void enableMarkPatientDead() {
