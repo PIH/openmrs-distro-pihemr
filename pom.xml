@@ -98,7 +98,7 @@
         <reportingrestVersion>1.11.0</reportingrestVersion>
         <reportinguiVersion>1.7.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <spaVersion>1.0.7</spaVersion>
+        <spaVersion>1.0.6</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.15.0</uicommonsVersion>
         <uiframeworkVersion>3.19.0</uiframeworkVersion>
@@ -777,6 +777,11 @@
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[2.3.2]</version>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>spaVersion</name>
+                            <version>[1.0.6]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
