@@ -39,6 +39,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
@@ -122,6 +123,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientYoungerThan;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
@@ -2194,6 +2196,29 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
     }
 
+    private void enableOvc() {
+        configureBasicProgramDashboard(OVCProgram.OVC);
+
+        extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
+                "fas fa-fw fa-child",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
+                null,
+                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
+
+        extensions.add(visitAction(Extensions.OVC_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_FOLLOWUP.uuid(),
+                "fas fa-fw fa-child",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
+                null,
+                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
+    }
+
     private void enableMarkPatientDead() {
 
         extensions.add(overallAction(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,
@@ -2681,6 +2706,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.NCD)) {
             supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
+        }
+
+        if (config.isComponentEnabled(Components.OVC)) {
+            supportedPrograms.add(OVCProgram.OVC.uuid());
+            enableOvc();
         }
 
         if (config.isComponentEnabled(Components.VACCINATION_FORM)) {

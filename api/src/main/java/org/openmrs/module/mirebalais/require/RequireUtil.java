@@ -63,6 +63,10 @@ public class RequireUtil {
         return new String("patient.person.age < 15");
     }
 
+    public static String patientYoungerThan(int age) {
+        return "patient.person.age <= " + age;
+    }
+
     public static String patientAgeUnknown() {
         return new String("patient.person.age == null");
     }
