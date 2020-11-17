@@ -39,6 +39,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
 import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
@@ -112,20 +113,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overal
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
-import static org.openmrs.module.mirebalais.require.RequireUtil.and;
-import static org.openmrs.module.mirebalais.require.RequireUtil.or;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsAdult;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
-import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
+import static org.openmrs.module.mirebalais.require.RequireUtil.*;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
@@ -424,10 +412,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         if (config.isComponentEnabled(Components.COVID19)) {
             enableCovid19();
-        }
-
-        if (config.isComponentEnabled(Components.OVC)) {
-            enableOvc();
         }
 
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
@@ -2199,13 +2183,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableOvc() {
+        configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+
         extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
                 "fas fa-fw fa-child",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
-                visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE)));
+                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE))));
 
         extensions.add(visitAction(Extensions.OVC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_FOLLOWUP.uuid(),
@@ -2213,7 +2200,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
-                visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP)));
+                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
     }
 
     private void enableMarkPatientDead() {
@@ -2703,6 +2691,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.NCD)) {
             supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
+        }
+
+        if (config.isComponentEnabled(Components.OVC)) {
+            supportedPrograms.add(OVCProgram.OVC.uuid());
+            enableOvc();
         }
 
         if (config.isComponentEnabled(Components.VACCINATION_FORM)) {
