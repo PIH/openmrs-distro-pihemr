@@ -2206,7 +2206,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
                 and(or(patientAgeUnknown(), patientYoungerThan(22)),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE))));
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
 
         extensions.add(visitAction(Extensions.OVC_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_FOLLOWUP.uuid(),
