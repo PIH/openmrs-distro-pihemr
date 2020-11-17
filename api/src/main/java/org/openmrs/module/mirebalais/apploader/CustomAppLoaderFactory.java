@@ -113,7 +113,21 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overal
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overviewReport;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
-import static org.openmrs.module.mirebalais.require.RequireUtil.*;
+import static org.openmrs.module.mirebalais.require.RequireUtil.and;
+import static org.openmrs.module.mirebalais.require.RequireUtil.or;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsAdult;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientYoungerThan;
+import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
+import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
