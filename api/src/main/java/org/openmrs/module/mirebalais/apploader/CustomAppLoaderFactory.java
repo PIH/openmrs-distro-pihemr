@@ -2183,7 +2183,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableOvc() {
-        configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+        configureBasicProgramDashboard(OVCProgram.OVC);
 
         extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
