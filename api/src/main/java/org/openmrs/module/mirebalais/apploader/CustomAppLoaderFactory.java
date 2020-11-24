@@ -2216,6 +2216,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
                 and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE),
                         visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
     }
 
