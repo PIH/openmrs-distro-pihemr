@@ -428,6 +428,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableCovid19();
         }
 
+        if (config.isComponentEnabled(Components.COVID19_INTAKE_FORM)) {
+            enableCovid19IntakeForm();
+        }
+
+        if (config.isComponentEnabled(Components.TUBERCULOSIS)) {
+            enableTuberculosis();
+        }
+
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
             enableMarkPatientDead();
         }
@@ -2022,74 +2030,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableHIV() {
+        enableHIVProgram();
+        enableHIVForms();
+    }
 
+    private void enableHIVProgram() {
         configureBasicProgramDashboard(HIVProgram.HIV);
-
-        // ZL HIV forms
-        Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
-                "pih.task.hivIntake.label",
-                "fas fa-fw fa-ribbon",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
-        extensions.add(hivInitial);
-        extensions.add(cloneAsHivVisitAction(hivInitial));
-
-        Extension hivFollowup = visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
-                "pih.task.hivFollowup.label",
-                "fas fa-fw fa-ribbon",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
-                    or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                            userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                            and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
-        extensions.add(hivFollowup);
-        extensions.add(cloneAsHivVisitAction(hivFollowup));
-
-        Extension hivDispensing = visitAction(Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
-                "pihcore.hivDispensing.short",
-                "fas fa-fw fa-ribbon",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
-        extensions.add(hivDispensing);
-        extensions.add(cloneAsHivVisitAction(hivDispensing));
-        // circular app for dispensiing
-        apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
-                "pihcore.hivDispensing.short",
-                "fas fa-fw fa-ribbon",
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
-                "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
-                null),
-                sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
-
-        extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
-
-        // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
-        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
-        extensions.add(fragmentExtension(Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
-                "coreapps",
-                "patientdashboard/visitIncludes",
-                null,
-                HIVProgram.HIV.uuid() + ".includeFragments",
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
@@ -2151,30 +2097,94 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-
         apps.add(addToHivDashboardSecondColumn(
                 graphs.getBmiGraph(".hiv"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableHIVForms() {
+        enableHIVIntakeForm();
+
+        Extension hivFollowup = visitAction(Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
+                "pih.task.hivFollowup.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+
+        extensions.add(hivFollowup);
+        extensions.add(cloneAsHivVisitAction(hivFollowup));
+
+        Extension hivDispensing = visitAction(Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
+                "pihcore.hivDispensing.short",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+
+        extensions.add(hivDispensing);
+        extensions.add(cloneAsHivVisitAction(hivDispensing));
+        // circular app for dispensiing
+        apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
+                "pihcore.hivDispensing.short",
+                "fas fa-fw fa-ribbon",
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
+                null),
+                sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
+
+        extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+
+        // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
+        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
+        extensions.add(fragmentExtension(Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
+                "coreapps",
+                "patientdashboard/visitIncludes",
+                null,
+                HIVProgram.HIV.uuid() + ".includeFragments",
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
+
+
 
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
         if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
             extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
         }
+    }
 
+    private void enableHIVIntakeForm() {
+        Extension hivInitial = visitAction(Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
+                "pih.task.hivIntake.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+
+        extensions.add(hivInitial);
+        extensions.add(cloneAsHivVisitAction(hivInitial));
     }
 
     private void enableCovid19() {
 
         // ToDo: Fix privileges and locations for these forms.
-        extensions.add(visitAction(Extensions.COVID19_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_INTAKE.uuid(),
-                "fas fa-fw fa-sun",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
-                Privileges.TASK_EMR_ENTER_COVID.privilege(),
-                and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+        enableCovid19IntakeForm();
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_FOLLOWUP.uuid(),
@@ -2194,6 +2204,27 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
                         visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
                         visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+    }
+
+    private void enableCovid19IntakeForm() {
+        extensions.add(visitAction(Extensions.COVID19_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_INTAKE.uuid(),
+                "fas fa-fw fa-sun",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
+                Privileges.TASK_EMR_ENTER_COVID.privilege(),
+                and(sessionLocationHasTag(LocationTags.COVID_LOCATION),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+    }
+
+    private void enableTuberculosis() {
+        extensions.add(visitAction(Extensions.TB_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + EncounterTypes.TB_INTAKE.uuid(),
+                "fas fa-fw fa-wind",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("tbIntake.xml")),
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));
     }
 
     private void enableOvc() {
@@ -2677,6 +2708,19 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.HIV)) {
             supportedPrograms.add(HIVProgram.HIV.uuid());
             enableHIV();
+        }
+
+        if (config.isComponentEnabled(Components.HIV_PROGRAM)) {
+            supportedPrograms.add(HIVProgram.HIV.uuid());
+            enableHIVProgram();
+        }
+
+        if (config.isComponentEnabled(Components.HIV_FORMS)) {
+            enableHIVForms();
+        }
+
+        if (config.isComponentEnabled(Components.HIV_INTAKE_FORM)) {
+            enableHIVIntakeForm();
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {

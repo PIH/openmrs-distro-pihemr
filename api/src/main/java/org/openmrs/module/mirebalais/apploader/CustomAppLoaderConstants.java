@@ -159,6 +159,8 @@ public class CustomAppLoaderConstants {
         public static final String OVC_INITIAL_VISIT_ACTION = "pih.form.ovcInitial";
         public static final String OVC_FOLLOWUP_VISIT_ACTION = "pih.form.ovcFollowup";
 
+        public static final String TB_INITIAL_VISIT_ACTION = "pih.form.tbInitial";
+
         public static final String HIV_ADULT_INITIAL_VISIT_ACTION = "pih.form.hivAdultInitial";
         public static final String HIV_ADULT_FOLLOWUP_VISIT_ACTION = "pih.form.hivAdultFollowup";
         public static final String HIV_PEDS_INITIAL_VISIT_ACTION = "pih.form.hivPedsInitial";
