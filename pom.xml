@@ -92,7 +92,7 @@
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.12.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.21.0</registrationappVersion>
+        <registrationappVersion>1.22.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.10.0</registrationcoreVersion>
         <reportingVersion>1.21.0</reportingVersion>
         <reportingrestVersion>1.11.0</reportingrestVersion>
