@@ -1732,6 +1732,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
                             and(patientIsFemale()))));
 
+            extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,            //TODO: working on this
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-delivery.xml")),
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
+                            and(patientIsFemale()))));
+
             extensions.add(visitAction(Extensions.MCH_PEDS_ACTION,
                     "ui.i18n.EncounterType.name." + LiberiaEncounterTypes.PEDS.uuid(),
                     "fas fa-fw fa-gift",
