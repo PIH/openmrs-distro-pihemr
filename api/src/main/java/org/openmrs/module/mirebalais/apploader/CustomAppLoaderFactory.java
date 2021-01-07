@@ -1733,7 +1733,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,            //TODO: working on this
-                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY,
+                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-delivery.xml")),
