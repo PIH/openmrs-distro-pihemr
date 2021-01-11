@@ -819,7 +819,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-pills",
                 "dispensing/findPatient.page",
                 "App: dispensing.app.dispense",
-                null),
+                objectNode("definitionUiResource", PihCoreUtil.getFormResource("dispensing.xml"))),
                 sessionLocationHasTag(LocationTags.DISPENSING_LOCATION)));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
