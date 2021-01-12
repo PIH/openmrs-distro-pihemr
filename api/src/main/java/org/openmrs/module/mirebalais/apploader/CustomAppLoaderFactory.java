@@ -2198,7 +2198,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_FOLLOWUP.uuid(),
-                "fas fa-fw fa-sun",
+                "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Followup.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
@@ -2207,7 +2207,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(visitAction(Extensions.COVID19_DISCHARGE_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_DISCHARGE.uuid(),
-                "fas fa-fw fa-sun",
+                "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
@@ -2219,7 +2219,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableCovid19IntakeForm() {
         extensions.add(visitAction(Extensions.COVID19_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_INTAKE.uuid(),
-                "fas fa-fw fa-sun",
+                "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
@@ -2654,12 +2654,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
                 "pihcore.labResults.covid",
-                "fas fa-fw fa-sun",
+                "fab fa-fw fa-first-order-alt",
                 null,
                 null,
                 objectNode(
                         "widget", "latestObsForConceptList",
-                        "icon", "fas fa-fw fa-sun",
+                        "icon", "fab fa-fw fa-first-order-alt",
                         "label", "pihcore.labResults.covid",
                         "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
                         "conceptNameType", "shortName",
