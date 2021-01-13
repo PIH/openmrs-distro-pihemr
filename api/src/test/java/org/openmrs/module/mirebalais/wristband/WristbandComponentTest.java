@@ -72,7 +72,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
         Date today = new Date();
 
         Location location = testDataManager.location()
-                .name("Hôpital Universitaire de Mirebalais")
+                .name("Mirebalais")
                 .tag(emrApiProperties.getSupportsVisitsLocationTag())
                 .save();
 
