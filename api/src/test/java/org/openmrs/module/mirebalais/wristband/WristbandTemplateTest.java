@@ -117,7 +117,7 @@ public class WristbandTemplateTest {
 
         Date today = new Date();
 
-        visitLocation.setName("Hôpital Universitaire de Mirebalais");
+        visitLocation.setName("Mirebalais");
 
         Patient patient = new Patient();
         patient.setGender("M");
@@ -154,7 +154,7 @@ public class WristbandTemplateTest {
         String output = wristbandTemplate.generateWristband(patient, visitLocation);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
-        assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));
+        assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
         assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
@@ -167,7 +167,7 @@ public class WristbandTemplateTest {
     @Test
     public void testEstimatedBirthDate() {
 
-        visitLocation.setName("Hôpital Universitaire de Mirebalais");
+        visitLocation.setName("Mirebalais");
 
         Patient patient = new Patient();
         patient.setGender("M");
@@ -211,7 +211,7 @@ public class WristbandTemplateTest {
             data.append("^FWB");    // set orientation
 
             // demographics
-            data.append("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais  19-May-2014^FS");
+            data.append("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais  19-May-2014^FS");
             data.append("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS");
             data.append("^FO160,200^FB2150,1,0,L,0^AU^FD07 Jul 1940^FS");
             data.append("^FO160,200^FB1850,1,0,L,0^AT^FD40 years^FS");
