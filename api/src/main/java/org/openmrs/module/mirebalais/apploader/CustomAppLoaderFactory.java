@@ -41,6 +41,7 @@ import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
 import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
 import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
@@ -1808,6 +1809,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         configureBasicProgramDashboard(MCHProgram.MCH);
     }
 
+    private void enableTBProgram(){
+        configureBasicProgramDashboard(TBProgram.TB);
+    }
+
     private void enableVaccinationOnly() {
         extensions.add(visitAction(Extensions.VACCINATION_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.VACCINATION.uuid(),
@@ -2781,6 +2786,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableMCHForms();
             supportedPrograms.add(MCHProgram.MCH.uuid());
             enableMCHProgram();
+        }
+
+        if(config.isComponentEnabled(Components.TUBERCULOSIS)){
+            supportedPrograms.add(TBProgram.TB.uuid());
+            enableTBProgram();
         }
 
         if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
