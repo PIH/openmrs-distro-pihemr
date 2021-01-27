@@ -601,7 +601,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "returnPage", "clinicianfacing/patient"));
 
         apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
-        apps.add(addToHivDashboardSecondColumn(cloneApp(mostRecentVitals, Apps.HIV_LAST_VITALS), "coreapps", "encounter/mostRecentEncounter"));
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
@@ -2067,20 +2066,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        // ToDo:  Add alerts using dataIntegrityViolations, alerts, or pentaho table
-        // ToDo:  This is a placeholder
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
-                "pih.app.alerts.title",
-                "fas fa-fw fa-exclamation-circle",
-                null,
-                null,
-                objectNode(
-                        "widget", "latestobsforconceptlist",
-                        "icon", "fas fa-fw fa-exclamation-circle",
-                        "label", "pih.app.alerts.title",
-                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
 
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
@@ -3000,7 +2985,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null);
 
         apps.add(addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions"));
-        apps.add(addToHivDashboardSecondColumn(cloneApp(conditionList, Apps.HIV_CONDITION_LIST), "coreapps", "conditionlist/conditions"));
     }
 
     private void enableJ9() {
