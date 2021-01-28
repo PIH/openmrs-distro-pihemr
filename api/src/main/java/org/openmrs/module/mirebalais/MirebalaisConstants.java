@@ -61,6 +61,7 @@ public class MirebalaisConstants {
     public static final String HEIGHT_CONCEPT_UUID = "3ce93cf2-26fe-102b-80cb-0017a47871b2";
     public static final String HEAD_CIRC_CONCEPT_UUID = "3ceb96b4-26fe-102b-80cb-0017a47871b2";
     public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
+    public static final String CD4_PERCENT_UUID = "3cd3d1be-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_QUAL_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY = "cc4681ee-95df-4400-9900-23193cdc6592";
@@ -79,10 +80,13 @@ public class MirebalaisConstants {
     public static final String SARS_COV2_RT_PCR_TEST = "165840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_XPERT_TEST = "423edcfa-a5a6-4bc4-a43a-b19644252dc6";
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
+    public static final String NEXT_DISPENSING_DATE_UUID = "3ce94df0-26fe-102b-80cb-0017a47871b2";
     public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
     public static final String HEART_RATE_UUID = "3ce93824-26fe-102b-80cb-0017a47871b2";
     public static final String TEMPERATURE_UUID = "3ce939d2-26fe-102b-80cb-0017a47871b2";
     public static final String RESPIRATORY_RATE_UUID = "3ceb11f8-26fe-102b-80cb-0017a47871b2";
+    public static final String DIAGNOSIS_CODED_CONCEPT_UUID = "226ed7ad-b776-4b99-966d-fd818d3302c2";
+    public static final String DIAGNOSIS_NONCODED_CONCEPT_UUID = "970d41ce-5098-47a4-8872-4dd843c0df3f";
 
     public static final String NEXT_RETURN_VISIT_UUID = "CIEL:5096";
 }

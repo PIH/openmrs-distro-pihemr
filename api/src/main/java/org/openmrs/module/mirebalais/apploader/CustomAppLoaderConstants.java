@@ -39,6 +39,8 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
+        public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
+        public static final String HIV_DIAGNOSES_SUMMARY = "pih.app.hiv.diagnoses.summary";
         public static final String VITALS_SUMMARY = "pih.app.vitals.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
@@ -67,6 +69,7 @@ public class CustomAppLoaderConstants {
         public static final String PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.providers.clinicalSummary";
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
+        public static final String HIV_NEXT_DISPENSING = "pih.app.hiv.next.dispensing";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
@@ -474,8 +477,8 @@ public class CustomAppLoaderConstants {
                     "pih.app." + HIVProgram.HIV.uuid() + ".patientProgramHistory",
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
-                    // Add Meds
-                    Apps.HIV_OBS_CHART
+                    Apps.HIV_NEXT_DISPENSING,
+                    Apps.HIV_DISPENSING_SUMMARY
                 ));
 
         PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP);
@@ -488,15 +491,11 @@ public class CustomAppLoaderConstants {
 
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
                 Arrays.asList(
-                        Apps.HIV_ALERTS,
-                        Apps.CONDITION_LIST,
-                        // Add Apps.LAB_SUMMARY
-                        // Apps.HIV_CD4_GRAPH,
                         Apps.HIV_VISIT_SUMMARY,
-                        Apps.BMI_GRAPH,
+                        Apps.HIV_DIAGNOSES_SUMMARY,
                         // Adverse events & allergies
-                        Apps.ALLERGY_SUMMARY,
-                        Apps.HIV_LAST_VITALS
+                        Apps.BMI_GRAPH,
+                        Apps.ALLERGY_SUMMARY
                 ));
 
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP);

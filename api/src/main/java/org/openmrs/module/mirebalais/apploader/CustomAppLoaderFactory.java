@@ -2052,22 +2052,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         configureBasicProgramDashboard(HIVProgram.HIV);
 
         // additional columns to add to the HIV Program Dashboard
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_OBS_CHART,
-                "pih.app.hivObsChart.title",
-                "fas fa-fw fa-list-alt",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "fas fa-fw fa-list-alt",
-                        "label", "pih.app.hivObsChart.title",
-                        "concepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID,
-                        "maxRecords", "6"  // TODO what should this be?
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-
-        // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
                 "pih.app.patientSummary.title",
                 "fas fa-fw fa-user-md",
@@ -2077,7 +2061,37 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "widget", "latestobsforconceptlist",
                         "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
-                        "concepts", MirebalaisConstants.NEXT_RETURN_VISIT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID
+                        "concepts", MirebalaisConstants.NEXT_RETURN_VISIT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.CD4_PERCENT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_NEXT_DISPENSING,
+                "pih.app.patientSummary.title",
+                "fas fa-fw fa-pills",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestobsforconceptlist",
+                        "icon", "fas fa-fw fa-pills",
+                        "label", "pih.app.hiv.next.dispensing.title",
+                        "concepts", MirebalaisConstants.NEXT_DISPENSING_DATE_UUID
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_SUMMARY,
+                "mirebalais.dispensing.title",
+                "fas fa-fw fa-pills",
+                "dispensing/patient.page?patientId={{patient.uuid}}",
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-fw fa-pills",
+                        "label", "mirebalais.dispensing.title",
+                        "encounterType", EncounterTypes.HIV_DISPENSING.uuid(),
+                        "detailsUrl", patientVisitsPageUrl,
+                        "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
+                        "useConceptNameForDrugValues", true,
+                        "maxRecords", "5"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2101,6 +2115,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 graphs.getBmiGraph(".hiv"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_DIAGNOSES_SUMMARY,
+                "pih.app.hiv.diagnoses.title",
+                "fas fa-fw fa-diagnoses",
+                patientVisitsPageUrl,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-fw fa-diagnoses",
+                        "label", "pih.app.hiv.diagnoses.title",
+                        "detailsUrl", patientVisitsPageUrl,
+                        "encounterTypes", EncounterTypes.ADULT_HIV_INTAKE.uuid() + "," + EncounterTypes.ADULT_HIV_FOLLOWUP.uuid(),
+                        "concepts",
+                            MirebalaisConstants.DIAGNOSIS_CODED_CONCEPT_UUID + "," +
+                                    MirebalaisConstants.DIAGNOSIS_NONCODED_CONCEPT_UUID,
+                        "headers", "zl.date,pih.app.hiv.diagnoses.coded,pih.app.hiv.diagnoses.non-coded"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableHIVForms() {
