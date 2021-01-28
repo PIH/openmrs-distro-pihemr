@@ -101,7 +101,7 @@
         <spaVersion>1.0.6</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.16.0</uicommonsVersion>
-        <uiframeworkVersion>3.19.0</uiframeworkVersion>
+        <uiframeworkVersion>3.20.0-SNAPSHOT</uiframeworkVersion>
         <uilibraryVersion>2.0.6</uilibraryVersion>
         <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
