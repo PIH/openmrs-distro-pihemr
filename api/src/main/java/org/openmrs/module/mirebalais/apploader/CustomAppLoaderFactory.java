@@ -2133,6 +2133,37 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "headers", "zl.date,pih.app.hiv.diagnoses.coded,pih.app.hiv.diagnoses.non-coded"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ADVERSE_EFFECT,
+                "pihcore.adverse.reactions",
+                "fas fa-fw fa-allergies",
+                patientVisitsPageUrl,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-fw fa-allergies",
+                        "label", "pihcore.adverse.reactions",
+                        "detailsUrl", patientVisitsPageUrl,
+                        "encounterTypes", EncounterTypes.ADULT_HIV_INTAKE.uuid() + "," + EncounterTypes.ADULT_HIV_FOLLOWUP.uuid(),
+                        "concepts",
+                        MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
+                                MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
+                        "headers", "zl.date,pihcore.reaction,pihcore.on.date"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_STATUS_SUMMARY,
+                "pih.app.hiv.status.title",
+                "fas fa-fw fa-user-md",
+                null,
+                null,
+                objectNode(
+                        "widget", "latestobsforconceptlist",
+                        "icon", "fas fa-fw fa-user-md",
+                        "label", "pih.app.hiv.status.title",
+                        "concepts", MirebalaisConstants.PREGNANT_CONCEPT_UUID + "," + MirebalaisConstants.FEEDING_METHOD_CONCEPT_UUID+ "," + MirebalaisConstants.FAMILY_PLANNING_CONCEPT_UUID + "," + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID + "," + MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableHIVForms() {

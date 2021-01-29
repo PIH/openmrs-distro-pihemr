@@ -41,6 +41,8 @@ public class CustomAppLoaderConstants {
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
         public static final String HIV_DIAGNOSES_SUMMARY = "pih.app.hiv.diagnoses.summary";
+        public static final String HIV_ADVERSE_EFFECT = "pih.app.hiv.adverse.effect";
+        public static final String HIV_STATUS_SUMMARY = "pih.app.hiv.status";
         public static final String VITALS_SUMMARY = "pih.app.vitals.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
@@ -493,8 +495,9 @@ public class CustomAppLoaderConstants {
                 Arrays.asList(
                         Apps.HIV_VISIT_SUMMARY,
                         Apps.HIV_DIAGNOSES_SUMMARY,
-                        // Adverse events & allergies
-                        Apps.BMI_GRAPH,
+                        Apps.HIV_ADVERSE_EFFECT,
+                        Apps.HIV_STATUS_SUMMARY,
+                        Apps.BMI_GRAPH + "." + HIVProgram.HIV.name().toLowerCase(),
                         Apps.ALLERGY_SUMMARY
                 ));
 

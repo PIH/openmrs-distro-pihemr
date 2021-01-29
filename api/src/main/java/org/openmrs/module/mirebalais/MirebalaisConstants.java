@@ -87,6 +87,11 @@ public class MirebalaisConstants {
     public static final String RESPIRATORY_RATE_UUID = "3ceb11f8-26fe-102b-80cb-0017a47871b2";
     public static final String DIAGNOSIS_CODED_CONCEPT_UUID = "226ed7ad-b776-4b99-966d-fd818d3302c2";
     public static final String DIAGNOSIS_NONCODED_CONCEPT_UUID = "970d41ce-5098-47a4-8872-4dd843c0df3f";
+    public static final String ADVERSE_EFFECT_CONCEPT_UUID = "3cd96052-26fe-102b-80cb-0017a47871b2";
+    public static final String ADVERSE_EFFECT_DATE_CONCEPT_UUID = "3cd964bc-26fe-102b-80cb-0017a47871b2";
+    public static final String PREGNANT_CONCEPT_UUID = "3ceb4880-26fe-102b-80cb-0017a47871b2";
+    public static final String FAMILY_PLANNING_CONCEPT_UUID = "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String FEEDING_METHOD_CONCEPT_UUID = "5b98dcbe-0efc-4cc2-9544-c1da596e7039";
 
     public static final String NEXT_RETURN_VISIT_UUID = "CIEL:5096";
 }
