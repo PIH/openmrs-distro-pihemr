@@ -2126,7 +2126,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-diagnoses",
                         "label", "pih.app.hiv.diagnoses.title",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.ADULT_HIV_INTAKE.uuid() + "," + EncounterTypes.ADULT_HIV_FOLLOWUP.uuid(),
+                        "encounterTypes", EncounterTypes.ZL_HIV_INTAKE.uuid() + "," + EncounterTypes.ZL_HIV_FOLLOWUP.uuid(),
                         "concepts",
                             MirebalaisConstants.DIAGNOSIS_CODED_CONCEPT_UUID + "," +
                                     MirebalaisConstants.DIAGNOSIS_NONCODED_CONCEPT_UUID,
@@ -2144,7 +2144,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-allergies",
                         "label", "pihcore.adverse.reactions",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.ADULT_HIV_INTAKE.uuid() + "," + EncounterTypes.ADULT_HIV_FOLLOWUP.uuid(),
+                        "encounterTypes", EncounterTypes.ZL_HIV_INTAKE.uuid() + "," + EncounterTypes.ZL_HIV_FOLLOWUP,
                         "concepts",
                         MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
