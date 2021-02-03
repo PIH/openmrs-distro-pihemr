@@ -2126,7 +2126,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-diagnoses",
                         "label", "pih.app.hiv.diagnoses.title",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.ZL_HIV_INTAKE.uuid() + "," + EncounterTypes.ZL_HIV_FOLLOWUP.uuid(),
+                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP.uuid(),
                         "concepts",
                             MirebalaisConstants.DIAGNOSIS_CODED_CONCEPT_UUID + "," +
                                     MirebalaisConstants.DIAGNOSIS_NONCODED_CONCEPT_UUID,
@@ -2144,7 +2144,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-allergies",
                         "label", "pihcore.adverse.reactions",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.ZL_HIV_INTAKE.uuid() + "," + EncounterTypes.ZL_HIV_FOLLOWUP,
+                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP,
                         "concepts",
                         MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
@@ -2176,8 +2176,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_FOLLOWUP),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -2234,8 +2234,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ZL_HIV_FOLLOWUP),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_INTAKE),
+                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_FOLLOWUP),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
