@@ -48,7 +48,10 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.bmiGraph.title",
+                        "showLegend", false,
                         "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + ","
+                                + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
+                        "hideConcepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + ","
                                 + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
                         "function", "(bmi, "
                                 + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", "

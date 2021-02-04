@@ -2144,7 +2144,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-allergies",
                         "label", "pihcore.adverse.reactions",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP,
+                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP.uuid(),
                         "concepts",
                         MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
