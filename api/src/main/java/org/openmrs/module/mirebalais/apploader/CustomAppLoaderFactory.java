@@ -1794,6 +1794,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag(LocationTags.MCH_LOCATION),
+                            visitDoesNotHaveEncounterOfType(EncounterTypes.OB_GYN),
                             and(patientIsFemale()))));
 
         }
