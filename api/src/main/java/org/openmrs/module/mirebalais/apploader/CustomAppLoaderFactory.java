@@ -1249,11 +1249,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         // Show additional identifiers (from form section "patient-identification-section")
         //   - in Mexico
-        //   - in non-mental-health Haiti if the additionalHaitiIdentifiers feature toggle is enabled
+        //   - in Haiti if configured for HIV
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || (
-                featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
                         config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                        !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
+                        ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummarySecondColumnContent(app(Apps.ADDITIONAL_IDENTIFIERS,
                     "zl.registration.patient.additionalIdentifiers",
                     "fas fa-fw fa-user",
