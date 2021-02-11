@@ -198,8 +198,7 @@ public class SectionsHaiti extends SectionsDefault {
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
 
-        if (featureToggles.isFeatureEnabled("additionalHaitiIdentifiers") &&
-                !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {
+        if (ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
             s.addQuestion(getHivEmrId());
             s.addQuestion(getHivDossierNumber());
             s.addQuestion(getNumeroIdentificationFiscal());
