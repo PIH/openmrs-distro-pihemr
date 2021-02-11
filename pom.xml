@@ -52,7 +52,6 @@
 
     <properties>
         <openMRSVersion>2.3.3-SNAPSHOT</openMRSVersion>
-        <openMRSwebVersion>2.3.2</openMRSwebVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
@@ -215,7 +214,7 @@
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
-            <version>${openMRSwebVersion}</version>
+            <version>${openMRSVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
