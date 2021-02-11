@@ -59,7 +59,7 @@
         <allergyuiVersion>1.8.3</allergyuiVersion>
         <appframeworkVersion>2.16.0</appframeworkVersion>
         <appointmentschedulingVersion>1.13.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.9.0</appointmentschedulinguiVersion>
+        <appointmentschedulinguiVersion>1.10.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.13.0</appuiVersion>
         <attachmentsVersion>2.4.0</attachmentsVersion>
         <calculationVersion>1.2.1</calculationVersion>
