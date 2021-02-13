@@ -1,65 +1,5 @@
 package org.openmrs.module.mirebalais.apploader;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appframework.domain.AppTemplate;
-import org.openmrs.module.appframework.domain.Extension;
-import org.openmrs.module.appframework.factory.AppFrameworkFactory;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
-import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
-import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
-import org.openmrs.module.pihcore.PihCoreConstants;
-import org.openmrs.module.pihcore.PihCoreUtil;
-import org.openmrs.module.pihcore.config.Components;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
-import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
-import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
-import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
-import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
-import org.openmrs.module.reporting.config.ReportDescriptor;
-import org.openmrs.module.reporting.config.ReportLoader;
-import org.openmrs.ui.framework.WebConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
@@ -130,6 +70,66 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appframework.domain.AppTemplate;
+import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
+import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
+import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
+import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
+import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
+import org.openmrs.module.reporting.config.ReportDescriptor;
+import org.openmrs.module.reporting.config.ReportLoader;
+import org.openmrs.ui.framework.WebConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 @Component("customAppLoaderFactory")
@@ -528,7 +528,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "App: mirebalais.checkin",
                     "/pihcore/checkin/checkin.page?patientId={{patientId}}",
                     //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
-                    null),
+                    null, config.getFindPatientColumnConfig()),
                     sessionLocationHasTag(LocationTags.CHECKIN_LOCATION)));
         }
 
@@ -563,7 +563,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-heartbeat",
                     "App: mirebalais.outpatientVitals",
                     "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
-                    null),
+                    null, config.getFindPatientColumnConfig()),
                     sessionLocationHasTag(LocationTags.VITALS_LOCATION)));
         } else {
             apps.add(addToHomePage(app(Apps.VITALS,
@@ -1145,7 +1145,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}",
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "appointmentschedulingui.home.title", "link", "/appointmentschedulingui/home.page"),
-                        objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle"))));
+                        objectNode("label", "appointmentschedulingui.scheduleAppointment.buttonTitle")),
+                config.getFindPatientColumnConfig()));
 
         extensions.add(overallAction(Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
                 "appointmentschedulingui.scheduleAppointment.new.title",
@@ -1653,7 +1654,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-vial",
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
                 "/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("labResults.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.ADD_LAB_RESULTS,
-                null),
+                null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag(LocationTags.LAB_RESULTS_LOCATION)));
 
 
@@ -1918,7 +1919,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.APP_ED_TRIAGE.privilege(),
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE
                         + "&dashboardUrl=" + config.getDashboardUrl(),
-                null),
+                null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag(LocationTags.ED_TRIAGE_LOCATION)));
 
         extensions.add(visitAction(Extensions.ED_TRIAGE_VISIT_ACTION,
@@ -2204,7 +2205,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
-                null),
+                null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(Extensions.VITALS_CAPTURE_VISIT_ACTION)));
@@ -2686,7 +2687,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
-                        objectNode("label", "coreapps.findPatient.app.label"))
+                        objectNode("label", "coreapps.findPatient.app.label")),
+                config.getFindPatientColumnConfig()
                 ));
 
         extensions.add(overallAction(Extensions.ORDER_LABS_OVERALL_ACTION,

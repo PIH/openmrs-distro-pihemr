@@ -13,7 +13,14 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
@@ -27,14 +34,13 @@ import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
  * authenticated.
  */
 public class HomePageController {
+
+	private static final Log log = LogFactory.getLog(HomePageController.class);
 
 	public static final String HOME_PAGE_EXTENSION_POINT = "org.openmrs.referenceapplication.homepageLink";
 	
@@ -46,6 +52,18 @@ public class HomePageController {
 		sessionContext.requireAuthentication();
 
         AppContextModel appContextModel = sessionContext.generateAppContextModel();
+
+		String findPatientColumnConfigJson = null;
+		try {
+			ArrayNode findPatientColumnConfig = config.getFindPatientColumnConfig();
+			if (findPatientColumnConfig != null) {
+				findPatientColumnConfigJson = new ObjectMapper().writeValueAsString(findPatientColumnConfig);
+			}
+		}
+		catch (Exception e) {
+			log.warn("Error parsing find patient column configuration", e);
+		}
+		model.addAttribute("findPatientColumnConfig", findPatientColumnConfigJson);
 
 		List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(HOME_PAGE_EXTENSION_POINT, appContextModel);
 		
