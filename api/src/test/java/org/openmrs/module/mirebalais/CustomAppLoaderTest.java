@@ -46,7 +46,8 @@ public class CustomAppLoaderTest  {
     public void shouldCreatePatientTemplateApp() {
         AppDescriptor app = CustomAppLoaderUtil.findPatientTemplateApp("id", "label", "icon", "privilege", "afterSelectedUrl",
                 CustomAppLoaderUtil.arrayNode(CustomAppLoaderUtil.objectNode("label", "label1", "link", "link1"),
-                        CustomAppLoaderUtil.objectNode("label", "label2", "link", "link2")));
+                        CustomAppLoaderUtil.objectNode("label", "label2", "link", "link2")),
+                CustomAppLoaderUtil.arrayNode(CustomAppLoaderUtil.objectNode("type", "identifier", "label", "ID")));
 
         assertThat(app.getId(), is("id"));
         assertThat(app.getLabel(), is("label"));
@@ -61,7 +62,8 @@ public class CustomAppLoaderTest  {
         assertThat(app.getConfig().get("breadcrumbs").get(0).get("link").getTextValue(), is("link1"));
         assertThat(app.getConfig().get("breadcrumbs").get(1).get("label").getTextValue(), is("label2"));
         assertThat(app.getConfig().get("breadcrumbs").get(1).get("link").getTextValue(), is("link2"));
-
+        assertThat(app.getConfig().get("columnConfig").get(0).get("type").getTextValue(), is("identifier"));
+        assertThat(app.getConfig().get("columnConfig").get(0).get("label").getTextValue(), is("ID"));
     }
 
     @Test

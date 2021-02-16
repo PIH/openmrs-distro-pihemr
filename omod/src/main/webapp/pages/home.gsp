@@ -27,9 +27,11 @@
     <% if (sessionContext.currentUser.hasPrivilege(privilegeSearchForPatients)) { %>
 
         ${ ui.message("mirebalais.searchPatientHeading") }
-        ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget",
-                [ afterSelectedUrl: dashboardUrl,
-                  showLastViewedPatients: 'false' ])}
+        ${ ui.includeFragment("coreapps", "patientsearch/patientSearchWidget", [
+            afterSelectedUrl: dashboardUrl,
+            showLastViewedPatients: 'false',
+            "columnConfig": findPatientColumnConfig
+        ])}
     <% } %>
 
 
