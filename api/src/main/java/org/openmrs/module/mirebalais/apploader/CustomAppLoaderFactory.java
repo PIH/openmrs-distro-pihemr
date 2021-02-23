@@ -1,5 +1,65 @@
 package org.openmrs.module.mirebalais.apploader;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.appframework.domain.AppTemplate;
+import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.appframework.factory.AppFrameworkFactory;
+import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
+import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
+import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
+import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
+import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
+import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.pihcore.metadata.core.Privileges;
+import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
+import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
+import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
+import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
+import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
+import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
+import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
+import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
+import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
+import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
+import org.openmrs.module.reporting.config.ReportDescriptor;
+import org.openmrs.module.reporting.config.ReportLoader;
+import org.openmrs.ui.framework.WebConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
@@ -70,66 +130,6 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
 import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appframework.domain.AppTemplate;
-import org.openmrs.module.appframework.domain.Extension;
-import org.openmrs.module.appframework.factory.AppFrameworkFactory;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
-import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
-import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
-import org.openmrs.module.pihcore.PihCoreConstants;
-import org.openmrs.module.pihcore.PihCoreUtil;
-import org.openmrs.module.pihcore.config.Components;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
-import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
-import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
-import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
-import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
-import org.openmrs.module.reporting.config.ReportDescriptor;
-import org.openmrs.module.reporting.config.ReportLoader;
-import org.openmrs.ui.framework.WebConstants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 @Component("customAppLoaderFactory")
@@ -2878,7 +2878,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "widget", "programs",
                             "icon", "fas fa-fw fa-stethoscope",
                             "label", "coreapps.programsDashboardWidget.label",
-                            "dateFormat", "dd MMM yyyy",
                             "supportedPrograms", StringUtils.join(supportedPrograms, ','),
                             "enableProgramDashboards", "true"
                     )),
@@ -2897,7 +2896,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "widget", "programstatus",
                         "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
-                        "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "locationTag", LocationTags.PROGRAM_LOCATION.uuid(),
                         "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
@@ -2914,7 +2912,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 objectNode(
                         "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
-                        "dateFormat", "dd MMM yyyy",
                         "program", program.uuid(),
                         "includeActive", false,
                         "locationTag", LocationTags.PROGRAM_LOCATION.uuid(),
