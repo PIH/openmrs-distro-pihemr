@@ -122,15 +122,22 @@ https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 
 #### If you choose to install MySQL using Docker
 
-- To use MySQL Option 3 in the SDK installation process, you need to have an existing MySQL docker instance available.
-  You can do this by running the following steps
+You will need to ensure Docker is installed and running on your machine.
+https://docs.docker.com/engine/install/ubuntu/
+
+You should also ensure that you can run all Docker commands without requiring sudo or root.
+https://docs.docker.com/engine/install/linux-postinstall/
+
+- To use MySQL Option 2 in the SDK installation process, nothing further is required.
+  
+- To use MySQL Option 3 in the SDK installation process, you will need to create your own MySQL Docker container and instantiate a database into it
   
   * Create a container (example below creates a container named "mysql-mirebalais" that will be available on port 3308):
   
   ```shell script
     docker run --name mysql-mirebalais -d -p 3308:3306 \
             -e MYSQL_ROOT_PASSWORD=root \
-            mysql:5.6 --character-set-server=utf8 --collation-server=utf8_unicode_ci --max_allowed_packet=1G
+            mysql:5.6 --character-set-server=utf8 --collation-server=utf8_general_ci --max_allowed_packet=1G
     ``` 
   
   * Get a bash shell in the container, and create an empty database to use
@@ -142,6 +149,7 @@ https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
       ``` 
     
 ### Step 2: Set up the environment
+
 Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
@@ -163,6 +171,9 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
   * If you are connecting to a MySQL 5.6 instance running on your local machine:
     * Specify the URI and a username and password to connect to the DB
 
+  * If you are connecting to a MySQL 5.6 instance running in an SDK-managed Docker container
+    * Choose option 2
+
   * If you are connecting to a MySQL database in an existing Docker container (as described above):
     * Choose option 3
     * Container ID:  "mysql-mirebalais" or whatever you chose above
@@ -172,7 +183,19 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.module:mireba
 
 * Select the JDK to use (it must be 1.8)
 
+NOTE: It is possible to script this to be non-interactive.  Here is an example of creating a new server instance,
+using an SDK-created Docker container for MySQL, running the server on port 8080, with debugging on port 1044:
+
+```shell
+$ mvn openmrs-sdk:setup \
+    -DserverId=[serverId] \
+    -Ddistro=org.openmrs.module:mirebalais:1.3.0-SNAPSHOT \
+    -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
+    -DbatchAnswers="8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
+```
+
 ### Step 3: Clone the configuration project for the distro you are working
+
 The various configuration files that determine what applications and options are turned on on different servers are
 found here. The configuration distro projects are as follows:
 
@@ -198,6 +221,7 @@ git clone https://github.com/PIH/openmrs-config-pihliberia.git
 script we will use in the next step can find the "Parent" config relative to the site-specific config.
 
 ### Step 4: Compile the configuration project and install it
+
 You'll use the
 [OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
 to assemble the configuration and install it in the application
@@ -211,65 +235,83 @@ cd openmrs-config-liberia
 ./install.sh [serverId]
 ```
 
+### Step 5: Initialize the server environment
 
-### Step 5: Start up the server
+Currently, there is a limitation in the SDK where one cannot specify custom runtime properties until after the server is 
+first run.  Our distribution modules require these runtime properties to be available.  To address this, we recommend first
+starting up the server _without_ any of the modules installed, in order to initialize the base openmrs instance and 
+associated configuration files.  The steps involved are:
 
-```
-mvn openmrs-sdk:run -DserverId=[serverId]
-```
-It should run for several minutes (like potentially 15 to 30 minutes), setting up the database,
-(you will likely have to go to http://localhost:8080/openmrs to trigger this).  
-
-At the end you should have a running PIH EMR instance.
-
-### Step 6: Tweak the configuration
-
-At this point, the configuration will be set up with the 'default' configuration for your chosen distro.
-
-You will likely want to update the configuration for a specific server within that distro.
-
-A openmrs-runtime.properties file should have been created in `~/openmrs/[serverId]`.
-
-You will need to add a line to this file specifying which config to use for this server.
-
-For instance, if you want to set up the Mirebalais CI environment, add the following into the runtime properties:
-
-```
-pih.config=mirebalais,mirebalais-humci
+1. Move all of your modules out of your server and into a temporary backup location
+``` 
+cd [serverId]
+mkdir modules_bak
+mv modules/* modules_bak/
 ```
 
-Then re-run
+2. Start up the server
 ```
 mvn openmrs-sdk:run -DserverId=[serverId]
 ```
 
-### Step 7: Create a local identifier source
+3. When you see a message in the log that the server has started up, you will have to go to 
+   http://localhost:8080/openmrs to trigger the update process to install and update the OpenMRS application
+   
+4. When this is complete, you will see a message in your browser indicating that "OpenMRS XXX Platform is Running!!!".
+When you see this, stop the server (ctrl-c in the terminal window where you had started it above).
+   
+5. Move the modules back into place and out of the temporary backup location
+``` 
+mv modules_bak/* modules/
+rm -fR modules_bak
+```
 
-**This is only required for some sites, mainly the Haiti sites at this point.**
+### Step 6: Configure runtime properties file
 
-After startup, login
-- Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
-  - Log in with the following details:
-    - Username: admin
-    - Password: Admin123
-  - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
-- Enter the legacy admin page "http://localhost:8080/openmrs/admin"
-- Go to "Manage Patient Identifier Sources" under the header "Patients"
+By default, the configuration will be set up with the 'default' configuration for your chosen distro.
 
-Check if there is an existing source for "ZL EMR ID" with type "Local Identifier Generator." 
-If there isn't, you'll need to create a local identifier source to generate "fake" ZL EMR IDs:
-- Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
-  - Name: ZL Identifier Generator
-  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
-  - First Identifier Base: 1000
-  - Prefix: Y
-  - Suffix: (Leave Blank)
-  - Max Length: 6
-  - Min Length: 6
-- Link the local generator to the Local Pool of Zl Identifiers
-  - Click the Configure Action next to the local pool
-  - Set "Pool Identifier Source" to "ZL Identifier Generator"
-  - Change "When to fill" to "When you request an identifier"
+In order for a site-specific configuration to be applied to your server environment, an appropriate pih.config value needs
+to be set in the openmrs-runtime.properties file, which was created in the step above at created in `~/openmrs/[serverId]`.
+
+There are various options to choose from, depending on the country, site, and type of environment.  Examples:
+
+Mirebalais CI environment:  ```pih.config=mirebalais,mirebalais-humci```
+Haiti HIV environment:  ```pih.config=haiti-hiv```
+Sierra Leone KGH environment:  ```pih.config=sierraLeone,sierraLeone-kgh```
+
+**For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
+To do so, add the following to the end of openmrs-runtime.properties:
+
+```properties
+local_zl_identifier_generator_enabled=true
+local_zl_identifier_generator_prefix=Y
+```
+
+If you forget to do this step, you can always manually change the configuration on the legacy administration screens,
+see below for further details on this.
+
+### Step 7: Start up the server
+
+```
+mvn openmrs-sdk:run -DserverId=[serverId]
+```
+This is where the bulk of the installation occurs, and may take many minutes to complete (potentially 30-40 minutes).
+When this is complete, you should have a running PIH EMR instance and you should be able to navigate to the 
+application and see an appropriate login page for your chosen distribution and configuration.
+
+By default you can log into this via:  admin/Admin123
+
+### Step 8: Create an account that is a provider
+
+In order to use most of the functions of the system (patient registration, visit note, etc), you must be a Provider.
+By default, the "admin" user is not a Provider.  You'll need to log into the system as the "admin" user, navigate to the 
+System Administration -> Manage Accounts page, and create a new user account for yourself.  Typically for a development
+environment where you would have a single account for yourself, you'd use the following:
+
+* Privilege Level: Full
+* Capabilities:  SysAdmin Privileges
+* Provider Type: General Admin
+
   
 ## Set up the Single-SPA Frontend
 
@@ -331,6 +373,34 @@ To run the server:
 ```
 $ mvn openmrs-sdk:run
 ```
+
+### Creating a local identifier source in a Haiti instance
+
+**This is only required for Haiti if you do not configure this appropriately via runtime properties at setup time**
+
+After startup, login
+- Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
+  - Log in with the following details:
+    - Username: admin
+    - Password: Admin123
+  - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
+- Enter the legacy admin page "http://localhost:8080/openmrs/admin"
+- Go to "Manage Patient Identifier Sources" under the header "Patients"
+
+Check if there is an existing source for "ZL EMR ID" with type "Local Identifier Generator."
+If there isn't, you'll need to create a local identifier source to generate "fake" ZL EMR IDs:
+- Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
+  - Name: ZL Identifier Generator
+  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
+  - First Identifier Base: 1000
+  - Prefix: Y
+  - Suffix: (Leave Blank)
+  - Max Length: 6
+  - Min Length: 6
+- Link the local generator to the Local Pool of Zl Identifiers
+  - Click the Configure Action next to the local pool
+  - Set "Pool Identifier Source" to "ZL Identifier Generator"
+  - Change "When to fill" to "When you request an identifier"
 
 
 # Configuring functionality in a PIH EMR OpenMRS Instance
