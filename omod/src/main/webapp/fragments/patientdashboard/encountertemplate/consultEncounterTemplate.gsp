@@ -22,19 +22,19 @@
             </li>
             <li>
                 <div>
-                    ${ ui.message("emr.by") }
+                    ${ ui.message("coreapps.by") }
                     <strong>
                         {{- encounter.primaryProvider ? encounter.primaryProvider : '' }}
                     </strong>
-                    ${ ui.message("emr.in") }
+                    ${ ui.message("coreapps.in") }
                     <strong>{{- encounter.location }}</strong>
                 </div>
             </li>
             <li>
                 <div class="details-action">
                     <a class="view-details collapsed" href='javascript:void(0);' data-encounter-id="{{- encounter.encounterId }}" data-encounter-form="{{- encounter.form != null}}" data-target="#encounter-summary{{- encounter.encounterId }}" data-toggle="collapse" data-target="#encounter-summary{{- encounter.encounterId }}" data-display-template="consultEncounterDetailsTemplate">
-                        <span class="show-details">${ ui.message("emr.patientDashBoard.showDetails")}</span>
-                        <span class="hide-details">${ ui.message("emr.patientDashBoard.hideDetails")}</span>
+                        <span class="show-details">${ ui.message("coreapps.patientDashBoard.showDetails")}</span>
+                        <span class="hide-details">${ ui.message("coreapps.patientDashBoard.hideDetails")}</span>
                         <i class="icon-caret-right"></i>
                     </a>
                 </div>
@@ -66,11 +66,11 @@
     {{ }); }}
 
     {{ _.each(orders, function(order) { }}
-        <p><small>${ ui.message("emr.patientDashBoard.order")}</small><span>{{- order.concept }}</span></p>
+        <p><small>${ ui.message("coreapps.patientDashBoard.order")}</small><span>{{- order.concept }}</span></p>
     {{ }); }}
 
     {{ _.each(dispositions, function(d) { }}
-        <p><small>${ ui.message("emr.consult.disposition") }</small><span>{{- d.disposition}}</span></p>
+        <p><small>${ ui.message("coreapps.consult.disposition") }</small><span>{{- d.disposition}}</span></p>
         {{ _.each(d.additionalObs, function(obs) { }}
             <p><small>{{- obs.question}}</small><span>{{- obs.answer}}</span></p>
         {{ }); }}

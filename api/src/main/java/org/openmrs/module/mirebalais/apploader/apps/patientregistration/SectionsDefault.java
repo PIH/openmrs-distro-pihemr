@@ -551,8 +551,8 @@ public class SectionsDefault {
         w.getConfig().setExpanded(true);
         w.getConfig().setHideEmptyLabel(true);
         w.getConfig().setInitialValue(initialValue);
-        w.getConfig().addOption("PIH:YES", "emr.yes");
-        w.getConfig().addOption("PIH:NO", "emr.no");
+        w.getConfig().addOption("PIH:YES", "coreapps.yes");
+        w.getConfig().addOption("PIH:NO", "coreapps.no");
         return toObjectNode(w);
     }
 

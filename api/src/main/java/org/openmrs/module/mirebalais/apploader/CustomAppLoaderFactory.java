@@ -635,7 +635,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableConsult() {
 
         extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
-                "emr.clinic.consult.title",
+                "coreapps.clinic.consult.title",
                 "fas fa-fw fa-stethoscope",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
@@ -656,7 +656,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableEDConsult() {
 
         extensions.add(visitAction(Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
-                "emr.ed.consult.title",
+                "coreapps.ed.consult.title",
                 "fas fa-fw fa-stethoscope",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("edNote.xml")),
@@ -1189,7 +1189,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         apps.add(addToSystemAdministrationPage(app(Apps.MANAGE_ACCOUNTS,
-                "emr.task.accountManagement.label",
+                "coreapps.task.accountManagement.label",
                 "fas fa-fw fa-book",
                 "emr/account/manageAccounts.page",
                 "App: coreapps.systemAdministration",

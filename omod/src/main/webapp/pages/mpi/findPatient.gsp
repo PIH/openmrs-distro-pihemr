@@ -7,8 +7,8 @@
 
     ui.includeCss("pihcore", "masterPatientIndex.css")
 
-    def genderOptions = [ [label: ui.message("emr.gender.M"), value: 'M'],
-            [label: ui.message("emr.gender.F"), value: 'F'] ]
+    def genderOptions = [ [label: ui.message("coreapps.gender.M"), value: 'M'],
+            [label: ui.message("coreapps.gender.F"), value: 'F'] ]
 
 %>
 
@@ -52,7 +52,7 @@
         ])}
 
         <div>
-            <input type="submit" class="confirm" id="search-button" value="${ ui.message("emr.findPatient.search") }"  />
+            <input type="submit" class="confirm" id="search-button" value="${ ui.message("coreapps.findPatient.search") }"  />
         </div>
     </fieldset>
     <fieldset id="search-by-name">
@@ -65,13 +65,13 @@
             ])}
 
             ${ ui.includeFragment("uicommons", "field/radioButtons", [
-                    label: ui.message("emr.gender"),
+                    label: ui.message("coreapps.gender"),
                     formFieldName: "gender",
                     options: genderOptions
             ])}
 
         <div>
-            <input type="submit" class="confirm" id="search-button" value="${ ui.message("emr.findPatient.search") }"  />
+            <input type="submit" class="confirm" id="search-button" value="${ ui.message("coreapps.findPatient.search") }"  />
         </div>
 
     </fieldset>
@@ -99,18 +99,18 @@
                 </h3>
                 <div class="demographics">
                     <span >
-                        ${ ui.message("emr.gender." + p.gender) }
+                        ${ ui.message("coreapps.gender." + p.gender) }
                     </span>
                     <% if (p.birthdate) { %>
                         <% if (p.age > 0) { %>
-                            <span>${ ui.message("emr.ageYears", p.age) }</span>
+                            <span>${ ui.message("coreapps.ageYears", p.age) }</span>
                         <% } else if (it.ageInMonths > 0) { %>
-                            <span>${ ui.message("emr.ageMonths", it.ageInMonths) }</span>
+                            <span>${ ui.message("coreapps.ageMonths", it.ageInMonths) }</span>
                         <% } else { %>
-                            <span>${ ui.message("emr.ageDays", it.ageInDays) }</span>
+                            <span>${ ui.message("coreapps.ageDays", it.ageInDays) }</span>
                         <% } %>
                     <% } else { %>
-                        <span>${ ui.message("emr.unknownAge") }</span>
+                        <span>${ ui.message("coreapps.unknownAge") }</span>
                     <% } %>
                     <span>
                         <% addressHierarchyLevels.each { addressLevel -> %>
