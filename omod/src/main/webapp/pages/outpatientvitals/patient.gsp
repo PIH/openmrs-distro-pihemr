@@ -77,7 +77,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <tbody>
                     <% if (existingEncounters.size() == 0) { %>
                         <tr>
-                            <td colspan="3">${ ui.message("emr.none") }</td>
+                            <td colspan="3">${ ui.message("coreapps.none") }</td>
                         </tr>
                     <% } %>
                     <% existingEncounters.each { enc ->

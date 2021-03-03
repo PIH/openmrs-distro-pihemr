@@ -99,7 +99,7 @@ ${ ui.includeFragment("appui", "header") }
     <div class="dialog-content">
         <p class="dialog-instructions">${ ui.message("mirebalais.login.cannotLoginInstructions") }</p>
 
-        <button class="confirm">${ ui.message("emr.okay") }</button>
+        <button class="confirm">${ ui.message("coreapps.okay") }</button>
     </div>
 </div>
 
