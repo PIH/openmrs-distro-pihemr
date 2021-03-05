@@ -2047,6 +2047,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     private void enableHIV() {
         enableHIVProgram();
         enableHIVForms();
+        enableHIVActions();
     }
 
     private void enableHIVProgram() {
@@ -2243,6 +2244,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         extensions.add(hivInitial);
         extensions.add(cloneAsHivVisitAction(hivInitial));
+    }
+
+    private void enableHIVActions() {
+        extensions.add(overallAction(Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,
+                "pihcore.hivMedicationList.overallAction.label",
+                "fas fa-fw fa-capsules",
+                "link",
+                "pihcore/meds/drugOrders.page?patient={{patient.uuid}}",
+                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                null));
+        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));
     }
 
     private void enableCovid19() {

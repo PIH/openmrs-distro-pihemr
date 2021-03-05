@@ -160,6 +160,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ZL_INITIAL_VISIT_ACTION = "pih.form.hivZLAdultInitial";
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
         public static final String HIV_ZL_DISPENSING_VISIT_ACTION = "pih.form.hivZLDispensing";
+        public static final String HIV_MEDICATION_LIST_OVERALL_ACTION = "pih.hiv.medicationList";
 
         public static final String OVC_INITIAL_VISIT_ACTION = "pih.form.ovcInitial";
         public static final String OVC_FOLLOWUP_VISIT_ACTION = "pih.form.ovcFollowup";
@@ -348,6 +349,7 @@ public class CustomAppLoaderConstants {
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
             Extensions.VIEW_GROWTH_CHART_ACTION,
+            Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,
             Extensions.ORDER_LABS_OVERALL_ACTION,
             Extensions.VIEW_LABS_OVERALL_ACTION,
             Extensions.LAB_RESULTS_OVERALL_ACTION,
