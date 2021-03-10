@@ -2204,7 +2204,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                Privileges.TASK_DISPENSING_DISPENSE.privilege(),
                 "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
                 null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag(LocationTags.HIV_CONSULT_LOCATION)));
