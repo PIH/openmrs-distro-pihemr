@@ -70,7 +70,7 @@
         <emrapiVersion>1.30.0</emrapiVersion>
         <eventVersion>2.8.0</eventVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
-        <htmlformentryVersion>4.0.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>4.0.0</htmlformentryVersion>
         <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
         <growthChartVersion>2.1.0</growthChartVersion>
