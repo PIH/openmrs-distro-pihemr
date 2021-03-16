@@ -51,7 +51,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.3.3-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.3.3</openMRSVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
@@ -770,12 +770,12 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.2]</version>
+                            <version>[2.3.3]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.2]</version>
+                            <version>[2.3.3]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
