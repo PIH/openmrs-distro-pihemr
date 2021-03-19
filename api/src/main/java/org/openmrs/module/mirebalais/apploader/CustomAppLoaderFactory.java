@@ -445,6 +445,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enablePrograms(config);
         }
 
+        if (config.isComponentEnabled(Components.PERU_LAB_ORDERS_ANALYSIS_REQUESTS)) {
+            enablePeruLabOrdersAnalysisRequest();
+        }
+
         readyForRefresh = false;
     }
 
@@ -3069,6 +3073,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_EMR_ENTER_MCH.privilege(),
                 null),
                 sessionLocationHasTag(LocationTags.MCH_LOCATION)));
+    }
+
+    private void enablePeruLabOrdersAnalysisRequest() {
+        apps.add(addToHomePage(app(Apps.PERU_LAB_ORDERS_ANALYSIS_REQUESTS,
+                "Analysis Requests",  // TODO: feel free to localize...
+                "fas fa-fw fa-vial",  // all font awesome 5 icons shold be available: https://fontawesome.com/icons?d=gallery&p=1
+                "pihcore/peru/analysisRequests.page",  // link to the new page we created in PIH Core
+                null,  // TODO: do we want to limit this is users with a certain privilege?
+                null),
+                sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));   //TODO: could change this if need be?  Right now only "COR" is tagged as a consult note location
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
