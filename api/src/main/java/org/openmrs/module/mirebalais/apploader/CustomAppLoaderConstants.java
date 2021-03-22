@@ -132,6 +132,8 @@ public class CustomAppLoaderConstants {
 
         public static final String COHORT_BUILDER_APP = "cohortBuilder.app";
 
+        public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peru.labOrdersAnalysisRequests.app";
+
     }
 
     public static final class Extensions {
@@ -308,6 +310,7 @@ public class CustomAppLoaderConstants {
             Apps.LABS,
             Apps.PATHOLOGY_TRACKING,
             Apps.ADD_LAB_RESULTS,
+            Apps.PERU_LAB_ORDERS_ANALYSIS_REQUESTS,
             Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,
             Apps.DISPENSING,
