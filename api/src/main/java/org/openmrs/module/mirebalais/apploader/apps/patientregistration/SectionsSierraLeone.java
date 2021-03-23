@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -32,8 +34,35 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getSocialSection());
         c.addSection(getEbolaScreeningSection());
         c.addSection(getContactsSection(false));
+        c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
     }
+
+    @Override
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+        s.addQuestion(geWellbodyEmrId());
+        return s;
+    }
+
+    private Question geWellbodyEmrId() {
+        Question q = new Question();
+        q.setId("wellbody-emr-id");
+        q.setLegend("Wellbody EMR ID");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+        f.setUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+
+        q.addField(f);
+        return q;
+    }
+
     @Override
     public Section getSocialSection() {
     Section s = new Section();
