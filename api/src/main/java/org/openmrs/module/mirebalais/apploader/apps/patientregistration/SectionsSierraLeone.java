@@ -43,7 +43,12 @@ public class SectionsSierraLeone extends SectionsDefault {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-        s.addQuestion(geWellbodyEmrId());
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) && config.getSite().equalsIgnoreCase("KGH")) {
+            s.addQuestion(geWellbodyEmrId());
+        } else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) && config.getSite().equalsIgnoreCase("WELLBODY")) {
+            s.addQuestion(geKghEmrId());
+        }
+
         return s;
     }
 
@@ -56,6 +61,22 @@ public class SectionsSierraLeone extends SectionsDefault {
         Field f = new Field();
         f.setFormFieldName("patientIdentifier" + SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
         f.setUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+
+        q.addField(f);
+        return q;
+    }
+
+    private Question geKghEmrId() {
+        Question q = new Question();
+        q.setId("kgh-emr-id");
+        q.setLegend("KGH EMR ID");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
+        f.setUuid(SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
