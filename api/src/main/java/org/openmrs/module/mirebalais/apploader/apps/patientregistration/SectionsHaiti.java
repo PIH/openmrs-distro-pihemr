@@ -140,7 +140,7 @@ public class SectionsHaiti extends SectionsDefault {
         w.getConfig().addOption("PIH:Artisan", "zl.registration.patient.occupation.artisan.label");
         w.getConfig().addOption("PIH:Artist", "zl.registration.patient.occupation.artist.label");
         w.getConfig().addOption("PIH:Secretary", "zl.registration.patient.occupation.secretary.label");
-        w.getConfig().addOption("PIH:Nurse aide", "zl.registration.patient.occupation.nurseAide.label");
+        w.getConfig().addOption("PIH:LPN", "zl.registration.patient.occupation.licensedPracticalNurse.label");
         w.getConfig().addOption("PIH:Lawyer", "zl.registration.patient.occupation.lawyer.label");
         w.getConfig().addOption("PIH:SHEPHERD", "zl.registration.patient.occupation.shepherd.label");
         w.getConfig().addOption("PIH:Librarian", "zl.registration.patient.occupation.librarian.label");
