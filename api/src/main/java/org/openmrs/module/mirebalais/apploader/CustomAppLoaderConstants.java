@@ -154,6 +154,7 @@ public class CustomAppLoaderConstants {
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
         public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
         public static final String VACCINATION_VISIT_ACTION = "pih.form.vaccination";
+        public static final String COMMENT_VISIT_ACTION = "pih.form.comment";
 
         public static final String COVID19_INITIAL_VISIT_ACTION = "pih.form.covid19Admission";
         public static final String COVID19_FOLLOWUP_VISIT_ACTION = "pih.form.covid19Progress";
@@ -387,6 +388,7 @@ public class CustomAppLoaderConstants {
             Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
             Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
             Extensions.SURGICAL_NOTE_VISIT_ACTION,
+            Extensions.COMMENT_VISIT_ACTION,
             Extensions.NCD_INITIAL_VISIT_ACTION,
             Extensions.NCD_FOLLOWUP_VISIT_ACTION,
             Extensions.ECHO_VISIT_ACTION,
