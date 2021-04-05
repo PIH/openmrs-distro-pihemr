@@ -449,6 +449,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enablePeruLabOrdersAnalysisRequest();
         }
 
+        if (config.isComponentEnabled(Components.COMMENT_FORM)) {
+            enableCommentForm();
+        }
+
         readyForRefresh = false;
     }
 
@@ -3083,6 +3087,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,  // TODO: do we want to limit this is users with a certain privilege?
                 null),
                 sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION)));   //TODO: could change this if need be?  Right now only "COR" is tagged as a consult note location
+    }
+
+    private void enableCommentForm() {
+        extensions.add(visitAction(Extensions.COMMENT_VISIT_ACTION,
+                "emr.consult.freeTextComments",
+                "fas fa-fw fa-pencil-alt",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("comment.xml")),
+                null,
+                null));
     }
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
