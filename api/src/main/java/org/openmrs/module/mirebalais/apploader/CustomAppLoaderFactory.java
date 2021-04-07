@@ -3091,7 +3091,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableCommentForm() {
         extensions.add(visitAction(Extensions.COMMENT_VISIT_ACTION,
-                "emr.consult.freeTextComments",
+                "pihcore.comment",
                 "fas fa-fw fa-pencil-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("comment.xml")),
