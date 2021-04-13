@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
@@ -19,6 +20,7 @@ import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBun
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
@@ -108,7 +110,11 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
         when(config.getSite()).thenReturn("MIREBALAIS");
-        LocationTagSetup.setupLocationTags(locationService, config);
+        Location location = locationService.getLocation("Biwo Resepsyon");
+        LocationTag tag = new LocationTag();
+        tag.setName(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION);
+        locationService.saveLocationTag(tag);
+        location.addTag(tag);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
     }
 
