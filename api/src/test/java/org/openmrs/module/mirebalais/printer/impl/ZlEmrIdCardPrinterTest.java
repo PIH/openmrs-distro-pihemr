@@ -22,7 +22,6 @@ import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
@@ -56,9 +55,6 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private LocationService locationService;
-
-    @Autowired
-    LocationTagBundle locationTagBundle;
 
     @Autowired
     LocationAttributeTypeBundle locationAttributeTypeBundle;
@@ -99,7 +95,6 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
 
-        locationTagBundle.install();
         locationAttributeTypeBundle.install();
         haitiMetadataBundle.install(); // to install primary identifier type
         mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
