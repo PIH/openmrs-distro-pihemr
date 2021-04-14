@@ -217,6 +217,7 @@ public class SectionsHaiti extends SectionsDefault {
         w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
 
         w.getConfig().setExpanded(true);
+        w.getConfig().setAutocompleteEnabled(true);
         f.setWidget(toObjectNode(w));
         q.addField(f);
 
