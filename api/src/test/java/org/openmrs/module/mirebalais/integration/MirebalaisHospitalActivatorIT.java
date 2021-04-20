@@ -3,15 +3,12 @@ package org.openmrs.module.mirebalais.integration;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBundle;
-import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.pihcore.PihCoreActivator;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -67,8 +64,8 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         // set up metatdata from pih core first
         PihCoreActivator pihCoreActivator = new PihCoreActivator();
         Config config = mock(Config.class);
-        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn("MIREBALAIS");
+        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.MEXICO);
+        when(config.getSite()).thenReturn("Chiapas");
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         pihCoreActivator.setConfig(config);
         pihCoreActivator.setTestingContext(true);
@@ -88,46 +85,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     @Test
     @DirtiesContext
     public void testThatActivatorDoesAllSetup() throws Exception {
-        MirebalaisHospitalService service = Context.getService(MirebalaisHospitalService.class);
-        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
-        LocationService locationService = Context.getLocationService();
-
-        /**
-        ConfigureIdGenerators configureIdGenerators = new ConfigureIdGenerators(identifierSourceService, locationService);
-
-        IdentifierPool localZlIdentifierPool = service.getLocalZlIdentifierPool();
-        RemoteIdentifierSource remoteZlIdentifierSource = service.getRemoteZlIdentifierSource();
-        SequentialIdentifierGenerator dossierSequenceGenerator = service.getDossierSequenceGenerator(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
-
-        PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
-        PatientIdentifierType dossierNumberIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
-
-        AutoGenerationOption autoGenerationOption = Context.getService(IdentifierSourceService.class).getAutoGenerationOption(zlIdentifierType);
-
-        assertEquals(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid(), zlIdentifierType.getUuid());
-        assertEquals(zlIdentifierType, autoGenerationOption.getIdentifierType());
-        assertEquals(localZlIdentifierPool, autoGenerationOption.getSource());
-
-        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID, localZlIdentifierPool.getUuid());
-        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE, localZlIdentifierPool.getBatchSize());
-        assertEquals(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE, localZlIdentifierPool.getMinPoolSize());
-
-        assertEquals(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID, remoteZlIdentifierSource.getUuid());
-        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourceUrl(), remoteZlIdentifierSource.getUrl());
-        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourceUsername(), remoteZlIdentifierSource.getUser());
-        assertEquals(configureIdGenerators.getRemoteZlIdentifierSourcePassword(), remoteZlIdentifierSource.getPassword());
-
-        assertEquals("A", dossierSequenceGenerator.getPrefix());
-        assertEquals(new Integer(7), dossierSequenceGenerator.getMaxLength());
-        assertEquals(new Integer(7), dossierSequenceGenerator.getMinLength());
-        assertEquals("0123456789", dossierSequenceGenerator.getBaseCharacterSet());
-        assertEquals("000001", dossierSequenceGenerator.getFirstIdentifierBase());
-        assertEquals(PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID, dossierSequenceGenerator.getUuid());
-        assertEquals(dossierNumberIdentifierType, dossierSequenceGenerator.getIdentifierType());
-        assertEquals(2, Context.getService(IdentifierSourceService.class).getAutoGenerationOptions(dossierNumberIdentifierType).size());
-         **/
-
-
         assertNotNull(Context.getService(ImportPatientFromWebService.class).getRemoteServers().get("lacolline"));
     }
 
