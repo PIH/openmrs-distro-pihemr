@@ -59,7 +59,7 @@
         <appframeworkVersion>2.16.0</appframeworkVersion>
         <appointmentschedulingVersion>1.13.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.10.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <appuiVersion>1.13.0</appuiVersion>
+        <appuiVersion>1.13.1</appuiVersion>
         <attachmentsVersion>2.4.0</attachmentsVersion>
         <calculationVersion>1.2.1</calculationVersion>
         <coreappsVersion>1.32.0-SNAPSHOT</coreappsVersion>
