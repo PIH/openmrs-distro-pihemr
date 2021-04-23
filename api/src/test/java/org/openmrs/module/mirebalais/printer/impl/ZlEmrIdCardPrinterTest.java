@@ -23,14 +23,10 @@ import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
-import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
@@ -59,16 +55,10 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     private LocationService locationService;
 
     @Autowired
-    LocationAttributeTypeBundle locationAttributeTypeBundle;
-
-    @Autowired
     PatientService patientService;
 
     @Autowired
     MetadataMappingService metadataMappingService;
-
-    @Autowired
-    MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
     HaitiAddressBundle addressBundle;
@@ -97,9 +87,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
 
-        locationAttributeTypeBundle.install();
         haitiMetadataBundle.install(); // to install primary identifier type
-        mirebalaisLocationsBundle.install(); // Install Location Metadata for distribution
         pihHaitiPatientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
         haitiPersonAttributeTypeBundle.install(); // Instal Person Attribute Types provided by Haiti Core
@@ -139,7 +127,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         printerService.savePrinter(printer);
 
         // Set location for this printer
-        Location location = MetadataUtils.existing(Location.class, MirebalaisLocations.CLINIC_REGISTRATION.uuid());
+        Location location = locationService.getLocation("Biwo Resepsyon");  // Clinic Reception
         printerService.setDefaultPrinter(location, PrinterType.ID_CARD, printer);
 
         // Create a patient for whom to print an id card

@@ -17,7 +17,6 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.contextmodel.VisitContextModel;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
@@ -161,7 +160,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.ADMISSION_LOCATION.name());
+        admitTag.put("display", "Admission Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -170,7 +169,7 @@ public class RequireUtilTest {
         uiSessionContext.setSessionLocation(sessionLocation);
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
 
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION)), appContextModel), is(true));
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(sessionLocationHasTag("Admission Location")), appContextModel), is(true));
     }
 
     @Test
@@ -180,7 +179,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.ADMISSION_LOCATION.name());
+        admitTag.put("display", "Admission Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -189,7 +188,7 @@ public class RequireUtilTest {
         uiSessionContext.setSessionLocation(sessionLocation);
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
 
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(sessionLocationHasTag(LocationTags.ARCHIVES_LOCATION)), appContextModel), is(false));
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(sessionLocationHasTag("Archives Location")), appContextModel), is(false));
     }
 
 
@@ -200,7 +199,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.ADMISSION_LOCATION.name());
+        admitTag.put("display", "Admission Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -214,7 +213,7 @@ public class RequireUtilTest {
         appContextModel.put("visit", visit);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring
-                (and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION), patientHasActiveVisit())), appContextModel), is(true));
+                (and(sessionLocationHasTag("Admission Location"), patientHasActiveVisit())), appContextModel), is(true));
     }
 
     @Test
@@ -224,7 +223,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CHECKIN_LOCATION.name());
+        admitTag.put("display", "Check-In Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -238,7 +237,7 @@ public class RequireUtilTest {
         appContextModel.put("visit", visit);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring
-                (and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION), patientHasActiveVisit())), appContextModel), is(false));
+                (and(sessionLocationHasTag("Admission Location"), patientHasActiveVisit())), appContextModel), is(false));
     }
 
     @Test
@@ -248,7 +247,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.ADMISSION_LOCATION.name());
+        admitTag.put("display", "Admission Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -262,7 +261,7 @@ public class RequireUtilTest {
         appContextModel.put("visit", visit);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring
-                (and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION), patientHasActiveVisit())), appContextModel), is(false));
+                (and(sessionLocationHasTag("Admission Location"), patientHasActiveVisit())), appContextModel), is(false));
     }
 
     @Test
@@ -272,7 +271,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CHECKIN_LOCATION.name());
+        admitTag.put("display", "Check-In Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -286,7 +285,7 @@ public class RequireUtilTest {
         appContextModel.put("visit", visit);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring
-                (and(sessionLocationHasTag(LocationTags.ADMISSION_LOCATION), patientHasActiveVisit())), appContextModel), is(false));
+                (and(sessionLocationHasTag("Admission Location"), patientHasActiveVisit())), appContextModel), is(false));
     }
 
     @Test
@@ -328,7 +327,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CONSULT_NOTE_LOCATION.name());
+        admitTag.put("display", "Consult Note Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -345,7 +344,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                and(sessionLocationHasTag("Consult Note Location"),
                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
@@ -361,7 +360,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.ADMISSION_LOCATION.name());
+        admitTag.put("display", "Admission Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -378,7 +377,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                        and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        and(sessionLocationHasTag("Consult Note Location"),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
@@ -394,7 +393,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CONSULT_NOTE_LOCATION.name());
+        admitTag.put("display", "Consult Note Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -412,7 +411,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                        and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        and(sessionLocationHasTag("Consult Note Location"),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
@@ -428,7 +427,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CONSULT_NOTE_LOCATION.name());
+        admitTag.put("display", "Consult Note Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -446,7 +445,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                        and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        and(sessionLocationHasTag("Consult Note Location"),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
@@ -462,7 +461,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CHECKIN_LOCATION.name());
+        admitTag.put("display", "Check-In Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -480,7 +479,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                        and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        and(sessionLocationHasTag("Consult Note Location"),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
@@ -496,7 +495,7 @@ public class RequireUtilTest {
         SimpleObject sessionLocationRestRep = new SimpleObject();
         sessionLocationRestRep.put("uuid", "123abc");
         SimpleObject admitTag = new SimpleObject();
-        admitTag.put("display", LocationTags.CONSULT_NOTE_LOCATION.name());
+        admitTag.put("display", "Consult Note Location");
         sessionLocationRestRep.put("tags", Arrays.asList(admitTag));
 
         PowerMockito.mockStatic(ConversionUtil.class);
@@ -513,7 +512,7 @@ public class RequireUtilTest {
         when(config.isComponentEnabled("visitNote")).thenReturn(false);
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
-                        and(sessionLocationHasTag(LocationTags.CONSULT_NOTE_LOCATION),
+                        and(sessionLocationHasTag("Consult Note Location"),
                                 or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                         userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                         and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),

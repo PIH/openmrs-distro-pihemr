@@ -9,7 +9,6 @@ import org.openmrs.module.mirebalais.require.RequireUtil;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -65,13 +64,13 @@ public class SectionsHaiti extends SectionsDefault {
     @Override
     public Question getMothersNameQuestion() {
         Question q = super.getMothersNameQuestion();
-        q.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION)); // we use a simplified registration in "tablet entry" locations
+        q.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location")); // we use a simplified registration in "tablet entry" locations
         return q;
     }
 
     public Section getContactsSection(boolean required) {
         Section s = super.getContactsSection(required);
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION)); // we use a simplified registration in "tablet entry" locations
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location")); // we use a simplified registration in "tablet entry" locations
         return s;
     }
 
@@ -80,7 +79,7 @@ public class SectionsHaiti extends SectionsDefault {
         Section s = new Section();
         s.setId("social");
         s.setLabel("zl.registration.patient.social.label");
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION)); // we use a simplified registration in "tablet entry" locations
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location")); // we use a simplified registration in "tablet entry" locations
         s.addQuestion(getBirthplaceQuestion());
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getOccupationQuestion());
@@ -274,7 +273,7 @@ public class SectionsHaiti extends SectionsDefault {
         Section s = new Section();
         s.setId("insurance");
         s.setLabel("zl.registration.patient.insurance.label");
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION)); // hide in COVID locations (because of tablet entry)
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location")); // hide in COVID locations (because of tablet entry)
         s.addQuestion(getInsuranceNameAndNumber());
         return s;
     }

@@ -16,7 +16,6 @@ import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -413,7 +412,7 @@ public class SectionsDefault {
         s.setLabel("zl.registration.patient.biometrics.label");
         s.setSkipConfirmation(true);
         s.addQuestion(getBiometricsFingerprintsQuestion());
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION));
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location"));
         return s;
     }
 
@@ -491,7 +490,7 @@ public class SectionsDefault {
         s.setId("idcardSection");
         s.setLabel("zl.registration.patient.idcard.label");
         s.addQuestion(getIdCardPrintQuestion());
-        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag(LocationTags.TABLET_ENTRY_LOCATION));
+        s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location"));
         return s;
     }
 
