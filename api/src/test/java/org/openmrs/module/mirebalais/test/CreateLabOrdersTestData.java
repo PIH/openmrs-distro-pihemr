@@ -31,7 +31,7 @@ import java.util.*;
 public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
 
     public static final String TEST_ORDER_ENCOUNTER_TYPE = EncounterTypes.TEST_ORDER.uuid();
-    public static final String MAIN_LABORATORY_LOCATION = "Laboratwa Prensipal";  // TODO @bistenes: might need to be UUID?
+    public static final String MAIN_LABORATORY_LOCATION = "Laboratwa Prensipal";
     public static final String[] CONCEPTS_UUIDS = {
             "d9520d86-6042-4b82-a324-2abf3d4fdfa5", //Complete hematogram
             "1b169fff-a6e9-4f96-8c07-de33ec8aafcf", //Manual hematogram
