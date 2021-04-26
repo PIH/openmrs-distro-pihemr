@@ -14,6 +14,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.address.AddressSupport;
 import org.openmrs.messagesource.MessageSourceService;
@@ -24,7 +25,6 @@ import org.openmrs.module.mirebalais.printer.IdPrinter;
 import org.openmrs.module.mirebalais.printer.template.ZplCardTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
@@ -47,6 +47,9 @@ import java.util.Map;
 public class ZlEmrIdCardPrinter implements IdPrinter {
 
     protected final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     private PrinterService printerService;
@@ -215,7 +218,7 @@ public class ZlEmrIdCardPrinter implements IdPrinter {
      */
     protected String getIssuingLocationName(Location location) {
 
-        LocationAttributeType attributeType = MetadataUtils.existing(LocationAttributeType.class, LocationAttributeTypes.NAME_TO_PRINT_ON_ID_CARD.uuid());
+        LocationAttributeType attributeType = locationService.getLocationAttributeTypeByName("Name to print on ID card");
         List<LocationAttribute> nameToPrintOnIdCard = location.getActiveAttributes(attributeType);
 
         // there should never be more for than one specified name to print on the id card--max allowed for this attribute = 1

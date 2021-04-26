@@ -28,13 +28,13 @@ public class RequireUtil {
         return new String("typeof user !== 'undefined' && hasMemberWithProperty(user.privileges, 'display', '" + privilegeDescriptor.privilege() + "')");
     }
 
-    public static String sessionLocationHasTag(LocationTagDescriptor descriptor) {
-        return new String("typeof sessionLocation !== 'undefined' && hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
+    public static String sessionLocationHasTag(String tagName) {
+        return new String("typeof sessionLocation !== 'undefined' && hasMemberWithProperty(sessionLocation.tags, 'display','" + tagName + "')");
     }
 
-    public static String sessionLocationDoesNotHaveTag(LocationTagDescriptor descriptor) {
-        return new String("typeof sessionLocation !== 'undefined' && !hasMemberWithProperty(sessionLocation.tags, 'display','" + descriptor.name() + "')");
-    };
+    public static String sessionLocationDoesNotHaveTag(String tagName) {
+        return new String("typeof sessionLocation !== 'undefined' && !hasMemberWithProperty(sessionLocation.tags, 'display','" + tagName + "')");
+    }
 
     // note that Java 8 Nashorn script engine support does not (fully?) support ECMAScript6 so we can't use arrow notation or map, etc
     public static String visitHasEncounterOfType(EncounterTypeDescriptor descriptor) {
