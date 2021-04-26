@@ -76,7 +76,7 @@
         <idgenVersion>4.7.0-SNAPSHOT</idgenVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <initializerVersion>2.1.0</initializerVersion>
-        <labtrackingappVersion>1.2.0</labtrackingappVersion>
+        <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.1.0</labworkflowOwaVersion>
         <legacyuiVersion>1.8.2</legacyuiVersion>
         <metadatadeployVersion>1.13.0-SNAPSHOT</metadatadeployVersion>
