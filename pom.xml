@@ -51,7 +51,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.3.3</openMRSVersion>
+        <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
