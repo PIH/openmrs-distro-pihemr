@@ -1,4 +1,4 @@
 #!/bin/bash
 
 git pull
-mvn openmrs-sdk:deploy -Ddistro=api/src/main/resources/openmrs-distro.properties -U
+mvn openmrs-sdk:deploy -Ddistro=distro/openmrs-distro.properties -U

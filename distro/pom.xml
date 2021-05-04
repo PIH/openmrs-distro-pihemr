@@ -37,7 +37,7 @@
                                     <goal>build-distro</goal>
                                 </goals>
                                 <configuration>
-                                    <distro>${basedir}/../api/src/main/resources/openmrs-distro.properties</distro>
+                                    <distro>${basedir}/openmrs-distro.properties</distro>
                                     <dir>${project.build.directory}/distro</dir>
                                     <bundled>false</bundled>
                                 </configuration>
