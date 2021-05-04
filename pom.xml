@@ -68,6 +68,7 @@
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.31.0</emrapiVersion>
         <eventVersion>2.8.0</eventVersion>
+        <fhir2Version>1.2.0-SNAPSHOT</fhir2Version>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <htmlformentryVersion>4.0.1-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>
