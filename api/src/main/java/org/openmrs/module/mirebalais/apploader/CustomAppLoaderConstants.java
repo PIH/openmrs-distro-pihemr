@@ -2,20 +2,8 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
-import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
-import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
-import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
+import org.pih.openmrs.config.pihemr.PihEmrConstants;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -328,19 +316,19 @@ public class CustomAppLoaderConstants {
     // in English and French -speaking places are alphebetized in English and the ones
     // used in Spanish-speaking places are alphebetized in Spanish.
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
-            "pih.app." + AsthmaProgram.ASTHMA.uuid() + ".programSummary.dashboard",
-            "pih.app." + MalnutritionProgram.MALNUTRITION.uuid() + ".programSummary.dashboard",
-            "pih.app." + DiabetesProgram.DIABETES.uuid() + ".programSummary.dashboard",
-            "pih.app." + EpilepsyProgram.EPILEPSY.uuid() + ".programSummary.dashboard",
-            "pih.app." + HIVProgram.HIV.uuid() + ".programSummary.dashboard",
-            "pih.app." + HypertensionProgram.HYPERTENSION.uuid() + ".programSummary.dashboard",
-            "pih.app." + ANCProgram.ANC.uuid() + ".programSummary.dashboard",
-            "pih.app." + MCHProgram.MCH.uuid() + ".programSummary.dashboard",
-            "pih.app." + MentalHealthProgram.MENTAL_HEALTH.uuid() + ".programSummary.dashboard",
-            "pih.app." + NCDProgram.NCD.uuid() + ".programSummary.dashboard",
-            "pih.app." + OncologyProgram.ONCOLOGY.uuid() + ".programSummary.dashboard",
-            "pih.app." + Covid19Program.COVID19.uuid() + ".programSummary.dashboard",
-            "pih.app." + ZikaProgram.ZIKA.uuid() + ".programSummary.dashboard"
+            "pih.app." + PihEmrConstants.PROGRAM_ASTHMA_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_MALNUTRITION_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_DIABETES_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_EPILEPSY_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_HYPERTENSION_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_ANC_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_MCH_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_MENTALHEALTH_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_NCD_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_ONCOLOGY_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_COVID19_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConstants.PROGRAM_ZIKA_UUID + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -479,11 +467,11 @@ public class CustomAppLoaderConstants {
     static {
         Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
 
-        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
+        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(PihEmrConstants.PROGRAM_HIV_UUID,
                 Arrays.asList(
                     // ToDo:  Move Program enrollment is first?
-                    "pih.app." + HIVProgram.HIV.uuid() + "patientProgramSummary",
-                    "pih.app." + HIVProgram.HIV.uuid() + ".patientProgramHistory",
+                    "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + "patientProgramSummary",
+                    "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + ".patientProgramHistory",
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
                     Apps.HIV_NEXT_DISPENSING,
@@ -498,13 +486,13 @@ public class CustomAppLoaderConstants {
     static {
         Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
 
-        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(HIVProgram.HIV.uuid(),
+        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(PihEmrConstants.PROGRAM_HIV_UUID,
                 Arrays.asList(
                         Apps.HIV_VISIT_SUMMARY,
                         Apps.HIV_DIAGNOSES_SUMMARY,
                         Apps.HIV_ADVERSE_EFFECT,
                         Apps.HIV_STATUS_SUMMARY,
-                        Apps.BMI_GRAPH + "." + HIVProgram.HIV.name().toLowerCase(),
+                        Apps.BMI_GRAPH + ".hiv",
                         Apps.ALLERGY_SUMMARY
                 ));
 
