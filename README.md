@@ -292,7 +292,7 @@ pih.config=sierraLeone,sierraLeone-kgh
 
 Mexico test/demo environment:
 ```properties
-pih.config=pih.config=mexico,mexico-demo
+pih.config=mexico,mexico-demo
 ```
 
 **Initializer configuration**: You must add a configuration like this currently to tell initializer not to load in 
