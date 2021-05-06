@@ -37,5 +37,12 @@
                 <include>**/*</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/distro/web/frontend</directory>
+            <outputDirectory>openmrs_frontend</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
     </fileSets>
 </assembly>
