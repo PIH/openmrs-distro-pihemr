@@ -279,6 +279,13 @@ Mirebalais CI environment:  ```pih.config=mirebalais,mirebalais-humci```
 Haiti HIV environment:  ```pih.config=haiti-hiv```
 Sierra Leone KGH environment:  ```pih.config=sierraLeone,sierraLeone-kgh```
 
+**Initializer configuration**: You must add a configuration like this currently to tell initializer not to load in the program domains,
+as we do this at a specific point in the setup process explicitly:
+
+```properties
+initializer.domains=!programs,programworkflows,programworkflowstates
+```
+
 **For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
 To do so, add the following to the end of openmrs-runtime.properties:
 
