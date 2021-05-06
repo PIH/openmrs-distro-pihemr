@@ -1397,20 +1397,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "patientRegistration/idCardStatus"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
-            apps.add(addToRegistrationSummaryContent(app(Apps.MOST_RECENT_REGISTRATION_EBOLA_SCREENING,
-                    "zl.registration.patient.ebolaScreening.label",
-                    "fas fa-fw fa-user",
-                    null,
-                    "App: registrationapp.registerPatient",
-                    objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                            "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
-                            "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-ebolaScreening.xml"),
-                            "editable", true)),
-                    "coreapps",
-                    "encounter/mostRecentEncounter"));
-        }
-
         extensions.add(overallRegistrationAction(Extensions.REGISTER_NEW_PATIENT,
                 "registrationapp.home",
                 "fas fa-fw fa-user",

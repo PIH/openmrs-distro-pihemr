@@ -2,18 +2,13 @@ package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
-import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
-import org.openmrs.module.registrationapp.model.DropdownWidget;
-import org.openmrs.module.registrationapp.model.Field;
-import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.Section;
-
-import java.util.Arrays;
 
 
 
@@ -32,7 +27,6 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        c.addSection(getEbolaScreeningSection());
         c.addSection(getContactsSection(false));
         c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
@@ -89,7 +83,7 @@ public class SectionsSierraLeone extends SectionsDefault {
     Section s = new Section();
     s.setId("social");
     s.setLabel("zl.registration.patient.social.label");
-    SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial(); 
+    SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
     s.addQuestion(getOccupationQuestion());
     return s;
     }
@@ -139,56 +133,5 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
-    
 
-     public Section getEbolaScreeningSection() {
-        Section s = new Section();
-        s.setId("ebolascreening");
-        s.addQuestion(getEbolaScreeningQuestion());
-        s.setLabel("zl.registration.patient.ebolaScreening.header");
-        return s;
-    }
-
-
-    public Question getEbolaScreeningQuestion() {
-        Question q = new Question();
-        q.setId("ebolalabel");
-        q.setLegend("zl.registration.patient.ebolaScreening.label");
-        q.setHeader("zl.registration.patient.ebolaScreening.alertClinician");
-        {
-            Field f = new Field();
-            f.setFormFieldName("obs.PIH:12246");
-            f.setCssClasses(Arrays.asList("required"));
-            f.setLabel("zl.registration.patient.ebolaScreening.feverTwoDays.label");
-            f.setType("obs");
-            f.setWidget(getYesNoDropdownWidget());
-            q.addField(f);
-        }
-        {
-            Field f = new Field();
-            f.setFormFieldName("obs.PIH:7102");
-            f.setCssClasses(Arrays.asList("required"));
-            f.setLabel("zl.registration.patient.ebolaScreening.bleedingSigns.label");
-            f.setType("obs");
-            f.setWidget(getYesNoDropdownWidget());
-            q.addField(f);
-        }
-        {
-            Field f = new Field();
-            f.setFormFieldName("obs.CIEL:1690");
-            f.setCssClasses(Arrays.asList("required"));
-            f.setLabel("zl.registration.patient.ebolaScreening.clinicalSuspicion.label");
-            f.setType("obs");
-            f.setWidget(getYesNoDropdownWidget());
-            q.addField(f);
-        }
-        StringBuilder displayTemplate = new StringBuilder();
-        displayTemplate.append("{{#if field.[0]}}{{ message 'Fever' }}: {{field.[0]}}, {{/if}}");
-        displayTemplate.append("{{#if field.[1]}}{{ message 'Bleeding' }}: {{field.[1]}}, {{/if}}");
-        displayTemplate.append("{{#if field.[2]}}{{ message 'Clinical Suspicion' }}: {{field.[2]}} {{/if}}");
-        q.setDisplayTemplate(displayTemplate.toString());
-        return q;
-    }
-    
-   
 }
