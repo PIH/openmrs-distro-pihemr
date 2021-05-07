@@ -1699,6 +1699,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
+    private void enableEcho() {
+        // ToDo: Add visit action
+        // fas fa-fw fa-chart-line
+    }
+
     private void enableMCHForms() {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
@@ -2250,6 +2255,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));
     }
 
+
+    private void enablePMTCTForms() {
+        // ToDo:  Add PMTCT forms
+    }
+
     private void enableCovid19() {
 
         // ToDo: Fix privileges and locations for these forms.
@@ -2793,6 +2803,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableHIVIntakeForm();
         }
 
+        if (config.isComponentEnabled(Components.PMTCT)) {
+            // ToDo:  create/enable PMTCT program?
+            enablePMTCTForms();
+        }
+
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
             supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());
             enableHypertensionProgram();
@@ -2821,6 +2836,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.NCD)) {
             supportedPrograms.add(NCDProgram.NCD.uuid());
             enableNCDs();
+
+            if (config.isComponentEnabled(Components.ECHO)) {
+                enableEcho();
+            }
         }
 
         if (config.isComponentEnabled(Components.OVC)) {
