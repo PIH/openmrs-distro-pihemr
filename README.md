@@ -101,6 +101,7 @@ version 5.6, other versions will not work.
 
 An easier approach is likely to install Docker (https://www.docker.com/) and use the OpenMRS SDK to set up an instance of MySQL within a docker container.
 
+Building the distribution file (`mvn clean install -Pdistribution`) requires npm 7. Make sure you have the latest npm installed.
 
 ## Setup
 
