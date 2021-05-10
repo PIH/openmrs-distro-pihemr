@@ -10,7 +10,6 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
@@ -27,27 +26,13 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.core.program.ANCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.AsthmaProgram;
-import org.openmrs.module.pihcore.metadata.core.program.Covid19Program;
-import org.openmrs.module.pihcore.metadata.core.program.DiabetesProgram;
-import org.openmrs.module.pihcore.metadata.core.program.EpilepsyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HIVProgram;
-import org.openmrs.module.pihcore.metadata.core.program.HypertensionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MCHProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MalnutritionProgram;
-import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
-import org.openmrs.module.pihcore.metadata.core.program.NCDProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OVCProgram;
-import org.openmrs.module.pihcore.metadata.core.program.OncologyProgram;
-import org.openmrs.module.pihcore.metadata.core.program.TBProgram;
-import org.openmrs.module.pihcore.metadata.core.program.ZikaProgram;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
+import org.pih.openmrs.config.pihemr.PihEmrConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -1545,7 +1530,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableOncology() {
 
-        configureBasicProgramDashboard(OncologyProgram.ONCOLOGY);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ONCOLOGY_UUID);
 
         extensions.add(visitAction(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
@@ -1660,7 +1645,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableNCDs() {
 
-        configureBasicProgramDashboard(NCDProgram.NCD);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_NCD_UUID);
 
         String definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-initial.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
@@ -1800,15 +1785,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableANCProgram() {
-        configureBasicProgramDashboard(ANCProgram.ANC);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ANC_UUID);
     }
 
     private void enableMCHProgram() {
-        configureBasicProgramDashboard(MCHProgram.MCH);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MCH_UUID);
     }
 
     private void enableTBProgram(){
-        configureBasicProgramDashboard(TBProgram.TB);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_TB_UUID);
     }
 
     private void enableVaccinationOnly() {
@@ -2049,7 +2034,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableHIVProgram() {
-        configureBasicProgramDashboard(HIVProgram.HIV);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_HIV_UUID);
 
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
@@ -2215,7 +2200,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                HIVProgram.HIV.uuid() + ".includeFragments",
+                PihEmrConstants.PROGRAM_HIV_UUID + ".includeFragments",
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
 
@@ -2307,7 +2292,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableOvc() {
-        configureBasicProgramDashboard(OVCProgram.OVC);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_OVC_UUID);
 
         extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
@@ -2386,7 +2371,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableAsthmaProgram() {
-        configureBasicProgramDashboard(AsthmaProgram.ASTHMA);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ASTHMA_UUID);
 
         apps.add(addToAsthmaDashboardFirstColumn(app(Apps.ASTHMA_SYMPTOMS_OBS_TABLE,
                 "pih.app.asthma.symptomsObsTable.title",
@@ -2408,7 +2393,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableDiabetesProgram() {
 
-        configureBasicProgramDashboard(DiabetesProgram.DIABETES);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_DIABETES_UUID);
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
                 "pih.app.abdominalCircumference.graph.title",
@@ -2502,7 +2487,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableEpilepsyProgram() {
 
-        configureBasicProgramDashboard(EpilepsyProgram.EPILEPSY);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_EPILEPSY_UUID);
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SUMMARY,
                 "pih.app.patientSummary.title",
@@ -2535,7 +2520,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableHypertensionProgram() {
 
-        configureBasicProgramDashboard(HypertensionProgram.HYPERTENSION);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_HYPERTENSION_UUID);
 
         apps.add(addToHypertensionDashboardFirstColumn(
                 graphs.getBloodPressureGraph(".htn"),
@@ -2570,7 +2555,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
 
     private void enableMentalHealthProgram() {
-        configureBasicProgramDashboard(MentalHealthProgram.MENTAL_HEALTH);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
@@ -2609,7 +2594,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableMalnutritionProgram() {
-        configureBasicProgramDashboard(MalnutritionProgram.MALNUTRITION);
+        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MALNUTRITION_UUID);
 
         apps.add(addToMalnutritionDashboardSecondColumn(
                 graphs.getBmiGraph(".malnutrition"),
@@ -2766,32 +2751,32 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         List<String> supportedPrograms = new ArrayList<String>();
 
         if (config.isComponentEnabled(Components.ANC_PROGRAM)) {
-            supportedPrograms.add(ANCProgram.ANC.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_ANC_UUID);
             enableANCProgram();
         }
 
         if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
-            supportedPrograms.add(AsthmaProgram.ASTHMA.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_ASTHMA_UUID);
             enableAsthmaProgram();
         }
 
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
-            supportedPrograms.add(DiabetesProgram.DIABETES.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_DIABETES_UUID);
             enableDiabetesProgram();
         }
 
         if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
-            supportedPrograms.add(EpilepsyProgram.EPILEPSY.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_EPILEPSY_UUID);
             enableEpilepsyProgram();
         }
 
         if (config.isComponentEnabled(Components.HIV)) {
-            supportedPrograms.add(HIVProgram.HIV.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_HIV_UUID);
             enableHIV();
         }
 
         if (config.isComponentEnabled(Components.HIV_PROGRAM)) {
-            supportedPrograms.add(HIVProgram.HIV.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_HIV_UUID);
             enableHIVProgram();
         }
 
@@ -2809,18 +2794,18 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
-            supportedPrograms.add(HypertensionProgram.HYPERTENSION.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_HYPERTENSION_UUID);
             enableHypertensionProgram();
         }
 
         if (config.isComponentEnabled(Components.MALNUTRITION_PROGRAM)) {
-            supportedPrograms.add(MalnutritionProgram.MALNUTRITION.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_MALNUTRITION_UUID);
             enableMalnutritionProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealthForm();
-            supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
             enableMentalHealthProgram();
         }
 
@@ -2829,12 +2814,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
-            supportedPrograms.add(MentalHealthProgram.MENTAL_HEALTH.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
             enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {
-            supportedPrograms.add(NCDProgram.NCD.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_NCD_UUID);
             enableNCDs();
 
             if (config.isComponentEnabled(Components.ECHO)) {
@@ -2843,7 +2828,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.OVC)) {
-            supportedPrograms.add(OVCProgram.OVC.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_OVC_UUID);
             enableOvc();
         }
 
@@ -2852,34 +2837,34 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
-            supportedPrograms.add(OncologyProgram.ONCOLOGY.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_ONCOLOGY_UUID);
             enableOncology();
         }
 
         if (config.isComponentEnabled(Components.MCH)) {
             enableMCHForms();
-            supportedPrograms.add(MCHProgram.MCH.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_MCH_UUID);
             enableMCHProgram();
         }
 
         if(config.isComponentEnabled(Components.TUBERCULOSIS)){
-            supportedPrograms.add(TBProgram.TB.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_TB_UUID);
             enableTBProgram();
         }
 
         if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
-            supportedPrograms.add(MCHProgram.MCH.uuid());
+            supportedPrograms.add(PihEmrConstants.PROGRAM_MCH_UUID);
             enableMCHProgram();
         }
 
         if (config.isComponentEnabled(Components.ZIKA)) {
-            supportedPrograms.add(ZikaProgram.ZIKA.uuid());
-            configureBasicProgramDashboard(ZikaProgram.ZIKA);
+            supportedPrograms.add(PihEmrConstants.PROGRAM_ZIKA_UUID);
+            configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ZIKA_UUID);
         }
 
         if (config.isComponentEnabled(Components.COVID19)) {
-            supportedPrograms.add(Covid19Program.COVID19.uuid());
-            configureBasicProgramDashboard(Covid19Program.COVID19);
+            supportedPrograms.add(PihEmrConstants.PROGRAM_COVID19_UUID);
+            configureBasicProgramDashboard(PihEmrConstants.PROGRAM_COVID19_UUID);
         }
 
         // TODO better/more granular privileges?
@@ -2909,9 +2894,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
     }
 
-    private void configureBasicProgramDashboard(ProgramDescriptor program) {
-        apps.add(addToProgramDashboardFirstColumn(program,
-                app("pih.app." + program.uuid() + ".patientProgramSummary",
+    private void configureBasicProgramDashboard(String programUuid) {
+        apps.add(addToProgramDashboardFirstColumn(programUuid,
+                app("pih.app." + programUuid + ".patientProgramSummary",
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
@@ -2920,15 +2905,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "widget", "programstatus",
                         "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.currentEnrollmentDashboardWidget.label",
-                        "program", program.uuid(),
+                        "program", programUuid,
                         "locationTag", "Program Location",
                         "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
-                        "dashboard", program.uuid()   // provides contextual context so this widget knows which dashboard it's being rendered on
+                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToProgramDashboardFirstColumn(program,
-                app("pih.app." + program.uuid() + ".patientProgramHistory",
+        apps.add(addToProgramDashboardFirstColumn(programUuid,
+                app("pih.app." + programUuid + ".patientProgramHistory",
                 "coreapps.programHistoryDashboardWidget.label",
                 "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
@@ -2936,37 +2921,37 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 objectNode(
                         "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
-                        "program", program.uuid(),
+                        "program", programUuid,
                         "includeActive", false,
                         "locationTag", "Program Location",
                         "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
-                        "dashboard", program.uuid()   // provides contextual context so this widget knows which dashboard it's being rendered on
+                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "program/programHistory"));
 
         // TODO correct the privilege
-        apps.add(addToProgramSummaryListPage(app("pih.app." + program.uuid() + ".programSummary.dashboard",
-                "pih.app." + program.uuid() +".programSummary.dashboard",
+        apps.add(addToProgramSummaryListPage(app("pih.app." + programUuid + ".programSummary.dashboard",
+                "pih.app." + programUuid +".programSummary.dashboard",
                 "fas fa-fw fa-list-alt",
-                "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + program.uuid() + ".programSummary.dashboard",
+                "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
                 Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
                 objectNode(
-                        "program", program.uuid()
+                        "program", programUuid
                 )),
                 null));
 
-        apps.add(addToProgramSummaryDashboardFirstColumn(program,
-                app("pih.app." + program.uuid() + " .programStatistics",
-                "pih.app." + program.uuid() + ".programStatistics.title",
+        apps.add(addToProgramSummaryDashboardFirstColumn(programUuid,
+                app("pih.app." + programUuid + " .programStatistics",
+                "pih.app." + programUuid + ".programStatistics.title",
                 "fas fa-fw fa-bars",  // TODO figure out right icon
                 null,
                 null, // TODO restrict by privilege or location)
                 objectNode(
                         "widget", "programstatistics",
                         "icon", "fas fa-fw fa-bars",
-                        "label", "pih.app." + program.uuid() + ".programStatistics.title",
+                        "label", "pih.app." + programUuid + ".programStatistics.title",
                         "dateFormat", "dd MMM yyyy",
-                        "program", program.uuid()
+                        "program", programUuid
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }

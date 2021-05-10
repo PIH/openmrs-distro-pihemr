@@ -275,9 +275,33 @@ to be set in the openmrs-runtime.properties file, which was created in the step 
 
 There are various options to choose from, depending on the country, site, and type of environment.  Examples:
 
-Mirebalais CI environment:  ```pih.config=mirebalais,mirebalais-humci```
-Haiti HIV environment:  ```pih.config=haiti-hiv```
-Sierra Leone KGH environment:  ```pih.config=sierraLeone,sierraLeone-kgh```
+Mirebalais CI environment:
+```properties
+pih.config=mirebalais,mirebalais-humci
+```
+
+Haiti HIV environment:
+```properties
+pih.config=haiti-hiv
+```
+
+Sierra Leone KGH environment:
+```properties
+pih.config=sierraLeone,sierraLeone-kgh
+```
+
+Mexico test/demo environment:
+```properties
+pih.config=mexico,mexico-demo
+```
+
+**Initializer configuration**: You must add a configuration like this currently to tell initializer not to load in 
+certain domains at startup that depend on concepts.  We have a separate process to ensure these are loaded after 
+concepts are loaded in.
+
+```properties
+initializer.domains=!programs,programworkflows,programworkflowstates,drugs
+```
 
 **For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
 To do so, add the following to the end of openmrs-runtime.properties:
