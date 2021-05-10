@@ -88,6 +88,7 @@
         <owaVersion>1.12.0</owaVersion>
         <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
+        <pihemrconfigVersion>1.0.0-SNAPSHOT</pihemrconfigVersion>
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.12.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
@@ -586,6 +587,13 @@
         <!-- End Mekom -->
 
         <!-- End OpenMRS modules-->
+        <dependency>
+            <groupId>org.pih.openmrs</groupId>
+            <artifactId>openmrs-config-pihemr-api</artifactId>
+            <version>${pihemrconfigVersion}</version>
+            <scope>compile</scope>
+            <type>jar</type>
+        </dependency>
 
         <!-- Begin OpenMRS contrib -->
 
