@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "config-file": "./site/config.json"
+  }
+}
