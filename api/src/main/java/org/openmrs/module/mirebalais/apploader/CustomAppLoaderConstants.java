@@ -3,7 +3,7 @@ package org.openmrs.module.mirebalais.apploader;
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
-import org.pih.openmrs.config.pihemr.PihEmrConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -317,19 +317,19 @@ public class CustomAppLoaderConstants {
     // in English and French -speaking places are alphebetized in English and the ones
     // used in Spanish-speaking places are alphebetized in Spanish.
     public static final List<String> PROGRAM_SUMMARY_LIST_APPS_ORDER = Arrays.asList(
-            "pih.app." + PihEmrConstants.PROGRAM_ASTHMA_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_MALNUTRITION_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_DIABETES_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_EPILEPSY_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_HYPERTENSION_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_ANC_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_MCH_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_MENTALHEALTH_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_NCD_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_ONCOLOGY_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_COVID19_UUID + ".programSummary.dashboard",
-            "pih.app." + PihEmrConstants.PROGRAM_ZIKA_UUID + ".programSummary.dashboard"
+            "pih.app." + PihEmrConfigConstants.PROGRAM_ASTHMA_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_DIABETES_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_ANC_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_MCH_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_NCD_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_COVID19_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_ZIKA_UUID + ".programSummary.dashboard"
     );
 
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
@@ -470,11 +470,11 @@ public class CustomAppLoaderConstants {
     static {
         Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
 
-        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(PihEmrConstants.PROGRAM_HIV_UUID,
+        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(PihEmrConfigConstants.PROGRAM_HIV_UUID,
                 Arrays.asList(
                     // ToDo:  Move Program enrollment is first?
-                    "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + "patientProgramSummary",
-                    "pih.app." + PihEmrConstants.PROGRAM_HIV_UUID + ".patientProgramHistory",
+                    "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + "patientProgramSummary",
+                    "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + ".patientProgramHistory",
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
                     Apps.HIV_NEXT_DISPENSING,
@@ -489,7 +489,7 @@ public class CustomAppLoaderConstants {
     static {
         Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
 
-        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(PihEmrConstants.PROGRAM_HIV_UUID,
+        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(PihEmrConfigConstants.PROGRAM_HIV_UUID,
                 Arrays.asList(
                         Apps.HIV_VISIT_SUMMARY,
                         Apps.HIV_DIAGNOSES_SUMMARY,

@@ -32,7 +32,7 @@ import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
-import org.pih.openmrs.config.pihemr.PihEmrConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -1530,7 +1530,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableOncology() {
 
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ONCOLOGY_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
 
         extensions.add(visitAction(Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
@@ -1645,7 +1645,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableNCDs() {
 
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_NCD_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_NCD_UUID);
 
         String definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-initial.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
@@ -1785,15 +1785,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableANCProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ANC_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ANC_UUID);
     }
 
     private void enableMCHProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MCH_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MCH_UUID);
     }
 
     private void enableTBProgram(){
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_TB_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_TB_UUID);
     }
 
     private void enableVaccinationOnly() {
@@ -2034,7 +2034,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableHIVProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_HIV_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_HIV_UUID);
 
         // additional columns to add to the HIV Program Dashboard
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
@@ -2200,7 +2200,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps",
                 "patientdashboard/visitIncludes",
                 null,
-                PihEmrConstants.PROGRAM_HIV_UUID + ".includeFragments",
+                PihEmrConfigConstants.PROGRAM_HIV_UUID + ".includeFragments",
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
 
 
@@ -2292,7 +2292,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableOvc() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_OVC_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_OVC_UUID);
 
         extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
@@ -2371,7 +2371,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableAsthmaProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ASTHMA_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID);
 
         apps.add(addToAsthmaDashboardFirstColumn(app(Apps.ASTHMA_SYMPTOMS_OBS_TABLE,
                 "pih.app.asthma.symptomsObsTable.title",
@@ -2393,7 +2393,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableDiabetesProgram() {
 
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_DIABETES_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_DIABETES_UUID);
 
         apps.add(addToDiabetesDashboardFirstColumn(app(Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,
                 "pih.app.abdominalCircumference.graph.title",
@@ -2487,7 +2487,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableEpilepsyProgram() {
 
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_EPILEPSY_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID);
 
         apps.add(addToEpilepsyDashboardSecondColumn(app(Apps.EPILEPSY_SUMMARY,
                 "pih.app.patientSummary.title",
@@ -2520,7 +2520,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableHypertensionProgram() {
 
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_HYPERTENSION_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID);
 
         apps.add(addToHypertensionDashboardFirstColumn(
                 graphs.getBloodPressureGraph(".htn"),
@@ -2555,7 +2555,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
 
     private void enableMentalHealthProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID);
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
@@ -2594,7 +2594,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableMalnutritionProgram() {
-        configureBasicProgramDashboard(PihEmrConstants.PROGRAM_MALNUTRITION_UUID);
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID);
 
         apps.add(addToMalnutritionDashboardSecondColumn(
                 graphs.getBmiGraph(".malnutrition"),
@@ -2751,32 +2751,32 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         List<String> supportedPrograms = new ArrayList<String>();
 
         if (config.isComponentEnabled(Components.ANC_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_ANC_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ANC_UUID);
             enableANCProgram();
         }
 
         if (config.isComponentEnabled(Components.ASTHMA_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_ASTHMA_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID);
             enableAsthmaProgram();
         }
 
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_DIABETES_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_DIABETES_UUID);
             enableDiabetesProgram();
         }
 
         if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_EPILEPSY_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID);
             enableEpilepsyProgram();
         }
 
         if (config.isComponentEnabled(Components.HIV)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_HIV_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_HIV_UUID);
             enableHIV();
         }
 
         if (config.isComponentEnabled(Components.HIV_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_HIV_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_HIV_UUID);
             enableHIVProgram();
         }
 
@@ -2794,18 +2794,18 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_HYPERTENSION_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID);
             enableHypertensionProgram();
         }
 
         if (config.isComponentEnabled(Components.MALNUTRITION_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_MALNUTRITION_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID);
             enableMalnutritionProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH)) {
             enableMentalHealthForm();
-            supportedPrograms.add(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID);
             enableMentalHealthProgram();
         }
 
@@ -2814,12 +2814,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID);
             enableMentalHealthProgram();
         }
 
         if (config.isComponentEnabled(Components.NCD)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_NCD_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_NCD_UUID);
             enableNCDs();
 
             if (config.isComponentEnabled(Components.ECHO)) {
@@ -2828,7 +2828,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.OVC)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_OVC_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_OVC_UUID);
             enableOvc();
         }
 
@@ -2837,34 +2837,34 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_ONCOLOGY_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
             enableOncology();
         }
 
         if (config.isComponentEnabled(Components.MCH)) {
             enableMCHForms();
-            supportedPrograms.add(PihEmrConstants.PROGRAM_MCH_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MCH_UUID);
             enableMCHProgram();
         }
 
         if(config.isComponentEnabled(Components.TUBERCULOSIS)){
-            supportedPrograms.add(PihEmrConstants.PROGRAM_TB_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_TB_UUID);
             enableTBProgram();
         }
 
         if (config.isComponentEnabled(Components.MCH_PROGRAM)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_MCH_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MCH_UUID);
             enableMCHProgram();
         }
 
         if (config.isComponentEnabled(Components.ZIKA)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_ZIKA_UUID);
-            configureBasicProgramDashboard(PihEmrConstants.PROGRAM_ZIKA_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ZIKA_UUID);
+            configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ZIKA_UUID);
         }
 
         if (config.isComponentEnabled(Components.COVID19)) {
-            supportedPrograms.add(PihEmrConstants.PROGRAM_COVID19_UUID);
-            configureBasicProgramDashboard(PihEmrConstants.PROGRAM_COVID19_UUID);
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_COVID19_UUID);
+            configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_COVID19_UUID);
         }
 
         // TODO better/more granular privileges?
