@@ -1,8 +1,8 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
+import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -44,12 +44,12 @@ public class SectionsMexico extends SectionsDefault {
     private Question getNationalIDNumber() {
         Question q = new Question();
         q.setId("national-id");
-        q.setLegend("ui.i18n.PatientIdentifierType.name." + MexicoPatientIdentifierTypes.CURP.uuid());
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + MexicoPatientIdentifierTypes.CURP.uuid());
+        q.setLegend("ui.i18n.PatientIdentifierType.name." + CesConfigConstants.PATIENTIDENTIFIERTYPE_CURP_UUID);
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + CesConfigConstants.PATIENTIDENTIFIERTYPE_CURP_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + MexicoPatientIdentifierTypes.CURP.uuid());
-        f.setUuid(MexicoPatientIdentifierTypes.CURP.uuid());
+        f.setFormFieldName("patientIdentifier" + CesConfigConstants.PATIENTIDENTIFIERTYPE_CURP_UUID);
+        f.setUuid(CesConfigConstants.PATIENTIDENTIFIERTYPE_CURP_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(18));
 
