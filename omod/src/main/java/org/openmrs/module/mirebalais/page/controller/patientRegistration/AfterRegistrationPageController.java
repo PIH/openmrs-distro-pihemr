@@ -5,12 +5,12 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -53,7 +53,7 @@ public class AfterRegistrationPageController {
      * @return
      */
     private String getRedirectUrlForLiberia(Config config, Patient patient) {
-        PatientIdentifier pi = patient.getPatientIdentifier(LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID.name());
+        PatientIdentifier pi = patient.getPatientIdentifier(LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
         if (pi == null) {
             return null;
         }

@@ -17,6 +17,7 @@ import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.CesConfigConstants;
+import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -28,7 +29,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -1726,7 +1726,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_PEDS_ACTION,
-                    "ui.i18n.EncounterType.name." + LiberiaEncounterTypes.PEDS.uuid(),
+                    "ui.i18n.EncounterType.name." + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAPEDSFORM_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("peds.xml")),
