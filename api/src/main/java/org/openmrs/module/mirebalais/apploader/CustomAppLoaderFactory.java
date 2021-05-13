@@ -16,8 +16,10 @@ import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientR
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
 import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
+import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -27,12 +29,10 @@ import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaEncounterTypes;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -1993,7 +1993,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
 
             extensions.add(visitAction(Extensions.MEXICO_CONSULT_ACTION,
-                    "ui.i18n.EncounterType.name." + MexicoEncounterTypes.MEXICO_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + CesConfigConstants.ENCOUNTERTYPE_MEXICOCONSULT_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("consult.xml")),
