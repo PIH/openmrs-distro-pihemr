@@ -1,9 +1,9 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
+import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -50,11 +50,11 @@ public class SectionsSierraLeone extends SectionsDefault {
         Question q = new Question();
         q.setId("wellbody-emr-id");
         q.setLegend("Wellbody EMR ID");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
-        f.setUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid());
+        f.setFormFieldName("patientIdentifier" + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID);
+        f.setUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
@@ -66,11 +66,11 @@ public class SectionsSierraLeone extends SectionsDefault {
         Question q = new Question();
         q.setId("kgh-emr-id");
         q.setLegend("KGH EMR ID");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
-        f.setUuid(SierraLeonePatientIdentifierTypes.KGH_EMR_ID.uuid());
+        f.setFormFieldName("patientIdentifier" + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID);
+        f.setUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
