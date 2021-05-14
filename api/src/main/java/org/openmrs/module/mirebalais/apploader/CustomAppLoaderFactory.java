@@ -21,6 +21,7 @@ import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -29,7 +30,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
@@ -2003,26 +2003,26 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid(),
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-initial.xml")
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP))));
+                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
+                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid(),
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatient-followup.xml")
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP))));
+                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
+                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
         }
 
     }
