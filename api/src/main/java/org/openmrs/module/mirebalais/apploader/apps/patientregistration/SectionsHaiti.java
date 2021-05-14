@@ -1,4 +1,5 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
+
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -6,10 +7,10 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.mirebalais.require.RequireUtil;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -369,11 +370,11 @@ public class SectionsHaiti extends SectionsDefault {
         Question q = new Question();
         q.setId("hivemr-dossier-id");
         q.setLegend("HIV Dossier");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
-        f.setUuid(PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER.uuid());
+        f.setFormFieldName("patientIdentifier" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        f.setUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
@@ -385,11 +386,11 @@ public class SectionsHaiti extends SectionsDefault {
         Question q = new Question();
         q.setId("hivemr-v1-id");
         q.setLegend("HIVEMR-V1");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
-        f.setUuid(PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+        f.setFormFieldName("patientIdentifier" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
+        f.setUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 

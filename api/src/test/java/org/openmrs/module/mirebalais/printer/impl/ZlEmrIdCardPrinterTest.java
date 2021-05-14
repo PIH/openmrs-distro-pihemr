@@ -21,12 +21,11 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PersonAttributeTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
@@ -67,16 +66,13 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
     @Autowired
-    PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
-
-    @Autowired
     PersonAttributeTypeBundle personAttributeTypeBundle;
 
     @Autowired
     HaitiPersonAttributeTypeBundle haitiPersonAttributeTypeBundle;
 
     @Autowired
-    HaitiMetadataBundle haitiMetadataBundle;
+    PihCoreMetadataBundle pihCoreMetadataBundle;
 
     @Before
     public void setup() throws Exception {
@@ -87,10 +83,15 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
 
-        haitiMetadataBundle.install(); // to install primary identifier type
-        pihHaitiPatientIdentifierTypeBundle.install(); // Install Patient Identifier Types for distribution
         personAttributeTypeBundle.install(); // Install Person Attribute Types for distribution
         haitiPersonAttributeTypeBundle.install(); // Instal Person Attribute Types provided by Haiti Core
+
+        // TODO: This might not work any more after removing the bundles.  I added this in but might need to be tweaked to make it actually work
+        PatientIdentifierType zlemrId = new PatientIdentifierType();
+        zlemrId.setUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
+        zlemrId.setName("ZL EMR ID");
+        zlemrId.setLocationBehavior(PatientIdentifierType.LocationBehavior.NOT_USED);
+        patientService.savePatientIdentifierType(zlemrId);
 
         addressBundle.installAddressTemplate(); // Install address template needed for layout on id card
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
@@ -132,7 +133,7 @@ public class ZlEmrIdCardPrinterTest extends BaseModuleContextSensitiveTest {
 
         // Create a patient for whom to print an id card
         PatientBuilder pb = testDataManager.patient().birthdate("1948-02-16").gender("M").name("Ringo", "Starr");
-        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), "X2ECEX", location);
+        pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID), "X2ECEX", location);
         pb.personAttribute(MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()), "555-1212");
         pb.address("should be line 2", "should be line 1", "should be line 4", "should be line 5a", "should not exist", "should be line 5b");
         Patient patient = pb.save();
