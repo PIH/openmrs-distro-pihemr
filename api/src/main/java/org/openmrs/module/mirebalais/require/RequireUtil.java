@@ -45,10 +45,14 @@ public class RequireUtil {
     }
 
     public static String visitDoesNotHaveEncounterOfType(EncounterTypeDescriptor descriptor) {
+        return visitDoesNotHaveEncounterOfType(descriptor.uuid());
+    }
+
+    public static String visitDoesNotHaveEncounterOfType(String encounterTypeUuid) {
         return new String("visit && (!visit.encounters || " +
-            "!some(visit.encounters, (function(encounter) { " +
-            "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
-            "' } )))");
+                "!some(visit.encounters, (function(encounter) { " +
+                "  return encounter.encounterType.uuid === '" + encounterTypeUuid +
+                "' } )))");
     }
 
     public static String patientNotDead() {

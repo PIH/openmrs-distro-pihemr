@@ -4,6 +4,8 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.PatientService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
@@ -23,12 +25,13 @@ public class AfterRegistrationPageController {
     public String controller(@SpringBean Config config,
                              @RequestParam("patientId") Patient patient,
                              @RequestParam("encounterId") Encounter encounter,
+                             @SpringBean("patientService") PatientService patientService,
                              UiUtils ui) {
 
         String returnUrl = ui.pageLink("registrationapp", "findPatient", ObjectUtil.toMap("appId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
 
         if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
-            String redirectUrl = getRedirectUrlForLiberia(config, patient);
+            String redirectUrl = getRedirectUrlForLiberia(config, patientService, patient);
             if (redirectUrl == null) {
                 return "redirect:" + returnUrl;
             } else {
@@ -52,8 +55,9 @@ public class AfterRegistrationPageController {
      * @param patient
      * @return
      */
-    private String getRedirectUrlForLiberia(Config config, Patient patient) {
-        PatientIdentifier pi = patient.getPatientIdentifier(LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
+    private String getRedirectUrlForLiberia(Config config, PatientService patientService, Patient patient) {
+        PatientIdentifierType pit = patientService.getPatientIdentifierTypeByUuid(LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
+        PatientIdentifier pi = patient.getPatientIdentifier(pit);
         if (pi == null) {
             return null;
         }
