@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.require;
 
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
-import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -37,10 +36,10 @@ public class RequireUtil {
     }
 
     // note that Java 8 Nashorn script engine support does not (fully?) support ECMAScript6 so we can't use arrow notation or map, etc
-    public static String visitHasEncounterOfType(EncounterTypeDescriptor descriptor) {
+    public static String visitHasEncounterOfType(String encounterTypeUuid) {
         return new String("visit && visit.encounters && " +
               "some(visit.encounters, function(encounter) { " +
-              "  return encounter.encounterType.uuid === '" + descriptor.uuid() +
+              "  return encounter.encounterType.uuid === '" + encounterTypeUuid +
               "' })");
     }
 
