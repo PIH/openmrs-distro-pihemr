@@ -4,11 +4,21 @@ import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.*;
-import org.openmrs.api.*;
+import org.openmrs.CareSetting;
+import org.openmrs.Concept;
+import org.openmrs.Encounter;
+import org.openmrs.Order;
+import org.openmrs.Patient;
+import org.openmrs.Provider;
+import org.openmrs.TestOrder;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.OrderService;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.test.TestUtil;
@@ -17,7 +27,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 /**
  * Creates a configurable large set of Test Orders for testing the labworkflow app. This test could be run from the command line:
@@ -30,7 +45,7 @@ import java.util.*;
 @SkipBaseSetup
 public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
 
-    public static final String TEST_ORDER_ENCOUNTER_TYPE = EncounterTypes.TEST_ORDER.uuid();
+    public static final String TEST_ORDER_ENCOUNTER_TYPE = PihEmrConfigConstants.ENCOUNTERTYPE_TEST_ORDER_UUID;
     public static final String MAIN_LABORATORY_LOCATION = "Laboratwa Prensipal";
     public static final String[] CONCEPTS_UUIDS = {
             "d9520d86-6042-4b82-a324-2abf3d4fdfa5", //Complete hematogram

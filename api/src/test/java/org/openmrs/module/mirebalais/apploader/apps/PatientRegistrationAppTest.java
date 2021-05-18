@@ -9,10 +9,10 @@ import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +72,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
         assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page?appId=registrationapp.registerPatient"));
-        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(EncounterTypes.PATIENT_REGISTRATION.uuid()));
+        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK));
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());

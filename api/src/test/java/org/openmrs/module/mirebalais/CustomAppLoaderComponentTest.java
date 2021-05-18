@@ -7,9 +7,9 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,13 +68,15 @@ public class CustomAppLoaderComponentTest extends BaseModuleContextSensitiveTest
 
         factory.setExtensions(extensions);
 
-        registerTemplateForEncounterType(EncounterTypes.PATIENT_REGISTRATION, factory.findExtensionById("id"), "icon",
+        String patRegUuid = PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID;
+
+        registerTemplateForEncounterType(patRegUuid, factory.findExtensionById("id"), "icon",
                 true, false, "someLink", "primaryEncounterRoleUuid");
 
         assertTrue(template.getExtensionParams().containsKey("supportedEncounterTypes"));
-        assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey(EncounterTypes.PATIENT_REGISTRATION.uuid()));
+        assertTrue(((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).containsKey(patRegUuid));
 
-        Map<String, Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get(EncounterTypes.PATIENT_REGISTRATION.uuid());
+        Map<String, Object> params = (Map<String, Object>) ((Map<String, Object>) template.getExtensionParams().get("supportedEncounterTypes")).get(patRegUuid);
         assertThat((String) params.get("icon"), is("icon"));
         assertThat((String) params.get("primaryEncounterRoleUuid"), is("primaryEncounterRoleUuid"));
         assertThat((Boolean) params.get("displayWithHtmlForm"), is(true));

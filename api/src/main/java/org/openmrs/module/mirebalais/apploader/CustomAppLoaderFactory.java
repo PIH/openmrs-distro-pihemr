@@ -28,7 +28,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -541,7 +540,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 sessionLocationHasTag("Check-In Location")));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.CHECK_IN,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw icon-check-in", true, true,
                 editSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")), null);
     }
@@ -584,7 +583,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 "App: mirebalais.outpatientVitals",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                        "encounterTypeUuid", EncounterTypes.VITALS.uuid(),
+                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                         "editable", Boolean.TRUE,
                         "edit-provider", "htmlformentryui",
                         "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
@@ -604,7 +603,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "widget", "obsacrossencounters",
                             "icon", "fas fa-fw fa-heartbeat",
                             "label", "mirebalais.vitalsTrend.label",
-                            "encounterType", EncounterTypes.VITALS.uuid(),
+                            "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                             "detailsUrl", patientVisitsPageUrl,
                             "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
                             "concepts", MirebalaisConstants.HEART_RATE_UUID + "," +
@@ -618,7 +617,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.VITALS,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-heartbeat", null, true,
                 editSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")), null);
 
@@ -641,7 +640,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.CONSULTATION,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
                 findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
     }
 
@@ -704,16 +703,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // TODO will these be needed after we stop using the old patient visits page view?
-        registerTemplateForEncounterType(EncounterTypes.ADMISSION,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-sign-in-alt", null, true, null, null);
 
-        registerTemplateForEncounterType(EncounterTypes.CANCEL_ADMISSION,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CANCEL_ADMISSION_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-ban", true, true, null, null);
 
-        registerTemplateForEncounterType(EncounterTypes.TRANSFER,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_TRANSFER_UUID,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "fas fa-fw fa-share", null, true, null, null);
 
-        registerTemplateForEncounterType(EncounterTypes.EXIT_FROM_CARE,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_EXIT_FROM_CARE_UUID,
                 findExtensionById(EncounterTemplates.NO_DETAILS), "fas fa-fw fa-sign-out-alt", null, true, null, null);
     }
 
@@ -793,13 +792,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_ORDER,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_RADIOLOGY_ORDER_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
 
-        registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_STUDY,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_RADIOLOGY_STUDY_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
 
-        registerTemplateForEncounterType(EncounterTypes.RADIOLOGY_REPORT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_RADIOLOGY_REPORT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
     }
 
@@ -833,7 +832,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-pills",
                         "label", "mirebalais.dispensing.title",
-                        "encounterType", EncounterTypes.MEDICATION_DISPENSED.uuid(),
+                        "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
                         "useConceptNameForDrugValues", true,
@@ -843,7 +842,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.MEDICATION_DISPENSED,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-pills", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
@@ -859,7 +858,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 sessionLocationHasTag("Surgery Note Location")));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.POST_OPERATIVE_NOTE,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_POST_OPERATIVE_NOTE_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true, null, "9b135b19-7ebe-4a51-aea2-69a53f9383af");
     }
 
@@ -1263,7 +1262,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                        "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
                         "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-rs.xml"),
                         "editable", true,
                         "creatable", true)),
@@ -1322,7 +1321,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                            "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
                             "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-insurance.xml"),
                             "editable", true)),
                     "coreapps",
@@ -1334,7 +1333,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                        "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
                         "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-social.xml"),
                         "editable", true)),
                 "coreapps",
@@ -1348,7 +1347,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
-                            "encounterTypeUuid", EncounterTypes.PATIENT_REGISTRATION.uuid(),
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
                             "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-contact.xml"),
                             "editable", true)),
                     "coreapps",
@@ -1362,7 +1361,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null,
                     "App: registrationapp.registerPatient",
                     objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
-                            "encounterTypeUuid", EncounterTypes.CHECK_IN.uuid(),
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,
                             "definitionUiResource", PihCoreUtil.getFormResource("checkin.xml"),
                             "editable", true,
                             "edit-provider", "htmlformentryui",
@@ -1539,14 +1538,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("Oncology Consult Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_INITIAL_VISIT),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_CONSULT),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_CONSULT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
@@ -1557,14 +1556,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntake.xml")),
                 Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("Oncology Consult Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_INITIAL_VISIT),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ONCOLOGY_CONSULT),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.ONCOLOGY_INITIAL_VISIT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
@@ -1611,7 +1610,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         extensions.add(cloneAsOncologyOverallAction(chemoOrdering));
         extensions.add(cloneAsOncologyVisitAction(chemoRecording));
 
-        registerTemplateForEncounterType(EncounterTypes.CHEMOTHERAPY_SESSION,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHEMOTHERAPY_SESSION_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-retweet", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
@@ -1637,7 +1636,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.LAB_RESULTS,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_LAB_RESULTS_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-vial", true, true,
                 editSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
 
@@ -1653,14 +1652,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         extensions.add(visitAction(Extensions.NCD_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_INITIAL_CONSULT.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID,
                 "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("NCD Consult Location"),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_INITIAL_CONSULT),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_FOLLOWUP_CONSULT),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -1671,14 +1670,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         extensions.add(visitAction(Extensions.NCD_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.NCD_FOLLOWUP_CONSULT.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID,
                 "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("NCD Consult Location"),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_INITIAL_CONSULT),
-                    visitDoesNotHaveEncounterOfType(EncounterTypes.NCD_FOLLOWUP_CONSULT),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -1707,35 +1706,35 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
 
             extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-initial.xml")),
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-followup.xml")),
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,            //TODO: working on this
-                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-delivery.xml")),
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_PEDS_ACTION,
@@ -1749,48 +1748,48 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         } else {
 
             extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_INTAKE.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.ANC_FOLLOWUP.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_INTAKE),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.ANC_FOLLOWUP),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             and(patientIsFemale()))));
 
             extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.MCH_DELIVERY.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                     "fas fa-fw fa-baby",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.MCH_DELIVERY),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
                             and(patientIsFemale()))));
 
         }
 
         if (config.isComponentEnabled(Components.OBGYN)) {
             extensions.add(visitAction(Extensions.OB_GYN_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.OB_GYN.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_OB_GYN_UUID,
                     "fas fa-fw fa-female",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.OB_GYN),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OB_GYN_UUID),
                             and(patientIsFemale()))));
 
         }
@@ -1811,13 +1810,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableVaccinationOnly() {
         extensions.add(visitAction(Extensions.VACCINATION_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.VACCINATION.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID,
                 "fas fa-fw fa-umbrella",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vaccination-only.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_VACCINATION.privilege(),
                 and(sessionLocationHasTag("Vaccination Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.VACCINATION))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID))));
     }
 
     private void enableMentalHealthForm() {
@@ -1834,10 +1833,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(definitionUiResource),
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
                 and(sessionLocationHasTag("Mental Health Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(EncounterTypes.MENTAL_HEALTH_ASSESSMENT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-user", true, true,
                 null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
     }
@@ -1851,7 +1850,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/vct.xml")),
                 Privileges.TASK_EMR_ENTER_VCT.privilege(),
                 and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.VCT))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));
     }
 
     private void enableSocioEconomics() {
@@ -1862,7 +1861,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("socio-econ.xml")),
                 Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
                 and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.SOCIO_ECONOMICS))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID))));
     }
 
     private void enableChartSearch() {
@@ -1919,7 +1918,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 sessionLocationHasTag("ED Triage Location")));
 
         extensions.add(visitAction(Extensions.ED_TRIAGE_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.EMERGENCY_TRIAGE.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID,
                 "fas fa-fw fa-ambulance",
                 "link",
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=" + Apps.ED_TRIAGE,
@@ -1927,7 +1926,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 and(sessionLocationHasTag("ED Triage Location"), patientHasActiveVisit())));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(EncounterTypes.EMERGENCY_TRIAGE,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID,
                 findExtensionById(EncounterTemplates.ED_TRIAGE), "fas fa-fw fa-ambulance", false, true,
                 "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}&editable=true",
                 null);
@@ -1948,56 +1947,56 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag("Primary Care Consult Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-peds-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag("Primary Care Consult Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-initial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag("Primary Care Consult Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid(),
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("primary-care-adult-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                     null,
                     and(sessionLocationHasTag("Primary Care Consult Location"),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT),
-                            visitDoesNotHaveEncounterOfType(EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
                             or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -2085,7 +2084,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-pills",
                         "label", "mirebalais.dispensing.title",
-                        "encounterType", EncounterTypes.HIV_DISPENSING.uuid(),
+                        "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,
                         "detailsUrl", patientVisitsPageUrl,
                         "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
                         "useConceptNameForDrugValues", true,
@@ -2124,7 +2123,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-diagnoses",
                         "label", "pih.app.hiv.diagnoses.title",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP.uuid(),
+                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
                         "concepts",
                             MirebalaisConstants.DIAGNOSIS_CODED_CONCEPT_UUID + "," +
                                     MirebalaisConstants.DIAGNOSIS_NONCODED_CONCEPT_UUID,
@@ -2142,7 +2141,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "icon", "fas fa-fw fa-allergies",
                         "label", "pihcore.adverse.reactions",
                         "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", EncounterTypes.HIV_INTAKE.uuid() + "," + EncounterTypes.HIV_FOLLOWUP.uuid(),
+                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
                         "concepts",
                         MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
@@ -2174,8 +2173,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_FOLLOWUP),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -2232,8 +2231,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.HIV_FOLLOWUP),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -2264,39 +2263,39 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         enableCovid19IntakeForm();
 
         extensions.add(visitAction(Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_FOLLOWUP.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_FOLLOWUP_UUID,
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Followup.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag("COVID-19 Location"),
-                    visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+                    visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
 
         extensions.add(visitAction(Extensions.COVID19_DISCHARGE_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_DISCHARGE.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID,
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag("COVID-19 Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_DISCHARGE),
-                        visitHasEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID),
+                        visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
     }
 
     private void enableCovid19IntakeForm() {
         extensions.add(visitAction(Extensions.COVID19_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.COVID19_INTAKE.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID,
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
                 Privileges.TASK_EMR_ENTER_COVID.privilege(),
                 and(sessionLocationHasTag("COVID-19 Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.COVID19_INTAKE))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
     }
 
     private void enableTuberculosis() {
         extensions.add(visitAction(Extensions.TB_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.TB_INTAKE.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_TB_INTAKE_UUID,
                 "fas fa-fw fa-wind",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("tbIntake.xml")),
@@ -2308,24 +2307,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_OVC_UUID);
 
         extensions.add(visitAction(Extensions.OVC_INITIAL_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_INTAKE.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID,
                 "fas fa-fw fa-child",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
                 and(or(patientAgeUnknown(), patientYoungerThan(22)),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
 
         extensions.add(visitAction(Extensions.OVC_FOLLOWUP_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.OVC_FOLLOWUP.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID,
                 "fas fa-fw fa-child",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
                 and(or(patientAgeUnknown(), patientYoungerThan(22)),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_INTAKE),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.OVC_FOLLOWUP))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
     }
 
     private void enableMarkPatientDead() {
@@ -3103,9 +3102,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void registerLacollinePatientRegistrationEncounterTypes() {
         // TODO: I *believe* these are used in Lacolline, but not 100% sure
-        registerTemplateForEncounterType(EncounterTypes.PAYMENT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PAYMENT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-money-bill-alt");
-        registerTemplateForEncounterType(EncounterTypes.PRIMARY_CARE_VISIT,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_VISIT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-calendar");
 
     }
