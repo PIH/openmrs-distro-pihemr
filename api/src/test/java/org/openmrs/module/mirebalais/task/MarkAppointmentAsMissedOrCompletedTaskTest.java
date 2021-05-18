@@ -18,7 +18,6 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -56,9 +55,6 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
     private MetadataMappingService metadataMappingService;
 
     @Autowired
-    private EncounterTypeBundle encounterTypeBundle;
-
-    @Autowired
     private EncounterRoleBundle encounterRoleBundle;
 
     @Autowired
@@ -68,7 +64,6 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends BaseModuleContex
     public void before() throws Exception {
         executeDataSet("appointmentTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
-        deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(encounterRoleBundle);
         deployService.installBundle(visitTypeBundle);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
