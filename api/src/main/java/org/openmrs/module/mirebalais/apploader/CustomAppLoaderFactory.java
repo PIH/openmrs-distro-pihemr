@@ -1688,13 +1688,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         String definitionUiResource = PihCoreUtil.getFormResource("echocardiogram.xml");
 
         extensions.add(visitAction(Extensions.ECHO_VISIT_ACTION,
-                "ui.i18n.EncounterType.name." + EncounterTypes.ECHOCARDIOGRAM.uuid(),
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ECHOCARDIOGRAM_UUID,
                 "fas fa-fw fa-chart-line",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
                 Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("NCD Consult Location"),
-                        visitDoesNotHaveEncounterOfType(EncounterTypes.ECHOCARDIOGRAM),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ECHOCARDIOGRAM_UUID),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));

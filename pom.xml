@@ -800,9 +800,6 @@
         <repository>  <!-- Mekom repository, for Initializer -->
             <id>mks-nexus-public</id>
             <url>https://nexus.mekomsolutions.net/repository/maven-public/</url>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
         </repository>
         <repository>
             <id>ossrh</id>
