@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
@@ -79,11 +78,11 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
 
         JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
-        assertPersonAttributeQuestionFound(demographicsSection, 0, HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid(), true);
+        assertPersonAttributeQuestionFound(demographicsSection, 0, PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID, true);
 
         JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
-        assertPersonAttributeQuestionFound(contactInfoSection, 1, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
+        assertPersonAttributeQuestionFound(contactInfoSection, 1, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID, false);
 
         JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 4);
         assertSingleFieldQuestion(socialSection, 0, "personAddress");

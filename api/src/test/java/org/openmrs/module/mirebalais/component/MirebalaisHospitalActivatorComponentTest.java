@@ -30,13 +30,14 @@ import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
-import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBundle;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -46,7 +47,6 @@ import org.openmrs.module.reporting.dataset.column.definition.RowPerObjectColumn
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,7 +66,7 @@ import static org.mockito.Mockito.when;
 
 @SkipBaseSetup          // note that we skip the base setup because we don't want to include the standard test data
 @Ignore
-public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextSensitiveTest {
+public class MirebalaisHospitalActivatorComponentTest extends PihCoreContextSensitiveTest {
 
     @Override
     public Properties getRuntimeProperties() {
@@ -99,9 +99,6 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
     private MetadataDeployService deployService;
 
     @Autowired
-    private HaitiPersonAttributeTypeBundle haitiPersonAttributeTypeBundle;
-
-    @Autowired
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
     @Before
@@ -115,7 +112,7 @@ public class MirebalaisHospitalActivatorComponentTest extends BaseModuleContextS
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
-        haitiPersonAttributeTypeBundle.install();
+        loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
 
         // run the emrapi activator
         emrApiActivator = new EmrApiActivator();

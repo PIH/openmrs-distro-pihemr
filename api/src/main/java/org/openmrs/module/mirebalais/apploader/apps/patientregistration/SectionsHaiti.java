@@ -5,12 +5,12 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.mirebalais.require.RequireUtil;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -399,15 +399,16 @@ public class SectionsHaiti extends SectionsDefault {
     }
 
     private Question getNumeroIdentificationFiscal() {
+        String nifUuid = Metadata.getNifIdentifierType().getUuid();
         Question q = new Question();
         q.setId("numero-identification-fiscal");
         q.setLegend("NIF");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + HaitiPatientIdentifierTypes.NIF_ID.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + nifUuid);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.NIF_ID.uuid());
+        f.setFormFieldName("patientIdentifier" + nifUuid);
         //f.setLabel(HaitiPatientIdentifierTypes.NIF_ID.name());
-        f.setUuid(HaitiPatientIdentifierTypes.NIF_ID.uuid());
+        f.setUuid(nifUuid);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
@@ -416,15 +417,16 @@ public class SectionsHaiti extends SectionsDefault {
     }
 
     private Question getCarteDIdentificationNationale() {
+        String cinUuid = Metadata.getCinIdentifierType().getUuid();
         Question q = new Question();
         q.setId("carte-d-identification-nationale");
         q.setLegend("CIN");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + HaitiPatientIdentifierTypes.CIN_ID.uuid());
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + cinUuid);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + HaitiPatientIdentifierTypes.CIN_ID.uuid());
+        f.setFormFieldName("patientIdentifier" + cinUuid);
         //f.setLabel(HaitiPatientIdentifierTypes.CIN_ID.name());
-        f.setUuid(HaitiPatientIdentifierTypes.CIN_ID.uuid());
+        f.setUuid(cinUuid);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
