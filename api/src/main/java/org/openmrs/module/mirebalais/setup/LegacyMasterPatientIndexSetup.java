@@ -6,13 +6,13 @@ import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.pihcore.ZlConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +41,7 @@ public class LegacyMasterPatientIndexSetup {
         locationMap.put("23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960", Context.getLocationService().getLocationByUuid(MirebalaisConstants.LACOLLINE_LOCATION_UUID));
 
         Map<String, PersonAttributeType> attributeTypeMap = new HashMap<String, PersonAttributeType>();
-        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()));
+        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", Metadata.getPhoneNumberAttributeType());
 
         RemoteServerConfiguration config = new RemoteServerConfiguration();
         config.setUrl(url);

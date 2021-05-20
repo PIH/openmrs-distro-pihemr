@@ -8,14 +8,11 @@ import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.PersonAttributeType;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiActivator;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
-import org.openmrs.module.haiticore.metadata.bundles.HaitiAddressBundle;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
@@ -26,6 +23,7 @@ import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterModel;
@@ -59,9 +57,6 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
     MetadataMappingService metadataMappingService;
 
     @Autowired
-    HaitiAddressBundle addressBundle;
-
-    @Autowired
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
     @Autowired
@@ -80,7 +75,8 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
         loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
 
-        addressBundle.installAddressTemplate(); // Install address template needed for layout on id card
+        // TODO: Install address template from iniz here
+
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
 
         Config config = mock(Config.class);
@@ -121,7 +117,7 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
         // Create a patient for whom to print an id card
         PatientBuilder pb = testDataManager.patient().birthdate("1948-02-16").gender("M").name("Ringo", "Starr");
         pb.identifier(MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID), "X2ECEX", location);
-        pb.personAttribute(MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()), "555-1212");
+        pb.personAttribute(Metadata.getPhoneNumberAttributeType(), "555-1212");
         pb.address("should be line 2", "should be line 1", "should be line 4", "should be line 5a", "should not exist", "should be line 5b");
         Patient patient = pb.save();
 
