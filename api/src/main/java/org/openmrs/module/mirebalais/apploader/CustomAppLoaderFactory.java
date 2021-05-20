@@ -2255,6 +2255,33 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enablePMTCTForms() {
         // ToDo:  Add PMTCT forms
+        extensions.add(visitAction(Extensions.PMTCT_INITIAL_VISIT_ACTION,
+                "pih.task.pmtctIntake.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/pmtct-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag("HIV Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
+                        and(patientIsFemale()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        extensions.add(visitAction(Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
+                "pih.task.pmtctFollowup.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/pmtct-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag("HIV Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
+                        and(patientIsFemale()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableCovid19() {
