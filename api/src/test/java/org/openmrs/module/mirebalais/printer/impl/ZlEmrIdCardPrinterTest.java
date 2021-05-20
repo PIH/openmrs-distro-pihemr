@@ -15,14 +15,15 @@ import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.mirebalais.setup.PrinterSetup;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.openmrs.module.pihcore.TestAddressBundle;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.printer.Printer;
@@ -57,10 +58,13 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
     MetadataMappingService metadataMappingService;
 
     @Autowired
-    ZlEmrIdCardPrinter zlEmrIdCardPrinter;
+    MetadataDeployService metadataDeployService;
 
     @Autowired
-    PihCoreMetadataBundle pihCoreMetadataBundle;
+    TestAddressBundle testAddressBundle;
+
+    @Autowired
+    ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
     @Before
     public void setup() throws Exception {
@@ -71,11 +75,11 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
 
-        // TODO: These are intended to replace loading in the bundles, but I haven't been able to test, I can't seem to get this test to run
+        loadFromInitializer(Domain.LOCATIONS, "locations.csv");
         loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
 
-        // TODO: Install address template from iniz here
+        metadataDeployService.installBundle(testAddressBundle);
 
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
 
