@@ -578,9 +578,23 @@
         <!-- Begin Mekom -->
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>initializer</artifactId>
+            <artifactId>initializer-api</artifactId>
             <version>${initializerVersion}</version>
-            <type>pom</type>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.2</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.3</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
             <scope>provided</scope>
         </dependency>
         <!-- End Mekom -->
