@@ -9,8 +9,7 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
-import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
-import org.pih.openmrs.config.pihemr.PihEmrConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -188,15 +187,15 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToProgramSummaryDashboardFirstColumn(String programUuid, AppDescriptor app, String provider, String fragment) {
@@ -204,111 +203,111 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToAsthmaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToAsthmaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToAsthmaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToDiabetesDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToDiabetesDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToDiabetesSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_DIABETES_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToEpilepsyDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToEpilepsyDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToEpilepsySummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToHypertensionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToHypertensionDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToHypertensionSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMentalHealthDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMentalHealthDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMentalHealthSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMalnutritionDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMalnutritionDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMalnutritionSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMHDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMHDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToMHSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToNCDDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_NCD_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_NCD_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToNCDDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_NCD_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_NCD_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToNCDSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_NCD_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_NCD_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToZikaDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
+        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToZikaDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
+        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToZikaSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramSummaryDashboardFirstColumn(PihEmrConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
+        return addToProgramSummaryDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_ZIKA_UUID, app, provider, fragment);
     }
 
     static public AppDescriptor addToRegistrationSummaryContent(AppDescriptor app, String provider, String fragment, Map<String,Object> fragmentConfig) {
@@ -356,12 +355,12 @@ public class CustomAppLoaderUtil {
 
     static public Extension hivVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
-                PihEmrConstants.PROGRAM_HIV_UUID + ".visitActions", HIV_VISIT_ACTIONS_ORDER.indexOf(id), null);
+                PihEmrConfigConstants.PROGRAM_HIV_UUID + ".visitActions", HIV_VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension oncologyVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
-                PihEmrConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", ONCOLOGY_VISIT_ACTIONS_ORDER.indexOf(id), null);
+                PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", ONCOLOGY_VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension cloneAsHivVisitAction(Extension ext) {
@@ -381,12 +380,12 @@ public class CustomAppLoaderUtil {
 
     static public Extension hivOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
-                PihEmrConstants.PROGRAM_HIV_UUID + ".overallActions", 1, null);
+                PihEmrConfigConstants.PROGRAM_HIV_UUID + ".overallActions", 1, null);
     }
 
     static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
-                PihEmrConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", ONCOLOGY_OVERALL_ACTIONS_ORDER.indexOf(id), null);
+                PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", ONCOLOGY_OVERALL_ACTIONS_ORDER.indexOf(id), null);
     }
 
     static public Extension cloneAsHivOverallAction(Extension ext) {
@@ -542,11 +541,11 @@ public class CustomAppLoaderUtil {
         ext.setFeatureToggle(featureToggle);
     }
 
-    static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon) {
-        registerTemplateForEncounterType(encounterType, template, icon, null, false, null, null);
+    static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon) {
+        registerTemplateForEncounterType(encounterTypeUuid, template, icon, null, false, null, null);
     }
 
-    static public void registerTemplateForEncounterType(EncounterTypeDescriptor encounterType, Extension template, String icon,
+    static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon,
                                                         Boolean displayWithHtmlForm, Boolean editable,
                                                         String editUrl,  // note that if editUrl is null/empty, the standard Html Form link is used by default--that's why we don't specify this is most cases
                                                         String primaryEncounterRoleUuid) {
@@ -576,7 +575,7 @@ public class CustomAppLoaderUtil {
             encounterTypeParams.put("primaryEncounterRoleUuid", primaryEncounterRoleUuid);
         }
 
-        ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterType.uuid(), encounterTypeParams);
+        ((Map<String,Object>) extensionParams.get("supportedEncounterTypes")).put(encounterTypeUuid, encounterTypeParams);
     }
 
     static public ObjectNode patientRegistrationConfig(String afterCreatedUrl, String patientDashboardLink, String registrationEncounterType, String registrationEncounterRole, ObjectNode ... sections) {

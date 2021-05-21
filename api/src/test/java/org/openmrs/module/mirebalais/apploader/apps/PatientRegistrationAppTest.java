@@ -5,14 +5,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,18 +71,18 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
 
         assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page?appId=registrationapp.registerPatient"));
-        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(EncounterTypes.PATIENT_REGISTRATION.uuid()));
+        assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK));
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
 
         JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
-        assertPersonAttributeQuestionFound(demographicsSection, 0, HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid(), true);
+        assertPersonAttributeQuestionFound(demographicsSection, 0, PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID, true);
 
         JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
-        assertPersonAttributeQuestionFound(contactInfoSection, 1, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid(), false);
+        assertPersonAttributeQuestionFound(contactInfoSection, 1, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID, false);
 
         JsonNode socialSection = assertSectionFound(d.getConfig(), 2, "social", "zl.registration.patient.social.label", 4);
         assertSingleFieldQuestion(socialSection, 0, "personAddress");

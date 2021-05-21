@@ -6,13 +6,13 @@ import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
 import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.RuntimeProperties;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.ZlConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,16 +32,16 @@ public class LegacyMasterPatientIndexSetup {
         }
 
         Map<String, PatientIdentifierType> identifierTypeMap = new HashMap<String, PatientIdentifierType>();
-        identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()));
+        identifierTypeMap.put("a541af1e-105c-40bf-b345-ba1fd6a59b85", MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID));
         // TODO create PatientIdentifierType for Lacolline KE dossier number
-        identifierTypeMap.put("e66645eb-03a8-4991-b4ce-e87318e37566", MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid()));
+        identifierTypeMap.put("e66645eb-03a8-4991-b4ce-e87318e37566", MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_EXTERNALDOSSIERNUMBER_UUID));
         // TODO create PatientIdentifierType for Lacolline dental dossier number
 
         Map<String, Location> locationMap = new HashMap<String, Location>();
         locationMap.put("23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960", Context.getLocationService().getLocationByUuid(MirebalaisConstants.LACOLLINE_LOCATION_UUID));
 
         Map<String, PersonAttributeType> attributeTypeMap = new HashMap<String, PersonAttributeType>();
-        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", MetadataUtils.existing(PersonAttributeType.class, HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()));
+        attributeTypeMap.put("340d04c4-0370-102d-b0e3-001ec94a0cc1", Metadata.getPhoneNumberAttributeType());
 
         RemoteServerConfiguration config = new RemoteServerConfiguration();
         config.setUrl(url);

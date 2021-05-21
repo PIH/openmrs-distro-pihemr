@@ -5,7 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -93,7 +94,7 @@ public class ZplCardTemplate {
         data.append("^FS");
 
         /* Telephone */
-        data.append("^FO740,325^ASN^FD" + messageSourceService.getMessage("ui.i18n.PersonAttributeType.name." + HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid(), null, locale) + "^FS");
+        data.append("^FO740,325^ASN^FD" + messageSourceService.getMessage("ui.i18n.PersonAttributeType.name." + PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID, null, locale) + "^FS");
         data.append("^FO740,365^ATN^FD");
         if (StringUtils.isNotBlank(telephoneNumber)) {
             data.append(telephoneNumber);

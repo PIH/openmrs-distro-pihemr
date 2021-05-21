@@ -1,7 +1,7 @@
 {
   "microfrontends": {
-    "@pih/esm-refapp-navbar-app": "latest",
-    "@pih/esm-referrals-queue-app": "latest",
+    "@pih/esm-refapp-navbar-app": "next",
+    "@pih/esm-referrals-queue-app": "next",
     "@openmrs/esm-home-app": "next",
     "@openmrs/esm-login-app": "next",
     "@openmrs/esm-devtools-app": "next",

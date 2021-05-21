@@ -7,16 +7,15 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
-import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.mirebalais.require.RequireUtil;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.FingerprintWidget;
@@ -79,7 +78,7 @@ public class SectionsDefault {
         Field f = new Field();
         f.setFormFieldName("mothersFirstName");
         f.setType("personAttribute");
-        f.setUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid());
+        f.setUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID);
         f.setWidget(getTextFieldWidget());
         if (config.getRegistrationConfig().getDemographics().getMothersName().getRequired()) {
             f.setCssClasses(Arrays.asList("required"));
@@ -223,7 +222,7 @@ public class SectionsDefault {
         Field f = new Field();
         f.setFormFieldName("phoneNumber");
         f.setType("personAttribute");
-        f.setUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid());
+        f.setUuid(Metadata.getPhoneNumberAttributeType().getUuid());
 
         ContactInfoConfigDescriptor contactInfoConfig = config.getRegistrationConfig().getContactInfo();
         if(contactInfoConfig != null && contactInfoConfig.getPhoneNumber() != null
@@ -425,7 +424,7 @@ public class SectionsDefault {
 
         Field f = new Field();
         f.setType("fingerprint");
-        f.setUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid());
+        f.setUuid(Metadata.getBiometricsReferenceNumberIdentifierType().getUuid());
         f.setWidget(getFingerprintWidget());
 
         q.addField(f);

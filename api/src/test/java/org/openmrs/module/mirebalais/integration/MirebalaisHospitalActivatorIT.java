@@ -6,11 +6,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiActivator;
-import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBundle;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
 import org.openmrs.module.pihcore.PihCoreActivator;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SkipBaseSetup
-public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTest {
+public class MirebalaisHospitalActivatorIT extends PihCoreContextSensitiveTest {
 
 
     @Override
@@ -43,9 +44,6 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
     @Autowired
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
-    @Autowired
-    private HaitiPersonAttributeTypeBundle personAttributeTypeBundle;
-
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
@@ -56,7 +54,7 @@ public class MirebalaisHospitalActivatorIT extends BaseModuleContextSensitiveTes
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
-        personAttributeTypeBundle.install();
+        loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
 
         // run the emrapi activator
         EmrApiActivator emrApiActivator = new EmrApiActivator();

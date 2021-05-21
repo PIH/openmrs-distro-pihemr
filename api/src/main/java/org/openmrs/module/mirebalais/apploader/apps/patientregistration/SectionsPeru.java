@@ -10,9 +10,6 @@ import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SectionsPeru extends SectionsDefault {
 
     private Config config;
