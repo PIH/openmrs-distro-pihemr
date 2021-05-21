@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -23,10 +24,50 @@ public class SectionsPeru extends SectionsDefault {
 
     @Override
     public void addSections(RegistrationAppConfig c) {
+        c.addSection(getIdentifierSection());
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
-        // c.addSection(getIdentifierSection());
         c.addSection(getSocialSection());
+    }
+
+    @Override
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+        s.addQuestion(getDocumentType());
+        return s;
+    }
+    private Question getDocumentType() {
+        Question q = new Question();
+        q.setId("national-id");
+        q.setLegend("zl.registration.patient.documenttype.documents.label");
+
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Identification CONSTRUCT.obs.PIH:Identification type");
+            f.setLabel("zl.registration.patient.documentype.documentname.question");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().setExpanded(true);
+            w.getConfig().addOption("PIH:Immigration card","zl.registration.patient.documenttype.passport.label");
+            w.getConfig().addOption("PIH:Peru DNI", "zl.registration.patient.documenttype.dni.label");
+
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:Identification CONSTRUCT.obs.PIH:Identification number");
+            f.setLabel("zl.registration.patient.documenttype.numerodocumento.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+
+        return q;
     }
 
     @Override
