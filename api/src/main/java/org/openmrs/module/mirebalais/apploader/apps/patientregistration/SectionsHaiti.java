@@ -370,11 +370,11 @@ public class SectionsHaiti extends SectionsDefault {
         Question q = new Question();
         q.setId("hivemr-dossier-id");
         q.setLegend("HIV Dossier");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVDOSSIERNUMBER_UUID);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
-        f.setUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        f.setFormFieldName("patientIdentifier" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVDOSSIERNUMBER_UUID);
+        f.setUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVDOSSIERNUMBER_UUID);
         f.setType("patientIdentifier");
         f.setWidget(getTextFieldWidget(16));
 
