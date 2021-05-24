@@ -159,7 +159,7 @@ The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
 The convention for dbNames are "openmrs_[some name]".
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=[PATH_TO]/openmrs-module-mirebalais/distro/openmrs-distro.properties
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.3.0-SNAPSHOT
 ```
 
 * When prompted, select the port you'd like to run tomcat on
@@ -190,7 +190,7 @@ using an SDK-created Docker container for MySQL, running the server on port 8080
 ```shell
 $ mvn openmrs-sdk:setup \
     -DserverId=[serverId] \
-    -Ddistro=org.openmrs.module:mirebalais:1.3.0-SNAPSHOT \
+    -Ddistro=org.openmrs.distro:pihemr:1.3.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
     -DbatchAnswers="8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
 ```
