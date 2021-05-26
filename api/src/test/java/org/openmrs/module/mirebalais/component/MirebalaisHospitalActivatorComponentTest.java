@@ -41,7 +41,6 @@ import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.dataset.column.definition.RowPerObjectColumnDefinition;
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
@@ -98,9 +97,6 @@ public class MirebalaisHospitalActivatorComponentTest extends PihCoreContextSens
     @Autowired
     private MetadataDeployService deployService;
 
-    @Autowired
-    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
-
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
@@ -111,7 +107,6 @@ public class MirebalaisHospitalActivatorComponentTest extends PihCoreContextSens
         executeDataSet("serializedReportingDataset.xml");
         authenticate();
 
-        deployService.installBundle(conceptsFromMetadataSharing);
         loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
 
         // run the emrapi activator
