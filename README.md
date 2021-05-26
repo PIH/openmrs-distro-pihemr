@@ -301,7 +301,7 @@ certain domains at startup that depend on concepts.  We have a separate process 
 concepts are loaded in.
 
 ```properties
-initializer.domains=!programs,programworkflows,programworkflowstates,drugs
+initializer.domains=!programs,programworkflows,programworkflowstates,drugs,orderfrequencies
 ```
 
 **For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
