@@ -25,7 +25,6 @@ import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.reporting.config.ReportDescriptor;
@@ -1546,7 +1545,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
-                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+                null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
 
         extensions.add(visitAction(Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
                 "pih.task.oncologyInitialConsult.label",
@@ -1564,7 +1563,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
-                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+                null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
 
         extensions.add(visitAction(Extensions.CHEMOTHERAPY_VISIT_ACTION,
                 "pih.task.chemotherapySession.label",
@@ -1611,7 +1610,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHEMOTHERAPY_SESSION_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-retweet", true, true,
-                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+                null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
     }
 
     private void enableLabResults() {
@@ -1637,7 +1636,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_LAB_RESULTS_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-vial", true, true,
-                editSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")), EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+                editSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")), PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
 
     }
 
@@ -1837,7 +1836,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID,
                 findExtensionById(EncounterTemplates.DEFAULT), "fas fa-fw fa-user", true, true,
-                null, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
+                null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
     }
 
     private void enableVCT() {

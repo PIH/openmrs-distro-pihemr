@@ -19,7 +19,6 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -54,14 +53,11 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     @Autowired
     private MetadataMappingService metadataMappingService;
 
-    @Autowired
-    private EncounterRoleBundle encounterRoleBundle;
-
     @Before
     public void before() throws Exception {
         executeDataSet("appointmentTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
-        deployService.installBundle(encounterRoleBundle);
+        loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
     }
