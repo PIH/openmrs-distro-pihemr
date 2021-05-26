@@ -27,7 +27,6 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -494,7 +493,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null,
                 ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
-                        "visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT)));
+                        "visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));
 
     }
 
@@ -1475,7 +1474,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-calendar-alt",
                 null,
                 null,
-                objectNode("visitType", VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT));
+                objectNode("visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
         apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
@@ -1483,7 +1482,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.HOME_VISITS_ON_CLINICIAN_DASHBOARD)) {
             HashMap<String, String> visitParams = new HashMap<String, String>();
             visitParams.put("suppressActions", "true");
-            visitParams.put("visitType", VisitTypeBundle.VisitTypes.HOME_VISIT);
+            visitParams.put("visitType", PihEmrConfigConstants.VISITTYPE_HOME_VISIT_UUID);
 
             AppDescriptor homeVisitsSummary = app(Apps.HOME_VISITS_SUMMARY,
                     "mirebalais.home.visits",
@@ -1491,7 +1490,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null,
                     null,
                     objectNode(
-                            "visitType", VisitTypeBundle.VisitTypes.HOME_VISIT,
+                            "visitType", PihEmrConfigConstants.VISITTYPE_HOME_VISIT_UUID,
                             "visitsUrl", addParametersToUrl(patientVisitsPageUrl, visitParams),
                             "visitUrl",  addParametersToUrl(patientVisitsPageWithSpecificVisitUrl, visitParams),
                             "showVisitTypeOnPatientHeaderSection", true,
