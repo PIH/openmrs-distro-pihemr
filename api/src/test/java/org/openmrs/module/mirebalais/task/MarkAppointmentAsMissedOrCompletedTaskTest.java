@@ -6,20 +6,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.Visit;
-import org.openmrs.api.EncounterService;
 import org.openmrs.api.LocationService;
-import org.openmrs.api.VisitService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.initializer.Domain;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
-import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.core.Is.is;
@@ -36,19 +32,10 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     private LocationService locationService;
 
     @Autowired
-    private EncounterService encounterService;
-
-    @Autowired
-    private VisitService visitService;
-
-    @Autowired
     private EmrApiProperties emrApiProperties;
 
     @Autowired
     private TestDataManager testDataManager;
-
-    @Autowired
-    private MetadataDeployService deployService;
 
     @Autowired
     private MetadataMappingService metadataMappingService;
@@ -59,7 +46,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
-        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+        loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
     }
 
     protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
