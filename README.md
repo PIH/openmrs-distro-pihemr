@@ -286,6 +286,11 @@ Haiti HIV environment:
 pih.config=haiti-hiv
 ```
 
+Liberia (Harper) Dev environment:
+```properties
+pih.config=liberia,liberia-harper,liberia-harper-dev
+```
+
 Sierra Leone KGH environment:
 ```properties
 pih.config=sierraLeone,sierraLeone-kgh
@@ -296,12 +301,12 @@ Mexico test/demo environment:
 pih.config=mexico,mexico-demo
 ```
 
-**Initializer configuration**: You must add a configuration like this currently to tell initializer not to load in 
-certain domains at startup that depend on concepts.  We have a separate process to ensure these are loaded after 
-concepts are loaded in.
+**Initializer configuration**: You must add a configuration like this currently to tell initializer not to load metadata 
+during the Initializer module startup process, as our distribution loads in metadata using the Initializer API explicitly 
+at various times to account for dependencies and options that allow for asynchronous concept loading.
 
 ```properties
-initializer.domains=!programs,programworkflows,programworkflowstates,drugs
+initializer.startup.load=disabled
 ```
 
 **For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
