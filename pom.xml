@@ -774,13 +774,11 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.3]</version>
-                            <banSnapshots>true</banSnapshots>
+                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.3]</version>
-                            <banSnapshots>true</banSnapshots>
+                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
                         </property>
                         <property>
                             <name>spaVersion</name>
