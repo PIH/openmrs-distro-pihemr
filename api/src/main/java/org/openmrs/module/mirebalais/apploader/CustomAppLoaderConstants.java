@@ -122,6 +122,8 @@ public class CustomAppLoaderConstants {
 
         public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peru.labOrdersAnalysisRequests.app";
 
+        public static final String SPA_PREVIEW_HOME = "spa.preview.home";
+
     }
 
     public static final class Extensions {
@@ -246,6 +248,9 @@ public class CustomAppLoaderConstants {
         public static final String NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT = "mirebalaisreports.dataQuality.nonCodedDiagnoses";
 
         public static final String LQAS_DATA_EXPORT = "mirebalaisreports.dataExports.lqasDiagnoses";
+
+        public static final String SPA_PREVIEW_PATIENT_CHART = "spa.preview.patientChart";
+
     }
 
     public static final class ExtensionPoints {
@@ -311,7 +316,8 @@ public class CustomAppLoaderConstants {
             Apps.J9_REFERRALS,
             Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
-            Apps.SYSTEM_ADMINISTRATION);
+            Apps.SYSTEM_ADMINISTRATION,
+            Apps.SPA_PREVIEW_HOME);
 
     // The idiosyncratic ordering of these items is due to the fact that the ones used
     // in English and French -speaking places are alphebetized in English and the ones
@@ -360,7 +366,8 @@ public class CustomAppLoaderConstants {
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
             Extensions.EDIT_PATIENT_CONTACT_INFO,
             Extensions.CHART_SEARCH_OVERALL_ACTION,
-            Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION);  // TODO remember to permission chart search in Custom App Loader Factory
+            Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,
+            Extensions.SPA_PREVIEW_PATIENT_CHART);  // TODO remember to permission chart search in Custom App Loader Factory
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,
