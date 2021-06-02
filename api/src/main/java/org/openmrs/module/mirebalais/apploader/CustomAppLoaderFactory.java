@@ -434,6 +434,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableCommentForm();
         }
 
+        if (config.isComponentEnabled(Components.SPA_PREVIEW)) {
+            enableSpaPreview();
+        }
+
         readyForRefresh = false;
     }
 
@@ -3122,6 +3126,23 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("comment.xml")),
                 null,
+                null));
+    }
+
+    private void enableSpaPreview() {
+        apps.add(addToHomePage(app(Apps.SPA_PREVIEW_HOME,
+                "pihcore.preview.home",
+                "fas fa-fw fa-fast-forward",
+                "spa/home",
+                Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
+                null),
+                null));
+        extensions.add(overallAction(Extensions.SPA_PREVIEW_PATIENT_CHART,
+                "pihcore.preview.patientChart",
+                "fas fa-fw fa-fast-forward",
+                "link",
+                "spa/patient/{{patient.uuid}}/chart/summary",
+                Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
                 null));
     }
 
