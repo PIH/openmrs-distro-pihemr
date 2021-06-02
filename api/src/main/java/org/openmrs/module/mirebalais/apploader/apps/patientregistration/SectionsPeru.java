@@ -32,40 +32,44 @@ public class SectionsPeru extends SectionsDefault {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-        s.addQuestion(getDocumentType());
+        s.addQuestion(getDNIdocument());
+        s.addQuestion(getPassportdocument());
         return s;
     }
-    private Question getDocumentType() {
+    
+    private Question getDNIdocument() {
         Question q = new Question();
         q.setId("national-id");
-        q.setLegend("zl.registration.patient.documenttype.documents.label");
+        q.setLegend("zl.registration.patient.documenttype.dni.label");
+        q.setHeader("zl.registration.patient.documenttype.dni.label");
 
-        {
-            Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:Identification CONSTRUCT.obs.PIH:Identification type");
-            f.setLabel("zl.registration.patient.documentype.documentname.question");
-            f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+        Field f=new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(8));
 
-            DropdownWidget w = new DropdownWidget();
-            w.getConfig().setExpanded(true);
-            w.getConfig().addOption("PIH:Immigration card","zl.registration.patient.documenttype.passport.label");
-            w.getConfig().addOption("PIH:Peru DNI", "zl.registration.patient.documenttype.dni.label");
-
-            f.setWidget(toObjectNode(w));
-            q.addField(f);
-        }
-        {
-            Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:Identification CONSTRUCT.obs.PIH:Identification number");
-            f.setLabel("zl.registration.patient.documenttype.numerodocumento.label");
-            f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
-            q.addField(f);
-        }
+        q.addField(f);
 
         return q;
     }
+    private Question getPassportdocument() {
+        Question q = new Question();
+        q.setId("passport-id");
+        q.setLegend("zl.registration.patient.documenttype.passport.label");
+        q.setHeader("zl.registration.patient.documenttype.passport.label");
+
+        Field f=new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(12));
+
+        q.addField(f);
+
+        return q;
+    }
+    
 
     @Override
     public Section getSocialSection() {
