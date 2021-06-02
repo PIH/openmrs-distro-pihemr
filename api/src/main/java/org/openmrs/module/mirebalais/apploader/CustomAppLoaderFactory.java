@@ -434,9 +434,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableCommentForm();
         }
 
-//        if (config.isComponentEnabled(Components.SPA_PREVIEW)) {
+        if (config.isComponentEnabled(Components.SPA_PREVIEW)) {
             enableSpaPreview();
-//        }
+        }
 
         readyForRefresh = false;
     }
