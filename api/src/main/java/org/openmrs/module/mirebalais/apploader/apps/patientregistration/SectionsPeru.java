@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
