@@ -42,7 +42,7 @@ public class SectionsPeru extends SectionsDefault {
         q.setLegend("zl.registration.patient.documenttype.dni.label");
         q.setHeader("zl.registration.patient.documenttype.dni.label");
 
-        Field f=new Field();
+        Field f = new Field();
         f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
         f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
         f.setType("patientIdentifier");
@@ -58,7 +58,7 @@ public class SectionsPeru extends SectionsDefault {
         q.setLegend("zl.registration.patient.documenttype.passport.label");
         q.setHeader("zl.registration.patient.documenttype.passport.label");
 
-        Field f=new Field();
+        Field f = new Field();
         f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
         f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
         f.setType("patientIdentifier");
