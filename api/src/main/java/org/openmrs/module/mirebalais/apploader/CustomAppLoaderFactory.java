@@ -1747,6 +1747,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     Privileges.TASK_EMR_ENTER_MCH.privilege(),
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
+        } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
+            
+            extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
+                            and(patientIsFemale()))));
         } else {
 
             extensions.add(visitAction(Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
