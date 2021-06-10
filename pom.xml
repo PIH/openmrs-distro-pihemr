@@ -67,7 +67,7 @@
         <edtriageappVersion>1.4.0</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.31.0</emrapiVersion>
-        <eventVersion>2.8.0</eventVersion>
+        <eventVersion>2.9.0</eventVersion>
         <fhir2Version>1.2.0-SNAPSHOT</fhir2Version>
         <htmlformentryVersion>4.0.1</htmlformentryVersion>
         <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>
@@ -79,9 +79,9 @@
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
         <legacyuiVersion>1.8.3</legacyuiVersion>
-        <metadatadeployVersion>1.13.0-SNAPSHOT</metadatadeployVersion>
+        <metadatadeployVersion>1.13.0</metadatadeployVersion>
         <metadatamappingVersion>1.3.5</metadatamappingVersion>
-        <metadatasharingVersion>1.7.0</metadatasharingVersion>
+        <metadatasharingVersion>1.8.0</metadatasharingVersion>
         <namephoneticsVersion>1.18.0</namephoneticsVersion>
         <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
         <owaVersion>1.12.0</owaVersion>
@@ -94,13 +94,13 @@
         <registrationcoreVersion>1.11.0</registrationcoreVersion>
         <reportingVersion>1.22.0</reportingVersion>
         <reportingrestVersion>1.12.0</reportingrestVersion>
-        <reportinguiVersion>1.7.0</reportinguiVersion>
+        <reportinguiVersion>1.8.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
         <spaVersion>1.0.8-SNAPSHOT</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.18.0</uicommonsVersion>
         <uiframeworkVersion>3.21.0</uiframeworkVersion>
-        <uilibraryVersion>2.0.6</uilibraryVersion>
+        <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
