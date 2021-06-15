@@ -15,7 +15,7 @@
     <description>Distro project for PIH EMR</description>
 
     <properties>
-        <appShellVersion>next</appShellVersion>
+        <appShellVersion>3.1.10-pre.299</appShellVersion>
         <frontendDir>${project.build.directory}/distro/web/frontend</frontendDir>
 
     </properties>
