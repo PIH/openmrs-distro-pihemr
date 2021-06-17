@@ -23,6 +23,9 @@ omod/src/main/compass/sass-external/
 *.iml
 *.sass-cache
 
+# distro build directory
+distro/node
+
 # Rubygems build directories #
 omod/.rubygems
 omod/.rubygems-provided
