@@ -16,6 +16,7 @@
 
     <properties>
         <frontendDir>${project.build.directory}/distro/web/frontend</frontendDir>
+        <appShellVersion>next</appShellVersion>
     </properties>
 
     <build>
