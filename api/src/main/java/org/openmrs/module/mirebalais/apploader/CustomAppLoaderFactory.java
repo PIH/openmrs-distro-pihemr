@@ -3142,15 +3142,15 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
     private void enableSpaPreview() {
         apps.add(addToHomePage(app(Apps.SPA_PREVIEW_HOME,
-                "pihcore.preview.home",
-                "fas fa-fw fa-fast-forward",
+                "pihcore.spa.home",
+                "fas fa-fw fa-exclamation-triangle",
                 "spa/home",
                 Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
                 null),
                 null));
         extensions.add(overallAction(Extensions.SPA_PREVIEW_PATIENT_CHART,
-                "pihcore.preview.patientChart",
-                "fas fa-fw fa-fast-forward",
+                "pihcore.spa.patientChart",
+                "fas fa-fw fa-exclamation-triangle",
                 "link",
                 "spa/patient/{{patient.uuid}}/chart/summary",
                 Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
