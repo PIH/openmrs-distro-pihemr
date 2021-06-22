@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -18,11 +20,55 @@ public class SectionsPeru extends SectionsDefault {
 
     @Override
     public void addSections(RegistrationAppConfig c) {
+        c.addSection(getIdentifierSection());
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
-        // c.addSection(getIdentifierSection());
         c.addSection(getSocialSection());
     }
+
+    @Override
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+        s.addQuestion(getDNIdocument());
+        s.addQuestion(getPassportdocument());
+        return s;
+    }
+    
+    private Question getDNIdocument() {
+        Question q = new Question();
+        q.setId("national-id");
+        q.setLegend("zl.registration.patient.documenttype.dni.label");
+        q.setHeader("zl.registration.patient.documenttype.dni.label");
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(8));
+
+        q.addField(f);
+
+        return q;
+    }
+    private Question getPassportdocument() {
+        Question q = new Question();
+        q.setId("passport-id");
+        q.setLegend("zl.registration.patient.documenttype.passport.label");
+        q.setHeader("zl.registration.patient.documenttype.passport.label");
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(12));
+
+        q.addField(f);
+
+        return q;
+    }
+    
 
     @Override
     public Section getSocialSection() {
