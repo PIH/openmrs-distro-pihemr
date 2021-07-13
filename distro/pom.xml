@@ -55,7 +55,7 @@
                     <plugin>
                         <groupId>org.openmrs.maven.plugins</groupId>
                         <artifactId>openmrs-sdk-maven-plugin</artifactId>
-                        <version>4.0.2-SNAPSHOT</version>
+                        <version>4.1.0</version>
                         <executions>
                             <execution>
                                 <id>build-distro</id>
