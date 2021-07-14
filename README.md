@@ -329,6 +329,8 @@ data directory's `frontend/` directory:
 ln -s ~/openmrs/[serverId]/configuration/frontend ~/openmrs/[serverId]/frontend/site
 ```
 
+This link is also created by the `./pihemrDeploy.sh` script, because `mvn openmrs-sdk:deploy` wipes it out.
+
 ### Step 8: Start up the server
 
 ```
@@ -402,7 +404,7 @@ Modules and code need to be kept in sync and up to date when developing.
 
 You can `git pull` the latest changes in all watched modules using `mvn openmrs-sdk:pull`.
 
-Then run `./pihemrDeploy.sh` to update all modules that aren't watched.
+Then run `./pihemrDeploy.sh [serverId]` to update all modules that aren't watched.
 
 See [Making things easy](#making-things-easy)
 
@@ -561,7 +563,7 @@ So to do a daily update of the system, run:
 
 ```
 $ omrs-pull
-$ omrs-deploy
+$ omrs-deploy [serverId]
 $ omrs-run
 ```
 
