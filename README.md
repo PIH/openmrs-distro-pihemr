@@ -320,7 +320,18 @@ local_zl_identifier_generator_prefix=Y
 If you forget to do this step, you can always manually change the configuration on the legacy administration screens,
 see below for further details on this.
 
-### Step 7: Start up the server
+### Step 7: Set up the frontend
+
+All that needs to be done to set up the frontend is to link the site-specific config into the application
+data directory's `frontend/` directory:
+
+```bash
+ln -s ~/openmrs/[serverId]/configuration/frontend ~/openmrs/[serverId]/frontend/site
+```
+
+This link is also created by the `./pihemrDeploy.sh` script, because `mvn openmrs-sdk:deploy` wipes it out.
+
+### Step 8: Start up the server
 
 ```
 mvn openmrs-sdk:run -DserverId=[serverId]
@@ -331,7 +342,7 @@ application and see an appropriate login page for your chosen distribution and c
 
 By default you can log into this via:  admin/Admin123
 
-### Step 8: Create an account that is a provider
+### Step 9: Create an account that is a provider
 
 In order to use most of the functions of the system (patient registration, visit note, etc), you must be a Provider.
 By default, the "admin" user is not a Provider.  You'll need to log into the system as the "admin" user, navigate to the 
@@ -343,10 +354,17 @@ environment where you would have a single account for yourself, you'd use the fo
 * Provider Type: General Admin
 
   
-## Set up the Single-SPA Frontend
+## Developing Microfrontends
 
-To develop on Microfrontends, you'll need to do some set-up. Follow the instructions in the
-[PIH SPA Frontend README](https://github.com/PIH/spa-frontend#pih-emr-spa-frontend).
+The PIH EMR uses the [Frontend 3.0 framework](https://wiki.openmrs.org/display/projects/OpenMRS+3.0%3A+A+Frontend+Framework+that+enables+collaboration+and+better+User+Experience).
+We have a few custom microfrontends:
+
+- https://github.com/PIH/pih-esm-refapp-navbar for visual coherence with RefApp 2.x
+- https://github.com/PIH/pih-esm-referrals-queue for the J9 program at Mirebalais Hospital
+- https://github.com/PIH/pih-esm-pathology-app for the oncology program at PIH Rwanda (IMB)
+
+Please see the [Frontend 3.0 Developer Documentation](https://openmrs.github.io/openmrs-esm-core/#/) for information about how
+to work on them.
 
 # Updating the Configuration for your Distribution
 
@@ -365,7 +383,7 @@ When you make changes to either the "parent" or "child" repo, you need to compil
 Maven packager plugin) found in the top-level of the various config projects:
 
 ```
-./install.sh
+./install.sh [serverId]
 ```
 
 Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing a "reload" of a page should reload the form with your changes.
@@ -375,29 +393,20 @@ HTML Form, the project is immediately compiled and deployed.  You do so using a 
 top-level of the various config projects:
 
 ```
-./watch.sh
+./watch.sh [serverId]
 ```
 
 Also note that if you commit any changes to either the parent or child config property, our CI server should immediately push them out to the relevant staging servers and restart OpenMRS, so, all going well, your changes should be up on the staging servers within 10-15 minutes of pushing your changes.
 
 # Updating the PIH EMR Code
 
-Beyond updating the configuration for your specific distribution you will also want to update the core PIH EMR code, which you can do as follows:
+Modules and code need to be kept in sync and up to date when developing.
 
-If you are watching any modules, first execute "mvn openmrs-sdk:pull" to pull in any changes to these modules via git.
+You can `git pull` the latest changes in all watched modules using `mvn openmrs-sdk:pull`.
 
-Then, from the base directory of the mirebalais project run the following two commands to update any changes to modules
-you aren't watching:
+Then run `./pihemrDeploy.sh [serverId]` to update all modules that aren't watched.
 
-```
-$ git pull
-$ mvn openmrs-sdk:deploy -Ddistro=distro/openmrs-distro.properties -U
-```
-
-Note that some of these steps will be repeated often enough that they warrant 
-creating shortcuts. In particular, we have created a shell script shortcut to execute the two 
-commands above, pihemrDeploy.sh) See [Making things easy](#making-things-easy).
-
+See [Making things easy](#making-things-easy)
 
 To run the server: 
 ```
@@ -542,10 +551,7 @@ https://wiki.openmrs.org/display/docs/Maintaining+OpenMRS+Module+Translations+vi
 
 ## Making Things Easy
 
-### Aliases
-
-(You might be able to set the "debug" flag at project creation time now. 
-`pihemrDeploy.sh` is a utility script created by Mark Goodrich.)
+### Bash Aliases
 
 ```
 $ alias omrs-pull='mvn openmrs-sdk:pull'
@@ -557,15 +563,35 @@ So to do a daily update of the system, run:
 
 ```
 $ omrs-pull
-$ omrs-deploy
+$ omrs-deploy [serverId]
 $ omrs-run
 ```
+
+### Fish Aliases
+
+If using [Fish Shell](https://fishshell.com/) (which confers major quality-of-life improvements over Bash), you can effectively
+alias `mvn openmrs-sdk:...` to `omrs ...` by creating a file `~/.config/fish/functions/omrs.fish` with these contents:
+
+```sh
+function omrs
+    if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+      echo "Usage: 'omrs <command> <options>' does 'mvn openmrs-sdk:<command> <options>'"    
+      echo "  e.g. 'omrs run' runs 'mvn openmrs-sdk:run'"    
+      return 1    
+    end
+    mvn openmrs-sdk:$argv[1] $argv[2..-1]    
+end
+```
+
+You can then run `omrs run`, `omrs watch`, etc.
 
 ### PyInvoke
 
 There's an [Invoke](http://www.pyinvoke.org/) file for doing local development of the PIH EMR
-[here](https://github.com/PIH/pih-emr-invoke).
-Feel free to make pull requests.
+[here](https://github.com/PIH/pih-emr-invoke). It automates a lot of common PIH EMR pain points, including
+optionally pulling, deploying, and enabling all modules before each run; providing an easy-to-read overview
+of the project state before running (the git statuses of watched modules and config directories);
+and simplifying server setup. 
 
 ## Troubleshooting
 

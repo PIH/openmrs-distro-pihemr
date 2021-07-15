@@ -25,6 +25,7 @@ omod/src/main/compass/sass-external/
 
 # distro build directory
 distro/node
+node
 
 # Rubygems build directories #
 omod/.rubygems
