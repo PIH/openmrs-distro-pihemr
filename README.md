@@ -501,52 +501,41 @@ There are a number of programs that come with PIH EMR. Each one has its own comp
 
 ## Locales
 
-Language specific settings are configured in these places:
+See the [OpenMRS Wiki page on locales](https://wiki.openmrs.org/display/docs/Localization+and+Languages).
 
-1. Translation for concepts will be done via the OpenMRS Dictionary UI (do this locally for now, eventually this will be done on the staging server companero.pih-emr.org, and concepts will be packaged using [Metadata Sharing](https://drive.google.com/open?id=1W_83FHL5dB2i9740Zp_n7iMjzRaqSpUb0y-RoFZspo0))
+Allowed locales are configured in [global properties](https://github.com/PIH/openmrs-config-pihliberia/blob/880704d98f477ec75db9c29bc5566ac9c90a5aad/configuration/globalproperties/gp_pihliberia.xml#L10).
 
-2. OpenMRS settings, allowed locales example: [https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java#L28](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java#L28)
+Text mostly comes either from concept names or from message strings.
+	
+Concept names and their translations should be managed on the [concepts server](concepts.pih-emr.org).
 
-3. Locale specific resource files, e.g.,
+### Message string management
+	
+Some message strings are embedded into OpenMRS modules. See, for example, the
+[English](https://github.com/openmrs/openmrs-module-coreapps/blob/master/api/src/main/resources/messages.properties)
+and [Spanish](https://github.com/openmrs/openmrs-module-coreapps/blob/master/api/src/main/resources/messages_es.properties)
+strings in the coreapps module.
+	
+Message strings that are specific to the PIH EMR are kept in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties).
+	
+In either case, those strings are managed through [Transifex](https://www.transifex.com/pih/mirebalais/dashboard/).
+Ask someone from the PIH EMR team to grant you access to the PIH Transifex org.
+Those strings will be downloaded and used to update the `messages_**.properties` files.
+*Do not* attempt to translate the EMR by modifying those files directly.
 
-    1. [https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/resources/messages_fr.properties](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/resources/messages_fr.properties)
+### Transifex Workflow
 
-    2. [https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages_ht.properties](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages_ht.properties) 
-
-## Localized String Management
-
-Transifex is used for managing translations. To add new strings, add to the messages.properties file for that project ([mirebalais example](https://github.com/PIH/openmrs-module-mirebalais/blob/master/api/src/main/resources/messages.properties)). The localized strings are pulled from Transifex and committed into mirebalais_*.properties files.
-
-Join the "PIH EMR" project on transifex: [https://www.transifex.com](https://www.transifex.com)
-
-Using transifex for locale specific strings: [https://wiki.openmrs.org/display/docs/Localization+and+Languages](https://wiki.openmrs.org/display/docs/Localization+and+Languages)
-
-Notes from Mark Goodrich:
-
-However, we will start needing to create messages_es.properties files for Spanish translating and getting a translator working on them. I don't think any of the modules that PIH owns will have Spanish translations, though the OpenMRS ones may.
-You can see a list of the modules that PIH owns and has in Transifex here (Dominic I just sent you a Transifex invite):
-[https://www.transifex.com/pih/mirebalais/content/](https://www.transifex.com/pih/mirebalais/content/)
-
-
-For each of these modules (with the exception of the legacy Patient Registration module) we should add the messages_es.properties. (Priority can be given to the main modules like PIH Core, Mirebalais Reports, Mirebalais... we won't need translations in Lab Tracking or ED Triage unless we plan on using that functionality in Mexico)
-
-Steps to add a messages_es.properties:
-1) Create the messages_es.properties file in the resources directory of the api project of the module:
-[https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/resources](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/resources)
-
-
-2) Add the locale "es" to the config.xml of the module:
-[https://github.com/PIH/openmrs-module-mirebalais/blob/master/omod/src/main/resources/config.xml#L138](https://github.com/PIH/openmrs-module-mirebalais/blob/master/omod/src/main/resources/config.xml#L138)
-
-
-3) Add the locale "es" to the Transifex configuration file for the module:
-[https://github.com/PIH/openmrs-module-mirebalais/blob/master/.tx/config](https://github.com/PIH/openmrs-module-mirebalais/blob/master/.tx/config)
-
-Of course, after we do this, we need to start having translators edit translations and pull them into the projects.
-
-Documentation can be found here:
-https://wiki.openmrs.org/display/docs/Maintaining+OpenMRS+Module+Translations+via+Transifex
-(In particular see the section 'Updating A Module With New Translations" and how to install the Transifex command line client).
+1. Navigate to the PIH org in Transifex
+1. Click "Resources"
+1. Click on the resource you want to work on. The messages in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties)
+	correspond to the resource "PIH Config"
+1. Click on the language you want to enter translations for
+1. Enter and save your translations
+1. In a terminal, `cd` to `openmrs-config-pihemr`
+1. Run `tx pull`
+1. Commit and push the `message_**.properties` files that have changed.
+	If you are at all unsure, just push to a branch and open a PR. This
+	is always the safer option.
 
 
 ## Making Things Easy
