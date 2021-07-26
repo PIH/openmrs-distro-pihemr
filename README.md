@@ -272,7 +272,9 @@ rm -fR modules_bak
 By default, the configuration will be set up with the 'default' configuration for your chosen distro.
 
 In order for a site-specific configuration to be applied to your server environment, an appropriate pih.config value needs
-to be set in the openmrs-runtime.properties file, which was created in the step above at created in `~/openmrs/[serverId]`.
+to be set in the openmrs-runtime.properties file, which was created in the step above in `~/openmrs/[serverId]`.
+
+You will need to edit openmrs-runtime.properties in your favorite text editor and add a line specifying the "pih.config" to use.
 
 There are various options to choose from, depending on the country, site, and type of environment.  Examples:
 
@@ -301,7 +303,7 @@ Mexico test/demo environment:
 pih.config=mexico,mexico-demo
 ```
 
-**Initializer configuration**: You must add a configuration like this currently to tell initializer not to load metadata 
+**Initializer configuration**: You must also add the configuration line below to openmrs-runtime.properties to tell initializer not to load metadata 
 during the Initializer module startup process, as our distribution loads in metadata using the Initializer API explicitly 
 at various times to account for dependencies and options that allow for asynchronous concept loading.
 
