@@ -2266,7 +2266,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
 
     private void enablePMTCTForms() {
-        // ToDo:  Add PMTCT forms
         extensions.add(visitAction(Extensions.PMTCT_INITIAL_VISIT_ACTION,
                 "pih.task.pmtctIntake.label",
                 "fas fa-fw fa-ribbon",
@@ -2291,6 +2290,22 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
                         and(patientIsFemale()),
+                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+    }
+
+    private void enableEIDForm() {
+        // ToDo:  Limit age to infant (18 months?  under 2 yo)
+        extensions.add(visitAction(Extensions.EID_FOLLOWUP_VISIT_ACTION,
+                "pih.task.eidFollowup.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/eid-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag("HIV Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
+                        and(patientIsChild()),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2840,8 +2855,12 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.PMTCT)) {
-            // ToDo:  create/enable PMTCT program?
             enablePMTCTForms();
+        }
+
+        if (config.isComponentEnabled(Components.EXP_INFANT)) {
+            // ToDo:  create/enable EID program?
+            enableEIDForm();
         }
 
         if (config.isComponentEnabled(Components.HYPERTENSION_PROGRAM)) {
