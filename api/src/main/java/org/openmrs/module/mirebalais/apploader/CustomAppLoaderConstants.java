@@ -329,6 +329,7 @@ public class CustomAppLoaderConstants {
             "pih.app." + PihEmrConfigConstants.PROGRAM_DIABETES_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_EID_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_ANC_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_MCH_UUID + ".programSummary.dashboard",

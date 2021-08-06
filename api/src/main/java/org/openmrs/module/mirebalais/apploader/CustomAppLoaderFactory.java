@@ -2296,16 +2296,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableEIDForm() {
-        // ToDo:  Limit age to infant (18 months?  under 2 yo)
+        // ToDo:  Limit age to infant (18 months and younger)
         extensions.add(visitAction(Extensions.EID_FOLLOWUP_VISIT_ACTION,
                 "pih.task.eidFollowup.label",
-                "fas fa-fw fa-ribbon",
+                "fas fa-fw fa-baby",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/eid-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
-                        and(patientIsChild()),
+                        and(patientYoungerThan(2)),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2859,7 +2859,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (config.isComponentEnabled(Components.EXP_INFANT)) {
-            // ToDo:  create/enable EID program?
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_EID_UUID);
+            configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_EID_UUID);
             enableEIDForm();
         }
 
