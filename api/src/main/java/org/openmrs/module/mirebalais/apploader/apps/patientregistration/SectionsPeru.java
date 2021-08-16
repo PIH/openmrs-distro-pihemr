@@ -36,6 +36,7 @@ public class SectionsPeru extends SectionsDefault {
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
     }
+
     @Override
     public Section getIdentifierSection() {
         Section s = new Section();
@@ -62,6 +63,7 @@ public class SectionsPeru extends SectionsDefault {
 
         return q;
     }
+
     private Question getPassportdocument() {
         Question q = new Question();
         q.setId("passport-id");
@@ -78,6 +80,7 @@ public class SectionsPeru extends SectionsDefault {
 
         return q;
     }
+
     public Section getContactInfoSection() {
         Section s = new Section();
         s.setId("contactInfo");
@@ -138,6 +141,7 @@ public class SectionsPeru extends SectionsDefault {
         q.addField(f);
         return q;
     }
+
     public Question getCellphoneNumberQuestion(){
         Question q = new Question();
         q.setId("cellphoneNumberLabel");
@@ -154,6 +158,7 @@ public class SectionsPeru extends SectionsDefault {
 
         return q;
     }
+
     public Question getEmailQuestion(){
         Question q = new Question();
         q.setId("emailLabel");
