@@ -1,11 +1,24 @@
 package org.openmrs.module.mirebalais.apploader.apps.patientregistration;
 
+import org.apache.commons.lang3.StringUtils;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SectionsPeru extends SectionsDefault {
 
@@ -18,10 +31,144 @@ public class SectionsPeru extends SectionsDefault {
 
     @Override
     public void addSections(RegistrationAppConfig c) {
+        c.addSection(getIdentifierSection());
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
-        // c.addSection(getIdentifierSection());
         c.addSection(getSocialSection());
+    }
+    @Override
+    public Section getIdentifierSection() {
+        Section s = new Section();
+        s.setId("patient-identification-section");
+        s.setLabel("registrationapp.patient.identifiers.label");
+        s.addQuestion(getDNIdocument());
+        s.addQuestion(getPassportdocument());
+        return s;
+    }
+
+    private Question getDNIdocument() {
+        Question q = new Question();
+        q.setId("national-id");
+        q.setLegend("zl.registration.patient.documenttype.dni.label");
+        q.setHeader("zl.registration.patient.documenttype.dni.label");
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_DNI_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(8));
+
+        q.addField(f);
+
+        return q;
+    }
+    private Question getPassportdocument() {
+        Question q = new Question();
+        q.setId("passport-id");
+        q.setLegend("zl.registration.patient.documenttype.passport.label");
+        q.setHeader("zl.registration.patient.documenttype.passport.label");
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_PASSPORT_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(12));
+
+        q.addField(f);
+
+        return q;
+    }
+    public Section getContactInfoSection() {
+        Section s = new Section();
+        s.setId("contactInfo");
+        s.setLabel("registrationapp.patient.contactInfo.label");
+        s.addQuestion(getAddressQuestion());
+        s.addQuestion(getTelephoneNumberQuestion());
+        s.addQuestion(getCellphoneNumberQuestion());
+        s.addQuestion(getEmailQuestion());
+        return s;
+    }
+
+    public Question getAddressQuestion() {
+        Question q = new Question();
+        q.setId("personAddressQuestion");
+        q.setLegend("registrationapp.patient.address");
+        q.setHeader("registrationapp.patient.address.question");
+
+        Field f = new Field();
+        f.setType("personAddress");
+
+        // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+        List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+        if (levels != null && levels.size() > 0) {
+            q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+            f.setWidget(getAddressHierarchyWidget(levels, null, true));
+        }
+        else {
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("providerName", "uicommons");
+            m.put("fragmentId", "field/personAddress");
+            f.setWidget(toObjectNode(m));
+        }
+
+        q.addField(f);
+        return q;
+    }
+
+    public Question getTelephoneNumberQuestion() {
+        Question q = new Question();
+        q.setId("phoneNumberLabel");
+        q.setLegend("registrationapp.patient.phone.label");
+        q.setHeader("registrationapp.patient.phone.question");
+
+        Field f = new Field();
+        f.setFormFieldName("phoneNumber");
+        f.setType("personAttribute");
+        f.setUuid(Metadata.getPhoneNumberAttributeType().getUuid());
+
+        ContactInfoConfigDescriptor contactInfoConfig = config.getRegistrationConfig().getContactInfo();
+        if(contactInfoConfig != null && contactInfoConfig.getPhoneNumber() != null
+                && StringUtils.isNotBlank(contactInfoConfig.getPhoneNumber().getRegex())){
+            f.setCssClasses(Arrays.asList("regex"));
+            f.setWidget(getTextFieldWidget(null, contactInfoConfig.getPhoneNumber().getRegex()));
+        } else {
+            f.setWidget(getTextFieldWidget());
+        }
+
+        q.addField(f);
+        return q;
+    }
+    public Question getCellphoneNumberQuestion(){
+        Question q = new Question();
+        q.setId("cellphoneNumberLabel");
+        q.setLegend("zl.registration.patient.cellphone.label");
+        q.setHeader("zl.registration.patient.cellphone.question");
+
+        Field f = new Field();
+        f.setFormFieldName("personAttributeType"+ SesConfigConstants.PERSONATTRIBUTETYPE_CELLPHONE_NUMBER_UUID);
+        f.setUuid(SesConfigConstants.PERSONATTRIBUTETYPE_CELLPHONE_NUMBER_UUID);
+        f.setType("personAttribute");
+        f.setWidget(getTextFieldWidget(9));
+
+        q.addField(f);
+
+        return q;
+    }
+    public Question getEmailQuestion(){
+        Question q = new Question();
+        q.setId("emailLabel");
+        q.setLegend("zl.registration.patient.email.label");
+        q.setHeader("zl.registration.patient.email.question");
+
+        Field f = new Field();
+        f.setFormFieldName("personAttributeType"+ SesConfigConstants.PERSONATTRIBUTETYPE_ELECTRONIC_EMAIL_UUID);
+        f.setUuid(SesConfigConstants.PERSONATTRIBUTETYPE_ELECTRONIC_EMAIL_UUID);
+        f.setType("personAttribute");
+        f.setWidget(getTextFieldWidget(50));
+
+        q.addField(f);
+
+        return q;
     }
 
     @Override
