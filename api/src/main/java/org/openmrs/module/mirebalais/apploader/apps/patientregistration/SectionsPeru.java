@@ -169,7 +169,7 @@ public class SectionsPeru extends SectionsDefault {
         f.setFormFieldName("personAttributeType"+ SesConfigConstants.PERSONATTRIBUTETYPE_ELECTRONIC_EMAIL_UUID);
         f.setUuid(SesConfigConstants.PERSONATTRIBUTETYPE_ELECTRONIC_EMAIL_UUID);
         f.setType("personAttribute");
-        f.setWidget(getTextFieldWidget(50));
+        f.setWidget(getTextFieldWidget(254));
 
         q.addField(f);
 
