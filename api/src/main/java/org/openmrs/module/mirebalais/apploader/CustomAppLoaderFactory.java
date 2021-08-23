@@ -25,7 +25,6 @@ import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.RelationshipTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -1284,7 +1283,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
                             "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
-                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                            "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,
                             "icon", "fas fa-fw fa-users",
                             "label", "pihcore.providerRelationshipsDashboardWidget.label"
                     )),
@@ -1304,7 +1303,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
                             "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
-                            "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
+                            "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID
                                     + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                     + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                             "icon", "fas fa-fw fa-users",
@@ -3057,7 +3056,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                     "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
                     "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
-                    "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT,
+                    "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,
                     "icon", "fas fa-fw fa-users",
                     "label", "pihcore.providerRelationshipsDashboardWidget.label"
                 )),
@@ -3076,7 +3075,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                         "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
                         "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
-                        "includeRelationshipTypes", RelationshipTypeBundle.RelationshipTypes.SPOUSE_PARTNER
+                        "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID
                                 + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                 + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
                         "icon", "fas fa-fw fa-users",
