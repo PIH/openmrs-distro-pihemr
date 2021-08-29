@@ -70,7 +70,7 @@
         <eventVersion>2.9.0</eventVersion>
         <fhir2Version>1.2.0-SNAPSHOT</fhir2Version>
         <htmlformentryVersion>4.1.0</htmlformentryVersion>
-        <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryuiVersion>2.0.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
         <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.7.0</idgenVersion>
