@@ -437,6 +437,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             enableSpaPreview();
         }
 
+        if (config.isComponentEnabled(Components.REHAB)) {
+            enableRehab();
+        }
+
         readyForRefresh = false;
     }
 
@@ -2392,6 +2396,17 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     // not currently used
+    private void enableRehab() {
+        extensions.add(visitAction(Extensions.REHAB_VISIT_ACTION,
+                "pihcore.ncd.rehab",
+                "fas fa-fw fa-user-injured",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("retired/physicalRehab.xml")),
+                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                and(sessionLocationHasTag("Consult Note Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_REHAB_EVAL_UUID))));
+    }
+
     private void enableHIViSantePlus() {
         // iSantePlus forms were added but  should not appear
         extensions.add(visitAction(Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,

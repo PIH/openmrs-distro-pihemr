@@ -191,6 +191,8 @@ public class CustomAppLoaderConstants {
         public static final String SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION = "pih.sierraLeone.outpatient.initial";
         public static final String SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION = "pih.sierraLeone.outpatient.followup";
 
+        public static final String REHAB_VISIT_ACTION = "pih.form.rehab";
+
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
 
@@ -414,7 +416,8 @@ public class CustomAppLoaderConstants {
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
-            Extensions.ORDER_LAB_VISIT_ACTION);
+            Extensions.ORDER_LAB_VISIT_ACTION,
+            Extensions.REHAB_VISIT_ACTION);
 
     public static final List<String> HIV_VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION + ".hiv",
