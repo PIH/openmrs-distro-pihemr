@@ -2296,6 +2296,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableEIDForm() {
+        // ToDo:  Limit age to infant (18 months and younger)
         extensions.add(visitAction(Extensions.EID_FOLLOWUP_VISIT_ACTION,
                 "pih.task.eidFollowup.label",
                 "fas fa-fw fa-baby",
@@ -2304,7 +2305,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
-                        and(patientYoungerThanMonths(18)),
+                        and(patientYoungerThanMonths(19)),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2365,7 +2366,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                and(or(patientAgeUnknown(), patientYoungerThan(23)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
 
@@ -2375,7 +2376,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                and(or(patientAgeUnknown(), patientYoungerThan(23)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
     }
