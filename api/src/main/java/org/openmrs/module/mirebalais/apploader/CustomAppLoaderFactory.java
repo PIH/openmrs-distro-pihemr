@@ -105,6 +105,7 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientYoungerThan;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientYoungerThanMonths;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
@@ -2295,7 +2296,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     }
 
     private void enableEIDForm() {
-        // ToDo:  Limit age to infant (18 months and younger)
         extensions.add(visitAction(Extensions.EID_FOLLOWUP_VISIT_ACTION,
                 "pih.task.eidFollowup.label",
                 "fas fa-fw fa-baby",
@@ -2304,7 +2304,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
-                        and(patientYoungerThan(2)),
+                        and(patientYoungerThanMonths(18)),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
