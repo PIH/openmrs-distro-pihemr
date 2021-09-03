@@ -2366,7 +2366,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(22)),
+                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
 
@@ -2376,7 +2376,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(22)),
+                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
     }
