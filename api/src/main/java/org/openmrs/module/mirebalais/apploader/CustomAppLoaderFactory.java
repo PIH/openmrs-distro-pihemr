@@ -96,6 +96,8 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.regist
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
@@ -104,7 +106,6 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientYoungerThan;
 import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
@@ -2308,7 +2309,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
-                        and(patientYoungerThan(2)),
+                        and(patientAgeInMonthsLessThanAtVisitStart(24)),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2369,7 +2370,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcIntake.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
 
@@ -2379,7 +2380,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ovcFollowup.xml")),
                 null,
-                and(or(patientAgeUnknown(), patientYoungerThan(22)),
+                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));
     }

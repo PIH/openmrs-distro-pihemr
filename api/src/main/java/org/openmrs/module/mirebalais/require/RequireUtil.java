@@ -66,9 +66,16 @@ public class RequireUtil {
         return new String("patient.person.age < 15");
     }
 
-    // TODO: note this is really younger than or equal to...
-    public static String patientYoungerThan(int age) {
-        return "patient.person.age <= " + age;
+    public static String patientAgeLessThanOrEqualToAtVisitStart(int age) {
+        return patientAgeInMonthsLessThanAtVisitStart((age+1)*12);
+    }
+
+    public static String patientAgeInMonthsLessThanAtVisitStart(int ageMonths) {
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetime) < " + ageMonths;
+    }
+
+    public static String patientAgeInMonthsLessThanOrEqualToAtVisitStart(int ageMonths) {
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetime) <= " + ageMonths;
     }
 
     public static String patientAgeUnknown() {
