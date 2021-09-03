@@ -67,11 +67,15 @@ public class RequireUtil {
     }
 
     public static String patientAgeLessThanOrEqualToAtVisitStart(int age) {
-        return patientAgeInMonthsLessThanOrEqualToAtVisitStart(age*12);
+        return patientAgeInMonthsLessThanAtVisitStart((age+1)*12);
+    }
+
+    public static String patientAgeInMonthsLessThanAtVisitStart(int ageMonths) {
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetime) < " + ageMonths;
     }
 
     public static String patientAgeInMonthsLessThanOrEqualToAtVisitStart(int ageMonths) {
-        return "fullMonthsBetweenDates(visit.patient.person.birthdate, visit.startDatetime) <= " + ageMonths;
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetime) <= " + ageMonths;
     }
 
     public static String patientAgeUnknown() {
