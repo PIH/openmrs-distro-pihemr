@@ -96,7 +96,7 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.regist
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeInMonthsLessThanOrEqualToAtVisitStart;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
@@ -2305,7 +2305,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
-                        and(patientAgeInMonthsLessThanOrEqualToAtVisitStart(18)),
+                        and(patientAgeInMonthsLessThanAtVisitStart(24)),
                         or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
