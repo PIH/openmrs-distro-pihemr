@@ -1751,7 +1751,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
         } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
-            
+
             extensions.add(visitAction(Extensions.MCH_DELIVERY_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                     "fas fa-fw fa-baby",
@@ -2757,15 +2757,16 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null),
                 null));
 
-        // note that this only only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAdOrderUrl are both hardcoded below for this
+        // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAddOrderUrl are both hardcoded below for this
+		// note that we disabled "afterAddOrderUrl", see: https://pihemr.atlassian.net/browse/UHM-5411
         apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.TASK_ORDER_LABS.privilege(),
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
-                        + "&afterAddOrderUrl="
-                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8"),
+  /*                      + "&afterAddOrderUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8")*/,
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label")),
