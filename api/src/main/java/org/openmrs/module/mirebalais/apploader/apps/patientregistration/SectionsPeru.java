@@ -35,6 +35,7 @@ public class SectionsPeru extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
+        c.addSection(getContactsSection(false));
     }
 
     @Override
@@ -184,6 +185,7 @@ public class SectionsPeru extends SectionsDefault {
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getLevelOfStudyQuestion());
         s.addQuestion(getOccupationQuestion());
+        s.addQuestion(getBirthplaceQuestion());
         return s;
     }
 
