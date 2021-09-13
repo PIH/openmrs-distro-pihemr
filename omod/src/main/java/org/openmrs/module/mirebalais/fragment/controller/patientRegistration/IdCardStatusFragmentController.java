@@ -7,8 +7,7 @@ import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.reporting.data.DataUtil;
 import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefinition;
 import org.openmrs.ui.framework.SimpleObject;
@@ -26,6 +25,8 @@ import java.util.List;
 public class IdCardStatusFragmentController {
 
     protected final Log log = LogFactory.getLog(getClass());
+
+    public static final String ID_CARD_PRINTING_SUCCESSFUL = "9d1b04df-ee77-11e4-a257-54ee7513a7ff";
 
     public void controller(FragmentModel model, @FragmentParam("patientId") Patient patient,
                            @FragmentParam("app") AppDescriptor app,
@@ -46,13 +47,13 @@ public class IdCardStatusFragmentController {
         Boolean latestAttemptSuccessful = null;
 
         ObsForPersonDataDefinition d = new ObsForPersonDataDefinition();
-        d.setQuestion(MetadataUtils.existing(Concept.class, AdministrativeConcepts.Concepts.ID_CARD_PRINTING_SUCCESSFUL));
+        d.setQuestion(MetadataUtils.existing(Concept.class, ID_CARD_PRINTING_SUCCESSFUL));
         List<Obs> found = DataUtil.evaluateForPerson(d, patient, List.class);
 
         if (found != null) {
             for (Obs o : found) {
                 boolean mostRecent = latestAttemptDate == null || latestAttemptDate.before(o.getObsDatetime());
-                boolean successful = o.getValueCoded().getUuid().equals(CommonConcepts.Concepts.YES);
+                boolean successful = o.getValueCoded().getUuid().equals(PihEmrConfigConstants.CONCEPT_YES_UUID);
 
                 if (mostRecent) {
                     latestAttemptDate = o.getObsDatetime();
