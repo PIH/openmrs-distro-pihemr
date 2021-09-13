@@ -9,10 +9,9 @@ import org.openmrs.api.PatientService;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 public class AfterRegistrationPageController {
+
+    public static final String ID_CARD_PRINTING_REQUESTED = "0dc64225-e9f6-11e4-a8a3-54ee7513a7ff";
 
     public String controller(@SpringBean Config config,
                              @RequestParam("patientId") Patient patient,
@@ -80,8 +81,8 @@ public class AfterRegistrationPageController {
         boolean ret = false;
         if (encounter != null) {
             for (Obs o : encounter.getAllObs()) {
-                if (o.getConcept().getUuid().equals(AdministrativeConcepts.Concepts.ID_CARD_PRINTING_REQUESTED)) {
-                    if (o.getValueCoded() != null && o.getValueCoded().getUuid().equals(CommonConcepts.Concepts.YES)) {
+                if (o.getConcept().getUuid().equals(ID_CARD_PRINTING_REQUESTED)) {
+                    if (o.getValueCoded() != null && o.getValueCoded().getUuid().equals(PihEmrConfigConstants.CONCEPT_YES_UUID)) {
                         ret = true;
                     }
                 }

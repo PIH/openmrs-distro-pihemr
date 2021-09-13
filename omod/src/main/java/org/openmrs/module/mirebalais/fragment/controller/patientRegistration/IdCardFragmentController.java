@@ -13,9 +13,8 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.printer.IdPrinter;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -29,6 +28,9 @@ import java.util.Date;
 public class IdCardFragmentController {
 
     protected final Log log = LogFactory.getLog(getClass());
+
+    public static final String ID_CARD_PRINTING_SUCCESSFUL = "9d1b04df-ee77-11e4-a257-54ee7513a7ff";
+
 
     /**
      * This method will attempt to print a new id card for the given patient at the given location,
@@ -99,8 +101,8 @@ public class IdCardFragmentController {
     protected Obs savePrintingStatusObs(Patient patient, Location location, boolean status) {
         Obs o = new Obs();
         o.setPerson(patient);
-        o.setConcept(MetadataUtils.existing(Concept.class, AdministrativeConcepts.Concepts.ID_CARD_PRINTING_SUCCESSFUL));
-        String answerUuid = status ? CommonConcepts.Concepts.YES : CommonConcepts.Concepts.NO;
+        o.setConcept(MetadataUtils.existing(Concept.class, ID_CARD_PRINTING_SUCCESSFUL));
+        String answerUuid = status ? PihEmrConfigConstants.CONCEPT_YES_UUID : "3cd6f86c-26fe-102b-80cb-0017a47871b2";
         o.setValueCoded(MetadataUtils.existing(Concept.class, answerUuid));
         o.setObsDatetime(new Date());
         o.setLocation(location);
