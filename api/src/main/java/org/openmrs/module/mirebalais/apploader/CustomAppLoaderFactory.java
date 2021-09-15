@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -441,6 +442,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         if (config.isComponentEnabled(Components.REHAB)) {
             enableRehab();
         }
+
+        configureAdditionalExtensions(config);
 
         readyForRefresh = false;
     }
@@ -3212,6 +3215,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     null,
                     ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
                     null));
+        }
+    }
+
+    private void configureAdditionalExtensions(Config config) {
+        Collections.sort(config.getExtensions());
+        for (Extension extension : config.getExtensions()) {
+            extensions.add(extension);
         }
     }
 
