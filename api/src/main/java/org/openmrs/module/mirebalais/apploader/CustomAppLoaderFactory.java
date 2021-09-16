@@ -945,8 +945,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
                 List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
                 Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
+                List<String> countries = reportDescriptor.getConfig().containsKey("countries") ? (List<String>) reportDescriptor.getConfig().get("countries") : null;
                 List<String> sites = reportDescriptor.getConfig().containsKey("sites") ? (List<String>) reportDescriptor.getConfig().get("sites") : null;
-                if ((components == null || config.anyComponentEnabled(components)) && (sites == null || sites.contains(config.getSite()))) {
+                boolean matchesComponent = (components == null || config.anyComponentEnabled(components));
+                boolean matchesCountry = (countries == null || countries.contains(config.getCountry().name()));
+                boolean matchesSite = (sites == null || sites.contains(config.getSite()));
+
+                if (matchesComponent && (matchesCountry || matchesSite)) {
                     if (category == BaseReportManager.Category.OVERVIEW) {
                         extensions.add(overviewReport("mirebalaisreports.overview." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
