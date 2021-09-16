@@ -16,8 +16,8 @@ import org.openmrs.module.appframework.service.AppFrameworkServiceImpl;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.contextmodel.VisitContextModel;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.ui.framework.SimpleObject;
@@ -66,17 +66,11 @@ public class RequireUtilTest {
         doctor = new Role("Doctor");
         admin = new Role("Admin");
 
-        Privilege enterConsultNote = new Privilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege());
-        enterConsultNote.setUuid(Privileges.TASK_EMR_ENTER_CONSULT_NOTE.uuid());
-        enterConsultNote.setDescription(Privileges.TASK_EMR_ENTER_CONSULT_NOTE.description());
+        Privilege enterConsultNote = new Privilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE);
 
-        Privilege retroClinicalNote = new Privilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE.privilege());
-        retroClinicalNote.setUuid(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE.uuid());
-        retroClinicalNote.setDescription(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE.description());
+        Privilege retroClinicalNote = new Privilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE);
 
-        Privilege retroClinicalNoteThisProviderOnly = new Privilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY.privilege());
-        retroClinicalNoteThisProviderOnly.setUuid(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY.uuid());
-        retroClinicalNoteThisProviderOnly.setDescription(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY.description());
+        Privilege retroClinicalNoteThisProviderOnly = new Privilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY);
 
         doctor.addPrivilege(enterConsultNote);
         doctor.addPrivilege(retroClinicalNoteThisProviderOnly);
@@ -111,14 +105,14 @@ public class RequireUtilTest {
     public void shouldReturnTrueIfUserHasPrivilege() {
         user.addRole(doctor);
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE)), appContextModel), is(true));
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE)), appContextModel), is(true));
     }
 
     @Test
     public void shouldReturnFalseIfUserDoesNotHavePrivilege() {
         user.addRole(doctor);
         AppContextModel appContextModel = uiSessionContext.generateAppContextModel();
-        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE)), appContextModel), is(false));
+        assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE)), appContextModel), is(false));
     }
 
 
@@ -345,9 +339,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                 and(sessionLocationHasTag("Consult Note Location"),
-                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
@@ -378,9 +372,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag("Consult Note Location"),
-                                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -412,9 +406,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag("Consult Note Location"),
-                                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
@@ -446,9 +440,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag("Consult Note Location"),
-                                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -480,9 +474,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag("Consult Note Location"),
-                                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(false));
     }
 
@@ -513,9 +507,9 @@ public class RequireUtilTest {
 
         assertThat(appFrameworkService.checkRequireExpression(extensionRequiring(
                         and(sessionLocationHasTag("Consult Note Location"),
-                                or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                        userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                        and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
+                                or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                        userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                        and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))),
                 appContextModel), is(true));
     }
 
