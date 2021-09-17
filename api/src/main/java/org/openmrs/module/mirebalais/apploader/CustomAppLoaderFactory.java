@@ -1050,22 +1050,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
 
             extensions.addAll(fullDataExportBuilder.getExtensions());
 
-            // TODO: Replace this with property configuration in config
-            if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
-
-                // custom data export report LQAS report report
-                extensions.add(extension(Extensions.LQAS_DATA_EXPORT,
-                        "mirebalaisreports.lqasdiagnoses.name",
-                        null,
-                        "link",
-                        "mirebalaisreports/lqasDiagnoses.page",
-                        "App: mirebalaisreports.dataexports",
-                        null,
-                        ExtensionPoints.REPORTING_DATA_EXPORT,
-                        REPORTING_DATA_EXPORT_REPORTS_ORDER.indexOf(MirebalaisReportsProperties.LQAS_DIAGNOSES_REPORT_DEFINITION_UUID) + 1000,
-                        map("linkId", "mirebalaisreports-lqasDiagnosesReport-link")));
-            }
-
             extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
                     "reportingui.adHocAnalysis.label",
                     null,
