@@ -2218,7 +2218,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
-                Privileges.TASK_DISPENSING_DISPENSE.privilege(),
+                Privileges.APP_DISPENSING_APP_DISPENSE.privilege(),
                 "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
                 null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag("HIV Consult Location")));
@@ -2761,15 +2761,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null));
 
         // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAddOrderUrl are both hardcoded below for this
-		// note that we disabled "afterAddOrderUrl", see: https://pihemr.atlassian.net/browse/UHM-5411
         apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
                 Privileges.TASK_ORDER_LABS.privilege(),
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
-  /*                      + "&afterAddOrderUrl="
-                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8")*/,
+						+ "&afterAddOrderUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label")),
