@@ -935,14 +935,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // reports defined through Reporting Config (move to PIH Core at some point?)
         for (ReportDescriptor reportDescriptor : ReportLoader.loadReportDescriptors()) {
             if (reportDescriptor.getConfig() != null) {
-                BaseReportManager.Category category = BaseReportManager.Category.DATA_EXPORT;
-                try {
-                    category = BaseReportManager.Category.valueOf(reportDescriptor.getConfig().get("category").toString());
+                BaseReportManager.Category category = null;
+                Object rptCategory = reportDescriptor.getConfig().get("category");
+                if (rptCategory != null) {
+                    if ("dataExport".equalsIgnoreCase(rptCategory.toString())) {
+                        rptCategory = "DATA_EXPORT";
+                    }
+                    category = BaseReportManager.Category.valueOf(rptCategory.toString());
                 }
-                catch (Exception e) {
-                    // If category is not defined, or if it is the legacy value of "dataExport", default to DATA_EXPORT
-                }
-
                 List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
                 Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
                 List<String> countries = reportDescriptor.getConfig().containsKey("countries") ? (List<String>) reportDescriptor.getConfig().get("countries") : null;
