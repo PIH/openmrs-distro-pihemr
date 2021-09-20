@@ -13,9 +13,6 @@
  */
 package org.openmrs.module.mirebalais.page.controller;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,10 +26,13 @@ import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
@@ -79,7 +79,7 @@ public class HomePageController {
 		
 		Collections.sort(extensions);
 		model.addAttribute("extensions", extensions);
-        model.addAttribute("privilegeSearchForPatients", Privileges.APP_COREAPPS_FIND_PATIENT.privilege());
+        model.addAttribute("privilegeSearchForPatients", PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_FIND_PATIENT);
 
         if (Context.hasPrivilege(CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD)) {
             if (StringUtils.isNotBlank(config.getDashboardUrl())) {

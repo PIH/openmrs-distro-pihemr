@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.require;
 
 import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
-import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 
 public class RequireUtil {
@@ -23,8 +22,8 @@ public class RequireUtil {
         }
     }
 
-    public static String userHasPrivilege(PrivilegeDescriptor privilegeDescriptor) {
-        return new String("typeof user !== 'undefined' && hasMemberWithProperty(user.privileges, 'display', '" + privilegeDescriptor.privilege() + "')");
+    public static String userHasPrivilege(String privilege) {
+        return new String("typeof user !== 'undefined' && hasMemberWithProperty(user.privileges, 'display', '" + privilege + "')");
     }
 
     public static String sessionLocationHasTag(String tagName) {

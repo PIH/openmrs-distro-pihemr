@@ -25,7 +25,6 @@ import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.ui.framework.WebConstants;
@@ -579,9 +578,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                 null,
                 and(sessionLocationHasTag("Vitals Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
                 "mirebalais.mostRecentVitals.label",
@@ -638,9 +637,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
                 null,
                 and(sessionLocationHasTag("Consult Note Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
@@ -659,9 +658,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("edNote.xml")),
                 null,
                 and(sessionLocationHasTag("ED Note Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableADT() {
@@ -704,9 +703,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("admissionNote.xml")),
                 null,
                 and(sessionLocationHasTag("Admission Note Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // TODO will these be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID,
@@ -756,8 +755,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=CR",
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_XRAY), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         extensions.add(visitAction(Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
@@ -766,8 +765,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=Ct",
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         extensions.add(visitAction(Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
@@ -776,8 +775,8 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=US",
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.RADIOLOGY_ORDERS_APP,
@@ -860,7 +859,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("surgicalPostOpNote.xml")),
-                Privileges.TASK_EMR_ENTER_SURGICAL_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SURGICAL_NOTE,
                 sessionLocationHasTag("Surgery Note Location")));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
@@ -1542,13 +1541,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                 and(sessionLocationHasTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID,
@@ -1560,13 +1559,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntake.xml")),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                 and(sessionLocationHasTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID,
@@ -1578,11 +1577,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-retweet",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("chemotherapyTreatment.xml")),
-                Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                 and(sessionLocationHasTag("Chemotherapy Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     public void enableChemotherapy() {
@@ -1592,11 +1591,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-pills",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}/#physicianDashboard",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(chemoOrdering);
 
@@ -1605,11 +1604,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-pills",
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(chemoRecording);
 
@@ -1628,14 +1627,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-vial",
                 "link",
                 enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")),
-                Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,
                 sessionLocationHasTag("Lab Results Location")));
 
         // circular app for lab results
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ADD_LAB_RESULTS,
                 "pih.app.pastLabResults",
                 "fas fa-fw fa-vial",
-                Privileges.TASK_EMR_ENTER_LAB_RESULTS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,
                 "/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("labResults.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.ADD_LAB_RESULTS,
                 null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag("Lab Results Location")));
@@ -1662,13 +1661,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                 and(sessionLocationHasTag("NCD Consult Location"),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-followup.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
@@ -1680,13 +1679,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-heart",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                 and(sessionLocationHasTag("NCD Consult Location"),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableEcho() {
@@ -1698,11 +1697,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-chart-line",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                 and(sessionLocationHasTag("NCD Consult Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
     }
 
@@ -1715,7 +1714,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-initial.xml")),
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
@@ -1726,7 +1725,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-followup.xml")),
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
@@ -1737,7 +1736,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("anc-delivery.xml")),
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
                             and(patientIsFemale()))));
@@ -1747,7 +1746,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("peds.xml")),
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
         } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
@@ -1757,7 +1756,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-baby",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
                             and(patientIsFemale()))));
@@ -1768,7 +1767,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
@@ -1779,7 +1778,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-gift",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
@@ -1790,7 +1789,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-baby",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
                             and(patientIsFemale()))));
@@ -1803,7 +1802,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "fas fa-fw fa-female",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OB_GYN_UUID),
                             and(patientIsFemale()))));
@@ -1830,7 +1829,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-umbrella",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vaccination-only.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                Privileges.TASK_EMR_ENTER_VACCINATION.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VACCINATION,
                 and(sessionLocationHasTag("Vaccination Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID))));
     }
@@ -1847,7 +1846,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-user",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),
-                Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                 and(sessionLocationHasTag("Mental Health Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
 
@@ -1864,7 +1863,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/vct.xml")),
-                Privileges.TASK_EMR_ENTER_VCT.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
                 and(sessionLocationHasTag("Consult Note Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));
     }
@@ -1875,7 +1874,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-home",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("socio-econ.xml")),
-                Privileges.TASK_EMR_ENTER_SOCIO.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SOCIO,
                 and(sessionLocationHasTag("Consult Note Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID))));
     }
@@ -1886,7 +1885,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-search",
                 "link",
                 "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(), // TODO correct permission!
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE, // TODO correct permission!
                 null));
     }
 
@@ -1896,7 +1895,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.waitingForConsult.title",
                 "fas fa-fw fa-stethoscope",
                 "pihcore/visit/waitingForConsult.page",
-                Privileges.APP_WAITING_FOR_CONSULT.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_WAITING_FOR_CONSULT,
                 null)));
     }
 
@@ -1906,7 +1905,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.todaysVisits.title",
                 "fas fa-fw icon-check-in",
                 "pihcore/visit/todaysVisits.page",
-                Privileges.APP_TODAYS_VISITS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_TODAYS_VISITS,
                 null)));
 
     }
@@ -1917,7 +1916,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "chwapp.label",
                     "fas fa-fw fa-users",
                     "/coreapps/providermanagement/providerList.page",
-                    Privileges.APP_CHW.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_APP_CHW,
                     null),
                     sessionLocationHasTag("Provider Management Location")));
         }
@@ -1927,7 +1926,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToHomePage(findPatientTemplateApp(Apps.ED_TRIAGE,
                 "edtriageapp.label",
                 "fas fa-fw fa-ambulance",
-                Privileges.APP_ED_TRIAGE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_ED_TRIAGE,
                 "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=" + Apps.ED_TRIAGE
                         + "&dashboardUrl=" + config.getDashboardUrl(),
                 null, config.getFindPatientColumnConfig()),
@@ -1953,7 +1952,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "edtriageapp.queue.label",
                 "fas fa-fw fa-list-ol",
                 "/edtriageapp/edtriageViewQueue.page?appId=" + Apps.ED_TRIAGE_QUEUE,
-                Privileges.APP_ED_TRIAGE_QUEUE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_ED_TRIAGE_QUEUE,
                 objectNode("dashboardUrl", config.getDashboardUrl())),
                 sessionLocationHasTag("ED Triage Location")));
     }
@@ -1972,9 +1971,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID,
@@ -1986,9 +1985,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID,
@@ -2000,9 +1999,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             extensions.add(visitAction(Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID,
@@ -2014,9 +2013,9 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),
-                            or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
 
@@ -2187,13 +2186,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(hivFollowup);
         extensions.add(cloneAsHivVisitAction(hivFollowup));
@@ -2203,11 +2202,11 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(hivDispensing);
         extensions.add(cloneAsHivVisitAction(hivDispensing));
@@ -2215,7 +2214,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         apps.add(addToHomePage(findPatientTemplateApp(Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
-                Privileges.TASK_DISPENSING_DISPENSE.privilege(),
+                        PihEmrConfigConstants.PRIVILEGE_APP_DISPENSING_APP_DISPENSE,
                 "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
                 null, config.getFindPatientColumnConfig()),
                 sessionLocationHasTag("HIV Consult Location")));
@@ -2245,13 +2244,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
         extensions.add(hivInitial);
         extensions.add(cloneAsHivVisitAction(hivInitial));
@@ -2263,7 +2262,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-capsules",
                 "link",
                 "pihcore/meds/drugOrders.page?patient={{patient.uuid}}",
-                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
                 null));
         extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));
     }
@@ -2275,28 +2274,28 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/pmtct-intake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
                         and(patientIsFemale()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         extensions.add(visitAction(Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
                 "pih.task.pmtctFollowup.label",
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/pmtct-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
                         and(patientIsFemale()),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableEIDForm() {
@@ -2306,13 +2305,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-baby",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/eid-followup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),
                         and(patientAgeInMonthsLessThanAtVisitStart(24)),
-                        or(and(userHasPrivilege(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableCovid19() {
@@ -2325,7 +2324,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Followup.xml")),
-                Privileges.TASK_EMR_ENTER_COVID.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,
                 and(sessionLocationHasTag("COVID-19 Location"),
                     visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
 
@@ -2334,7 +2333,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Discharge.xml")),
-                Privileges.TASK_EMR_ENTER_COVID.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,
                 and(sessionLocationHasTag("COVID-19 Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID),
                         visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
@@ -2346,7 +2345,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fab fa-fw fa-first-order-alt",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("covid19Intake.xml")),
-                Privileges.TASK_EMR_ENTER_COVID.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,
                 and(sessionLocationHasTag("COVID-19 Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));
     }
@@ -2357,7 +2356,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-wind",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("tbIntake.xml")),
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 sessionLocationHasTag("Consult Note Location")));
     }
 
@@ -2392,7 +2391,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "icon-plus-sign-alt",
                 "link",
                 "coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true",
-                Privileges.TASK_MARK_PATIENT_DEAD.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_MARK_PATIENT_DEAD,
                null));
     }
 
@@ -2403,7 +2402,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-user-injured",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("retired/physicalRehab.xml")),
-                Privileges.TASK_EMR_ENTER_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_REHAB_EVAL_UUID))));
     }
@@ -2415,7 +2414,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/iSantePlus/SaisiePremiereVisiteAdult.xml")),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(patientIsAdult())));
 
         extensions.add(visitAction(Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,
@@ -2431,7 +2430,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/iSantePlus/VisiteDeSuivi.xml")),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(patientIsAdult())));
 
         extensions.add(visitAction(Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,
@@ -2439,7 +2438,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/iSantePlus/VisiteDeSuiviPediatrique.xml")),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 and(patientIsChild())));
 
         extensions.add(visitAction(Extensions.HIV_ADHERENCE_VISIT_ACTION,
@@ -2447,7 +2446,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-ribbon",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/iSantePlus/Adherence.xml")),
-                Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 null));
     }
 
@@ -2726,7 +2725,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "labtrackingapp.app.label",
                 "fas fa-fw fa-microscope",
                 "/labtrackingapp/labtrackingViewQueue.page?appId=" + Apps.PATHOLOGY_TRACKING,
-                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_LAB_TRACKING_MONITOR_ORDERS,
                 null),
                 sessionLocationHasTag("Order Pathology Location")));
 
@@ -2735,14 +2734,14 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-microscope",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
-                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_LAB_TRACKING_PLACE_ORDERS,
                 sessionLocationHasTag("Order Pathology Location")));
 
         apps.add(addToClinicianDashboardSecondColumn(app(Apps.PATHOLOGY_SUMMARY,
                 "labtrackingapp.pathology",
                 "fas fa-fw fa-microscope",
                 null,
-                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_LAB_TRACKING_PLACE_ORDERS,
                 null),
                 "labtrackingapp", "labtrackingPatientDashboard"));
     }
@@ -2753,20 +2752,19 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.labs.label",
                 "fas fa-fw fa-vial",
                 "owa/labworkflow/index.html",
-                Privileges.APP_LABS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_LABS,
                 null),
                 null));
 
         // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAddOrderUrl are both hardcoded below for this
-		// note that we disabled "afterAddOrderUrl", see: https://pihemr.atlassian.net/browse/UHM-5411
         apps.add(findPatientTemplateApp(Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
-                Privileges.TASK_ORDER_LABS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
-  /*                      + "&afterAddOrderUrl="
-                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{order}}", "UTF-8")*/,
+						+ "&afterAddOrderUrl="
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
                         objectNode("label", "coreapps.findPatient.app.label")),
@@ -2778,7 +2776,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-vial",
                 "link",
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
-                Privileges.TASK_ORDER_LABS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
                 null));
 
         extensions.add(overallAction(Extensions.VIEW_LABS_OVERALL_ACTION,
@@ -2786,7 +2784,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-vial",
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
-                Privileges.TASK_VIEW_LABS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
                 null));
 
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.COVID_LAB_RESULTS,
@@ -2813,7 +2811,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-chart-line",
                 "link",
                 "growthchart/growthCharts.page?patientId={{patient.uuid}}",
-                Privileges.TASK_VIEW_GROWTH_CHARTS.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_GROWTH_CHARTS,
                 null));
     }
 
@@ -2823,7 +2821,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.cohortBuilder.label",
                 "fas fa-fw icon-check-in",
                 "owa/cohortbuilder/index.html#/",
-                 Privileges.APP_COHORT_BUILDER.privilege(),null)));
+                   PihEmrConfigConstants.PRIVILEGE_APP_COHORT_BUILDER,null)));
 
     }
 
@@ -2961,7 +2959,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "pih.app.programSummaryList.title",
                     "fas fa-fw fa-chart-pie",
                     "/coreapps/applist/appList.page?app=" + Apps.PROGRAM_SUMMARY_LIST,
-                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,
                     null),
                     null));
 
@@ -2969,7 +2967,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                     "coreapps.programsListDashboardWidget.label",
                     "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                     null,
-                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                      PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
                     objectNode(
                             "widget", "programs",
                             "icon", "fas fa-fw fa-stethoscope",
@@ -2987,7 +2985,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps.currentEnrollmentDashboardWidget.label",
                 "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
-                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
                 objectNode(
                         "widget", "programstatus",
                         "icon", "fas fa-fw fa-stethoscope",
@@ -3004,7 +3002,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "coreapps.programHistoryDashboardWidget.label",
                 "fas fa-fw fa-stethoscope",  // TODO figure out right icon
                 null,
-                Privileges.APP_COREAPPS_PATIENT_DASHBOARD.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
                 objectNode(
                         "icon", "fas fa-fw fa-stethoscope",
                         "label", "coreapps.programHistoryDashboardWidget.label",
@@ -3021,7 +3019,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app." + programUuid +".programSummary.dashboard",
                 "fas fa-fw fa-list-alt",
                 "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
-                Privileges.APP_COREAPPS_SUMMARY_DASHBOARD.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,
                 objectNode(
                         "program", programUuid
                 )),
@@ -3119,7 +3117,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.patientDocuments.label",
                 "fas fa-fw fa-paperclip",
                 null,
-                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,
                 null),
                 "attachments", "dashboardWidget"));
 
@@ -3128,7 +3126,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-paperclip",
                 "link",
                 "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
-                Privileges.APP_ATTACHMENTS_PAGE.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,
                 null));
     }
 
@@ -3139,7 +3137,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null, // TODO: add our own label?
                 null,  // TODO: add our own icon?
                 null,
-                Privileges.TASK_MANAGE_CONDITIONS_LIST.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_MANAGE_CONDITIONS_LIST,
                 null);
 
         apps.add(addToClinicianDashboardFirstColumn(conditionList, "coreapps", "conditionlist/conditions"));
@@ -3150,7 +3148,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pih.app.j9Referrals.title",
                 "fa fa-fw fa-baby",
                 "spa/referrals-queue",
-                Privileges.TASK_EMR_ENTER_MCH.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                 null),
                 sessionLocationHasTag("Maternal and Child Location")));
     }
@@ -3180,7 +3178,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "pihcore.spa.home",
                 "fas fa-fw fa-exclamation-triangle",
                 "spa/home",
-                Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,
                 null),
                 null));
         extensions.add(overallAction(Extensions.SPA_PREVIEW_PATIENT_CHART,
@@ -3188,7 +3186,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 "fas fa-fw fa-exclamation-triangle",
                 "link",
                 "spa/patient/{{patient.uuid}}/chart/summary",
-                Privileges.APP_EMR_SYSTEM_ADMINISTRATION.privilege(),
+                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,
                 null));
     }
 
