@@ -250,8 +250,6 @@ public class CustomAppLoaderConstants {
 
         public static final String NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT = "mirebalaisreports.dataQuality.nonCodedDiagnoses";
 
-        public static final String LQAS_DATA_EXPORT = "mirebalaisreports.dataExports.lqasDiagnoses";
-
         public static final String SPA_PREVIEW_PATIENT_CHART = "spa.preview.patientChart";
 
     }
