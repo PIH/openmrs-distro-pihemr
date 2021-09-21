@@ -92,6 +92,7 @@ public class MirebalaisConstants {
     public static final String PREGNANT_CONCEPT_UUID = "3ceb4880-26fe-102b-80cb-0017a47871b2";
     public static final String FAMILY_PLANNING_CONCEPT_UUID = "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String FEEDING_METHOD_CONCEPT_UUID = "5b98dcbe-0efc-4cc2-9544-c1da596e7039";
+    public static final String CLINICAL_COMMENTS_CONCEPT_UUID = "3cd9d956-26fe-102b-80cb-0017a47871b2";
 
     public static final String NEXT_RETURN_VISIT_UUID = "CIEL:5096";
 }
