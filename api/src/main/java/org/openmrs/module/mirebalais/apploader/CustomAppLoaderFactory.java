@@ -13,9 +13,7 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
@@ -113,7 +111,6 @@ import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationH
 import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
-import static org.openmrs.module.mirebalaisreports.definitions.BaseReportManager.REPORTING_DATA_EXPORT_REPORTS_ORDER;
 
 
 @Component("customAppLoaderFactory")
@@ -129,8 +126,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private GraphFactory graphs;
 
-    private FullDataExportBuilder fullDataExportBuilder;
-
     private List<AppDescriptor> apps = new ArrayList<AppDescriptor>();
 
     private List<Extension> extensions = new ArrayList<Extension>();
@@ -144,12 +139,10 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
     public CustomAppLoaderFactory(Config config,
                                   FeatureToggleProperties featureToggles,
                                   PatientRegistrationApp patientRegistrationApp,
-                                  FullDataExportBuilder fullDataExportBuilder,
                                   GraphFactory graphs) {
         this.config = config;
         this.featureToggles = featureToggles;
         this.patientRegistrationApp = patientRegistrationApp;
-        this.fullDataExportBuilder = fullDataExportBuilder;
         this.graphs = graphs;
     }
 
@@ -1046,8 +1039,6 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         if (enabledCategories.contains(BaseReportManager.Category.DATA_EXPORT)) {
-
-            extensions.addAll(fullDataExportBuilder.getExtensions());
 
             extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
                     "reportingui.adHocAnalysis.label",

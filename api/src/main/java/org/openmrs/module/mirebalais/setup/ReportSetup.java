@@ -9,7 +9,6 @@ import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
 import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.FullDataExportBuilder;
 import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
@@ -31,11 +30,6 @@ public class ReportSetup {
     public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
                                     AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
                                     Config config) {
-
-        FullDataExportBuilder fullDataExportBuilder = Context.getRegisteredComponents(FullDataExportBuilder.class).get(0);
-        for (ReportManager manager : fullDataExportBuilder.getAllReportManagers()) {
-            setupReport(manager, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-        }
 
         for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
             if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())
