@@ -67,7 +67,7 @@
         <edtriageappVersion>1.4.0</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0-SNAPSHOT</emrapiVersion>
-        <eventVersion>2.9.0</eventVersion>
+        <eventVersion>2.10.0</eventVersion>
         <fhir2Version>1.2.0-SNAPSHOT</fhir2Version>
         <htmlformentryVersion>4.1.0</htmlformentryVersion>
         <htmlformentryuiVersion>2.0.0</htmlformentryuiVersion>
@@ -78,7 +78,7 @@
         <initializerVersion>2.2.0-SNAPSHOT</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
-        <legacyuiVersion>1.8.3</legacyuiVersion>
+        <legacyuiVersion>1.8.4</legacyuiVersion>
         <metadatadeployVersion>1.13.0</metadatadeployVersion>
         <metadatamappingVersion>1.4.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
