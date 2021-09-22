@@ -133,6 +133,7 @@ public class CustomAppLoaderConstants {
         public static final String CHECK_IN_REGISTRATION_ACTION = "pih.checkin.registrationAction";
         public static final String VITALS_CAPTURE_VISIT_ACTION = "pih.form.vitals";
         public static final String CONSULT_NOTE_VISIT_ACTION = "pih.form.consult";
+        public static final String CONSULT_NOTE_INITIAL_VISIT_ACTION = "pih.form.consultInitial";
         public static final String ADMISSION_NOTE_VISIT_ACTION = "pih.form.admission";
         public static final String DISPENSE_MEDICATION_VISIT_ACTION = "dispensing.form";
         public static final String ED_CONSULT_NOTE_VISIT_ACTION = "pih.form.edConsult";
