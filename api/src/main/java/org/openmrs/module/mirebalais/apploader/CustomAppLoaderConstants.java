@@ -27,6 +27,7 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
+        public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
         public static final String HIV_DIAGNOSES_SUMMARY = "pih.app.hiv.diagnoses.summary";
         public static final String HIV_ADVERSE_EFFECT = "pih.app.hiv.adverse.effect";
@@ -439,6 +440,7 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
+            Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,

@@ -3162,6 +3162,23 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("comment.xml")),
                 null,
                 null));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.NOTES_SUMMARY,
+                "pih.app.notes.title",
+                "fas fa-comments",
+                patientVisitsPageUrl,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-comments",
+                        "label", "pih.app.notes.title",
+                        "detailsUrl", patientVisitsPageUrl,
+                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID,
+                        "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
+                        "sortOrder", "desc",
+                        "headers", "zl.date,pih.app.notes.title"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableSpaPreview() {
