@@ -13,7 +13,7 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.BasePihReportManager;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
@@ -870,24 +870,24 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 null)));
 
         // This is how things have been setup.  Consider refactoring this to make more sense.
-        Set<BaseReportManager.Category> enabledCategories = new HashSet<BaseReportManager.Category>();
+        Set<BasePihReportManager.Category> enabledCategories = new HashSet<BasePihReportManager.Category>();
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS)) {
-            enabledCategories.add(BaseReportManager.Category.OVERVIEW);
-            enabledCategories.add(BaseReportManager.Category.DAILY);
-            enabledCategories.add(BaseReportManager.Category.DATA_QUALITY);
+            enabledCategories.add(BasePihReportManager.Category.OVERVIEW);
+            enabledCategories.add(BasePihReportManager.Category.DAILY);
+            enabledCategories.add(BasePihReportManager.Category.DATA_QUALITY);
         }
         if (config.isComponentEnabled(Components.MONITORING_REPORTS)) {
-            enabledCategories.add(BaseReportManager.Category.MONITORING);
+            enabledCategories.add(BasePihReportManager.Category.MONITORING);
         }
         if (config.isComponentEnabled(Components.DATA_EXPORTS)) {
-            enabledCategories.add(BaseReportManager.Category.DATA_EXPORT);
+            enabledCategories.add(BasePihReportManager.Category.DATA_EXPORT);
         }
 
         // First, iterate over all of the Report Managers, and add extensions for them, if they are enabled
-        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+        for (BasePihReportManager report : Context.getRegisteredComponents(BasePihReportManager.class)) {
             if (report.getCountries().contains(config.getCountry()) || report.getSites().contains(config.getSite())) {
                 if (enabledCategories.contains(report.getCategory())) {
-                    if (report.getCategory() == BaseReportManager.Category.OVERVIEW) {
+                    if (report.getCategory() == BasePihReportManager.Category.OVERVIEW) {
                         extensions.add(overviewReport("mirebalaisreports.overview." + report.getName(),
                                 report.getMessageCodePrefix() + "name",
                                 report.getUuid(),
@@ -895,7 +895,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 report.getOrder(),
                                 "mirebalaisreports-" + report.getName() + "-link"));
                     }
-                    else if (report.getCategory() == BaseReportManager.Category.DAILY) {
+                    else if (report.getCategory() == BasePihReportManager.Category.DAILY) {
                         extensions.add(dailyReport("mirebalaisreports.dailyReports." + report.getName(),
                                 report.getMessageCodePrefix() + "name",
                                 report.getUuid(),
@@ -903,7 +903,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 report.getOrder(),
                                 "mirebalaisreports-" + report.getName() + "-link"));
                     }
-                    else if (report.getCategory() == BaseReportManager.Category.MONITORING) {
+                    else if (report.getCategory() == BasePihReportManager.Category.MONITORING) {
                         extensions.add(monitoringReport("mirebalaisreports.monitoring." + report.getName(),
                                 report.getMessageCodePrefix() + "name",
                                 report.getUuid(),
@@ -911,7 +911,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 report.getOrder(),
                                 "mirebalaisreports-" + report.getName() + "-link"));
                     }
-                    else if (report.getCategory() == BaseReportManager.Category.DATA_EXPORT) {
+                    else if (report.getCategory() == BasePihReportManager.Category.DATA_EXPORT) {
                         extensions.add(dataExport("mirebalaisreports.dataExports." + report.getName(),
                                 report.getMessageCodePrefix() + "name",
                                 report.getUuid(),
@@ -927,13 +927,13 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         // reports defined through Reporting Config (move to PIH Core at some point?)
         for (ReportDescriptor reportDescriptor : ReportLoader.loadReportDescriptors()) {
             if (reportDescriptor.getConfig() != null) {
-                BaseReportManager.Category category = null;
+                BasePihReportManager.Category category = null;
                 Object rptCategory = reportDescriptor.getConfig().get("category");
                 if (rptCategory != null) {
                     if ("dataExport".equalsIgnoreCase(rptCategory.toString())) {
                         rptCategory = "DATA_EXPORT";
                     }
-                    category = BaseReportManager.Category.valueOf(rptCategory.toString());
+                    category = BasePihReportManager.Category.valueOf(rptCategory.toString());
                 }
                 List<String> components = reportDescriptor.getConfig().containsKey("components") ? (List<String>) reportDescriptor.getConfig().get("components") : null;
                 Integer order = reportDescriptor.getConfig().containsKey("order") ? Integer.valueOf(reportDescriptor.getConfig().get("order").toString()) : 9999;
@@ -944,7 +944,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                 boolean matchesSite = (sites == null || sites.contains(config.getSite()));
 
                 if (matchesComponent && (matchesCountry || matchesSite)) {
-                    if (category == BaseReportManager.Category.OVERVIEW) {
+                    if (category == BasePihReportManager.Category.OVERVIEW) {
                         extensions.add(overviewReport("mirebalaisreports.overview." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
@@ -952,7 +952,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link"));
                     }
-                    else if (category == BaseReportManager.Category.DAILY) {
+                    else if (category == BasePihReportManager.Category.DAILY) {
                         extensions.add(dailyReport("mirebalaisreports.dailyReports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
@@ -960,7 +960,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link"));
                     }
-                    else if (category == BaseReportManager.Category.MONITORING) {
+                    else if (category == BasePihReportManager.Category.MONITORING) {
                         extensions.add(monitoringReport("mirebalaisreports.monitoring." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
@@ -968,7 +968,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link"));
                     }
-                    else if (category == BaseReportManager.Category.DATA_EXPORT) {
+                    else if (category == BasePihReportManager.Category.DATA_EXPORT) {
                         extensions.add(dataExport("mirebalaisreports.dataExports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
                                 reportDescriptor.getUuid(),
@@ -981,7 +981,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
         }
 
         // TODO: Get rid of these hacked-in reports in favor of proper configuration
-        if (enabledCategories.contains(BaseReportManager.Category.OVERVIEW)) {
+        if (enabledCategories.contains(BasePihReportManager.Category.OVERVIEW)) {
             if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
                 extensions.add(extension(Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,
                         "mirebalaisreports.registrationoverview.title",
@@ -1022,7 +1022,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             }
         }
 
-        if (enabledCategories.contains(BaseReportManager.Category.DATA_QUALITY)) {
+        if (enabledCategories.contains(BasePihReportManager.Category.DATA_QUALITY)) {
             if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
                 // special non-coded report in it's own section for Haiti
                 extensions.add(extension(Extensions.NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT,
@@ -1038,7 +1038,7 @@ private String patientVisitsPageWithSpecificVisitUrl = "";
             }
         }
 
-        if (enabledCategories.contains(BaseReportManager.Category.DATA_EXPORT)) {
+        if (enabledCategories.contains(BasePihReportManager.Category.DATA_EXPORT)) {
 
             extensions.add(extension(Extensions.REPORTING_AD_HOC_ANALYSIS,
                     "reportingui.adHocAnalysis.label",

@@ -8,18 +8,17 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.mirebalaisreports.MirebalaisReportsProperties;
-import org.openmrs.module.mirebalaisreports.definitions.BaseReportManager;
-import org.openmrs.module.mirebalaisreports.definitions.ReportManager;
+import org.openmrs.module.mirebalaisreports.definitions.BasePihReportManager;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
+import org.openmrs.module.reporting.report.manager.ReportManager;
 import org.openmrs.module.reporting.report.renderer.RenderingMode;
 import org.openmrs.module.reporting.report.service.ReportService;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class ReportSetup {
                                     AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
                                     Config config) {
 
-        for (BaseReportManager report : Context.getRegisteredComponents(BaseReportManager.class)) {
+        for (BasePihReportManager report : Context.getRegisteredComponents(BasePihReportManager.class)) {
             if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())
                     && (StringUtils.isEmpty(report.getComponent()) || config.isComponentEnabled(report.getComponent()))) {
                 setupReport(report, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
@@ -196,16 +195,11 @@ public class ReportSetup {
             }
         }
 
-        try {
-            List<ReportDesign> designs = manager.constructReportDesigns(reportDefinition);
-            for (ReportDesign design : designs) {
-                reportService.saveReportDesign(design);
-            }
-            administrationService.setGlobalProperty(globalPropertyFor(manager), manager.getVersion());
+        List<ReportDesign> designs = manager.constructReportDesigns(reportDefinition);
+        for (ReportDesign design : designs) {
+            reportService.saveReportDesign(design);
         }
-        catch (IOException ex) {
-            log.error("Error constructing report design for " + reportDefinition.getName(), ex);
-        }
+        administrationService.setGlobalProperty(globalPropertyFor(manager), manager.getVersion());
     }
 
     private static boolean alreadyAtLatestVersion(ReportManager manager, AdministrationService administrationService) {
