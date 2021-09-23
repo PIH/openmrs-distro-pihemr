@@ -61,7 +61,7 @@
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
         <appuiVersion>1.14.0</appuiVersion>
         <attachmentsVersion>2.5.0</attachmentsVersion>
-        <calculationVersion>1.3.1</calculationVersion>
+        <calculationVersion>1.3.0</calculationVersion>
         <coreappsVersion>1.35.0-SNAPSHOT</coreappsVersion>
         <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.4.0</edtriageappVersion>
