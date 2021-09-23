@@ -53,7 +53,6 @@
     <properties>
         <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
-        <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
         <appframeworkVersion>2.16.0</appframeworkVersion>
@@ -453,13 +452,6 @@
             <version>${pihcoreVersion}</version>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>mirebalaisreports-api</artifactId>
-            <version>${mirebalaisreportsVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>

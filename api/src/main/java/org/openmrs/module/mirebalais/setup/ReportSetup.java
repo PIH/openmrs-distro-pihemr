@@ -1,13 +1,10 @@
 package org.openmrs.module.mirebalais.setup;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.AdministrationService;
-import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
-import org.openmrs.module.mirebalaisreports.definitions.BasePihReportManager;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportDesign;
@@ -40,13 +37,6 @@ public class ReportSetup {
     public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
                                     AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
                                     Config config) {
-
-        for (BasePihReportManager report : Context.getRegisteredComponents(BasePihReportManager.class)) {
-            if (report.getCountries().contains(config.getCountry())  || report.getSites().contains(config.getSite())
-                    && (StringUtils.isEmpty(report.getComponent()) || config.isComponentEnabled(report.getComponent()))) {
-                setupReport(report, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
-            }
-        }
 
         scheduleBackupReports(reportService, reportDefinitionService, config);
         scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);

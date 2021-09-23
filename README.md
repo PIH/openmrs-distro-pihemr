@@ -13,16 +13,10 @@ A few links from the OpenMRS wiki that are worth reading:
 
 
 Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but we also have
-several PIH-specific modules as well.  Of those there are four top-level modules that provide most of the PIH-specific configuration:
+several PIH-specific modules as well.  Of those there are 2 top-level modules that provide most of the PIH-specific configuration:
 
 * mirebalais: https://github.com/PIH/openmrs-module-mirebalais
-
-* mirebalaismetadata: https://github.com/PIH/openmrs-module-mirebalaismetadata
-
-* mirebalaisreports: https://github.com/PIH/openmrs-module-mirebalaisreports
-
 * pihcore: https://github.com/PIH/openmrs-module-pihcore
-
 
 These modules do several things, but their main tasks are:
 
