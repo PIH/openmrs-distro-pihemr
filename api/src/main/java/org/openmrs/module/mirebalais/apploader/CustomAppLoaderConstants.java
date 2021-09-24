@@ -27,6 +27,7 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
+        public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
         public static final String HIV_DIAGNOSES_SUMMARY = "pih.app.hiv.diagnoses.summary";
         public static final String HIV_ADVERSE_EFFECT = "pih.app.hiv.adverse.effect";
@@ -132,6 +133,7 @@ public class CustomAppLoaderConstants {
         public static final String CHECK_IN_REGISTRATION_ACTION = "pih.checkin.registrationAction";
         public static final String VITALS_CAPTURE_VISIT_ACTION = "pih.form.vitals";
         public static final String CONSULT_NOTE_VISIT_ACTION = "pih.form.consult";
+        public static final String CONSULT_NOTE_INITIAL_VISIT_ACTION = "pih.form.consultInitial";
         public static final String ADMISSION_NOTE_VISIT_ACTION = "pih.form.admission";
         public static final String DISPENSE_MEDICATION_VISIT_ACTION = "dispensing.form";
         public static final String ED_CONSULT_NOTE_VISIT_ACTION = "pih.form.edConsult";
@@ -438,6 +440,7 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
+            Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,

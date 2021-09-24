@@ -219,6 +219,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableConsult();
         }
 
+        if (config.isComponentEnabled(Components.CONSULT_INITIAL)) {
+            enableConsultInitial();
+        }
+
         if (config.isComponentEnabled(Components.ED_CONSULT)) {
             enableEDConsult();
         }
@@ -638,6 +642,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
                 findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
+    }
+
+    private void enableConsultInitial() {
+        extensions.add(visitAction(Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID,
+                "fas fa-fw fa-stethoscope",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsultInitial.xml")),
+                null,
+                sessionLocationHasTag("Consult Note Location")));
     }
 
     private void enableEDConsult() {
@@ -3128,6 +3142,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("comment.xml")),
                 null,
                 null));
+
+        apps.add(addToClinicianDashboardFirstColumn(app(Apps.NOTES_SUMMARY,
+                "pih.app.notes.title",
+                "fas fa-comments",
+                patientVisitsPageUrl,
+                null,
+                objectNode(
+                        "widget", "obsacrossencounters",
+                        "icon", "fas fa-comments",
+                        "label", "pih.app.notes.title",
+                        "detailsUrl", patientVisitsPageUrl,
+                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID,
+                        "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
+                        "sortOrder", "desc",
+                        "headers", "zl.date,pih.app.notes.title"
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableSpaPreview() {
