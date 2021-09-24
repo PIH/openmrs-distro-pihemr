@@ -23,9 +23,6 @@
         <require_module version="${pihcoreVersion}">
             org.openmrs.module.pihcore
         </require_module>
-        <require_module version="${mirebalaisreportsVersion}">
-            org.openmrs.module.mirebalaisreports
-        </require_module>
         <require_module version="${uiframeworkVersion}">
             org.openmrs.module.uiframework
         </require_module>

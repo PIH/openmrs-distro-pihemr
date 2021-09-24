@@ -428,26 +428,6 @@ public class CustomAppLoaderUtil {
                 privilege, map("provider", provider, "fragment", fragment, "fragmentConfig", config));
     }
 
-    static public Extension overviewReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
-        return report(id, label, "reportingui", "runReport", definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, order, linkId);
-    }
-
-    static public Extension dailyReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
-        return report(id, label, "mirebalaisreports", "dailyReport", definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS, order, linkId);
-    }
-
-    static public Extension monitoringReport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
-        return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING, order, linkId);
-    }
-
-    static public Extension dataExport(String id, String label, String definitionUuid, String privilege, Integer order, String linkId) {
-        return report(id, label, "reportingui", "runReport",definitionUuid, privilege,
-                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT, order, linkId);
-    }
-
     static public Extension report(String id, String label, String provider, String fragment, String definitionUuid, String privilege, String extensionPoint, int order, String linkId) {
         return new Extension(id, null, extensionPoint, "link", label,provider + "/" + fragment + ".page?reportDefinition=" + definitionUuid,
                 order, privilege, map("linkId", linkId));

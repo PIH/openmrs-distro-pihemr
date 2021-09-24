@@ -247,7 +247,6 @@ public class CustomAppLoaderConstants {
         public static final String CHECK_IN_SUMMARY_BY_AGE_REPORT = "mirebalaisreports.overview.checkinsByAge";
 
         public static final String DAILY_INPATIENTS_OVERVIEW_REPORT = "mirebalaisreports.overview.inpatientDaily";
-        public static final String MONTHLY_INPATIENTS_OVERVIEW_REPORT = "mirebalaisreports.overview.inpatientMonthly";
 
 
         public static final String NON_CODED_DIAGNOSES_DATA_QUALITY_REPORT = "mirebalaisreports.dataQuality.nonCodedDiagnoses";
