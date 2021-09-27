@@ -127,6 +127,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private Boolean readyForRefresh = false;
 
+    private String patientEncountersPageUrl = "";
     private String patientVisitsPageUrl = "";
 
     private String patientVisitsPageWithSpecificVisitUrl = "";
@@ -197,6 +198,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
+        patientEncountersPageUrl="/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
 
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
@@ -3143,16 +3145,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));
 
+        HashMap<String, String> encounterParams = new HashMap<String, String>();
+        encounterParams.put("encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID);
+
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.NOTES_SUMMARY,
                 "pih.app.notes.title",
                 "fas fa-comments",
-                patientVisitsPageUrl,
+                addParametersToUrl(patientEncountersPageUrl, encounterParams),
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-comments",
                         "label", "pih.app.notes.title",
-                        "detailsUrl", patientVisitsPageUrl,
+                        "detailsUrl", addParametersToUrl(patientEncountersPageUrl, encounterParams),
                         "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID,
                         "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
                         "sortOrder", "desc",
