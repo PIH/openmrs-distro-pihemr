@@ -2000,6 +2000,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null,
                     sessionLocationHasTag("Consult Note Location")));
 
+            extensions.add(visitAction(Extensions.MEXICO_CLINICAL_HISTORY_ACTION,
+                    "ui.i18n.EncounterType.name." + CesConfigConstants.ENCOUNTERTYPE_CLINICALHISTORY_UUID,
+                    "fas fa-fw fa-clipboard-list",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("clinicalHistory.xml")),
+                    null,
+                    sessionLocationHasTag("Consult Note Location")));
+
         } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
 
             extensions.add(visitAction(Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
