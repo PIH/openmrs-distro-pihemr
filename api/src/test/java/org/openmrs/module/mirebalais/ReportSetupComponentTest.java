@@ -10,6 +10,7 @@ import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.manager.BaseReportManager;
+import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -53,8 +54,7 @@ public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
         authenticate();
 
         TestReportManager manager = new TestReportManager();
-
-        ReportSetup.setupReport(manager, reportService, reportDefinitionService, administrationService, serializedObjectDAO);
+        ReportManagerUtil.setupReport(manager);
 
         ReportDefinition reportDefinition = reportDefinitionService.getDefinitionByUuid(manager.getUuid());
         assertNotNull(reportDefinition);

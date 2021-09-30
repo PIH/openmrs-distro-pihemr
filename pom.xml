@@ -84,7 +84,7 @@
         <namephoneticsVersion>1.18.0</namephoneticsVersion>
         <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
         <owaVersion>1.13.0</owaVersion>
-        <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
+        <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.13.0</providermanagementVersion>

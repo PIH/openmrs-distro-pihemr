@@ -35,9 +35,6 @@ import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.mirebalais.RuntimeProperties;
-import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;
-import org.openmrs.module.pihcore.identifier.haiti.ConfigureHaitiIdGenerators;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -54,9 +51,6 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 // ignoring MirthIT tests for now as there is no current good way to test this
 // once we get a good production pipeline set up, we may want to re-enable this
@@ -170,25 +164,25 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		
 		// save the patient
 		patientService.savePatient(patient);
-		
+
 		/**
 		 *  Commenting this out because we are not currently sending ADT information to APCS
 		String result = listenForResults();
-		
+
 		System.out.println(result);
-		
+
 		// make sure the appropriate message has been delivered
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A01||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
-		
+
 		// now resave the patient and verify that a patient updated message is sent
 		// save the patient to trigger an update event
 		patientService.savePatient(patient);
-		
+
 		result = listenForResults();
-		
+
 		System.out.println(result);
-		
+
 		TestUtils.assertContains("MSH|^~\\&|||||||ADT^A08||P|2.3", result);
 		TestUtils.assertContains("PID|||2ADMMN||Test Patient^Mirth Integration||200003230000|M", result);
 
@@ -258,19 +252,5 @@ public class MirthIT extends BaseModuleContextSensitiveTest {
 		listener.close();
 		
 		return sb.toString();
-	}
-	
-	public class TestMirebalaisHospitalActivator extends MirebalaisHospitalActivator {
-
-        public TestMirebalaisHospitalActivator() {
-            super();
-            RuntimeProperties properties = mock(RuntimeProperties.class);
-            ConfigureHaitiIdGenerators configureIdGenerators = mock(ConfigureHaitiIdGenerators.class);
-            when(configureIdGenerators.getRemoteZlIdentifierSourceUsername()).thenReturn("testidgen");
-            when(configureIdGenerators.getRemoteZlIdentifierSourcePassword()).thenReturn("Testing123");
-            when(configureIdGenerators.getRemoteZlIdentifierSourceUrl()).thenReturn("http://humci.pih-emr.org:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=TestingMirebalais\n");
-
-            setCustomProperties(properties);
-        }
 	}
 }

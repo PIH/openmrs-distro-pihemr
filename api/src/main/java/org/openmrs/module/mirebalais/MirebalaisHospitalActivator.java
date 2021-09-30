@@ -15,221 +15,87 @@ package org.openmrs.module.mirebalais;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.GlobalProperty;
-import org.openmrs.Privilege;
 import org.openmrs.api.AdministrationService;
-import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.api.context.Daemon;
+import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.DaemonToken;
+import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.ModuleFactory;
-import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
-import org.openmrs.module.mirebalais.setup.AppointmentSchedulingSetup;
-import org.openmrs.module.mirebalais.setup.ArchivesSetup;
-import org.openmrs.module.mirebalais.setup.LegacyMasterPatientIndexSetup;
-import org.openmrs.module.mirebalais.setup.PrinterSetup;
-import org.openmrs.module.mirebalais.setup.ReportSetup;
-import org.openmrs.module.pihcore.config.Components;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.config.ConfigLoader;
-import org.openmrs.module.printer.PrinterService;
-import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
-import org.openmrs.module.reporting.report.service.ReportService;
-import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.module.mirebalais.setup.ConfigurationSetup;
+import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 
 /**
- * This class contains the logic that is run every time this module is either started or stopped.
+ * Performs all necessary setup when the PIH EMR distribution starts
+ * Ultimately this will be moved to the PihCoreActivator
  */
-public class MirebalaisHospitalActivator implements ModuleActivator {
+public class MirebalaisHospitalActivator extends BaseModuleActivator implements DaemonTokenAware {
 
     protected Log log = LogFactory.getLog(getClass());
 
-    private RuntimeProperties customProperties;
-
-    private Boolean testMode = false;
+    private DaemonToken daemonToken;
 
     public MirebalaisHospitalActivator() {
-        customProperties = new RuntimeProperties();
     }
 
-    /**
-     * @see ModuleActivator#willRefreshContext()
-     */
-    public void willRefreshContext() {
-        log.info("Refreshing Mirebalais Hospital Module");
-    }
-
-    /**
-     * @see ModuleActivator#contextRefreshed()
-     */
-    public void contextRefreshed() {
-
-        try {
-            Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
-
-            // Reload configuration based on runtime properties values
-            config.reload(ConfigLoader.loadFromRuntimeProperties());
-
-            log.info("Mirebalais Hospital Module refreshed");
-        }
-        catch (Exception e) {
-            Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
-            ModuleFactory.stopModule(mod);
-            throw new RuntimeException("failed to setup the required modules", e);
-        }
-    }
-
-    /**
-     * @see ModuleActivator#willStart()
-     */
-    public void willStart() {
-        log.info("Starting Mirebalais Hospital Module");
+    @Override
+    public void setDaemonToken(DaemonToken daemonToken) {
+        this.daemonToken = daemonToken;
     }
 
     /**
      * @see ModuleActivator#started()
      */
+    @Override
     public void started() {
         try {
+            log.info("Mirebalais Module Started, initiating configuration");
 
-            Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+            final ConfigurationSetup configurationSetup = Context.getRegisteredComponents(ConfigurationSetup.class).get(0);
+            configurationSetup.setupBase();
 
-            AdministrationService administrationService = Context.getAdministrationService();
-            ReportService reportService = Context.getService(ReportService.class);
-            ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
-            SerializedObjectDAO serializedObjectDAO = Context.getRegisteredComponents(SerializedObjectDAO.class).get(0);
-            PrinterService printerService = Context.getService(PrinterService.class);
-            DispositionService dispositionService = Context.getService(DispositionService.class);
-
-            removeOldPrivileges();
-
-            setDispositionConfig(config, dispositionService);
-
-            // register our custom print handlers
-            PrinterSetup.registerPrintHandlers(printerService);
-
-            // configure default dashboard in coreapps
-            updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());
-            // configure default visits page in coreapps
-            updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_URL, config.getVisitPageUrl());
-            // configure default specific visit detail page in coreapps
-            updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
-
-            if (config.isComponentEnabled(Components.LEGACY_MPI)) {
-                LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(customProperties);
+            if (runInSeparateThread()) {
+                log.info("Setting up configuration in a separate thread. Please monitor logs to check status.");
+                Daemon.runInDaemonThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            configurationSetup.configureSystem();
+                        }
+                        catch (Exception e) {
+                            log.error("Configuration Setup Failed", e);
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }, daemonToken);
             }
-
-            if (config.isComponentEnabled(Components.ARCHIVES)) {
-                ArchivesSetup.setupCloseStaleCreateRequestsTask();
-                ArchivesSetup.setupCloseStalePullRequestsTask();
+            else {
+                configurationSetup.configureSystem();
             }
-
-            if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
-                AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
-                if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-                    AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
-                }
-            }
-
-
-            if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equalsIgnoreCase("MIREBALAIS")) {
-                updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
-            }
-
-            if (!testMode) {   // super hack to ignore ReportSetup and app configuration when running MirebalaisHospitalComponentTest; TODO is to fix and get this to work
-
-                if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
-                    // must happen after location tags have been configured
-                    ReportSetup.setupReports(reportService, reportDefinitionService, administrationService, serializedObjectDAO, config);
-                }
-
-                // do app and extension configuration
-                Context.getRegisteredComponent("customAppLoaderFactory", CustomAppLoaderFactory.class).setReadyForRefresh(true);
-                ModuleFactory.getStartedModuleById("appframework").getModuleActivator().contextRefreshed();
-
-                // on first startup, these modules may not have been able to configure their global propertes correctly because
-                // all metadata was not loaded; we call the started method here to complete setup
-                ModuleFactory.getStartedModuleById("registrationapp").getModuleActivator().started();
-            }
-
-        } catch (Exception e) {
+            log.info("Distribution startup complete.");
+        }
+        catch (Exception e) {
             Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
             ModuleFactory.stopModule(mod, false, false);
-            throw new RuntimeException("failed to setup the required modules", e);
+            throw new RuntimeException("An error occurred while starting the mirebalais module", e);
         }
-        log.info("Mirebalais Hospital Module started");
     }
-
-
-    /**
-	 * @see ModuleActivator#willStop()
-	 */
-	public void willStop() {
-		log.info("Stopping Mirebalais Hospital Module");
-	}
 
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
 		log.info("Mirebalais Hospital Module stopped");
+        MergeActionsSetup.deregisterMergeActions();
 	}
 
-  /*  private void migratePaperRecordLocation(PaperRecordProperties paperRecordProperties) {
-
-        Context.getAdministrationService().executeSQL("update patient_identifier set location_id = (select location_id from location where uuid='"+
-                Locations.MIREBALAIS_HOSPITAL.uuid() + "')" +
-                "where identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = '" +
-                paperRecordProperties.getPaperRecordIdentifierType().getUuid() + "')" +
-                "and location_id = (select location_id from location where uuid='" +
-                Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
-
-        Context.getAdministrationService().executeSQL("update paperrecord_paper_record set record_location = (select location_id from location where uuid='" +
-                Locations.MIREBALAIS_HOSPITAL.uuid() + "')" +
-                "where record_location = (select location_id from location where uuid='" +
-                Locations.MIREBALAIS_CDI_PARENT.uuid() + "')", false);
-
-    }*/
-
-    private void removeOldPrivileges() {
-        UserService userService = Context.getUserService();
-        Privilege privilege = userService.getPrivilege("App: appointmentschedulingui.scheduleAdmin");
-        if (privilege != null) {
-            userService.purgePrivilege(privilege);
-        }
-    }
-
-    private void updateGlobalProperty(String name, Object value) {
-        AdministrationService administrationService = Context.getAdministrationService();
-        GlobalProperty gp = administrationService.getGlobalPropertyObject(name);
-        if (gp == null) {
-            throw new RuntimeException("Failed to get global property object '" + name + "'. Cannot set it to " + value);
-        } else {
-            gp.setPropertyValue(value == null ? "" : value.toString());
-            administrationService.saveGlobalProperty(gp);
-        }
-    }
-
-    private void updateGlobalPropertyFromConfig(Config config, String name) {
-        updateGlobalProperty(name, config.getGlobalProperty(name));
-    }
-
-    // configure which disposition config to use
-    public void setDispositionConfig(Config config, DispositionService dispositionService) {
-        if (config.getDispositionConfig() != null) {
-            dispositionService.setDispositionConfig(config.getDispositionConfig());
-        }
-    }
-
-    public void setCustomProperties(RuntimeProperties customProperties) {
-        this.customProperties = customProperties;
-    }
-
-    public void setTestMode(Boolean testMode) {
-        this.testMode = testMode;
+    // see https://pihemr.atlassian.net/browse/UHM-4459
+    private boolean runInSeparateThread() {
+        AdministrationService as = Context.getAdministrationService();
+        String runInSeparateThread = as.getGlobalProperty(PihCoreConstants.GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD);
+        return "true".equalsIgnoreCase(runInSeparateThread);
     }
 }
