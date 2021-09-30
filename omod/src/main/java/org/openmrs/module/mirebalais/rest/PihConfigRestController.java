@@ -32,7 +32,7 @@ public class PihConfigRestController {
     @RequestMapping(value = "/rest/v1/pihcore/config", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateConfig() {
-        if (!Context.isAuthenticated()) {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
             return HttpStatus.UNAUTHORIZED;
         }
         try {
@@ -48,7 +48,7 @@ public class PihConfigRestController {
     @RequestMapping(value = "/rest/v1/pihcore/config/reports/{reportKey}", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateReport(@PathVariable("reportKey") String reportKey) {
-        if (!Context.isAuthenticated()) {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
             return HttpStatus.UNAUTHORIZED;
         }
         for (ReportDescriptor descriptor : ReportLoader.loadReportDescriptors()) {
@@ -62,7 +62,7 @@ public class PihConfigRestController {
     @RequestMapping(value = "/rest/v1/pihcore/config/reports", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateAllReports() {
-        if (!Context.isAuthenticated()) {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
             return HttpStatus.UNAUTHORIZED;
         }
         ReportLoader.loadReportsFromConfig();
@@ -72,7 +72,7 @@ public class PihConfigRestController {
     @RequestMapping(value = "/rest/v1/pihcore/config/appframework", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateAppsAndExtensions() {
-        if (!Context.isAuthenticated()) {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
             return HttpStatus.UNAUTHORIZED;
         }
         configurationSetup.reloadAppsAndExtensions();
