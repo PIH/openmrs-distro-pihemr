@@ -225,6 +225,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableConsultInitial();
         }
 
+		if (config.isComponentEnabled(Components.NURSE_CONSULT)) {
+			enableNurseConsult();
+		}
+
         if (config.isComponentEnabled(Components.ED_CONSULT)) {
             enableEDConsult();
         }
@@ -655,6 +659,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 sessionLocationHasTag("Consult Note Location")));
     }
+
+	private void enableNurseConsult() {
+		extensions.add(visitAction(Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
+				"ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,
+				"fas fa-fw fa-stethoscope",
+				"link",
+				enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nurseConsult.xml")),
+				null,
+				sessionLocationHasTag("Consult Note Location")));
+	}
+
 
     private void enableEDConsult() {
 
