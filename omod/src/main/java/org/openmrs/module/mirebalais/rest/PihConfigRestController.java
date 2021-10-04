@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mirebalais.setup.ConfigurationSetup;
+import org.openmrs.module.pihcore.config.PihConfigService;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,20 @@ public class PihConfigRestController {
 
     @Autowired
     ConfigurationSetup configurationSetup;
+
+    @Autowired
+    PihConfigService configService;
+
+    @RequestMapping(value = "/rest/v1/pihcore/config", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getConfig() {
+        if (Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
+            return configService.getPihConfig();
+        }
+        else {
+            return HttpStatus.UNAUTHORIZED;
+        }
+    }
 
     @RequestMapping(value = "/rest/v1/pihcore/config", method = RequestMethod.PUT)
     @ResponseBody
