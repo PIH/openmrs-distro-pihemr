@@ -152,9 +152,8 @@ public class ConfigurationSetup {
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,
     // as some configurations depend on settings or metadata setup in previous configurations.
-
-    public void configureSystem() throws Exception {
-
+    // Ideally we will get rid of this non-concept vs concept dependencies.  Just need to speed up the concept loading component.
+    public void configureNonConceptDependencies() throws Exception {
         setStatus("Configuration Setup Initiated");
 
         // Load in PIH Config
@@ -179,6 +178,14 @@ public class ConfigurationSetup {
         // TODO: We need to consider the setting component GPs here
         setStatus("Setting additional global properties");
         setGlobalProperties(config);
+
+        // Configure the Disposition Config based on PIH Config
+        // TODO: Note, in the various activators, this is done multiple times across many started and contextRefreshed methods
+        // TODO: Confirm that moving this here makes sense - these refer to concepts, but in the same way that GPs refer to concepts
+        if (config != null && config.getDispositionConfig() != null) {
+            setStatus("Configuring disposition config");
+            dispositionService.setDispositionConfig(config.getDispositionConfig());
+        }
 
         // Setup Metadata Mappings for Extra Identifier Types, as specified in PIH Config (TODO: Move this to metadatamapping iniz domain)
         if (config != null && config.getExtraIdentifierTypes() != null && config.getExtraIdentifierTypes().size() > 0) {
@@ -231,36 +238,6 @@ public class ConfigurationSetup {
             Context.updateSearchIndex();
         }
 
-        // TODO: Note here below are from MetadataSetupTask, which can be run in a separate thread or not
-
-        // Install Concepts, etc from MDS Packages
-        setStatus("Installing MDS packages");
-        MetadataSharingSetup.installMetadataSharingPackages();
-
-        // Load remaining Initializer domains that could depend on Concepts
-        setStatus("Loading initializer post-concept domains");
-        InitializerSetup.loadPostConceptDomains(config);
-
-        // Load PIH drug list
-        setStatus("Installing drug list");
-        DrugListSetup.installDrugList();
-
-        // Configure the Disposition Config based on PIH Config
-        // TODO: Note, in the various activators, this is done multiple times across many started and contextRefreshed methods
-        // TODO: Confirm that moving this here makes sense - after most metadata has been loaded
-        if (config != null && config.getDispositionConfig() != null) {
-            setStatus("Configuring disposition config");
-            dispositionService.setDispositionConfig(config.getDispositionConfig());
-        }
-
-        // Load HTML Forms  TODO: Move this over to use the initializer methods for this
-        setStatus("Loading HTML forms");
-        HtmlFormSetup.loadHtmlForms(false);
-
-        // Load Reports  TODO: Start a discussion about moving this functionality over to initializer
-        setStatus("Loading reports");
-        ReportLoader.loadReportsFromConfig();
-
         // TODO: This depends on specific metadata to exist, so needs to go in here
         // TODO: But we should consider if
         //  a) this is still actually needed/used, and
@@ -289,16 +266,43 @@ public class ConfigurationSetup {
             }
         }
 
+        setStatus("Reloading all apps and extensions");
+        reloadAppsAndExtensions();
+        setStatus("Configuration Setup Completed Successfully");
+    }
+
+    public void configureConceptDependencies() {
+        // Install Concepts, etc from MDS Packages
+        setStatus("Installing MDS packages");
+        MetadataSharingSetup.installMetadataSharingPackages();
+
+        // Load remaining Initializer domains that could depend on Concepts
+        setStatus("Loading initializer post-concept domains");
+        InitializerSetup.loadPostConceptDomains(config);
+
+        // Load PIH drug list
+        setStatus("Installing drug list");
+        DrugListSetup.installDrugList();
+
+        // Load HTML Forms  TODO: Move this over to use the initializer methods for this
+        setStatus("Loading HTML forms");
+        HtmlFormSetup.loadHtmlForms(false);
+
+        // Load Reports  TODO: Start a discussion about moving this functionality over to initializer
+        setStatus("Loading reports");
+        ReportLoader.loadReportsFromConfig();
+
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
             setStatus("Setting up scheduled report requests");
             // TODO: These scheduled report configurations should be moved to entirely to config and that config supported by reporting module natively
             ReportSetup.scheduleBackupReports(config);
             ReportSetup.scheduleMonthlyExportsReports(config);
         }
+    }
 
-        setStatus("Reloading all apps and extensions");
-        reloadAppsAndExtensions();
-        setStatus("Configuration Setup Completed Successfully");
+    public void configureSystem() throws Exception {
+        configureNonConceptDependencies();
+        configureConceptDependencies();
     }
 
     public void reloadAppsAndExtensions() {

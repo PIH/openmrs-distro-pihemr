@@ -56,6 +56,7 @@ public class MirebalaisHospitalActivator extends BaseModuleActivator implements 
 
             final ConfigurationSetup configurationSetup = Context.getRegisteredComponents(ConfigurationSetup.class).get(0);
             configurationSetup.setupBase();
+            configurationSetup.configureNonConceptDependencies();
 
             if (runInSeparateThread()) {
                 log.info("Setting up configuration in a separate thread. Please monitor logs to check status.");
@@ -63,7 +64,7 @@ public class MirebalaisHospitalActivator extends BaseModuleActivator implements 
                     @Override
                     public void run() {
                         try {
-                            configurationSetup.configureSystem();
+                            configurationSetup.configureConceptDependencies();
                         }
                         catch (Exception e) {
                             log.error("Configuration Setup Failed", e);
@@ -73,7 +74,7 @@ public class MirebalaisHospitalActivator extends BaseModuleActivator implements 
                 }, daemonToken);
             }
             else {
-                configurationSetup.configureSystem();
+                configurationSetup.configureConceptDependencies();
             }
             log.info("Distribution startup complete.");
         }
