@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.apploader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
@@ -143,6 +144,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         this.featureToggles = featureToggles;
         this.patientRegistrationApp = patientRegistrationApp;
         this.graphs = graphs;
+    }
+
+    public void reloadAllAppsAndExtensions() {
+        this.setReadyForRefresh(true);
+        apps = new ArrayList<AppDescriptor>();
+        extensions = new ArrayList<Extension>();
+        ModuleFactory.getStartedModuleById("appframework").getModuleActivator().contextRefreshed();
     }
 
     @Override
