@@ -128,6 +128,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private Boolean readyForRefresh = false;
 
+    private String patientEncountersPageUrl = "";
     private String patientVisitsPageUrl = "";
 
     private String patientVisitsPageWithSpecificVisitUrl = "";
@@ -205,6 +206,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
+        patientEncountersPageUrl="/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
 
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
@@ -230,6 +232,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.CONSULT_INITIAL)) {
             enableConsultInitial();
         }
+
+		if (config.isComponentEnabled(Components.NURSE_CONSULT)) {
+			enableNurseConsult();
+		}
 
         if (config.isComponentEnabled(Components.ED_CONSULT)) {
             enableEDConsult();
@@ -661,6 +667,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 sessionLocationHasTag("Consult Note Location")));
     }
+
+	private void enableNurseConsult() {
+		extensions.add(visitAction(Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
+				"ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,
+				"fas fa-fw fa-stethoscope",
+				"link",
+				enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nurseConsult.xml")),
+				null,
+				sessionLocationHasTag("Consult Note Location")));
+	}
+
 
     private void enableEDConsult() {
 
@@ -2208,13 +2225,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 PihEmrConfigConstants.PROGRAM_HIV_UUID + ".includeFragments",
                 map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
-
-
-
-        extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.CREATE_VISIT_OVERALL_ACTION)));
-        if (config.isComponentEnabled(Components.MARK_PATIENT_DEAD)) {
-            extensions.add(cloneAsHivOverallAction(findExtensionById(Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION)));
-        }
     }
 
     private void enableHIVIntakeForm() {
@@ -3018,6 +3028,34 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "program", programUuid
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+
+        // All program dashboards should provide a general action link back to general patient dashboard
+        String programKey = programUuid.replace("-", "");
+        extensions.add(extension(
+                "pih.extension." + programKey + " .clinicianDashboardLink",
+                "registrationapp.clinicalDashboard",
+                "fas fa-fw fa-stethoscope",
+                "link",
+                "coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}",
+                "App: coreapps.patientDashboard",
+                null,
+                programUuid + ".overallActions",
+                1,
+                null
+        ));
+
+        // All clinician-facing dashboard general actions should be configured by default on program dashboards
+        List<Extension> programExtensions = new ArrayList<Extension>();
+        for (Extension e : extensions) {
+            if (CustomAppLoaderConstants.ExtensionPoints.OVERALL_ACTIONS.equals(e.getExtensionPointId())) {
+                programExtensions.add(extension(
+                        e.getId() + "." + programUuid, e.getLabel(), e.getIcon(), e.getType(),
+                        (e.getUrl() == null ? e.getScript() : e.getUrl()), e.getRequiredPrivilege(), e.getRequire(),
+                        programUuid + ".overallActions", e.getOrder(), e.getExtensionParams()
+                ));
+            }
+        }
+        extensions.addAll(programExtensions);
     }
 
     private void enableExportPatients() {
@@ -3151,16 +3189,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));
 
+        HashMap<String, String> encounterParams = new HashMap<String, String>();
+        encounterParams.put("encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID);
+
         apps.add(addToClinicianDashboardFirstColumn(app(Apps.NOTES_SUMMARY,
                 "pih.app.notes.title",
                 "fas fa-comments",
-                patientVisitsPageUrl,
+                addParametersToUrl(patientEncountersPageUrl, encounterParams),
                 null,
                 objectNode(
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-comments",
                         "label", "pih.app.notes.title",
-                        "detailsUrl", patientVisitsPageUrl,
+                        "detailsUrl", addParametersToUrl(patientEncountersPageUrl, encounterParams),
                         "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID,
                         "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
                         "sortOrder", "desc",

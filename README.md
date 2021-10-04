@@ -519,19 +519,23 @@ Ask someone from the PIH EMR team to grant you access to the PIH Transifex org.
 Those strings will be downloaded and used to update the `messages_**.properties` files.
 *Do not* attempt to translate the EMR by modifying those files directly.
 
-### Transifex Workflow
+### Transifex Workflow for adding a new message code and translation
 
-1. Navigate to the PIH org in Transifex
-1. Click "Resources"
-1. Click on the resource you want to work on. The messages in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties)
-	correspond to the resource "PIH Config"
-1. Click on the language you want to enter translations for
-1. Enter and save your translations
-1. In a terminal, `cd` to `openmrs-config-pihemr`
-1. Run `tx pull`
-1. Commit and push the `message_**.properties` files that have changed.
-	If you are at all unsure, just push to a branch and open a PR. This
-	is always the safer option.
+1. Add the new code and English translation directly to the English translation file: https://github.com/PIH/openmrs-config-pihemr/blob/master/configuration/messageproperties/messages_en.properties
+2. Push the updated "messages_en.properties" file to Transifex using the Transifex client `tx push -s`
+3. Navigate to the PIH org in Transifex
+4. Click "Resources"
+5. Click on the resource you want to work on. The messages in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties)
+    correspond to the resource "PIH Config"
+6. Click on the language you want to enter translations for
+7. Enter and save your translations
+8. In a terminal, `cd` to `openmrs-config-pihemr`
+9. Run `tx pull`
+10. Commit and push the `message_**.properties` files that have changed.
+     If you are at all unsure, just push to a branch and open a PR. This
+     is always the safer option.
+
+Note that you should never push the translation files to Transifex directly. 
 
 
 ## Making Things Easy
