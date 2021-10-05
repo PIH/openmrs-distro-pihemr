@@ -279,7 +279,7 @@ pih.config=mirebalais,mirebalais-humci
 
 Haiti HIV environment:
 ```properties
-pih.config=haiti-hiv
+pih.config=haiti,haiti-hiv
 ```
 
 Liberia (Harper) Dev environment:
