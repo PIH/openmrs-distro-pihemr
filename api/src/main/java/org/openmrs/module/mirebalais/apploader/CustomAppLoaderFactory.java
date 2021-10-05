@@ -2024,7 +2024,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     sessionLocationHasTag("Consult Note Location")));
 
             extensions.add(visitAction(Extensions.MEXICO_CLINICAL_HISTORY_ACTION,
-                    "ui.i18n.EncounterType.name." + CesConfigConstants.ENCOUNTERTYPE_CLINICALHISTORY_UUID,
+                    "ui.i18n.EncounterType.name.0d16a7c9-07fb-43f6-8984-dd7787f26a5a",  // Clinical History
                     "fas fa-fw fa-clipboard-list",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("clinicalHistory.xml")),
