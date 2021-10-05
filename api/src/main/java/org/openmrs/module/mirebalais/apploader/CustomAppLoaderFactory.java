@@ -941,6 +941,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 List<String> sites = reportConfig.containsKey("sites") ? (List<String>) reportConfig.get("sites") : null;
                 String pageProvider = reportConfig.containsKey("pageProvider") ? (String) reportConfig.get("pageProvider") : null;
                 String pagePath = reportConfig.containsKey("pagePath") ? (String) reportConfig.get("pagePath") : null;
+                String privilege = reportConfig.containsKey("privilege") ? (String) reportConfig.get("privilege") : null;
 
                 boolean matchesComponent = (components == null || config.anyComponentEnabled(components));
                 boolean matchesCountry = (countries == null || countries.contains(config.getCountry().name()));
@@ -954,7 +955,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 (pageProvider == null ? "reportingui" : pageProvider),
                                 (pagePath == null ? "runReport" : pagePath),
                                 reportDescriptor.getUuid(),
-                                "App: reportingui.reports",
+                                (privilege == null ? "App: reportingui.reports" : privilege),
                                 CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
@@ -967,7 +968,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 (pageProvider == null ? "pihcore" : pageProvider),
                                 (pagePath == null ? "reports/dailyReport" : pagePath),
                                 reportDescriptor.getUuid(),
-                                "App: reportingui.reports",
+                                (privilege == null ? "App: reportingui.reports" : privilege),
                                 CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
@@ -980,7 +981,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 (pageProvider == null ? "reportingui" : pageProvider),
                                 (pagePath == null ? "runReport" : pagePath),
                                 reportDescriptor.getUuid(),
-                                "App: reportingui.reports",
+                                (privilege == null ? "App: reportingui.reports" : privilege),
                                 CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_QUALITY,
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
@@ -993,7 +994,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 (pageProvider == null ? "reportingui" : pageProvider),
                                 (pagePath == null ? "runReport" : pagePath),
                                 reportDescriptor.getUuid(),
-                                "App: reportingui.reports",
+                                (privilege == null ? "App: reportingui.reports" : privilege),
                                 CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING,
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
@@ -1006,7 +1007,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 (pageProvider == null ? "reportingui" : pageProvider),
                                 (pagePath == null ? "runReport" : pagePath),
                                 reportDescriptor.getUuid(),
-                                "App: mirebalaisreports.dataexports",
+                                (privilege == null ? "App: mirebalaisreports.dataexports" : privilege),
                                 CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,
                                 order,
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
