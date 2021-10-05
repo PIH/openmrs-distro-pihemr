@@ -191,6 +191,7 @@ public class CustomAppLoaderConstants {
         public static final String CHEMO_ORDERING_VISIT_ACTION = "oncology.orderChemo";
         public static final String CHEMO_RECORDING_VISIT_ACTION = "oncology.recordChemo";
         public static final String MEXICO_CONSULT_ACTION = "pih.mexicoConsult";
+        public static final String MEXICO_CLINICAL_HISTORY_ACTION = "pih.mexicoClinicalHistory";
         public static final String SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION = "pih.sierraLeone.outpatient.initial";
         public static final String SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION = "pih.sierraLeone.outpatient.followup";
 
