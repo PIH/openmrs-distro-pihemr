@@ -33,6 +33,8 @@ public class ReportSetup {
     public static void scheduleBackupReports(Config config) {
         ReportService reportService = Context.getService(ReportService.class);
         ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
+    	// TODO: we no longer use this, so this can likely be removed in the future (and doesn't need to be migrated
+		// when we refactor our setup process)
         // sets up reports currently only used on Mirebalais production server (as a backup)
         if (config.shouldScheduleBackupReports()) {
 
