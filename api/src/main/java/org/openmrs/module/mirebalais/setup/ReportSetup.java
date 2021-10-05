@@ -2,16 +2,12 @@ package org.openmrs.module.mirebalais.setup;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.AdministrationService;
-import org.openmrs.api.db.SerializedObject;
-import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
-import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
-import org.openmrs.module.reporting.report.manager.ReportManager;
 import org.openmrs.module.reporting.report.renderer.RenderingMode;
 import org.openmrs.module.reporting.report.service.ReportService;
 
@@ -34,16 +30,9 @@ public class ReportSetup {
     public static final String CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID = "f9e01270-2ed9-11e4-8c21-0800200c9a66";
     public static final String FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID = "2619c140-5b0e-11e5-a837-0800200c9a66";
 
-    public static void setupReports(ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                    AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO,
-                                    Config config) {
-
-        scheduleBackupReports(reportService, reportDefinitionService, config);
-        scheduleMonthlyExportsReports(reportService, reportDefinitionService, config);
-        cleanupOldReports(reportService);
-    }
-
-    private static void scheduleBackupReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
+    public static void scheduleBackupReports(Config config) {
+        ReportService reportService = Context.getService(ReportService.class);
+        ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
         // sets up reports currently only used on Mirebalais production server (as a backup)
         if (config.shouldScheduleBackupReports()) {
 
@@ -104,8 +93,9 @@ public class ReportSetup {
         }
     }
 
-    private static void scheduleMonthlyExportsReports(ReportService reportService, ReportDefinitionService reportDefinitionService, Config config) {
-
+    public static void scheduleMonthlyExportsReports(Config config) {
+        ReportService reportService = Context.getService(ReportService.class);
+        ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
         if (config.shouldScheduleMonthlyDataExports()) {
             // scheduled to run during the morning of the 5th of every month, for the previous month
             ReportRequest fullDataExportScheduledReportRequest = reportService.getReportRequestByUuid(FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
@@ -128,93 +118,29 @@ public class ReportSetup {
         }
     }
 
-    private static void cleanupOldReports(ReportService reportingService) {
+    public static void cleanupOldReports() {
 
         // delete requests more than 6 months old, even if that have been saved--code adapted from deleteOldReportRequests from reporting module
+        ReportService reportService = Context.getService(ReportService.class);
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -6);
 
         log.debug("Checking for saved reports older than six months Request date before " + cal.getTime());
 
-        List<ReportRequest> oldRequests = reportingService.getReportRequests(null, null, cal.getTime(), null);
+        List<ReportRequest> oldRequests = reportService.getReportRequests(null, null, cal.getTime(), null);
 
         log.debug("Found " + oldRequests.size() + " requests that qualify");
 
         for (ReportRequest request : oldRequests) {
             log.info("Request qualifies for deletion.  Deleting: " + request.getUuid());
             try {
-                reportingService.purgeReportRequest(request);
+                reportService.purgeReportRequest(request);
             } catch (Exception e) {
                 log.warn("Unable to delete old report request: " + request, e);
             }
         }
     }
-
-
-    /**
-     * This is only public for testing
-     * @param manager
-     */
-    public static void setupReport(ReportManager manager, ReportService reportService, ReportDefinitionService reportDefinitionService,
-                                   AdministrationService administrationService, SerializedObjectDAO serializedObjectDAO) {
-        if (alreadyAtLatestVersion(manager, administrationService)) {
-            return;
-        }
-
-        ReportDefinition reportDefinition = manager.constructReportDefinition();
-
-        log.info("Saving new definition of " + reportDefinition.getName());
-
-        ReportDefinition existing = reportDefinitionService.getDefinitionByUuid(reportDefinition.getUuid());
-        if (existing != null) {
-            // we need to overwrite the existing, rather than purge-and-recreate, to avoid deleting old ReportRequests
-            log.debug("overwriting existing ReportDefinition");
-
-            reportDefinition.setId(existing.getId());
-           // Context.evictFromSession(existing);
-        }
-        else {
-            // incompatible class changes for a serialized object could mean that getting the definition return null
-            // and some serialization error gets logged. In that case we want to overwrite the invalid serialized definition
-            SerializedObject invalidSerializedObject = serializedObjectDAO.getSerializedObjectByUuid(reportDefinition.getUuid());
-            if (invalidSerializedObject != null) {
-                reportDefinition.setId(invalidSerializedObject.getId());
-               // Context.evictFromSession(invalidSerializedObject);
-            }
-//            serializedObjectDAO.purgeObject(invalidSerializedObject.getId());
-        }
-
-        reportDefinitionService.saveDefinition(reportDefinition);
-
-        // purging a ReportDesign doesn't trigger any extra logic, so we can just purge-and-recreate here
-        List<ReportDesign> existingDesigns = reportService.getReportDesigns(reportDefinition, null, true);
-        if (existingDesigns.size() > 0) {
-            log.debug("Deleting " + existingDesigns.size() + " old designs for " + reportDefinition.getName());
-            for (ReportDesign design : existingDesigns) {
-                reportService.purgeReportDesign(design);
-            }
-        }
-
-        List<ReportDesign> designs = manager.constructReportDesigns(reportDefinition);
-        for (ReportDesign design : designs) {
-            reportService.saveReportDesign(design);
-        }
-        administrationService.setGlobalProperty(globalPropertyFor(manager), manager.getVersion());
-    }
-
-    private static boolean alreadyAtLatestVersion(ReportManager manager, AdministrationService administrationService) {
-        String newVersion = manager.getVersion();
-        String existingVersion = administrationService.getGlobalProperty(globalPropertyFor(manager));
-        return existingVersion != null &&
-                existingVersion.equals(newVersion) &&
-                !newVersion.contains("-SNAPSHOT");
-    }
-
-    private static String globalPropertyFor(ReportManager manager) {
-        return "mirebalaisreports." + manager.getUuid() + ".version";
-    }
-
 
     private static RenderingMode getCsvReportRenderer(ReportService reportService, ReportDefinition reportDefinition) {
 

@@ -134,6 +134,7 @@ public class CustomAppLoaderConstants {
         public static final String VITALS_CAPTURE_VISIT_ACTION = "pih.form.vitals";
         public static final String CONSULT_NOTE_VISIT_ACTION = "pih.form.consult";
         public static final String CONSULT_NOTE_INITIAL_VISIT_ACTION = "pih.form.consultInitial";
+		public static final String NURSE_CONSULT_NOTE_VISIT_ACTION = "pih.form.nurseConsult";
         public static final String ADMISSION_NOTE_VISIT_ACTION = "pih.form.admission";
         public static final String DISPENSE_MEDICATION_VISIT_ACTION = "dispensing.form";
         public static final String ED_CONSULT_NOTE_VISIT_ACTION = "pih.form.edConsult";
@@ -383,6 +384,7 @@ public class CustomAppLoaderConstants {
             Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,
             Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
             Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
+			Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
             Extensions.VACCINATION_VISIT_ACTION,
             Extensions.ED_TRIAGE_VISIT_ACTION,
             Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
@@ -441,7 +443,6 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
-            Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
@@ -449,7 +450,8 @@ public class CustomAppLoaderConstants {
             Apps.RADIOLOGY_ORDERS_APP,
             Apps.BMI_GRAPH + ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN,
             Apps.VITALS_SUMMARY,
-            Apps.DISPENSING_SUMMARY
+            Apps.DISPENSING_SUMMARY,
+            Apps.NOTES_SUMMARY
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
