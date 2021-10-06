@@ -45,6 +45,7 @@ public class SectionsPeru extends SectionsDefault {
         s.setLabel("registrationapp.patient.identifiers.label");
         s.addQuestion(getDNIdocument());
         s.addQuestion(getPassportdocument());
+        s.addQuestion(getInmigrationCard());
         return s;
     }
 
@@ -78,6 +79,55 @@ public class SectionsPeru extends SectionsDefault {
         f.setWidget(getTextFieldWidget(12));
 
         q.addField(f);
+
+        return q;
+    }
+    private Question getInmigrationCard(){
+        Question q=new Question();
+        q.setId("inmigration-id");
+        q.setLegend("zl.registration.patient.documenttype.inmigrationCard.label");
+        q.setHeader("zl.registration.patient.documenttype.inmigrationCard.label");
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SesConfigConstants.PATIENTIDENTIFIERTYPE_INMIGRATIONCARD_UUID);
+        f.setUuid(SesConfigConstants.PATIENTIDENTIFIERTYPE_INMIGRATIONCARD_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(12));
+
+        q.addField(f);
+
+        return q;
+    }
+    public Question getIdentityGender(){
+        Question q=new Question();
+        q.setId("IdentityGender");
+        q.setLegend("zl.registration.patient.IdentityGender.label");
+        q.setHeader("zl.registration.patient.IdentityGender.question");
+        {
+            Field f = new Field();
+            f.setFormFieldName("obs.PIH:Gender identity");
+            f.setType("obs");
+
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().addOption("PIH:2843", "zl.registration.patient.IdentityGender.Male");
+            w.getConfig().addOption("PIH:2844", "zl.registration.patient.IdentityGender.Female");
+            w.getConfig().addOption("PIH:13683", "zl.registration.patient.IdentityGender.TransMan");
+            w.getConfig().addOption("PIH:13684", "zl.registration.patient.IdentityGender.TransWoman");
+            w.getConfig().addOption("PIH:13685", "zl.registration.patient.IdentityGender.GenderNon");
+            w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
+
+            w.getConfig().setExpanded(true);
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f=new Field();
+            f.setFormFieldName("obs.PIH:13700");
+            f.setLabel("zl.ifOtherSpecify");
+            f.setType("obs");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
 
         return q;
     }
@@ -220,33 +270,46 @@ public class SectionsPeru extends SectionsDefault {
         q.setLegend("zl.registration.patient.occupation.label");
         q.setHeader("zl.registration.patient.occupation.question");
 
-        Field f = new Field();
-        f.setFormFieldName("obs.PIH:Occupation");
-        f.setType("obs");
+        {
+            Field f = new Field();
+            f.setFormFieldName("obs.PIH:Occupation");
+            f.setType("obs");
 
-        DropdownWidget w = new DropdownWidget();
+            DropdownWidget w = new DropdownWidget();
 
-        // ordered alphabetically in Spanish, with Unemployed and Other last
-        w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");  // Agricultur
-        w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");  // Ama de casa
-        w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");  // Carpintero
-        w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");  // Chofeur
-        w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");  // Commercial
-        w.getConfig().addOption("PIH:STUDENT", "zl.registration.patient.occupation.student.label");  // Estudiante
-        w.getConfig().addOption("PIH:Teacher", "zl.registration.patient.occupation.teacher.label");  // Maestro
-        w.getConfig().addOption("PIH:Military", "zl.registration.patient.occupation.military.label");  // Militar
-        w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");  // Obrero
-        w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");  // Pescador
-        w.getConfig().addOption("PIH:Police", "zl.registration.patient.occupation.police.label");  // Policia
-        w.getConfig().addOption("PIH:PROFESSIONAL", "zl.registration.patient.occupation.professional.label");  // Profesional
-        w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");  // Profesional...
-        w.getConfig().addOption("PIH:Cowherd", "zl.registration.patient.occupation.cowherd.label");  // Vaquero
-        w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
-        w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
+            // ordered alphabetically in Spanish, with Unemployed and Other last
+            w.getConfig().addOption("PIH:FARMER", "zl.registration.patient.occupation.farmer.label");  // Agricultor
+            w.getConfig().addOption("PIH:Lawyer","zl.registration.patient.occupation.lawyer.label"); //Abogado
+            w.getConfig().addOption("PIH:HOUSEWORK/FIELDWORK", "zl.registration.patient.occupation.houseworkFieldwork.label");  // Ama de casa
+            w.getConfig().addOption("PIH:MANUAL LABORER", "zl.registration.patient.occupation.manualLaborer.label");  // Carpintero
+            w.getConfig().addOption("PIH:DRIVER", "zl.registration.patient.occupation.driver.label");  // Chofer
+            w.getConfig().addOption("PIH:COMMERCE", "zl.registration.patient.occupation.commerce.label");  // Commercial
+            w.getConfig().addOption("PIH:Accountant","zl.registration.patient.occupation.accountant.label");//Contador
+            w.getConfig().addOption("PIH:STUDENT", "zl.registration.patient.occupation.student.label");  // Estudiante
+            w.getConfig().addOption("PIH:NURSE","zl.registration.patient.occupation.nurse.label");//Enfermero
+            w.getConfig().addOption("PIH:Electrical engineer","zl.registration.patient.occupation.electricalEngineer.label");//Ingeniero Electrico
+            w.getConfig().addOption("PIH:Teacher", "zl.registration.patient.occupation.teacher.label");  // Maestro
+            w.getConfig().addOption("PIH:Military", "zl.registration.patient.occupation.military.label");  // Militar
+            w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");  // Obrero
+            w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");  // Pescador
+            w.getConfig().addOption("PIH:Journalist","zl.registration.patient.occupation.journalist.label");
+            w.getConfig().addOption("PIH:Police", "zl.registration.patient.occupation.police.label");  // Policia
+            w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");  // Profesional...
+            w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
+            w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
 
-        w.getConfig().setExpanded(true);
-        f.setWidget(toObjectNode(w));
-        q.addField(f);
+            w.getConfig().setExpanded(true);
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f=new Field();
+            f.setFormFieldName("obs.PIH:2452");
+            f.setLabel("zl.ifOtherSpecify");
+            f.setType("obs");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
 
         return q;
     }
