@@ -234,6 +234,7 @@ public class SectionsPeru extends SectionsDefault {
         s.setLabel("zl.registration.patient.social.label");
         s.addQuestion(getCivilStatusQuestion());
         s.addQuestion(getLevelOfStudyQuestion());
+        s.addQuestion(getIdentityGender());
         s.addQuestion(getOccupationQuestion());
         s.addQuestion(getBirthplaceQuestion());
         return s;
