@@ -2133,6 +2133,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
 
+		apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
+						"ALERTS",  // TODO: localize
+						"fas fa-fw fa-exclamation-circle",
+						null,
+						null,
+						null),
+				"pihcore", "dashboardwidgets/hivAlerts"));
+
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_DIAGNOSES_SUMMARY,
                 "pih.app.hiv.diagnoses.title",
                 "fas fa-fw fa-diagnoses",

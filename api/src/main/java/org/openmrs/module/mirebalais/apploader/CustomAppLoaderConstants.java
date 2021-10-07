@@ -508,6 +508,7 @@ public class CustomAppLoaderConstants {
         PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(PihEmrConfigConstants.PROGRAM_HIV_UUID,
                 Arrays.asList(
                         Apps.HIV_VISIT_SUMMARY,
+						Apps.HIV_ALERTS,
                         Apps.HIV_DIAGNOSES_SUMMARY,
                         Apps.HIV_ADVERSE_EFFECT,
                         Apps.HIV_STATUS_SUMMARY,
