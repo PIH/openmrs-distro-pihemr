@@ -2082,6 +2082,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
+		apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_NEXT_DISPENSING,
+						"pih.app.patientSummary.title",
+						"fas fa-fw fa-pills",
+						null,
+						null,
+						objectNode(
+								"widget", "latestobsforconceptlist",
+								"icon", "fas fa-fw fa-pills",
+								"label", "pih.app.hiv.next.dispensing.title",
+								"concepts", MirebalaisConstants.NEXT_DISPENSING_DATE_UUID
+						)),
+				"coreapps", "dashboardwidgets/dashboardWidget"));
+
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
                 "fas fa-fw fa-pills",
