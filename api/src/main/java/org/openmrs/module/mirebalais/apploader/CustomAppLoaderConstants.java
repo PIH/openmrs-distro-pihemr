@@ -60,7 +60,6 @@ public class CustomAppLoaderConstants {
         public static final String PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY = "pih.app.relationships.providers.clinicalSummary";
         public static final String PROGRAM_SUMMARY_LIST = "pih.app.programSummaryList";
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
-        public static final String HIV_NEXT_DISPENSING = "pih.app.hiv.next.dispensing";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
@@ -493,7 +492,6 @@ public class CustomAppLoaderConstants {
                     "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + ".patientProgramHistory",
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
-                    Apps.HIV_NEXT_DISPENSING,
                     Apps.HIV_DISPENSING_SUMMARY
                 ));
 
