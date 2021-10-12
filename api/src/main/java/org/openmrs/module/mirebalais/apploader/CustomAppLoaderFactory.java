@@ -2082,18 +2082,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_NEXT_DISPENSING,
-                "pih.app.patientSummary.title",
-                "fas fa-fw fa-pills",
-                null,
-                null,
-                objectNode(
-                        "widget", "latestobsforconceptlist",
-                        "icon", "fas fa-fw fa-pills",
-                        "label", "pih.app.hiv.next.dispensing.title",
-                        "concepts", MirebalaisConstants.NEXT_DISPENSING_DATE_UUID
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+		apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_NEXT_DISPENSING,
+				"pih.app.patientSummary.title",
+				"fas fa-fw fa-pills",
+				null,
+				null,
+				objectNode(
+						"widget", "latestobsforconceptlist",
+						"icon", "fas fa-fw fa-pills",
+						"label", "pih.app.hiv.next.dispensing.title",
+						"concepts", MirebalaisConstants.NEXT_DISPENSING_DATE_UUID
+				)),
+			"coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_SUMMARY,
                 "mirebalais.dispensing.title",
@@ -2132,6 +2132,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 graphs.getBmiGraph(".hiv"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+
+		apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
+						"pihcore.hivAlerts.alerts",
+						"fas fa-fw fa-exclamation-circle",
+						null,
+						null,
+						null),
+				"pihcore", "dashboardwidgets/hivAlerts"));
 
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_DIAGNOSES_SUMMARY,
                 "pih.app.hiv.diagnoses.title",
