@@ -580,32 +580,60 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         }
 
-        extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
-                "mirebalais.task.vitals.label",
-                "fas fa-fw fa-heartbeat",
-                "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
-                null,
-                and(sessionLocationHasTag("Vitals Location"),
-                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        if(config.getCountry().equals(ConfigDescriptor.Country.PERU)){
+            extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "Triaje",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Location"),
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
-                "mirebalais.mostRecentVitals.label",
-                "fas fa-fw fa-heartbeat",
-                null,
-                "App: mirebalais.outpatientVitals",
-                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                        "editable", Boolean.TRUE,
-                        "edit-provider", "htmlformentryui",
-                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                        "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                        "returnProvider", "coreapps",
-                        "returnPage", "clinicianfacing/patient"));
+            AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
+                    "Triaje",
+                    "fas fa-fw fa-heartbeat",
+                    null,
+                    "App: mirebalais.outpatientVitals",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                            "editable", Boolean.TRUE,
+                            "edit-provider", "htmlformentryui",
+                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
+                            "returnProvider", "coreapps",
+                            "returnPage", "clinicianfacing/patient"));
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        }else {
+            extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "mirebalais.task.vitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+            AppDescriptor mostRecentVitals = app(Apps.MOST_RECENT_VITALS,
+                    "mirebalais.mostRecentVitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    null,
+                    "App: mirebalais.outpatientVitals",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                            "editable", Boolean.TRUE,
+                            "edit-provider", "htmlformentryui",
+                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
+                            "returnProvider", "coreapps",
+                            "returnPage", "clinicianfacing/patient"));
+
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToClinicianDashboardFirstColumn(app(Apps.VITALS_SUMMARY,
@@ -638,25 +666,45 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableConsult() {
+        if (config.getCountry().equals(ConfigDescriptor.Country.PERU) ){
+            extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
+                    "Consulta Ambulatoria",
+                    "fas fa-fw fa-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
+                    null,
+                    and(sessionLocationHasTag("Consult Note Location"),
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
-                "coreapps.clinic.consult.title",
-                "fas fa-fw fa-stethoscope",
-                "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
-                null,
-                and(sessionLocationHasTag("Consult Note Location"),
-                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+            extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
-        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+            registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
+                    findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
+        }else {
 
-        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
-                findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
-    }
+            extensions.add(visitAction(Extensions.CONSULT_NOTE_VISIT_ACTION,
+                    "coreapps.clinic.consult.title",
+                    "fas fa-fw fa-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
+                    null,
+                    and(sessionLocationHasTag("Consult Note Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+            extensions.add(encounterTemplate(EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+
+            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+            registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
+                    findExtensionById(EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
+            }
+        }
 
     private void enableConsultInitial() {
         extensions.add(visitAction(Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,
