@@ -14,6 +14,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
@@ -49,7 +50,7 @@ public class SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        c.addSection(getContactsSection(false));
+        c.addSection(getContactsSection());
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             c.addSection(getIdCardPrintSection());
@@ -276,7 +277,7 @@ public class SectionsDefault {
         w.getConfig().addOption("PIH:SINGLE OR A CHILD", "zl.registration.patient.civilStatus.single.label");
         w.getConfig().addOption("PIH:MARRIED", "zl.registration.patient.civilStatus.married.label");
         w.getConfig().addOption("PIH:LIVING WITH PARTNER", "zl.registration.patient.civilStatus.livingWithPartner.label");
-        w.getConfig().addOption("PIH:SEPARATED", "zl.registration.patient.civilStatus.separated.label");
+        w.getConfig().addOption("PIH:SEPARATED", "zl.h-cesregistration.patient.civilStatus.separated.label");
         w.getConfig().addOption("PIH:DIVORCED", "zl.registration.patient.civilStatus.divorced.label");
         w.getConfig().addOption("PIH:WIDOWED", "zl.registration.patient.civilStatus.widowed.label");
         f.setWidget(toObjectNode(w));
@@ -328,18 +329,18 @@ public class SectionsDefault {
         return q;
     }
 
-    public Section getContactsSection(boolean required) {
+    public Section getContactsSection() {
         Section s = new Section();
         s.setId("contacts");
         s.setLabel("zl.registration.patient.contactPerson.label");
-        s.addQuestion(getContactNameAndRelationship(required));
-        s.addQuestion(getContactAddress(required));
-        s.addQuestion(getContactPhoneNumber(required));
+        s.addQuestion(getContactNameAndRelationship());
+        s.addQuestion(getContactAddress());
+        s.addQuestion(getContactPhoneNumber());
 
         return s;
     }
 
-    public Question getContactNameAndRelationship(boolean required) {
+    public Question getContactNameAndRelationship() {
         Question q = new Question();
         q.setId("contactNameLabel");
         q.setLegend("zl.registration.patient.contactPerson.name.label");
@@ -350,7 +351,9 @@ public class SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.contactName.question");
             f.setType("obsgroup");
-            if (required) { f.setCssClasses(Arrays.asList("required")); }
+            if (config.getRegistrationConfig().getContactPerson() != null && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
+				f.setCssClasses(Arrays.asList("required"));
+			}
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -359,7 +362,9 @@ public class SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT");
             f.setLabel("zl.registration.patient.contactPerson.relationships.label");
             f.setType("obsgroup");
-            if (required) { f.setCssClasses(Arrays.asList("required")); }
+            if (config.getRegistrationConfig().getContactPerson() != null && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
+				f.setCssClasses(Arrays.asList("required"));
+			}
             f.setWidget(getTextFieldWidget(30));
             q.addField(f);
         }
@@ -367,7 +372,7 @@ public class SectionsDefault {
         return q;
     }
 
-    public Question getContactAddress(boolean required) {
+    public Question getContactAddress() {
 
         Question q = new Question();
         q.setId("contactQuestionLabel");
@@ -379,13 +384,15 @@ public class SectionsDefault {
         f.setLabel("zl.registration.patient.contactPerson.address.label");
         f.setType("obsgroup");
         f.setWidget(getTextAreaWidget(250));
-        if (required) { f.setCssClasses(Arrays.asList("required")); }
+        if (config.getRegistrationConfig().getContactPerson() != null && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
+			f.setCssClasses(Arrays.asList("required"));
+		}
         q.addField(f);
 
         return q;
     }
 
-    public Question getContactPhoneNumber(Boolean required) {
+    public Question getContactPhoneNumber() {
 
         Question q = new Question();
         q.setId("contactPhoneNumberQuestionLabel");
@@ -397,8 +404,17 @@ public class SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT");
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
-            if (required) { f.setCssClasses(Arrays.asList("required")); }
-            f.setWidget(getTextFieldWidget(30));
+			ContactPersonConfigDescriptor contactPersonConfig = config.getRegistrationConfig().getContactPerson();
+            if (contactPersonConfig != null && contactPersonConfig.getRequired() == true) {
+				f.setCssClasses(Arrays.asList("required"));
+			}
+			if(contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
+					&& StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())){
+				f.setCssClasses(Arrays.asList("regex"));
+				f.setWidget(getTextFieldWidget(30, contactPersonConfig.getPhoneNumber().getRegex()));
+			} else {
+				f.setWidget(getTextFieldWidget(30));
+			}
             q.addField(f);
         }
 

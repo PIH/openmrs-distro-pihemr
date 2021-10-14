@@ -54,7 +54,7 @@ public class SectionsHaiti extends SectionsDefault {
         }
 
         c.addSection(getSocialSection());
-        c.addSection(getContactsSection(true));
+        c.addSection(getContactsSection());
         c.addSection(getIdentifierSection());
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
@@ -69,8 +69,8 @@ public class SectionsHaiti extends SectionsDefault {
         return q;
     }
 
-    public Section getContactsSection(boolean required) {
-        Section s = super.getContactsSection(required);
+    public Section getContactsSection() {
+        Section s = super.getContactsSection();
         s.setRequire(RequireUtil.sessionLocationDoesNotHaveTag("Tablet Entry Location")); // we use a simplified registration in "tablet entry" locations
         return s;
     }
@@ -225,7 +225,7 @@ public class SectionsHaiti extends SectionsDefault {
     }
 
     @Override
-    public Question getContactAddress(boolean required) {
+    public Question getContactAddress() {
 
         Question q = new Question();
         q.setId("contactQuestionLabel");
@@ -248,7 +248,9 @@ public class SectionsHaiti extends SectionsDefault {
             m.put("providerName", "uicommons");
             m.put("fragmentId", "field/personAddress");
             f.setWidget(toObjectNode(m));
-            if (required) { f.setCssClasses(Arrays.asList("required")); }
+            if (config.getRegistrationConfig().getContactPerson() != null && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
+				f.setCssClasses(Arrays.asList("required"));
+			}
         }
         q.addField(f);
 
