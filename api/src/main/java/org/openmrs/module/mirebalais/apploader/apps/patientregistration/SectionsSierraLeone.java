@@ -27,7 +27,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        c.addSection(getContactsSection(false));
+        c.addSection(getContactsSection());
         c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
     }

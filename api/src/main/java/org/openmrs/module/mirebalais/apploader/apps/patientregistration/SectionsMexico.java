@@ -29,7 +29,7 @@ public class SectionsMexico extends SectionsDefault {
         c.addSection(getInsuranceSection());
         c.addSection(getSocialSection());
         c.addSection(getRelationshipsSection());
-        c.addSection(getContactsSection(false));
+        c.addSection(getContactsSection());
     }
 
     @Override

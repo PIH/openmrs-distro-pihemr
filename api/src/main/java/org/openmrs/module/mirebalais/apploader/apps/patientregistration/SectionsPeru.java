@@ -7,7 +7,6 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -35,7 +34,7 @@ public class SectionsPeru extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        c.addSection(getContactsSection(false));
+        c.addSection(getContactsSection());
     }
 
     @Override
