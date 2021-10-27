@@ -313,8 +313,22 @@ local_zl_identifier_generator_enabled=true
 local_zl_identifier_generator_prefix=Y
 ```
 
-If you forget to do this step, you can always manually change the configuration on the legacy administration screens,
-see below for further details on this.
+If you forget to do this step, just navigate to the
+[legacy admin page](http://localhost:8080/openmrs/admin), click "Manage Patient Identifier Sources",
+and ensure that the following is present:
+
+- A "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
+  - Name: ZL Identifier Generator
+  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
+  - First Identifier Base: 1000
+  - Prefix: Y
+  - Suffix: (Leave Blank)
+  - Max Length: 6
+  - Min Length: 6
+- Link the local generator to the Local Pool of Zl Identifiers
+  - Click the Configure Action next to the local pool
+  - Set "Pool Identifier Source" to "ZL Identifier Generator"
+- Change "When to fill" to "When you request an identifier"
 
 ### Step 7: Set up the frontend
 
