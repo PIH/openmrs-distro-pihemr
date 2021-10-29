@@ -77,7 +77,7 @@
         <initializerVersion>2.2.0</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
-        <legacyuiVersion>1.8.4</legacyuiVersion>
+        <legacyuiVersion>1.9.0</legacyuiVersion>
         <metadatadeployVersion>1.13.0</metadatadeployVersion>
         <metadatamappingVersion>1.4.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
