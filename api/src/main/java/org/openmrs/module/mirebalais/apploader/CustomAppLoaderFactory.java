@@ -92,12 +92,14 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.regist
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.report;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
 import static org.openmrs.module.mirebalais.require.RequireUtil.and;
+import static org.openmrs.module.mirebalais.require.RequireUtil.not;
 import static org.openmrs.module.mirebalais.require.RequireUtil.or;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasPreviousEncounter;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsAdult;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
 import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
@@ -713,7 +715,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsultInitial.xml")),
                 null,
-                sessionLocationHasTag("Consult Note Location")));
+                and(sessionLocationHasTag("Consult Note Location"),
+                        not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID)))));
     }
 
 	private void enableNurseConsult() {

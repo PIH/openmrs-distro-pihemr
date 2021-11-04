@@ -5,6 +5,10 @@ import org.openmrs.module.pihcore.config.Config;
 
 public class RequireUtil {
 
+    public static String not(String expression) {
+        return "!(" + expression + ")";
+    }
+
 
     public static String patientHasActiveVisit() {
         return new String("typeof visit !== 'undefined' && visit != null && (visit.stopDatetime == null)");
@@ -51,6 +55,10 @@ public class RequireUtil {
                 "!some(visit.encounters, (function(encounter) { " +
                 "  return encounter.encounterType.uuid === '" + encounterTypeUuid +
                 "' } )))");
+    }
+
+    public static String patientHasPreviousEncounter(String encounterTypeUuid) {
+        return "encounters && some(encounters, function(e) { return e.encounterTypeUuid === '" + encounterTypeUuid + "'; })";
     }
 
     public static String patientNotDead() {
