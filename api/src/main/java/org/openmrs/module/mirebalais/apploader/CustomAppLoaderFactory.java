@@ -606,7 +606,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
                             "returnUrl", config.getDashboardUrl()));
-            apps.add(addToHivDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }else {
             extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
                     "mirebalais.task.vitals.label",
@@ -632,7 +632,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
 							"returnUrl", config.getDashboardUrl()));
 
-            apps.add(addToHivDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
