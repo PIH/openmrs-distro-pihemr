@@ -605,8 +605,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-provider", "htmlformentryui",
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnProvider", "coreapps",
-                            "returnPage", "clinicianfacing/patient"));
+                            "returnUrl", config.getDashboardUrl()));
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }else {
             extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
@@ -631,8 +630,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-provider", "htmlformentryui",
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnProvider", "coreapps",
-                            "returnPage", "clinicianfacing/patient"));
+							"returnUrl", config.getDashboardUrl()));
 
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
@@ -1455,7 +1453,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "registrationapp.clinicalDashboard",
                     "fas fa-fw fa-stethoscope",
                     "link",
-                    "coreapps/clinicianfacing/patient.page?patientId={{patient.patientId}}&appId=" + Apps.PATIENT_REGISTRATION,
+                    config.getDashboardUrl() + "&appId=" + Apps.PATIENT_REGISTRATION,  // TODO what was/is the app id supposed to do here?
                     "App: coreapps.patientDashboard",
                     null));
 
@@ -3104,7 +3102,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp.clinicalDashboard",
                 "fas fa-fw fa-stethoscope",
                 "link",
-                "coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}",
+                 config.getDashboardUrl(),
                 "App: coreapps.patientDashboard",
                 null,
                 programUuid + ".overallActions",
@@ -3154,7 +3152,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                     "widget", "relationships",
                     "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                    "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                    "dashboardPage", config.getDashboardUrl(),
                     "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                     "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,
                     "icon", "fas fa-fw fa-users",
@@ -3173,7 +3171,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
-                        "dashboardPage", "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}",
+                        "dashboardPage", config.getDashboardUrl(),
                         "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
                         "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID
                                 + "," + PihCoreConstants.RELATIONSHIP_SIBLING
