@@ -605,7 +605,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-provider", "htmlformentryui",
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnUrl", config.getDashboardUrl()));
+                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }else {
             extensions.add(visitAction(Extensions.VITALS_CAPTURE_VISIT_ACTION,
@@ -630,7 +630,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-provider", "htmlformentryui",
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-							"returnUrl", config.getDashboardUrl()));
+							"returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
 
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
