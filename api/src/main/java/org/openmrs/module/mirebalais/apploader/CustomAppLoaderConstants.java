@@ -32,6 +32,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_DIAGNOSES_SUMMARY = "pih.app.hiv.diagnoses.summary";
         public static final String HIV_ADVERSE_EFFECT = "pih.app.hiv.adverse.effect";
         public static final String HIV_STATUS_SUMMARY = "pih.app.hiv.status";
+		public static final String HIV_NOTES_SUMMARY = "pih.app.hiv.notes.summary";
         public static final String VITALS_SUMMARY = "pih.app.vitals.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
@@ -494,7 +495,8 @@ public class CustomAppLoaderConstants {
                     Apps.HIV_SUMMARY,
                     Apps.HIV_VL_GRAPH,
                     Apps.HIV_NEXT_DISPENSING,
-                    Apps.HIV_DISPENSING_SUMMARY
+                    Apps.HIV_DISPENSING_SUMMARY,
+						Apps.HIV_NOTES_SUMMARY
                 ));
 
         PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP);

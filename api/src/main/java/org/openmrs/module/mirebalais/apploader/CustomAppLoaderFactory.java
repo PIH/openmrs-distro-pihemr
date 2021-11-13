@@ -3258,7 +3258,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         HashMap<String, String> encounterParams = new HashMap<String, String>();
         encounterParams.put("encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID);
 
-        apps.add(addToClinicianDashboardFirstColumn(app(Apps.NOTES_SUMMARY,
+		 AppDescriptor notesSummary = app(Apps.NOTES_SUMMARY,
                 "pih.app.notes.title",
                 "fas fa-comments",
                 addParametersToUrl(patientEncountersPageUrl, encounterParams),
@@ -3272,8 +3272,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
                         "sortOrder", "desc",
                         "headers", "zl.date,pih.app.notes.title"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+                ));
+
+		apps.add(addToClinicianDashboardFirstColumn(notesSummary, "coreapps", "dashboardwidgets/dashboardWidget"));
+		apps.add(addToHivDashboardFirstColumn(cloneApp(notesSummary, Apps.HIV_NOTES_SUMMARY), "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableSpaPreview() {
