@@ -277,7 +277,7 @@ public class SectionsDefault {
         w.getConfig().addOption("PIH:SINGLE OR A CHILD", "zl.registration.patient.civilStatus.single.label");
         w.getConfig().addOption("PIH:MARRIED", "zl.registration.patient.civilStatus.married.label");
         w.getConfig().addOption("PIH:LIVING WITH PARTNER", "zl.registration.patient.civilStatus.livingWithPartner.label");
-        w.getConfig().addOption("PIH:SEPARATED", "zl.h-cesregistration.patient.civilStatus.separated.label");
+        w.getConfig().addOption("PIH:SEPARATED", "zl.registration.patient.civilStatus.separated.label");
         w.getConfig().addOption("PIH:DIVORCED", "zl.registration.patient.civilStatus.divorced.label");
         w.getConfig().addOption("PIH:WIDOWED", "zl.registration.patient.civilStatus.widowed.label");
         f.setWidget(toObjectNode(w));
