@@ -449,6 +449,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.REHAB)) {
             enableRehab();
         }
+        if(config.isComponentEnabled(Components.PERU_PRESCRIPTIONS)){
+            enablePeruPrescriptions();
+        }
 
         configureAdditionalExtensions(config);
 
@@ -728,6 +731,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 				null,
 				sessionLocationHasTag("Consult Note Location")));
 	}
+    private void enablePeruPrescriptions(){
+            extensions.add(visitAction(Extensions.PERU_PRESCRIPTION_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.ENCOUNTERTYPE_PERU_PRESCRIPTION_UUID,
+                    "fas fa-fw fa-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("peruPrescription.xml")),
+                    null,
+                    sessionLocationHasTag("Consult Note Location")));
+
+    }
 
 
     private void enableEDConsult() {
@@ -900,7 +913,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Dispensing Location")));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
-                "dispensing.app.label",
+                "Receta",
                 "fas fa-fw fa-pills",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("dispensing.xml")),
