@@ -449,6 +449,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.REHAB)) {
             enableRehab();
         }
+        if(config.isComponentEnabled(Components.PRESCRIPTION)){
+            enablePrescription();
+        }
 
         configureAdditionalExtensions(config);
 
@@ -726,6 +729,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 				null,
 				sessionLocationHasTag("Consult Note Location")));
 	}
+    private void enablePrescription(){
+            extensions.add(visitAction(Extensions.PRESCRIPTION_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.PRESCRIPTION_VISIT_ACTION,
+                    "fas fa-fw fa-stethoscope",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("prescription.xml")),
+                    null,
+                    sessionLocationHasTag("Consult Note Location")));
+
+    }
 
 
     private void enableEDConsult() {
