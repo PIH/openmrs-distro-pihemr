@@ -186,7 +186,7 @@ public class CustomAppLoaderConstants {
         public static final String PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION = "pih.primaryCare.pedsFollowup";
         public static final String PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION = "pih.primaryCare.adultInitial";
         public static final String PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION = "pih.primaryCare.adultFollowup";
-        public static final String PERU_PRESCRIPTION_VISIT_ACTION = "pih.form.peruPrescription";
+        public static final String PRESCRIPTION_VISIT_ACTION = "pih.form.prescription";
         public static final String ED_TRIAGE_VISIT_ACTION = "edtriageapp.edTriageNote";
         public static final String ORDER_LAB_VISIT_ACTION = "labtrackingapp.orderLab";
         public static final String CHEMO_ORDERING_VISIT_ACTION = "oncology.orderChemo";
@@ -386,7 +386,7 @@ public class CustomAppLoaderConstants {
             Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
             Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,
 			Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
-            Extensions.PERU_PRESCRIPTION_VISIT_ACTION,
+            Extensions.PRESCRIPTION_VISIT_ACTION,
             Extensions.VACCINATION_VISIT_ACTION,
             Extensions.ED_TRIAGE_VISIT_ACTION,
             Extensions.ED_CONSULT_NOTE_VISIT_ACTION,
