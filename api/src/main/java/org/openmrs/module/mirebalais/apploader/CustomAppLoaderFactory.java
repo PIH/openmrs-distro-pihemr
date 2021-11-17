@@ -913,7 +913,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Dispensing Location")));
 
         extensions.add(visitAction(Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
-                "Receta",
+                "dispensing.app.label",
                 "fas fa-fw fa-pills",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("dispensing.xml")),
