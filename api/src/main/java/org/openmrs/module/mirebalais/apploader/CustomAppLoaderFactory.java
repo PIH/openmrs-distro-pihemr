@@ -731,7 +731,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 	}
     private void enablePrescription(){
             extensions.add(visitAction(Extensions.PRESCRIPTION_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.PRESCRIPTION_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("prescription.xml")),
