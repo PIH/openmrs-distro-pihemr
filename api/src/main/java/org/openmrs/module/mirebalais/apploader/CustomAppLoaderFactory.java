@@ -2132,8 +2132,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // additional columns to add to the HIV Program Dashboard
 
+        // Weight Graph
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_WEIGHT_GRAPH,
+                        "pih.app.hivWeightGraph.title",
+                        "fas fa-fw fa-chart-bar",
+                        null,
+                        null,
+                        objectNode(
+                                "widget", "obsgraph",
+                                "icon", "fas fa-fw fa-chart-bar",
+                                "label", "pih.app.hivWeightGraph.title",
+                                "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                                "maxResults", "1000"
+                        )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
         // Viral Load
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
                 "fas fa-fw fa-chart-bar",
                 null,

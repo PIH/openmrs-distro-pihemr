@@ -65,6 +65,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
         public static final String HIV_VL_GRAPH = "pih.app.hiv.vlGraph";
+        public static final String HIV_WEIGHT_GRAPH = "pih.app.hiv.weightGraph";
         public static final String HIV_OBS_CHART = "pih.app.hiv.obsChart";
         public static final String HIV_CONDITION_LIST = "pih.app.hiv.conditionList";
         public static final String HIV_VISIT_SUMMARY = "pih.app.hiv.visitSummary";
