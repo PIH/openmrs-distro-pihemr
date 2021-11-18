@@ -2,14 +2,11 @@ package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.registrationapp.RegistrationAppConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.registrationapp.RegistrationAppConstants;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CustomAppLoaderConstants {
 
@@ -484,44 +481,4 @@ public class CustomAppLoaderConstants {
             Apps.ID_CARD_PRINTING_STATUS
 
     );
-
-    public static final Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
-
-    static {
-        Map<String, List<String>> PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
-
-        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP.put(PihEmrConfigConstants.PROGRAM_HIV_UUID,
-                Arrays.asList(
-                    // ToDo:  Move Program enrollment is first?
-                    "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + "patientProgramSummary",
-                    "pih.app." + PihEmrConfigConstants.PROGRAM_HIV_UUID + ".patientProgramHistory",
-                    Apps.HIV_SUMMARY,
-                    Apps.HIV_VL_GRAPH,
-                    Apps.HIV_NEXT_DISPENSING,
-                    Apps.HIV_DISPENSING_SUMMARY,
-						Apps.HIV_NOTES_SUMMARY
-                ));
-
-        PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER_TEMP);
-    }
-
-    public static final Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER;
-
-    static {
-        Map<String, List<String>> PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP = new HashMap<String, List<String>>();
-
-        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP.put(PihEmrConfigConstants.PROGRAM_HIV_UUID,
-                Arrays.asList(
-                        Apps.HIV_VISIT_SUMMARY,
-						Apps.HIV_ALERTS,
-                        Apps.HIV_DIAGNOSES_SUMMARY,
-                        Apps.HIV_ADVERSE_EFFECT,
-                        Apps.HIV_STATUS_SUMMARY,
-                        Apps.BMI_GRAPH + ".hiv",
-                        Apps.ALLERGY_SUMMARY
-                ));
-
-        PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER = Collections.unmodifiableMap(PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER_TEMP);
-    }
-
 }
