@@ -2134,7 +2134,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // FIRST COLUMN
 
-        // TODO ADD HIV STATUS WIDGET HERE
+        // HIV Status
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_ALERTS,
+                        "pih.app.hiv.status.title",
+                        "fas fa-fw fa-exclamation-circle",
+                        null,
+                        null,
+                        null),
+                "pihcore", "dashboardwidgets/hivStatus",
+                firstColumnIndex++
+        ));
 
         // TODO ADD HIV INTAKE WIDGET HERE
 
@@ -2217,7 +2226,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.hivvlGraph.title",
                         "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
                         "type", "logarithmic",
-                        "maxResults", "5"  // TODO what should this be?
+                        "maxResults", "1000"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
                 secondColumnIndex++
