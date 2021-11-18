@@ -24,8 +24,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.H
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ONCOLOGY_OVERALL_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ONCOLOGY_VISIT_ACTIONS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.OVERALL_ACTIONS_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PROGRAM_SUMMARY_LIST_APPS_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER;
@@ -177,21 +175,21 @@ public class CustomAppLoaderUtil {
     }
 
     static public AppDescriptor addToProgramDashboardFirstColumn(String programUuid, AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, programUuid + ".firstColumnFragments",
-                PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER.containsKey(programUuid) ? PROGRAM_DASHBOARD_FIRST_COLUMN_ORDER.get(programUuid).indexOf(app.getId()) : 0);
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".firstColumnFragments", 0);
     }
 
     static public AppDescriptor addToProgramDashboardSecondColumn(String programUuid, AppDescriptor app, String provider, String fragment) {
-        return addToDashboardColumn(app, provider, fragment, programUuid + ".secondColumnFragments",
-                PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.containsKey(programUuid) ? PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.get(programUuid).indexOf(app.getId()) : 0);
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".secondColumnFragments", 0);
     }
 
-    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment, int order) {
+        String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".firstColumnFragments", order);
     }
 
-    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment, int order) {
+        String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".secondColumnFragments", order);
     }
 
     static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {

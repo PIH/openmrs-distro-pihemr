@@ -69,7 +69,6 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.andCre
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.arrayNode;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
-import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneApp;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
@@ -1542,7 +1541,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode("visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
 
         apps.add(addToClinicianDashboardFirstColumn(visitSummary, "coreapps", "clinicianfacing/visitsSection"));
-        apps.add(addToHivDashboardSecondColumn(cloneApp(visitSummary, Apps.HIV_VISIT_SUMMARY), "coreapps", "clinicianfacing/visitsSection"));
 
         if (config.isComponentEnabled(Components.HOME_VISITS_ON_CLINICIAN_DASHBOARD)) {
             HashMap<String, String> visitParams = new HashMap<String, String>();
@@ -2128,12 +2126,87 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableHIVProgram() {
-        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_HIV_UUID);
 
-        // additional columns to add to the HIV Program Dashboard
+        String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
+
+        int firstColumnIndex = 0;
+        int secondColumnIndex = 0;
+
+        // FIRST COLUMN
+
+        // TODO ADD HIV STATUS WIDGET HERE
+
+        // TODO ADD HIV INTAKE WIDGET HERE
+
+        // TODO ADD HIV FOLLOWUP WIDGET HERE
+
+        // TODO ADD HIV DISPENSING WIDGET HERE
+
+        // TODO ADD SOCIOECONOMIC FORM WIDGET HERE
+
+        // Weight Graph
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_WEIGHT_GRAPH,
+                        "pih.app.hivWeightGraph.title",
+                        "fas fa-fw fa-chart-bar",
+                        null,
+                        null,
+                        objectNode(
+                                "widget", "obsgraph",
+                                "icon", "fas fa-fw fa-chart-bar",
+                                "label", "pih.app.hivWeightGraph.title",
+                                "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                                "maxResults", "1000"
+                        )),
+                "coreapps", "dashboardwidgets/dashboardWidget",
+                        firstColumnIndex++
+        ));
+
+        // SECOND COLUMN
+
+        // Current Enrollment
+        apps.add(addToHivDashboardSecondColumn(app(
+                "pih.app." + programUuid + ".patientProgramSummary",
+                "coreapps.currentEnrollmentDashboardWidget.label",
+                "fas fa-fw fa-stethoscope",
+                null,
+                PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
+                objectNode(
+                        "widget", "programstatus",
+                        "icon", "fas fa-fw fa-stethoscope",
+                        "label", "coreapps.currentEnrollmentDashboardWidget.label",
+                        "program", programUuid,
+                        "locationTag", "Program Location",
+                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
+                )),
+                "coreapps", "dashboardwidgets/dashboardWidget",
+                secondColumnIndex++
+        ));
+
+        // Previous Enrollment TODO DO WE WANT TO KEEP THIS, IT ISN'T IN THE DESIGNS
+        apps.add(addToHivDashboardSecondColumn(app(
+                "pih.app." + programUuid + ".patientProgramHistory",
+                "coreapps.programHistoryDashboardWidget.label",
+                "fas fa-fw fa-stethoscope",
+                null,
+                PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
+                objectNode(
+                        "icon", "fas fa-fw fa-stethoscope",
+                        "label", "coreapps.programHistoryDashboardWidget.label",
+                        "program", programUuid,
+                        "includeActive", false,
+                        "locationTag", "Program Location",
+                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
+                )),
+                "coreapps", "program/programHistory",
+                secondColumnIndex++
+        ));
+
+        // TODO: Add ACTIVE MEDICATIONS HERE
 
         // Viral Load
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
+        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
                 "fas fa-fw fa-chart-bar",
                 null,
@@ -2146,8 +2219,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "type", "logarithmic",
                         "maxResults", "5"  // TODO what should this be?
                 )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+                "coreapps", "dashboardwidgets/dashboardWidget",
+                secondColumnIndex++
+        ));
 
+        // Adverse Reactions
         apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ADVERSE_EFFECT,
                 "pihcore.adverse.reactions",
                 "fas fa-fw fa-allergies",
@@ -2164,7 +2240,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
                         "headers", "zl.date,pihcore.reaction,pihcore.on.date"
                 )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+                "coreapps", "dashboardwidgets/dashboardWidget",
+                secondColumnIndex++
+        ));
+
+        // TODO:  ADD PATIENT PROGRAMS WIDGET HERE
+
+        configureBasicProgramSummaryApps(programUuid);
+        configureBasicProgramExtensions(programUuid);
     }
 
     private void enableHIVForms() {
@@ -2964,64 +3047,71 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void configureBasicProgramDashboard(String programUuid) {
         apps.add(addToProgramDashboardFirstColumn(programUuid,
                 app("pih.app." + programUuid + ".patientProgramSummary",
-                "coreapps.currentEnrollmentDashboardWidget.label",
-                "fas fa-fw fa-stethoscope",  // TODO figure out right icon
-                null,
-                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
-                objectNode(
-                        "widget", "programstatus",
-                        "icon", "fas fa-fw fa-stethoscope",
-                        "label", "coreapps.currentEnrollmentDashboardWidget.label",
-                        "program", programUuid,
-                        "locationTag", "Program Location",
-                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
-                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
-                )),
+                        "coreapps.currentEnrollmentDashboardWidget.label",
+                        "fas fa-fw fa-stethoscope",  // TODO figure out right icon
+                        null,
+                        PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
+                        objectNode(
+                                "widget", "programstatus",
+                                "icon", "fas fa-fw fa-stethoscope",
+                                "label", "coreapps.currentEnrollmentDashboardWidget.label",
+                                "program", programUuid,
+                                "locationTag", "Program Location",
+                                "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                                "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
+                        )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
         apps.add(addToProgramDashboardFirstColumn(programUuid,
                 app("pih.app." + programUuid + ".patientProgramHistory",
-                "coreapps.programHistoryDashboardWidget.label",
-                "fas fa-fw fa-stethoscope",  // TODO figure out right icon
-                null,
-                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
-                objectNode(
-                        "icon", "fas fa-fw fa-stethoscope",
-                        "label", "coreapps.programHistoryDashboardWidget.label",
-                        "program", programUuid,
-                        "includeActive", false,
-                        "locationTag", "Program Location",
-                        "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
-                        "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
-                )),
+                        "coreapps.programHistoryDashboardWidget.label",
+                        "fas fa-fw fa-stethoscope",  // TODO figure out right icon
+                        null,
+                        PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
+                        objectNode(
+                                "icon", "fas fa-fw fa-stethoscope",
+                                "label", "coreapps.programHistoryDashboardWidget.label",
+                                "program", programUuid,
+                                "includeActive", false,
+                                "locationTag", "Program Location",
+                                "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                                "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
+                        )),
                 "coreapps", "program/programHistory"));
 
+        configureBasicProgramSummaryApps(programUuid);
+        configureBasicProgramExtensions(programUuid);
+    }
+
+    private void configureBasicProgramSummaryApps(String programUuid) {
         // TODO correct the privilege
         apps.add(addToProgramSummaryListPage(app("pih.app." + programUuid + ".programSummary.dashboard",
-                "pih.app." + programUuid +".programSummary.dashboard",
-                "fas fa-fw fa-list-alt",
-                "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
-                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,
-                objectNode(
-                        "program", programUuid
-                )),
+                        "pih.app." + programUuid + ".programSummary.dashboard",
+                        "fas fa-fw fa-list-alt",
+                        "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
+                        PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,
+                        objectNode(
+                                "program", programUuid
+                        )),
                 null));
 
         apps.add(addToProgramSummaryDashboardFirstColumn(programUuid,
                 app("pih.app." + programUuid + " .programStatistics",
-                "pih.app." + programUuid + ".programStatistics.title",
-                "fas fa-fw fa-bars",  // TODO figure out right icon
-                null,
-                null, // TODO restrict by privilege or location)
-                objectNode(
-                        "widget", "programstatistics",
-                        "icon", "fas fa-fw fa-bars",
-                        "label", "pih.app." + programUuid + ".programStatistics.title",
-                        "dateFormat", "dd MMM yyyy",
-                        "program", programUuid
-                )),
+                        "pih.app." + programUuid + ".programStatistics.title",
+                        "fas fa-fw fa-bars",  // TODO figure out right icon
+                        null,
+                        null, // TODO restrict by privilege or location)
+                        objectNode(
+                                "widget", "programstatistics",
+                                "icon", "fas fa-fw fa-bars",
+                                "label", "pih.app." + programUuid + ".programStatistics.title",
+                                "dateFormat", "dd MMM yyyy",
+                                "program", programUuid
+                        )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
 
+    private void configureBasicProgramExtensions(String programUuid) {
         // All program dashboards should provide a general action link back to general patient dashboard
         String programKey = programUuid.replace("-", "");
         extensions.add(extension(
@@ -3200,9 +3290,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "sortOrder", "desc",
                         "headers", "zl.date,pih.app.notes.title"
                 ));
-
 		apps.add(addToClinicianDashboardFirstColumn(notesSummary, "coreapps", "dashboardwidgets/dashboardWidget"));
-		apps.add(addToHivDashboardFirstColumn(cloneApp(notesSummary, Apps.HIV_NOTES_SUMMARY), "coreapps", "dashboardwidgets/dashboardWidget"));
     }
 
     private void enableSpaPreview() {
