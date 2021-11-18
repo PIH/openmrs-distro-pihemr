@@ -2131,48 +2131,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_HIV_UUID);
 
         // additional columns to add to the HIV Program Dashboard
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SUMMARY,
-                "pih.app.patientSummary.title",
-                "fas fa-fw fa-user-md",
-                null,
-                null,
-                objectNode(
-                        "widget", "latestobsforconceptlist",
-                        "icon", "fas fa-fw fa-user-md",
-                        "label", "pih.app.patientSummary.title",
-                        "concepts", MirebalaisConstants.NEXT_RETURN_VISIT_UUID + "," + MirebalaisConstants.CD4_COUNT_UUID + "," + MirebalaisConstants.CD4_PERCENT_UUID + "," + MirebalaisConstants.VIRAL_LOAD_UUID
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-		apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_NEXT_DISPENSING,
-				"pih.app.patientSummary.title",
-				"fas fa-fw fa-pills",
-				null,
-				null,
-				objectNode(
-						"widget", "latestobsforconceptlist",
-						"icon", "fas fa-fw fa-pills",
-						"label", "pih.app.hiv.next.dispensing.title",
-						"concepts", MirebalaisConstants.NEXT_DISPENSING_DATE_UUID
-				)),
-			"coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_SUMMARY,
-                "mirebalais.dispensing.title",
-                "fas fa-fw fa-pills",
-                "dispensing/patient.page?patientId={{patient.uuid}}",
-                null,
-                objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "fas fa-fw fa-pills",
-                        "label", "mirebalais.dispensing.title",
-                        "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,
-                        "detailsUrl", patientVisitsPageUrl,
-                        "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
-                        "useConceptNameForDrugValues", true,
-                        "maxRecords", "5"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
 
         // Viral Load
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_VL_GRAPH,
@@ -2187,37 +2145,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
                         "type", "logarithmic",
                         "maxResults", "5"  // TODO what should this be?
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToHivDashboardSecondColumn(
-                graphs.getBmiGraph(".hiv"),
-                "coreapps",
-                "dashboardwidgets/dashboardWidget"));
-
-		apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_ALERTS,
-						"pihcore.hivAlerts.alerts",
-						"fas fa-fw fa-exclamation-circle",
-						null,
-						null,
-						null),
-				"pihcore", "dashboardwidgets/hivAlerts"));
-
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_DIAGNOSES_SUMMARY,
-                "pih.app.hiv.diagnoses.title",
-                "fas fa-fw fa-diagnoses",
-                patientVisitsPageUrl,
-                null,
-                objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "fas fa-fw fa-diagnoses",
-                        "label", "pih.app.hiv.diagnoses.title",
-                        "detailsUrl", patientVisitsPageUrl,
-                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
-                        "concepts",
-                            MirebalaisConstants.DIAGNOSIS_CODED_CONCEPT_UUID + "," +
-                                    MirebalaisConstants.DIAGNOSIS_NONCODED_CONCEPT_UUID,
-                        "headers", "zl.date,pih.app.hiv.diagnoses.coded,pih.app.hiv.diagnoses.non-coded"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2236,19 +2163,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
                                 MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
                         "headers", "zl.date,pihcore.reaction,pihcore.on.date"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
-        apps.add(addToHivDashboardSecondColumn(app(Apps.HIV_STATUS_SUMMARY,
-                "pih.app.hiv.status.title",
-                "fas fa-fw fa-user-md",
-                null,
-                null,
-                objectNode(
-                        "widget", "latestobsforconceptlist",
-                        "icon", "fas fa-fw fa-user-md",
-                        "label", "pih.app.hiv.status.title",
-                        "concepts", MirebalaisConstants.PREGNANT_CONCEPT_UUID + "," + MirebalaisConstants.FEEDING_METHOD_CONCEPT_UUID+ "," + MirebalaisConstants.FAMILY_PLANNING_CONCEPT_UUID + "," + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID + "," + MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
     }
