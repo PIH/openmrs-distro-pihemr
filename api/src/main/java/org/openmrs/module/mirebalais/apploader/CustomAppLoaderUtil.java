@@ -186,12 +186,14 @@ public class CustomAppLoaderUtil {
                 PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.containsKey(programUuid) ? PROGRAM_DASHBOARD_SECOND_COLUMN_ORDER.get(programUuid).indexOf(app.getId()) : 0);
     }
 
-    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardFirstColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+    static public AppDescriptor addToHivDashboardFirstColumn(AppDescriptor app, String provider, String fragment, int order) {
+        String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".firstColumnFragments", order);
     }
 
-    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment) {
-        return addToProgramDashboardSecondColumn(PihEmrConfigConstants.PROGRAM_HIV_UUID, app, provider, fragment);
+    static public AppDescriptor addToHivDashboardSecondColumn(AppDescriptor app, String provider, String fragment, int order) {
+        String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
+        return addToDashboardColumn(app, provider, fragment, programUuid + ".secondColumnFragments", order);
     }
 
     static public AppDescriptor addToHivSummaryDashboardFirstColumn(AppDescriptor app, String provider, String fragment) {
