@@ -2140,8 +2140,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "fas fa-fw fa-exclamation-circle",
                         null,
                         null,
-                        null),
-                "pihcore", "dashboardwidgets/hivStatus",
+                        objectNode(
+                                "headerLabel", "pih.app.hiv.status.title",
+                                "configFile", "hiv/hivStatuses.yml"
+                        )),
+                "pihcore", "dashboardwidgets/statusData",
                 firstColumnIndex++
         ));
 
