@@ -17,6 +17,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.name.NameSupport;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -24,6 +25,7 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
+import org.openmrs.module.mirebalais.MirebalaisMessageSource;
 import org.openmrs.module.mirebalais.RuntimeProperties;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.PihCoreConstants;
@@ -95,6 +97,12 @@ public class ConfigurationSetup {
     @Autowired
     CustomAppLoaderFactory customAppLoaderFactory;
 
+    @Autowired
+    MirebalaisMessageSource mirebalaisMessageSource;
+
+    @Autowired
+    MessageSourceService messageSourceService;
+
     protected static final Log log = LogFactory.getLog(ConfigurationSetup.class);
 
     private static String status = "pihcore.status.notStarted";
@@ -148,6 +156,7 @@ public class ConfigurationSetup {
         setupCommCareUser();
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
+        messageSourceService.setActiveMessageSource(mirebalaisMessageSource);
     }
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,
