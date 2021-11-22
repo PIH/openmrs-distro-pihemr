@@ -482,38 +482,68 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     // TODO does this need to be modified for the new visit note at all?
     private void enableVisitManagement() {
 
-        extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
-                "coreapps.task.startVisit.label",
-                "fas fa-fw icon-check-in",
-                "script",
-                "visit.showQuickVisitCreationDialog({{patient.patientId}})",
-                "Task: coreapps.createVisit",
-                and(patientDoesNotActiveVisit(), patientNotDead())));
+        if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
 
-        extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
-                "coreapps.task.createRetrospectiveVisit.label",
-                "fas fa-fw fa-plus",
-                "script",
-                "visit.showRetrospectiveVisitCreationDialog()",
-                "Task: coreapps.createRetrospectiveVisit",
-                null));
+            extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
+                    "coreapps.task.startVisit.label",
+                    "fas fa-fw icon-check-in",
+                    "script",
+                    "visit.showQuickVisitCreationDialog({{patient.patientId}})",
+                    "Task: coreapps.createVisit",
+                    and(patientDoesNotActiveVisit(), patientNotDead())));
 
-        extensions.add(overallAction(Extensions.MERGE_VISITS_OVERALL_ACTION,
-                "coreapps.task.mergeVisits.label",
-                "fas fa-fw fa-link",
-                "link",
-                "coreapps/mergeVisits.page?patientId={{patient.uuid}}",
-                "Task: coreapps.mergeVisits",
-                null));
+            extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
+                    "coreapps.task.createRetrospectiveVisit.label",
+                    "fas fa-fw fa-plus",
+                    "script",
+                    "visit.showRetrospectiveVisitCreationDialog()",
+                    "Task: coreapps.createRetrospectiveVisit",
+                    null));
 
-        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
-        extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
-                "coreapps",
-                "patientdashboard/visitIncludes",
-                null,
-                ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
-                        "visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));
+            // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
+            extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
+                    "coreapps",
+                    "patientdashboard/visitIncludes",
+                    null,
+                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                    map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
+                            "visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));
+
+        }else {
+
+            extensions.add(overallAction(Extensions.CREATE_VISIT_OVERALL_ACTION,
+                    "coreapps.task.startVisit.label",
+                    "fas fa-fw icon-check-in",
+                    "script",
+                    "visit.showQuickVisitCreationDialog({{patient.patientId}})",
+                    "Task: coreapps.createVisit",
+                    and(patientDoesNotActiveVisit(), patientNotDead())));
+
+            extensions.add(overallAction(Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
+                    "coreapps.task.createRetrospectiveVisit.label",
+                    "fas fa-fw fa-plus",
+                    "script",
+                    "visit.showRetrospectiveVisitCreationDialog()",
+                    "Task: coreapps.createRetrospectiveVisit",
+                    null));
+
+            extensions.add(overallAction(Extensions.MERGE_VISITS_OVERALL_ACTION,
+                    "coreapps.task.mergeVisits.label",
+                    "fas fa-fw fa-link",
+                    "link",
+                    "coreapps/mergeVisits.page?patientId={{patient.uuid}}",
+                    "Task: coreapps.mergeVisits",
+                    null));
+
+            // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
+            extensions.add(fragmentExtension(Extensions.VISIT_ACTIONS_INCLUDES,
+                    "coreapps",
+                    "patientdashboard/visitIncludes",
+                    null,
+                    ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
+                    map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
+                            "visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));
+        }
 
     }
 
@@ -731,7 +761,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 	}
     private void enablePrescription(){
             extensions.add(visitAction(Extensions.PRESCRIPTION_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.PRESCRIPTION_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,
                     "fas fa-fw fa-stethoscope",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("prescription.xml")),
