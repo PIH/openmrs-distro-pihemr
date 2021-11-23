@@ -2148,13 +2148,71 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 firstColumnIndex++
         ));
 
-        // TODO ADD HIV INTAKE WIDGET HERE
+        // HIV Intake
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_INTAKE_ENCOUNTERS,
+                        "pih.app.hiv.intake.title",
+                        "fas fa-fw fa-calendar",
+                        null,
+                        null,
+                        objectNode(
+                                "headerLabel", "pih.app.hiv.intake.title",
+                                "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID,
+                                "listUrl", patientVisitsPageUrl,
+                                "detailsUrl", patientVisitsPageWithSpecificVisitUrl
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD HIV FOLLOWUP WIDGET HERE
+        // HIV Followup
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_FOLLOWUP_ENCOUNTERS,
+                        "pih.app.hiv.followup.title",
+                        "fas fa-fw fa-calendar",
+                        null,
+                        null,
+                        objectNode(
+                                "headerLabel", "pih.app.hiv.followup.title",
+                                "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
+                                "maxToDisplay", "3",
+                                "listUrl", patientVisitsPageUrl,
+                                "detailsUrl", patientVisitsPageWithSpecificVisitUrl
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD HIV DISPENSING WIDGET HERE
+        // HIV Dispensing
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_ENCOUNTERS,
+                        "pih.app.hiv.dispensing.title",
+                        "fas fa-fw fa-calendar",
+                        null,
+                        null,
+                        objectNode(
+                                "headerLabel", "pih.app.hiv.dispensing.title",
+                                "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,
+                                "maxToDisplay", "3",
+                                "listUrl", patientVisitsPageUrl,
+                                "detailsUrl", patientVisitsPageWithSpecificVisitUrl
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD SOCIOECONOMIC FORM WIDGET HERE
+        // HIV Socioeconomics
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SOCIOECONOMIC_ENCOUNTERS,
+                        "pih.app.hiv.socioeconomics.title",
+                        "fas fa-fw fa-calendar",
+                        null,
+                        null,
+                        objectNode(
+                                "headerLabel", "pih.app.hiv.socioeconomics.title",
+                                "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID,
+                                "listUrl", patientVisitsPageUrl,
+                                "detailsUrl", patientVisitsPageWithSpecificVisitUrl
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
         // Weight Graph
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_WEIGHT_GRAPH,
