@@ -2169,7 +2169,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_FOLLOWUP_ENCOUNTERS,
                         "pih.app.hiv.followup.title",
                         "icon-calendar",
-                        null,
+                        patientVisitsPageUrl,
                         null,
                         objectNode(
                                 "encounterTypes", arrayNode(
@@ -2177,7 +2177,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
                                                 "url", patientVisitsPageWithSpecificVisitUrl
                                         )
-                                )
+                                ),
+                                "maxToDisplay", "3"
                         )),
                 "pihcore", "dashboardwidgets/encounters",
                 firstColumnIndex++
@@ -2187,7 +2188,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_ENCOUNTERS,
                         "pih.app.hiv.dispensing.title",
                         "icon-calendar",
-                        null,
+                        patientVisitsPageUrl,
                         null,
                         objectNode(
                                 "encounterTypes", arrayNode(
@@ -2195,7 +2196,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                                 "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,
                                                 "url", patientVisitsPageWithSpecificVisitUrl
                                         )
-                                )
+                                ),
+                                "maxToDisplay", "3"
                         )),
                 "pihcore", "dashboardwidgets/encounters",
                 firstColumnIndex++
@@ -2205,7 +2207,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SOCIOECONOMIC_ENCOUNTERS,
                         "pih.app.hiv.socioeconomics.title",
                         "icon-calendar",
-                        null,
+                        patientVisitsPageUrl,
                         null,
                         objectNode(
                                 "encounterTypes", arrayNode(
