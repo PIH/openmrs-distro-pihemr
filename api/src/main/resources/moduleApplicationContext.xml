@@ -52,5 +52,4 @@
 		</property>
 	</bean>
 
-	<bean id="mirebalais.mirebalaisMessageSource" class="org.openmrs.module.mirebalais.MirebalaisMessageSource" init-method="initialize"/>
 </beans>

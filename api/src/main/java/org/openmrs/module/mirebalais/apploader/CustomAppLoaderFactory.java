@@ -2136,15 +2136,92 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // FIRST COLUMN
 
-        // TODO ADD HIV STATUS WIDGET HERE
+        // HIV Status
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_ALERTS,
+                        "pih.app.hiv.status.title",
+                        "fas fa-fw fa-exclamation-circle",
+                        null,
+                        null,
+                        objectNode(
+                                "configFile", "hiv/hivStatuses.yml"
+                        )),
+                "pihcore", "dashboardwidgets/statusData",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD HIV INTAKE WIDGET HERE
+        // HIV Intake
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_INTAKE_ENCOUNTERS,
+                        "pih.app.hiv.intake.title",
+                        "icon-calendar",
+                        patientVisitsPageUrl,
+                        null,
+                        objectNode(
+                                "encounterTypes", arrayNode(
+                                        objectNode(
+                                                "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID,
+                                                "url", patientVisitsPageWithSpecificVisitUrl
+                                        )
+                                )
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD HIV FOLLOWUP WIDGET HERE
+        // HIV Followup
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_FOLLOWUP_ENCOUNTERS,
+                        "pih.app.hiv.followup.title",
+                        "icon-calendar",
+                        patientVisitsPageUrl,
+                        null,
+                        objectNode(
+                                "encounterTypes", arrayNode(
+                                        objectNode(
+                                                "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
+                                                "url", patientVisitsPageWithSpecificVisitUrl
+                                        )
+                                ),
+                                "maxToDisplay", "3"
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD HIV DISPENSING WIDGET HERE
+        // HIV Dispensing
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_DISPENSING_ENCOUNTERS,
+                        "pih.app.hiv.dispensing.title",
+                        "icon-calendar",
+                        patientVisitsPageUrl,
+                        null,
+                        objectNode(
+                                "encounterTypes", arrayNode(
+                                        objectNode(
+                                                "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,
+                                                "url", patientVisitsPageWithSpecificVisitUrl
+                                        )
+                                ),
+                                "maxToDisplay", "3"
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
-        // TODO ADD SOCIOECONOMIC FORM WIDGET HERE
+        // HIV Socioeconomics
+        apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_SOCIOECONOMIC_ENCOUNTERS,
+                        "pih.app.hiv.socioeconomics.title",
+                        "icon-calendar",
+                        patientVisitsPageUrl,
+                        null,
+                        objectNode(
+                                "encounterTypes", arrayNode(
+                                        objectNode(
+                                                "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID,
+                                                "url", patientVisitsPageWithSpecificVisitUrl
+                                        )
+                                )
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
 
         // Weight Graph
         apps.add(addToHivDashboardFirstColumn(app(Apps.HIV_WEIGHT_GRAPH,
@@ -2219,7 +2296,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.hivvlGraph.title",
                         "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
                         "type", "logarithmic",
-                        "maxResults", "5"  // TODO what should this be?
+                        "maxResults", "1000"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
                 secondColumnIndex++

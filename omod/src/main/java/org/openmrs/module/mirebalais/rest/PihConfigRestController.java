@@ -3,12 +3,15 @@ package org.openmrs.module.mirebalais.rest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.mirebalais.MirebalaisMessageSource;
 import org.openmrs.module.mirebalais.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.config.PihConfigService;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +36,9 @@ public class PihConfigRestController {
     @Autowired
     PihConfigService configService;
 
+    @Autowired
+    MessageSourceService messageSourceService;
+
     @RequestMapping(value = "/rest/v1/pihcore/config", method = RequestMethod.GET)
     @ResponseBody
     public Object getConfig() {
@@ -52,11 +58,12 @@ public class PihConfigRestController {
         }
         try {
             configurationSetup.configureSystem();
+            updateMessageProperties();
             return OK;
         }
         catch (Exception e) {
             log.error(e);
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -92,5 +99,21 @@ public class PihConfigRestController {
         }
         configurationSetup.reloadAppsAndExtensions();
         return OK;
+    }
+
+    @RequestMapping(value = "/rest/v1/pihcore/config/messageproperties", method = RequestMethod.PUT)
+    @ResponseBody
+    public Object updateMessageProperties() {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
+            return HttpStatus.UNAUTHORIZED;
+        }
+        try {
+            MirebalaisMessageSource messageSource = (MirebalaisMessageSource)Context.getMessageSourceService().getActiveMessageSource();
+            messageSource.refreshCache();
+            return OK;
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
