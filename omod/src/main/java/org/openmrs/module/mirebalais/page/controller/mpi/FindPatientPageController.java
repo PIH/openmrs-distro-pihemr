@@ -11,7 +11,6 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.importpatientfromws.RemotePatient;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -106,7 +105,7 @@ public class FindPatientPageController {
                 //import the patient
                 try{
                     Patient patient = remotePatient.getPatient();
-                    PatientIdentifierType zlIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
+                    PatientIdentifierType zlIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
                     if(zlIdentifierType!=null && patient!=null){
                         PatientIdentifier patientIdentifier = patient.getPatientIdentifier(zlIdentifierType);
                         if(patientIdentifier!=null){

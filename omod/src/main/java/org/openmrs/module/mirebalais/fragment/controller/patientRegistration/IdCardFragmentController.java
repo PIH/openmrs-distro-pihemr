@@ -10,7 +10,7 @@ import org.openmrs.PatientIdentifier;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
 import org.openmrs.module.mirebalais.printer.IdPrinter;
 import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -101,9 +101,9 @@ public class IdCardFragmentController {
     protected Obs savePrintingStatusObs(Patient patient, Location location, boolean status) {
         Obs o = new Obs();
         o.setPerson(patient);
-        o.setConcept(MetadataUtils.existing(Concept.class, ID_CARD_PRINTING_SUCCESSFUL));
+        o.setConcept(HtmlFormEntryUtil.getConcept(ID_CARD_PRINTING_SUCCESSFUL));
         String answerUuid = status ? PihEmrConfigConstants.CONCEPT_YES_UUID : "3cd6f86c-26fe-102b-80cb-0017a47871b2";
-        o.setValueCoded(MetadataUtils.existing(Concept.class, answerUuid));
+        o.setValueCoded(HtmlFormEntryUtil.getConcept(answerUuid));
         o.setObsDatetime(new Date());
         o.setLocation(location);
         return Context.getObsService().saveObs(o, null);

@@ -78,7 +78,6 @@
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
         <legacyuiVersion>1.9.0</legacyuiVersion>
-        <metadatadeployVersion>1.13.0</metadatadeployVersion>
         <metadatamappingVersion>1.4.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
         <namephoneticsVersion>1.18.0</namephoneticsVersion>
@@ -250,23 +249,9 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>metadatadeploy-api-1.10</artifactId>
-            <version>${metadatadeployVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>metadatadeploy-api-1.11</artifactId>
-            <version>${metadatadeployVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
             <artifactId>metadatadeploy-api</artifactId>
-            <version>${metadatadeployVersion}</version>
-            <scope>provided</scope>
+            <version>1.13.0</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

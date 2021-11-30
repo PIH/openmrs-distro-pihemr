@@ -15,16 +15,11 @@ package org.openmrs.module.mirebalais.api.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
-import org.openmrs.module.idgen.RemoteIdentifierSource;
-import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.api.MirebalaisHospitalService;
 import org.openmrs.module.mirebalais.api.db.MirebalaisHospitalDAO;
 import org.springframework.transaction.annotation.Propagation;
@@ -54,7 +49,7 @@ public class MirebalaisHospitalServiceImpl extends BaseOpenmrsService implements
 	}
 
     /**
-     * @see org.openmrs.api.OrderService#getNextRadiologyOrderNumberSeedSequenceValue()
+     * @see OrderService#getNextOrderNumberSeedSequenceValue()
      */
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
