@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.require;
 
-import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 
 public class RequireUtil {
@@ -44,10 +43,6 @@ public class RequireUtil {
               "some(visit.encounters, function(encounter) { " +
               "  return encounter.encounterType.uuid === '" + encounterTypeUuid +
               "' })");
-    }
-
-    public static String visitDoesNotHaveEncounterOfType(EncounterTypeDescriptor descriptor) {
-        return visitDoesNotHaveEncounterOfType(descriptor.uuid());
     }
 
     public static String visitDoesNotHaveEncounterOfType(String encounterTypeUuid) {

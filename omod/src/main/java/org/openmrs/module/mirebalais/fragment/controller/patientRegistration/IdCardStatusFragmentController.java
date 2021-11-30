@@ -6,7 +6,7 @@ import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.reporting.data.DataUtil;
 import org.openmrs.module.reporting.data.person.definition.ObsForPersonDataDefinition;
@@ -47,7 +47,7 @@ public class IdCardStatusFragmentController {
         Boolean latestAttemptSuccessful = null;
 
         ObsForPersonDataDefinition d = new ObsForPersonDataDefinition();
-        d.setQuestion(MetadataUtils.existing(Concept.class, ID_CARD_PRINTING_SUCCESSFUL));
+        d.setQuestion(HtmlFormEntryUtil.getConcept(ID_CARD_PRINTING_SUCCESSFUL));
         List<Obs> found = DataUtil.evaluateForPerson(d, patient, List.class);
 
         if (found != null) {
