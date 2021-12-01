@@ -297,6 +297,11 @@ Mexico test/demo environment:
 pih.config=mexico,mexico-demo
 ```
 
+Peru test/demo environment:
+```properties
+pih.config=peru
+```
+
 **Initializer configuration**: You must also add the configuration line below to openmrs-runtime.properties to tell initializer not to load metadata 
 during the Initializer module startup process, as our distribution loads in metadata using the Initializer API explicitly 
 at various times to account for dependencies and options that allow for asynchronous concept loading.
