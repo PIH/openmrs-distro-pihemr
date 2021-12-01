@@ -37,8 +37,12 @@ public class CustomAppLoaderUtil {
     private static final String BASE_PREFIX = "web/module/resources/";
 
     static public AppDescriptor app(String id, String label, String icon, String url, String privilege, ObjectNode config) {
+        return app(id, label, icon, url, 0, privilege, config);
+    }
 
-        AppDescriptor app = new AppDescriptor(id, id, label, url, icon, null, 0, privilege, null);
+    static public AppDescriptor app(String id, String label, String icon, String url, int order, String privilege, ObjectNode config) {
+
+        AppDescriptor app = new AppDescriptor(id, id, label, url, icon, null, order, privilege, null);
 
         if (config != null) {
             app.setConfig(config);
