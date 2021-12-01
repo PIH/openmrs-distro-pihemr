@@ -102,6 +102,10 @@ public class CustomAppLoaderConstants {
         public static final String FEATURE_TOGGLES = "pih.featureToggles";
         public static final String PATIENT_EXPORT = "pih.exportPatients";
         public static final String PATIENT_IMPORT = "pih.importPatients";
+        public static final String LEGACY_ADMINISTRATION = "pih.app.admin.legacyAdmin";
+        public static final String SYSTEM_CONFIGURATION = "pih.app.admin.configuration";
+        public static final String STATUS_DATA_VIEW = "pih.app.admin.statusData.view";
+        public static final String STATUS_DATA_ADMIN = "pih.app.admin.statusData.admin";
 
         public static final String ADDITIONAL_IDENTIFIERS = "registrationapp.additionalIdentifiers";
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";

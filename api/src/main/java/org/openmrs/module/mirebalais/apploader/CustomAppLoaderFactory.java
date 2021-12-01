@@ -1248,6 +1248,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.task.accountManagement.label",
                 "fas fa-fw fa-book",
                 "emr/account/manageAccounts.page",
+                1,
                 "App: coreapps.systemAdministration",
                 null)));
 
@@ -1255,6 +1256,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.mergePatientsLong",
                 "fas fa-fw fa-users",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
+                2,
                 "App: coreapps.systemAdministration",
                 objectNode("breadcrumbs", arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
@@ -1262,11 +1264,45 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dashboardUrl", (config.getAfterMergeUrl() != null) ? (config.getAfterMergeUrl()) : (config.getDashboardUrl())))));
 
         apps.add(addToSystemAdministrationPage(app(Apps.FEATURE_TOGGLES,
-                "emr.advancedFeatures",
-                "fas fa-fw fa-search",
+                "pih.app.featureToggles.label",
+                "fas fa-fw fa-toggle-on",
                 "mirebalais/toggles.page",
+                3,
                 "App: coreapps.systemAdministration",
                 null)));
+
+        apps.add(addToSystemAdministrationPage(app(Apps.LEGACY_ADMINISTRATION,
+                "emr.advancedFeatures",
+                "fas fa-fw fa-toolbox",
+                "admin/index.htm",
+                4,
+                "App: coreapps.systemAdministration",
+                null)));
+
+        apps.add(addToSystemAdministrationPage(app(Apps.SYSTEM_CONFIGURATION,
+                "pih.app.admin.configuration",
+                "fas fa-fw fa-search",
+                "pihcore/admin/configuration.page",
+                5,
+                "App: coreapps.systemAdministration",
+                null)));
+
+        apps.add(addToSystemAdministrationPage(app(Apps.STATUS_DATA_VIEW,
+                "pih.app.admin.statusData.view",
+                "fas fa-fw icon-flag",
+                "pihcore/admin/statusData.page",
+                6,
+                "App: coreapps.systemAdministration",
+                null)));
+
+        apps.add(addToSystemAdministrationPage(app(Apps.STATUS_DATA_ADMIN,
+                "pih.app.admin.statusData.admin",
+                "fas fa-fw fa-calculator",
+                "pihcore/admin/statusAdmin.page",
+                7,
+                "App: coreapps.systemAdministration",
+                null)));
+
     }
 
     private void enableManagePrinters() {
