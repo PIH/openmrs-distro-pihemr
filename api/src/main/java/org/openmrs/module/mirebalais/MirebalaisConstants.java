@@ -13,19 +13,9 @@
  */
 package org.openmrs.module.mirebalais;
 
-/**
- *
- */
 public class MirebalaisConstants {
 
 	public static final String MIREBALAIS_MODULE_ID = "mirebalais";
-
-	public static final String RADIOLOGY_ORDERABLE_CONCEPTS_GP = "mirebalais.radiology.orderableConcepts";
-	public static final String RADIOLOGY_ORDERTYPE_GP = "radiology-order-type";
-
-    public static final String CHECK_IN_PAYMENT_AMOUNTS_GP = "mirebalais.checkIn.paymentAmounts";
-    public static final String CHECK_IN_PAYMENT_AMOUNT_LABELS_GP = "mirebalais.checkIn.paymentAmountLabels";
-    public static final String CHECK_IN_PAYMENT_AMOUNT_DEFAULT_GP = "mirebalais.checkIn.paymentAmountDefault";
 
     public static final String LACOLLINE_LOCATION_UUID = "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960";
 
@@ -36,9 +26,6 @@ public class MirebalaisConstants {
     public static final String TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED = "Mirebalais - Mark Appointments Missed or Completed";
     public static final String TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_DESCRIPTION = "Marks appointments in the past as missed or completed based on Mirebalais business logic";
     public static final Long TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL = new Long(14400); // every four hours
-
-    public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
-    public static final String ID_CARD_DATE_FORMAT = "dd/MMM/yyyy";
 
     public static final String GLUCOSE_CONCEPT_UUID = "3cd4e194-26fe-102b-80cb-0017a47871b2";
     public static final String HBA1C_CONCEPT_UUID = "159644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -55,10 +42,7 @@ public class MirebalaisConstants {
     public static final String WEIGHT_CONCEPT_UUID = "3ce93b62-26fe-102b-80cb-0017a47871b2";
     public static final String HEIGHT_CONCEPT_UUID = "3ce93cf2-26fe-102b-80cb-0017a47871b2";
     public static final String HEAD_CIRC_CONCEPT_UUID = "3ceb96b4-26fe-102b-80cb-0017a47871b2";
-    public static final String CD4_COUNT_UUID = "3ceda710-26fe-102b-80cb-0017a47871b2";
-    public static final String CD4_PERCENT_UUID = "3cd3d1be-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
-    public static final String VIRAL_LOAD_QUAL_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY = "cc4681ee-95df-4400-9900-23193cdc6592";
     public static final String ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY = "3672ee1d-ba8e-4748-8ccc-98d70035857b";
     public static final String ASTHMA_MEDS_TWICE_WEEKLY = "f813d9fa-0842-4862-ae08-5ed30a068207";
@@ -75,19 +59,10 @@ public class MirebalaisConstants {
     public static final String SARS_COV2_RT_PCR_TEST = "165840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_XPERT_TEST = "423edcfa-a5a6-4bc4-a43a-b19644252dc6";
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
-    public static final String NEXT_DISPENSING_DATE_UUID = "3ce94df0-26fe-102b-80cb-0017a47871b2";
-    public static final String MED_DISPENSED_FREQ_UUID = "a15c95ff-236f-488f-a879-f19fc982bbe6";
     public static final String HEART_RATE_UUID = "3ce93824-26fe-102b-80cb-0017a47871b2";
     public static final String TEMPERATURE_UUID = "3ce939d2-26fe-102b-80cb-0017a47871b2";
     public static final String RESPIRATORY_RATE_UUID = "3ceb11f8-26fe-102b-80cb-0017a47871b2";
-    public static final String DIAGNOSIS_CODED_CONCEPT_UUID = "226ed7ad-b776-4b99-966d-fd818d3302c2";
-    public static final String DIAGNOSIS_NONCODED_CONCEPT_UUID = "970d41ce-5098-47a4-8872-4dd843c0df3f";
     public static final String ADVERSE_EFFECT_CONCEPT_UUID = "3cd96052-26fe-102b-80cb-0017a47871b2";
     public static final String ADVERSE_EFFECT_DATE_CONCEPT_UUID = "3cd964bc-26fe-102b-80cb-0017a47871b2";
-    public static final String PREGNANT_CONCEPT_UUID = "3ceb4880-26fe-102b-80cb-0017a47871b2";
-    public static final String FAMILY_PLANNING_CONCEPT_UUID = "1382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    public static final String FEEDING_METHOD_CONCEPT_UUID = "5b98dcbe-0efc-4cc2-9544-c1da596e7039";
     public static final String CLINICAL_COMMENTS_CONCEPT_UUID = "3cd9d956-26fe-102b-80cb-0017a47871b2";
-
-    public static final String NEXT_RETURN_VISIT_UUID = "CIEL:5096";
 }

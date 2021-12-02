@@ -24,22 +24,6 @@ public class RuntimeProperties {
     public static final String LACOLLINE_USERNAME_PROPERTY = "lacolline_username";
     public static final String LACOLLINE_PASSWORD_PROPERTY = "lacolline_password";
 
-    private Log log = LogFactory.getLog(getClass());
-
-
-
-    /**
-     * @return the prefix which should be used by the local zl identifier generator, if it is enabled.
-     * The system will always create zl identifiers of length 6, one of which is a check-digit.  So
-     * if this prefix is empty, the first identifier base will be 10000, if the prefix is a single character,
-     * the first identifier base will be 1000, if the prefix is two characters, the first identifier base will be 100, etc
-     */
-    public String getLocalZlIdentifierGeneratorPrefix() {
-        String property = Context.getRuntimeProperties().getProperty(ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
-        return property != null ? property : "";
-    }
-
-
     public String getLacollineServerUrl() {
         String property = Context.getRuntimeProperties().getProperty(LACOLLINE_SERVER_URL_PROPERTY);
         return property != null ? property : "lacolline-test";  // for MirebalaisHospitalActivatorITTest
