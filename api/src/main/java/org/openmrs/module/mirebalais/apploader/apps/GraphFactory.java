@@ -1,12 +1,23 @@
 package org.openmrs.module.mirebalais.apploader.apps;
 
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.GAD7;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HDL_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEIGHT_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LDL_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.PHQ9;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SEIZURE_FREQUENCY;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.TOTAL_CHOLESTEROL_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.WHODAS;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ZLDSI;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.app;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.objectNode;
 
@@ -31,8 +42,8 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.bloodPressure.graph.title",
-                        "conceptId", MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID + ","
-                                + MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID,
+                        "conceptId", DIASTOLIC_BP_CONCEPT_UUID + ","
+                                + SYSTOLIC_BP_CONCEPT_UUID,
                         "maxResults", "10"
                 ));
     }
@@ -49,13 +60,13 @@ public class GraphFactory {
                         "icon", "icon-bar-chart",
                         "label", "pih.app.bmiGraph.title",
                         "showLegend", false,
-                        "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID + ","
-                                + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
-                        "hideConcepts", MirebalaisConstants.WEIGHT_CONCEPT_UUID + ","
-                                + MirebalaisConstants.HEIGHT_CONCEPT_UUID,
+                        "conceptId", WEIGHT_CONCEPT_UUID + ","
+                                + HEIGHT_CONCEPT_UUID,
+                        "hideConcepts", WEIGHT_CONCEPT_UUID + ","
+                                + HEIGHT_CONCEPT_UUID,
                         "function", "(bmi, "
-                                + MirebalaisConstants.HEIGHT_CONCEPT_UUID + ", "
-                                + MirebalaisConstants.WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
+                                + HEIGHT_CONCEPT_UUID + ", "
+                                + WEIGHT_CONCEPT_UUID + ");", // the order of the parameters is important
                         "maxResults", "12"  // TODO what should this be?
                 ));
     }
@@ -71,9 +82,9 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.cholesterolGraph.title",
-                        "conceptId", MirebalaisConstants.TOTAL_CHOLESTEROL_CONCEPT_UUID + ","
-                                + MirebalaisConstants.HDL_CONCEPT_UUID + ","
-                                + MirebalaisConstants.LDL_CONCEPT_UUID,
+                        "conceptId", TOTAL_CHOLESTEROL_CONCEPT_UUID + ","
+                                + HDL_CONCEPT_UUID + ","
+                                + LDL_CONCEPT_UUID,
                         "maxRecords", "10"
                 ));
     }
@@ -89,7 +100,7 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.whodas.graph.title",
-                        "conceptId", MirebalaisConstants.WHODAS,
+                        "conceptId", WHODAS,
                         "maxRecords", "12"
                 ));
     }
@@ -105,7 +116,7 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.zldsi.graph.title",
-                        "conceptId", MirebalaisConstants.ZLDSI,
+                        "conceptId", ZLDSI,
                         "maxRecords", "12"
                 ));
     }
@@ -121,7 +132,7 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.seizure.frequency.graph.title",
-                        "conceptId", MirebalaisConstants.SEIZURE_FREQUENCY,
+                        "conceptId", SEIZURE_FREQUENCY,
                         "maxRecords", "12"
                 ));
     }
@@ -137,7 +148,7 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.phq9.graph.title",
-                        "conceptId", MirebalaisConstants.PHQ9,
+                        "conceptId", PHQ9,
                         "maxRecords", "12"
                 ));
     }
@@ -153,7 +164,7 @@ public class GraphFactory {
                         "widget", "obsgraph",
                         "icon", "icon-bar-chart",
                         "label", "pih.app.gad7.graph.title",
-                        "conceptId", MirebalaisConstants.GAD7,
+                        "conceptId", GAD7,
                         "maxRecords", "12"
                 ));
     }

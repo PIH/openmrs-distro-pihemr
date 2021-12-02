@@ -24,9 +24,8 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
-import org.openmrs.module.mirebalais.MirebalaisMessageSource;
-import org.openmrs.module.mirebalais.RuntimeProperties;
+import org.openmrs.module.pihcore.PihCoreMessageSource;
+import org.openmrs.module.pihcore.RuntimeProperties;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Components;
@@ -40,6 +39,7 @@ import org.openmrs.module.pihcore.setup.DrugListSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.InitializerSetup;
+import org.openmrs.module.pihcore.setup.LegacyMasterPatientIndexSetup;
 import org.openmrs.module.pihcore.setup.LiquibaseSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
@@ -48,6 +48,7 @@ import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
+import org.openmrs.module.pihcore.setup.ReportSetup;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -98,7 +99,7 @@ public class ConfigurationSetup {
     CustomAppLoaderFactory customAppLoaderFactory;
 
     @Autowired
-    MirebalaisMessageSource mirebalaisMessageSource;
+    PihCoreMessageSource pihCoreMessageSource;
 
     @Autowired
     MessageSourceService messageSourceService;
@@ -156,7 +157,7 @@ public class ConfigurationSetup {
         setupCommCareUser();
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
-        messageSourceService.setActiveMessageSource(mirebalaisMessageSource);
+        messageSourceService.setActiveMessageSource(pihCoreMessageSource);
     }
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,

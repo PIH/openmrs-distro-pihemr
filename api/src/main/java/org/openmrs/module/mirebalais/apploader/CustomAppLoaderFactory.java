@@ -10,7 +10,6 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.mirebalais.apploader.apps.GraphFactory;
 import org.openmrs.module.mirebalais.apploader.apps.patientregistration.PatientRegistrationApp;
 import org.openmrs.module.pihcore.CesConfigConstants;
@@ -40,10 +39,39 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADVERSE_EFFECT_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ALCOHOL_USE_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ASTHMA_MEDS_TWICE_WEEKLY;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Apps;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.CLINICAL_COMMENTS_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EPI_SEIZURES;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EPI_SEIZURES_BASELINE;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.EncounterTemplates;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.ExtensionPoints;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.Extensions;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.FOOT_EXAM_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.GLUCOSE_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HBA1C_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEAD_CIRC_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.HEART_RATE_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.LIMITATION_OF_ACTIVITY;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.MED_DISPENSED_NAME_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.RESPIRATORY_RATE_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SARS_COV2_ANTIBODY_TEST;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SARS_COV2_ANTIGEN_TEST;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SARS_COV2_RT_PCR_TEST;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SARS_COV2_XPERT_TEST;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.TEMPERATURE_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.TOBACCO_USE_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.URINARY_ALBUMIN_CONCEPT_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.VIRAL_LOAD_UUID;
+import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToAsthmaDashboardFirstColumn;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
@@ -652,11 +680,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                             "detailsUrl", patientVisitsPageUrl,
                             "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
-                            "concepts", MirebalaisConstants.HEART_RATE_UUID + "," +
-                                    MirebalaisConstants.TEMPERATURE_UUID + "," +
-                                    MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
-                                    MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID  + "," +
-                                    MirebalaisConstants.RESPIRATORY_RATE_UUID,
+                            "concepts", HEART_RATE_UUID + "," +
+                                    TEMPERATURE_UUID + "," +
+                                    SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                    DIASTOLIC_BP_CONCEPT_UUID  + "," +
+                                    RESPIRATORY_RATE_UUID,
                             "maxRecords", "5"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -932,7 +960,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "mirebalais.dispensing.title",
                         "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
-                        "concepts", MirebalaisConstants.MED_DISPENSED_NAME_UUID,
+                        "concepts", MED_DISPENSED_NAME_UUID,
                         "useConceptNameForDrugValues", true,
                         "maxRecords", "5"
                 )),
@@ -2269,7 +2297,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "widget", "obsgraph",
                                 "icon", "fas fa-fw fa-chart-bar",
                                 "label", "pih.app.hivWeightGraph.title",
-                                "conceptId", MirebalaisConstants.WEIGHT_CONCEPT_UUID,
+                                "conceptId", WEIGHT_CONCEPT_UUID,
                                 "maxResults", "1000"
                         )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
@@ -2330,7 +2358,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "icon", "fas fa-fw fa-chart-bar",
                         "label", "pih.app.hivvlGraph.title",
-                        "conceptId", MirebalaisConstants.VIRAL_LOAD_UUID,
+                        "conceptId", VIRAL_LOAD_UUID,
                         "type", "logarithmic",
                         "maxResults", "1000"
                 )),
@@ -2351,8 +2379,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "detailsUrl", patientVisitsPageUrl,
                         "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,
                         "concepts",
-                        MirebalaisConstants.ADVERSE_EFFECT_CONCEPT_UUID + "," +
-                                MirebalaisConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,
+                        ADVERSE_EFFECT_CONCEPT_UUID + "," +
+                                ADVERSE_EFFECT_DATE_CONCEPT_UUID,
                         "headers", "zl.date,pihcore.reaction,pihcore.on.date"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
@@ -2642,10 +2670,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.asthma.symptomsObsTable.title",
-                        "concepts", MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
-                                + MirebalaisConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
-                                + MirebalaisConstants.ASTHMA_MEDS_TWICE_WEEKLY + ','
-                                + MirebalaisConstants.LIMITATION_OF_ACTIVITY,
+                        "concepts", ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','
+                                + ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','
+                                + ASTHMA_MEDS_TWICE_WEEKLY + ','
+                                + LIMITATION_OF_ACTIVITY,
                         "maxRecords", "40"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2664,7 +2692,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "label", "pih.app.abdominalCircumference.graph.title",
                         "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", MirebalaisConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
+                        "conceptId", ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,
                         "maxRecords", "4"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2678,7 +2706,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.footExamObsTable.title",
-                        "concepts", MirebalaisConstants.FOOT_EXAM_CONCEPT_UUID,
+                        "concepts", FOOT_EXAM_CONCEPT_UUID,
                         "maxRecords", "100"  // MEX-127 - should be ten or so rows
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2692,7 +2720,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.urinaryAlbuminObsTable.title",
-                        "concepts", MirebalaisConstants.URINARY_ALBUMIN_CONCEPT_UUID,
+                        "concepts", URINARY_ALBUMIN_CONCEPT_UUID,
                         "maxRecords", "10"  // MEX-127 - should be 3 rows
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2706,8 +2734,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "latestobsforconceptlist",
                         "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
-                        "concepts", MirebalaisConstants.ALCOHOL_USE_CONCEPT_UUID + ','
-                                + MirebalaisConstants.TOBACCO_USE_CONCEPT_UUID
+                        "concepts", ALCOHOL_USE_CONCEPT_UUID + ','
+                                + TOBACCO_USE_CONCEPT_UUID
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2720,7 +2748,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "label", "pih.app.glucose.graph.title",
                         "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", MirebalaisConstants.GLUCOSE_CONCEPT_UUID,
+                        "conceptId", GLUCOSE_CONCEPT_UUID,
                         "maxRecords", "12"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2734,7 +2762,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "label", "pih.app.hba1c.graph.title",
                         "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", MirebalaisConstants.HBA1C_CONCEPT_UUID,
+                        "conceptId", HBA1C_CONCEPT_UUID,
                         "maxRecords", "4"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2758,7 +2786,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "latestobsforconceptlist",
                         "icon", "fas fa-fw fa-user-md",
                         "label", "pih.app.patientSummary.title",
-                        "concepts", MirebalaisConstants.EPI_SEIZURES_BASELINE
+                        "concepts", EPI_SEIZURES_BASELINE
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -2771,7 +2799,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsgraph",
                         "label", "pih.app.epilepsy.seizureGraph",
                         "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", MirebalaisConstants.EPI_SEIZURES,
+                        "conceptId", EPI_SEIZURES,
                         "maxResults", "30"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2796,8 +2824,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "obsacrossencounters",
                         "icon", "fas fa-fw fa-list-alt",
                         "label", "pih.app.bloodPressure.obsTable.title",
-                        "concepts", MirebalaisConstants.SYSTOLIC_BP_CONCEPT_UUID + ","
-                                + MirebalaisConstants.DIASTOLIC_BP_CONCEPT_UUID,
+                        "concepts", SYSTOLIC_BP_CONCEPT_UUID + ","
+                                + DIASTOLIC_BP_CONCEPT_UUID,
                         "maxRecords", "100"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2869,7 +2897,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode(
                         "widget", "obsgraph",
                         "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", MirebalaisConstants.HEAD_CIRC_CONCEPT_UUID,
+                        "conceptId", HEAD_CIRC_CONCEPT_UUID,
                         "maxResults", "12"
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
@@ -2976,7 +3004,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "latestObsForConceptList",
                         "icon", "fab fa-fw fa-first-order-alt",
                         "label", "pihcore.labResults.covid",
-                        "concepts", MirebalaisConstants.SARS_COV2_ANTIBODY_TEST + "," + MirebalaisConstants.SARS_COV2_ANTIGEN_TEST + "," + MirebalaisConstants.SARS_COV2_RT_PCR_TEST + "," + MirebalaisConstants.SARS_COV2_XPERT_TEST,
+                        "concepts", SARS_COV2_ANTIBODY_TEST + "," + SARS_COV2_ANTIGEN_TEST + "," + SARS_COV2_RT_PCR_TEST + "," + SARS_COV2_XPERT_TEST,
                         "conceptNameType", "shortName",
                         "maxRecords", "4"
                 )),
@@ -3401,7 +3429,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "label", "pih.app.notes.title",
                         "detailsUrl", addParametersToUrl(patientEncountersPageUrl, encounterParams),
                         "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_COMMENT_UUID,
-                        "concepts", MirebalaisConstants.CLINICAL_COMMENTS_CONCEPT_UUID ,
+                        "concepts", CLINICAL_COMMENTS_CONCEPT_UUID ,
                         "sortOrder", "desc",
                         "headers", "zl.date,pih.app.notes.title"
                 ));

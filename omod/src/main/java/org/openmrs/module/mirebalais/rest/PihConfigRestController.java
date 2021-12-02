@@ -4,7 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.mirebalais.MirebalaisMessageSource;
+import org.openmrs.module.pihcore.PihCoreMessageSource;
 import org.openmrs.module.mirebalais.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.config.PihConfigService;
 import org.openmrs.module.reporting.config.ReportDescriptor;
@@ -108,7 +108,7 @@ public class PihConfigRestController {
             return HttpStatus.UNAUTHORIZED;
         }
         try {
-            MirebalaisMessageSource messageSource = (MirebalaisMessageSource)Context.getMessageSourceService().getActiveMessageSource();
+            PihCoreMessageSource messageSource = (PihCoreMessageSource)Context.getMessageSourceService().getActiveMessageSource();
             messageSource.refreshCache();
             return OK;
         }
