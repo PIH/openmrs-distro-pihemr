@@ -90,24 +90,24 @@ import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.overal
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.report;
 import static org.openmrs.module.mirebalais.apploader.CustomAppLoaderUtil.visitAction;
-import static org.openmrs.module.mirebalais.require.RequireUtil.and;
-import static org.openmrs.module.mirebalais.require.RequireUtil.not;
-import static org.openmrs.module.mirebalais.require.RequireUtil.or;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientAgeUnknown;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientDoesNotActiveVisit;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasActiveVisit;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientHasPreviousEncounter;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsAdult;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsChild;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientIsFemale;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientNotDead;
-import static org.openmrs.module.mirebalais.require.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.mirebalais.require.RequireUtil.sessionLocationHasTag;
-import static org.openmrs.module.mirebalais.require.RequireUtil.userHasPrivilege;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitDoesNotHaveEncounterOfType;
-import static org.openmrs.module.mirebalais.require.RequireUtil.visitHasEncounterOfType;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.and;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.not;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.or;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientAgeUnknown;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientDoesNotActiveVisit;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientHasPreviousEncounter;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientIsAdult;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientIsChild;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientIsFemale;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientNotDead;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.visitDoesNotHaveEncounterOfType;
+import static org.openmrs.module.mirebalais.apploader.RequireUtil.visitHasEncounterOfType;
 
 
 @Component("customAppLoaderFactory")

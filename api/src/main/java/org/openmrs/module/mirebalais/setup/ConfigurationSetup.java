@@ -338,7 +338,7 @@ public class ConfigurationSetup {
 
         // TODO: Move this to Iniz, in a mirebalais-specific gp.xml file
         if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equalsIgnoreCase("MIREBALAIS")) {
-            updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, MirebalaisConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
+            updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, PihCoreConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
         }
 
         // Update global properties for any enabled components, so database queries can utilize these via SQL
