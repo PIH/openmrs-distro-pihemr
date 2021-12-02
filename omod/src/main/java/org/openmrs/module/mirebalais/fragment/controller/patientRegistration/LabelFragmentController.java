@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
+import org.openmrs.module.pihcore.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.UnableToPrintException;
 import org.openmrs.module.printer.UnableToPrintViaSocketException;

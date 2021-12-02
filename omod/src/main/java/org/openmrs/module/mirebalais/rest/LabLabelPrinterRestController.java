@@ -7,7 +7,7 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.mirebalais.printer.template.ZplLabLabelTemplate;
+import org.openmrs.module.pihcore.printer.template.ZplLabLabelTemplate;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.printer.PrinterType;
