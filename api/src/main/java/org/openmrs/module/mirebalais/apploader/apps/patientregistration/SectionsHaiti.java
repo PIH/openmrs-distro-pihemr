@@ -5,7 +5,7 @@ import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
-import org.openmrs.module.mirebalais.require.RequireUtil;
+import org.openmrs.module.mirebalais.apploader.RequireUtil;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;

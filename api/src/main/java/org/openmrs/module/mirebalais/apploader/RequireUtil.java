@@ -1,4 +1,4 @@
-package org.openmrs.module.mirebalais.require;
+package org.openmrs.module.mirebalais.apploader;
 
 import org.openmrs.module.pihcore.config.Config;
 

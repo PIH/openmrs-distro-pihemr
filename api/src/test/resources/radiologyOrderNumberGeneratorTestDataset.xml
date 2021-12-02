@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-    <global_property property="order.orderNumberGeneratorBeanId" property_value="order.radiologyOrderNumberGenerator" uuid="1fbfb333-7bc5-11e2-80c8-0295e7c832a2"/>
-    <global_property property="order.nextRadiologyOrderNumberSeed" property_value="12" uuid="e4e86569-9759-4c7e-9fe7-30d82c9c1cdb"/>
-    <global_property property="emr.radiologyTestOrderType" property_value="c303c420-e9d4-11e4-b571-0800200c9a66" uuid="444fb333-7bc5-11e2-80c8-0295e7c832a2"/>
-    <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.module.radiologyapp.RadiologyOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
-</dataset>
-
-
