@@ -11,7 +11,6 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emr.utils.GeneralUtils;
 import org.openmrs.module.importpatientfromws.RemotePatient;
 import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
-import org.openmrs.module.mirebalais.MirebalaisConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -26,17 +25,21 @@ import java.util.Map;
 
 public class FindPatientPageController {
 
+    public static final String MPI_REMOTE_SERVER = "lacolline";
+    public static final String MPI_SEARCH_RESULTS="mpiSearchResults";
+    public static final Integer MPI_CONNECT_TIMEOUT = 60000;
+
     private final Log log = LogFactory.getLog(getClass());
 
     private void saveToCache(List<RemotePatient> remotePatients, HttpSession session) {
-        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MirebalaisConstants.MPI_SEARCH_RESULTS);
+        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MPI_SEARCH_RESULTS);
         if (mpiSearchResults == null) {
             mpiSearchResults = new HashMap<String, RemotePatient>();
-            session.setAttribute(MirebalaisConstants.MPI_SEARCH_RESULTS, mpiSearchResults);
+            session.setAttribute(MPI_SEARCH_RESULTS, mpiSearchResults);
         }
         if(remotePatients!=null && remotePatients.size()>0){
             for(RemotePatient remotePatient : remotePatients){
-                mpiSearchResults.put(MirebalaisConstants.MPI_REMOTE_SERVER + ":" + remotePatient.getRemoteUuid(), remotePatient);
+                mpiSearchResults.put(MPI_REMOTE_SERVER + ":" + remotePatient.getRemoteUuid(), remotePatient);
             }
         }
     }
@@ -44,9 +47,9 @@ public class FindPatientPageController {
     private RemotePatient getFromCache(String uuid, HttpSession session){
 
         RemotePatient remotePatient = null;
-        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MirebalaisConstants.MPI_SEARCH_RESULTS);
+        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MPI_SEARCH_RESULTS);
         if(mpiSearchResults!=null && mpiSearchResults.size()>0){
-            remotePatient = mpiSearchResults.get(MirebalaisConstants.MPI_REMOTE_SERVER + ":" + uuid);
+            remotePatient = mpiSearchResults.get(MPI_REMOTE_SERVER + ":" + uuid);
         }
         return remotePatient;
     }
@@ -54,9 +57,9 @@ public class FindPatientPageController {
     private RemotePatient removeFromCache(String uuid, HttpSession session){
 
         RemotePatient remotePatient = null;
-        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MirebalaisConstants.MPI_SEARCH_RESULTS);
+        Map<String, RemotePatient> mpiSearchResults = (Map<String, RemotePatient>) session.getAttribute(MPI_SEARCH_RESULTS);
         if(mpiSearchResults!=null && mpiSearchResults.size()>0){
-            String key = MirebalaisConstants.MPI_REMOTE_SERVER + ":" + uuid;
+            String key = MPI_REMOTE_SERVER + ":" + uuid;
             remotePatient = mpiSearchResults.get(key);
             if(remotePatient!=null){
                 mpiSearchResults.remove(key);
@@ -76,9 +79,9 @@ public class FindPatientPageController {
         List<RemotePatient> results = null;
         try {
             if (StringUtils.isNotBlank(id)) {
-                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, id, MirebalaisConstants.MPI_CONNECT_TIMEOUT);
+                results = webService.searchRemoteServer(MPI_REMOTE_SERVER, id, MPI_CONNECT_TIMEOUT);
             }else if(StringUtils.isNotBlank(name)){
-                results = webService.searchRemoteServer(MirebalaisConstants.MPI_REMOTE_SERVER, name, gender, null, MirebalaisConstants.MPI_CONNECT_TIMEOUT);
+                results = webService.searchRemoteServer(MPI_REMOTE_SERVER, name, gender, null, MPI_CONNECT_TIMEOUT);
             }
             if(results!=null && results.size()>0){
                 saveToCache(results, session);

@@ -79,7 +79,7 @@ public class MirebalaisHospitalActivator extends BaseModuleActivator implements 
             log.info("Distribution startup complete.");
         }
         catch (Exception e) {
-            Module mod = ModuleFactory.getModuleById(MirebalaisConstants.MIREBALAIS_MODULE_ID);
+            Module mod = ModuleFactory.getModuleById("mirebalais");
             ModuleFactory.stopModule(mod, false, false);
             throw new RuntimeException("An error occurred while starting the mirebalais module", e);
         }
