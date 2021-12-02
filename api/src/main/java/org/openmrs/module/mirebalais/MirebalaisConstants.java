@@ -38,12 +38,7 @@ public class MirebalaisConstants {
     public static final Long TASK_MARK_APPOINTMENTS_AS_MISSED_OR_COMPLETED_REPEAT_INTERVAL = new Long(14400); // every four hours
 
     public static final String PRIVILEGE_SEARCH_FOR_PATIENTS = "App: coreapps.findPatient";
-
     public static final String ID_CARD_DATE_FORMAT = "dd/MMM/yyyy";
-
-    public static final String GP_NEXT_RADIOLOGY_ORDER_NUMBER_SEED = "order.nextRadiologyOrderNumberSeed";
-
-    public static final String RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID = "order.radiologyOrderNumberGenerator";
 
     public static final String GLUCOSE_CONCEPT_UUID = "3cd4e194-26fe-102b-80cb-0017a47871b2";
     public static final String HBA1C_CONCEPT_UUID = "159644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
