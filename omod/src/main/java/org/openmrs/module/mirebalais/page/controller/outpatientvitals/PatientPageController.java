@@ -20,7 +20,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.FormService;
 import org.openmrs.module.emr.EmrContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;

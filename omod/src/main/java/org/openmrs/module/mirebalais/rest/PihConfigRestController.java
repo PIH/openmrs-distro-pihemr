@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.pihcore.PihCoreMessageSource;
-import org.openmrs.module.mirebalais.setup.ConfigurationSetup;
+import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.config.PihConfigService;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;

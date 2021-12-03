@@ -6,7 +6,7 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.PatientService;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
