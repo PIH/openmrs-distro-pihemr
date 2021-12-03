@@ -24,17 +24,16 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
-import org.openmrs.module.pihcore.PihCoreMessageSource;
-import org.openmrs.module.pihcore.RuntimeProperties;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreMessageSource;
+import org.openmrs.module.pihcore.RuntimeProperties;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
-import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.DrugListSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
@@ -150,7 +149,6 @@ public class ConfigurationSetup {
     // nor is it changeable by any configuration settings
 
     public void setupBase() throws Exception {
-        CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
         MergeActionsSetup.registerMergeActions();
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
         MetadataSharingSetup.setMetadataSharingResolvers();
@@ -259,17 +257,7 @@ public class ConfigurationSetup {
             LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(new RuntimeProperties());
         }
 
-        // TODO: Can we just always have this scheduled task running and within the task itself, checkcheck if the component is enabled and it isn't enabled, it can just return without doing anything
-        if (config.isComponentEnabled(Components.ARCHIVES)) {
-            setStatus("Setting up Archives Scheduled Tasks");
-            ArchivesSetup.setupCloseStaleCreateRequestsTask();
-            ArchivesSetup.setupCloseStalePullRequestsTask();
-        }
-
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
-            setStatus("Setting up Appointment Scheduling Tasks");
-            // TODO: Can we just always have this scheduled task running and within the task itself, checkcheck if the component is enabled and it isn't enabled, it can just return without doing anything
-            AppointmentSchedulingSetup.setupMarkAppointmentAsMissedOrCompletedTask();
             if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                 // TODO: This seems like something that should be moved to configuration.  We should add a GP to the appointment scheduling module
                 //  or wherever this is created to control which identifier type to use in the report, and then set this GP in Iniz config
