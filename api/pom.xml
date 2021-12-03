@@ -12,15 +12,6 @@
 	<name>Mirebalais Hospital Module API</name>
 	<description>API project for MirebalaisHospital</description>
 
-	<dependencies>
-        <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-test-resources</artifactId>
-            <version>${project.parent.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
 	<build>
 		<resources>
 			<resource>
@@ -48,65 +39,5 @@
 			</testResource>
 		</testResources>
 	</build>
-
-    <!-- Consider moving this section to a separate "ci" module -->
-    <profiles>
-        <profile>
-            <id>ci</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.5</version>
-                        <configuration>
-                            <skipTests>${skipUnitTests}</skipTests>
-                            <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.6</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <includes>
-                            <include>**/*.properties</include>
-                            <include>**/*.xml</include>
-                        </includes>
-                        <filtering>true</filtering>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <excludes>
-                            <exclude>**/*.properties</exclude>
-                            <exclude>**/*.xml</exclude>
-                        </excludes>
-                        <filtering>false</filtering>
-                    </resource>
-                </resources>
-
-                <testResources>
-                    <testResource>
-                        <directory>src/test/resources</directory>
-                        <filtering>true</filtering>
-                    </testResource>
-                </testResources>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
