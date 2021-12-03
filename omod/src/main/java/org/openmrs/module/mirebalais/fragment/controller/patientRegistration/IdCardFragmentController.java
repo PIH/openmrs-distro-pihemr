@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.fragment.controller.patientRegistration;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -11,8 +10,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
-import org.openmrs.module.mirebalais.printer.IdPrinter;
-import org.openmrs.module.mirebalais.printer.impl.ZlEmrIdCardPrinter;
+import org.openmrs.module.pihcore.printer.IdPrinter;
+import org.openmrs.module.pihcore.printer.impl.ZlEmrIdCardPrinter;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.SimpleObject;

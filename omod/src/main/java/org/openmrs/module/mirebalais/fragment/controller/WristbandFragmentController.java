@@ -5,7 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.mirebalais.wristband.WristbandTemplate;
+import org.openmrs.module.pihcore.printer.template.WristbandTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
