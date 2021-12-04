@@ -43,8 +43,6 @@
     </distributionManagement>
 
     <modules>
-        <module>api</module>
-        <module>omod</module>
         <module>distro</module>
     </modules>
 
@@ -609,77 +607,6 @@
         </dependency>
 
     </dependencies>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <target>1.8</target>
-                        <source>1.8</source>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.openmrs.maven.plugins</groupId>
-                    <artifactId>maven-openmrs-plugin</artifactId>
-                    <version>1.0.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <pushChanges>false</pushChanges>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.17</version>
-                    <configuration>
-                        <runOrder>alphabetical</runOrder>
-                        <!-- https://talk.openmrs.org/t/error-could-not-find-or-load-main-class-org-apache-maven-surefire-booter-forkedbooter/20509 -->
-                        <argLine>-Xmx2048m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-                    </configuration>
-                </plugin>
-
-            </plugins>
-        </pluginManagement>
-
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <generateBackupPoms>false</generateBackupPoms>
-                    <properties>
-                        <property>
-                            <name>openMRSVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
-                        </property>
-                        <property>
-                            <name>openMRSwebVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
-                        </property>
-                        <property>
-                            <name>spaVersion</name>
-                            <version>[1.0.6]</version>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
-                    </properties>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <repositories>
         <repository>
