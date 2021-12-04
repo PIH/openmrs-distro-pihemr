@@ -25,7 +25,7 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.annotation.SpringBean;

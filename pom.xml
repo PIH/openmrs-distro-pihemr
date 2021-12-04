@@ -43,11 +43,9 @@
     </distributionManagement>
 
     <modules>
-        <module>test-resources</module>
         <module>api</module>
         <module>omod</module>
         <module>distro</module>
-        <module>ci</module>
     </modules>
 
     <properties>

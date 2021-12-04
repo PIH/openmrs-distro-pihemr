@@ -32,12 +32,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.and;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.or;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientHasActiveVisit;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.sessionLocationHasTag;
-import static org.openmrs.module.mirebalais.apploader.RequireUtil.userHasPrivilege;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.and;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.or;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveVisit;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
 
 // TODO these tests are passing when run through IntelliJ, but failing through maven for some reason, so @Ignoring this for now
 // TODO update: looks like these tests have degraded to the point that they don't work on IntelliJ either
