@@ -47,7 +47,7 @@
     </modules>
 
     <properties>
-        <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.5.0</openMRSVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
@@ -90,7 +90,7 @@
         <reportingrestVersion>1.12.0</reportingrestVersion>
         <reportinguiVersion>1.9.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
-        <spaVersion>1.0.8-SNAPSHOT</spaVersion>
+        <spaVersion>1.0.8</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.20.0-SNAPSHOT</uicommonsVersion>
         <uiframeworkVersion>3.22.1</uiframeworkVersion>
