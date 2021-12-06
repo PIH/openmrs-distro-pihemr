@@ -3,6 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.openmrs.module</groupId>
+        <artifactId>pihcore</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>org.openmrs.distro</groupId>
     <artifactId>pihemr</artifactId>
     <version>1.4.0-SNAPSHOT</version>
@@ -23,9 +29,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</connection>
-        <developerConnection>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</developerConnection>
-        <url>scm:git:git@github.com:PIH/openmrs-module-mirebalais.git</url>
+        <connection>scm:git:git@github.com:PIH/openmrs-distro-pihemr.git</connection>
+        <developerConnection>scm:git:git@github.com:PIH/openmrs-distro-pihemr.git</developerConnection>
+        <url>scm:git:git@github.com:PIH/openmrs-distro-pihemr.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -44,60 +50,9 @@
 
 
     <properties>
-        <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
-
-        <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
-        <allergyuiVersion>1.8.4</allergyuiVersion>
-        <appframeworkVersion>2.17.0-SNAPSHOT</appframeworkVersion>
-        <appointmentschedulingVersion>1.16.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
-        <appuiVersion>1.15.0</appuiVersion>
-        <attachmentsVersion>2.5.0</attachmentsVersion>
-        <calculationVersion>1.3.0</calculationVersion>
-        <coreappsVersion>1.36.0-SNAPSHOT</coreappsVersion>
-        <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
-        <edtriageappVersion>1.4.0</edtriageappVersion>
-        <emrVersion>2.3.0-SNAPSHOT</emrVersion>
-        <emrapiVersion>1.33.0-SNAPSHOT</emrapiVersion>
-        <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>1.4.0-SNAPSHOT</fhir2Version>
-        <htmlformentryVersion>4.3.0-SNAPSHOT</htmlformentryVersion>
-        <htmlformentryuiVersion>2.1.0</htmlformentryuiVersion>
-        <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
-        <growthChartVersion>2.1.0</growthChartVersion>
-        <idgenVersion>4.7.0</idgenVersion>
-        <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
-        <initializerVersion>2.2.0</initializerVersion>
-        <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
-        <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
-        <legacyuiVersion>1.9.0</legacyuiVersion>
-        <metadatamappingVersion>1.4.0</metadatamappingVersion>
-        <metadatasharingVersion>1.8.0</metadatasharingVersion>
-        <namephoneticsVersion>1.18.0</namephoneticsVersion>
-        <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
-        <owaVersion>1.13.0</owaVersion>
-        <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
-        <paperrecordVersion>1.3.0</paperrecordVersion>
-        <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
-        <printerVersion>1.4.0</printerVersion>
-        <providermanagementVersion>2.13.0</providermanagementVersion>
-        <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.25.0-SNAPSHOT</registrationappVersion>
-        <registrationcoreVersion>1.11.0</registrationcoreVersion>
-        <reportingVersion>1.24.0-SNAPSHOT</reportingVersion>
-        <reportingrestVersion>1.12.0</reportingrestVersion>
-        <reportinguiVersion>1.9.0</reportinguiVersion>
-        <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
-        <spaVersion>1.0.8</spaVersion>
-        <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.20.0-SNAPSHOT</uicommonsVersion>
-        <uiframeworkVersion>3.22.1</uiframeworkVersion>
-        <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
-
+        <pihcoreVersion>${project.parent.version}</pihcoreVersion>
         <appShellVersion>next</appShellVersion>
         <frontendDir>${project.build.directory}/distro/web/frontend</frontendDir>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -170,10 +125,6 @@
             <id>openmrs-repo</id>
             <name>OpenMRS Nexus Repository</name>
             <url>https://openmrs.jfrog.io/artifactory/public</url>
-        </repository>
-        <repository>
-             <id>rubygems-releases</id>
-             <url>http://rubygems-proxy.torquebox.org/releases</url>
          </repository>
         <repository>  <!-- Mekom repository, for Initializer -->
             <id>mks-nexus-public</id>
