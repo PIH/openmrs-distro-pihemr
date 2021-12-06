@@ -1,84 +1,68 @@
+# openmrs-distro-pihemr
+===============================
+
+This project defines the "PIH EMR" distribution of OpenMRS, which is made up of a specific OpenMRS war, 
+a specific set of modules, and a specific set of microfrontends.  The PIH EMR distribution is designed such that it
+requires a specific distribution configuration to be installed with it.  Together, the PIH EMR distribution
+and the configuration make up a particular installation.
 
 # Overview of the PIH-EMR
 
-The *PIH-EMR* is a *distribution* of *OpenMRS*, an open-source medical record systems
-
+The *PIH-EMR* is a *distribution* of *OpenMRS*, an open-source medical record system. 
 A few links from the OpenMRS wiki that are worth reading:
 
 * High-level overview of OpenMRS: https://wiki.openmrs.org/display/docs/Introduction+to+OpenMRS
-
 * Overview of the OpenMRS data model: https://wiki.openmrs.org/display/docs/Data+Model
+* Definition of an "OpenMRS distribution": https://wiki.openmrs.org/display/docs/OpenMRS+Distributions
 
-* Definition of an "OpenMRS distribution" (of which the PIH-EMR is one): https://wiki.openmrs.org/display/docs/OpenMRS+Distributions
+Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but also includes
+some PIH-specific modules as well.  The [pihcore module](https://github.com/PIH/openmrs-module-pihcore) is the most 
+significant of these, and is designed to be the primary "top-level" module that ensures each of the other required
+modules are installed and running and configured correctly.  The pihcore module also ensures all of the appropriate
+configurations are applied and the installation is setup correctly given the country, site, and/or environment type specified.
 
+There are currently the following "configurations" of the PIH EMR:
 
-Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but we also have
-several PIH-specific modules as well.  Of those there are 2 top-level modules that provide most of the PIH-specific configuration:
+* [openmrs-config-pihemr](https://github.com/PIH/openmrs-config-pihemr) (Shared Configuration, not used directly)
+* [openmrs-config-zl](https://github.com/PIH/openmrs-config-zl)
+* [openmrs-config-ces](https://github.com/PIH/openmrs-config-ces)
+* [openmrs-config-ses](https://github.com/PIH/openmrs-config-ses)
+* [openmrs-config-pihliberia](https://github.com/PIH/openmrs-config-pihliberia)
+* [openmrs-config-pihsl](https://github.com/PIH/openmrs-config-pihsl)
 
-* mirebalais: https://github.com/PIH/openmrs-module-mirebalais
-* pihcore: https://github.com/PIH/openmrs-module-pihcore
-
-These modules do several things, but their main tasks are:
-
-* Providing and setting up PIH-specific metadata (like the forms and concepts we use)
-
-* Configuring exactly what modules are included in the PIH distribution
-(see https://github.com/PIH/openmrs-module-mirebalais/blob/master/pom.xml#L53)
-
-* Allow use to turn and off different functionality based on country and location
-
-* Setting up PIH-specific reports
-
-
-(Due to the organic way the PIH EMR developed, it's there's not always clear guidelines as to the distribution of
-functionality between the the four modules, but generally Mirebalais metadata provides concepts, Mirebalais reports
-provides reports, and Mirebalais and PIH Core provide other metadata and configuration. The mirebalais module runs at
-the top of stack. For reference, "Mirebalais" refers to Hopital Universitaire Mirebalais where the PIH EMR was first installed.)
-
-For deploying the PIH-EMR to our various staging and production servers, we use Puppet (https://puppet.com/)
-
-Our Puppet configuration scripts can be found here: https://github.com/PIH/mirebalais-puppet
-
-### Sites Supported
-
-This repository/implementation supports several different sites.
+Within each of these configurations, there are several variations that are enabled based on the "pih.config" runtime
+property.  Specific examples of distinct implementations include:
 
 - Haiti
   - Mirebalais Hospital / CDI configuration
   - Default Health Center configuration
   - Mental Health laptop configuration
   - HIV cloud system (coming soon!)
-
 - Liberia
   - Pleebo Health Center
   - JJ Dossen Health Center
-
 - Sierra Leone
   - Wellbody Health Center
-
 - Mexico
   - See the [CES EMR documentation](https://pihemr.atlassian.net/wiki/spaces/PIHEMR/pages/296255489/CES+EMR)
 
 
+For deploying the PIH-EMR to our various staging and production servers, we use Puppet (https://puppet.com/)
+Our Puppet configuration scripts can be found here: https://github.com/PIH/mirebalais-puppet
 
 # Communications and management
 
 There are a few tools that we use extensively and that all PIH devs should have set up:
 
 * Microsoft Teams (you will need an @pih.org email address)
-
 * JIRA for managing project, bugs, sprints, etc: https://pihemr.atlassian.net/secure/Dashboard.jspa
-
-Please request an account by asking another PIH developer or emailing medinfo@pih.org
+  Please request an account by asking another PIH developer or emailing medinfo@pih.org
 
 # Setting up a Dev Environment
 
-A development environment can be set up with the OpenMRS SDK, with some 
-custom configuration steps, as written below.
+A development environment can be set up with the OpenMRS SDK, with some custom configuration steps, as written below.
 
-Setup can also be done using the 
-[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke),
-for which the instructions are in that README.
+Setup can also be done using the[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke), for which the instructions are in that README.
 
 ## Prerequisites
 
@@ -99,8 +83,7 @@ Building the distribution file (`mvn clean install -Pdistribution`) requires npm
 
 ## Setup
 
-Epic for making setting up a dev enviorment easier: https://pihemr.atlassian.net/browse/UHM-4245
-
+Epic for making setting up a dev environment easier: https://pihemr.atlassian.net/browse/UHM-4245
 
 ### Step 1: Ensure you have MySQL available
 
@@ -153,7 +136,7 @@ The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
 The convention for dbNames are "openmrs_[some name]".
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.3.0-SNAPSHOT
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT
 ```
 
 * When prompted, select the port you'd like to run tomcat on
@@ -184,7 +167,7 @@ using an SDK-created Docker container for MySQL, running the server on port 8080
 ```shell
 $ mvn openmrs-sdk:setup \
     -DserverId=[serverId] \
-    -Ddistro=org.openmrs.distro:pihemr:1.3.0-SNAPSHOT \
+    -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
     -DbatchAnswers="8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
 ```
@@ -464,7 +447,7 @@ If there isn't, you'll need to create a local identifier source to generate "fak
 
 The RegistrationApp seems to provide, by default, a single widget, which displays the information in the "demographics" section. It only will display patient attributes - concept/observation data added to the demographics section will always show a blank answer in the dashboard widget.
 
-RegistrationApp is configured in `mirebalais/.../apps/patientregistration/`. `SectionsDefault` provides the default Registration application. Some of it is configurable using the site configuration JSON, [mirebalais-puppet/.../pih-config-<site>.json](https://github.com/PIH/mirebalais-puppet/tree/master/mirebalais-modules/openmrs/files/config). Parts of it can be overridden in the site-specific Sections file, e.g. `SectionsMexico.java`.
+RegistrationApp is configured in `pihcore/.../apps/patientregistration/`. `SectionsDefault` provides the default Registration application. Some of it is configurable using the site configuration JSON, [mirebalais-puppet/.../pih-config-<site>.json](https://github.com/PIH/mirebalais-puppet/tree/master/mirebalais-modules/openmrs/files/config). Parts of it can be overridden in the site-specific Sections file, e.g. `SectionsMexico.java`.
   
 Person Attributes should be added to the section with id `demographics`. Other registration components should be added elsewhere. For these, you will also need to edit the corresponding registration form section, `pihcore/.../htmlforms/patientRegistration-<section>.xml`. This XML file is what is used by the registration dashboard to configure the "view" widget, as well as the "edit registration" forms.
 
@@ -482,80 +465,41 @@ To break it down a bit:
 1. Set this concept to be a ConvSet (with datatype NA), and check that it is a set.
 1. Add "MySite primary care diagnosis set" (or whatever you called the other concept) to it.
 1. Export a new version of the MDS package "HUM Clinical Concepts", adding "MySite diagnosis set of sets" to it.
-1. Update that MDS package in mirebalaismetadata.
-1. Add to [pihcore/.../GlobalPropertiesBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/core/GlobalPropertiesBundle.java) a line resembling `public static final String LIBERIA_DIAGNOSIS_SET_OF_SETS = "ed97232b-1a09-4260-b06c-d193107c32a7";`, but with your site name and the UUID of your "MySite diagnosis set of sets" concept.
-1. Add to your site's MetadataBundle file a line like `properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.LIBERIA_DIAGNOSIS_SET_OF_SETS);`, but with the constant that you just added to GlobalPropertiesBundle. See for example [pihcore/.../LiberiaMetadataBundle](https://github.com/PIH/openmrs-module-pihcore/blob/master/api/src/main/java/org/openmrs/module/pihcore/deploy/bundle/liberia/LiberiaMetadataBundle.java).
+1. Update that MDS package in your config project.
+1. Add a global property to the appropriate configuration project that configures `EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS`, with the uuid of the Concept Set of Sets from above.
 
 ## Registration Form
 
-The Registration form is produced by RegistrationApp based on the configuration specified in [mirebalais/apploader/apps.patientregistration/](https://github.com/PIH/openmrs-module-mirebalais/tree/master/api/src/main/java/org/openmrs/module/mirebalais/apploader/apps/patientregistration). This also generates some of the Edit Registration forms, but not all of them. RegistrationApp is able to provide View and Edit UI for sections that do not have concept questions. For sections with concept questions, you will need to create a .xml file (like patientRegistration-contact.xml) to define those views.
+The Registration form is produced by RegistrationApp based on the configuration specified in [the CALF](https://github.com/PIH/openmrs-module-pihcore/tree/master/api/src/main/java/org/openmrs/module/pihcore/apploader/apps/patientregistration). 
+This also generates some of the Edit Registration forms, but not all of them. RegistrationApp is able to provide View and Edit UI for sections that do not have concept questions. For sections with concept questions, you will need to create a .xml file (like patientRegistration-contact.xml) to define those views.
 
 ## Programs
 
 ### Enabling a Program
 
 There are a number of programs that come with PIH EMR. Each one has its own component. To enable a program:
-- Enable the component by adding it to `mirebalais-puppet/.../pih-config-mycountry.json`.
-- Ensure the program bundle will be loaded -- check the `@Requires` section of `pihcore/.../MyCountryMetadataToInstallAfterConceptsBundle.java`. If there is no such bundle for your country, you will need to create one.
-    - If you create a `MyCountryMetadataToInstallAfterConceptsBundle`, you will need to call it from `openmrs-module-mirebalaismetadata/.../MirebalaisMetadataActivator.java` in the function `installMetadataBundles`.
-- Ensure you have the concepts required by the program. These are listed in `openmrs-module-pihcore/.../PihCoreConstants.java`. Please see the [MirebalaisMetadata README](https://github.com/PIH/openmrs-module-mirebalaismetadata/blob/master/README.md) for information about concept management.
-
-### Creating a program
-
-1. Create a concept for your program (see the [MirebalaisMetadata README](https://github.com/PIH/openmrs-module-mirebalaismetadata/blob/master/README.md)
-1. Add your new concept, as well as an outcomes concept (the default is fine for most things) to `pihcore/.../PihCoreConstants.java`.
-1. Create a program definition based on `pihcore/.../MentalHealthProgram.java`.
-    1. Be sure to change the name, description, concepts, and UUID.
-1. Create a program bundle based on `pihcore/.../MentalHealthProgramBundle.java`.
-1. Add the bundle to your `mirebalaismetadata/.../MyCountryMetadataToInstallAfterConceptsBundle.java` file (see above, "Enabling a program")
-1. Create a component for your program by adding a line to `pihcore/.../Components.java`.
-1. Document it with the bundle name, your implementation name, and the MDS package name if it's not HUM NCD.
-1. Add a block to CALF (`mirebalais/.../CustomAppLoaderFactory.java`) in the `enablePrograms` function. It should have two lines, one call to `supportedPrograms` and one call to `configureBasicProgramDashboard`.
-1. Enable the component by adding it to `mirebalais-puppet/.../pih-config-mycountry.json`.
-
+- Enable the component by adding it to the appropriate pih-config file
+- Ensure you have the concepts required by the program in an appropriate concept package
+- Ensure the program bundle will be loaded in your configuration (your config project includes the relevant program)
 
 ## Locales
 
 See the [OpenMRS Wiki page on locales](https://wiki.openmrs.org/display/docs/Localization+and+Languages).
-
 Allowed locales are configured in [global properties](https://github.com/PIH/openmrs-config-pihliberia/blob/880704d98f477ec75db9c29bc5566ac9c90a5aad/configuration/globalproperties/gp_pihliberia.xml#L10).
-
 Text mostly comes either from concept names or from message strings.
-	
-Concept names and their translations should be managed on the [concepts server](concepts.pih-emr.org).
+Concept names and their translations should be managed on the [concepts server](http://concepts.pih-emr.org).
 
 ### Message string management
-	
+
+Message strings that are specific to the PIH EMR or which we define in the PIH EMR are kept in 
+[config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties).
+
 Some message strings are embedded into OpenMRS modules. See, for example, the
 [English](https://github.com/openmrs/openmrs-module-coreapps/blob/master/api/src/main/resources/messages.properties)
 and [Spanish](https://github.com/openmrs/openmrs-module-coreapps/blob/master/api/src/main/resources/messages_es.properties)
-strings in the coreapps module.
-	
-Message strings that are specific to the PIH EMR are kept in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties).
-	
-In either case, those strings are managed through [Transifex](https://www.transifex.com/pih/mirebalais/dashboard/).
-Ask someone from the PIH EMR team to grant you access to the PIH Transifex org.
-Those strings will be downloaded and used to update the `messages_**.properties` files.
-*Do not* attempt to translate the EMR by modifying those files directly.
-
-### Transifex Workflow for adding a new message code and translation
-
-1. Add the new code and English translation directly to the English translation file: https://github.com/PIH/openmrs-config-pihemr/blob/master/configuration/messageproperties/messages_en.properties
-2. Push the updated "messages_en.properties" file to Transifex using the Transifex client `tx push -s`
-3. Navigate to the PIH org in Transifex
-4. Click "Resources"
-5. Click on the resource you want to work on. The messages in [config-pihemr](https://github.com/PIH/openmrs-config-pihemr/tree/master/configuration/messageproperties)
-    correspond to the resource "PIH Config"
-6. Click on the language you want to enter translations for
-7. Enter and save your translations
-8. In a terminal, `cd` to `openmrs-config-pihemr`
-9. Run `tx pull`
-10. Commit and push the `message_**.properties` files that have changed.
-     If you are at all unsure, just push to a branch and open a PR. This
-     is always the safer option.
-
-Note that you should never push the translation files to Transifex directly. 
-
+strings in the coreapps module.  Most of these modules are managed in the OpenMRS community via [Transifex](https://www.transifex.com/):
+Ask someone from the PIH EMR team to grant you access to the PIH Transifex org.  In these cases, the english message should
+be added manually, but none of the non-English messages should be added directly to the modules.  They should follow the transifex process.
 
 ## Making Things Easy
 
@@ -563,7 +507,7 @@ Note that you should never push the translation files to Transifex directly.
 
 ```
 $ alias omrs-pull='mvn openmrs-sdk:pull'
-$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/mirebalais && ./pihemrDeploy.sh'
+$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/pihcore && ./pihemrDeploy.sh'
 $ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
 ```
 
@@ -609,8 +553,7 @@ If you're seeing a login screen that looks like this
 
 ![MicrosoftTeams-image](https://user-images.githubusercontent.com/1031876/98297904-0244f480-1f6a-11eb-9da5-b8a7841bca66.png)
 
-it means that the Mirebalais module has failed to load. Look in the logs to find out why.
-Try searching the log for `mirebalais`.
+it means that the pihcore module has failed to load. Look in the logs to find out why.   Try searching the log for `pihcore`.
 
 #### OpenMRS displays errors like this after starting up, where `Foo` is the name of the module I'm working on:
 #### `Foo Module cannot be started because it requires the following module(s): Bar 1.2.3-SNAPSHOT`
@@ -624,7 +567,7 @@ Foo POM still requires Bar 1.2.3.
 To resolve
 1. Pull the latest changes to Foo from master (merging/rebasing 
     into your branch if you're in a branch)
-2. Run `./pihEmrDeploy.sh` in `openmrs-module-mirebalais`, or run `invoke deploy`
+2. Run `./pihemrDeploy.sh` in `openmrs-module-pihcore`, or run `invoke deploy`
 3. Re-run your server
 
 #### I'm getting a NullPointerException from HeaderFragmentController immediately on navigating to the EMR
@@ -639,22 +582,22 @@ java.lang.NullPointerException
 ...
 ```
 
-What the error means, interpreted literally, is that the Mirebalais module is
+What the error means, interpreted literally, is that the pihcore module is
 overriding the header extension, but didn't successfully initialize the override.
 There are two likely reasons:
 
-1. Mirebalais Module is activating correctly, but the code is wrong, in that it's
-   actually not setting up the header extension. Check the code in the [CALF](https://github.com/PIH/openmrs-module-mirebalais/blob/b1fef4a6d523ee21c250a5a4c3326018938badda/api/src/main/java/org/openmrs/module/mirebalais/apploader/CustomAppLoaderFactory.java#L350) to see if it's setting up a header extension for
+1. The pihcore module is activating correctly, but the code is wrong, in that it's
+   actually not setting up the header extension. Check the code in the CALF (see CustomAppLoaderFactory.java#L350) to see if it's setting up a header extension for
    your site. This is likely the reason if you're setting up a new site.
 2. Something went wrong at some point in server initialization before the header
    extension could be set. Scroll up in the logs and look for an exception.
 
-#### I'm getting an error "viewProvider mirebalais does not have a view named home" immediately on navigating to the EMR
+#### I'm getting an error "viewProvider pihcore does not have a view named home" immediately on navigating to the EMR
 
 Something like
 ```
 ERROR - PageController.handlePath(155) |2020-01-15 09:23:35,714| 
-org.openmrs.ui.framework.UiFrameworkException: viewProvider mirebalais does not have a view named home
+org.openmrs.ui.framework.UiFrameworkException: viewProvider pihcore does not have a view named home
 ...
 ```
 
@@ -668,7 +611,7 @@ Make sure that the module you're working on hasn't come un-watched. Look at the 
 
 When a module fails to start, the next time OpenMRS runs it will not try to start it.
 On realizing this has happened, you may be inclined to start it from the Admin UI. 
-However, there's a problem. Metadata bundles don't load when starting the mirebalais module via the admin
+However, there's a problem. Metadata bundles don't load when starting the pihcore module via the admin
 UI on an already-running server. Therefore you must always make sure that your modules are enabled prior 
 to running the server, especially after running into problems during initialization.
 
@@ -693,7 +636,7 @@ If, when building core, you see an error like...
 # Source Code
 
 
-All source code for OpenMRS is stored on Github, in either the OpenMRS organizaiton (for core and community modules) or 
+All source code for OpenMRS is stored on Github, in either the OpenMRS organization (for core and community modules) or 
 the PIH organization (for PIH-specific modules).
 
 https://github.com/openmrs
@@ -703,9 +646,7 @@ The naming convention for a module repo is "openmrs-module-[module_name]".
 
 # Getting Set Up with IntelliJ
 
-
-At least with `openmrs-module-pihcore`, IntelliJ may want to identify some 
-directories as modules that are not modules,
+At least with `openmrs-module-pihcore`, IntelliJ may want to identify some directories as modules that are not modules,
 and are in fact subdirectories of actual modules. The problem is that these phony modules don't inherit Maven
 dependency information from the parent modules, so IntelliJ will fail to resolve references to those dependencies.
 To fix this, go to Project Structure -> Modules and remove those directories.
