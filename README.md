@@ -228,6 +228,7 @@ mv modules/* modules_bak/
 ```
 
 2. Start up the server
+
 ```
 mvn openmrs-sdk:run -DserverId=[serverId]
 ```
