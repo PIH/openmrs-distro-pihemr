@@ -228,17 +228,9 @@ mv modules/* modules_bak/
 ```
 
 2. Start up the server
-Usually, you run:
 ```
 mvn openmrs-sdk:run -DserverId=[serverId]
 ```
-But due to a current bug in version 4.2.0 of the SDK, you should tell Maven to expliclity use
-the 4.1.1 release of the SDK when doing this initial run (you can you the standard openmrs-sdk:run
-after that)
-```
-mvn org.openmrs.maven.plugins:openmrs-sdk-maven-plugin:4.1.1:run -DserverId=[serverId]
-```
-
 
 3. When you see a message in the log that the server has started up, you will have to go to 
    http://localhost:8080/openmrs to trigger the update process to install and update the OpenMRS application
