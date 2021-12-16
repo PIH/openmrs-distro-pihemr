@@ -200,18 +200,17 @@ script we will use in the next step can find the "Parent" config relative to the
 
 ### Step 4: Compile the configuration project and install it
 
-You'll use the
-[OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
-to assemble the configuration and install it in the application
-data directory associated with the server you created in Step 2.
-
-Go into the top-level directory of the configuration project you checked out above and run the following utility
-script to run the Maven plugin. Use the "serverId" you choose in Step 1.
+Go into the top-level directory of the configuration project you checked out above and
+run the install script. Use the `serverId` you choose in Step 1.
 
 ```
 cd openmrs-config-liberia
 ./install.sh [serverId]
 ```
+
+This uses the [OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-packager-maven-plugin)
+to assemble the configuration and install it in the application
+data directory.
 
 ### Step 5: Initialize the server environment
 
@@ -328,14 +327,19 @@ and ensure that the following is present:
 
 ### Step 7: Set up the frontend
 
-All that needs to be done to set up the frontend is to link the site-specific config into the application
-data directory's `frontend/` directory:
+To use the OpenMRS 3.x frontend, clone the
+[openmrs-frontend-pihemr](https://github.com/PIH/openmrs-frontend-pihemr)
+repository into the same directory where `openmrs-disto-pihemr` and 
+your config repositories are. Execute the following:
 
-```bash
-ln -s ~/openmrs/[serverId]/configuration/frontend ~/openmrs/[serverId]/frontend/site
+```
+cd openmrs-frontend-pihemr
+./install.sh [serverId]
 ```
 
-This link is also created by the `./pihemrDeploy.sh` script, because `mvn openmrs-sdk:deploy` wipes it out.
+This will put the frontend files in the `frontend/` directory of your server
+directory, and create a symlink from `configuration/frontend` to
+`frontend/site`, which will allow the frontend application to access it.
 
 ### Step 8: Start up the server
 

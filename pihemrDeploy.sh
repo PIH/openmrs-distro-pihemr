@@ -4,7 +4,6 @@ usage () {
     echo -e "Usage: pihemrDeploy.sh [SERVER]\n"
     echo -e "Runs git pull, and then 'mvn openmrs-sdk:deploy' for SERVER, where a server is the "
     echo -e "name of an OpenMRS SDK instance at path '~/openmrs/[SERVER]'.\n"
-    echo -e "Also ensures that the frontend site config symlink, 'frontend/site/', is present.\n"
     echo -e "Example: ./deploy.sh mirebalais\n"
 }
 
@@ -16,4 +15,3 @@ fi
 
 git pull
 mvn openmrs-sdk:deploy -Ddistro=openmrs-distro.properties -DserverId=$1 -U
-ln -s ~/openmrs/$1/configuration/frontend ~/openmrs/$1/frontend/site
