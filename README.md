@@ -139,6 +139,17 @@ The convention for dbNames are "openmrs_[some name]".
 $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT
 ```
 
+* When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied to your server environment.  Common options are as follows:
+
+  * Mirebalais Dev/Test environment:  `mirebalais,mirebalais-humci`
+  * Haiti HIV Dev/Test environment:  `haiti,haiti-hiv,haiti-hiv-ci`
+  * Haiti HSN Dev/Test environment:  `haiti,haiti-hsn,haiti-hsn-ci`
+  * Haiti Other Dev/Test environment:  `haiti,haiti-<site>,haiti-ci`
+  * Liberia Dev/Test environment:  `liberia,liberia-harper,liberia-harper-dev`
+  * Sierra Leone KGH Dev/Test environment:  `sierraLeone,sierraLeone-kgh`
+  * Mexico dev/test environment:  `mexico,mexico-demo`
+  * Peru dev/test environment:  `peru`
+
 * When prompted, select the port you'd like to run tomcat on
 
 * When prompted, set the port to debug on (standard is 1044)
@@ -169,7 +180,8 @@ $ mvn openmrs-sdk:setup \
     -DserverId=[serverId] \
     -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
-    -DbatchAnswers="8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
+    -Dpih.config=mirebalais,mirebalais-humci
+    -DbatchAnswers="placeholder,8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
 ```
 
 ### Step 3: Clone the configuration project for the distro you are working
@@ -212,120 +224,7 @@ This uses the [OpenMRS Packager Maven plug-in](https://github.com/PIH/openmrs-pa
 to assemble the configuration and install it in the application
 data directory.
 
-### Step 5: Initialize the server environment
-
-Currently, there is a limitation in the SDK where one cannot specify custom runtime properties until after the server is 
-first run.  Our distribution modules require these runtime properties to be available.  To address this, we recommend first
-starting up the server _without_ any of the modules installed, in order to initialize the base openmrs instance and 
-associated configuration files.  The steps involved are:
-
-1. Move all of your modules out of your server and into a temporary backup location
-``` 
-cd [serverId]
-mkdir modules_bak
-mv modules/* modules_bak/
-```
-
-2. Start up the server
-Usually, you run:
-```
-mvn openmrs-sdk:run -DserverId=[serverId]
-```
-But due to a current bug in version 4.2.0 of the SDK, you should tell Maven to expliclity use
-the 4.1.1 release of the SDK when doing this initial run (you can you the standard openmrs-sdk:run
-after that)
-```
-mvn org.openmrs.maven.plugins:openmrs-sdk-maven-plugin:4.1.1:run -DserverId=[serverId]
-```
-
-
-3. When you see a message in the log that the server has started up, you will have to go to 
-   http://localhost:8080/openmrs to trigger the update process to install and update the OpenMRS application
-   
-4. When this is complete, you will see a message in your browser indicating that "OpenMRS XXX Platform is Running!!!".
-When you see this, stop the server (ctrl-c in the terminal window where you had started it above).
-   
-5. Move the modules back into place and out of the temporary backup location
-``` 
-mv modules_bak/* modules/
-rm -fR modules_bak
-```
-
-### Step 6: Configure runtime properties file
-
-By default, the configuration will be set up with the 'default' configuration for your chosen distro.
-
-In order for a site-specific configuration to be applied to your server environment, an appropriate pih.config value needs
-to be set in the openmrs-runtime.properties file, which was created in the step above in `~/openmrs/[serverId]`.
-
-You will need to edit openmrs-runtime.properties in your favorite text editor and add a line specifying the "pih.config" to use.
-
-There are various options to choose from, depending on the country, site, and type of environment.  Examples:
-
-Mirebalais CI environment:
-```properties
-pih.config=mirebalais,mirebalais-humci
-```
-
-Haiti HIV environment:
-```properties
-pih.config=haiti,haiti-hiv
-```
-
-Liberia (Harper) Dev environment:
-```properties
-pih.config=liberia,liberia-harper,liberia-harper-dev
-```
-
-Sierra Leone KGH environment:
-```properties
-pih.config=sierraLeone,sierraLeone-kgh
-```
-
-Mexico test/demo environment:
-```properties
-pih.config=mexico,mexico-demo
-```
-
-Peru test/demo environment:
-```properties
-pih.config=peru
-```
-
-**Initializer configuration**: You must also add the configuration line below to openmrs-runtime.properties to tell initializer not to load metadata 
-during the Initializer module startup process, as our distribution loads in metadata using the Initializer API explicitly 
-at various times to account for dependencies and options that allow for asynchronous concept loading.
-
-```properties
-initializer.startup.load=disabled
-```
-
-**For Haiti development and test environments**, one also needs to toggle on the creation of a local identifier generator.
-To do so, add the following to the end of openmrs-runtime.properties:
-
-```properties
-local_zl_identifier_generator_enabled=true
-local_zl_identifier_generator_prefix=Y
-```
-
-If you forget to do this step, just navigate to the
-[legacy admin page](http://localhost:8080/openmrs/admin), click "Manage Patient Identifier Sources",
-and ensure that the following is present:
-
-- A "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
-  - Name: ZL Identifier Generator
-  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
-  - First Identifier Base: 1000
-  - Prefix: Y
-  - Suffix: (Leave Blank)
-  - Max Length: 6
-  - Min Length: 6
-- Link the local generator to the Local Pool of Zl Identifiers
-  - Click the Configure Action next to the local pool
-  - Set "Pool Identifier Source" to "ZL Identifier Generator"
-- Change "When to fill" to "When you request an identifier"
-
-### Step 7: Set up the frontend
+### Step 5: Set up the frontend
 
 To use the OpenMRS 3.x frontend, clone the
 [openmrs-frontend-pihemr](https://github.com/PIH/openmrs-frontend-pihemr)
@@ -341,18 +240,21 @@ This will put the frontend files in the `frontend/` directory of your server
 directory, and create a symlink from `configuration/frontend` to
 `frontend/site`, which will allow the frontend application to access it.
 
-### Step 8: Start up the server
+### Step 6: Startup the server
 
 ```
 mvn openmrs-sdk:run -DserverId=[serverId]
 ```
+
+In your browser, navigate to `http://localhost:8080/openmrs` in order to initiate the full startup process.
+
 This is where the bulk of the installation occurs, and may take many minutes to complete (potentially 30-40 minutes).
 When this is complete, you should have a running PIH EMR instance and you should be able to navigate to the 
 application and see an appropriate login page for your chosen distribution and configuration.
 
 By default you can log into this via:  admin/Admin123
 
-### Step 9: Create an account that is a provider
+### Step 7: Create an account that is a provider
 
 In order to use most of the functions of the system (patient registration, visit note, etc), you must be a Provider.
 By default, the "admin" user is not a Provider.  You'll need to log into the system as the "admin" user, navigate to the 
