@@ -56,34 +56,48 @@ There are a few tools that we use extensively and that all PIH devs should have 
 
 * Microsoft Teams (you will need an @pih.org email address)
 * JIRA for managing project, bugs, sprints, etc: https://pihemr.atlassian.net/secure/Dashboard.jspa
-  Please request an account by asking another PIH developer or emailing medinfo@pih.org
+* Bamboo: http://bamboo.pih-emr.org:8085/  This is our Continuous Integration environment that is used to continuously build the PIH EMR on every commit and deploy to our various staging environments
+
+Please request an account on both Jira and Bamboo by asking another PIH developer or emailing medinfo@pih.org
 
 # Setting up a Dev Environment
 
 A development environment can be set up with the OpenMRS SDK, with some custom configuration steps, as written below.
 
-Setup can also be done using the[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke), for which the instructions are in that README.
+(Setup can also be done using the[PIH EMR Invoke file](https://github.com/PIH/pih-emr-invoke), for which the instructions are in that README.)
 
 ## Prerequisites
 
-First, install git, mvn, and the OpenMRS SDK by following the "Installation" instructions here:
+You should have a machine (or VM) running Ubuntu 18.04 or later, and a Java IDE such as IntelliJ IDEA or Eclipse.  
+IntelliJ IDEA is our current preferred IDE and has a free "Community Edition" (https://www.jetbrains.com/idea/)
+
+You should have Java 8 installed, preferrably via OpenJDK.  See instructions here: https://docs.datastax.com/en/jdk-install/doc/jdk-install/installOpenJdkDeb.html
+
+You also should have Git and Maven installed, which you should be able to do via the Apt package manager:
+* Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+* Maven: https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-18-04/
+
+Once you have Maven installed, you can install the OpenMRS SDK by following the "Installation" instructions here:
 
 https://wiki.openmrs.org/display/docs/OpenMRS+SDK#OpenMRSSDK-Installation
 
+Building the distribution file also requires npm, so you should make sure you have the latest npm installed. The
+preferred best practice is to install Node and NPM via NVM (https://github.com/nvm-sh/nvm).
+
 The OpenMRS SDK uses the H2 database by default, but H2 doesn't work with some of the
 modules we use, so we must use MySQL, which needs to be configured separately. To do this, you can either
-install MySQL directly on your machine, or install mysql within a docker container.
+install MySQL directly on your machine, or install mysql within a docker container. Installing via Docker is the preferred
+approach going forward. 
 
-If installing directly, install MySQL Community Server 5.6 following the instructions for your platform. It must be
-version 5.6, other versions will not work.
+If installing directly, install MySQL Community Server 5.6 following the instructions for your platform. (At this time,
+it must be 5.6, not 5.7 or 8). Otherwise, install Docker (https://docs.docker.com/engine/install/ubuntu/) and follow 
+the instructions below to use the OpenMRS SDK to set up an instance of MySQL within a Docker container.
 
-An easier approach is likely to install Docker (https://www.docker.com/) and use the OpenMRS SDK to set up an instance of MySQL within a docker container.
-
-Building the distribution file (`mvn clean install -Pdistribution`) requires npm 7. Make sure you have the latest npm installed.
+You also should have this repository checked out, (though we won't be using it directly until we upgrade the system)
 
 ## Setup
 
-Epic for making setting up a dev environment easier: https://pihemr.atlassian.net/browse/UHM-4245
+(TODO): Epic for making setting up a dev environment easier: https://pihemr.atlassian.net/browse/UHM-4245
 
 ### Step 1: Ensure you have MySQL available
 
@@ -91,7 +105,7 @@ Epic for making setting up a dev environment easier: https://pihemr.atlassian.ne
 
 Ensure that MySQL has a password set up for the root user
 
-- If you are able to run ```$ mysql -u root``` and access the MySQL Monitor without receiving an access denied error,
+- If you are able to run ```$ mysql -u root``` and access the client Monitor without receiving an access denied error,
 it means that there is no root password set and you have to set it following the instructions here: 
 https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 
@@ -106,9 +120,10 @@ https://docs.docker.com/engine/install/ubuntu/
 You should also ensure that you can run all Docker commands without requiring sudo or root.
 https://docs.docker.com/engine/install/linux-postinstall/
 
-- To use MySQL Option 2 in the SDK installation process, nothing further is required.
+- For the simplest option, use MySQL Option 2 ("MySQL 5.6 and above in SDK docker container"), nothing further is required.
   
-- To use MySQL Option 3 in the SDK installation process, you will need to create your own MySQL Docker container and instantiate a database into it
+- If you or need to connect to an existing OpenMRS database, use Option 3 in the SDK installation process. You will 
+need to create your own MySQL Docker container and instantiate a database into it:
   
   * Create a container (example below creates a container named "mysql-mirebalais" that will be available on port 3308):
   
@@ -131,7 +146,8 @@ https://docs.docker.com/engine/install/linux-postinstall/
 Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
-The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.
+The **Application Data Directory** will be set up at `~/openmrs/[serverId]`.  
+Here you will find all the files created during the steup
 
 The convention for dbNames are "openmrs_[some name]".
 
@@ -139,7 +155,8 @@ The convention for dbNames are "openmrs_[some name]".
 $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT
 ```
 
-* When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied to your server environment.  Common options are as follows:
+* When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied 
+to your server environment.  Common options are as follows:
 
   * Mirebalais Dev/Test environment:  `mirebalais,mirebalais-humci`
   * Haiti HIV Dev/Test environment:  `haiti,haiti-hiv,haiti-hiv-ci`
@@ -150,7 +167,7 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr
   * Mexico dev/test environment:  `mexico,mexico-demo`
   * Peru dev/test environment:  `peru`
 
-* When prompted, select the port you'd like to run tomcat on
+* When prompted, select the port you'd like to run tomcat on (usually 8080)
 
 * When prompted, set the port to debug on (standard is 1044)
 
@@ -228,7 +245,7 @@ data directory.
 
 To use the OpenMRS 3.x frontend, clone the
 [openmrs-frontend-pihemr](https://github.com/PIH/openmrs-frontend-pihemr)
-repository into the same directory where `openmrs-disto-pihemr` and 
+repository into the same directory where `openmrs-distro-pihemr` and 
 your config repositories are. Execute the following:
 
 ```
@@ -265,8 +282,126 @@ environment where you would have a single account for yourself, you'd use the fo
 * Capabilities:  SysAdmin Privileges
 * Provider Type: General Admin
 
-  
-## Developing Microfrontends
+You should now have a running PIH-EMR instance!
+
+
+# Updating the Configuration for your Distribution
+
+Now that you've got a running development environment, you'll likely want to checkout the configuration for the 
+specific site you are working on so that you can make changes to this configuration, like adding or modifying forms.
+
+Much of the configuration can be found in into distribution-specific files, that can be updated without updating the
+main PIH EMR code base.
+
+To do this, you'll need to work with the "parent" config rep and the repo for your specific site, which you checked out
+from Git in Step 3 of "setting up a dev environment".
+
+
+When you make changes to either the "parent" or "child" repo, you need to compile the changes and then "deploy" them 
+to the SDK server you are working on.  This can be done with the following command shell script (which simply runs the
+Maven packager plugin) found in the top-level of the various config projects:
+
+```
+./install.sh [serverId]
+```
+
+Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the 
+changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing
+a "reload" of a page should reload the form with your changes.
+
+You also can set up a "watch" on both the parent and child project, so that when you make changes to, say, an
+HTML Form, the project is immediately compiled and deployed.  You do so using a "watch" utility script found in the
+top-level of the various config projects:
+
+```
+./watch.sh [serverId]
+```
+
+# Checking out the PIH EMR Core module
+
+Many configuration changes can be made solely by changing the files above.  However, some changes will require
+making changes to the PIH EMR code base itself.  Many times, these code changes will be in the PIH Core module,
+which is the top-level OpenMRS module that orchestrates most of the PIH EMR distro.  The following steps explain
+how to set yourself up to develop against the PIH EMR codebase.
+
+First, can check out the PIH Core code here: https://github.com/PIH/openmrs-module-pihcore
+
+One you've done that, you tell the SDK to "watch" this code base.  From the top-level directory of the PIH  Core module run:
+
+```
+mvn openmrs-sdk:watch
+```
+
+This tells the SDK to "watch" this module.  Any changes you make to this module will now be "hot" deployed, and each time you restart the server, it will recompile and redeploy thie module.
+
+# Upgrading the Distribution
+
+There are multiple people working on the PIH EMR at any one time, making changes to various aspects of the code 
+and configuration.  It's important to make sure that all the different code bases are kept in sync, and there
+are a few build-in tools to assist with this.  The following steps can be taken to make sure you are up-to-date
+with the latest distro.  I try do to his each morning before I start my daily development, and also whenever
+I run into errors that may be due to upgrade incompatibles.
+
+## Steps to take
+
+Stop your running PIH EMR instance (Ctrl-C from the command line where you are running the instance)
+
+Execute the command, selecting the server you are working on, when prompted:
+
+```
+mvn openmrs-sdk:pull
+```
+
+This will execute a "git pull" on all the modules you are currently watching (probably only the PIH Core module to start)
+
+Then, run the pihemrDeploy.sh script in the top-level of this directory, passing in the name of server you are working on:
+
+```
+./pihemrDeploy.sh [serverId]
+```
+
+You can take a look at what this script actually does (it's quite small when you look at it), but in a nutshell, it runs an SDK command to make sure that all your modules are up-to-date with the module versions specified in the pom file of the PIH Core project.
+
+Now you'll also want to make sure the configuration files for your specific site are up-to-date.  To do this, go to the top-level directory of your config project (ie config-sl or config-zl) and run:
+
+```
+./pull.sh
+```
+
+Again, this is a rather short shell script and you can take a look at it to see how it basically executes a git pull on the config-pihemr repo and the config associated with a specific site
+
+Then, install the config to your server:
+
+```
+./install.sh [serverId]
+```
+
+Then, restart the server:
+
+```
+mvn openmrs-sdk:run
+```
+
+## Making Things Easy
+
+### Bash Aliases
+
+```
+$ alias omrs-pull='mvn openmrs-sdk:pull'
+$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/pihcore && ./pihemrDeploy.sh'
+$ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
+```
+
+So to do a daily update of the system, run:
+
+```
+$ omrs-pull
+$ omrs-deploy [serverId]
+$ omrs-run
+```
+
+
+# Developing Microfrontends
 
 The PIH EMR uses the [Frontend 3.0 framework](https://wiki.openmrs.org/display/projects/OpenMRS+3.0%3A+A+Frontend+Framework+that+enables+collaboration+and+better+User+Experience).
 We have a few custom microfrontends:
@@ -277,81 +412,6 @@ We have a few custom microfrontends:
 
 Please see the [Frontend 3.0 Developer Documentation](https://openmrs.github.io/openmrs-esm-core/#/) for information about how
 to work on them.
-
-# Updating the Configuration for your Distribution
-
- We are in the process of moving as much "configuration" out of the main PIH EMR code base and into distribution-specific files.  These files can be updated without updating the main PIH EMR code base.
-
-To do this, you'll need to work with the "parent" config rep and the repo for your specific site, mentioned 
-in Step 3 of "setting up a dev environment".
-
-https://github.com/PIH/openmrs-config-pihemr
-
-This is the "parent" configuration, that contains all configuration shared across all PIH EMR distributions.
-
-Then there is the specific "child" configuration for each distribution.  See Step 3 in "setting up a dev environment" above for the list of repos.
-
-When you make changes to either the "parent" or "child" repo, you need to compile the changes and then "deploy" them to the SDK server you are working on.  This can be done with the following command shell script (which simply runs the
-Maven packager plugin) found in the top-level of the various config projects:
-
-```
-./install.sh [serverId]
-```
-
-Note if you make changes to metadata installed via Initializer, you will need to restart your server to pick up the changes.  However, HTML Forms should be available to be "hot" reloaded... once you run the mvn commands above, doing a "reload" of a page should reload the form with your changes.
-
-You also can set up a "watch" on both the parent and child project, so that when you make changes to, say, an
-HTML Form, the project is immediately compiled and deployed.  You do so using a "watch" utility script found in the
-top-level of the various config projects:
-
-```
-./watch.sh [serverId]
-```
-
-Also note that if you commit any changes to either the parent or child config property, our CI server should immediately push them out to the relevant staging servers and restart OpenMRS, so, all going well, your changes should be up on the staging servers within 10-15 minutes of pushing your changes.
-
-# Updating the PIH EMR Code
-
-Modules and code need to be kept in sync and up to date when developing.
-
-You can `git pull` the latest changes in all watched modules using `mvn openmrs-sdk:pull`.
-
-Then run `./pihemrDeploy.sh [serverId]` to update all modules that aren't watched.
-
-See [Making things easy](#making-things-easy)
-
-To run the server: 
-```
-$ mvn openmrs-sdk:run
-```
-
-### Creating a local identifier source in a Haiti instance
-
-**This is only required for Haiti if you do not configure this appropriately via runtime properties at setup time**
-
-After startup, login
-- Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
-  - Log in with the following details:
-    - Username: admin
-    - Password: Admin123
-  - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
-- Enter the legacy admin page "http://localhost:8080/openmrs/admin"
-- Go to "Manage Patient Identifier Sources" under the header "Patients"
-
-Check if there is an existing source for "ZL EMR ID" with type "Local Identifier Generator."
-If there isn't, you'll need to create a local identifier source to generate "fake" ZL EMR IDs:
-- Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
-  - Name: ZL Identifier Generator
-  - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
-  - First Identifier Base: 1000
-  - Prefix: Y
-  - Suffix: (Leave Blank)
-  - Max Length: 6
-  - Min Length: 6
-- Link the local generator to the Local Pool of Zl Identifiers
-  - Click the Configure Action next to the local pool
-  - Set "Pool Identifier Source" to "ZL Identifier Generator"
-  - Change "When to fill" to "When you request an identifier"
 
 
 # Configuring functionality in a PIH EMR OpenMRS Instance
@@ -415,23 +475,7 @@ strings in the coreapps module.  Most of these modules are managed in the OpenMR
 Ask someone from the PIH EMR team to grant you access to the PIH Transifex org.  In these cases, the english message should
 be added manually, but none of the non-English messages should be added directly to the modules.  They should follow the transifex process.
 
-## Making Things Easy
 
-### Bash Aliases
-
-```
-$ alias omrs-pull='mvn openmrs-sdk:pull'
-$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/pihcore && ./pihemrDeploy.sh'
-$ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
-```
-
-So to do a daily update of the system, run:
-
-```
-$ omrs-pull
-$ omrs-deploy [serverId]
-$ omrs-run
-```
 
 ### Fish Aliases
 
@@ -566,3 +610,32 @@ dependency information from the parent modules, so IntelliJ will fail to resolve
 To fix this, go to Project Structure -> Modules and remove those directories.
 
 Other than that, this project is more or less plug-and-play in IntelliJ.
+
+
+### Creating a local identifier source in a Haiti instance
+
+**This is only required for Haiti if you do not configure this appropriately via runtime properties at setup time**
+
+After startup, login
+- Enter "http://localhost:8080/openmrs/login.htm" into the Chrome web browser
+    - Log in with the following details:
+        - Username: admin
+        - Password: Admin123
+    - (The password is the default password, it is referenced in the openmrs-server.properties file within the ~/openmrs/[serverId] folder)
+- Enter the legacy admin page "http://localhost:8080/openmrs/admin"
+- Go to "Manage Patient Identifier Sources" under the header "Patients"
+
+Check if there is an existing source for "ZL EMR ID" with type "Local Identifier Generator."
+If there isn't, you'll need to create a local identifier source to generate "fake" ZL EMR IDs:
+- Add a new "Local Identifier Generator" for the "ZL EMR ID" with the following settings:
+    - Name: ZL Identifier Generator
+    - Base Character Set: ACDEFGHJKLMNPRTUVWXY1234567890
+    - First Identifier Base: 1000
+    - Prefix: Y
+    - Suffix: (Leave Blank)
+    - Max Length: 6
+    - Min Length: 6
+- Link the local generator to the Local Pool of Zl Identifiers
+    - Click the Configure Action next to the local pool
+    - Set "Pool Identifier Source" to "ZL Identifier Generator"
+    - Change "When to fill" to "When you request an identifier"
