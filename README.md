@@ -505,6 +505,8 @@ and simplifying server setup.
 
 ## Troubleshooting
 
+(Also see: https://pihemr.atlassian.net/wiki/spaces/PIHEMR/pages/2485387265/Implementer+Troubleshootings)
+
 #### The login screen looks funny, and just gives me errors
 
 If you're seeing a login screen that looks like this
