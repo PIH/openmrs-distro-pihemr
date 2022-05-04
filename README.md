@@ -152,7 +152,7 @@ Here you will find all the files created during the steup
 The convention for dbNames are "openmrs_[some name]".
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:2.0.0-SNAPSHOT
 ```
 
 * When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied 
@@ -195,7 +195,7 @@ using an SDK-created Docker container for MySQL, running the server on port 8080
 ```shell
 $ mvn openmrs-sdk:setup \
     -DserverId=[serverId] \
-    -Ddistro=org.openmrs.distro:pihemr:1.4.0-SNAPSHOT \
+    -Ddistro=org.openmrs.distro:pihemr:2.0.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
     -Dpih.config=mirebalais,mirebalais-humci
     -DbatchAnswers="placeholder,8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
