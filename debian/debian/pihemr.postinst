@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  configure)
+
+    # for mirebalais implementation, rename the war
+    if [ -f /home/tomcat7/.OpenMRS/mirebalais-runtime.properties ]
+    then
+        mv -f /var/lib/tomcat7/webapps/openmrs.war /var/lib/tomcat7/webapps/mirebalais.war
+    fi
+
+    chown -R tomcat7:tomcat7 /home/tomcat7/.OpenMRS
+    chown -R tomcat7:tomcat7 /var/lib/tomcat7
+
+    if [ -n "$2" ]
+    then
+      #this means it's an upgrade. on clean install, we don't want to start tomcat
+      service tomcat7 start
+      if service --status-all | grep -Fq 'apache2'; then
+        service apache2 restart
+      fi
+    fi
+    ;;
+
+  abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0;

@@ -641,3 +641,12 @@ If there isn't, you'll need to create a local identifier source to generate "fak
     - Click the Configure Action next to the local pool
     - Set "Pool Identifier Source" to "ZL Identifier Generator"
     - Change "When to fill" to "When you request an identifier"
+
+### Building the Debian package
+
+Building the Debian package is possible on an Ubuntu machine with the following packages installed:
+sudo apt-get install devscripts build-essential lintian debhelper
+
+1. Run mvn clean install
+2. Run ./build-debian-package.sh
+
