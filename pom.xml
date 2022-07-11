@@ -122,7 +122,7 @@
 
     <profiles>
         <profile>
-            <id>debian</id>
+            <id>distribution</id>
             <build>
                 <plugins>
                     <plugin>
