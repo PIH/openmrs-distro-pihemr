@@ -1,0 +1,38 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  install)
+    ;;
+
+  upgrade)
+
+    # if [ -f /usr/local/sbin/mysqlbackup.sh ]
+    # then
+      # sh /usr/local/sbin/mysqlbackup.sh $2
+    # fi
+
+    service tomcat7 stop
+
+    rm -rf /var/lib/tomcat7/webapps/openmrs
+    rm -rf /var/lib/tomcat7/webapps/mirebalais
+    rm -rf /var/lib/tomcat7/temp/*
+    rm -rf /var/lib/tomcat7/work/*
+    rm -rf /home/tomcat7/.OpenMRS/modules
+    rm -rf /home/tomcat7/.OpenMRS/owa
+    rm -rf /home/tomcat7/.OpenMRS/.openmrs-lib-cache
+    ;;
+
+  abort-upgrade)
+    ;;
+
+  *)
+    echo "preinst called with unknown argument \`$1'" >&2
+    exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0;
