@@ -644,9 +644,16 @@ If there isn't, you'll need to create a local identifier source to generate "fak
 
 ### Building the Debian package
 
-Building the Debian package is possible on an Ubuntu machine with the following packages installed:
-sudo apt-get install devscripts build-essential lintian debhelper
+Building the Debian package is possible on an Ubuntu machine with appropriate packages or using the included Docker
+image.  This image is built and deployed automatically on each commit to partnersinhealth/debian-build.  One can also
+build it locally using:
 
-1. Run mvn clean install
-2. Run ./build-debian-package.sh
+```docker build -t debian-build ./debian/```
 
+Then, building can be done as follows:
+
+```docker run -v .:/data -v ~/.m2:/root/.m2 --workdir /data --rm debian-build mvn clean install -Pdistribution```
+
+Building and deploying the Debian package to unstable can be done similarly to above, with:
+
+```docker run -v .:/data -v ~/.m2:/root/.m2 -v ~/.pihemr-debian-env:/root/.pihemr-debian-env --workdir /data --rm debian-build mvn clean deploy -Pdistribution```
