@@ -77,6 +77,13 @@ You also should have Git and Maven installed, which you should be able to do via
 * Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 * Maven: https://linuxize.com/post/how-to-install-apache-maven-on-ubuntu-18-04/
 
+You should also set the MAVEN_OPTS environmental variable to allocate more memory Maven.  
+An easy way to do this is to set it in your .bashrc file. (Note you will need to open a new terminal window for this change to take effect):
+
+```
+export MAVEN_OPTS="-Xms1024m -Xmx4096m -XX:PermSize=1024m"
+```
+
 Once you have Maven installed, you can install the OpenMRS SDK by following the "Installation" instructions here:
 
 https://wiki.openmrs.org/display/docs/OpenMRS+SDK#OpenMRSSDK-Installation
@@ -120,7 +127,8 @@ https://docs.docker.com/engine/install/ubuntu/
 You should also ensure that you can run all Docker commands without requiring sudo or root.
 https://docs.docker.com/engine/install/linux-postinstall/
 
-- For the simplest option, use MySQL Option 2 ("MySQL 5.6 and above in SDK docker container"), nothing further is required.
+- For the simplest option, use MySQL Option 2 ("MySQL 5.6 and above in SDK docker container"), nothing further is required. 
+- (MG: I had a recent issue with Option 2 recently, but was able to get things to work following the Option 3 steps below) 
   
 - If you or need to connect to an existing OpenMRS database, use Option 3 in the SDK installation process. You will 
 need to create your own MySQL Docker container and instantiate a database into it:
@@ -388,7 +396,7 @@ mvn openmrs-sdk:run
 
 ```
 $ alias omrs-pull='mvn openmrs-sdk:pull'
-$ alias omrs-deploy='cd /home/mgoodrich/openmrs/modules/pihcore && ./pihemrDeploy.sh'
+$ alias omrs-deploy='cd /home/mgoodrich/openmrs/distros/distro-pihemr && ./pihemrDeploy.sh'
 $ alias omrs-run='mvn openmrs-sdk:run -Ddebug'
 ```
 
