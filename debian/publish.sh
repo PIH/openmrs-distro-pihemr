@@ -5,7 +5,7 @@
 # DEBIAN_REPO_PASSWORD='password'
 
 DEBIAN_REPO_BASE_URL="https://openmrs.jfrog.io/artifactory/deb-pih/pool"
-DEBIAN_REPO_DISTRIBUTION=unstable
+DEBIAN_REPO_DISTRIBUTION=$1
 
 cd ${project.build.directory}/debian/
 DEBIAN_FILENAME="$(ls *.deb)"

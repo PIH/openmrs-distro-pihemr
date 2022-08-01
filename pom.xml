@@ -164,7 +164,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>${project.build.directory}/debian/publish-unstable.sh</executable>
+                                    <executable>${project.build.directory}/debian/publish.sh unstable</executable>
                                 </configuration>
                             </execution>
                         </executions>
