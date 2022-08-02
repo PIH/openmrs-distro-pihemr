@@ -154,7 +154,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>build.sh</executable>
+                                    <executable>./build.sh</executable>
                                     <workingDirectory>${project.build.directory}/debian/></workingDirectory>
                                 </configuration>
                             </execution>
@@ -165,7 +165,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>publish.sh</executable>
+                                    <executable>./publish.sh</executable>
                                     <workingDirectory>${project.build.directory}/debian/></workingDirectory>
                                     <arguments>
                                         <argument>unstable</argument>
