@@ -185,10 +185,6 @@
             <name>OpenMRS Nexus Repository</name>
             <url>https://openmrs.jfrog.io/artifactory/public</url>
          </repository>
-        <repository>  <!-- Mekom repository, for Initializer -->
-            <id>mks-nexus-public</id>
-            <url>https://nexus.mekomsolutions.net/repository/maven-public/</url>
-        </repository>
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/public</url>
