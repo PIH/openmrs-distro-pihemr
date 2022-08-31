@@ -163,6 +163,8 @@ The convention for dbNames are "openmrs_[some name]".
 $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:2.0.0-SNAPSHOT
 ```
 
+(*Note*: if the you get an error when running the above command, see the troubleshooting section below)
+
 * When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied 
 to your server environment.  Common options are as follows:
 
@@ -292,6 +294,25 @@ environment where you would have a single account for yourself, you'd use the fo
 
 You should now have a running PIH-EMR instance!
 
+
+# Troubleshooting
+
+If you see the following error when running "mvn openmrs-sdk:setup":
+
+```
+ERROR] Failed to execute goal org.openmrs.maven.plugins:openmrs-sdk-maven-plugin:4.5.0:setup (default-cli) on project standalone-pom: 
+Failed to setup server: Distro org.openmrs.distro:pihemr:2.0.0-SNAPSHOTcould not be retrieved -> [Help 1] 
+```
+
+... you should be able to fix the error by building this project (distro-pihemr) locally.
+
+Check out this project if you haven't already, and from the top-level directory run:
+
+```
+mvn clean install -DskipTests
+```
+
+Then rerun the setup command.
 
 # Updating the Configuration for your Distribution
 
