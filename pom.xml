@@ -128,19 +128,28 @@
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.2.0</version>
-                        <configuration>
-                            <propertiesEncoding>UTF-8</propertiesEncoding>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>debian/**</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <propertiesEncoding>UTF-8</propertiesEncoding>
+                                    <resources>
+                                        <resource>
+                                            <directory>${basedir}</directory>
+                                            <filtering>true</filtering>
+                                            <includes>
+                                                <include>debian/**</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${basedir}/target</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
