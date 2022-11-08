@@ -173,7 +173,7 @@ to your server environment.  Common options are as follows:
   * Haiti HSN Dev/Test environment:  `haiti,haiti-hsn,haiti-hsn-ci`
   * Haiti Other Dev/Test environment:  `haiti,haiti-<site>,haiti-ci`
   * Liberia Dev/Test environment:  `liberia,liberia-harper,liberia-harper-dev`
-  * Sierra Leone KGH Dev/Test environment:  `sierraLeone,sierraLeone-kgh`
+  * Sierra Leone Dev/Test environment:  `sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi`
   * Mexico dev/test environment:  `mexico,mexico-demo`
   * Peru dev/test environment:  `peru`
 
