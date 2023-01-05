@@ -388,7 +388,7 @@ mvn install to make sure you have the latest version built and installed in your
 From the directory where you have the PIH Core module checked out, run:
 
 ```
-mvn clean install
+mvn clean install -DskipTests
 ```
 
 Then, run the pihemrDeploy.sh script in the top-level of this directory, passing in the name of server you are working on:
