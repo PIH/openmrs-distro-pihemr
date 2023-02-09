@@ -387,6 +387,14 @@ mvn openmrs-sdk:pull
 
 This will execute a "git pull" on all the modules you are currently watching (probably only the PIH Core module to start)
 
+Next, if you are "watching" the PIH Core module (or if you have been building it locally), you will need to run a 
+mvn install to make sure you have the latest version built and installed in your local repo.  
+From the directory where you have the PIH Core module checked out, run:
+
+```
+mvn clean install -DskipTests
+```
+
 Then, run the pihemrDeploy.sh script in the top-level of this directory, passing in the name of server you are working on:
 
 ```
