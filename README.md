@@ -168,7 +168,7 @@ https://docs.docker.com/engine/install/linux-postinstall/
          $ docker exec -it mysql-mirebalais bash
          root@f25c851762df:/# mysql -uroot -proot
          mysql> create database openmrs default charset utf8;
-        ``` 
+        ```
     
 ### Step 2: Set up the environment
 
@@ -654,6 +654,13 @@ If, when building core, you see an error like...
 
 ... then try commenting out the mycila plugin in the main pom of the project
 
+#### I'm getting errors in my logs at startup related to io.debezium.connector.mysql.MySqlConnectorTask
+
+This could mean that you are trying to run an environment (eg. humci configuration) that has a functionality enabled
+that requires MySQL to have row-level bin logging enabled.  You can address this in one of two ways:
+
+1. Enable row-level bin logging in your MySQL instance (see MySQL setup steps above)
+2. Explicitly disable this by adding `dbevent_enabled=false` to your runtime properties file or as a system property
 
 # Source Code
 
