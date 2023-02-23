@@ -119,6 +119,18 @@ https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.
 
+- If you are running an environment where the dbevent module is configured to track database changes with Debezium,
+  then you need to make sure that whatever user you are logging in with has privileges on the binlog.  You also need 
+  to make sure that row-level bin logging is enabled in the MySQL configuration.  That is done by adding
+  the following to your /etc/mysql/my.cnf file in the \[mysqld\] section and restarting MySQL:
+
+```shell
+server-id=1
+log-bin=mysql-bin
+binlog_format=ROW
+max_binlog_size=100M
+```
+
 #### If you choose to install MySQL using Docker
 
 You will need to ensure Docker is installed and running on your machine.
@@ -130,24 +142,33 @@ https://docs.docker.com/engine/install/linux-postinstall/
 - For the simplest option, use MySQL Option 2 ("MySQL 5.6 and above in SDK docker container"), nothing further is required. 
 - (MG: I had a recent issue with Option 2 recently, but was able to get things to work following the Option 3 steps below) 
   
-- If you or need to connect to an existing OpenMRS database, use Option 3 in the SDK installation process. You will 
-need to create your own MySQL Docker container and instantiate a database into it:
+  - If you or need to connect to an existing OpenMRS database, or if you need a custom MySQL instance that has bin logging enabled, 
+    use Option 3 in the SDK installation process. You will need to create your own MySQL Docker container and instantiate a database into it:
   
-  * Create a container (example below creates a container named "mysql-mirebalais" that will be available on port 3308):
-  
-  ```shell script
-    docker run --name mysql-mirebalais -d -p 3308:3306 \
-            -e MYSQL_ROOT_PASSWORD=root \
-            mysql:5.6 --character-set-server=utf8 --collation-server=utf8_general_ci --max_allowed_packet=1G
-    ``` 
-  
-  * Get a bash shell in the container, and create an empty database to use
+    * Create a container (example below creates a container named "mysql-mirebalais" that will be available on port 3308):
   
     ```shell script
-       $ docker exec -it mysql-mirebalais bash
-       root@f25c851762df:/# mysql -uroot -proot
-       mysql> create database openmrs default charset utf8;
+      docker run --name mysql-mirebalais -d -p 3308:3306 \
+              -e MYSQL_ROOT_PASSWORD=root \
+              mysql:5.6 \
+              --character-set-server=utf8 \
+              --collation-server=utf8_general_ci \
+              --max_allowed_packet=1G \
+              --innodb-buffer-pool-size=2G \
+              --user=mysql \
+              --server-id=1 \
+              --log-bin=mysql-bin \
+              --binlog_format=ROW \
+              --max_binlog_size=100M
       ``` 
+  
+    * Get a bash shell in the container, and create an empty database to use
+  
+      ```shell script
+         $ docker exec -it mysql-mirebalais bash
+         root@f25c851762df:/# mysql -uroot -proot
+         mysql> create database openmrs default charset utf8;
+        ```
     
 ### Step 2: Set up the environment
 
@@ -633,6 +654,13 @@ If, when building core, you see an error like...
 
 ... then try commenting out the mycila plugin in the main pom of the project
 
+#### I'm getting errors in my logs at startup related to io.debezium.connector.mysql.MySqlConnectorTask
+
+This could mean that you are trying to run an environment (eg. humci configuration) that has a functionality enabled
+that requires MySQL to have row-level bin logging enabled.  You can address this in one of two ways:
+
+1. Enable row-level bin logging in your MySQL instance (see MySQL setup steps above)
+2. Explicitly disable this by adding `dbevent_enabled=false` to your runtime properties file or as a system property
 
 # Source Code
 
