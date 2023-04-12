@@ -221,15 +221,21 @@ to your server environment.  Common options are as follows:
 * Select the JDK to use (it must be 1.8)
 
 NOTE: It is possible to script this to be non-interactive.  Here is an example of creating a new server instance,
-using an SDK-created Docker container for MySQL, running the server on port 8080, with debugging on port 1044:
+using an external MySQL instance, running the server on port 8080, with debugging on port 5000:
 
 ```shell
 $ mvn openmrs-sdk:setup \
-    -DserverId=[serverId] \
+    -DserverId=humci \
     -Ddistro=org.openmrs.distro:pihemr:2.0.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
-    -Dpih.config=mirebalais,mirebalais-humci
-    -DbatchAnswers="placeholder,8080,1044,MySQL 5.6 in SDK docker container (requires pre-installed Docker)"
+    -Dpih.config=mirebalais,mirebalais-humci \
+    -Ddebug=5000 \
+    -DdbDriver=com.mysql.cj.jdbc.Driver \
+    -DdbUri=jdbc\:mysql\://localhost\:3308/humci?autoReconnect\=true\&useUnicode\=true\&characterEncoding\=UTF-8\&sessionVariables\=default_storage_engine%3DInnoDB \
+    -DdbUser=root \
+    -DdbPassword=root \
+    -DdbReset=false \
+    -DbatchAnswers="8080"
 ```
 
 ### Step 3: Clone the configuration project for the distro you are working
