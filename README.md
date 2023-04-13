@@ -172,6 +172,16 @@ https://docs.docker.com/engine/install/linux-postinstall/
     
 ### Step 2: Set up the environment
 
+You may need to add the Mekom Maven repository to your system.  To do this, open ~/.m2/settings.xml and add the
+following to the repositories:
+```xml
+  <repository>
+    <id>mks-repo</id>
+    <name>Mekom Solutions Maven repository</name>
+    <url>https://nexus.mekomsolutions.net/repository/maven-public</url>
+  </repository>
+```
+
 Set up the environment via the following command, choosing the serverId and dbName you want to use. Specify
 the DB password for your root user as set in Step 2.
 
