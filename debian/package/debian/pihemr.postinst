@@ -6,18 +6,18 @@ case "$1" in
   configure)
 
     # for mirebalais implementation, rename the war
-    if [ -f /home/tomcat/.OpenMRS/mirebalais-runtime.properties ]
+    if [ -f /home/tomcat7/.OpenMRS/mirebalais-runtime.properties ]
     then
-        mv -f /var/lib/tomcat9/webapps/openmrs.war /var/lib/tomcat9/webapps/mirebalais.war
+        mv -f /var/lib/tomcat7/webapps/openmrs.war /var/lib/tomcat7/webapps/mirebalais.war
     fi
 
-    chown -R tomcat:tomcat /home/tomcat/.OpenMRS
-    chown -R tomcat:tomcat /var/lib/tomcat9
+    chown -R tomcat7:tomcat7 /home/tomcat7/.OpenMRS
+    chown -R tomcat7:tomcat7 /var/lib/tomcat7
 
     if [ -n "$2" ]
     then
       #this means it's an upgrade. on clean install, we don't want to start tomcat
-      service tomcat9 start
+      service tomcat7 start
       if service --status-all | grep -Fq 'apache2'; then
         service apache2 restart
       fi

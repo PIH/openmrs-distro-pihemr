@@ -13,15 +13,15 @@ case "$1" in
       # sh /usr/local/sbin/mysqlbackup.sh $2
     # fi
 
-    service tomcat9 stop
+    service tomcat7 stop
 
-    rm -rf /var/lib/tomcat9/webapps/openmrs
-    rm -rf /var/lib/tomcat9/webapps/mirebalais
-    rm -rf /var/lib/tomcat9/temp/*
-    rm -rf /var/lib/tomcat9/work/*
-    rm -rf /home/tomcat/.OpenMRS/modules
-    rm -rf /home/tomcat/.OpenMRS/owa
-    rm -rf /home/tomcat/.OpenMRS/.openmrs-lib-cache
+    rm -rf /var/lib/tomcat7/webapps/openmrs
+    rm -rf /var/lib/tomcat7/webapps/mirebalais
+    rm -rf /var/lib/tomcat7/temp/*
+    rm -rf /var/lib/tomcat7/work/*
+    rm -rf /home/tomcat7/.OpenMRS/modules
+    rm -rf /home/tomcat7/.OpenMRS/owa
+    rm -rf /home/tomcat7/.OpenMRS/.openmrs-lib-cache
     ;;
 
   abort-upgrade)

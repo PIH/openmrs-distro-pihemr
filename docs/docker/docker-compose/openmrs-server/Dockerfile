@@ -5,7 +5,7 @@ ENV OPENMRS_MEMORY_OPTS="-Xmx2048m -Xms1024m -XX:PermSize=256m -XX:MaxPermSize=5
 ENV OPENMRS_OTHER_OPTS="-server -Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.awt.headlesslib=true"
 ENV OPENMRS_RUNTIME_PROPERTIES_FILE="/openmrs/openmrs-runtime.properties"
 
-ADD openmrs-setenv.sh /usr/share/tomcat9/bin/setenv.sh
+ADD openmrs-setenv.sh /usr/share/tomcat7/bin/setenv.sh
 
 # These represent the folders created and used within the container
 # Any webapps one wishes to run should be mounted into /openmrs/artifacts/webapps
