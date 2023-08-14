@@ -14,6 +14,7 @@ A few links from the OpenMRS wiki that are worth reading:
 * High-level overview of OpenMRS: https://wiki.openmrs.org/display/docs/Introduction+to+OpenMRS
 * Overview of the OpenMRS data model: https://wiki.openmrs.org/display/docs/Data+Model
 * Definition of an "OpenMRS distribution": https://wiki.openmrs.org/display/docs/OpenMRS+Distributions
+* Definition of an "OpenMRS distribution": https://wiki.openmrs.org/display/docs/OpenMRS+Distributions
 
 Therep are 40+ OpenMRS modules that make up the PIH EMR, of which most are OpenMRS community modules, but also includes
 some PIH-specific modules as well.  The [pihcore module](https://github.com/PIH/openmrs-module-pihcore) is the most 
