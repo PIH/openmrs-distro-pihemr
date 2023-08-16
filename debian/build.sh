@@ -9,11 +9,11 @@ perl -pi -e "s/pihemr \([^)]+\)/pihemr (1.0.${BUILD_NUMBER}-1)/" ${PACKAGE_DIR}/
 
 cp ${DISTRO_DIR}/openmrs.war ${PACKAGE_DIR}/openmrs.war
 
-mkdir -p ${PACKAGE_DIR}/home/tomcat7/.OpenMRS/modules/
-cp ${DISTRO_DIR}/modules/* ${PACKAGE_DIR}/home/tomcat7/.OpenMRS/modules/
+mkdir -p ${PACKAGE_DIR}/home/tomcat/.OpenMRS/modules/
+cp ${DISTRO_DIR}/modules/* ${PACKAGE_DIR}/home/tomcat/.OpenMRS/modules/
 
-mkdir -p ${PACKAGE_DIR}/home/tomcat7/.OpenMRS/owa/
-cp ${DISTRO_DIR}/owa/* ${PACKAGE_DIR}/home/tomcat7/.OpenMRS/owa/
-rename 's/\.owa$/.zip/' ${PACKAGE_DIR}/home/tomcat7/.OpenMRS/owa/*.owa
+mkdir -p ${PACKAGE_DIR}/home/tomcat/.OpenMRS/owa/
+cp ${DISTRO_DIR}/owa/* ${PACKAGE_DIR}/home/tomcat/.OpenMRS/owa/
+rename 's/\.owa$/.zip/' ${PACKAGE_DIR}/home/tomcat/.OpenMRS/owa/*.owa
 
 cd ${PACKAGE_DIR} && debuild --no-tgz-check -i -us -uc -b
