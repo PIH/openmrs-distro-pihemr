@@ -14,4 +14,4 @@ if [ $# -eq 0 ]; then
 fi
 
 git pull
-mvn openmrs-sdk:deploy -Ddistro=openmrs-distro.properties -DserverId=$1
+mvn openmrs-sdk:deploy -Ddistro=openmrs-distro.properties -DserverId=$1 -U
