@@ -14,4 +14,4 @@ if [ $# -eq 0 ]; then
 fi
 
 git pull
-mvn org.openmrs.maven.plugins:openmrs-sdk-maven-plugin:5.3.0:deploy -Ddistro=openmrs-distro.properties -DserverId=$1 -U
+mvn openmrs-sdk:deploy -Ddistro=openmrs-distro.properties -DserverId=$1 -U
