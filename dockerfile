@@ -1,40 +1,40 @@
-# Use an official Maven image as the build image
-FROM partnersinhealth/debian-build:latest AS build
+#The PIHEMR dockerfile is a multi-stage build using a PIH build container to construct a Tomcat app image
+ARG BUILD_TAG="latest"
+FROM partnersinhealth/debian-build:${BUILD_TAG} AS build
 
-#build args
+#Build arguments should be included for the config and frontend to be used in the app image.
 ARG EMR_CONFIG=""
 ARG EMR_FRONTEND=""
 
-# Set the working directory in the container
-WORKDIR /app
+# Working directory for build image
+WORKDIR /build
 
-# Copy project files to the container
+# Copy project files to the build container
 COPY ./pom.xml .
 COPY ./openmrs-distro.properties .
 COPY ./debian/ ./debian/
 COPY ./assembly.xml .
 COPY ./import_config.sh .
 
-# Install application using Maven
+# Compile distro using Maven
 RUN mvn -T 1C clean compile -Dmaven.test.skip -DskipTests -Dmaven.javadoc.skip=true
+# Import Config and Frontend packages
 RUN ./import_config.sh ${EMR_CONFIG} ${EMR_FRONTEND}
 
-# Use an official Tomcat image as the app image
-FROM tomcat:9-jdk8
-# Set the working directory in the container
+# Build PIHEMR application from a Tomcat image
+ARG APP_TAG="9-jdk8"
+FROM tomcat:${APP_TAG}
+
+# Working directory for the app image
 WORKDIR /app
-# Copy the built files from the build stage to the container
-COPY --from=build /app/target/distro/web/openmrs.war /usr/local/tomcat/webapps/openmrs.war
-COPY --from=build /app/target/distro/web/modules/ /app/.OpenMRS/modules/
-COPY --from=build /app/target/distro/web/owa/ /app/.OpenMRS/owa/
-COPY --from=build /app/frontend /app/.OpenMRS/frontend/
-COPY --from=build /app/configuration/ /app/.OpenMRS/configuration/
-COPY --from=build /app/configuration/frontend/ /app/.OpenMRS/frontend/site/
 
-#Expose port 8080
+# Copy the build target files from the build container to app image
+COPY --from=build /build/target/distro/web/openmrs.war /usr/local/tomcat/webapps/openmrs.war
+COPY --from=build /build/target/distro/web/modules/ /app/.OpenMRS/modules/
+COPY --from=build /build/target/distro/web/owa/ /app/.OpenMRS/owa/
+COPY --from=build /build/frontend /app/.OpenMRS/frontend/
+COPY --from=build /build/configuration/ /app/.OpenMRS/configuration/
+COPY --from=build /build/configuration/frontend/ /app/.OpenMRS/frontend/site/
+
+#Expose default tomcat application port for app image
 EXPOSE 8080
-
-
-#docker build . -t zlemr:latest --build-arg EMR_CONFIG=openmrs-config-zl --build-arg EMR_FRONTEND=openmrs-frontend-zl
-#docker build . -t slemr:latest --build-arg EMR_CONFIG=openmrs-config-pihsl --build-arg EMR_FRONTEND=openmrs-frontend-pihemr
-#docker build . -t cesemr:latest --build-arg EMR_CONFIG=openmrs-config-ces --build-arg EMR_FRONTEND=openmrs-frontend-pihemr
