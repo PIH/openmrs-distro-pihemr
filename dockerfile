@@ -35,6 +35,3 @@ COPY --from=build /build/target/distro/web/owa/ /app/.OpenMRS/owa/
 COPY --from=build /build/frontend /app/.OpenMRS/frontend/
 COPY --from=build /build/configuration/ /app/.OpenMRS/configuration/
 COPY --from=build /build/configuration/frontend/ /app/.OpenMRS/frontend/site/
-
-#Expose default tomcat application port for app image
-EXPOSE 8080
