@@ -4,6 +4,8 @@ name: Deploy Docker Image
 
 on:
   push:
+    branches:
+      - master
   create:
 
 jobs:
