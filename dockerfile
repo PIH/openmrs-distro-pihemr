@@ -1,5 +1,6 @@
 #The PIHEMR dockerfile is a multi-stage build using a PIH build container to construct a Tomcat app image
 ARG BUILD_TAG="latest"
+ARG APP_TAG="9-jdk8"
 FROM partnersinhealth/debian-build:${BUILD_TAG} AS build
 
 #Build arguments should be included for the config and frontend to be used in the app image.
@@ -17,12 +18,11 @@ COPY ./assembly.xml .
 COPY ./import_config.sh .
 
 # Compile distro using Maven
-RUN mvn -T 1C clean compile -Dmaven.test.skip -DskipTests -Dmaven.javadoc.skip=true
+RUN mvn clean compile -Dmaven.test.skip -DskipTests -Dmaven.javadoc.skip=true
 # Import Config and Frontend packages
 RUN ./import_config.sh ${EMR_CONFIG} ${EMR_FRONTEND}
 
 # Build PIHEMR application from a Tomcat image
-ARG APP_TAG="9-jdk8"
 FROM tomcat:${APP_TAG}
 
 # Working directory for the app image
