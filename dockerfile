@@ -15,12 +15,11 @@ COPY ./pom.xml .
 COPY ./openmrs-distro.properties .
 COPY ./debian/ ./debian/
 COPY ./assembly.xml .
-COPY ./import_config.sh .
 
 # Compile distro using Maven
 RUN mvn clean compile -Dmaven.test.skip -DskipTests -Dmaven.javadoc.skip=true
 # Import Config and Frontend packages
-RUN ./import_config.sh ${EMR_CONFIG} ${EMR_FRONTEND}
+RUN ./debian/import_config.sh ${EMR_CONFIG} ${EMR_FRONTEND}
 
 # Build PIHEMR application from a Tomcat image
 FROM tomcat:${APP_TAG}
@@ -32,6 +31,6 @@ WORKDIR /app
 COPY --from=build /build/target/distro/web/openmrs.war /usr/local/tomcat/webapps/openmrs.war
 COPY --from=build /build/target/distro/web/modules/ /app/.OpenMRS/modules/
 COPY --from=build /build/target/distro/web/owa/ /app/.OpenMRS/owa/
-COPY --from=build /build/frontend /app/.OpenMRS/frontend/
-COPY --from=build /build/configuration/ /app/.OpenMRS/configuration/
-COPY --from=build /build/configuration/frontend/ /app/.OpenMRS/frontend/site/
+COPY --from=build /build/target/frontend /app/.OpenMRS/frontend/
+COPY --from=build /build/target/configuration/ /app/.OpenMRS/configuration/
+COPY --from=build /build/target/configuration/frontend/ /app/.OpenMRS/frontend/site/

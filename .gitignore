@@ -3,9 +3,8 @@
 .settings/
 activemq-data
 target/
-configuration/
-frontend/
 mirebalais.iml
+settings.json
 
 api/.project
 api/.classpath

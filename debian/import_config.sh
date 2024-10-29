@@ -1,21 +1,16 @@
 #!/bin/bash
 
-#clean config files
-rm -rf configuration
-rm -rf frontend
-rm *.zip
-
 CONFIG=${1:-"openmrs-config-pihsl"}
 FRONTEND=${2:-"openmrs-frontend-pihemr"}
 
 echo "configuration is $CONFIG"
 echo "frontend is $FRONTEND"
 
-#Create dirs for infalting zip resources
-mkdir ./frontend
-mkdir ./configuration
+#Create dirs for unzipping resources
+mkdir ./target/frontend
+mkdir ./target/configuration
 
-#retrive config and frontent from maven
+#retrive config and frontend from maven
 
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:copy \
 -Dartifact=org.pih.openmrs:"$CONFIG":LATEST:zip \
@@ -27,5 +22,5 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.8:copy \
 
 #unzip maven resources
 
-unzip -o "$CONFIG"* -d ./configuration/
-unzip -o "$FRONTEND"* -d ./frontend/
+unzip -o "$CONFIG"* -d ./target/configuration/
+unzip -o "$FRONTEND"* -d ./target/frontend/
