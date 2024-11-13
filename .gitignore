@@ -4,6 +4,7 @@
 activemq-data
 target/
 mirebalais.iml
+settings.json
 
 api/.project
 api/.classpath
@@ -18,6 +19,7 @@ omod/.settings/
 omod/target/
 omod/src/main/compass/sass-external/
 
+*.zip
 *.DS_Store
 /.idea
 *.iml
