@@ -17,7 +17,8 @@ case "$1" in
     if [ -n "$2" ]
     then
       #this means it's an upgrade. on clean install, we don't want to start tomcat
-      service tomcat9 start
+      # NOTE: disabled tomcat9 start, rely on Puppet to start it for now
+      #service tomcat9 start
       if service --status-all | grep -Fq 'apache2'; then
         service apache2 restart
       fi
