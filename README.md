@@ -743,3 +743,13 @@ Then, building can be done as follows:
 Building and deploying the Debian package to unstable can be done similarly to above, with:
 
 ```docker run -v .:/data -v ~/.m2:/root/.m2 -v ~/.pihemr-debian-env:/root/.pihemr-debian-env --workdir /data --rm debian-build mvn clean deploy -Pdistribution```
+
+### Adding the Configuration icon to the System Administration page
+
+By default, the Configuration icon doesn't appear on the System Administration page.  This allows a few nice additional features including reloading the message property files.  
+
+This requires the user p have the "System Developer" role.  Run this sql for the database (where user_id = 3):
+
+```insert into user_role (user_id,role) VALUES (3,"System Developer");```
+
+
