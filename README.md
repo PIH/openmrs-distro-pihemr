@@ -192,7 +192,7 @@ Here you will find all the files created during the steup
 The convention for dbNames are "openmrs_[some name]".
 
 ```
-$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:2.1.0-SNAPSHOT
+$ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr:2.2.0-SNAPSHOT
 ```
 
 (*Note*: if the you get an error when running the above command, see the troubleshooting section below)
@@ -237,7 +237,7 @@ using an external MySQL instance, running the server on port 8080, with debuggin
 ```shell
 $ mvn openmrs-sdk:setup \
     -DserverId=humci \
-    -Ddistro=org.openmrs.distro:pihemr:2.1.0-SNAPSHOT \
+    -Ddistro=org.openmrs.distro:pihemr:2.2.0-SNAPSHOT \
     -DjavaHome=/usr/lib/jvm/java-8-openjdk-amd64 \
     -Dpih.config=mirebalais,mirebalais-humci \
     -Ddebug=5000 \
@@ -343,7 +343,7 @@ If you see the following error when running "mvn openmrs-sdk:setup":
 
 ```
 ERROR] Failed to execute goal org.openmrs.maven.plugins:openmrs-sdk-maven-plugin:4.5.0:setup (default-cli) on project standalone-pom: 
-Failed to setup server: Distro org.openmrs.distro:pihemr:2.1.0-SNAPSHOT could not be retrieved -> [Help 1] 
+Failed to setup server: Distro org.openmrs.distro:pihemr:2.2.0-SNAPSHOT could not be retrieved -> [Help 1] 
 ```
 
 ... you should be able to fix the error by building this project (distro-pihemr) locally.
