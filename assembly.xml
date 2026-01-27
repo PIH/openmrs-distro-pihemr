@@ -17,21 +17,21 @@
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/distro/web</directory>
+            <directory>${project.build.directory}/distro/openmrs_core</directory>
             <outputDirectory>openmrs_webapps</outputDirectory>
             <includes>
                 <include>**/*.war</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/distro/web/modules</directory>
+            <directory>${project.build.directory}/distro/web/openmrs_modules</directory>
             <outputDirectory>openmrs_modules</outputDirectory>
             <includes>
                 <include>**/*.omod</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/distro/web/owa</directory>
+            <directory>${project.build.directory}/distro/web/openmrs_owas</directory>
             <outputDirectory>openmrs_owas</outputDirectory>
             <includes>
                 <include>**/*</include>
