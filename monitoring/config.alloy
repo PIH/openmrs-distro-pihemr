@@ -81,7 +81,6 @@ local.file_match "host_logs" {
   path_targets = [
     {
       "__path__" = "/var/lib/alloy/data/**/*.log",
-      "__path__" = "/var/lib/alloy/data/**/*.out",
       "job"      = "host_logs"
     }
   ]
