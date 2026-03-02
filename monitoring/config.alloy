@@ -95,13 +95,7 @@ loki.source.file "host_file_logs" {
 }
 
 loki.process "host_logs" {
-  host       = "unix:///var/run/docker.sock"
-  targets    = discovery.relabel.docker_logs.output
-  forward_to = [loki.process.docker_process.receiver]
-}
-
-loki.process "docker_process" {
-  forward_to = [loki.write.local.receiver]
+ forward_to = [loki.write.local.receiver]
 
   stage.drop {
     expression = ".*(msg=\\\"(error notifying scheduler about finished query|error processing requests from scheduler|error health checking|error notifying frontend about finished query|error getting ingester clients)\\\"|msg=\\\"write operation failed\\\" details=\\\"entry too far behind).*"
@@ -143,7 +137,6 @@ loki.process "docker_process" {
     }
   }
 }
-
 
 loki.write "local" {
   endpoint {
