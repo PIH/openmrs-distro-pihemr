@@ -81,7 +81,7 @@ local.file_match "host_logs" {
   path_targets = [
     {
       "__path__" = "/temp/logs/openmrs.log",
-      "job"      = "host_logs"
+      "job"      = "host_logs",
     },
   ]
 
