@@ -1,5 +1,5 @@
 logging {
-  level = "info"
+  level = "warn"
 }
 
 discovery.docker "linux" {
@@ -51,7 +51,7 @@ loki.process "docker_process" {
 
   stage.labels {
     values = {
-      level = "level"
+      level = "level",
     }
   }
 
@@ -80,7 +80,7 @@ loki.process "docker_process" {
 local.file_match "host_logs" {
   path_targets = [
     {
-      "__path__" = "/var/lib/alloy/data/**/*.log",
+      "__path__" = "/temp/logs/openmrs.log",
       "job"      = "host_logs"
     }
   ]
@@ -90,53 +90,10 @@ local.file_match "host_logs" {
 
 loki.source.file "host_file_logs" {
   targets       = local.file_match.host_logs.targets
-  forward_to    = [loki.process.host_logs.receiver]
+  forward_to    = [loki.write.local.receiver]
   tail_from_end = true
 }
 
-loki.process "host_logs" {
- forward_to = [loki.write.local.receiver]
-
-  stage.drop {
-    expression = ".*(msg=\\\"(error notifying scheduler about finished query|error processing requests from scheduler|error health checking|error notifying frontend about finished query|error getting ingester clients)\\\"|msg=\\\"write operation failed\\\" details=\\\"entry too far behind).*"
-  }
-
-  stage.multiline {
-    firstline = "^(?i)((\\d{4}-\\d{2}-\\d{2}|\\d{2}-[a-z]{3}-\\d{4})|(trace|debug|info|warning|warn|error|fatal|panic|note))"
-    max_wait_time = "3s"
-  }
-
-  stage.regex {
-    expression = "(?i)(?P<level>trace|debug|info|warning|warn|error|fatal|panic|note)"
-  }
-
-  stage.labels {
-    values = {
-      level = "level"
-    }
-  }
-
-  stage.match {
-    selector = "{level=~\"(?i)warn(ing)?\"}"
-    stage.static_labels {
-      values = { level = "warn" }
-    }
-  }
-
-  stage.match {
-    selector = "{level=~\"(?i)(info|note)\"}"
-    stage.static_labels {
-      values = { level = "info" }
-    }
-  }
-
-  stage.match {
-    selector = "{level=~\"(?i)(error|fatal|panic)\"}"
-    stage.static_labels {
-      values = { level = "error" }
-    }
-  }
-}
 
 loki.write "local" {
   endpoint {
