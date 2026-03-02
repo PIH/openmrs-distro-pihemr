@@ -51,7 +51,7 @@ loki.process "docker_process" {
 
   stage.labels {
     values = {
-      level = "level",
+      level = "level"
     }
   }
 
@@ -112,7 +112,7 @@ loki.process "host_logs" {
 
   stage.labels {
     values = {
-      level = "level",
+      level = "level"
     }
   }
 
