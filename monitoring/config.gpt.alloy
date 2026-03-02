@@ -7,7 +7,7 @@ logging {
 }
 
 #############################################
-# Docker log ingestion (existing behavior)
+# Docker log ingestion (UNCHANGED)
 #############################################
 
 discovery.docker "linux" {
@@ -60,124 +60,42 @@ loki.process "docker" {
 }
 
 #############################################
-# Host application log discovery
-# (mounted into /var/lib/alloy/data)
+# Host log file ingestion (NEW, minimal)
+# Mounted under /var/lib/alloy/data
 #############################################
 
-local.file_match "openmrs_logs" {
+local.file_match "host_logs" {
   path_targets = [
     {
-      "__path__" = "/var/lib/alloy/data/openmrs/**/*.log",
-      "job"      = "openmrs",
-      "app"      = "openmrs"
+      "__path__" = "/var/lib/alloy/data/**/*.log",
+      "job"      = "host_logs"
     }
   ]
+
+  sync_period = "5s"
 }
 
-local.file_match "tomcat_logs" {
-  path_targets = [
-    {
-      "__path__" = "/var/lib/alloy/data/tomcat/**/*.log",
-      "job"      = "tomcat",
-      "app"      = "tomcat9"
-    }
-  ]
-}
-
-local.file_match "mysql_logs" {
-  path_targets = [
-    {
-      "__path__" = "/var/lib/alloy/data/mysql/**/*.log",
-      "job"      = "mysql",
-      "app"      = "mysql"
-    }
-  ]
-}
-
-#############################################
-# Host application log sources
-#############################################
-
-loki.source.file "openmrs" {
-  targets       = local.file_match.openmrs_logs.targets
-  forward_to    = [loki.process.openmrs.receiver]
-  tail_from_end = true
-}
-
-loki.source.file "tomcat" {
-  targets       = local.file_match.tomcat_logs.targets
-  forward_to    = [loki.process.tomcat.receiver]
-  tail_from_end = true
-}
-
-loki.source.file "mysql" {
-  targets       = local.file_match.mysql_logs.targets
-  forward_to    = [loki.process.mysql.receiver]
+loki.source.file "host_file_logs" {
+  targets       = local.file_match.host_logs.targets
+  forward_to    = [loki.process.host_logs.receiver]
   tail_from_end = true
 }
 
 #############################################
-# OpenMRS log processing (Java / Log4j)
+# Host log processing (NO app parsing)
 #############################################
 
-loki.process "openmrs" {
+loki.process "host_logs" {
   forward_to = [loki.write.local.receiver]
 
-  stage.multiline {
-    firstline = "^\\d{4}-\\d{2}-\\d{2}"
-  }
-
+  # Keep behavior consistent with existing dashboard
   stage.regex {
-    expression = "^(?P<timestamp>\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2},\\d+)\\s+(?P<level>[A-Z]+)\\s+\\[(?P<thread>[^\\]]+)\\]\\s+(?P<logger>[^ ]+)"
-  }
-
-  stage.labels {
-    values = {
-      level  = "level"
-      logger = "logger"
-      app    = "openmrs"
-    }
-  }
-}
-
-#############################################
-# Tomcat 9 log processing
-#############################################
-
-loki.process "tomcat" {
-  forward_to = [loki.write.local.receiver]
-
-  stage.multiline {
-    firstline = "^\\d{2}-[A-Za-z]{3}-\\d{4}"
-  }
-
-  stage.regex {
-    expression = "^(?P<timestamp>\\d{2}-[A-Za-z]{3}-\\d{4} \\d{2}:\\d{2}:\\d{2}\\.\\d+)\\s+(?P<level>[A-Z]+)"
+    expression = "(?i)(?P<level>trace|debug|info|warn|error|fatal)"
   }
 
   stage.labels {
     values = {
       level = "level"
-      app   = "tomcat9"
-    }
-  }
-}
-
-#############################################
-# MySQL / Percona 5.6 log processing
-#############################################
-
-loki.process "mysql" {
-  forward_to = [loki.write.local.receiver]
-
-  stage.regex {
-    expression = "^(?P<timestamp>\\d{4}-\\d{2}-\\d{2}T[^ ]+)\\s+\\d+\\s+\\[(?P<level>[^\\]]+)\\]"
-  }
-
-  stage.labels {
-    values = {
-      level = "level"
-      app   = "mysql"
     }
   }
 }
