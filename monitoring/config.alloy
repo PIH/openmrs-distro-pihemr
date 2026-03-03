@@ -82,6 +82,7 @@ local.file_match "host_logs" {
     {
       "__path__" = "/temp/logs/openmrs.log",
       "job"      = "host_logs",
+      "service_name" = "OpenMRS",
     },
   ]
 

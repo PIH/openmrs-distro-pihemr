@@ -37,7 +37,7 @@
       "id": 3,
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"docker\", service_name=~\"$service\", level=~\"$level\"} |= \"$search\" [$__interval])) by (service_name, level)",
+          "expr": "sum(count_over_time({job=\"host_logs\", service_name=~\"$service\", level=~\"$level\"} |= \"$search\" [$__interval])) by (service_name, level)",
           "legendFormat": "{{service_name}} {{level}}",
           "refId": "A"
         }
@@ -95,7 +95,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"docker\", service_name=~\"$service\", level=~\"(?i)error\"} |= \"$search\" [$__range]))",
+          "expr": "sum(count_over_time({job=\"host_logs\", service_name=~\"$service\", level=~\"(?i)error\"} |= \"$search\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -148,7 +148,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"docker\", service_name=~\"$service\", level=~\"(?i)warn.*\"} |= \"$search\" [$__range]))",
+          "expr": "sum(count_over_time({job=\"host_logs\", service_name=~\"$service\", level=~\"(?i)warn.*\"} |= \"$search\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -201,7 +201,7 @@
       },
       "targets": [
         {
-          "expr": "sum(count_over_time({job=\"docker\", service_name=~\"$service\"} |= \"$search\" [$__range]))",
+          "expr": "sum(count_over_time({job=\"host_logs\", service_name=~\"$service\"} |= \"$search\" [$__range]))",
           "refId": "A"
         }
       ],
@@ -240,7 +240,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"docker\", service_name=~\"$service\", level=~\"$level\"} |= \"$search\"",
+          "expr": "{job=\"host_logs\", service_name=~\"$service\", level=~\"$level\"} |= \"$search\"",
           "refId": "A"
         }
       ],
@@ -264,7 +264,7 @@
       },
       "targets": [
         {
-          "expr": "{job=\"docker\", service_name=~\"$service\", level=~\"(?i)error\"} |= \"$search\"",
+          "expr": "{job=\"host_logs\", service_name=~\"$service\", level=~\"(?i)error\"} |= \"$search\"",
           "refId": "A"
         }
       ],
