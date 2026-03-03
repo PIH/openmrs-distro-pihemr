@@ -36,10 +36,6 @@ loki.source.docker "docker_logs" {
 loki.process "openmrs_log_process" {
   forward_to = [loki.write.local.receiver]
 
-  stage.drop {
-    expression = ".*(msg=\\\"(error notifying scheduler about finished query|error processing requests from scheduler|error health checking|error notifying frontend about finished query|error getting ingester clients)\\\"|msg=\\\"write operation failed\\\" details=\\\"entry too far behind).*"
-  }
-
   stage.multiline {
     firstline = "^(?i)((\\d{4}-\\d{2}-\\d{2}|\\d{2}-[a-z]{3}-\\d{4})|(trace|debug|info|warning|warn|error|fatal|panic|note))"
     max_wait_time = "3s"
