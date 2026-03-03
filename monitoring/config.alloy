@@ -30,10 +30,10 @@ discovery.relabel "docker_logs" {
 loki.source.docker "docker_logs" {
   host       = "unix:///var/run/docker.sock"
   targets    = discovery.relabel.docker_logs.output
-  forward_to = [loki.process.docker_process.receiver]
+  forward_to = [loki.process.openmrs_log_process.receiver]
 }
 
-loki.process "docker_process" {
+loki.process "openmrs_log_process" {
   forward_to = [loki.write.local.receiver]
 
   stage.drop {
@@ -91,7 +91,7 @@ local.file_match "host_logs" {
 
 loki.source.file "host_file_logs" {
   targets       = local.file_match.host_logs.targets
-  forward_to    = [loki.process.docker_process.receiver]
+  forward_to    = [loki.process.openmrs_log_process.receiver]
   tail_from_end = true
 }
 
