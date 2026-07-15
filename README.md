@@ -120,10 +120,7 @@ https://dev.mysql.com/doc/refman/5.6/en/resetting-permissions.html
 - Once the root password has been set, you should be able to access the MySQL Monitor by running:  
   ```$ mysql -u root -p``` followed by entering the password when prompted.
 
-- If you are running an environment where the dbevent module is configured to track database changes with Debezium,
-  then you need to make sure that whatever user you are logging in with has privileges on the binlog.  You also need 
-  to make sure that row-level bin logging is enabled in the MySQL configuration.  That is done by adding
-  the following to your /etc/mysql/my.cnf file in the \[mysqld\] section and restarting MySQL:
+- If you are running an environment where the Debezium is being used to capture changes in the OpenMRS database,
 
 ```shell
 server-id=1
@@ -670,14 +667,6 @@ If, when building core, you see an error like...
 ```
 
 ... then try commenting out the mycila plugin in the main pom of the project
-
-#### I'm getting errors in my logs at startup related to io.debezium.connector.mysql.MySqlConnectorTask
-
-This could mean that you are trying to run an environment (eg. humci configuration) that has a functionality enabled
-that requires MySQL to have row-level bin logging enabled.  You can address this in one of two ways:
-
-1. Enable row-level bin logging in your MySQL instance (see MySQL setup steps above)
-2. Explicitly disable this by adding `dbevent_enabled=false` to your runtime properties file or as a system property
 
 # Source Code
 
