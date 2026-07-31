@@ -195,16 +195,16 @@ $ mvn openmrs-sdk:setup -DserverId=[serverId] -Ddistro=org.openmrs.distro:pihemr
 (*Note*: if the you get an error when running the above command, see the troubleshooting section below)
 
 * When prompted, select the "pih.config" value to use.  This determines the site-specific configuration to be applied 
-to your server environment.  Common options are as follows:
+to your server environment.  Typical options are as follows, but review a country's specific configuration to see what is 
+available:
 
   * Mirebalais Dev/Test environment:  `mirebalais,mirebalais-humci`
   * Haiti HIV Dev/Test environment:  `haiti,haiti-hiv,haiti-hiv-ci`
-  * Haiti HSN Dev/Test environment:  `haiti,haiti-hsn,haiti-hsn-ci`
-  * Haiti Other Dev/Test environment:  `haiti,haiti-<site>,haiti-ci`
+  * Haiti HSN Dev/Test environment:  `haiti,haiti-hsn,haiti-local-idgen`
+  * Haiti Other Dev/Test environment:  `haiti,haiti-<site>,haiti-local-idgen`
   * Liberia Dev/Test environment:  `liberia,liberia-harper,liberia-harper-dev`
   * Sierra Leone Dev/Test environment:  `sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi`
   * Mexico dev/test environment:  `mexico,mexico-demo`
-  * Peru dev/test environment:  `peru`
 
 * When prompted, select the port you'd like to run tomcat on (usually 8080)
 
