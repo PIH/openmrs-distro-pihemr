@@ -288,13 +288,9 @@ data directory.
 
 ### Step 5: Set up the frontend
 
-To use the OpenMRS 3.x frontend, clone the Frontend you wish to install, either:
+To use the OpenMRS 3.x frontend, clone and install the frontendr:
 
 [openmrs-frontend-pihemr](https://github.com/PIH/openmrs-frontend-pihemr)
-
-or:
-
-[openmrs-frontend-zl](https://github.com/PIH/openmrs-frontend-zl)
 
 In that directory, execute the following:
 
